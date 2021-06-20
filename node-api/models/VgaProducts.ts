@@ -1,6 +1,7 @@
 import { Schema, model } from 'mongoose'
 
-type VgaType = {
+export type VgaType = {
+   _id: string
    itemNumber: string
    type: string
    typeCode: string
@@ -8,7 +9,8 @@ type VgaType = {
    price: number
    pictureUrls: string[]
 }
-type VgaDetailsType = {
+export type VgaDetailsType = {
+   _id: string
    gpuManufacturer: string
    pcieType: string
    gpuBaseClock: number
@@ -28,11 +30,11 @@ type VgaDetailsType = {
 const VgaSchema = new Schema<VgaType>({
    itemNumber: { type: String, required: true },
    type: { type: String, required: true },
-   typeCode: { type: String, required: true },
    manufacturer: { type: String, required: true },
    price: { type: Number, required: true },
    pictureUrls: { type: Array, required: true },
-   details: { type: Schema.Types.ObjectId, ref: 'VgaDetails' }
+   details: { type: Schema.Types.ObjectId, ref: 'VgaDetails' },
+   typeCode: String
 })
 
 const VgaDetailsSchema = new Schema<VgaDetailsType>({
@@ -52,9 +54,9 @@ const VgaDetailsSchema = new Schema<VgaDetailsType>({
    HDMI: Number
 })
 
-const Vga = model<VgaType>('Vga', VgaSchema)
+const VgaProduct = model<VgaType>('VgaProduct', VgaSchema)
 const VgaDetails = model<VgaDetailsType>('VgaDetails', VgaDetailsSchema)
 
-module.exports = { Vga, VgaDetails }
+module.exports = { VgaProduct, VgaDetails }
 
 // https://www.geeksforgeeks.org/how-to-make-mongoose-multiple-collections-using-node-js/
