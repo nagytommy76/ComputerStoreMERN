@@ -19,9 +19,11 @@ router.post('/', async (_, res) => {
 
 router.get('/:itemNumber', async (req, res) => {
    // a details nélkülit találja meg
-   const foundVga = await VgaProduct.findOne({ itemNumber: req.params.itemNumber })
-   const foundVgaWithDetails = await VgaProduct.findOne({ itemNumber: req.params.itemNumber }).populate('details')
-   res.json(foundVgaWithDetails)
+   // const foundVga = await VgaProduct.findOne({ itemNumber: req.params.itemNumber })
+   await VgaProduct.findOne({ itemNumber: req.params.itemNumber })
+      .populate('details')
+      .then((foundVgaWithDetails) => res.json(foundVgaWithDetails))
+      .catch((err) => console.error(err))
 })
 
 module.exports = router
