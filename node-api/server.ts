@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 
 const app: Application = express()
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5050
 
 connectDB()
 app.use(cors({ origin: 'http://localhost:3000', methods: 'GET,HEAD,PUT,PATCH,POST,DELETE' }))

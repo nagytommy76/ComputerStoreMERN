@@ -26,7 +26,7 @@ const VgaDetailsSchema = new Schema<VgaDetailsType>({
    displayPort: Number,
    DVI: Number,
    HDMI: Number
-})
+}).add({ minPowerSupply: String, length: Number, manufacturerPageUrl: String })
 
 export const VgaProduct = model<VgaType>('VgaProduct', VgaSchema)
 export const VgaDetails = model<VgaDetailsType>('VgaDetails', VgaDetailsSchema)
