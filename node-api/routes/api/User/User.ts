@@ -1,26 +1,17 @@
 import express, { Request, Response } from 'express'
 import { UserTypes } from '../../../models/User/UserTypes'
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
+import { ACCESS_TOKEN_SECRET } from '../../../config/endpoints.config'
+import { authenticateAccessToken } from '../../../middlewares/AuthenticateAccessToken'
+import { User } from '../../../models/User/User'
 
 const router = express.Router()
-const User2: UserTypes[] = []
-const User = {
-   userName: 'nagytommy76',
-   email: 'nagytommy76@hotmail.com',
-   password: 'password',
-   fullName: 'Nagy Tamás',
-   phone: '06705773790',
-   address: {
-      zipCode: 1119,
-      city: 'Budapest',
-      street: 'Nincs utca',
-      houseNumber: '44/a',
-      floor: '',
-      door: ''
-   }
-}
+// const User2: UserTypes[] = []
 
-router.post('/registerUser', async (req: Request, res: Response) => {
+router.post('/register', async (req: Request, res: Response) => {
+   const checkUserRegistered = await User.findOne({email: req.body.email, userName: req.body.userName})
+   if(checkUserRegistered != null) return res.status(500).json({errorMessage: 'A felhasználó már regisztrálva lett'})
    try {
       const hashedPass = await bcrypt.hash(req.body.password, 10)
       const user = {
@@ -28,24 +19,32 @@ router.post('/registerUser', async (req: Request, res: Response) => {
          password: hashedPass,
          email: req.body.email
       }
-      User2.push(user)
-      res.status(201).send()
+      const createdUser = await User.create(user)
+      res.status(201).json(createdUser)
    } catch (error) {
       res.status(500).send({ errorMessage: error })
    }
 })
 
-router.post('/loginUser', async (req: Request, res: Response) => {
-   const user = User2.find((foundUser) => foundUser.email === req.body.email)
+router.post('/login', async (req: Request, res: Response) => {
+   const user = await User.findOne({email: req.body.email, userName: req.body.userName})
    if (!user) {
-      return res.status(401).send('user not found')
+      return res.status(401).json({errorMessage: 'Nincs regsitrálva ilyen felhasználó'})
    }
    try {
-      if (await bcrypt.compare(req.body.password, user.password)) res.send('user logged in')
-      else res.send('not registered user')
+      if (await bcrypt.compare(req.body.password, user.password)) {
+         const accesToken = jwt.sign(user, ACCESS_TOKEN_SECRET )
+         res.json(accesToken)
+      }
+      else res.send('incorrect password')
    } catch (error) {
       res.status(500).send({ errorMessage: error })
    }
+   console.log(user)
+})
+
+router.post('/posts', authenticateAccessToken, (req, res) =>{
+   return res.json({msg: 'sikeres authentikáció'})
 })
 
 module.exports = router

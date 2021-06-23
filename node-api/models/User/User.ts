@@ -3,9 +3,19 @@ import { UserTypes, UserDetailsTypes } from './UserTypes'
 
 const UserSchema = new Schema<UserTypes>({
    userName: { type: String, required: true },
-   password: { type: String, required: true },
-   email: { type: String, required: true },
-   userDetails: { type: Schema.Types.ObjectId, ref: 'UserDetails' }
+   password: { 
+      type: String,
+      required: [true, 'Adjon meg egy jelszót!'],
+      minlength: [6, 'a jelszó min. 6 karakter legyen!'] 
+   },
+   email: { 
+      type: String,
+      required: [true, 'Adjon meg egy email címet!'],
+      unique: [true, 'Az email már regisztrálva lett!'],
+      lowercase: true
+   },
+   isAdmin: {type: Boolean, default: false},
+   userDetails: { type: Schema.Types.ObjectId, ref: 'userdetails' }
 })
 
 const UserDetailsSchema = new Schema<UserDetailsTypes>({
@@ -21,5 +31,5 @@ const UserDetailsSchema = new Schema<UserDetailsTypes>({
    }
 })
 
-export const User = model<UserTypes>('User', UserSchema)
-export const UserDetails = model<UserDetailsTypes>('UserDetails', UserDetailsSchema)
+export const User = model<UserTypes>('user', UserSchema)
+export const UserDetails = model<UserDetailsTypes>('userdetails', UserDetailsSchema)
