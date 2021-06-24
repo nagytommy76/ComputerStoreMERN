@@ -1,14 +1,22 @@
 import React from 'react'
-import { NavStyle } from './NavbarStyles'
+import { NavStyle, BrandStyle, StyledUnorderedList, StylesListItems } from './NavbarStyles'
 import { Link } from 'react-router-dom'
 
 const Navbar = () => {
    return (
       <NavStyle>
-         <Link to='/'>
-            <h1>CompStore</h1>
-         </Link>
-         <span>Menü</span>
+         <BrandStyle to='/'>
+            <h1>ComputerStore</h1>
+         </BrandStyle>
+         <StyledUnorderedList>
+            <StylesListItems>
+               <Link to='/login'>Belépés</Link>
+            </StylesListItems>
+            <StylesListItems>
+               <Link to='/register'>Regisztráció</Link>
+            </StylesListItems>
+            <StylesListItems>Shop Menü</StylesListItems>
+         </StyledUnorderedList>
       </NavStyle>
    )
 }
