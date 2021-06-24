@@ -2,6 +2,7 @@ import mongoose from 'mongoose'
 import { DB_CONNECTION } from './endpoints.config'
 const connectDB = async () => {
    try {
+      mongoose.set('useCreateIndex', true)
       const connection = await mongoose.connect(DB_CONNECTION, {
          useNewUrlParser: true,
          useUnifiedTopology: true,

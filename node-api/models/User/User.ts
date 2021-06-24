@@ -3,18 +3,18 @@ import { UserTypes, UserDetailsTypes } from './UserTypes'
 
 const UserSchema = new Schema<UserTypes>({
    userName: { type: String, required: true },
-   password: { 
+   password: {
       type: String,
       required: [true, 'Adjon meg egy jelszót!'],
-      minlength: [6, 'a jelszó min. 6 karakter legyen!'] 
+      minlength: [6, 'a jelszó min. 6 karakter legyen!']
    },
-   email: { 
+   email: {
       type: String,
       required: [true, 'Adjon meg egy email címet!'],
-      unique: [true, 'Az email már regisztrálva lett!'],
+      unique: true,
       lowercase: true
    },
-   isAdmin: {type: Boolean, default: false},
+   isAdmin: { type: Boolean, default: false },
    userDetails: { type: Schema.Types.ObjectId, ref: 'userdetails' }
 })
 
