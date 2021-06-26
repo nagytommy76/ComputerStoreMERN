@@ -15,8 +15,8 @@ axios.defaults.baseURL = 'http://localhost:5050/api'
 const App = () => {
    return (
       <BrowserRouter>
-         <Navbar />
          <React.Suspense fallback={<h1>Tötlés...</h1>}>
+            <Navbar />
             <Switch>
                <Route path='/' exact component={Welcome} />
                <Route path='/login' component={Login} />

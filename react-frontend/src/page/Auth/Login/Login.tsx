@@ -1,3 +1,4 @@
+import axios, { AxiosResponse, AxiosError } from 'axios'
 import React, { useState } from 'react'
 import { ImageStyle, AuthContainer, AuthFormStyle } from '../BaseForm/BaseStyle'
 import loginImage from './login.jpg'
@@ -8,16 +9,28 @@ const LoginForm = React.lazy(() => import('../BaseForm/Form'))
 const Login = () => {
    const [email, setEmail] = useState<string>('')
    const [password, setPassword] = useState<string>('')
-   const submit = (event: React.FormEvent) => {
+   const loginUser = async (event: React.FormEvent) => {
       event.preventDefault()
       if (email && password) {
-         console.log('http://localhost:5050/api/login')
+         await axios
+            .post('/api/user/login', {
+               email,
+               password
+            })
+            .then((response: AxiosResponse) => {
+               // if (response.errorMessage) console.log(response.errorMessage)
+               console.log(response)
+            })
+            .catch((err: AxiosError) => console.log(err.response))
+         // console.log('http://localhost:5050/api/login')
+      } else {
+         console.log('hibaüzenet')
       }
    }
    return (
       <AuthContainer>
          <AuthFormStyle>
-            <LoginForm onSubmitEvent={submit} title='Blépés' buttonText='Belépés'>
+            <LoginForm onSubmitEvent={loginUser} title='Blépés' buttonText='Belépés'>
                <InputField
                   type='email'
                   placeHolder='Email-cím...'

@@ -5,6 +5,7 @@ export const StyledFormControll = styled.section`
    width: 100%;
    flex-direction: column;
    align-items: center;
+   margin-bottom: 1rem;
 `
 
 export const StyledLabel = styled.label`

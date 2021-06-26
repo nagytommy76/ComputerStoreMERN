@@ -7,6 +7,7 @@ const InputElement = React.lazy(() => import('../BaseForm/BaseInput/BaseInput'))
 
 const Register = () => {
    const [email, setEmail] = useState('')
+   const [userName, setUserName] = useState('')
    const [firstPassword, setFirstPassword] = useState('')
    const [secondPassword, setSecondPassword] = useState('')
 
@@ -21,6 +22,13 @@ const Register = () => {
          <ImageStyle image={registerImage} />
          <AuthFormStyle>
             <RegisterForm onSubmitEvent={registerUser} title='Regisztráció' buttonText='Regisztráció'>
+               <InputElement
+                  type='text'
+                  placeHolder='Felhasználónév'
+                  value={userName}
+                  labelText='Felhasználónév'
+                  onChangeEvent={(e) => setUserName(e.target.value)}
+               />
                <InputElement
                   type='email'
                   placeHolder='Email-cím...'

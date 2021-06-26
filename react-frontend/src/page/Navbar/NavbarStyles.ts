@@ -19,16 +19,6 @@ const BaseStylingForUnderline = `
    }
 `
 
-export const BrandStyle = styled(Link)`
-   font-size: 2.2rem;
-   transition: all 0.2s ease;
-   margin: 0;
-   display: block;
-   position: relative;
-   overflow: hidden;
-   ${BaseStylingForUnderline}
-`
-
 export const NavStyle = styled.nav`
    position: fixed;
    top: 0;
@@ -42,7 +32,7 @@ export const NavStyle = styled.nav`
    transition: all 0.2s ease;
    &:hover {
       background-color: rgba(11, 11, 11, 0.95);
-      box-shadow: 0 0 15px #111;
+      box-shadow: 0px 0px 15px #111;
    }
 `
 
@@ -51,6 +41,16 @@ export const StyledUnorderedList = styled.ul`
    display: flex;
    flex-direction: row;
    padding-left: 0;
+`
+
+export const BrandStyle = styled(Link)`
+   font-size: 2.2rem;
+   transition: all 0.2s ease;
+   margin: 0;
+   display: block;
+   position: relative;
+   overflow: hidden;
+   ${BaseStylingForUnderline}
 `
 
 export const StylesListItems = styled.li`

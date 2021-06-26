@@ -28,7 +28,7 @@ router.post('/register', async (req: Request, res: Response) => {
 router.post('/login', async (req: Request, res: Response) => {
    const user = await User.findOne({ email: req.body.email })
    if (!user) {
-      return res.status(401).json({ errorMessage: 'Nincs regszitrálva ilyen felhasználó' })
+      return res.status(404).json({ errorMessage: 'Nincs regszitrálva ilyen felhasználó' })
    }
    try {
       if (await bcrypt.compare(req.body.password, user.password)) {
