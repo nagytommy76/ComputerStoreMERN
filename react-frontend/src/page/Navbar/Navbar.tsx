@@ -5,16 +5,14 @@ import { Link } from 'react-router-dom'
 const Navbar = () => {
    return (
       <NavStyle>
-         <BrandStyle to='/'>
-            <h1>ComputerStore</h1>
-         </BrandStyle>
+         <BrandStyle to='/'>ComputerStore</BrandStyle>
          <StyledUnorderedList>
-            <StylesListItems>
-               <Link to='/login'>Belépés</Link>
-            </StylesListItems>
-            <StylesListItems>
-               <Link to='/register'>Regisztráció</Link>
-            </StylesListItems>
+            <Link to='/login'>
+               <StylesListItems>Belépés</StylesListItems>
+            </Link>
+            <Link to='/register'>
+               <StylesListItems>Regisztráció</StylesListItems>
+            </Link>
             <StylesListItems>Shop Menü</StylesListItems>
          </StyledUnorderedList>
       </NavStyle>
