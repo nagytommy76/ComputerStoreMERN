@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-const BaseStylingForUnderline = `
+export const BaseStylingForUnderline = `
    &::after {
       content: '';
       position: absolute;
@@ -18,13 +18,15 @@ const BaseStylingForUnderline = `
       transform: translate3d(0, 0, 0);
    }
 `
+const navbarHeight = '7rem'
 
 export const NavStyle = styled.nav`
+   z-index: 5;
    position: fixed;
    top: 0;
    width: 100%;
    color: white;
-   height: 7rem;
+   height: ${navbarHeight};
    display: flex;
    align-items: center;
    justify-content: space-evenly;
@@ -52,16 +54,11 @@ export const BrandStyle = styled(Link)`
    overflow: hidden;
    ${BaseStylingForUnderline}
 `
-
-export const StylesListItems = styled.li`
-   padding: 1.1rem 1.2rem 1.1rem 1.2rem;
-   margin: 0 0.7rem 0 0.7rem;
-   font-size: 1.3rem;
-   /* border-radius: 5px; */
-   cursor: pointer;
-   /* transition: all 0.2s ease; */
-   display: block;
-   position: relative;
-   overflow: hidden;
-   ${BaseStylingForUnderline}
+export const DropdownBackground = styled.section`
+   z-index: 0;
+   position: fixed;
+   bottom: 0;
+   width: 100%;
+   height: calc(100% - ${navbarHeight});
+   background-color: rgba(0, 0, 0, 0.3);
 `

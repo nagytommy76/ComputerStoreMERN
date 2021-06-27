@@ -1,10 +1,19 @@
 import React from 'react'
-import { DropStyle } from './DropMenuStyle'
+import { DropStyle, DropLinkItem } from './DropMenuStyle'
+import { Link } from 'react-router-dom'
+import { CSSTransition } from 'react-transition-group'
+import styles from '../Drop.module.css'
 
-const DropMenu = () => {
+type Prop = {
+   reference: React.MutableRefObject<null>
+}
+
+const DropMenu: React.FC<Prop> = ({ reference }) => {
    return (
-      <DropStyle>
-         <h1>Előugró ablak</h1>
+      <DropStyle ref={reference}>
+         <DropLinkItem to='/register'>Regisztráció</DropLinkItem>
+         <DropLinkItem to='/login'>Belépés</DropLinkItem>
+         <DropLinkItem to='/'>Welcome</DropLinkItem>
       </DropStyle>
    )
 }

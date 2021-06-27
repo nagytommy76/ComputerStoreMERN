@@ -1,28 +1,56 @@
-import React, { useState } from 'react'
-import { NavStyle, BrandStyle, StyledUnorderedList, StylesListItems } from './NavbarStyles'
-import { Link } from 'react-router-dom'
+import React, { useRef, useState } from 'react'
+import { NavStyle, BrandStyle, StyledUnorderedList, DropdownBackground } from './NavbarStyles'
+import { StyledListItems } from './LinkItems/LinkItemStyles'
+import { CSSTransition } from 'react-transition-group'
+import styles from './Drop.module.css'
 
-const DropMenu = React.lazy(() => import('./DropMenu/DropMenu'))
+import DropMenu from './DropMenu/DropMenu'
+import LinkItem from './LinkItems/LinkItem'
 
 const Navbar = () => {
-   const [isDropOpen, setIsDropOpen] = useState(false)
+   const [isDropOpen, setIsDropOpen] = useState(true)
+   const dropRef = useRef(null)
+   const nodeRef = useRef(null)
    return (
       <>
-         <NavStyle>
+         <NavStyle onMouseLeave={() => setIsDropOpen(false)}>
             <BrandStyle to='/'>ComputerStore</BrandStyle>
             <StyledUnorderedList>
-               <Link to='/login'>
-                  <StylesListItems>Belépés</StylesListItems>
-               </Link>
-               <Link to='/register'>
-                  <StylesListItems>Regisztráció</StylesListItems>
-               </Link>
-               <StylesListItems onMouseEnter={() => setIsDropOpen(true)} onMouseLeave={() => setIsDropOpen(false)}>
+               <LinkItem to='/login' linkText='Belépés' />
+               <LinkItem to='/register' linkText='Regisztráció' />
+               <StyledListItems onMouseEnter={() => setIsDropOpen(true)}>
                   Shop Menü
-               </StylesListItems>
+                  <CSSTransition
+                     in={isDropOpen}
+                     unmountOnExit
+                     mountOnEnter
+                     timeout={300}
+                     nodeRef={dropRef}
+                     classNames={{
+                        enter: styles.DropEnter,
+                        enterActive: styles.DropEnterActive,
+                        exit: styles.DropExit,
+                        exitActive: styles.DropExitActive
+                     }}>
+                     <DropMenu reference={dropRef} />
+                  </CSSTransition>
+               </StyledListItems>
             </StyledUnorderedList>
-            <DropMenu />
          </NavStyle>
+         <CSSTransition
+            in={isDropOpen}
+            unmountOnExit
+            mountOnEnter
+            timeout={300}
+            nodeRef={nodeRef}
+            classNames={{
+               enter: styles.BackgroundEnter,
+               enterActive: styles.BackgroundEnterActive,
+               exit: styles.BackgroundExit,
+               exitActive: styles.BackgroundExitActive
+            }}>
+            <DropdownBackground ref={nodeRef}></DropdownBackground>
+         </CSSTransition>
       </>
    )
 }
