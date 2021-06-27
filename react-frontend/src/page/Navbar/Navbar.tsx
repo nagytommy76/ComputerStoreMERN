@@ -2,13 +2,15 @@ import React, { useRef, useState } from 'react'
 import { NavStyle, BrandStyle, StyledUnorderedList, DropdownBackground } from './NavbarStyles'
 import { StyledListItems } from './LinkItems/LinkItemStyles'
 import { CSSTransition } from 'react-transition-group'
+import { useAppSelector } from '../../app/hooks'
 import styles from './Drop.module.css'
 
 import DropMenu from './DropMenu/DropMenu'
 import LinkItem from './LinkItems/LinkItem'
 
 const Navbar = () => {
-   const [isDropOpen, setIsDropOpen] = useState(true)
+   const userLoggedIn = useAppSelector((state) => state.auth.userLoggedIn)
+   const [isDropOpen, setIsDropOpen] = useState(false)
    const dropRef = useRef(null)
    const nodeRef = useRef(null)
    return (
@@ -16,8 +18,9 @@ const Navbar = () => {
          <NavStyle onMouseLeave={() => setIsDropOpen(false)}>
             <BrandStyle to='/'>ComputerStore</BrandStyle>
             <StyledUnorderedList>
-               <LinkItem to='/login' linkText='Belépés' />
-               <LinkItem to='/register' linkText='Regisztráció' />
+               {!userLoggedIn && <LinkItem to='/login' linkText='Belépés' />}
+               {!userLoggedIn && <LinkItem to='/register' linkText='Regisztráció' />}
+
                <StyledListItems onMouseEnter={() => setIsDropOpen(true)}>
                   Shop Menü
                   <CSSTransition

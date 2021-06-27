@@ -10,7 +10,7 @@ export const StyledFormControll = styled.section`
 
 export const StyledLabel = styled.label`
    width: 80%;
-   padding: 0.8rem 0 0.8rem 0;
+   padding: 0.4rem 0 0.4rem 0;
    font-size: 1.2rem;
    text-align: left;
 `
@@ -28,4 +28,11 @@ export const StyledInput = styled.input`
    &:focus {
       box-shadow: 0px 0px 15px #666;
    }
+`
+
+export const ErrorSpanStyle = styled.span`
+   width: 80%;
+   color: #f21200;
+   font-size: 1.1rem;
+   padding: 0.5rem 0 0.5rem 0;
 `

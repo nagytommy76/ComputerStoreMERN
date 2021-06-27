@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from 'react'
-import { StyledFormControll, StyledLabel, StyledInput } from './InputStyle'
+import { StyledFormControll, StyledLabel, StyledInput, ErrorSpanStyle } from './InputStyle'
 
 type Props = {
    type?: string
@@ -9,11 +9,12 @@ type Props = {
    onChangeEvent: (event: ChangeEvent<HTMLInputElement>) => void
 }
 
-const BaseInput: React.FC<Props> = ({ type = 'text', placeHolder, labelText, value, onChangeEvent }) => {
+const BaseInput: React.FC<Props> = ({ type = 'text', placeHolder, labelText, value, onChangeEvent, children }) => {
    return (
       <StyledFormControll>
          <StyledLabel htmlFor={labelText}>{labelText}</StyledLabel>
          <StyledInput type={type} placeholder={placeHolder} value={value} onChange={onChangeEvent} />
+         <ErrorSpanStyle>{children}</ErrorSpanStyle>
       </StyledFormControll>
    )
 }
