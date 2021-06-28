@@ -32,7 +32,7 @@ const Register = () => {
                password: firstPassword.value
             })
             .then((response: AxiosResponse) => {
-               if (response.status == 201) history.push('/login')
+               if (response.status === 201) history.push('/login')
             })
             .catch((error: AxiosError) => console.log(error.response))
       }

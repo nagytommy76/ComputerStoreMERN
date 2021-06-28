@@ -19,24 +19,22 @@ const Login = () => {
       event.preventDefault()
       if (email.value === '') return setEmail({ value: '', hasError: true, errorMessage: 'Kérem az e-amil címet!' })
       if (password.value === '') return setPassword({ value: '', hasError: true, errorMessage: 'Kérem a jelszót!' })
-      if (!email.hasError && !password.hasError) {
-         await axios
-            .post('/api/user/login', {
-               email: email.value,
-               password: password.value
-            })
-            .then((response: AxiosResponse) => {
-               if (response.status == 200) {
-                  dispatch(setUserLoggedIn(true))
-                  dispatch(setAccessToken(`Barer ${response.data.accessToken}`))
-                  dispatch(setUserName(response.data.userName))
-                  history.push('/')
-               }
-            })
-            .catch((err: AxiosError) => console.log(err.response))
-      } else {
-         console.log('hibaüzenet')
-      }
+      await axios
+         .post('/user/login', {
+            email: email.value,
+            password: password.value
+         })
+         .then((response: AxiosResponse) => {
+            if (response.status === 200) {
+               dispatch(setUserLoggedIn(true))
+               dispatch(setAccessToken(`Barer ${response.data.accessToken}`))
+               dispatch(setUserName(response.data.userName))
+               history.push('/')
+            }
+         })
+         .catch((err: AxiosError) =>
+            setEmail({ value: email.value, hasError: err.response?.data.hasError, errorMessage: err.response?.data.errorMessage })
+         )
    }
    return (
       <AuthContainer>

@@ -10,6 +10,7 @@ import LinkItem from './LinkItems/LinkItem'
 
 const Navbar = () => {
    const userLoggedIn = useAppSelector((state) => state.auth.userLoggedIn)
+   const userName = useAppSelector((state) => state.auth.userName)
    const [isDropOpen, setIsDropOpen] = useState(false)
    const dropRef = useRef(null)
    const nodeRef = useRef(null)
@@ -20,7 +21,7 @@ const Navbar = () => {
             <StyledUnorderedList>
                {!userLoggedIn && <LinkItem to='/login' linkText='Belépés' />}
                {!userLoggedIn && <LinkItem to='/register' linkText='Regisztráció' />}
-
+               {userLoggedIn && <StyledListItems>{userName}</StyledListItems>}
                <StyledListItems onMouseEnter={() => setIsDropOpen(true)}>
                   Shop Menü
                   <CSSTransition

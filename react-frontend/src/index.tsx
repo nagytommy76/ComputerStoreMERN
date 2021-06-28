@@ -2,16 +2,16 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
-import { store } from './app/store'
+import { store, presistor } from './app/store'
 import { Provider } from 'react-redux'
-import axios from 'axios'
-
-axios.defaults.baseURL = 'http://localhost:5050/'
+import { PersistGate } from 'redux-persist/integration/react'
 
 ReactDOM.render(
    <React.StrictMode>
       <Provider store={store}>
-         <App />
+         <PersistGate loading={null} persistor={presistor}>
+            <App />
+         </PersistGate>
       </Provider>
    </React.StrictMode>,
    document.getElementById('root')
