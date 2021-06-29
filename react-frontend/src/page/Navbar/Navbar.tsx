@@ -1,60 +1,47 @@
 import React, { useRef, useState } from 'react'
 import { NavStyle, BrandStyle, StyledUnorderedList, DropdownBackground } from './NavbarStyles'
-import { StyledListItems } from './LinkItems/LinkItemStyles'
-import { CSSTransition } from 'react-transition-group'
+// import { StyledListItems } from './LinkItems/LinkItemStyles'
 import { useAppSelector } from '../../app/hooks'
-import styles from './Drop.module.css'
+import BaseDrop from './DropMenu/BaseDrop/BaseDrop'
+import BaseDropBackground from './DropMenu/BaseDrop/BaseDropBackground'
 
-import DropMenu from './DropMenu/DropMenu'
+import DropMenu from './DropMenu/ShopDropdown/DropMenu'
+import UserDrop from './DropMenu/UserDropdown/UserDrop'
 import LinkItem from './LinkItems/LinkItem'
 
 const Navbar = () => {
    const userLoggedIn = useAppSelector((state) => state.auth.userLoggedIn)
    const userName = useAppSelector((state) => state.auth.userName)
-   const [isDropOpen, setIsDropOpen] = useState(false)
-   const dropRef = useRef(null)
-   const nodeRef = useRef(null)
+   const [isShopDropOpen, setIsShopDropOpen] = useState(false)
+   const [isUserDropOpen, setIsUserDropOpen] = useState(false)
+   const userDropRef = useRef(null)
+   const shopDropRef = useRef(null)
+   const BackgroundRef = useRef(null)
+
+   const closeDrops = () => {
+      setIsShopDropOpen(false)
+      setIsUserDropOpen(false)
+   }
    return (
       <>
-         <NavStyle onMouseLeave={() => setIsDropOpen(false)}>
+         <NavStyle onMouseLeave={() => closeDrops()}>
             <BrandStyle to='/'>ComputerStore</BrandStyle>
             <StyledUnorderedList>
                {!userLoggedIn && <LinkItem to='/login' linkText='Belépés' />}
                {!userLoggedIn && <LinkItem to='/register' linkText='Regisztráció' />}
-               {userLoggedIn && <StyledListItems>{userName}</StyledListItems>}
-               <StyledListItems onMouseEnter={() => setIsDropOpen(true)}>
-                  Shop Menü
-                  <CSSTransition
-                     in={isDropOpen}
-                     unmountOnExit
-                     mountOnEnter
-                     timeout={300}
-                     nodeRef={dropRef}
-                     classNames={{
-                        enter: styles.DropEnter,
-                        enterActive: styles.DropEnterActive,
-                        exit: styles.DropExit,
-                        exitActive: styles.DropExitActive
-                     }}>
-                     <DropMenu reference={dropRef} />
-                  </CSSTransition>
-               </StyledListItems>
+               {userLoggedIn && (
+                  <BaseDrop text={userName} dropRef={userDropRef} isDropOpen={isUserDropOpen} setIsDropOpen={setIsUserDropOpen}>
+                     <UserDrop reference={userDropRef} />
+                  </BaseDrop>
+               )}
+               <BaseDrop text='Shop Menü' dropRef={shopDropRef} isDropOpen={isShopDropOpen} setIsDropOpen={setIsShopDropOpen}>
+                  <DropMenu reference={shopDropRef} />
+               </BaseDrop>
             </StyledUnorderedList>
          </NavStyle>
-         <CSSTransition
-            in={isDropOpen}
-            unmountOnExit
-            mountOnEnter
-            timeout={300}
-            nodeRef={nodeRef}
-            classNames={{
-               enter: styles.BackgroundEnter,
-               enterActive: styles.BackgroundEnterActive,
-               exit: styles.BackgroundExit,
-               exitActive: styles.BackgroundExitActive
-            }}>
-            <DropdownBackground ref={nodeRef}></DropdownBackground>
-         </CSSTransition>
+         <BaseDropBackground isDropOpen={isShopDropOpen || isUserDropOpen} nodeRef={BackgroundRef}>
+            <DropdownBackground ref={BackgroundRef} />
+         </BaseDropBackground>
       </>
    )
 }

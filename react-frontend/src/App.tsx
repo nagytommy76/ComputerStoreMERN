@@ -2,7 +2,6 @@ import React from 'react'
 import axios from 'axios'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Navbar from './page/Navbar/Navbar'
-import { useAppSelector } from './app/hooks'
 import GuestRoute from './GuestRoute'
 // import ProtectedRoute from './ProtectedRoute'
 
@@ -14,7 +13,6 @@ const Page404 = React.lazy(() => import('./page/404/Page404'))
 axios.defaults.baseURL = 'http://localhost:5050/api'
 
 const App = () => {
-   const userLoggedIn = useAppSelector((state) => state.auth.userLoggedIn)
    return (
       <BrowserRouter>
          <React.Suspense fallback={<h1>Tötlés...</h1>}>
