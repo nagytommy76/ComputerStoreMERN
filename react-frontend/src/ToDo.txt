@@ -1,0 +1,1 @@
+1. Készíteni egy Suspense Loading componenst amiben van navbar/footer etc

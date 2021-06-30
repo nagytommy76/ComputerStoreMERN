@@ -3,6 +3,8 @@ import { createVgaProduct, createVgaDetails } from './CreateVga'
 import { VgaDetailsType } from '../../../models/Vga/VgaTypes'
 const router = express.Router()
 import { VgaProduct } from '../../../models/Vga/VgaProduct'
+
+import { authenticateAccessToken } from '../../../middlewares/AuthenticateAccessToken'
 // https://www.albertgao.xyz/2017/05/24/how-to-test-expressjs-with-jest-and-supertest/
 
 // Ez egy admin funkció lesz majd!!! /admin/addVga...
@@ -20,9 +22,10 @@ router.post('/insertVga', async (_, res) => {
 router.get('/:itemNumber', async (req, res) => {
    // a details nélkülit találja meg
    // const foundVga = await VgaProduct.findOne({ itemNumber: req.params.itemNumber })
-   console.log(req.params.itemNumber)
-   if (req.params.itemNumber) {
-      await VgaProduct.findOne({ itemNumber: req.params.itemNumber })
+   const itemNumber = req.params?.itemNumber
+   // console.log(itemNumber)
+   if (itemNumber) {
+      await VgaProduct.findOne({ itemNumber })
          .populate('details')
          .then((foundVgaWithDetails) => {
             if (!foundVgaWithDetails) {
@@ -33,7 +36,7 @@ router.get('/:itemNumber', async (req, res) => {
          })
          .catch((err) => console.error(err))
    } else {
-      res.json({ hasError: true, errorMsg: 'No parameters has been send' })
+      res.status(404).json({ hasError: true, errorMsg: 'No parameters has been send' })
    }
 })
 

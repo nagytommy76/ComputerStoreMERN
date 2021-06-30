@@ -1,5 +1,5 @@
 import React from 'react'
-import { DropStyle, DropLinkItem } from '../DropMenuStyle'
+import { DropStyle } from '../DropMenuStyle'
 // import { Link } from 'react-router-dom'
 // import { CSSTransition } from 'react-transition-group'
 // import styles from '../Drop.module.css'
@@ -9,11 +9,7 @@ type Prop = {
 }
 
 const DropMenu: React.FC<Prop> = ({ reference }) => {
-   return (
-      <DropStyle ref={reference}>
-         <DropLinkItem>Személyes adatok</DropLinkItem>
-      </DropStyle>
-   )
+   return <DropStyle ref={reference}>{/* <DropLinkItem>Személyes adatok</DropLinkItem> */}</DropStyle>
 }
 
 export default DropMenu

@@ -1,4 +1,4 @@
-// import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 export const DropStyle = styled.div`
@@ -17,7 +17,7 @@ export const DropStyle = styled.div`
    justify-content: center;
 `
 
-export const DropLinkItem = styled.div`
+export const DropLinkItem = styled(Link)`
    max-width: 100%;
    text-align: right;
    padding: 0.5rem 2.6rem 0.5rem 0;
