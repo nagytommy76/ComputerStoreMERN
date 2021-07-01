@@ -2,6 +2,10 @@ export type UserTypes = {
    userName: string
    email: string
    password: string
+   isAdmin: boolean
+   _id: string
+   iat: number
+   exp: number
 }
 
 export type UserDetailsTypes = {

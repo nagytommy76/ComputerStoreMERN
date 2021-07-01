@@ -12,7 +12,7 @@ app.use(cors({ origin: 'http://localhost:3000', methods: 'GET,HEAD,PUT,PATCH,POS
 app.use(bodyParser.json())
 
 app.use('/api/vga', require('./routes/api/Vga/vga'))
-app.use('/api/user', require('./routes/api/User/User'))
+app.use('/api/auth', require('./routes/api/User/User'))
 
 app.listen(PORT, () => {
    console.log(`The app listening at http://localhost:${PORT}`)

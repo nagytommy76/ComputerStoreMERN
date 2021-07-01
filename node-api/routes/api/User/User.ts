@@ -1,14 +1,23 @@
 import express, { Request, Response } from 'express'
 import { UserTypes } from '../../../models/User/UserTypes'
 import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
-import { ACCESS_TOKEN_SECRET } from '../../../config/endpoints.config'
-import { authenticateAccessToken } from '../../../middlewares/AuthenticateAccessToken'
+// import jwt from 'jsonwebtoken'
+import { generateTokens } from './User.helper'
+import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from '../../../config/endpoints.config'
+import { authenticateAccessToken } from '../../../middlewares/AuthenticateAccessOrRefreshTokens'
 import { User } from '../../../models/User/User'
+type RequestWithUser = Request & {
+   user?: UserTypes | null
+}
 
 const router = express.Router()
 
-const ErrorResponse = (hasError: boolean, errorMessage: string = '', errorType: string = 'email', message: string = '') => {
+export const ErrorResponse = (
+   hasError: boolean,
+   errorMessage: string = '',
+   errorType: string = 'email',
+   message: string = ''
+) => {
    return {
       message,
       errorType,
@@ -40,8 +49,9 @@ router.post('/login', async (req: Request, res: Response) => {
    }
    try {
       if (await bcrypt.compare(req.body.password, user.password)) {
-         const accessToken = jwt.sign(user.toJSON(), ACCESS_TOKEN_SECRET, { expiresIn: '15m' })
-         res.status(200).json({ accessToken, userName: user.userName })
+         const accessToken = generateTokens(user.toJSON(), ACCESS_TOKEN_SECRET)
+         const refreshToken = generateTokens(user.toJSON(), REFRESH_TOKEN_SECRET, '30min')
+         res.status(200).json({ accessToken, refreshToken, userName: user.userName })
       } else res.send(ErrorResponse(true, 'Helytelen jelszó', 'password'))
    } catch (error) {
       console.log(error)
@@ -49,8 +59,15 @@ router.post('/login', async (req: Request, res: Response) => {
    }
 })
 
-router.post('/posts', authenticateAccessToken, (req, res) => {
+router.post('/refresh-token', (req, res) => {
+   const refreshToken = req.body.refreshToken
+})
+
+router.post('/posts', authenticateAccessToken, (req: RequestWithUser, res: Response) => {
+   console.log(req.user)
    return res.json({ msg: 'sikeres authentikáció' })
 })
+
+// https://www.youtube.com/watch?v=mbsmsi7l3r4&ab_channel=WebDevSimplified
 
 module.exports = router

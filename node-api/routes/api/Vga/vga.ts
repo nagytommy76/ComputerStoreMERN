@@ -4,7 +4,7 @@ import { VgaDetailsType } from '../../../models/Vga/VgaTypes'
 const router = express.Router()
 import { VgaProduct } from '../../../models/Vga/VgaProduct'
 
-import { authenticateAccessToken } from '../../../middlewares/AuthenticateAccessToken'
+import { authenticateAccessToken } from '../../../middlewares/AuthenticateAccessOrRefreshTokens'
 // https://www.albertgao.xyz/2017/05/24/how-to-test-expressjs-with-jest-and-supertest/
 
 // Ez egy admin funkció lesz majd!!! /admin/addVga...
