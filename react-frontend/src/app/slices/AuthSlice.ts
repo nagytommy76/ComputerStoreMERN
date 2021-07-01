@@ -4,12 +4,14 @@ export type LoginType = {
    userLoggedIn: boolean
    userName: string
    accessToken: string | null
+   refreshToken: string | null
 }
 
 const initialState: LoginType = {
    userLoggedIn: false,
    userName: '',
-   accessToken: null
+   accessToken: null,
+   refreshToken: null
 }
 
 export const AuthSlice = createSlice({
@@ -25,8 +27,12 @@ export const AuthSlice = createSlice({
       setAccessToken: (state, action: PayloadAction<string>) => {
          state.accessToken = action.payload
       },
+      setRefreshToken: (state, action: PayloadAction<string>) => {
+         state.refreshToken = action.payload
+      },
       logoutUser: (state) => {
          state.accessToken = null
+         state.refreshToken = null
          state.userLoggedIn = false
          state.userName = ''
       }
