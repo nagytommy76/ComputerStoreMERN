@@ -4,8 +4,8 @@ export type UserTypes = {
    password: string
    isAdmin: boolean
    _id: string
-   iat: number
-   exp: number
+   iat?: number
+   exp?: number
 }
 
 export type UserDetailsTypes = {

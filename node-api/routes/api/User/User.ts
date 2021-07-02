@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express'
 import { UserTypes } from '../../../models/User/UserTypes'
 import bcrypt from 'bcrypt'
-// import jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
 import { generateTokens } from './User.helper'
 import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from '../../../config/endpoints.config'
 import { authenticateAccessToken } from '../../../middlewares/AuthenticateAccessOrRefreshTokens'
@@ -49,8 +49,8 @@ router.post('/login', async (req: Request, res: Response) => {
    }
    try {
       if (await bcrypt.compare(req.body.password, user.password)) {
-         const accessToken = generateTokens(user.toJSON(), ACCESS_TOKEN_SECRET)
-         const refreshToken = generateTokens(user.toJSON(), REFRESH_TOKEN_SECRET, '30min')
+         const accessToken = generateTokens(user._id, ACCESS_TOKEN_SECRET)
+         const refreshToken = generateTokens(user._id, REFRESH_TOKEN_SECRET, '1min')
          res.status(200).json({ accessToken, refreshToken, userName: user.userName })
       } else res.send(ErrorResponse(true, 'Helytelen jelszó', 'password'))
    } catch (error) {
@@ -59,15 +59,25 @@ router.post('/login', async (req: Request, res: Response) => {
    }
 })
 
-router.post('/refresh-token', (req, res) => {
-   const refreshToken = req.body.refreshToken
+router.post('/refresh-token', (req: Request, res: Response) => {
+   const refreshToken: string = req.body.refreshToken
+   if (!refreshToken) return res.sendStatus(401)
+   try {
+      jwt.verify(refreshToken, REFRESH_TOKEN_SECRET, (err, decoded: any) => {
+         if (err) return res.status(403).json({ errorMessage: 'refresh token expired' })
+         const newAccessToken = generateTokens(decoded._id, ACCESS_TOKEN_SECRET)
+         res.status(200).json(newAccessToken)
+      })
+   } catch (error) {
+      res.status(500).json(error)
+   }
 })
 
 router.post('/posts', authenticateAccessToken, (req: RequestWithUser, res: Response) => {
-   console.log(req.user)
+   // console.log(req.user)
    return res.json({ msg: 'sikeres authentikáció' })
 })
 
-// https://www.youtube.com/watch?v=mbsmsi7l3r4&ab_channel=WebDevSimplified
+// https://auth0.com/blog/node-js-and-typescript-tutorial-secure-an-express-api/#Set-Up-an-Authorization-Service
 
 module.exports = router
