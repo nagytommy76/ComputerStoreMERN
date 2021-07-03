@@ -49,10 +49,10 @@ router.post('/login', async (req: Request, res: Response) => {
    }
    try {
       if (await bcrypt.compare(req.body.password, user.password)) {
-         const accessToken = generateTokens(user._id, ACCESS_TOKEN_SECRET)
-         const refreshToken = generateTokens(user._id, REFRESH_TOKEN_SECRET, '1min')
+         const accessToken = generateTokens(user._id, user.isAdmin, ACCESS_TOKEN_SECRET)
+         const refreshToken = generateTokens(user._id, user.isAdmin, REFRESH_TOKEN_SECRET, '1d')
          res.status(200).json({ accessToken, refreshToken, userName: user.userName })
-      } else res.send(ErrorResponse(true, 'Helytelen jelszó', 'password'))
+      } else res.status(404).json(ErrorResponse(true, 'Helytelen jelszó', 'password'))
    } catch (error) {
       console.log(error)
       res.status(403).json(error)
@@ -65,7 +65,7 @@ router.post('/refresh-token', (req: Request, res: Response) => {
    try {
       jwt.verify(refreshToken, REFRESH_TOKEN_SECRET, (err, decoded: any) => {
          if (err) return res.status(403).json({ errorMessage: 'refresh token expired' })
-         const newAccessToken = generateTokens(decoded._id, ACCESS_TOKEN_SECRET)
+         const newAccessToken = generateTokens(decoded._id, decoded.isAdmin, ACCESS_TOKEN_SECRET)
          res.status(200).json(newAccessToken)
       })
    } catch (error) {
@@ -73,7 +73,7 @@ router.post('/refresh-token', (req: Request, res: Response) => {
    }
 })
 
-router.post('/posts', authenticateAccessToken, (req: RequestWithUser, res: Response) => {
+router.post('/check-access-token', authenticateAccessToken, (req: RequestWithUser, res: Response) => {
    // console.log(req.user)
    return res.json({ msg: 'sikeres authentikáció' })
 })
