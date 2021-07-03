@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { ImageStyle, AuthContainer, AuthFormStyle } from '../BaseForm/BaseStyle'
 import loginImage from './login.jpg'
 import { InputTypes } from '../Register/Register'
-import { setUserLoggedIn, setAccessToken, setUserName } from '../../../app/slices/AuthSlice'
+import { setUserLoggedIn, setAccessToken, setUserName, setRefreshToken } from '../../../app/slices/AuthSlice'
 import { useAppDispatch } from '../../../app/hooks'
 import { useHistory } from 'react-router'
 
@@ -20,14 +20,15 @@ const Login = () => {
       if (email.value === '') return setEmail({ value: '', hasError: true, errorMessage: 'Kérem az e-amil címet!' })
       if (password.value === '') return setPassword({ value: '', hasError: true, errorMessage: 'Kérem a jelszót!' })
       await axios
-         .post('/user/login', {
+         .post('/auth/login', {
             email: email.value,
             password: password.value
          })
          .then((response: AxiosResponse) => {
             if (response.status === 200) {
                dispatch(setUserLoggedIn(true))
-               dispatch(setAccessToken(`Barer ${response.data.accessToken}`))
+               dispatch(setAccessToken(response.data.accessToken))
+               dispatch(setRefreshToken(response.data.refreshToken))
                dispatch(setUserName(response.data.userName))
                history.push('/')
             }

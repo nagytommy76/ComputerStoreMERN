@@ -26,7 +26,7 @@ const Register = () => {
          return setSecondPassword({ value: '', hasError: true, errorMessage: 'Nem egyezik a 2 jelszó' })
       if (!userName.hasError && !email.hasError && !firstPassword.hasError && !secondPassword.hasError) {
          await axios
-            .post('/api/user/register', {
+            .post('/auth/register', {
                email: email.value,
                userName: userName.value,
                password: firstPassword.value

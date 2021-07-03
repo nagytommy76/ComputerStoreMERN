@@ -1,9 +1,11 @@
-import React from 'react'
-import axios from 'axios'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import axios, { AxiosError } from 'axios'
+import { BrowserRouter, Switch, Route, useHistory } from 'react-router-dom'
 import Navbar from './page/Navbar/Navbar'
 import GuestRoute from './GuestRoute'
 import ProtectedRoute from './ProtectedRoute'
+import { useAppDispatch, useAppSelector } from './app/hooks'
+import { logoutUser, setAccessToken } from './app/slices/AuthSlice'
 
 const Login = React.lazy(() => import('./page/Auth/Login/Login'))
 const Register = React.lazy(() => import('./page/Auth/Register/Register'))
@@ -16,6 +18,45 @@ axios.defaults.baseURL = 'http://localhost:5050/api'
 axios.defaults.headers['Content-Type'] = 'Application/json'
 
 const App = () => {
+   const dispatch = useAppDispatch()
+   const history = useHistory()
+   // Az app megnyitásakor, ha a user ba van jelentkezve megvizsgálom, hogy érvényes-e az accessToken-je
+   // Ha nem akkor a refreshToken-nel kérek egy újat,
+   // Ha az sem érvényes kiléptetem és be kell újra lépnie
+   const accessToken = useAppSelector((state) => state.auth.accessToken)
+   const refreshToken = useAppSelector((state) => state.auth.refreshToken)
+   const isUserLoggedIn = useAppSelector((state) => state.auth.userLoggedIn)
+   useEffect(() => {
+      // https://medium.com/swlh/authentication-using-jwt-and-refresh-token-part-2-a86150d25152
+      if (isUserLoggedIn) {
+         axios.defaults.headers.common['Authorization'] = `Barer ${accessToken}`
+         axios
+            .post('/auth/check-access-token')
+            .then(() => {})
+            .catch((error: AxiosError) => {
+               // Ha 403/Forbidden a response akkor lejárt
+               if (error.response?.status === 403) {
+                  axios
+                     .post('/auth/refresh-token', {
+                        refreshToken
+                     })
+                     // Kapunk egy új access tokent
+                     .then((newAccessToken) => {
+                        dispatch(setAccessToken(newAccessToken.data))
+                        axios.defaults.headers.common['Authorization'] = `Barer ${accessToken}`
+                     })
+                     // Lejárt a refresh token, be kell lépni újra
+                     .catch((refreshTokenExpiredError: AxiosError) => {
+                        if (refreshTokenExpiredError.response?.status === 403) {
+                           dispatch(logoutUser())
+                           history?.push('/login')
+                        }
+                     })
+               }
+            })
+      }
+   }, [])
+
    return (
       <BrowserRouter>
          <React.Suspense fallback={<h1>Tötlés...</h1>}>
