@@ -18,7 +18,7 @@ export const BaseStylingForUnderline = `
       transform: translate3d(0, 0, 0);
    }
 `
-const navbarHeight = '7rem'
+export const navbarHeight = '7rem'
 
 export const NavStyle = styled.nav`
    z-index: 5;
