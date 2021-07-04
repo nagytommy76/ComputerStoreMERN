@@ -1,14 +1,14 @@
-import express from 'express'
+import express, { Request, Response } from 'express'
 import { createVgaProduct, createVgaDetails } from './CreateVga'
 import { VgaDetailsType } from '../../../models/Vga/VgaTypes'
 const router = express.Router()
 import { VgaProduct } from '../../../models/Vga/VgaProduct'
 
-import { authenticateAccessToken } from '../../../middlewares/AuthenticateAccessOrRefreshTokens'
+// import { authenticateAccessToken } from '../../../middlewares/AuthenticateAccessOrRefreshTokens'
 // https://www.albertgao.xyz/2017/05/24/how-to-test-expressjs-with-jest-and-supertest/
 
 // Ez egy admin funkció lesz majd!!! /admin/addVga...
-router.post('/insertVga', async (_, res) => {
+router.post('/insert-vga', async (_, res) => {
    // console.log(req.body)
    await createVgaDetails()
       .then((detail: VgaDetailsType) => {
@@ -17,6 +17,15 @@ router.post('/insertVga', async (_, res) => {
          res.json({ msg: 'Sikeres adatbevitel' })
       })
       .catch((err) => res.json({ msg: err }))
+})
+
+router.get('/', async (req: Request, res: Response) => {
+   await VgaProduct.find({})
+      .then((allVgaProducts) => {
+         if (!allVgaProducts) return res.json({ message: 'Nem található VGA termék!' })
+         else return res.json(allVgaProducts)
+      })
+      .catch((error) => console.log(error))
 })
 
 router.get('/:itemNumber', async (req, res) => {
@@ -41,26 +50,3 @@ router.get('/:itemNumber', async (req, res) => {
 })
 
 module.exports = router
-
-const requestToSendInPostman = {
-   itemNumber: 'GIGGEFGTX1660SUPEROC',
-   type: 'GTX 1660 SUPER Gaming OC',
-   typeCode: 'GV-N166SGAMING OC-6GD',
-   manufacturer: 'Gigabyte',
-   price: 462000,
-   pictureUrls: ['képURL1', 'KépURL2'],
-   gpuManufacturer: 'NVIDIA',
-   pcieType: 'PCI-E 16x 4.0',
-   gpuBaseClock: 1700,
-   gpuPeakClock: 1860,
-   vramCapacity: 6,
-   vramType: 'GDDR5',
-   vramBandwidth: 192,
-   powerConsuption: 125,
-   description: '',
-   powerPin: '8-pin x 1',
-   warranity: 24,
-   displayPort: 2,
-   DVI: 0,
-   HDMI: 2
-}
