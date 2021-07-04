@@ -1,11 +1,13 @@
 import React, { useRef, useState } from 'react'
 import { NavStyle, BrandStyle, StyledUnorderedList, DropdownBackground } from './NavbarStyles'
+import { StyledListItems } from './LinkItems/LinkItemStyles'
 import { useAppSelector } from '../../app/hooks'
 import BaseDrop from './DropMenu/BaseDrop/BaseDrop'
 import BaseDropBackground from './DropMenu/BaseDrop/BaseDropBackground'
 
 import DropMenu from './DropMenu/ShopDropdown/DropMenu'
 import UserDrop from './DropMenu/UserDropdown/UserDrop'
+import Toggler from './ThemeToggler/Toggle'
 const LinkItem = React.lazy(() => import('./LinkItems/LinkItem'))
 
 const Navbar = () => {
@@ -36,6 +38,9 @@ const Navbar = () => {
                <BaseDrop text='Shop Menü' dropRef={shopDropRef} isDropOpen={isShopDropOpen} setIsDropOpen={setIsShopDropOpen}>
                   <DropMenu reference={shopDropRef} />
                </BaseDrop>
+               <StyledListItems>
+                  <Toggler />
+               </StyledListItems>
             </StyledUnorderedList>
          </NavStyle>
          <BaseDropBackground isDropOpen={isShopDropOpen || isUserDropOpen} nodeRef={BackgroundRef}>

@@ -42,6 +42,7 @@ export const StyledUnorderedList = styled.ul`
    list-style: none;
    display: flex;
    flex-direction: row;
+   align-items: center;
    padding-left: 0;
 `
 

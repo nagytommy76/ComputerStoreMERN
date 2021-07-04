@@ -1,17 +1,1 @@
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
-
-body {
-   margin: 0;
-   font-family: 'Work Sans', sans-serif;
-   -webkit-font-smoothing: antialiased;
-   -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-   text-decoration: none;
-   color: unset;
-}
-
-code {
-   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
-}

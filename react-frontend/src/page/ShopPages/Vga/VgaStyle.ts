@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { navbarHeight } from '../../Navbar/NavbarStyles'
-
+import { CardWidth } from '../BaseComponents/ProductCard/CardStyle'
 export const PageContainer = styled.section`
    min-height: 100vh;
    width: 100%;
@@ -14,5 +14,5 @@ export const CardGridContainer = styled.section`
    width: 85%;
    row-gap: 3rem;
    column-gap: 2rem;
-   grid-template-columns: repeat(5, 1fr);
+   grid-template-columns: repeat(5, ${CardWidth});
 `

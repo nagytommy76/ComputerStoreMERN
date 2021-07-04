@@ -1,5 +1,6 @@
 import React from 'react'
-import { StyledCard, ImageContainer, Image, CardBody } from './CardStyle'
+import { StyledCard, ImageContainer, Image, CardBody, SubTitleStyle, PriceStyle } from './CardStyle'
+import NumberFormat from 'react-number-format'
 import { VgaType } from '../../Vga/Vga'
 
 const ProductCard: React.FC<VgaType> = ({ itemNumber, type, typeCode, manufacturer, price, pictureUrls }) => {
@@ -9,10 +10,12 @@ const ProductCard: React.FC<VgaType> = ({ itemNumber, type, typeCode, manufactur
             <Image src={pictureUrls[0]} alt='' />
          </ImageContainer>
          <CardBody>
-            <h5>
+            <SubTitleStyle>
                {manufacturer} {type} {typeCode}
-            </h5>
-            <p>{price} Ft</p>
+            </SubTitleStyle>
+            <PriceStyle>
+               <NumberFormat value={price} displayType='text' thousandSeparator={true} suffix='Ft' />
+            </PriceStyle>
          </CardBody>
       </StyledCard>
    )

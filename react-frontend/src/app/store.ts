@@ -3,10 +3,12 @@ import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, 
 import storage from 'redux-persist/lib/storage'
 
 import authReducer from './slices/AuthSlice'
+import ThemeSlice from './slices/ThemeSlice'
 
 export const store = configureStore({
    reducer: {
-      auth: persistReducer({ key: 'AuthUser', storage }, authReducer)
+      auth: persistReducer({ key: 'AuthUser', storage }, authReducer),
+      theme: persistReducer({ key: 'Theme', storage }, ThemeSlice)
    },
    middleware: getDefaultMiddleware({
       serializableCheck: {

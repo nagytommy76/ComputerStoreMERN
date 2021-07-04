@@ -3,7 +3,12 @@ import axios, { AxiosError } from 'axios'
 import { BrowserRouter, Switch, Route, useHistory } from 'react-router-dom'
 import Navbar from './page/Navbar/Navbar'
 import GuestRoute from './GuestRoute'
-import ProtectedRoute from './ProtectedRoute'
+// import ProtectedRoute from './ProtectedRoute'
+
+import { ThemeProvider } from 'styled-components'
+import { GlobalStyles } from './Theme/GlobalStyles'
+import { lightTheme, darkTheme } from './Theme/Themes'
+
 import { useAppDispatch, useAppSelector } from './app/hooks'
 import { logoutUser, setAccessToken } from './app/slices/AuthSlice'
 
@@ -55,21 +60,25 @@ const App = () => {
                }
             })
       }
-   }, [])
-
+   }, [accessToken, dispatch, history, isUserLoggedIn, refreshToken])
+   const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
    return (
-      <BrowserRouter>
-         <React.Suspense fallback={<h1>Tötlés...</h1>}>
-            <Navbar />
-            <Switch>
-               <Route path='/' exact component={Welcome} />
-               <GuestRoute path='/register' component={Register} />
-               <GuestRoute path='/login' component={Login} />
-               <ProtectedRoute path='/vga' component={Vga} />
-               <Route component={Page404} />
-            </Switch>
-         </React.Suspense>
-      </BrowserRouter>
+      <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
+         <BrowserRouter>
+            <GlobalStyles />
+            <React.Suspense fallback={<h1>Tötlés...</h1>}>
+               <Navbar />
+               <Switch>
+                  <Route path='/' exact component={Welcome} />
+                  <GuestRoute path='/register' component={Register} />
+                  <GuestRoute path='/login' component={Login} />
+                  {/* <ProtectedRoute path='/vga' component={Vga} /> */}
+                  <Route path='/vga' component={Vga} />
+                  <Route component={Page404} />
+               </Switch>
+            </React.Suspense>
+         </BrowserRouter>
+      </ThemeProvider>
    )
 }
 
