@@ -16,5 +16,8 @@ export const CardGridContainer = styled.section`
    column-gap: 2rem;
    justify-content: center;
    /* grid-template-columns: repeat(5, ${CardWidth}); */
+   min-width: 0;
+   min-height: 0;
    grid-template-columns: repeat(auto-fit, minmax(250px, ${CardWidth}));
+   grid-template-rows: repeat(auto-fit, 380px);
 `

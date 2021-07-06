@@ -4,26 +4,13 @@
 
 .ExpandEnterActive {
    opacity: 1;
-   transition: all 0.2s;
+   transition: all 0.15s;
 }
 
-/* .DropEnter {
-   opacity: 0;
-   transform: translateY(10%);
-}
-
-.DropEnterActive {
-   opacity: 1;
-   transform: translateY(0%);
-   transition: all 0.3s ease;
-}
-
-.DropExit {
+.ExpandExit {
    opacity: 1;
 }
-
-.DropExitActive {
+.ExpandExitActive {
    opacity: 0;
-   transform: translateY(10%);
-   transition: all 0.3s ease;
-} */
+   transition: all 0.15s;
+}

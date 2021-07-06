@@ -9,6 +9,7 @@ import CardFooter from './CardFooter'
 
 const ProductCard: React.FC<VgaType> = ({ itemNumber, type, typeCode, manufacturer, price, pictureUrls }) => {
    const [isCardExpanded, setIsCardExpanded] = useState<boolean>(false)
+   const [quantityToCart, setQuantityToCart] = useState<string>('1')
    const expandRef = useRef(null)
    return (
       <StyledCard
@@ -30,7 +31,7 @@ const ProductCard: React.FC<VgaType> = ({ itemNumber, type, typeCode, manufactur
             in={isCardExpanded}
             unmountOnExit
             mountOnEnter
-            timeout={200}
+            timeout={150}
             nodeRef={expandRef}
             classNames={{
                enter: styles.ExpandEnter,
@@ -38,7 +39,11 @@ const ProductCard: React.FC<VgaType> = ({ itemNumber, type, typeCode, manufactur
                exit: styles.ExpandExit,
                exitActive: styles.ExpandExitActive
             }}>
-            <CardFooter reference={expandRef} />
+            <CardFooter
+               quantityValue={quantityToCart}
+               changeEvent={(event) => setQuantityToCart(event.target.value)}
+               reference={expandRef}
+            />
          </CSSTransition>
       </StyledCard>
    )

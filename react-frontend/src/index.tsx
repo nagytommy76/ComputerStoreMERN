@@ -5,6 +5,7 @@ import App from './App'
 import { store, presistor } from './app/store'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
+require('./fontAwesome/fontAwesome')
 
 ReactDOM.render(
    <React.StrictMode>
