@@ -3,19 +3,17 @@ import { VgaDetailsType, VgaType } from '../../../models/Vga/VgaTypes'
 
 export const createVgaProduct = async (vgaDetailsId: string): Promise<VgaType> => {
    const vga = new VgaProduct({
-      itemNumber: 'ASUSRX6700XTO12G',
-      type: 'RX 6700 XT TUF Gaming 12GB',
-      typeCode: 'TUF-RX6700XT-O12G-GAMING',
-      manufacturer: 'Asus',
-      price: 369800,
+      itemNumber: 'ASRTX3070TIROGOC',
+      type: 'RTX 3070 Ti 8GB GDDR6X OC',
+      typeCode: 'ROG-STRIX-RTX3070TI-O8G-GAMING',
+      manufacturer: 'ASUS',
+      price: 438800,
       pictureUrls: [
-         'https://media.icdn.hu/product/GalleryMod/2021-03/687272/resp/1608785_asus_tuf_rx6700xt_o12g_gaming_rx_6700_xt_12gb_gddr6_tuf_gaming_oc_pcie.webp',
-         'https://media.icdn.hu/product/GalleryMod/2021-03/687272/resp/1608787_asus_tuf_rx6700xt_o12g_gaming_rx_6700_xt_12gb_gddr6_tuf_gaming_oc_pcie.webp',
-         'https://media.icdn.hu/product/GalleryMod/2021-03/687272/resp/1608788_asus_tuf_rx6700xt_o12g_gaming_rx_6700_xt_12gb_gddr6_tuf_gaming_oc_pcie.webp',
-         'https://media.icdn.hu/product/GalleryMod/2021-03/687272/resp/1608791_asus_tuf_rx6700xt_o12g_gaming_rx_6700_xt_12gb_gddr6_tuf_gaming_oc_pcie.webp',
-         'https://media.icdn.hu/product/GalleryMod/2021-03/687272/resp/1608792_asus_tuf_rx6700xt_o12g_gaming_rx_6700_xt_12gb_gddr6_tuf_gaming_oc_pcie.webp',
-         'https://media.icdn.hu/product/GalleryMod/2021-03/687272/resp/1608793_asus_tuf_rx6700xt_o12g_gaming_rx_6700_xt_12gb_gddr6_tuf_gaming_oc_pcie.webp',
-         'https://media.icdn.hu/product/GalleryMod/2021-03/687272/resp/1608794_asus_tuf_rx6700xt_o12g_gaming_rx_6700_xt_12gb_gddr6_tuf_gaming_oc_pcie.webp'
+         'https://media.icdn.hu/product/GalleryMod/2021-06/703476/resp/1657791_asus_rog_strix_rtx3070ti_o8g_gaming_rog_strix_geforce_rtx_3070_ti_8gb_gddr6x_oc_pcie.webp',
+         'https://media.icdn.hu/product/GalleryMod/2021-06/703476/resp/1657793_asus_rog_strix_rtx3070ti_o8g_gaming_rog_strix_geforce_rtx_3070_ti_8gb_gddr6x_oc_pcie.webp',
+         'https://media.icdn.hu/product/GalleryMod/2021-06/703476/resp/1657796_asus_rog_strix_rtx3070ti_o8g_gaming_rog_strix_geforce_rtx_3070_ti_8gb_gddr6x_oc_pcie.webp',
+         'https://media.icdn.hu/product/GalleryMod/2021-06/703476/resp/1657798_asus_rog_strix_rtx3070ti_o8g_gaming_rog_strix_geforce_rtx_3070_ti_8gb_gddr6x_oc_pcie.webp',
+         'https://media.icdn.hu/product/GalleryMod/2021-06/703476/resp/1657799_asus_rog_strix_rtx3070ti_o8g_gaming_rog_strix_geforce_rtx_3070_ti_8gb_gddr6x_oc_pcie.webp'
       ],
       details: vgaDetailsId
    })
@@ -24,26 +22,25 @@ export const createVgaProduct = async (vgaDetailsId: string): Promise<VgaType> =
 
 export const createVgaDetails = async (): Promise<VgaDetailsType> => {
    const vgaDetailsModel = new VgaDetails({
-      gpuManufacturer: 'AMD',
+      gpuManufacturer: 'Nvidia',
       pcieType: 'PCI-E 16x 4.0',
-      gpuBaseClock: 2534,
-      gpuPeakClock: 2622,
-      vramCapacity: 15,
-      vramType: 'GDDR6',
-      vramBandwidth: 192,
-      vramSpeed: 16,
-      powerConsuption: 230,
-      description:
-         'AMD RadeOn RX 6700 XT chipsettel, 12GB GDDR6 memóriával, 1 darab HDMI kimenettel, 3 darab DisplayPort kimenettel',
-      powerPin: '8-pin x 2',
+      gpuBaseClock: 1845,
+      gpuPeakClock: 1875,
+      vramCapacity: 8,
+      vramType: 'GDDR6X',
+      vramBandwidth: 256,
+      vramSpeed: 19,
+      powerConsuption: 318,
+      description: '',
+      powerPin: '8-pin x 3',
       warranity: 36,
       displayPort: 3,
       DVI: 0,
-      HDMI: 1,
-      minPowerSupply: 650,
-      length: 322,
-      manufacturerPageUrl: 'https://www.asus.com/Motherboards-Components/Graphics-Cards/TUF-Gaming/TUF-RX6700XT-O12G-GAMING/',
-      streamProcessors: 2560
+      HDMI: 2,
+      minPowerSupply: 750,
+      length: 318,
+      manufacturerPageUrl: 'https://rog.asus.com/graphics-cards/graphics-cards/rog-strix/rog-strix-rtx3070ti-o8g-gaming-model/',
+      streamProcessors: 3584
    })
    return await vgaDetailsModel.save()
 }

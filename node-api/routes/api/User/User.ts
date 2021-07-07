@@ -78,6 +78,8 @@ router.post('/check-access-token', authenticateAccessToken, (req: RequestWithUse
    return res.json({ msg: 'sikeres authentikáció' })
 })
 
+// https://www.freecodecamp.org/news/how-to-make-input-validation-simple-and-clean-in-your-express-js-app-ea9b5ff5a8a7/
+
 // https://auth0.com/blog/node-js-and-typescript-tutorial-secure-an-express-api/#Set-Up-an-Authorization-Service
 
 module.exports = router

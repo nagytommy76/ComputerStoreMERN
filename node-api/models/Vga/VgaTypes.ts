@@ -26,4 +26,6 @@ export type VgaDetailsType = {
    minPowerSupply?: string
    length?: number
    manufacturerPageUrl?: string
+   vramSpeed: number
+   streamProcessors: number
 }

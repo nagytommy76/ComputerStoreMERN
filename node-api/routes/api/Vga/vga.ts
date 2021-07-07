@@ -28,11 +28,8 @@ router.get('/', async (req: Request, res: Response) => {
       .catch((error) => console.log(error))
 })
 
-router.get('/:itemNumber', async (req, res) => {
-   // a details nélkülit találja meg
-   // const foundVga = await VgaProduct.findOne({ itemNumber: req.params.itemNumber })
+router.get('/vga-details/:itemNumber', async (req, res) => {
    const itemNumber = req.params?.itemNumber
-   // console.log(itemNumber)
    if (itemNumber) {
       await VgaProduct.findOne({ itemNumber })
          .populate('details')
