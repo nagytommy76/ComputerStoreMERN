@@ -9,7 +9,7 @@ const DropMenu: React.FC<Prop> = ({ reference }) => {
    return (
       <DropStyle ref={reference}>
          {/* <DropLinkItem>Alaplap</DropLinkItem> */}
-         <DropLinkItem to='vga'>Videókártya</DropLinkItem>
+         <DropLinkItem to='/vga'>Videókártya</DropLinkItem>
          {/* <DropLinkItem>Processzor</DropLinkItem>
          <DropLinkItem>Memória</DropLinkItem>
          <DropLinkItem>Merevlemez</DropLinkItem>

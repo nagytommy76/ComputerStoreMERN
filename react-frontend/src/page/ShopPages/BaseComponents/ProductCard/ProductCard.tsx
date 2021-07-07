@@ -1,7 +1,8 @@
 import React, { useRef, useState } from 'react'
 import { StyledCard, ImageContainer, Image, CardBody, SubTitleStyle, PriceStyle } from './CardStyle'
 import NumberFormat from 'react-number-format'
-import { VgaType } from '../../Vga/Vga'
+import { VgaType } from '../../Vga/VgaTypes'
+import { useHistory } from 'react-router'
 
 import styles from './CardExpand.module.css'
 import { CSSTransition } from 'react-transition-group'
@@ -10,12 +11,14 @@ import CardFooter from './CardFooter'
 const ProductCard: React.FC<VgaType> = ({ itemNumber, type, typeCode, manufacturer, price, pictureUrls }) => {
    const [isCardExpanded, setIsCardExpanded] = useState<boolean>(false)
    const [quantityToCart, setQuantityToCart] = useState<string>('1')
+   const history = useHistory()
    const expandRef = useRef(null)
    return (
       <StyledCard
          isCardExpanded={isCardExpanded}
          onMouseEnter={() => setIsCardExpanded(true)}
-         onMouseLeave={() => setIsCardExpanded(false)}>
+         onMouseLeave={() => setIsCardExpanded(false)}
+         onClick={() => history.push(`/vga-details/${itemNumber}`)}>
          <ImageContainer>
             <Image src={pictureUrls[0]} alt='' />
          </ImageContainer>

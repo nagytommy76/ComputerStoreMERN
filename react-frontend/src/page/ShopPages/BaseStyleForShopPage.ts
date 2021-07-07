@@ -1,6 +1,7 @@
 import styled from 'styled-components'
-import { navbarHeight } from '../../Navbar/NavbarStyles'
-import { CardWidth } from '../BaseComponents/ProductCard/CardStyle'
+import { navbarHeight } from '../Navbar/NavbarStyles'
+import { CardWidth } from './BaseComponents/ProductCard/CardStyle'
+
 export const PageContainer = styled.section`
    min-height: 100vh;
    width: 100%;

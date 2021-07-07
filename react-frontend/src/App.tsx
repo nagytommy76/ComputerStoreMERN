@@ -18,6 +18,7 @@ const Welcome = React.lazy(() => import('./page/Welcome/Welcome'))
 const Page404 = React.lazy(() => import('./page/404/Page404'))
 
 const Vga = React.lazy(() => import('./page/ShopPages/Vga/Vga'))
+const VgaDetails = React.lazy(() => import('./page/ShopPages/Vga/VgaDetails/VgaDetails'))
 
 axios.defaults.baseURL = 'http://localhost:5050/api'
 axios.defaults.headers['Content-Type'] = 'Application/json'
@@ -74,6 +75,7 @@ const App = () => {
                   <GuestRoute path='/login' component={Login} />
                   {/* <ProtectedRoute path='/vga' component={Vga} /> */}
                   <Route path='/vga' component={Vga} />
+                  <Route path='/vga-details/:vgaItemName' component={VgaDetails} />
                   <Route component={Page404} />
                </Switch>
             </React.Suspense>
