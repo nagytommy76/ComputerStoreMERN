@@ -1,13 +1,14 @@
-import express, { Request, Response } from 'express'
+import express from 'express'
 import { createVgaProduct, createVgaDetails } from './CreateVga'
 import { VgaDetailsType } from '../../../models/Vga/VgaTypes'
 const router = express.Router()
-import { VgaProduct } from '../../../models/Vga/VgaProduct'
+
+import { getAllVgaItemController, getSingleVgaItemByItemNumberController } from '../../../controllers/Vgas'
 
 // import { authenticateAccessToken } from '../../../middlewares/AuthenticateAccessOrRefreshTokens'
 // https://www.albertgao.xyz/2017/05/24/how-to-test-expressjs-with-jest-and-supertest/
 
-// Ez egy admin funkció lesz majd!!! /admin/addVga...
+// Ez egy admin funkció lesz majd!!! /admin/addVga... ADDIG ÁTMENETI
 router.post('/insert-vga', async (_, res) => {
    // console.log(req.body)
    await createVgaDetails()
@@ -19,31 +20,8 @@ router.post('/insert-vga', async (_, res) => {
       .catch((err) => res.json({ msg: err }))
 })
 
-router.get('/', async (req: Request, res: Response) => {
-   await VgaProduct.find({})
-      .then((allVgaProducts) => {
-         if (!allVgaProducts) return res.json({ message: 'Nem található VGA termék!' })
-         else return res.json(allVgaProducts)
-      })
-      .catch((error) => console.log(error))
-})
+router.get('/', getAllVgaItemController)
 
-router.get('/vga-details/:itemNumber', async (req, res) => {
-   const itemNumber = req.params?.itemNumber
-   if (itemNumber) {
-      await VgaProduct.findOne({ itemNumber })
-         .populate('details')
-         .then((foundVgaWithDetails) => {
-            if (!foundVgaWithDetails) {
-               res.json({ hasError: true, errorMsg: 'Vga item not found' })
-            } else {
-               res.json(foundVgaWithDetails)
-            }
-         })
-         .catch((err) => console.error(err))
-   } else {
-      res.status(404).json({ hasError: true, errorMsg: 'No parameters has been send' })
-   }
-})
+router.get('/vga-details/:itemNumber', getSingleVgaItemByItemNumberController)
 
 module.exports = router
