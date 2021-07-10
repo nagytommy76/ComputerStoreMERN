@@ -1,30 +1,61 @@
-import axios, { AxiosResponse } from 'axios'
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router'
-import { VgaDetailsPage, HeadSection } from './DetailsStyle'
-import { VgaType } from '../VgaTypes'
+import React from 'react'
+import {
+   VgaDetailsPage,
+   HeadSection,
+   LeftHeaderStyle,
+   TopHeaderTitle,
+   HorizontalLineStyle,
+   StyledNumberFormat,
+   WarranityStyle,
+   PriceAndCartStyle
+} from './DetailsStyle'
+import { useLocation } from 'react-router'
+import { vgaDetailType } from '../VgaTypes'
 import ImageSlider from './ImageSlider/ImageSlider'
+import { useAppSelector } from '../../../../app/hooks'
+
+import AddToCart from '../../BaseComponents/AddToCart/AddToCart'
 
 const VgaDetails = () => {
-   const { vgaItemName } = useParams<{ vgaItemName: string }>()
-   const [vgaDetails, setVgaDeatils] = useState<VgaType | null>(null)
-   useEffect(() => {
-      if (vgaItemName !== '') {
-         axios.get(`/vga/vga-details/${vgaItemName}`).then((vgaDetail: AxiosResponse<VgaType>) => {
-            if (vgaDetail) {
-               setVgaDeatils(vgaDetail.data)
-            }
-         })
-      }
-   }, [vgaItemName])
+   const {
+      state: { details, pictureUrls, type, manufacturer, price, typeCode }
+   } = useLocation<LocationType>()
+   const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
+
    return (
       <VgaDetailsPage>
          <HeadSection>
-            <ImageSlider images={vgaDetails?.pictureUrls} />
-            <h2>{vgaDetails?.details?.description}</h2>
+            <ImageSlider images={pictureUrls} />
+            <LeftHeaderStyle isDarkTheme={isDarkTheme}>
+               <TopHeaderTitle>
+                  {manufacturer} {type} {typeCode}
+               </TopHeaderTitle>
+               <HorizontalLineStyle />
+               <PriceAndCartStyle>
+                  <AddToCart />
+                  <StyledNumberFormat
+                     renderText={(value: number, props: any) => <h1 {...props}>{value}</h1>}
+                     value={price}
+                     thousandSeparator=' '
+                     suffix=' Ft'
+                     displayType='text'
+                  />
+               </PriceAndCartStyle>
+               <HorizontalLineStyle />
+               <WarranityStyle>{details.warranity} hónap gyári garanciával</WarranityStyle>
+            </LeftHeaderStyle>
          </HeadSection>
       </VgaDetailsPage>
    )
+}
+
+type LocationType = {
+   details: vgaDetailType
+   pictureUrls: string[]
+   type: string
+   manufacturer: string
+   price: number
+   typeCode: string
 }
 
 export default VgaDetails

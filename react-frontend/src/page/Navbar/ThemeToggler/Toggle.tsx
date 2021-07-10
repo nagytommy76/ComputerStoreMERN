@@ -16,8 +16,8 @@ const Toggle: React.FC = () => {
 
    return (
       <StyledToggle data-testid='toggler' lightTheme={currentTheme} onClick={toggleTheme}>
-         <Sun />
          <Moon />
+         <Sun />
       </StyledToggle>
    )
 }

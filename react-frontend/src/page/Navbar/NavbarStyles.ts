@@ -56,7 +56,7 @@ export const BrandStyle = styled(Link)`
    ${BaseStylingForUnderline}
 `
 export const DropdownBackground = styled.section`
-   z-index: 0;
+   z-index: 3;
    position: fixed;
    bottom: 0;
    width: 100%;

@@ -8,7 +8,7 @@ import BaseDropBackground from './DropMenu/BaseDrop/BaseDropBackground'
 import DropMenu from './DropMenu/ShopDropdown/DropMenu'
 import UserDrop from './DropMenu/UserDropdown/UserDrop'
 import Toggler from './ThemeToggler/Toggle'
-const LinkItem = React.lazy(() => import('./LinkItems/LinkItem'))
+import LinkItem from './LinkItems/LinkItem'
 
 const Navbar = () => {
    const userLoggedIn = useAppSelector((state) => state.auth.userLoggedIn)

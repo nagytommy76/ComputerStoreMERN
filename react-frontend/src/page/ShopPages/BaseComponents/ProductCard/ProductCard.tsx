@@ -8,21 +8,29 @@ import styles from './CardExpand.module.css'
 import { CSSTransition } from 'react-transition-group'
 import CardFooter from './CardFooter'
 
-const ProductCard: React.FC<VgaType> = ({ itemNumber, type, typeCode, manufacturer, price, pictureUrls }) => {
+const ProductCard: React.FC<VgaType> = ({ details, type, typeCode, manufacturer, price, pictureUrls }) => {
    const [isCardExpanded, setIsCardExpanded] = useState<boolean>(false)
    const [quantityToCart, setQuantityToCart] = useState<string>('1')
    const history = useHistory()
    const expandRef = useRef(null)
+
+   // Esetleg később ezt átadni mint prop, hogy dinamikus legyen
+   const routeToDetailsPage = () => {
+      history.push({
+         pathname: '/vga-details',
+         state: { details, pictureUrls, type, manufacturer, price, typeCode }
+      })
+   }
+
    return (
       <StyledCard
          isCardExpanded={isCardExpanded}
          onMouseEnter={() => setIsCardExpanded(true)}
-         onMouseLeave={() => setIsCardExpanded(false)}
-         onClick={() => history.push(`/vga-details/${itemNumber}`)}>
-         <ImageContainer>
+         onMouseLeave={() => setIsCardExpanded(false)}>
+         <ImageContainer onClick={() => routeToDetailsPage()}>
             <Image src={pictureUrls[0]} alt='' />
          </ImageContainer>
-         <CardBody>
+         <CardBody onClick={() => routeToDetailsPage()}>
             <SubTitleStyle>
                {manufacturer} {type} {typeCode}
             </SubTitleStyle>

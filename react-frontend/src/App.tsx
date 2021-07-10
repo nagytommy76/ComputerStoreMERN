@@ -3,7 +3,7 @@ import axios, { AxiosError } from 'axios'
 import { BrowserRouter, Switch, Route, useHistory } from 'react-router-dom'
 import Navbar from './page/Navbar/Navbar'
 import GuestRoute from './GuestRoute'
-// import ProtectedRoute from './ProtectedRoute'
+import ProtectedRoute from './ProtectedRoute'
 
 import { ThemeProvider } from 'styled-components'
 import { GlobalStyles } from './Theme/GlobalStyles'
@@ -67,15 +67,14 @@ const App = () => {
       <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
          <BrowserRouter>
             <GlobalStyles />
+            <Navbar />
             <React.Suspense fallback={<h1>Tötlés...</h1>}>
-               <Navbar />
                <Switch>
                   <Route path='/' exact component={Welcome} />
                   <GuestRoute path='/register' component={Register} />
                   <GuestRoute path='/login' component={Login} />
-                  {/* <ProtectedRoute path='/vga' component={Vga} /> */}
                   <Route path='/vga' component={Vga} />
-                  <Route path='/vga-details/:vgaItemName' component={VgaDetails} />
+                  <ProtectedRoute path='/vga-details' component={VgaDetails} />
                   <Route component={Page404} />
                </Switch>
             </React.Suspense>
