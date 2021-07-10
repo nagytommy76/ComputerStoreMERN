@@ -1,46 +1,40 @@
-import { VgaProduct, VgaDetails } from '../../../models/Vga/VgaProduct'
-import { VgaDetailsType, VgaType } from '../../../models/Vga/VgaTypes'
+import { VgaProduct } from '../../../models/Vga/VgaProduct'
+import { VgaType } from '../../../models/Vga/VgaTypes'
 
-export const createVgaProduct = async (vgaDetailsId: string): Promise<VgaType> => {
+export const createVgaProduct = async (): Promise<VgaType> => {
    const vga = new VgaProduct({
-      itemNumber: 'ASRTX3070TIROGOC',
-      type: 'RTX 3070 Ti 8GB GDDR6X OC',
-      typeCode: 'ROG-STRIX-RTX3070TI-O8G-GAMING',
-      manufacturer: 'ASUS',
-      price: 438800,
+      itemNumber: 'GIGGEFGTX1660SUPEROC',
+      type: 'GTX 1660 SUPER Gaming OC',
+      typeCode: 'GV-N166SGAMING OC-6GD',
+      manufacturer: 'Gigabyte',
+      price: 265000,
       pictureUrls: [
-         'https://media.icdn.hu/product/GalleryMod/2021-06/703476/resp/1657791_asus_rog_strix_rtx3070ti_o8g_gaming_rog_strix_geforce_rtx_3070_ti_8gb_gddr6x_oc_pcie.webp',
-         'https://media.icdn.hu/product/GalleryMod/2021-06/703476/resp/1657793_asus_rog_strix_rtx3070ti_o8g_gaming_rog_strix_geforce_rtx_3070_ti_8gb_gddr6x_oc_pcie.webp',
-         'https://media.icdn.hu/product/GalleryMod/2021-06/703476/resp/1657796_asus_rog_strix_rtx3070ti_o8g_gaming_rog_strix_geforce_rtx_3070_ti_8gb_gddr6x_oc_pcie.webp',
-         'https://media.icdn.hu/product/GalleryMod/2021-06/703476/resp/1657798_asus_rog_strix_rtx3070ti_o8g_gaming_rog_strix_geforce_rtx_3070_ti_8gb_gddr6x_oc_pcie.webp',
-         'https://media.icdn.hu/product/GalleryMod/2021-06/703476/resp/1657799_asus_rog_strix_rtx3070ti_o8g_gaming_rog_strix_geforce_rtx_3070_ti_8gb_gddr6x_oc_pcie.webp'
+         'https://www.techpowerup.com/review/gigabyte-geforce-gtx-1660-super-gaming-pro-oc/images/card1.jpg',
+         'https://www.techpowerup.com/review/gigabyte-geforce-gtx-1660-super-gaming-pro-oc/images/card4.jpg',
+         'https://www.techpowerup.com/review/gigabyte-geforce-gtx-1660-super-gaming-pro-oc/images/card5.jpg'
       ],
-      details: vgaDetailsId
+      details: {
+         gpuManufacturer: 'NVIDIA',
+         pcieType: 'PCI-E 16x 4.0',
+         gpuBaseClock: 1700,
+         gpuPeakClock: 1860,
+         vramCapacity: 6,
+         vramType: 'GDDR6',
+         vramBandwidth: 192,
+         vramSpeed: 14,
+         powerConsuption: 125,
+         description:
+            'NVIDIA GeForce GTX 1660 chipsettel, 6GB GDDR6 memóriával, 1 darab HDMI kimenettel, 3 darab DisplayPort kimenettel',
+         powerPin: '8-pin x 1',
+         warranity: 24,
+         displayPort: 3,
+         DVI: 0,
+         HDMI: 1,
+         minPowerSupply: 750,
+         length: 332,
+         manufacturerPageUrl: 'https://www.gigabyte.com/hu/Graphics-Card/GV-N166SGAMING-OC-6GD#kf',
+         streamProcessors: 2560
+      }
    })
    return await vga.save()
-}
-
-export const createVgaDetails = async (): Promise<VgaDetailsType> => {
-   const vgaDetailsModel = new VgaDetails({
-      gpuManufacturer: 'Nvidia',
-      pcieType: 'PCI-E 16x 4.0',
-      gpuBaseClock: 1845,
-      gpuPeakClock: 1875,
-      vramCapacity: 8,
-      vramType: 'GDDR6X',
-      vramBandwidth: 256,
-      vramSpeed: 19,
-      powerConsuption: 318,
-      description: '',
-      powerPin: '8-pin x 3',
-      warranity: 36,
-      displayPort: 3,
-      DVI: 0,
-      HDMI: 2,
-      minPowerSupply: 750,
-      length: 318,
-      manufacturerPageUrl: 'https://rog.asus.com/graphics-cards/graphics-cards/rog-strix/rog-strix-rtx3070ti-o8g-gaming-model/',
-      streamProcessors: 3584
-   })
-   return await vgaDetailsModel.save()
 }
