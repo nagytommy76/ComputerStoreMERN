@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { CardFooterStyle, FooterCartQuantityStyle, FooterCartAddToCart } from './CardStyle'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useAppDispatch } from '../../../../app/hooks'
+import { VgaContext } from '../../Vga/VgaContext/VgaContext'
+import { addToCart } from '../../../../app/slices/Cartslice'
 
 type Props = {
    reference: React.MutableRefObject<null>
@@ -9,8 +12,12 @@ type Props = {
 }
 
 const CardFooter: React.FC<Props> = ({ reference, quantityValue, changeEvent }) => {
+   const dispatch = useAppDispatch()
+   const { _id, productName, price } = useContext(VgaContext)
+
    const addItemToCart = () => {
       console.log(`kosárba helyezve: ${quantityValue} db`)
+      dispatch(addToCart({ _id, productName, price, itemQuantity: quantityValue }))
    }
    return (
       <CardFooterStyle ref={reference}>

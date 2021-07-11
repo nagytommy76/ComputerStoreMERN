@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import NumberFormat from 'react-number-format'
 import { navbarHeight } from '../../../Navbar/NavbarStyles'
 
-export const VgaDetailsPage = styled.section`
+export const DetailsPage = styled.section`
    min-height: 100vh;
    width: 85%;
    margin: calc(${navbarHeight} + 1.5rem) auto 0 auto;
@@ -17,7 +17,7 @@ export const HeadSection = styled.section`
    justify-content: center;
 `
 
-export const LeftHeaderStyle = styled.aside<{ isDarkTheme: boolean }>`
+export const RightHeaderStyle = styled.aside<{ isDarkTheme: boolean }>`
    transition: all 0.2s;
    margin: 0 1rem 0 1rem;
    flex: 1;
@@ -28,7 +28,7 @@ export const TopHeaderTitle = styled.h1`
    text-align: justify;
    margin: 0;
    padding: 2rem 0 2rem 0;
-   font-size: 2rem;
+   font-size: 2.2rem;
 `
 
 export const HorizontalLineStyle = styled.div`
@@ -40,6 +40,7 @@ export const PriceAndCartStyle = styled.div`
    flex-direction: row;
    justify-content: stretch;
    align-items: center;
+   padding: 1.2rem 0 1.2rem 0;
 `
 
 export const StyledNumberFormat = styled(NumberFormat)`
@@ -53,5 +54,5 @@ export const StyledNumberFormat = styled(NumberFormat)`
 export const WarranityStyle = styled.p`
    text-decoration: underline #ea9f00 solid 3px;
    margin: 1.2rem 0 1.2rem 0;
-   font-size: 1.1rem;
+   font-size: 1.3rem;
 `

@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { CardGridContainer, PageContainer } from '../BaseStyleForShopPage'
 import { VgaType } from './VgaTypes'
+import { VgaContext } from './VgaContext/VgaContext'
 
 const ProductCard = React.lazy(() => import('../BaseComponents/ProductCard/ProductCard'))
 
@@ -15,16 +16,24 @@ const Vga = () => {
          <CardGridContainer>
             {vgaProducts &&
                vgaProducts.map((product) => (
-                  <ProductCard
+                  <VgaContext.Provider
                      key={product._id}
-                     itemNumber={product.itemNumber}
-                     manufacturer={product.manufacturer}
-                     pictureUrls={product.pictureUrls}
-                     price={product.price}
-                     type={product.type}
-                     typeCode={product.typeCode}
-                     details={product.details}
-                  />
+                     value={{
+                        _id: product._id,
+                        productName: `${product.manufacturer} ${product.type} ${product.typeCode}`,
+                        price: product.price
+                     }}>
+                     <ProductCard
+                        _id={product._id}
+                        itemNumber={product.itemNumber}
+                        manufacturer={product.manufacturer}
+                        pictureUrls={product.pictureUrls}
+                        price={product.price}
+                        type={product.type}
+                        typeCode={product.typeCode}
+                        details={product.details}
+                     />
+                  </VgaContext.Provider>
                ))}
          </CardGridContainer>
       </PageContainer>

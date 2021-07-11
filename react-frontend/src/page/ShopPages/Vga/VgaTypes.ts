@@ -1,5 +1,5 @@
 export type VgaType = {
-   _id?: string
+   _id: string
    itemNumber: string
    type: string
    typeCode?: string
@@ -10,7 +10,6 @@ export type VgaType = {
 }
 
 export type vgaDetailType = {
-   _id: string
    gpuManufacturer: string
    pcieType: string
    gpuBaseClock: number
@@ -21,7 +20,7 @@ export type vgaDetailType = {
    powerConsuption: number
    description?: string
    powerPin?: string
-   warranity?: number
+   warranity: number
    displayPort?: number
    DVI?: number
    HDMI?: number
