@@ -3,7 +3,7 @@ import { CardFooterStyle, FooterCartQuantityStyle, FooterCartAddToCart } from '.
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useAppDispatch } from '../../../../app/hooks'
 import { VgaContext } from '../../Vga/VgaContext/VgaContext'
-import { addToCart } from '../../../../app/slices/Cartslice'
+import { addToCart, removeAllEntitesFromCart } from '../../../../app/slices/Cartslice'
 
 type Props = {
    reference: React.MutableRefObject<null>
@@ -19,11 +19,18 @@ const CardFooter: React.FC<Props> = ({ reference, quantityValue, changeEvent }) 
       console.log(`kosárba helyezve: ${quantityValue} db`)
       dispatch(addToCart({ _id, productName, price, itemQuantity: quantityValue }))
    }
+
+   const removeFromCart = () => {
+      dispatch(removeAllEntitesFromCart(_id))
+   }
    return (
       <CardFooterStyle ref={reference}>
          <FooterCartQuantityStyle value={quantityValue} type='number' onChange={changeEvent} />
          <FooterCartAddToCart onClick={addItemToCart}>
             <FontAwesomeIcon icon={['fas', 'cart-plus']} size='2x' />
+         </FooterCartAddToCart>
+         <FooterCartAddToCart onClick={removeFromCart}>
+            <FontAwesomeIcon icon={['fas', 'address-book']} size='1x' />
          </FooterCartAddToCart>
       </CardFooterStyle>
    )

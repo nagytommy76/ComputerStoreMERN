@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { NavStyle, BrandStyle, StyledUnorderedList, DropdownBackground } from './NavbarStyles'
-import { StyledListItems } from './LinkItems/LinkItemStyles'
+import { TogglerCartListItems } from './LinkItems/LinkItemStyles'
 import { useAppSelector } from '../../app/hooks'
 import BaseDrop from './DropMenu/BaseDrop/BaseDrop'
 import BaseDropBackground from './DropMenu/BaseDrop/BaseDropBackground'
@@ -38,9 +38,9 @@ const Navbar = () => {
                <BaseDrop text='Shop Menü' dropRef={shopDropRef} isDropOpen={isShopDropOpen} setIsDropOpen={setIsShopDropOpen}>
                   <DropMenu reference={shopDropRef} />
                </BaseDrop>
-               <StyledListItems>
+               <TogglerCartListItems>
                   <Toggler />
-               </StyledListItems>
+               </TogglerCartListItems>
             </StyledUnorderedList>
          </NavStyle>
          <BaseDropBackground isDropOpen={isShopDropOpen || isUserDropOpen} nodeRef={BackgroundRef}>
