@@ -2,8 +2,7 @@ import React, { useEffect } from 'react'
 import axios, { AxiosError } from 'axios'
 import { BrowserRouter, Switch, Route, useHistory } from 'react-router-dom'
 import Navbar from './page/Navbar/Navbar'
-import GuestRoute from './GuestRoute'
-import ProtectedRoute from './ProtectedRoute'
+import { ProtectedRoute, GuestsRoute } from './Routes/ProtectedRoute'
 
 import { ThemeProvider } from 'styled-components'
 import { GlobalStyles } from './Theme/GlobalStyles'
@@ -71,8 +70,8 @@ const App = () => {
             <React.Suspense fallback={<h1>Tötlés...</h1>}>
                <Switch>
                   <Route path='/' exact component={Welcome} />
-                  <GuestRoute path='/register' component={Register} />
-                  <GuestRoute path='/login' component={Login} />
+                  <GuestsRoute path='/register' component={Register} />
+                  <GuestsRoute path='/login' component={Login} />
                   <Route path='/vga' component={Vga} />
                   <ProtectedRoute path='/vga-details' component={VgaDetails} />
                   <Route component={Page404} />

@@ -33,12 +33,12 @@ export const CartSlice = createSlice({
 })
 
 const checkProductExistsInTheCart = (productId: string, StateCartItems: CartItemsType[]) => {
-   return StateCartItems.find((item: CartItemsType) => item._id == productId)
+   return StateCartItems.find((item: CartItemsType) => item._id === productId)
    //    return foundItemInCart !== undefined ? true : false
 }
 
 const searchForStartingIndexInState = (productId: string, StateCartItems: CartItemsType[]) => {
-   return StateCartItems.findIndex((item: CartItemsType) => item._id == productId)
+   return StateCartItems.findIndex((item: CartItemsType) => item._id === productId)
 }
 
 export const { addToCart } = CartSlice.actions
