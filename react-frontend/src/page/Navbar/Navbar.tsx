@@ -9,6 +9,7 @@ import DropMenu from './DropMenu/ShopDropdown/DropMenu'
 import UserDrop from './DropMenu/UserDropdown/UserDrop'
 import Toggler from './ThemeToggler/Toggle'
 import LinkItem from './LinkItems/LinkItem'
+import CartButton from './Cart/CartButton'
 
 const Navbar = () => {
    const userLoggedIn = useAppSelector((state) => state.auth.userLoggedIn)
@@ -42,6 +43,7 @@ const Navbar = () => {
                   <Toggler />
                </TogglerCartListItems>
             </StyledUnorderedList>
+            <CartButton />
          </NavStyle>
          <BaseDropBackground isDropOpen={isShopDropOpen || isUserDropOpen} nodeRef={BackgroundRef}>
             <DropdownBackground ref={BackgroundRef} />

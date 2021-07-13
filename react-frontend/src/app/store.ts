@@ -4,13 +4,13 @@ import storage from 'redux-persist/lib/storage'
 
 import authReducer from './slices/AuthSlice'
 import ThemeSlice from './slices/ThemeSlice'
-import Cartslice from './slices/Cartslice'
+import CartSlice from './slices/CartSlice'
 
 export const store = configureStore({
    reducer: {
       auth: persistReducer({ key: 'AuthUser', storage }, authReducer),
       theme: persistReducer({ key: 'Theme', storage }, ThemeSlice),
-      cart: persistReducer({ key: 'Cart', storage }, Cartslice)
+      cart: persistReducer({ key: 'Cart', storage }, CartSlice)
    },
    middleware: getDefaultMiddleware({
       serializableCheck: {

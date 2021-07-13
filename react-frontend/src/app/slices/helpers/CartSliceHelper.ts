@@ -21,10 +21,14 @@ export const searchForStartingIndexInStateCartItems = (productId: string, StateC
 
 // Amikor egy elemet adok a kosárhoz, és még nincs benne vagy már benne van.
 // Mindig újraszámolom...
-export const calculateTotalPrice = (stateCartItems: CartItemsType[]) => {
-   let price = 0
-   stateCartItems.map((cartItem) => (price += cartItem.price * cartItem.quantity))
-   return price
+export const calculateTotalPriceAndQuantity = (stateCartItems: CartItemsType[]) => {
+   let result = {
+      quantity: 0,
+      price: 0
+   }
+   stateCartItems.map((cartItem) => {
+      result.price += cartItem.price
+      result.quantity += cartItem.quantity
+   })
+   return result
 }
-
-export const calculateTotalQuantity = () => {}

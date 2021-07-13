@@ -5,7 +5,7 @@ import {
    searchForStartingIndexInStateCartItems,
    StateType,
    CartItemsType,
-   calculateTotalPrice
+   calculateTotalPriceAndQuantity
 } from './helpers/CartSliceHelper'
 
 const initialState: StateType = {
@@ -25,24 +25,37 @@ export const CartSlice = createSlice({
             price: action.payload.price,
             quantity: parseInt(action.payload.itemQuantity)
          }
+         const foundElementIndex = searchForStartingIndexInStateCartItems(action.payload._id, state.cartItems)
          let foundCartItemInState = checkProductExistsInTheCart(action.payload._id, state.cartItems)
-         if (foundCartItemInState !== undefined) {
+
+         if (foundElementIndex >= 0 && foundCartItemInState !== undefined) {
             //  Ha true akkor van ilyen elem és át kell írni a quantity-t
             // Megkeresni az ID alapján és annak a qty-jét módosítani
-            const foundElementIndex = searchForStartingIndexInStateCartItems(action.payload._id, state.cartItems)
+            // const foundElementIndex = searchForStartingIndexInStateCartItems(action.payload._id, state.cartItems)
+            // let foundCartItemInState = checkProductExistsInTheCart(action.payload._id, state.cartItems)
             singleCartItem.quantity = foundCartItemInState.quantity + parseInt(action.payload.itemQuantity)
             state.cartItems.splice(foundElementIndex, 1, singleCartItem)
-            state.totalPrice = calculateTotalPrice(state.cartItems)
+            const priceAndQuantity = calculateTotalPriceAndQuantity(state.cartItems)
+            state.totalPrice = priceAndQuantity.price
+            state.totalQuantity = priceAndQuantity.quantity
          } else {
             // Ha false, hozzáadni az objectet, a user által küldött qty-vel
             state.cartItems.push(singleCartItem)
-            state.totalPrice = calculateTotalPrice(state.cartItems)
+            const priceAndQuantity = calculateTotalPriceAndQuantity(state.cartItems)
+
+            state.totalPrice = priceAndQuantity.price
+            state.totalQuantity = priceAndQuantity.quantity
          }
       },
       removeAllEntitesFromCart: (state, action: PayloadAction<string>) => {
          const cartItemToDeleteIndex = searchForStartingIndexInStateCartItems(action.payload, state.cartItems)
-         state.cartItems.splice(cartItemToDeleteIndex, 1)
-         state.totalPrice = calculateTotalPrice(state.cartItems)
+         if (cartItemToDeleteIndex >= 0) {
+            state.cartItems.splice(cartItemToDeleteIndex, 1)
+
+            const priceAndQuantity = calculateTotalPriceAndQuantity(state.cartItems)
+            state.totalPrice = priceAndQuantity.price
+            state.totalQuantity = priceAndQuantity.quantity
+         }
       }
    }
 })
