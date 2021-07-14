@@ -9,6 +9,7 @@ export type CartItemsType = {
    productName: string
    quantity: number
    price: number
+   displayImage: string
 }
 
 export const checkProductExistsInTheCart = (productId: string, StateCartItems: CartItemsType[]) => {
@@ -26,7 +27,7 @@ export const calculateTotalPriceAndQuantity = (stateCartItems: CartItemsType[]) 
       quantity: 0,
       price: 0
    }
-   stateCartItems.map((cartItem) => {
+   stateCartItems.forEach((cartItem) => {
       result.price += cartItem.price
       result.quantity += cartItem.quantity
    })

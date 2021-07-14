@@ -10,15 +10,18 @@ import UserDrop from './DropMenu/UserDropdown/UserDrop'
 import Toggler from './ThemeToggler/Toggle'
 import LinkItem from './LinkItems/LinkItem'
 import CartButton from './Cart/CartButton'
+import CartSlide from './Cart/CartSlide'
 
 const Navbar = () => {
    const userLoggedIn = useAppSelector((state) => state.auth.userLoggedIn)
    const userName = useAppSelector((state) => state.auth.userName)
    const [isShopDropOpen, setIsShopDropOpen] = useState(false)
    const [isUserDropOpen, setIsUserDropOpen] = useState(false)
+   const [isCartOpen, setIsCartOpen] = useState(false)
    const userDropRef = useRef(null)
    const shopDropRef = useRef(null)
    const BackgroundRef = useRef(null)
+   const CartRef = useRef(null)
 
    const closeDrops = () => {
       setIsShopDropOpen(false)
@@ -43,10 +46,11 @@ const Navbar = () => {
                   <Toggler />
                </TogglerCartListItems>
             </StyledUnorderedList>
-            <CartButton />
+            <CartButton onClickEvent={() => setIsCartOpen(!isCartOpen)} />
+            <CartSlide isSlideOpen={isCartOpen} reference={CartRef} />
          </NavStyle>
-         <BaseDropBackground isDropOpen={isShopDropOpen || isUserDropOpen} nodeRef={BackgroundRef}>
-            <DropdownBackground ref={BackgroundRef} />
+         <BaseDropBackground isDropOpen={isShopDropOpen || isUserDropOpen || isCartOpen} nodeRef={BackgroundRef}>
+            <DropdownBackground onClick={() => setIsCartOpen(false)} ref={BackgroundRef} />
          </BaseDropBackground>
       </>
    )

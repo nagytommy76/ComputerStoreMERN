@@ -21,7 +21,8 @@ const Vga = () => {
                      value={{
                         _id: product._id,
                         productName: `${product.manufacturer} ${product.type} ${product.typeCode}`,
-                        price: product.price
+                        price: product.price,
+                        displayImage: product.pictureUrls[0]
                      }}>
                      <ProductCard
                         _id={product._id}

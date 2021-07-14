@@ -61,5 +61,5 @@ export const DropdownBackground = styled.section`
    bottom: 0;
    width: 100%;
    height: calc(100% - ${navbarHeight});
-   background-color: rgba(0, 0, 0, 0.5);
+   background-color: rgba(0, 0, 0, 0.6);
 `

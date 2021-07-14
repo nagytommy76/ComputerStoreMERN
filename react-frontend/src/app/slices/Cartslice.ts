@@ -18,12 +18,16 @@ export const CartSlice = createSlice({
    name: 'cart',
    initialState,
    reducers: {
-      addToCart: (state, action: PayloadAction<{ _id: string; productName: string; price: number; itemQuantity: string }>) => {
+      addToCart: (
+         state,
+         action: PayloadAction<{ _id: string; productName: string; price: number; itemQuantity: string; displayImage: string }>
+      ) => {
          let singleCartItem: CartItemsType = {
             _id: action.payload._id,
             productName: action.payload.productName,
             price: action.payload.price,
-            quantity: parseInt(action.payload.itemQuantity)
+            quantity: parseInt(action.payload.itemQuantity),
+            displayImage: action.payload.displayImage
          }
          const foundElementIndex = searchForStartingIndexInStateCartItems(action.payload._id, state.cartItems)
          let foundCartItemInState = checkProductExistsInTheCart(action.payload._id, state.cartItems)

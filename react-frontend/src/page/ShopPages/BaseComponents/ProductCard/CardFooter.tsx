@@ -13,10 +13,10 @@ type Props = {
 
 const CardFooter: React.FC<Props> = ({ reference, quantityValue, changeEvent }) => {
    const dispatch = useAppDispatch()
-   const { _id, productName, price } = useContext(VgaContext)
+   const { _id, productName, price, displayImage } = useContext(VgaContext)
 
    const addItemToCart = () => {
-      dispatch(addToCart({ _id, productName, price, itemQuantity: quantityValue }))
+      dispatch(addToCart({ _id, productName, price, itemQuantity: quantityValue, displayImage }))
    }
 
    const removeFromCart = () => {
