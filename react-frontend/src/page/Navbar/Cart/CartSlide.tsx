@@ -5,6 +5,8 @@ import { navbarHeight } from '../NavbarStyles'
 import { CSSTransition } from 'react-transition-group'
 import { useAppSelector } from '../../../app/hooks'
 
+import CartItem from './CartItem/CartItem'
+
 const CartSlide: React.FC<Props> = ({ isSlideOpen, reference }) => {
    const cartItems = useAppSelector((state) => state.cart.cartItems)
    return (
@@ -20,7 +22,19 @@ const CartSlide: React.FC<Props> = ({ isSlideOpen, reference }) => {
             exitActive: styles.SlideExitActive
          }}>
          <SlideStyle ref={reference}>
-            {cartItems.length > 0 ? <h1>{cartItems[0].productName}</h1> : <h4>Nincs termék a kosárban! :(</h4>}
+            {cartItems.length > 0 ? (
+               cartItems.map((item) => (
+                  <CartItem
+                     key={item._id}
+                     displayImage={item.displayImage}
+                     price={item.price}
+                     productName={item.productName}
+                     quantity={item.quantity}
+                  />
+               ))
+            ) : (
+               <h4>Nincs termék a kosárban!</h4>
+            )}
          </SlideStyle>
       </CSSTransition>
    )
@@ -32,13 +46,17 @@ type Props = {
 }
 
 const SlideStyle = styled.section`
-   width: 360px;
+   width: 400px;
    height: calc(100% - ${navbarHeight});
    color: black;
-   background-color: white;
+   background-color: #eee;
    position: fixed;
    right: 0;
    bottom: 0;
+
+   display: flex;
+   flex-direction: column;
+   align-items: center;
 `
 
 export default CartSlide
