@@ -14,22 +14,22 @@ const UserSchema = new Schema<UserTypes>({
       unique: true,
       lowercase: true
    },
-   isAdmin: { type: Boolean, default: false },
-   userDetails: { type: Schema.Types.ObjectId, ref: 'userdetails' }
-})
-
-const UserDetailsSchema = new Schema<UserDetailsTypes>({
-   firstName: { type: String, required: true },
-   phone: { type: String, required: true },
-   address: {
-      zipCode: { type: Number, required: true },
-      city: { type: String, required: true },
-      street: { type: String, required: true },
-      houseNumber: { type: String, required: true },
-      floor: String,
-      door: String
-   }
+   isAdmin: { type: Boolean, default: false }
+}).add({
+   userDetails: {
+      firstName: String,
+      lastName: String,
+      phone: String,
+      address: {
+         zipCode: Number,
+         city: String,
+         street: String,
+         houseNumber: String,
+         floor: String,
+         door: String
+      }
+   },
+   cartItems: [{ itemId: Schema.Types.ObjectId, quantity: Number }]
 })
 
 export const User = model<UserTypes>('user', UserSchema)
-export const UserDetails = model<UserDetailsTypes>('userdetails', UserDetailsSchema)

@@ -9,7 +9,8 @@ export type UserTypes = {
 }
 
 export type UserDetailsTypes = {
-   fullName: string
+   firstName: string
+   lastName: string
    phone: string
    address: {
       zipCode: number
