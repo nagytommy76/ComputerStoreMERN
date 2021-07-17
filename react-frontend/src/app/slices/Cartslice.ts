@@ -35,8 +35,6 @@ export const CartSlice = createSlice({
          if (foundElementIndex >= 0 && foundCartItemInState !== undefined) {
             //  Ha true akkor van ilyen elem és át kell írni a quantity-t
             // Megkeresni az ID alapján és annak a qty-jét módosítani
-            // const foundElementIndex = searchForStartingIndexInStateCartItems(action.payload._id, state.cartItems)
-            // let foundCartItemInState = checkProductExistsInTheCart(action.payload._id, state.cartItems)
             singleCartItem.quantity = foundCartItemInState.quantity + parseInt(action.payload.itemQuantity)
             state.cartItems.splice(foundElementIndex, 1, singleCartItem)
             const priceAndQuantity = calculateTotalPriceAndQuantity(state.cartItems)
@@ -60,7 +58,8 @@ export const CartSlice = createSlice({
             state.totalPrice = priceAndQuantity.price
             state.totalQuantity = priceAndQuantity.quantity
          }
-      }
+      },
+      increaseDecreaseItemQty: (state, action: PayloadAction<{ _id: string; newQuantity: number }>) => {}
    }
 })
 

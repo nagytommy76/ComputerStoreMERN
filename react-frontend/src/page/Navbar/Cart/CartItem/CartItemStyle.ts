@@ -30,6 +30,7 @@ export const StyledCartItem = styled.section`
    width: 85%;
    height: 140px;
    display: flex;
+   align-items: center;
    background-color: white;
 `
 
@@ -41,7 +42,7 @@ export const LeftImageContainerStyle = styled.div`
    display: flex;
    justify-content: center;
    align-items: center;
-   padding: 0.4rem;
+   padding: 0 0.4rem;
 `
 
 export const ImageStyle = styled.img`
@@ -58,5 +59,7 @@ export const PriceAndQuantityStyle = styled.div`
    display: flex;
    flex-direction: row;
    align-items: center;
+   justify-content: space-around;
    width: 100%;
+   font-weight: 600;
 `

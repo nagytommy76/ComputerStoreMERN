@@ -1,5 +1,6 @@
 import React from 'react'
 import NumberFormat from 'react-number-format'
+import Basket from './Basket'
 import {
    StyledCartItem,
    StyledCloseIcon,
@@ -8,24 +9,30 @@ import {
    ImageStyle,
    PriceAndQuantityStyle
 } from './CartItemStyle'
+import { useAppDispatch } from '../../../../app/hooks'
+import { removeAllEntitesFromCart } from '../../../../app/slices/CartSlice'
 
-const CartItem: React.FC<Props> = ({ productName, price, quantity, displayImage }) => (
-   <StyledCartItem>
-      <StyledCloseIcon>&#10007;</StyledCloseIcon>
-      <LeftImageContainerStyle>
-         <ImageStyle src={displayImage} alt='' />
-      </LeftImageContainerStyle>
-      <RightContentContainerStyle>
-         <p>{productName}</p>
-         <PriceAndQuantityStyle>
-            <NumberFormat value={price} thousandSeparator=' ' suffix=' Ft' displayType='text' />
-            <p>dsdsa</p>
-         </PriceAndQuantityStyle>
-      </RightContentContainerStyle>
-   </StyledCartItem>
-)
+const CartItem: React.FC<Props> = ({ id, productName, price, quantity, displayImage }) => {
+   const dispatch = useAppDispatch()
+   return (
+      <StyledCartItem>
+         <StyledCloseIcon onClick={() => dispatch(removeAllEntitesFromCart(id))}>&#10007;</StyledCloseIcon>
+         <LeftImageContainerStyle>
+            <ImageStyle src={displayImage} alt='' />
+         </LeftImageContainerStyle>
+         <RightContentContainerStyle>
+            <p>{productName}</p>
+            <PriceAndQuantityStyle>
+               <Basket quaintity={quantity} />
+               <NumberFormat value={price} thousandSeparator=' ' suffix=' Ft' displayType='text' />
+            </PriceAndQuantityStyle>
+         </RightContentContainerStyle>
+      </StyledCartItem>
+   )
+}
 
 type Props = {
+   id: string
    productName: string
    price: number
    quantity: number

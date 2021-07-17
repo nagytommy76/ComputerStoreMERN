@@ -4,11 +4,11 @@ import { NavbarCartButtonStyle, ItemsInCartStyle } from './CartButtonStyle'
 import { useAppSelector } from '../../../app/hooks'
 
 const CartButton: React.FC<Props> = ({ onClickEvent }) => {
-   const totalQuantity = useAppSelector((state) => state.cart.totalQuantity)
+   const { totalQuantity, cartItems } = useAppSelector((state) => state.cart)
 
    return (
       <NavbarCartButtonStyle onClick={onClickEvent}>
-         <ItemsInCartStyle>{totalQuantity}</ItemsInCartStyle>
+         {cartItems.length > 0 && <ItemsInCartStyle>{totalQuantity}</ItemsInCartStyle>}
          <FontAwesomeIcon icon={['fas', 'cart-arrow-down']} size='3x' />
       </NavbarCartButtonStyle>
    )

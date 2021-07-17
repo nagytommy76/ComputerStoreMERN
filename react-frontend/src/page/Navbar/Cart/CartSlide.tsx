@@ -26,8 +26,9 @@ const CartSlide: React.FC<Props> = ({ isSlideOpen, reference }) => {
                cartItems.map((item) => (
                   <CartItem
                      key={item._id}
+                     id={item._id}
                      displayImage={item.displayImage}
-                     price={item.price}
+                     price={item.price * item.quantity}
                      productName={item.productName}
                      quantity={item.quantity}
                   />
