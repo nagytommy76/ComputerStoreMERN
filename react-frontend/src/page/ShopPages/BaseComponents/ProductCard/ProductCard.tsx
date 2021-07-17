@@ -35,7 +35,7 @@ const ProductCard: React.FC<VgaType> = ({ details, type, typeCode, manufacturer,
          <CardBody onClick={() => routeToDetailsPage()}>
             <SubTitleStyle>{productName}</SubTitleStyle>
             <PriceStyle>
-               <NumberFormat value={price} displayType='text' thousandSeparator={true} suffix='Ft' />
+               <NumberFormat value={price} thousandSeparator=' ' suffix=' Ft' displayType='text' />
             </PriceStyle>
          </CardBody>
          <CSSTransition

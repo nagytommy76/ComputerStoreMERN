@@ -22,14 +22,27 @@ export const searchForStartingIndexInStateCartItems = (productId: string, StateC
 
 // Amikor egy elemet adok a kosárhoz, és még nincs benne vagy már benne van.
 // Mindig újraszámolom...
-export const calculateTotalPriceAndQuantity = (stateCartItems: CartItemsType[]) => {
+export const calculateTotalPriceAndQuantity = (state: StateType, stateCartItems?: CartItemsType[]) => {
    let result = {
       quantity: 0,
       price: 0
    }
-   stateCartItems.forEach((cartItem) => {
-      result.price += cartItem.price
+   state.cartItems.forEach((cartItem) => {
+      result.price += cartItem.price * cartItem.quantity
       result.quantity += cartItem.quantity
    })
-   return result
+   state.totalQuantity = result.quantity
+   state.totalPrice = result.price
+}
+
+export const increaseItemQtyByOne = (state: StateType, id: string, isIncrease: boolean = true) => {
+   const foundElementIndex = searchForStartingIndexInStateCartItems(id, state.cartItems)
+   let foundCartItemInState = checkProductExistsInTheCart(id, state.cartItems)
+   if (foundElementIndex >= 0 && foundCartItemInState !== undefined) {
+      if (isIncrease) foundCartItemInState.quantity++
+      if (!isIncrease && foundCartItemInState.quantity > 1) foundCartItemInState.quantity--
+
+      state.cartItems.splice(foundElementIndex, 1, foundCartItemInState)
+      calculateTotalPriceAndQuantity(state)
+   }
 }

@@ -5,7 +5,8 @@ import {
    searchForStartingIndexInStateCartItems,
    StateType,
    CartItemsType,
-   calculateTotalPriceAndQuantity
+   calculateTotalPriceAndQuantity,
+   increaseItemQtyByOne
 } from './helpers/CartSliceHelper'
 
 const initialState: StateType = {
@@ -37,31 +38,28 @@ export const CartSlice = createSlice({
             // Megkeresni az ID alapján és annak a qty-jét módosítani
             singleCartItem.quantity = foundCartItemInState.quantity + parseInt(action.payload.itemQuantity)
             state.cartItems.splice(foundElementIndex, 1, singleCartItem)
-            const priceAndQuantity = calculateTotalPriceAndQuantity(state.cartItems)
-            state.totalPrice = priceAndQuantity.price
-            state.totalQuantity = priceAndQuantity.quantity
+            calculateTotalPriceAndQuantity(state)
          } else {
             // Ha false, hozzáadni az objectet, a user által küldött qty-vel
             state.cartItems.push(singleCartItem)
-            const priceAndQuantity = calculateTotalPriceAndQuantity(state.cartItems)
-
-            state.totalPrice = priceAndQuantity.price
-            state.totalQuantity = priceAndQuantity.quantity
+            calculateTotalPriceAndQuantity(state)
          }
       },
       removeAllEntitesFromCart: (state, action: PayloadAction<string>) => {
          const cartItemToDeleteIndex = searchForStartingIndexInStateCartItems(action.payload, state.cartItems)
          if (cartItemToDeleteIndex >= 0) {
             state.cartItems.splice(cartItemToDeleteIndex, 1)
-
-            const priceAndQuantity = calculateTotalPriceAndQuantity(state.cartItems)
-            state.totalPrice = priceAndQuantity.price
-            state.totalQuantity = priceAndQuantity.quantity
+            calculateTotalPriceAndQuantity(state)
          }
       },
-      increaseDecreaseItemQty: (state, action: PayloadAction<{ _id: string; newQuantity: number }>) => {}
+      increaseItemQty: (state, action: PayloadAction<string>) => {
+         increaseItemQtyByOne(state, action.payload)
+      },
+      decreaseItemQty: (state, action: PayloadAction<string>) => {
+         increaseItemQtyByOne(state, action.payload, false)
+      }
    }
 })
 
-export const { addToCart, removeAllEntitesFromCart } = CartSlice.actions
+export const { addToCart, removeAllEntitesFromCart, increaseItemQty, decreaseItemQty } = CartSlice.actions
 export default CartSlice.reducer

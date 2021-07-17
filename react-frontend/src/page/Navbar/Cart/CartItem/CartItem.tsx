@@ -23,7 +23,7 @@ const CartItem: React.FC<Props> = ({ id, productName, price, quantity, displayIm
          <RightContentContainerStyle>
             <p>{productName}</p>
             <PriceAndQuantityStyle>
-               <Basket quaintity={quantity} />
+               <Basket quaintity={quantity} id={id} />
                <NumberFormat value={price} thousandSeparator=' ' suffix=' Ft' displayType='text' />
             </PriceAndQuantityStyle>
          </RightContentContainerStyle>
