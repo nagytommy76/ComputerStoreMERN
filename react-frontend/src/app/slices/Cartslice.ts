@@ -24,7 +24,7 @@ export const CartSlice = createSlice({
          action: PayloadAction<{ _id: string; productName: string; price: number; itemQuantity: string; displayImage: string }>
       ) => {
          let singleCartItem: CartItemsType = {
-            _id: action.payload._id,
+            itemId: action.payload._id,
             productName: action.payload.productName,
             price: action.payload.price,
             quantity: parseInt(action.payload.itemQuantity),

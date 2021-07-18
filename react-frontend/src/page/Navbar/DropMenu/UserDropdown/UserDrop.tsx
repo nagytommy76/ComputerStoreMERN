@@ -1,7 +1,7 @@
 import React from 'react'
 import { DropStyle, DropLinkItem } from '../DropMenuStyle'
 import { logoutUser } from '../../../../app/slices/AuthSlice'
-import { useAppDispatch } from '../../../../app/hooks'
+import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
 
 type Prop = {
    reference: React.MutableRefObject<null>
@@ -9,6 +9,7 @@ type Prop = {
 
 const DropMenu: React.FC<Prop> = ({ reference }) => {
    const dispatch = useAppDispatch()
+   const isAdmin = useAppSelector((state) => state.auth.isAdmin)
    const logout = () => {
       dispatch(logoutUser())
    }
@@ -17,6 +18,7 @@ const DropMenu: React.FC<Prop> = ({ reference }) => {
          <DropLinkItem onClick={logout} to=''>
             Kijelentkezés
          </DropLinkItem>
+         {isAdmin && <DropLinkItem to='/admin'>Admin Felület</DropLinkItem>}
       </DropStyle>
    )
 }

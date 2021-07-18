@@ -6,7 +6,7 @@ const Page404 = () => {
    return (
       <Container backgroundImage={notFoundImage}>
          <Cover>
-            <NotFoundText>A keresett oldal nem található</NotFoundText>
+            <NotFoundText>A keresett oldal sajnos nem található :(</NotFoundText>
          </Cover>
       </Container>
    )

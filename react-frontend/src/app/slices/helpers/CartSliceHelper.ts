@@ -5,7 +5,7 @@ export type StateType = {
 }
 
 export type CartItemsType = {
-   _id: string
+   itemId: string
    productName: string
    quantity: number
    price: number
@@ -13,11 +13,11 @@ export type CartItemsType = {
 }
 
 export const checkProductExistsInTheCart = (productId: string, StateCartItems: CartItemsType[]) => {
-   return StateCartItems.find((item: CartItemsType) => item._id === productId)
+   return StateCartItems.find((item: CartItemsType) => item.itemId === productId)
 }
 
 export const searchForStartingIndexInStateCartItems = (productId: string, StateCartItems: CartItemsType[]) => {
-   return StateCartItems.findIndex((item: CartItemsType) => item._id === productId)
+   return StateCartItems.findIndex((item: CartItemsType) => item.itemId === productId)
 }
 
 // Amikor egy elemet adok a kosárhoz, és még nincs benne vagy már benne van.

@@ -15,9 +15,15 @@ export const ProtectedRoute = ({ component: Component, ...rest }) => {
    return <Route {...rest} render={(props) => (state?.details ? <Component {...props} /> : history.goBack()) }/>
 }
 
-// Only guersts can visit these pages (login/register)
+// Only guests can visit these pages (login/register)
 export const GuestsRoute = ({ component: Component, ...rest }) => {
    const history = useHistory()
    const userLoggedIn = useAppSelector((state) => state.auth.userLoggedIn)
    return <Route {...rest} render={(props) => (!userLoggedIn ? <Component {...props} /> :history.goBack())} />
+}
+
+export const AdminRoute = ({ component: Component, ...rest }) => {
+   const history = useHistory()
+   const userIsAdmin = useAppSelector((state) => state.auth.isAdmin)
+   return <Route {...rest} render={(props) => (userIsAdmin ? <Component {...props} /> :history.goBack())} />
 }

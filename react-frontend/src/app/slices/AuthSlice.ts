@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export type LoginType = {
+   isAdmin: boolean
    userLoggedIn: boolean
    userName: string
    accessToken: string | null
@@ -8,6 +9,7 @@ export type LoginType = {
 }
 
 const initialState: LoginType = {
+   isAdmin: false,
    userLoggedIn: false,
    userName: '',
    accessToken: null,
@@ -30,7 +32,11 @@ export const AuthSlice = createSlice({
       setRefreshToken: (state, action: PayloadAction<string>) => {
          state.refreshToken = action.payload
       },
+      setAdmin: (state, action: PayloadAction<boolean>) => {
+         state.isAdmin = action.payload
+      },
       logoutUser: (state) => {
+         state.isAdmin = false
          state.accessToken = null
          state.refreshToken = null
          state.userLoggedIn = false
@@ -39,5 +45,5 @@ export const AuthSlice = createSlice({
    }
 })
 
-export const { setAccessToken, setUserLoggedIn, setUserName, logoutUser, setRefreshToken } = AuthSlice.actions
+export const { setAccessToken, setUserLoggedIn, setUserName, logoutUser, setRefreshToken, setAdmin } = AuthSlice.actions
 export default AuthSlice.reducer

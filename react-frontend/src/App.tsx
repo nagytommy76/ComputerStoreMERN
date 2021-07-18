@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import axios, { AxiosError } from 'axios'
 import { BrowserRouter, Switch, Route, useHistory } from 'react-router-dom'
 import Navbar from './page/Navbar/Navbar'
-import { ProtectedRoute, GuestsRoute } from './Routes/ProtectedRoute'
+import { ProtectedRoute, GuestsRoute, AdminRoute } from './Routes/ProtectedRoute'
 
 import { ThemeProvider } from 'styled-components'
 import { GlobalStyles } from './Theme/GlobalStyles'
@@ -18,6 +18,7 @@ const Page404 = React.lazy(() => import('./page/404/Page404'))
 
 const Vga = React.lazy(() => import('./page/ShopPages/Vga/Vga'))
 const VgaDetails = React.lazy(() => import('./page/ShopPages/Vga/VgaDetails/VgaDetails'))
+const Admin = React.lazy(() => import('./page/Admin/Admin'))
 
 axios.defaults.baseURL = 'http://localhost:5050/api'
 axios.defaults.headers['Content-Type'] = 'Application/json'
@@ -74,6 +75,7 @@ const App = () => {
                   <GuestsRoute path='/login' component={Login} />
                   <Route path='/vga' component={Vga} />
                   <ProtectedRoute path='/vga-details' component={VgaDetails} />
+                  <AdminRoute path='/admin' component={Admin} />
                   <Route component={Page404} />
                </Switch>
             </React.Suspense>

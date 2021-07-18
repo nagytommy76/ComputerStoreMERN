@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { ImageStyle, AuthContainer, AuthFormStyle } from '../BaseForm/BaseStyle'
 import loginImage from './login.jpg'
 import { InputTypes } from '../Register/Register'
-import { setUserLoggedIn, setAccessToken, setUserName, setRefreshToken } from '../../../app/slices/AuthSlice'
+import { setUserLoggedIn, setAccessToken, setUserName, setRefreshToken, setAdmin } from '../../../app/slices/AuthSlice'
 import { useAppDispatch } from '../../../app/hooks'
 import { useHistory } from 'react-router'
 
@@ -30,6 +30,7 @@ const Login = () => {
                dispatch(setAccessToken(response.data.accessToken))
                dispatch(setRefreshToken(response.data.refreshToken))
                dispatch(setUserName(response.data.userName))
+               if (response.data.isAdmin) dispatch(setAdmin(true))
                history.push('/')
             }
          })
