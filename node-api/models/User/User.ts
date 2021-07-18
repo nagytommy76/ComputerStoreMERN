@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose'
-import { UserTypes, UserDetailsTypes } from './UserTypes'
+import { UserTypes } from './UserTypes'
 
 const UserSchema = new Schema<UserTypes>({
    userName: { type: String, required: true },
@@ -29,7 +29,7 @@ const UserSchema = new Schema<UserTypes>({
          door: String
       }
    },
-   cartItems: [{ itemId: Schema.Types.ObjectId, quantity: Number }]
+   cartItems: [{ itemId: Schema.Types.ObjectId, productName: String, quantity: Number, price: Number, displayImage: String }]
 })
 
 export const User = model<UserTypes>('user', UserSchema)

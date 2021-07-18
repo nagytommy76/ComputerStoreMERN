@@ -3,6 +3,7 @@ export type UserTypes = {
    email: string
    password: string
    isAdmin: boolean
+   cartItems?: CartItemsType
    _id: string
    iat?: number
    exp?: number
@@ -20,4 +21,12 @@ export type UserDetailsTypes = {
       floor?: string
       door?: string
    }
+}
+
+type CartItemsType = {
+   itemId: string
+   productName: string
+   quantity: number
+   price: number
+   displayImage: string
 }
