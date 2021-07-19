@@ -12,7 +12,8 @@ const SideMenu = () => {
 }
 
 const SideMenuStyle = styled.section`
-   width: 250px;
+   width: 300px;
+   position: relative;
    /* height: calc(100% - ${navbarHeight}); */
    /* position: fixed; */
    /* left: 0;
