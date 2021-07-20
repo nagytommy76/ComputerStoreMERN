@@ -24,7 +24,7 @@ export type vgaDetailType = {
    displayPort?: number
    DVI?: number
    HDMI?: number
-   minPowerSupply?: string
+   minPowerSupply?: number
    length?: number
    manufacturerPageUrl?: string
    vramSpeed: number

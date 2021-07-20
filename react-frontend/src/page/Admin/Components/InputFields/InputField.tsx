@@ -1,24 +1,14 @@
 import React, { ChangeEvent } from 'react'
-import styled from 'styled-components'
+import { InputContainer, InputFieldStyle, StyledLabel } from './InputStyle'
 
 const InputField: React.FC<Props> = ({ labelText, inputType = 'text', onChangeEvent, value }) => {
    return (
-      <InputFieldStyle>
+      <InputContainer>
          <StyledLabel htmlFor={labelText}>{labelText}</StyledLabel>
-         <input id={labelText} type={inputType} onChange={onChangeEvent} value={value} />
-      </InputFieldStyle>
+         <InputFieldStyle id={labelText} type={inputType} onChange={onChangeEvent} value={value} />
+      </InputContainer>
    )
 }
-
-const InputFieldStyle = styled.div`
-   display: flex;
-   flex-direction: column;
-`
-
-const StyledLabel = styled.label`
-   margin: 0.5rem 0;
-   font-size: 1.1rem;
-`
 
 type Props = {
    labelText: string

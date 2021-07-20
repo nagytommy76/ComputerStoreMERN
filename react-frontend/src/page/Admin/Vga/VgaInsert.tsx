@@ -1,9 +1,65 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import InputField from '../Components/InputField/InputField'
+// import { VgaType } from '../../ShopPages/Vga/VgaTypes'
+import InputField from '../Components/InputFields/InputField'
 
 const AdminVga = () => {
    const [itemNumber, setItemNumber] = useState('')
+   const [pictureUrls, setPictureUrls] = useState([])
+   const [type, setType] = useState('')
+   const [typeCode, setTypeCode] = useState('')
+   const [manufacturer, setManufacturer] = useState('')
+   const [price, setPrice] = useState(0)
+   // Details
+   const [gpuManufacturer, setGpuManufacturer] = useState('')
+   const [pcieType, setPcieType] = useState('')
+   const [gpuBaseClock, setGpuBaseClock] = useState(0)
+   const [gpuPeakClock, setGpuPeakClock] = useState(0)
+   const [vramCapacity, setVramCapacity] = useState(0)
+   const [vramType, setVramType] = useState('')
+   const [vramBandwidth, setVramBandwidth] = useState(0)
+   const [vramSpeed, setVramSpeed] = useState(0)
+   const [powerConsuption, setPowerConsuption] = useState(0)
+   const [description, setDescription] = useState('')
+   const [powerPin, setPowerPin] = useState('')
+   const [warranity, setWarranity] = useState(0)
+   const [displayPort, setDisplayPort] = useState(0)
+   const [DVI, setDVI] = useState(0)
+   const [HDMI, setHDMI] = useState(0)
+   const [minPowerSupply, setMinPowerSupply] = useState(0)
+   const [length, setLength] = useState(0)
+   const [manufacturerPageUrl, setManufacturerPageUrl] = useState('')
+   const [streamProcessors, setStreamProcessors] = useState(0)
+
+   // const [vgaItem, setVgaItem] = useState<VgaType>({
+   //    itemNumber: '',
+   //    pictureUrls: [],
+   //    type: '',
+   //    typeCode: '',
+   //    manufacturer: '',
+   //    price: 0,
+   //    details: {
+   //       gpuManufacturer: '',
+   //       pcieType: '',
+   //       gpuBaseClock: 0,
+   //       gpuPeakClock: 0,
+   //       vramCapacity: 0,
+   //       vramSpeed: 0,
+   //       vramBandwidth: 0,
+   //       vramType: '',
+   //       powerConsuption: 0,
+   //       description: '',
+   //       powerPin: '',
+   //       warranity: 0,
+   //       displayPort: 0,
+   //       DVI: 0,
+   //       HDMI: 0,
+   //       minPowerSupply: 0,
+   //       length: 0,
+   //       manufacturerPageUrl: '',
+   //       streamProcessors: 0
+   //    }
+   // })
    const insertVga = (event: React.FormEvent) => {
       event.preventDefault()
       console.log('vga bevitele')
@@ -12,11 +68,25 @@ const AdminVga = () => {
       <StyledForm onSubmit={insertVga}>
          <FormContainerStyle>
             <InputField labelText='Termék kód' onChangeEvent={(event) => setItemNumber(event.target.value)} value={itemNumber} />
-            <InputField labelText='Termék kód' onChangeEvent={(event) => setItemNumber(event.target.value)} value={itemNumber} />
-            <InputField labelText='Termék kód' onChangeEvent={(event) => setItemNumber(event.target.value)} value={itemNumber} />
-            <InputField labelText='Termék kód' onChangeEvent={(event) => setItemNumber(event.target.value)} value={itemNumber} />
-            <InputField labelText='Termék kód' onChangeEvent={(event) => setItemNumber(event.target.value)} value={itemNumber} />
-            <InputField labelText='Termék kód' onChangeEvent={(event) => setItemNumber(event.target.value)} value={itemNumber} />
+            <InputField labelText='Típus név' onChangeEvent={(event) => setType(event.target.value)} value={type} />
+            <InputField labelText='Typus kód' onChangeEvent={(event) => setTypeCode(event.target.value)} value={typeCode} />
+            <InputField
+               labelText='Vga gyártó'
+               onChangeEvent={(event) => setManufacturer(event.target.value)}
+               value={manufacturer}
+            />
+            <InputField
+               inputType='number'
+               labelText='Ár'
+               onChangeEvent={(event) => setPrice(parseInt(event.target.value))}
+               value={price}
+            />
+            {/* Details */}
+            <InputField
+               labelText='Gpu gyártó'
+               onChangeEvent={(event) => setGpuManufacturer(event.target.value)}
+               value={gpuManufacturer}
+            />
             <InputField labelText='Termék kód' onChangeEvent={(event) => setItemNumber(event.target.value)} value={itemNumber} />
             <InputField labelText='Termék kód' onChangeEvent={(event) => setItemNumber(event.target.value)} value={itemNumber} />
             <InputField labelText='Termék kód' onChangeEvent={(event) => setItemNumber(event.target.value)} value={itemNumber} />
