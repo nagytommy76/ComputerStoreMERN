@@ -2,10 +2,16 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 // import { VgaType } from '../../ShopPages/Vga/VgaTypes'
 import InputField from '../Components/InputFields/InputField'
+import PicUrlInput from '../Components/InputFields/PicUrlInput/PicUrlInput'
+
+export type PictureUrlType = {
+   id: string
+   pictureUrl: string
+}
 
 const AdminVga = () => {
    const [itemNumber, setItemNumber] = useState('')
-   const [pictureUrls, setPictureUrls] = useState([])
+   const [pictureUrls, setPictureUrls] = useState<PictureUrlType[]>([{ id: '1', pictureUrl: 'dsasda' }])
    const [type, setType] = useState('')
    const [typeCode, setTypeCode] = useState('')
    const [manufacturer, setManufacturer] = useState('')
@@ -31,35 +37,6 @@ const AdminVga = () => {
    const [manufacturerPageUrl, setManufacturerPageUrl] = useState('')
    const [streamProcessors, setStreamProcessors] = useState(0)
 
-   // const [vgaItem, setVgaItem] = useState<VgaType>({
-   //    itemNumber: '',
-   //    pictureUrls: [],
-   //    type: '',
-   //    typeCode: '',
-   //    manufacturer: '',
-   //    price: 0,
-   //    details: {
-   //       gpuManufacturer: '',
-   //       pcieType: '',
-   //       gpuBaseClock: 0,
-   //       gpuPeakClock: 0,
-   //       vramCapacity: 0,
-   //       vramSpeed: 0,
-   //       vramBandwidth: 0,
-   //       vramType: '',
-   //       powerConsuption: 0,
-   //       description: '',
-   //       powerPin: '',
-   //       warranity: 0,
-   //       displayPort: 0,
-   //       DVI: 0,
-   //       HDMI: 0,
-   //       minPowerSupply: 0,
-   //       length: 0,
-   //       manufacturerPageUrl: '',
-   //       streamProcessors: 0
-   //    }
-   // })
    const insertVga = (event: React.FormEvent) => {
       event.preventDefault()
       console.log('vga bevitele')
@@ -69,7 +46,7 @@ const AdminVga = () => {
          <FormContainerStyle>
             <InputField labelText='Termék kód' onChangeEvent={(event) => setItemNumber(event.target.value)} value={itemNumber} />
             <InputField labelText='Típus név' onChangeEvent={(event) => setType(event.target.value)} value={type} />
-            <InputField labelText='Typus kód' onChangeEvent={(event) => setTypeCode(event.target.value)} value={typeCode} />
+            <InputField labelText='Típus kód' onChangeEvent={(event) => setTypeCode(event.target.value)} value={typeCode} />
             <InputField
                labelText='Vga gyártó'
                onChangeEvent={(event) => setManufacturer(event.target.value)}
@@ -91,6 +68,10 @@ const AdminVga = () => {
             <InputField labelText='Termék kód' onChangeEvent={(event) => setItemNumber(event.target.value)} value={itemNumber} />
             <InputField labelText='Termék kód' onChangeEvent={(event) => setItemNumber(event.target.value)} value={itemNumber} />
          </FormContainerStyle>
+         <FullWidhtContainerStyle>
+            <p>Kép Url</p>
+            <PicUrlInput setPictureUrls={() => setPictureUrls} pictureUrls={pictureUrls}></PicUrlInput>
+         </FullWidhtContainerStyle>
       </StyledForm>
    )
 }
@@ -107,6 +88,11 @@ const FormContainerStyle = styled.section`
    justify-content: center;
    row-gap: 2rem;
    column-gap: 1rem;
+`
+
+const FullWidhtContainerStyle = styled.section`
+   width: 90%;
+   margin: auto;
 `
 
 export default AdminVga
