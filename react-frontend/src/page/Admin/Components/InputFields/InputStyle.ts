@@ -12,12 +12,11 @@ export const StyledLabel = styled.label`
 `
 
 export const InputFieldStyle = styled.input`
+   width: 90%;
    border: 1px solid hsla(0, 0%, 60%, 0.4);
    border-radius: 4px;
    padding: 0.6rem;
    font-size: 1.1rem;
    outline: none;
-   /* &:focus {
-      border: 2px solid hsla(0, 0% 20%, 0.9);
-   } */
+   margin: 0.3rem 0;
 `

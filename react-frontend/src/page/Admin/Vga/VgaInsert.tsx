@@ -11,7 +11,7 @@ export type PictureUrlType = {
 
 const AdminVga = () => {
    const [itemNumber, setItemNumber] = useState('')
-   const [pictureUrls, setPictureUrls] = useState<PictureUrlType[]>([{ id: '1', pictureUrl: 'dsasda' }])
+   const [pictureUrls, setPictureUrls] = useState<PictureUrlType[]>([])
    const [type, setType] = useState('')
    const [typeCode, setTypeCode] = useState('')
    const [manufacturer, setManufacturer] = useState('')
@@ -70,7 +70,7 @@ const AdminVga = () => {
          </FormContainerStyle>
          <FullWidhtContainerStyle>
             <p>Kép Url</p>
-            <PicUrlInput setPictureUrls={() => setPictureUrls} pictureUrls={pictureUrls}></PicUrlInput>
+            <PicUrlInput setPictureUrls={setPictureUrls} pictureUrls={pictureUrls}></PicUrlInput>
          </FullWidhtContainerStyle>
       </StyledForm>
    )
