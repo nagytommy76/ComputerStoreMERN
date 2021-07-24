@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import axios, { AxiosError } from 'axios'
+import { AxiosSetup } from './AxiosSetup/AxiosSetup'
 import { BrowserRouter, Switch, Route, useHistory } from 'react-router-dom'
 import Navbar from './page/Navbar/Navbar'
 import { ProtectedRoute, GuestsRoute, AdminRoute } from './Routes/ProtectedRoute'
@@ -20,8 +21,8 @@ const Vga = React.lazy(() => import('./page/ShopPages/Vga/Vga'))
 const VgaDetails = React.lazy(() => import('./page/ShopPages/Vga/VgaDetails/VgaDetails'))
 const Admin = React.lazy(() => import('./page/Admin/Admin'))
 
-axios.defaults.baseURL = 'http://localhost:5050/api'
-axios.defaults.headers['Content-Type'] = 'Application/json'
+// axios.defaults.baseURL = 'http://localhost:5050/api'
+// axios.defaults.headers['Content-Type'] = 'Application/json'
 // https://lewiskori.com/blog/how-to-auto-refresh-jwts-using-axios-interceptors/
 const App = () => {
    const dispatch = useAppDispatch()
@@ -32,36 +33,37 @@ const App = () => {
    const accessToken = useAppSelector((state) => state.auth.accessToken)
    const refreshToken = useAppSelector((state) => state.auth.refreshToken)
    const isUserLoggedIn = useAppSelector((state) => state.auth.userLoggedIn)
-   useEffect(() => {
-      // https://medium.com/swlh/authentication-using-jwt-and-refresh-token-part-2-a86150d25152
-      if (isUserLoggedIn) {
-         axios.defaults.headers.common['Authorization'] = `Barer ${accessToken}`
-         axios
-            .post('/auth/check-access-token')
-            .then(() => {})
-            .catch((error: AxiosError) => {
-               // Ha 403/Forbidden a response akkor lejárt
-               if (error.response?.status === 403) {
-                  axios
-                     .post('/auth/refresh-token', {
-                        refreshToken
-                     })
-                     // Kapunk egy új access tokent
-                     .then((newAccessToken) => {
-                        dispatch(setAccessToken(newAccessToken.data))
-                        axios.defaults.headers.common['Authorization'] = `Barer ${accessToken}`
-                     })
-                     // Lejárt a refresh token, be kell lépni újra
-                     .catch((refreshTokenExpiredError: AxiosError) => {
-                        if (refreshTokenExpiredError.response?.status === 403) {
-                           dispatch(logoutUser())
-                           history?.push('/login')
-                        }
-                     })
-               }
-            })
-      }
-   }, [accessToken, dispatch, history, isUserLoggedIn, refreshToken])
+   AxiosSetup(accessToken, refreshToken)
+   // useEffect(() => {
+   //    // https://medium.com/swlh/authentication-using-jwt-and-refresh-token-part-2-a86150d25152
+   //    if (isUserLoggedIn) {
+   //       axios.defaults.headers.common['Authorization'] = `Barer ${accessToken}`
+   //       axios
+   //          .post('/auth/check-access-token')
+   //          .then(() => {})
+   //          .catch((error: AxiosError) => {
+   //             // Ha 403/Forbidden a response akkor lejárt
+   //             if (error.response?.status === 403) {
+   //                axios
+   //                   .post('/auth/refresh-token', {
+   //                      refreshToken
+   //                   })
+   //                   // Kapunk egy új access tokent
+   //                   .then((newAccessToken) => {
+   //                      dispatch(setAccessToken(newAccessToken.data))
+   //                      axios.defaults.headers.common['Authorization'] = `Barer ${accessToken}`
+   //                   })
+   //                   // Lejárt a refresh token, be kell lépni újra
+   //                   .catch((refreshTokenExpiredError: AxiosError) => {
+   //                      if (refreshTokenExpiredError.response?.status === 403) {
+   //                         dispatch(logoutUser())
+   //                         history?.push('/login')
+   //                      }
+   //                   })
+   //             }
+   //          })
+   //    }
+   // }, [accessToken, dispatch, history, isUserLoggedIn, refreshToken])
    const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
    return (
       <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
