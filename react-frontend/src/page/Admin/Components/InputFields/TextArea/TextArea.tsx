@@ -12,7 +12,7 @@ const TextArea: React.FC<Props> = ({ labelText, value, onChangeEvent }) => {
 
 type Props = {
    labelText: string
-   value: string
+   value: string | undefined
    onChangeEvent: (event: ChangeEvent<HTMLTextAreaElement>) => void
 }
 

@@ -22,7 +22,7 @@ const Admin = React.lazy(() => import('./page/Admin/Admin'))
 
 axios.defaults.baseURL = 'http://localhost:5050/api'
 axios.defaults.headers['Content-Type'] = 'Application/json'
-
+// https://lewiskori.com/blog/how-to-auto-refresh-jwts-using-axios-interceptors/
 const App = () => {
    const dispatch = useAppDispatch()
    const history = useHistory()

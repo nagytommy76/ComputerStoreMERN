@@ -14,7 +14,7 @@ type Props = {
    labelText: string
    inputType?: string
    onChangeEvent: (event: ChangeEvent<HTMLInputElement>) => void
-   value: string | number
+   value: string | number | undefined
 }
 
 export default TextOrNumberInput

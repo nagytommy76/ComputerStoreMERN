@@ -6,7 +6,7 @@ export type VgaType = {
    manufacturer: string
    price: number
    pictureUrls: string[]
-   details?: vgaDetailType
+   details: vgaDetailType
 }
 
 export type vgaDetailType = {

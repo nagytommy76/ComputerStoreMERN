@@ -4,6 +4,8 @@ import TextOrNumberInput from '../Components/InputFields/TextOrNumberInput'
 import PicUrlInput from '../Components/InputFields/PicUrlInput/PicUrlInput'
 import TextArea from '../Components/InputFields/TextArea/TextArea'
 import SubmitButton from '../Components/InputFields/SubmitButton/SubmitButton'
+import axios from 'axios'
+import { VgaType } from '../../ShopPages/Vga/VgaTypes'
 
 export type PictureUrlType = {
    id: string
@@ -11,35 +13,45 @@ export type PictureUrlType = {
 }
 
 const AdminVga = () => {
-   const [itemNumber, setItemNumber] = useState('')
    const [pictureUrls, setPictureUrls] = useState<PictureUrlType[]>([])
-   const [type, setType] = useState('')
-   const [typeCode, setTypeCode] = useState('')
-   const [manufacturer, setManufacturer] = useState('')
-   const [price, setPrice] = useState(0)
-   // Details
-   const [gpuManufacturer, setGpuManufacturer] = useState('')
-   const [pcieType, setPcieType] = useState('')
-   const [gpuBaseClock, setGpuBaseClock] = useState(0)
-   const [gpuPeakClock, setGpuPeakClock] = useState(0)
-   const [vramCapacity, setVramCapacity] = useState(0)
-   const [vramType, setVramType] = useState('')
-   const [vramBandwidth, setVramBandwidth] = useState(0)
-   const [vramSpeed, setVramSpeed] = useState(0)
-   const [powerConsuption, setPowerConsuption] = useState(0)
-   const [description, setDescription] = useState('')
-   const [powerPin, setPowerPin] = useState('')
-   const [warranity, setWarranity] = useState(0)
-   const [displayPort, setDisplayPort] = useState(0)
-   const [DVI, setDVI] = useState(0)
-   const [HDMI, setHDMI] = useState(0)
-   const [minPowerSupply, setMinPowerSupply] = useState(0)
-   const [length, setLength] = useState(0)
-   const [manufacturerPageUrl, setManufacturerPageUrl] = useState('')
-   const [streamProcessors, setStreamProcessors] = useState(0)
+   const [vgaProduct, setVgaProduct] = useState<VgaType>({
+      _id: '',
+      itemNumber: '',
+      type: '',
+      typeCode: '',
+      pictureUrls: [],
+      manufacturer: '',
+      price: 0,
+      details: {
+         gpuManufacturer: '',
+         pcieType: '',
+         gpuBaseClock: 0,
+         gpuPeakClock: 0,
+         vramCapacity: 0,
+         vramType: '',
+         vramBandwidth: 0,
+         vramSpeed: 0,
+         powerConsuption: 0,
+         description: '',
+         powerPin: '',
+         warranity: 0,
+         displayPort: 0,
+         DVI: 0,
+         HDMI: 0,
+         minPowerSupply: 0,
+         manufacturerPageUrl: '',
+         streamProcessors: 0
+      }
+   })
 
    const insertVga = (event: React.FormEvent) => {
       event.preventDefault()
+      const filteredPicUrls = pictureUrls.map((x) => x.pictureUrl)
+      axios
+         .post('admin/vga/insert', {
+            vgaProduct: { ...vgaProduct, pictureUrls: filteredPicUrls }
+         })
+         .then((result) => console.log(result))
       console.log('vga bevitele')
    }
    return (
@@ -47,134 +59,192 @@ const AdminVga = () => {
          <FormContainerStyle>
             <TextOrNumberInput
                labelText='Termék kód'
-               onChangeEvent={(event) => setItemNumber(event.target.value)}
-               value={itemNumber}
+               onChangeEvent={(event) => setVgaProduct({ ...vgaProduct, itemNumber: event.target.value })}
+               value={vgaProduct.itemNumber}
             />
-            <TextOrNumberInput labelText='Típus név' onChangeEvent={(event) => setType(event.target.value)} value={type} />
+            <TextOrNumberInput
+               labelText='Típus név'
+               onChangeEvent={(event) => setVgaProduct({ ...vgaProduct, type: event.target.value })}
+               value={vgaProduct.type}
+            />
             <TextOrNumberInput
                labelText='Típus kód'
-               onChangeEvent={(event) => setTypeCode(event.target.value)}
-               value={typeCode}
+               onChangeEvent={(event) => setVgaProduct({ ...vgaProduct, typeCode: event.target.value })}
+               value={vgaProduct.typeCode}
             />
             <TextOrNumberInput
                labelText='Vga gyártó'
-               onChangeEvent={(event) => setManufacturer(event.target.value)}
-               value={manufacturer}
+               onChangeEvent={(event) => setVgaProduct({ ...vgaProduct, manufacturer: event.target.value })}
+               value={vgaProduct.manufacturer}
             />
             <TextOrNumberInput
                inputType='number'
                labelText='Ár'
-               onChangeEvent={(event) => setPrice(parseInt(event.target.value))}
-               value={price}
+               onChangeEvent={(event) => setVgaProduct({ ...vgaProduct, price: parseInt(event.target.value) })}
+               value={vgaProduct.price}
             />
             {/* Details */}
             <TextOrNumberInput
                labelText='Gpu gyártó'
-               onChangeEvent={(event) => setGpuManufacturer(event.target.value)}
-               value={gpuManufacturer}
+               onChangeEvent={(event) =>
+                  setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, gpuManufacturer: event.target.value } })
+               }
+               value={vgaProduct.details.gpuManufacturer}
             />
             <TextOrNumberInput
                labelText='PCI-E typús'
-               onChangeEvent={(event) => setPcieType(event.target.value)}
-               value={pcieType}
+               onChangeEvent={(event) =>
+                  setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, pcieType: event.target.value } })
+               }
+               value={vgaProduct.details.pcieType}
             />
             <TextOrNumberInput
                labelText='GPU alap órajel'
                inputType='number'
-               onChangeEvent={(event) => setGpuBaseClock(parseInt(event.target.value))}
-               value={gpuBaseClock}
+               onChangeEvent={(event) =>
+                  setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, gpuBaseClock: parseInt(event.target.value) } })
+               }
+               value={vgaProduct.details.gpuBaseClock}
             />
             <TextOrNumberInput
                labelText='GPU emelt órajel'
                inputType='number'
-               onChangeEvent={(event) => setGpuPeakClock(parseInt(event.target.value))}
-               value={gpuPeakClock}
+               onChangeEvent={(event) =>
+                  setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, gpuPeakClock: parseInt(event.target.value) } })
+               }
+               value={vgaProduct.details.gpuPeakClock}
             />
             <TextOrNumberInput
                labelText='Vram mennyiség (Gb)'
                inputType='number'
-               onChangeEvent={(event) => setVramCapacity(parseInt(event.target.value))}
-               value={vramCapacity}
+               onChangeEvent={(event) =>
+                  setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, vramCapacity: parseInt(event.target.value) } })
+               }
+               value={vgaProduct.details.vramCapacity}
             />
             <TextOrNumberInput
                labelText='Vram típusa'
-               onChangeEvent={(event) => setVramType(event.target.value)}
-               value={vramType}
+               onChangeEvent={(event) =>
+                  setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, vramType: event.target.value } })
+               }
+               value={vgaProduct.details.vramType}
             />
             <TextOrNumberInput
                labelText='Vram sávszélesség (bit)'
                inputType='number'
-               onChangeEvent={(event) => setVramBandwidth(parseInt(event.target.value))}
-               value={vramBandwidth}
+               onChangeEvent={(event) =>
+                  setVgaProduct({
+                     ...vgaProduct,
+                     details: { ...vgaProduct.details, vramBandwidth: parseInt(event.target.value) }
+                  })
+               }
+               value={vgaProduct.details.vramBandwidth}
             />
             <TextOrNumberInput
                labelText='Vram sebesség (GB/s)'
                inputType='number'
-               onChangeEvent={(event) => setVramSpeed(parseInt(event.target.value))}
-               value={vramSpeed}
+               onChangeEvent={(event) =>
+                  setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, vramSpeed: parseInt(event.target.value) } })
+               }
+               value={vgaProduct.details.vramSpeed}
             />
             <TextOrNumberInput
                labelText='Energia fogyasztás (W)'
                inputType='number'
-               onChangeEvent={(event) => setPowerConsuption(parseInt(event.target.value))}
-               value={powerConsuption}
+               onChangeEvent={(event) =>
+                  setVgaProduct({
+                     ...vgaProduct,
+                     details: { ...vgaProduct.details, powerConsuption: parseInt(event.target.value) }
+                  })
+               }
+               value={vgaProduct.details.powerConsuption}
             />
             <TextOrNumberInput
                labelText='Táp csatlakozók'
-               onChangeEvent={(event) => setPowerPin(event.target.value)}
-               value={powerPin}
+               onChangeEvent={(event) =>
+                  setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, powerPin: event.target.value } })
+               }
+               value={vgaProduct.details.powerPin}
             />
             <TextOrNumberInput
                labelText='Garancia'
                inputType='number'
-               onChangeEvent={(event) => setWarranity(parseInt(event.target.value))}
-               value={warranity}
+               onChangeEvent={(event) =>
+                  setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, warranity: parseInt(event.target.value) } })
+               }
+               value={vgaProduct.details.warranity}
             />
             <TextOrNumberInput
                labelText='Display Port (DB)'
                inputType='number'
-               onChangeEvent={(event) => setDisplayPort(parseInt(event.target.value))}
-               value={displayPort}
+               onChangeEvent={(event) =>
+                  setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, displayPort: parseInt(event.target.value) } })
+               }
+               value={vgaProduct.details.displayPort}
             />
             <TextOrNumberInput
                labelText='DVI (DB)'
                inputType='number'
-               onChangeEvent={(event) => setDVI(parseInt(event.target.value))}
-               value={DVI}
+               onChangeEvent={(event) =>
+                  setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, DVI: parseInt(event.target.value) } })
+               }
+               value={vgaProduct.details.DVI}
             />
             <TextOrNumberInput
                labelText='HDMI (DB)'
                inputType='number'
-               onChangeEvent={(event) => setHDMI(parseInt(event.target.value))}
-               value={HDMI}
+               onChangeEvent={(event) =>
+                  setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, HDMI: parseInt(event.target.value) } })
+               }
+               value={vgaProduct.details.HDMI}
             />
             <TextOrNumberInput
                labelText='Ajánlott tápegység'
                inputType='number'
-               onChangeEvent={(event) => setMinPowerSupply(parseInt(event.target.value))}
-               value={minPowerSupply}
+               onChangeEvent={(event) =>
+                  setVgaProduct({
+                     ...vgaProduct,
+                     details: { ...vgaProduct.details, minPowerSupply: parseInt(event.target.value) }
+                  })
+               }
+               value={vgaProduct.details.minPowerSupply}
             />
             <TextOrNumberInput
                labelText='Hosszúság'
                inputType='number'
-               onChangeEvent={(event) => setLength(parseInt(event.target.value))}
-               value={length}
+               onChangeEvent={(event) =>
+                  setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, length: parseInt(event.target.value) } })
+               }
+               value={vgaProduct.details.length}
             />
             <TextOrNumberInput
                labelText='Gyártói oldal link'
-               onChangeEvent={(event) => setManufacturerPageUrl(event.target.value)}
-               value={manufacturerPageUrl}
+               onChangeEvent={(event) =>
+                  setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, manufacturerPageUrl: event.target.value } })
+               }
+               value={vgaProduct.details.manufacturerPageUrl}
             />
             <TextOrNumberInput
                labelText='Stream processzorok'
                inputType='number'
-               onChangeEvent={(event) => setStreamProcessors(parseInt(event.target.value))}
-               value={streamProcessors}
+               onChangeEvent={(event) =>
+                  setVgaProduct({
+                     ...vgaProduct,
+                     details: { ...vgaProduct.details, streamProcessors: parseInt(event.target.value) }
+                  })
+               }
+               value={vgaProduct.details.streamProcessors}
             />
          </FormContainerStyle>
          <FullWidhtContainerStyle>
             {/* Ez esetleg Textarea?! */}
-            <TextArea labelText='Leírás' onChangeEvent={(event) => setDescription(event.target.value)} value={description} />
+            <TextArea
+               labelText='Leírás'
+               onChangeEvent={(event) =>
+                  setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, description: event.target.value } })
+               }
+               value={vgaProduct.details.description}
+            />
          </FullWidhtContainerStyle>
          <FullWidhtContainerStyle>
             <PicUrlInput setPictureUrls={setPictureUrls} pictureUrls={pictureUrls}></PicUrlInput>
