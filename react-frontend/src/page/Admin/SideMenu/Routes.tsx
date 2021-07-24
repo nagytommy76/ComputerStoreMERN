@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { AccordionContainer, AccordionTab, Input, TabLabel, AccordionContent } from './RoutesStyles'
 
 const Routes = () => {
-   const [clicked, setClicked] = useState(false)
+   /*const [clicked, setClicked] = useState(false)*/
    const toggleClicked = (key: string) => {}
    return (
       <AccordionContainer>

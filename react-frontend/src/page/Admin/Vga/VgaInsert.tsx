@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import styled from 'styled-components'
-// import { VgaType } from '../../ShopPages/Vga/VgaTypes'
-import InputField from '../Components/InputFields/InputField'
+import { StyledForm, FormContainerStyle, FullWidhtContainerStyle } from './VgaInsertStyle'
+import TextOrNumberInput from '../Components/InputFields/TextOrNumberInput'
 import PicUrlInput from '../Components/InputFields/PicUrlInput/PicUrlInput'
+import TextArea from '../Components/InputFields/TextArea/TextArea'
+import SubmitButton from '../Components/InputFields/SubmitButton/SubmitButton'
 
 export type PictureUrlType = {
    id: string
@@ -44,55 +45,145 @@ const AdminVga = () => {
    return (
       <StyledForm onSubmit={insertVga}>
          <FormContainerStyle>
-            <InputField labelText='Termék kód' onChangeEvent={(event) => setItemNumber(event.target.value)} value={itemNumber} />
-            <InputField labelText='Típus név' onChangeEvent={(event) => setType(event.target.value)} value={type} />
-            <InputField labelText='Típus kód' onChangeEvent={(event) => setTypeCode(event.target.value)} value={typeCode} />
-            <InputField
+            <TextOrNumberInput
+               labelText='Termék kód'
+               onChangeEvent={(event) => setItemNumber(event.target.value)}
+               value={itemNumber}
+            />
+            <TextOrNumberInput labelText='Típus név' onChangeEvent={(event) => setType(event.target.value)} value={type} />
+            <TextOrNumberInput
+               labelText='Típus kód'
+               onChangeEvent={(event) => setTypeCode(event.target.value)}
+               value={typeCode}
+            />
+            <TextOrNumberInput
                labelText='Vga gyártó'
                onChangeEvent={(event) => setManufacturer(event.target.value)}
                value={manufacturer}
             />
-            <InputField
+            <TextOrNumberInput
                inputType='number'
                labelText='Ár'
                onChangeEvent={(event) => setPrice(parseInt(event.target.value))}
                value={price}
             />
             {/* Details */}
-            <InputField
+            <TextOrNumberInput
                labelText='Gpu gyártó'
                onChangeEvent={(event) => setGpuManufacturer(event.target.value)}
                value={gpuManufacturer}
             />
-            <InputField labelText='Termék kód' onChangeEvent={(event) => setItemNumber(event.target.value)} value={itemNumber} />
-            <InputField labelText='Termék kód' onChangeEvent={(event) => setItemNumber(event.target.value)} value={itemNumber} />
-            <InputField labelText='Termék kód' onChangeEvent={(event) => setItemNumber(event.target.value)} value={itemNumber} />
+            <TextOrNumberInput
+               labelText='PCI-E typús'
+               onChangeEvent={(event) => setPcieType(event.target.value)}
+               value={pcieType}
+            />
+            <TextOrNumberInput
+               labelText='GPU alap órajel'
+               inputType='number'
+               onChangeEvent={(event) => setGpuBaseClock(parseInt(event.target.value))}
+               value={gpuBaseClock}
+            />
+            <TextOrNumberInput
+               labelText='GPU emelt órajel'
+               inputType='number'
+               onChangeEvent={(event) => setGpuPeakClock(parseInt(event.target.value))}
+               value={gpuPeakClock}
+            />
+            <TextOrNumberInput
+               labelText='Vram mennyiség (Gb)'
+               inputType='number'
+               onChangeEvent={(event) => setVramCapacity(parseInt(event.target.value))}
+               value={vramCapacity}
+            />
+            <TextOrNumberInput
+               labelText='Vram típusa'
+               onChangeEvent={(event) => setVramType(event.target.value)}
+               value={vramType}
+            />
+            <TextOrNumberInput
+               labelText='Vram sávszélesség (bit)'
+               inputType='number'
+               onChangeEvent={(event) => setVramBandwidth(parseInt(event.target.value))}
+               value={vramBandwidth}
+            />
+            <TextOrNumberInput
+               labelText='Vram sebesség (GB/s)'
+               inputType='number'
+               onChangeEvent={(event) => setVramSpeed(parseInt(event.target.value))}
+               value={vramSpeed}
+            />
+            <TextOrNumberInput
+               labelText='Energia fogyasztás (W)'
+               inputType='number'
+               onChangeEvent={(event) => setPowerConsuption(parseInt(event.target.value))}
+               value={powerConsuption}
+            />
+            <TextOrNumberInput
+               labelText='Táp csatlakozók'
+               onChangeEvent={(event) => setPowerPin(event.target.value)}
+               value={powerPin}
+            />
+            <TextOrNumberInput
+               labelText='Garancia'
+               inputType='number'
+               onChangeEvent={(event) => setWarranity(parseInt(event.target.value))}
+               value={warranity}
+            />
+            <TextOrNumberInput
+               labelText='Display Port (DB)'
+               inputType='number'
+               onChangeEvent={(event) => setDisplayPort(parseInt(event.target.value))}
+               value={displayPort}
+            />
+            <TextOrNumberInput
+               labelText='DVI (DB)'
+               inputType='number'
+               onChangeEvent={(event) => setDVI(parseInt(event.target.value))}
+               value={DVI}
+            />
+            <TextOrNumberInput
+               labelText='HDMI (DB)'
+               inputType='number'
+               onChangeEvent={(event) => setHDMI(parseInt(event.target.value))}
+               value={HDMI}
+            />
+            <TextOrNumberInput
+               labelText='Ajánlott tápegység'
+               inputType='number'
+               onChangeEvent={(event) => setMinPowerSupply(parseInt(event.target.value))}
+               value={minPowerSupply}
+            />
+            <TextOrNumberInput
+               labelText='Hosszúság'
+               inputType='number'
+               onChangeEvent={(event) => setLength(parseInt(event.target.value))}
+               value={length}
+            />
+            <TextOrNumberInput
+               labelText='Gyártói oldal link'
+               onChangeEvent={(event) => setManufacturerPageUrl(event.target.value)}
+               value={manufacturerPageUrl}
+            />
+            <TextOrNumberInput
+               labelText='Stream processzorok'
+               inputType='number'
+               onChangeEvent={(event) => setStreamProcessors(parseInt(event.target.value))}
+               value={streamProcessors}
+            />
          </FormContainerStyle>
          <FullWidhtContainerStyle>
-            <p>Kép Url</p>
+            {/* Ez esetleg Textarea?! */}
+            <TextArea labelText='Leírás' onChangeEvent={(event) => setDescription(event.target.value)} value={description} />
+         </FullWidhtContainerStyle>
+         <FullWidhtContainerStyle>
             <PicUrlInput setPictureUrls={setPictureUrls} pictureUrls={pictureUrls}></PicUrlInput>
+         </FullWidhtContainerStyle>
+         <FullWidhtContainerStyle>
+            <SubmitButton buttonText='Bevitel' />
          </FullWidhtContainerStyle>
       </StyledForm>
    )
 }
-
-const StyledForm = styled.form`
-   width: 80%;
-   height: 90%;
-   background-color: #fff;
-`
-
-const FormContainerStyle = styled.section`
-   display: grid;
-   grid-template-columns: repeat(3, 30%);
-   justify-content: center;
-   row-gap: 2rem;
-   column-gap: 1rem;
-`
-
-const FullWidhtContainerStyle = styled.section`
-   width: 90%;
-   margin: auto;
-`
 
 export default AdminVga

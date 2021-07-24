@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react'
 import { InputContainer, InputFieldStyle, StyledLabel } from './InputStyle'
 
-const InputField: React.FC<Props> = ({ labelText, inputType = 'text', onChangeEvent, value }) => {
+const TextOrNumberInput: React.FC<Props> = ({ labelText, inputType = 'text', onChangeEvent, value }) => {
    return (
       <InputContainer>
          <StyledLabel htmlFor={labelText}>{labelText}</StyledLabel>
@@ -17,4 +17,4 @@ type Props = {
    value: string | number
 }
 
-export default InputField
+export default TextOrNumberInput
