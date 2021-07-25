@@ -19,11 +19,7 @@ const initialState: LoginType = {
 
 export const generateNewAccessToken = createAsyncThunk('auth/generateNewAccessToken', async (refreshToken: string | null) => {
    try {
-      const test = await axios
-         .post('/auth/refresh-token', { refreshToken })
-         .then((newAccessToken) => newAccessToken.data.accessToken)
-      console.log(test)
-      return test
+      return await axios.post('/auth/refresh-token', { refreshToken }).then((newAccessToken) => newAccessToken?.data)
    } catch (error) {
       console.log(error)
    }
@@ -59,7 +55,6 @@ export const AuthSlice = createSlice({
    extraReducers: (builder) => {
       builder
          .addCase(generateNewAccessToken.fulfilled, (state, action) => {
-            console.log(action.payload)
             state.accessToken = action.payload
          })
          .addCase(generateNewAccessToken.rejected, (state, action) => {

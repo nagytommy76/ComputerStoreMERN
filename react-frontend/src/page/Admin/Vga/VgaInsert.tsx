@@ -46,13 +46,14 @@ const AdminVga = () => {
 
    const insertVga = (event: React.FormEvent) => {
       event.preventDefault()
-      const filteredPicUrls = pictureUrls.map((x) => x.pictureUrl)
-      axios
-         .post('admin/vga/insert', {
-            vgaProduct: { ...vgaProduct, pictureUrls: filteredPicUrls }
-         })
-         .then((result) => console.log(result))
-      console.log('vga bevitele')
+      axios.post('admin/vga/test').then((x) => console.log(x?.data))
+      // const filteredPicUrls = pictureUrls.map((x) => x.pictureUrl)
+      // axios
+      //    .post('admin/vga/insert', {
+      //       vgaProduct: { ...vgaProduct, pictureUrls: filteredPicUrls }
+      //    })
+      //    .then((result) => console.log(result))
+      // console.log('vga bevitele')
    }
    return (
       <StyledForm onSubmit={insertVga}>
