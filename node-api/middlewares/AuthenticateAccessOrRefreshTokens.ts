@@ -14,9 +14,8 @@ const getTokenFromAuthorizationHeader = (authHeader?: string) => {
 export const authenticateAccessToken = (req: GetUserAuthInfoRequest, res: Response, next: NextFunction) => {
    const token = getTokenFromAuthorizationHeader(req.headers.authorization)
    if (!token) return res.sendStatus(401)
-
    jwt.verify(token, ACCESS_TOKEN_SECRET, (err, user) => {
-      if (err) return res.sendStatus(403)
+      if (err) return res.status(403).json({ errorMessage: 'accessToken token expired' })
       req.user = user
       next()
    })
@@ -27,7 +26,7 @@ export const checkUserIsAdmin = (req: GetUserAuthInfoRequest, res: Response, nex
    if (!token) return res.sendStatus(401)
 
    jwt.verify(token, ACCESS_TOKEN_SECRET, (err, user) => {
-      if (err) return res.status(401).json(err)
+      if (err) return res.status(403).json({ errorMessage: 'accessToken token expired' })
       if (user?.isAdmin) {
          req.user = user
          next()

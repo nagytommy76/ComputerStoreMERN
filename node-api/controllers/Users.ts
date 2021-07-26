@@ -59,7 +59,7 @@ export const checkTokensValidityController = (req: Request, res: Response) => {
  * @param expiresIn string
  * @returns an accessToken or refreshToken with the passed in user's data
  */
-export const generateTokens = (userId: string, isAdmin: boolean, TOKEN_SECRET: string, expiresIn: string = '15min') => {
+export const generateTokens = (userId: string, isAdmin: boolean, TOKEN_SECRET: string, expiresIn: string = '1min') => {
    return jwt.sign({ _id: userId, isAdmin }, TOKEN_SECRET, { expiresIn })
 }
 
