@@ -53,13 +53,9 @@ export const AuthSlice = createSlice({
       }
    },
    extraReducers: (builder) => {
-      builder
-         .addCase(generateNewAccessToken.fulfilled, (state, action) => {
-            state.accessToken = action.payload
-         })
-         .addCase(generateNewAccessToken.rejected, (state, action) => {
-            console.log('REJECTED')
-         })
+      builder.addCase(generateNewAccessToken.fulfilled, (state, action) => {
+         state.accessToken = action.payload
+      })
    }
 })
 
