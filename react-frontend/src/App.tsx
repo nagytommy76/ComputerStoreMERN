@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import AxiosSetup from './AxiosSetup/AxiosSetup'
-import { BrowserRouter, Switch, Route, useHistory } from 'react-router-dom'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Navbar from './page/Navbar/Navbar'
 import { ProtectedRoute, GuestsRoute, AdminRoute } from './Routes/ProtectedRoute'
 
@@ -21,15 +21,13 @@ const Admin = React.lazy(() => import('./page/Admin/Admin'))
 
 // https://lewiskori.com/blog/how-to-auto-refresh-jwts-using-axios-interceptors/
 const App = () => {
-   const history = useHistory()
    // Az app megnyitásakor, ha a user ba van jelentkezve megvizsgálom, hogy érvényes-e az accessToken-je
    // Ha nem akkor a refreshToken-nel kérek egy újat,
    // Ha az sem érvényes kiléptetem és be kell újra lépnie
-   // const isUserLoggedIn = useAppSelector((state) => state.auth.userLoggedIn)
    const accessToken = useAppSelector((state) => state.auth.accessToken)
    const refreshToken = useAppSelector((state) => state.auth.refreshToken)
    useEffect(() => {
-      AxiosSetup(accessToken, refreshToken, history)
+      AxiosSetup(accessToken, refreshToken)
    }, [accessToken, refreshToken])
    const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
    return (

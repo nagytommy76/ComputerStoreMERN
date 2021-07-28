@@ -2,7 +2,7 @@ import axios from 'axios'
 import { store } from '../app/store'
 import { logoutUser, setAccessToken } from '../app/slices/AuthSlice'
 
-export default function AxiosSetup(accessToken: string | null, refreshToken: string | null, history: any) {
+export default function AxiosSetup(accessToken: string | null, refreshToken: string | null) {
    axios.defaults.baseURL = 'http://localhost:5050/api'
    axios.defaults.headers['Content-Type'] = 'Application/json'
    axios.defaults.headers.Authorization = `Barer ${accessToken}`
@@ -13,8 +13,7 @@ export default function AxiosSetup(accessToken: string | null, refreshToken: str
       },
       async (error) => {
          if (error.config && error.response && !error.config._retry && error.response.status === 403) {
-            // Ekkor kell egy új accessToken (Forbidden)
-            // 403 error, tehát lejárt az accessToken
+            // Ekkor kell egy új accessToken (Forbidden) / 403 error, tehát lejárt az accessToken
             return await axios.post('/auth/refresh-token', { refreshToken }).then((newAccessToken) => {
                if (newAccessToken.status === 200) {
                   store.dispatch(setAccessToken(newAccessToken.data))
@@ -24,10 +23,8 @@ export default function AxiosSetup(accessToken: string | null, refreshToken: str
             })
          }
          if (error.response?.status === 401) {
-            console.log('401 Error van')
             // Itt pedig be kell lépni mert a refres token se jó
             store.dispatch(logoutUser())
-            history?.push('/login')
          }
          return Promise.reject(error)
       }
@@ -37,4 +34,3 @@ export default function AxiosSetup(accessToken: string | null, refreshToken: str
 // https://github.com/axios/axios/issues/934
 // https://github.com/axios/axios/issues/1266
 // https://medium.com/swlh/authentication-using-jwt-and-refresh-token-part-2-a86150d25152
-//

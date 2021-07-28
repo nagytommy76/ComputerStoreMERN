@@ -17,7 +17,7 @@ const Login = () => {
    const [password, setPassword] = useState<InputTypes>({ value: '', hasError: false, errorMessage: '' })
    const loginUser = async (event: React.FormEvent) => {
       event.preventDefault()
-      if (email.value === '') return setEmail({ value: '', hasError: true, errorMessage: 'Kérem az e-amil címet!' })
+      if (email.value === '') return setEmail({ value: '', hasError: true, errorMessage: 'Kérem az e-mail címet!' })
       if (password.value === '') return setPassword({ value: '', hasError: true, errorMessage: 'Kérem a jelszót!' })
       await axios
          .post('/auth/login', {
@@ -41,12 +41,12 @@ const Login = () => {
    return (
       <AuthContainer>
          <AuthFormStyle>
-            <LoginForm onSubmitEvent={loginUser} title='Blépés' buttonText='Belépés'>
+            <LoginForm onSubmitEvent={loginUser} title='Belépés' buttonText='Belépés'>
                <InputField
-                  type='email'
-                  placeHolder='Email-cím...'
+                  type='text'
+                  placeHolder='Email-cím/Felhasználónév...'
                   value={email.value}
-                  labelText='Email cím'
+                  labelText='Email-cím/Felhasználónév'
                   onChangeEvent={(e) => setEmail({ value: e.target.value })}>
                   {email.hasError && email.errorMessage}
                </InputField>

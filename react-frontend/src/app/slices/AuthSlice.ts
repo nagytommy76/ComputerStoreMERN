@@ -1,5 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import axios from 'axios'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export type LoginType = {
    isAdmin: boolean
@@ -16,14 +15,6 @@ const initialState: LoginType = {
    accessToken: null,
    refreshToken: null
 }
-
-export const generateNewAccessToken = createAsyncThunk('auth/generateNewAccessToken', async (refreshToken: string | null) => {
-   try {
-      return await axios.post('/auth/refresh-token', { refreshToken }).then((newAccessToken) => newAccessToken?.data)
-   } catch (error) {
-      console.log(error)
-   }
-})
 
 export const AuthSlice = createSlice({
    name: 'auth',
@@ -51,11 +42,6 @@ export const AuthSlice = createSlice({
          state.userLoggedIn = false
          state.userName = ''
       }
-   },
-   extraReducers: (builder) => {
-      builder.addCase(generateNewAccessToken.fulfilled, (state, action) => {
-         state.accessToken = action.payload
-      })
    }
 })
 
