@@ -21,14 +21,15 @@ export const registerUserController = async (req: Request, res: Response) => {
 }
 
 export const loginUserController = async (req: Request, res: Response) => {
-   const user = await User.findOne({ email: req.body.email })
+   const user = await User.findOne({ $or: [{ email: req.body.email }, { userName: req.body.email }] })
+
    if (!user) {
       return res.status(404).json(ErrorResponse(true, 'Nincs regszitrálva ilyen felhasználó'))
    }
    try {
       if (await bcrypt.compare(req.body.password, user.password)) {
          const accessToken = generateTokens(user._id, user.isAdmin, ACCESS_TOKEN_SECRET)
-         const refreshToken = generateTokens(user._id, user.isAdmin, REFRESH_TOKEN_SECRET, '1d')
+         const refreshToken = generateTokens(user._id, user.isAdmin, REFRESH_TOKEN_SECRET, '1day')
          res.status(200).json({ accessToken, refreshToken, userName: user.userName, isAdmin: user.isAdmin })
       } else res.status(404).json(ErrorResponse(true, 'Helytelen jelszó', 'password'))
    } catch (error) {
@@ -42,7 +43,7 @@ export const checkTokensValidityController = (req: Request, res: Response) => {
    if (!refreshToken) return res.sendStatus(401)
    try {
       jwt.verify(refreshToken, REFRESH_TOKEN_SECRET, (err, decoded: any) => {
-         if (err) return res.status(403).json({ errorMessage: 'refresh token expired' })
+         if (err) return res.status(401).json({ errorMessage: 'refresh token expired' })
          const newAccessToken = generateTokens(decoded._id, decoded.isAdmin, ACCESS_TOKEN_SECRET)
          res.status(200).json(newAccessToken)
       })
@@ -59,7 +60,7 @@ export const checkTokensValidityController = (req: Request, res: Response) => {
  * @param expiresIn string
  * @returns an accessToken or refreshToken with the passed in user's data
  */
-export const generateTokens = (userId: string, isAdmin: boolean, TOKEN_SECRET: string, expiresIn: string = '1min') => {
+export const generateTokens = (userId: string, isAdmin: boolean, TOKEN_SECRET: string, expiresIn: string = '20min') => {
    return jwt.sign({ _id: userId, isAdmin }, TOKEN_SECRET, { expiresIn })
 }
 

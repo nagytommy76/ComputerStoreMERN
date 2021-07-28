@@ -2,7 +2,7 @@ import { Schema, model } from 'mongoose'
 import { UserTypes } from './UserTypes'
 
 const UserSchema = new Schema<UserTypes>({
-   userName: { type: String, required: true },
+   userName: { type: String, required: true, unique: true },
    password: {
       type: String,
       required: [true, 'Adjon meg egy jelszót!'],
