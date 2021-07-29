@@ -43,10 +43,9 @@ const Login = () => {
          <AuthFormStyle>
             <LoginForm onSubmitEvent={loginUser} title='Belépés' buttonText='Belépés'>
                <InputField
-                  type='text'
-                  placeHolder='Email-cím/Felhasználónév...'
+                  placeHolder='Email cím/Felhasználónév...'
                   value={email.value}
-                  labelText='Email-cím/Felhasználónév'
+                  labelText='Email cím/Felhasználónév'
                   onChangeEvent={(e) => setEmail({ value: e.target.value })}>
                   {email.hasError && email.errorMessage}
                </InputField>
