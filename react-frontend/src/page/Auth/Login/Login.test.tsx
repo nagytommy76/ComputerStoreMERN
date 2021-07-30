@@ -1,19 +1,20 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '../../../test.utils'
 import userEvent from '@testing-library/user-event'
-import { Provider } from 'react-redux'
-import { store } from '../../../app/store'
 import Login from './Login'
+import axios from 'axios'
+
+jest.mock('axios')
+const mockResponseData = {
+   errorMessage: 'Helytelen jelszó',
+   errorType: 'password',
+   hasError: true,
+   message: ''
+}
 
 describe('Login', () => {
    beforeEach(() => {
-      render(
-         <Provider store={store}>
-            <React.Suspense fallback={null}>
-               <Login />
-            </React.Suspense>
-         </Provider>
-      )
+      render(<Login />)
    })
    test('renders the login form with 2 input fields', async () => {
       expect(await screen.findByText('Belépés'))
@@ -32,13 +33,15 @@ describe('Login', () => {
 
    test('should display an error message when the password is incorrect', async () => {
       const loginButton = await screen.findByRole('button')
-      const passwordInput = await screen.findByRole('input', { name: /Jelszó/i })
-      const emailInput = await screen.findByRole('input', { name: /Email cím/i })
+      const emailInput = await screen.findByPlaceholderText(/Email cím/i)
 
-      userEvent.type(emailInput, 'nagytommy76')
+      const passwordInput = await screen.findByPlaceholderText(/Jelszó/i)
+
+      userEvent.type(emailInput, 'senki123')
       userEvent.type(passwordInput, 'semmi')
-
+      axios.get.mockResolvedValue({ data: { results: mockResponseData } })
       userEvent.click(loginButton)
+      await screen.findByRole('span', { name: /Helytelen jelszó/i })
       screen.debug()
    })
 })
