@@ -34,9 +34,10 @@ const Login = () => {
                history.push('/')
             }
          })
-         .catch((err: AxiosError) =>
+         .catch((err: AxiosError) => {
+            console.log(err.response)
             setEmail({ value: email.value, hasError: err.response?.data.hasError, errorMessage: err.response?.data.errorMessage })
-         )
+         })
    }
    return (
       <AuthContainer>

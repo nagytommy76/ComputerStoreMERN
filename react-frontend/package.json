@@ -56,5 +56,11 @@
   "devDependencies": {
     "@types/react-router-dom": "^5.1.7",
     "@types/styled-components": "^5.1.10"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}"
+    ],
+    "resetMocks": false
   }
 }

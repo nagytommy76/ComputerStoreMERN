@@ -1,16 +1,21 @@
 import React from 'react'
-import { render, screen } from '../../../test.utils'
+import { render, screen, act } from '../../../test-utils'
 import userEvent from '@testing-library/user-event'
 import Login from './Login'
 import axios from 'axios'
 
-jest.mock('axios')
 const mockResponseData = {
-   errorMessage: 'Helytelen jelszó',
-   errorType: 'password',
-   hasError: true,
-   message: ''
+   response: {
+      data: {
+         errorMessage: 'Helytelen jelszó',
+         errorType: 'password',
+         hasError: true,
+         message: ''
+      }
+   }
 }
+
+jest.mock('axios')
 
 describe('Login', () => {
    beforeEach(() => {
@@ -32,16 +37,19 @@ describe('Login', () => {
    })
 
    test('should display an error message when the password is incorrect', async () => {
-      const loginButton = await screen.findByRole('button')
       const emailInput = await screen.findByPlaceholderText(/Email cím/i)
-
       const passwordInput = await screen.findByPlaceholderText(/Jelszó/i)
 
       userEvent.type(emailInput, 'senki123')
       userEvent.type(passwordInput, 'semmi')
-      axios.get.mockResolvedValue({ data: { results: mockResponseData } })
+      act(() => {
+         //    axios.post.mockImplementationOnce(() => Promise.reject({ err: mockResponseData }))
+         axios.post.mockRejectedValueOnce(mockResponseData)
+      })
+      const loginButton = await screen.findByRole('button')
+      // expect(await screen.findByText(/Helytelen jelszó/i)).toBeInTheDocument()
       userEvent.click(loginButton)
-      await screen.findByRole('span', { name: /Helytelen jelszó/i })
+      // await screen.findByText(/Helytelen jelszó/i)
       screen.debug()
    })
 })
