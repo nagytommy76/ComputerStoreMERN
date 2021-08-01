@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express'
 import { UserTypes } from '../../../models/User/UserTypes'
 import { authenticateAccessToken } from '../../../middlewares/AuthenticateAccessOrRefreshTokens'
-import { ValidateRegister } from '../../../controllers/Validators/UserValidator'
+import { ValidateRegister } from '../Validators/UserValidator'
 
 import { registerUserController, loginUserController, checkTokensValidityController } from '../../../controllers/Users'
 

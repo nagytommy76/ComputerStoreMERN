@@ -1,5 +1,5 @@
-import { VgaProduct } from '../../models/Vga/VgaProduct'
-import { VgaType } from '../../models/Vga/VgaTypes'
+import { VgaProduct } from '../../../models/Vga/VgaProduct'
+import { VgaType } from '../../../models/Vga/VgaTypes'
 
 export const createVgaProduct = async (incomingVga: VgaType): Promise<VgaType> => {
    const vga = new VgaProduct({

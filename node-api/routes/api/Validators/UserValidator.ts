@@ -1,4 +1,4 @@
-import { body, CustomValidator } from 'express-validator'
+import { body } from 'express-validator'
 
 export const ValidateRegister = [
    body('email').isEmail(),
