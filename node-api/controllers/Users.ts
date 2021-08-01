@@ -3,12 +3,18 @@ import { User } from '../models/User/User'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from '../config/endpoints.config'
+import { validationResult } from 'express-validator'
 
 export const registerUserController = async (req: Request, res: Response) => {
    const checkUserRegistered = await User.findOne({ email: req.body.email, userName: req.body.userName })
    if (checkUserRegistered != null) return res.status(404).json(ErrorResponse(true, 'Az email cím már regisztrálva lett'))
+   const validationErrors = validationResult(req)
+   if (!validationErrors.isEmpty()) {
+      res.status(422).json({ errors: validationErrors.array() })
+      return
+   }
    try {
-      const hashedPass = await bcrypt.hash(req.body.password, 10)
+      const hashedPass = await bcrypt.hash(req.body.firstPassword, 10)
       await User.create({
          userName: req.body.userName,
          password: hashedPass,

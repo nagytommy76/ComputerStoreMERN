@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express'
 import { UserTypes } from '../../../models/User/UserTypes'
 import { authenticateAccessToken } from '../../../middlewares/AuthenticateAccessOrRefreshTokens'
+import { ValidateRegister } from '../../../controllers/Validators/UserValidator'
 
 import { registerUserController, loginUserController, checkTokensValidityController } from '../../../controllers/Users'
 
@@ -10,7 +11,7 @@ type RequestWithUser = Request & {
 
 const router = express.Router()
 
-router.post('/register', registerUserController)
+router.post('/register', ValidateRegister, registerUserController)
 
 router.post('/login', loginUserController)
 
