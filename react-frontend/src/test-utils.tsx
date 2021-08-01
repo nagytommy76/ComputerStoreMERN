@@ -4,12 +4,15 @@ import { ThemeProvider } from 'styled-components'
 import { darkTheme } from './Theme/Themes'
 import { Provider } from 'react-redux'
 import { store } from './app/store'
+import { BrowserRouter } from 'react-router-dom'
 
 const AllTheProviders: FC = ({ children }) => {
    return (
       <Provider store={store}>
          <ThemeProvider theme={darkTheme}>
-            <React.Suspense fallback={<h1>Töltés...</h1>}>{children}</React.Suspense>
+            <BrowserRouter>
+               <React.Suspense fallback={<h1>Töltés...</h1>}>{children}</React.Suspense>
+            </BrowserRouter>
          </ThemeProvider>
       </Provider>
    )

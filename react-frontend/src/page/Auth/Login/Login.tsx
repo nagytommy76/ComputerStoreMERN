@@ -1,5 +1,5 @@
 import axios, { AxiosResponse, AxiosError } from 'axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ImageStyle, AuthContainer, AuthFormStyle } from '../BaseForm/BaseStyle'
 import loginImage from './login.jpg'
 import { InputTypes } from '../Register/Register'
@@ -15,6 +15,7 @@ const Login = () => {
    const dispatch = useAppDispatch()
    const [email, setEmail] = useState<InputTypes>({ value: '', hasError: false, errorMessage: '' })
    const [password, setPassword] = useState<InputTypes>({ value: '', hasError: false, errorMessage: '' })
+
    const loginUser = async (event: React.FormEvent) => {
       event.preventDefault()
       if (email.value === '') return setEmail({ value: '', hasError: true, errorMessage: 'Kérem az e-mail címet!' })
@@ -35,8 +36,9 @@ const Login = () => {
             }
          })
          .catch((err: AxiosError) => {
-            console.log(err.response)
-            setEmail({ value: email.value, hasError: err.response?.data.hasError, errorMessage: err.response?.data.errorMessage })
+            setEmail((previousState) => {
+               return { ...previousState, hasError: err.response?.data.hasError, errorMessage: err.response?.data.errorMessage }
+            })
          })
    }
    return (
@@ -47,7 +49,7 @@ const Login = () => {
                   placeHolder='Email cím/Felhasználónév...'
                   value={email.value}
                   labelText='Email cím/Felhasználónév'
-                  onChangeEvent={(e) => setEmail({ value: e.target.value })}>
+                  onChangeEvent={(e) => setEmail({ ...email, value: e.target.value })}>
                   {email.hasError && email.errorMessage}
                </InputField>
                <InputField
@@ -55,7 +57,7 @@ const Login = () => {
                   placeHolder='Jelszó...'
                   value={password.value}
                   labelText='Jelszó'
-                  onChangeEvent={(e) => setPassword({ value: e.target.value })}>
+                  onChangeEvent={(e) => setPassword({ ...email, value: e.target.value })}>
                   {password.hasError && password.errorMessage}
                </InputField>
             </LoginForm>

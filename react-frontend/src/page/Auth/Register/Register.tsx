@@ -9,10 +9,15 @@ const InputElement = React.lazy(() => import('../BaseForm/BaseInput/BaseInput'))
 
 const Register = () => {
    const history = useHistory()
-   const [email, setEmail] = useState<InputTypes>({ value: '', hasError: false, errorMessage: '' })
-   const [userName, setUserName] = useState<InputTypes>({ value: '', hasError: false, errorMessage: '' })
-   const [firstPassword, setFirstPassword] = useState<InputTypes>({ value: '', hasError: false, errorMessage: '' })
-   const [secondPassword, setSecondPassword] = useState<InputTypes>({ value: '', hasError: false, errorMessage: '' })
+   const defaultInputProperties = {
+      value: '',
+      hasError: false,
+      errorMessage: ''
+   }
+   const [email, setEmail] = useState<InputTypes>(defaultInputProperties)
+   const [userName, setUserName] = useState<InputTypes>(defaultInputProperties)
+   const [firstPassword, setFirstPassword] = useState<InputTypes>(defaultInputProperties)
+   const [secondPassword, setSecondPassword] = useState<InputTypes>(defaultInputProperties)
 
    const registerUser = async (event: React.FormEvent) => {
       event.preventDefault()
@@ -22,19 +27,27 @@ const Register = () => {
       if (firstPassword.value === '') return setFirstPassword({ value: '', hasError: true, errorMessage: 'Kérem a jelszó' })
       if (secondPassword.value === '')
          return setSecondPassword({ value: '', hasError: true, errorMessage: 'Kérem a második jelszót' })
-      if (secondPassword.value !== firstPassword.value)
-         return setSecondPassword({ value: '', hasError: true, errorMessage: 'Nem egyezik a 2 jelszó' })
       if (!userName.hasError && !email.hasError && !firstPassword.hasError && !secondPassword.hasError) {
          await axios
             .post('/auth/register', {
                email: email.value,
                userName: userName.value,
-               password: firstPassword.value
+               firstPassword: firstPassword.value,
+               secondPassword: secondPassword.value
             })
             .then((response: AxiosResponse) => {
                if (response.status === 201) history.push('/login')
             })
-            .catch((error: AxiosError) => console.log(error.response))
+            .catch((error: AxiosError) => {
+               const responseErrors = error.response?.data.errors
+               if (responseErrors.length > 0) {
+                  responseErrors.forEach((err: any) => {
+                     if (err.param === 'firstPassword') {
+                        setSecondPassword({ value: '', hasError: true, errorMessage: err.msg })
+                     }
+                  })
+               }
+            })
       }
    }
    return (
@@ -47,7 +60,7 @@ const Register = () => {
                   placeHolder='Felhasználónév'
                   value={userName.value}
                   labelText='Felhasználónév'
-                  onChangeEvent={(e) => setUserName({ value: e.target.value })}>
+                  onChangeEvent={(e) => setUserName({ ...userName, value: e.target.value })}>
                   {userName.hasError && userName.errorMessage}
                </InputElement>
                <InputElement
@@ -55,7 +68,7 @@ const Register = () => {
                   placeHolder='Email-cím...'
                   value={email.value}
                   labelText='Email cím'
-                  onChangeEvent={(e) => setEmail({ value: e.target.value })}>
+                  onChangeEvent={(e) => setEmail({ ...email, value: e.target.value })}>
                   {email.hasError && email.errorMessage}
                </InputElement>
                <InputElement
@@ -63,7 +76,7 @@ const Register = () => {
                   placeHolder='Jelszó...'
                   value={firstPassword.value}
                   labelText='Jelszó'
-                  onChangeEvent={(e) => setFirstPassword({ value: e.target.value })}>
+                  onChangeEvent={(e) => setFirstPassword({ ...firstPassword, value: e.target.value })}>
                   {firstPassword.hasError && firstPassword.errorMessage}
                </InputElement>
                <InputElement
@@ -71,7 +84,7 @@ const Register = () => {
                   placeHolder='Jelszó még egyszer...'
                   value={secondPassword.value}
                   labelText='Jelszó még egyszer'
-                  onChangeEvent={(e) => setSecondPassword({ value: e.target.value })}>
+                  onChangeEvent={(e) => setSecondPassword({ ...secondPassword, value: e.target.value })}>
                   {secondPassword.hasError && secondPassword.errorMessage}
                </InputElement>
             </RegisterForm>

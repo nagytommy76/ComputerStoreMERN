@@ -3,8 +3,9 @@ import { render, screen, act } from '../../../test-utils'
 import userEvent from '@testing-library/user-event'
 import Login from './Login'
 import axios from 'axios'
+jest.mock('axios')
 
-const mockResponseData = {
+const mockResponseRejectedData = {
    response: {
       data: {
          errorMessage: 'Helytelen jelszó',
@@ -15,7 +16,17 @@ const mockResponseData = {
    }
 }
 
-jest.mock('axios')
+const mockResolvedData = {
+   response: {
+      status: 200,
+      data: {
+         accessToken: 'accessTokenTest',
+         refreshToken: 'refreshTokenTest',
+         userName: 'TestUser',
+         isAdmin: true
+      }
+   }
+}
 
 describe('Login', () => {
    beforeEach(() => {
@@ -42,14 +53,12 @@ describe('Login', () => {
 
       userEvent.type(emailInput, 'senki123')
       userEvent.type(passwordInput, 'semmi')
-      act(() => {
-         //    axios.post.mockImplementationOnce(() => Promise.reject({ err: mockResponseData }))
-         axios.post.mockRejectedValueOnce(mockResponseData)
-      })
+
+      axios.post.mockRejectedValue(mockResponseRejectedData)
+
       const loginButton = await screen.findByRole('button')
-      // expect(await screen.findByText(/Helytelen jelszó/i)).toBeInTheDocument()
+
       userEvent.click(loginButton)
-      // await screen.findByText(/Helytelen jelszó/i)
-      screen.debug()
+      await screen.findByText(/Helytelen jelszó/i)
    })
 })

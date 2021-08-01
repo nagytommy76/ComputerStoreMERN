@@ -4,7 +4,7 @@ import TextOrNumberInput from '../Components/InputFields/TextOrNumberInput'
 import PicUrlInput from '../Components/InputFields/PicUrlInput/PicUrlInput'
 import TextArea from '../Components/InputFields/TextArea/TextArea'
 import SubmitButton from '../Components/InputFields/SubmitButton/SubmitButton'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { VgaType } from '../../ShopPages/Vga/VgaTypes'
 
 export type PictureUrlType = {
@@ -46,20 +46,23 @@ const AdminVga = () => {
 
    const insertVga = (event: React.FormEvent) => {
       event.preventDefault()
-      axios.post('admin/vga/test').then((x) => console.log(x?.data))
-      // const filteredPicUrls = pictureUrls.map((x) => x.pictureUrl)
-      // axios
-      //    .post('admin/vga/insert', {
-      //       vgaProduct: { ...vgaProduct, pictureUrls: filteredPicUrls }
-      //    })
-      //    .then((result) => console.log(result))
-      // console.log('vga bevitele')
+      // axios.post('admin/vga/test').then((x) => console.log(x?.data))
+      const filteredPicUrls = pictureUrls.map((x) => x.pictureUrl)
+      axios
+         .post('admin/vga/insert', {
+            vgaProduct: { ...vgaProduct, pictureUrls: filteredPicUrls }
+         })
+         .then((result) => console.log(result))
+         .catch((error: AxiosError) => {
+            console.log(error.response)
+         })
+      console.log('vga bevitele')
    }
    return (
       <StyledForm onSubmit={insertVga}>
          <FormContainerStyle>
             <TextOrNumberInput
-               labelText='Termék kód'
+               labelText='Termék szám'
                onChangeEvent={(event) => setVgaProduct({ ...vgaProduct, itemNumber: event.target.value })}
                value={vgaProduct.itemNumber}
             />
