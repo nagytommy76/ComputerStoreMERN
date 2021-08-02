@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { StyledForm, FormContainerStyle, FullWidhtContainerStyle } from './VgaInsertStyle'
-import TextOrNumberInput from '../Components/InputFields/TextOrNumberInput'
-import PicUrlInput from '../Components/InputFields/PicUrlInput/PicUrlInput'
-import TextArea from '../Components/InputFields/TextArea/TextArea'
-import SubmitButton from '../Components/InputFields/SubmitButton/SubmitButton'
+import TextOrNumberInput from '../../Components/InputFields/TextOrNumberInput'
+import PicUrlInput from '../../Components/InputFields/PicUrlInput/PicUrlInput'
+import TextArea from '../../Components/InputFields/TextArea/TextArea'
+import SubmitButton from '../../Components/InputFields/SubmitButton/SubmitButton'
 import axios, { AxiosError } from 'axios'
-import { VgaType } from '../../ShopPages/Vga/VgaTypes'
+import { VgaType } from '../../../ShopPages/Vga/VgaTypes'
 
 export type PictureUrlType = {
    id: string
@@ -55,6 +55,7 @@ const AdminVga = () => {
          .then((result) => console.log(result))
          .catch((error: AxiosError) => {
             console.log(error.response)
+            // const validationErrorsArray = error.response?.data.errors
          })
       console.log('vga bevitele')
    }

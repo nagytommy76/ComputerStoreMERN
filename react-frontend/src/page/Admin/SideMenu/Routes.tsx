@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { AccordionContainer, AccordionTab, Input, TabLabel, AccordionContent } from './RoutesStyles'
 
@@ -14,6 +14,9 @@ const Routes = () => {
             </TabLabel>
             <AccordionContent>
                <Link to='/admin/vga-insert'>Vga bevitele</Link>
+            </AccordionContent>
+            <AccordionContent>
+               <Link to='/admin/vga-modify'>Vga módosítása</Link>
             </AccordionContent>
          </AccordionTab>
          {/* <AccordionTab>

@@ -1,5 +1,5 @@
 import axios, { AxiosResponse, AxiosError } from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { ImageStyle, AuthContainer, AuthFormStyle } from '../BaseForm/BaseStyle'
 import loginImage from './login.jpg'
 import { InputTypes } from '../Register/Register'

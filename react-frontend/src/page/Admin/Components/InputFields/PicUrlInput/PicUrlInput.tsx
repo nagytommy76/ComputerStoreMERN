@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react'
 import { InputContainer, InputFieldStyle } from '../InputStyle'
-import { PictureUrlType } from '../../../Vga/VgaInsert'
+import { PictureUrlType } from '../../../Vga/Insert/VgaInsert'
 import { InputFieldContainer, RemoveLinkButtonStyle, InsertNewLinkButton } from './PicStyle'
 
 const PicUrlInput: React.FC<Props> = ({ setPictureUrls, pictureUrls }) => {

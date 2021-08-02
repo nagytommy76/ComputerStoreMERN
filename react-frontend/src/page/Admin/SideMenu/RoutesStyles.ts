@@ -30,9 +30,11 @@ export const TabLabel = styled.label`
 `
 
 export const AccordionContent = styled.div`
-   max-height: 0;
+   display: flex;
+   flex-direction: column;
+   z-index: 22;
+   color: black;
    padding: 0 1em;
-   /* color: red; */
    background: white;
    transition: all 0.35s;
 `
