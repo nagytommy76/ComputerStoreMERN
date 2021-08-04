@@ -1,11 +1,9 @@
 import React from 'react'
+import { StyledForm, FullWidhtContainerStyle } from '../../Components/Form/FormStyle'
+import BaseInputFields from '../BaseInput/BaseInputFields'
 
 const ModifyVga = () => {
-   return (
-      <div>
-         <h1>VGA módosítása</h1>
-      </div>
-   )
+   return <StyledForm></StyledForm>
 }
 
 export default ModifyVga
