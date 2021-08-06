@@ -1,7 +1,8 @@
 import React, { ChangeEvent, useEffect } from 'react'
 import { InputContainer, InputFieldStyle } from '../InputStyle'
 import { PictureUrlType } from '../../../Vga/Insert/VgaInsert'
-import { InputFieldContainer, RemoveLinkButtonStyle, InsertNewLinkButton } from './PicStyle'
+import { InputFieldContainer, RemoveLinkButtonStyle, InsertNewLinkButton, LinkToPicture } from './PicStyle'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const PicUrlInput: React.FC<Props> = ({ setPictureUrls, pictureUrls, toModifyPicUrls }) => {
    const setNewElementToPicUrlState = (event: ChangeEvent<HTMLInputElement>, currentIteratePicture: PictureUrlType) => {
@@ -35,22 +36,24 @@ const PicUrlInput: React.FC<Props> = ({ setPictureUrls, pictureUrls, toModifyPic
          <InsertNewLinkButton type='button' onClick={() => createNewInputFieldAndStateItem()}>
             Új link
          </InsertNewLinkButton>
-         {
-            /*pictureUrls !== undefined &&*/
-            pictureUrls.map((picture) => (
-               <InputFieldContainer key={picture.id}>
-                  <InputFieldStyle
-                     onChange={(event) => setNewElementToPicUrlState(event, picture)}
-                     type='text'
-                     placeholder='Kép url'
-                     value={picture.pictureUrl}
-                  />
-                  <RemoveLinkButtonStyle onClick={() => removeLinkItem(picture.id)} type='button'>
-                     X
-                  </RemoveLinkButtonStyle>
-               </InputFieldContainer>
-            ))
-         }
+         {pictureUrls.map((picture) => (
+            <InputFieldContainer key={picture.id}>
+               <InputFieldStyle
+                  onChange={(event) => setNewElementToPicUrlState(event, picture)}
+                  type='text'
+                  placeholder='Kép url'
+                  value={picture.pictureUrl}
+               />
+               <RemoveLinkButtonStyle onClick={() => removeLinkItem(picture.id)} type='button'>
+                  X
+               </RemoveLinkButtonStyle>
+               <LinkToPicture type='button'>
+                  <a href={picture.pictureUrl} target='_blank'>
+                     <FontAwesomeIcon icon={['fas', 'external-link-alt']} />
+                  </a>
+               </LinkToPicture>
+            </InputFieldContainer>
+         ))}
       </InputContainer>
    )
 }

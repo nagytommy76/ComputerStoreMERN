@@ -11,7 +11,7 @@ import PicUrlInput from '../../Components/InputFields/PicUrlInput/PicUrlInput'
 import { PictureUrlType } from '../Insert/VgaInsert'
 
 const ModifyVga = () => {
-   const [pictureUrls, setPictureUrls] = useState<PictureUrlType[]>([])
+   const [selectedProductPictureUrls, setSelectedProductPictureUrls] = useState<PictureUrlType[]>([])
    const [allVgaProducts, setAllVgaProducts] = useState<VgaType[]>([])
    const [productDetails, setProductDetails] = useState<VgaType>(vgaProperties)
    useEffect(() => {
@@ -23,7 +23,11 @@ const ModifyVga = () => {
    return (
       <StyledForm>
          <FullWidhtContainerStyle>
-            <ProductSelector products={allVgaProducts} setDetailedProducts={setProductDetails} />
+            <ProductSelector
+               products={allVgaProducts}
+               setDetailedProducts={setProductDetails}
+               setPictureUrls={setSelectedProductPictureUrls}
+            />
          </FullWidhtContainerStyle>
          <BaseInputFields vgaProduct={productDetails} setVgaProduct={setProductDetails} />
          <FullWidhtContainerStyle>
@@ -39,7 +43,7 @@ const ModifyVga = () => {
             />
          </FullWidhtContainerStyle>
          <FullWidhtContainerStyle>
-            <PicUrlInput setPictureUrls={setPictureUrls} pictureUrls={pictureUrls} />
+            <PicUrlInput setPictureUrls={setSelectedProductPictureUrls} pictureUrls={selectedProductPictureUrls} />
          </FullWidhtContainerStyle>
          <FullWidhtContainerStyle>
             <SubmitButton>Módosítás</SubmitButton>

@@ -1,5 +1,15 @@
 import styled from 'styled-components'
 
+const baseButtonConfig = `
+width: 35px;
+height: 35px;
+cursor: pointer;
+border: none;
+font-weight: 700;
+   border-radius: 5px;
+   transition: background 0.25s;
+`
+
 export const InsertNewLinkButton = styled.button`
    width: 150px;
    height: 40px;
@@ -17,17 +27,21 @@ export const InsertNewLinkButton = styled.button`
 `
 
 export const RemoveLinkButtonStyle = styled.button`
-   width: 35px;
-   height: 35px;
-   cursor: pointer;
-   border: none;
+   ${baseButtonConfig}
+   margin: 0 .4rem 0 .4rem;
    background: hsl(0, 96%, 60%);
    color: white;
-   font-weight: 700;
-   border-radius: 5px;
-   transition: background 0.25s;
    &:hover {
       background: hsl(0, 96%, 39%);
+   }
+`
+
+export const LinkToPicture = styled.button`
+   ${baseButtonConfig}
+   background: hsl(95, 100%, 37%);
+   color: white;
+   &:hover {
+      background: hsl(95, 100%, 15%);
    }
 `
 
