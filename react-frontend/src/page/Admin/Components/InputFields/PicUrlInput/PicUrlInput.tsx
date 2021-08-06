@@ -1,9 +1,9 @@
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent, useEffect } from 'react'
 import { InputContainer, InputFieldStyle } from '../InputStyle'
 import { PictureUrlType } from '../../../Vga/Insert/VgaInsert'
 import { InputFieldContainer, RemoveLinkButtonStyle, InsertNewLinkButton } from './PicStyle'
 
-const PicUrlInput: React.FC<Props> = ({ setPictureUrls, pictureUrls }) => {
+const PicUrlInput: React.FC<Props> = ({ setPictureUrls, pictureUrls, toModifyPicUrls }) => {
    const setNewElementToPicUrlState = (event: ChangeEvent<HTMLInputElement>, currentIteratePicture: PictureUrlType) => {
       const pictureUrl = event.target.value
       setPictureUrls((currentPicture: PictureUrlType[]) => {
@@ -58,6 +58,7 @@ const PicUrlInput: React.FC<Props> = ({ setPictureUrls, pictureUrls }) => {
 type Props = {
    setPictureUrls: (currentPicture: any) => void
    pictureUrls: PictureUrlType[]
+   toModifyPicUrls?: PictureUrlType[]
 }
 
 export default PicUrlInput

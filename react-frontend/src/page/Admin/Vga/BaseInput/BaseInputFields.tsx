@@ -1,6 +1,6 @@
 import React from 'react'
 import { VgaType } from '../../../ShopPages/Vga/VgaTypes'
-import { FormContainerStyle, FullWidhtContainerStyle } from '../../Components/Form/FormStyle'
+import { FormContainerStyle } from '../../Components/Form/FormStyle'
 import TextOrNumberInput from '../../Components/InputFields/TextOrNumberInput'
 
 const BaseInputFields: React.FC<Props> = ({ vgaProduct, setVgaProduct }) => {

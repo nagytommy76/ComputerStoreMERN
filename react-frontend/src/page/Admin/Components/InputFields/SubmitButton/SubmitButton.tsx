@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const SubmitButton: React.FC<{ buttonText: string }> = ({ buttonText }) => {
-   return <StyledSubmit type='submit'>{buttonText}</StyledSubmit>
+const SubmitButton: React.FC<{ children: string }> = ({ children }) => {
+   return <StyledSubmit type='submit'>{children}</StyledSubmit>
 }
 
 const StyledSubmit = styled.button`

@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import { StyledForm, FormContainerStyle, FullWidhtContainerStyle } from '../../Components/Form/FormStyle'
-// import TextOrNumberInput from '../../Components/InputFields/TextOrNumberInput'
+import { StyledForm, FullWidhtContainerStyle } from '../../Components/Form/FormStyle'
 import PicUrlInput from '../../Components/InputFields/PicUrlInput/PicUrlInput'
 import TextArea from '../../Components/InputFields/TextArea/TextArea'
 import SubmitButton from '../../Components/InputFields/SubmitButton/SubmitButton'
 import BaseInputFields from '../BaseInput/BaseInputFields'
 import axios, { AxiosError } from 'axios'
 import { VgaType } from '../../../ShopPages/Vga/VgaTypes'
+import { vgaProperties } from '../VgaProperties'
 
 export type PictureUrlType = {
    id: string
@@ -15,36 +15,7 @@ export type PictureUrlType = {
 
 const AdminVga = () => {
    const [pictureUrls, setPictureUrls] = useState<PictureUrlType[]>([])
-   const [vgaProduct, setVgaProduct] = useState<VgaType>({
-      _id: '',
-      itemNumber: '',
-      type: '',
-      typeCode: '',
-      pictureUrls: [],
-      manufacturer: '',
-      price: 0,
-      details: {
-         gpuManufacturer: '',
-         pcieType: '',
-         gpuBaseClock: 0,
-         gpuPeakClock: 0,
-         vramCapacity: 0,
-         vramType: '',
-         vramBandwidth: 0,
-         vramSpeed: 0,
-         powerConsuption: 0,
-         description: '',
-         powerPin: '',
-         warranity: 0,
-         displayPort: 0,
-         DVI: 0,
-         HDMI: 0,
-         minPowerSupply: 0,
-         manufacturerPageUrl: '',
-         length: 0,
-         streamProcessors: 0
-      }
-   })
+   const [vgaProduct, setVgaProduct] = useState<VgaType>(vgaProperties)
 
    const insertVga = (event: React.FormEvent) => {
       event.preventDefault()
@@ -62,7 +33,6 @@ const AdminVga = () => {
       <StyledForm onSubmit={insertVga}>
          <BaseInputFields setVgaProduct={setVgaProduct} vgaProduct={vgaProduct} />
          <FullWidhtContainerStyle>
-            {/* Ez esetleg Textarea?! */}
             <TextArea
                labelText='Leírás'
                onChangeEvent={(event) =>
@@ -75,7 +45,7 @@ const AdminVga = () => {
             <PicUrlInput setPictureUrls={setPictureUrls} pictureUrls={pictureUrls}></PicUrlInput>
          </FullWidhtContainerStyle>
          <FullWidhtContainerStyle>
-            <SubmitButton buttonText='Bevitel' />
+            <SubmitButton>Bevitel</SubmitButton>
          </FullWidhtContainerStyle>
       </StyledForm>
    )
