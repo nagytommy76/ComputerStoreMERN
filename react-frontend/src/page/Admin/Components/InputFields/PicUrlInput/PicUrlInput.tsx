@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect } from 'react'
+import React, { ChangeEvent } from 'react'
 import { InputContainer, InputFieldStyle } from '../InputStyle'
 import { PictureUrlType } from '../../../Vga/Insert/VgaInsert'
 import { InputFieldContainer, RemoveLinkButtonStyle, InsertNewLinkButton, LinkToPicture } from './PicStyle'
@@ -48,7 +48,7 @@ const PicUrlInput: React.FC<Props> = ({ setPictureUrls, pictureUrls, toModifyPic
                   X
                </RemoveLinkButtonStyle>
                <LinkToPicture type='button'>
-                  <a href={picture.pictureUrl} target='_blank'>
+                  <a href={picture.pictureUrl} rel='noreferrer' target='_blank'>
                      <FontAwesomeIcon icon={['fas', 'external-link-alt']} />
                   </a>
                </LinkToPicture>

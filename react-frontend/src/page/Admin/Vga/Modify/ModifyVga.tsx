@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios'
+import axios, { AxiosError, AxiosResponse } from 'axios'
 import React, { useState, useEffect } from 'react'
 import { VgaType } from '../../../ShopPages/Vga/VgaTypes'
 import { StyledForm, FullWidhtContainerStyle } from '../../Components/Form/FormStyle'
@@ -14,11 +14,16 @@ const ModifyVga = () => {
    const [selectedProductPictureUrls, setSelectedProductPictureUrls] = useState<PictureUrlType[]>([])
    const [allVgaProducts, setAllVgaProducts] = useState<VgaType[]>([])
    const [productDetails, setProductDetails] = useState<VgaType>(vgaProperties)
+   const fetchAllVga = async () => {
+      await axios
+         .get('admin/vga/get-all')
+         .then((response: AxiosResponse) => {
+            setAllVgaProducts(response.data)
+         })
+         .catch((error: AxiosError) => console.log(error))
+   }
    useEffect(() => {
-      axios.get('admin/vga/get-all').then((allVga: AxiosResponse) => {
-         setAllVgaProducts(allVga.data)
-         // allVga.data.map((vga: VgaType) => console.log(vga.pictureUrls))
-      })
+      fetchAllVga()
    }, [])
    return (
       <StyledForm>

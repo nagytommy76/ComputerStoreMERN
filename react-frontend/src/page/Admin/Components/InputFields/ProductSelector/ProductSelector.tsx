@@ -24,7 +24,7 @@ const ProductSelector: React.FC<Props> = ({ products, setDetailedProducts, setPi
       <InputContainer>
          <StyledLabel htmlFor='product-picker'>Termék választó</StyledLabel>
          <StyledSelect name='productPicker' id='product-picker' onChange={(event) => handleSelect(event)}>
-            <StyledOption value={undefined}>-- Nincs kiválasztva termék! --</StyledOption>
+            <StyledOption value='none'>-- Nincs kiválasztva termék! --</StyledOption>
             {products.map((item) => (
                <StyledOption value={item._id} key={item._id}>
                   {item.type} {item.typeCode} {item.price} Ft
