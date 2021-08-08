@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { createVgaProduct } from './CreateVga'
-import { getAllVgaProductToModify, modifyVgaProduct } from './ModifyVga'
+import { VgaProduct } from '../../../models/Vga/VgaProduct'
 import { validationResult } from 'express-validator'
 
 export const insertVgaItemController = async (req: Request, res: Response) => {
@@ -14,19 +14,23 @@ export const insertVgaItemController = async (req: Request, res: Response) => {
    }
 }
 
-export const getAllVgaProductToModifyController = async (req: Request, res: Response) => {
-   try {
-      const foundVgas = await getAllVgaProductToModify()
-      return res.status(200).json(foundVgas)
-   } catch (error) {
-      res.status(500).json(error)
-   }
-}
-
 export const modifyVgaProductController = async (req: Request, res: Response) => {
    try {
-      const foundVgas = await modifyVgaProduct(req.body._id)
-      return res.sendStatus(201)
+      VgaProduct.findById(req.body._id)
+         .then((vga) => {
+            if (vga) {
+               vga.details = req.body.details
+               vga.itemNumber = req.body.itemNumber
+               vga.type = req.body.type
+               vga.typeCode = req.body.typeCode
+               vga.manufacturer = req.body.manufacturer
+               vga.price = req.body.price
+               vga.pictureUrls = req.body.pictureUrls
+               vga.save()
+            }
+         })
+         .catch((error) => console.log(error))
+      res.sendStatus(201)
    } catch (error) {
       res.status(500).json(error)
    }
