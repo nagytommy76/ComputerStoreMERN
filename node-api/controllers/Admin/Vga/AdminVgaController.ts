@@ -6,16 +6,18 @@ import { validationResult } from 'express-validator'
 export const insertVgaItemController = async (req: Request, res: Response) => {
    try {
       const errors = validationResult(req)
-      if (!errors.isEmpty()) res.status(422).json(errors)
+      if (!errors.isEmpty()) return res.status(422).json(errors)
       await createVgaProduct(req.body.vgaProduct)
-      res.sendStatus(201)
+      return res.sendStatus(201)
    } catch (error) {
-      res.status(500).json(error)
+      return res.status(500).json(error)
    }
 }
 
 export const modifyVgaProductController = async (req: Request, res: Response) => {
    try {
+      const errors = validationResult(req)
+      if (!errors.isEmpty()) return res.status(422).json(errors)
       VgaProduct.findById(req.body._id)
          .then((vga) => {
             if (vga) {
@@ -29,9 +31,9 @@ export const modifyVgaProductController = async (req: Request, res: Response) =>
                vga.save()
             }
          })
-         .catch((error) => console.log(error))
-      res.sendStatus(201)
+         .catch((errors) => console.log(errors))
+      return res.sendStatus(201)
    } catch (error) {
-      res.status(500).json(error)
+      return res.status(500).json(error)
    }
 }
