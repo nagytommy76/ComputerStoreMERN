@@ -1,5 +1,5 @@
-import axios, { AxiosError, AxiosResponse } from 'axios'
-import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import React, { useState } from 'react'
 import { VgaType } from '../../../ShopPages/Vga/VgaTypes'
 import { StyledForm, FullWidhtContainerStyle } from '../../Components/Form/FormStyle'
 import SubmitButton from '../../Components/InputFields/SubmitButton/SubmitButton'
@@ -8,33 +8,29 @@ import ProductSelector from '../../Components/InputFields/ProductSelector/Produc
 import { vgaProperties } from '../VgaProperties'
 import TextArea from '../../Components/InputFields/TextArea/TextArea'
 import PicUrlInput from '../../Components/InputFields/PicUrlInput/PicUrlInput'
-import { PictureUrlType } from '../Insert/VgaInsert'
+import { ValidationError, ValidationErrorWithAxiosError, PictureUrlType } from '../Types'
 
 const ModifyVga = () => {
    const [selectedProductPictureUrls, setSelectedProductPictureUrls] = useState<PictureUrlType[]>([])
-   const [allVgaProducts, setAllVgaProducts] = useState<VgaType[]>([])
    const [productDetails, setProductDetails] = useState<VgaType>(vgaProperties)
-   const fetchAllVga = async () => {
-      await axios
-         .get('admin/vga/get-all')
-         .then((response: AxiosResponse) => {
-            setAllVgaProducts(response.data)
+   const [validationErrors, setValidationErrors] = useState<ValidationError[]>([])
+
+   const sendModifyRequest = (event: React.FormEvent) => {
+      event.preventDefault()
+      const filteredPictureArray = selectedProductPictureUrls.map((x) => x.pictureUrl)
+      axios
+         .post('admin/vga/modify', { ...productDetails, pictureUrls: filteredPictureArray })
+         .then((result) => console.log(result))
+         .catch((errors: ValidationErrorWithAxiosError) => {
+            if (errors.response?.data) setValidationErrors(errors.response.data.errors)
          })
-         .catch((error: AxiosError) => console.log(error))
    }
-   useEffect(() => {
-      fetchAllVga()
-   }, [])
    return (
-      <StyledForm>
+      <StyledForm onSubmit={sendModifyRequest}>
          <FullWidhtContainerStyle>
-            <ProductSelector
-               products={allVgaProducts}
-               setDetailedProducts={setProductDetails}
-               setPictureUrls={setSelectedProductPictureUrls}
-            />
+            <ProductSelector setDetailedProducts={setProductDetails} setPictureUrls={setSelectedProductPictureUrls} />
          </FullWidhtContainerStyle>
-         <BaseInputFields vgaProduct={productDetails} setVgaProduct={setProductDetails} />
+         <BaseInputFields vgaProduct={productDetails} setVgaProduct={setProductDetails} validationErrors={validationErrors} />
          <FullWidhtContainerStyle>
             <TextArea
                labelText='Leírás'

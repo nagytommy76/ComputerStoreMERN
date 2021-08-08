@@ -4,18 +4,15 @@ import PicUrlInput from '../../Components/InputFields/PicUrlInput/PicUrlInput'
 import TextArea from '../../Components/InputFields/TextArea/TextArea'
 import SubmitButton from '../../Components/InputFields/SubmitButton/SubmitButton'
 import BaseInputFields from '../BaseInput/BaseInputFields'
-import axios, { AxiosError } from 'axios'
+import axios from 'axios'
 import { VgaType } from '../../../ShopPages/Vga/VgaTypes'
 import { vgaProperties } from '../VgaProperties'
-
-export type PictureUrlType = {
-   id: string
-   pictureUrl: string
-}
+import { ValidationError, ValidationErrorWithAxiosError, PictureUrlType } from '../Types'
 
 const AdminVga = () => {
    const [pictureUrls, setPictureUrls] = useState<PictureUrlType[]>([])
    const [vgaProduct, setVgaProduct] = useState<VgaType>(vgaProperties)
+   const [validationErrors, setValidationErrors] = useState<ValidationError[]>([])
 
    const insertVga = (event: React.FormEvent) => {
       event.preventDefault()
@@ -25,13 +22,14 @@ const AdminVga = () => {
             vgaProduct: { ...vgaProduct, pictureUrls: filteredPicUrls }
          })
          .then((result) => console.log(result))
-         .catch((error: AxiosError) => {
-            console.log(error.response)
+         .catch((error: ValidationErrorWithAxiosError) => {
+            console.log(error.response?.data)
+            if (error.response?.data) setValidationErrors(error.response.data.errors)
          })
    }
    return (
       <StyledForm onSubmit={insertVga}>
-         <BaseInputFields setVgaProduct={setVgaProduct} vgaProduct={vgaProduct} />
+         <BaseInputFields setVgaProduct={setVgaProduct} vgaProduct={vgaProduct} validationErrors={validationErrors} />
          <FullWidhtContainerStyle>
             <TextArea
                labelText='Leírás'

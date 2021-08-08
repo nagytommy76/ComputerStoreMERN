@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react'
 import { InputContainer, InputFieldStyle } from '../InputStyle'
-import { PictureUrlType } from '../../../Vga/Insert/VgaInsert'
+import { PictureUrlType } from '../../../Vga/Types'
 import { InputFieldContainer, RemoveLinkButtonStyle, InsertNewLinkButton, LinkToPicture } from './PicStyle'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 

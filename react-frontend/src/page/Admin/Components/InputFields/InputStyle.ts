@@ -46,3 +46,11 @@ export const StyledOption = styled.option`
    outline: none;
    border: ${border};
 `
+
+export const StyledErrorMessage = styled.span`
+   width: 95%;
+   border-radius: 5px;
+   background-color: red;
+   color: white;
+   padding: 0.3rem;
+`

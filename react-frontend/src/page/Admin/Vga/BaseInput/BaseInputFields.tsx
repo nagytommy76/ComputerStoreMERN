@@ -1,20 +1,23 @@
 import React from 'react'
-import { VgaType } from '../../../ShopPages/Vga/VgaTypes'
 import { FormContainerStyle } from '../../Components/Form/FormStyle'
 import TextOrNumberInput from '../../Components/InputFields/TextOrNumberInput'
+import { BaseInputFieldProps } from '../Types'
 
-const BaseInputFields: React.FC<Props> = ({ vgaProduct, setVgaProduct }) => {
+const BaseInputFields: React.FC<BaseInputFieldProps> = ({ vgaProduct, setVgaProduct, validationErrors }) => {
+   const setErrorMsg = (param: string) => validationErrors.find((x: any) => x.param === param)?.msg
    return (
       <FormContainerStyle>
          <TextOrNumberInput
             labelText='Termék szám'
             onChangeEvent={(event) => setVgaProduct({ ...vgaProduct, itemNumber: event.target.value })}
             value={vgaProduct.itemNumber}
+            errorMsg={setErrorMsg('itemNumber')}
          />
          <TextOrNumberInput
             labelText='Típus név'
             onChangeEvent={(event) => setVgaProduct({ ...vgaProduct, type: event.target.value })}
             value={vgaProduct.type}
+            errorMsg={setErrorMsg('type')}
          />
          <TextOrNumberInput
             labelText='Típus kód'
@@ -25,12 +28,14 @@ const BaseInputFields: React.FC<Props> = ({ vgaProduct, setVgaProduct }) => {
             labelText='Vga gyártó'
             onChangeEvent={(event) => setVgaProduct({ ...vgaProduct, manufacturer: event.target.value })}
             value={vgaProduct.manufacturer}
+            errorMsg={setErrorMsg('manufacturer')}
          />
          <TextOrNumberInput
             inputType='number'
             labelText='Ár'
             onChangeEvent={(event) => setVgaProduct({ ...vgaProduct, price: parseInt(event.target.value) })}
             value={vgaProduct.price}
+            errorMsg={setErrorMsg('price')}
          />
          {/* Details */}
          <TextOrNumberInput
@@ -39,13 +44,15 @@ const BaseInputFields: React.FC<Props> = ({ vgaProduct, setVgaProduct }) => {
                setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, gpuManufacturer: event.target.value } })
             }
             value={vgaProduct.details.gpuManufacturer}
+            errorMsg={setErrorMsg('details.gpuManufacturer')}
          />
          <TextOrNumberInput
-            labelText='PCI-E typús'
+            labelText='PCI-E típus'
             onChangeEvent={(event) =>
                setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, pcieType: event.target.value } })
             }
             value={vgaProduct.details.pcieType}
+            errorMsg={setErrorMsg('details.pciType')}
          />
          <TextOrNumberInput
             labelText='GPU alap órajel'
@@ -54,6 +61,7 @@ const BaseInputFields: React.FC<Props> = ({ vgaProduct, setVgaProduct }) => {
                setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, gpuBaseClock: parseInt(event.target.value) } })
             }
             value={vgaProduct.details.gpuBaseClock}
+            errorMsg={setErrorMsg('details.gpuBaseClock')}
          />
          <TextOrNumberInput
             labelText='GPU emelt órajel'
@@ -62,6 +70,7 @@ const BaseInputFields: React.FC<Props> = ({ vgaProduct, setVgaProduct }) => {
                setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, gpuPeakClock: parseInt(event.target.value) } })
             }
             value={vgaProduct.details.gpuPeakClock}
+            errorMsg={setErrorMsg('details.gpuPeakClock')}
          />
          <TextOrNumberInput
             labelText='Vram mennyiség (Gb)'
@@ -70,6 +79,7 @@ const BaseInputFields: React.FC<Props> = ({ vgaProduct, setVgaProduct }) => {
                setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, vramCapacity: parseInt(event.target.value) } })
             }
             value={vgaProduct.details.vramCapacity}
+            errorMsg={setErrorMsg('details.vramCapacity')}
          />
          <TextOrNumberInput
             labelText='Vram típusa'
@@ -77,6 +87,7 @@ const BaseInputFields: React.FC<Props> = ({ vgaProduct, setVgaProduct }) => {
                setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, vramType: event.target.value } })
             }
             value={vgaProduct.details.vramType}
+            errorMsg={setErrorMsg('details.vramType')}
          />
          <TextOrNumberInput
             labelText='Vram sávszélesség (bit)'
@@ -88,6 +99,7 @@ const BaseInputFields: React.FC<Props> = ({ vgaProduct, setVgaProduct }) => {
                })
             }
             value={vgaProduct.details.vramBandwidth}
+            errorMsg={setErrorMsg('details.vramBandwidth')}
          />
          <TextOrNumberInput
             labelText='Vram sebesség (GB/s)'
@@ -96,6 +108,7 @@ const BaseInputFields: React.FC<Props> = ({ vgaProduct, setVgaProduct }) => {
                setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, vramSpeed: parseInt(event.target.value) } })
             }
             value={vgaProduct.details.vramSpeed}
+            errorMsg={setErrorMsg('details.vramSpeed')}
          />
          <TextOrNumberInput
             labelText='Energia fogyasztás (W)'
@@ -107,6 +120,7 @@ const BaseInputFields: React.FC<Props> = ({ vgaProduct, setVgaProduct }) => {
                })
             }
             value={vgaProduct.details.powerConsuption}
+            errorMsg={setErrorMsg('details.powerConsuption')}
          />
          <TextOrNumberInput
             labelText='Táp csatlakozók'
@@ -122,6 +136,7 @@ const BaseInputFields: React.FC<Props> = ({ vgaProduct, setVgaProduct }) => {
                setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, warranity: parseInt(event.target.value) } })
             }
             value={vgaProduct.details.warranity}
+            errorMsg={setErrorMsg('details.warranity')}
          />
          <TextOrNumberInput
             labelText='Display Port (DB)'
@@ -183,14 +198,10 @@ const BaseInputFields: React.FC<Props> = ({ vgaProduct, setVgaProduct }) => {
                })
             }
             value={vgaProduct.details.streamProcessors}
+            errorMsg={setErrorMsg('details.streamProcessors')}
          />
       </FormContainerStyle>
    )
-}
-
-type Props = {
-   vgaProduct: VgaType
-   setVgaProduct: React.Dispatch<React.SetStateAction<VgaType>>
 }
 
 export default BaseInputFields
