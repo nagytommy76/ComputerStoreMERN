@@ -1,8 +1,7 @@
-import { VgaProduct } from '../../../models/Vga/VgaProduct'
 import { VgaType } from '../../../models/Vga/VgaTypes'
 
-export const createVgaProduct = async (incomingVga: VgaType): Promise<VgaType> => {
-   const vga = new VgaProduct({
+export const returnFilledVgaProductObject = (incomingVga: VgaType) => {
+   return {
       itemNumber: incomingVga.itemNumber,
       type: incomingVga.type,
       typeCode: incomingVga.typeCode,
@@ -30,6 +29,5 @@ export const createVgaProduct = async (incomingVga: VgaType): Promise<VgaType> =
          manufacturerPageUrl: incomingVga.details.manufacturerPageUrl,
          streamProcessors: incomingVga.details.streamProcessors
       }
-   })
-   return await vga.save()
+   }
 }

@@ -4,7 +4,7 @@ const notEmptyFieldWithMessage = (fieldName: string, messageBody: string) =>
    body(fieldName).not().isEmpty().withMessage(`A(z) ${messageBody} mező kitöltése kötelező!`)
 
 const notZeroValueWithMessage = (fieldName: string, messageBody: string) =>
-   body(fieldName).not().contains(0).withMessage(`A(z) ${messageBody} mező nem lehet nulla!`)
+   body(fieldName).not().equals('0').withMessage(`A(z) ${messageBody} mező nem lehet nulla!`)
 
 export const insertVgaValidator = [
    notEmptyFieldWithMessage('itemNumber', 'típus szám'),
