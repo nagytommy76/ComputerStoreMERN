@@ -3,6 +3,7 @@ import { InputContainer, StyledLabel, StyledSelect, StyledOption } from '../Inpu
 import { VgaType } from '../../../../ShopPages/Vga/VgaTypes'
 import { PictureUrlType } from '../../../Vga/Types'
 import axios, { AxiosResponse, AxiosError } from 'axios'
+import { vgaProperties } from '../../../Vga/VgaProperties'
 
 const ProductSelector: React.FC<Props> = ({ setDetailedProducts, setPictureUrls }) => {
    const [allVgaProducts, setAllVgaProducts] = useState<VgaType[]>([])
@@ -19,6 +20,8 @@ const ProductSelector: React.FC<Props> = ({ setDetailedProducts, setPictureUrls 
    }, [])
    const handleSelect = (event: ChangeEvent<HTMLSelectElement>) => {
       event.preventDefault()
+      if (event.target.value === 'none') setDetailedProducts(vgaProperties)
+      if (setPictureUrls && event.target.value === 'none') setPictureUrls([])
       const foundElement: VgaType | undefined = allVgaProducts.find((element: VgaType) => element._id === event.target.value)
       if (foundElement !== undefined) {
          setDetailedProducts(foundElement)

@@ -49,8 +49,7 @@ export const StyledOption = styled.option`
 
 export const StyledErrorMessage = styled.span`
    width: 95%;
-   border-radius: 5px;
-   background-color: red;
-   color: white;
+   font-size: 0.8rem;
+   color: red;
    padding: 0.3rem;
 `

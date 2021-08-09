@@ -48,9 +48,36 @@ const allVgaProductResponseToModify = {
    ]
 }
 
+const mockRejectedValidationErrorResponse = {
+   response: {
+      data: {
+         errors: [
+            {
+               location: '',
+               msg: 'A(z) típus szám mező kitöltése kötelező!',
+               param: 'itemNumber',
+               value: ''
+            },
+            {
+               location: '',
+               msg: 'A(z) típus név mező kitöltése kötelező!',
+               param: 'type',
+               value: ''
+            },
+            {
+               location: '',
+               msg: 'A(z) Vga gyártó mező kitöltése kötelező!',
+               param: 'manufacturer',
+               value: ''
+            }
+         ]
+      }
+   }
+}
+
 describe('Modify vga (admin)', () => {
    beforeEach(async () => {
-      await act(async () => await axios.get.mockResolvedValue(allVgaProductResponseToModify))
+      axios.get.mockResolvedValue(allVgaProductResponseToModify)
       render(<ModifyVga />)
       const options = await screen.findByRole('combobox')
       userEvent.selectOptions(options, [allVgaProductResponseToModify.data[0]._id])
@@ -61,6 +88,7 @@ describe('Modify vga (admin)', () => {
    })
 
    test('should display the data from the API after user selects something', async () => {
+      expect(axios.get).toHaveBeenCalled()
       expect(await screen.findByRole('spinbutton', { name: /Ár/i })).toHaveValue(allVgaProductResponseToModify.data[0].price)
       expect(await screen.findByRole('textbox', { name: /Termék szám/i })).toHaveValue(
          allVgaProductResponseToModify.data[0].itemNumber
@@ -85,5 +113,17 @@ describe('Modify vga (admin)', () => {
       const allDeleteButtons = await screen.findAllByRole('button', { name: 'X' })
       userEvent.click(allDeleteButtons[allDeleteButtons.length - 1])
       expect(await screen.findAllByRole('link')).toHaveLength(allVgaProductResponseToModify.data[0].pictureUrls.length)
+   })
+})
+describe('fdgdf', () => {
+   test('should display error messages if the user send a response with empty fields', async () => {
+      axios.post.mockImplementationOnce(() => Promise.reject(mockRejectedValidationErrorResponse))
+      render(<ModifyVga />)
+      // axios.post.mockRejectedValue(mockRejectedValidationErrorResponse)
+      const modifyButton = await screen.findByRole('button', { name: `Módosítás` })
+      userEvent.click(modifyButton)
+      // await expect(axios.post).rejects.toEqual(mockRejectedValidationErrorResponse.response)
+      // await screen.findByText(`A(z) típus szám mező kitöltése kötelező!`)
+      screen.debug()
    })
 })

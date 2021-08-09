@@ -1,0 +1,20 @@
+.ErrorEnter {
+   opacity: 0;
+   transform: translateX(-10%);
+}
+
+.ErrorEnterActive {
+   opacity: 1;
+   transform: translateX(0%);
+   transition: all 0.3s ease;
+}
+
+.ErrorExit {
+   opacity: 1;
+}
+
+.ErrorExitActive {
+   opacity: 0;
+   transform: translateX(-10%);
+   transition: all 0.3s ease;
+}

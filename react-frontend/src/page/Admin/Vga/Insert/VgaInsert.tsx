@@ -21,7 +21,9 @@ const AdminVga = () => {
          .post('admin/vga/insert', {
             vgaProduct: { ...vgaProduct, pictureUrls: filteredPicUrls }
          })
-         .then((result) => console.log(result))
+         .then((result) => {
+            if (result.status === 201) setVgaProduct(vgaProperties)
+         })
          .catch((error: ValidationErrorWithAxiosError) => {
             console.log(error.response?.data)
             if (error.response?.data) setValidationErrors(error.response.data.errors)
