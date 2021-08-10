@@ -1,8 +1,9 @@
 import React from 'react'
 import axios from 'axios'
 import userEvent from '@testing-library/user-event'
-import { render, screen, act } from '../../../../test-utils'
+import { render, screen, waitForElementToBeRemoved } from '../../../../test-utils'
 import ModifyVga from './ModifyVga'
+import { waitFor } from '@testing-library/dom'
 jest.mock('axios')
 
 const allVgaProductResponseToModify = {
@@ -69,6 +70,12 @@ const mockRejectedValidationErrorResponse = {
                msg: 'A(z) Vga gyártó mező kitöltése kötelező!',
                param: 'manufacturer',
                value: ''
+            },
+            {
+               location: '',
+               msg: 'A(z) streamProcessors mező kitöltése kötelező!',
+               param: 'details.streamProcessors',
+               value: 0
             }
          ]
       }
@@ -115,15 +122,31 @@ describe('Modify vga (admin)', () => {
       expect(await screen.findAllByRole('link')).toHaveLength(allVgaProductResponseToModify.data[0].pictureUrls.length)
    })
 })
-describe('fdgdf', () => {
-   test('should display error messages if the user send a response with empty fields', async () => {
-      axios.post.mockImplementationOnce(() => Promise.reject(mockRejectedValidationErrorResponse))
+
+describe('Test', () => {
+   beforeEach(async () => {
+      axios.get.mockResolvedValue(allVgaProductResponseToModify)
       render(<ModifyVga />)
-      // axios.post.mockRejectedValue(mockRejectedValidationErrorResponse)
+      await screen.findByRole('combobox')
+      axios.post.mockRejectedValue(mockRejectedValidationErrorResponse)
+   })
+   test('should display error messages if the user send a response with empty fields', async () => {
       const modifyButton = await screen.findByRole('button', { name: `Módosítás` })
+
       userEvent.click(modifyButton)
-      // await expect(axios.post).rejects.toEqual(mockRejectedValidationErrorResponse.response)
-      // await screen.findByText(`A(z) típus szám mező kitöltése kötelező!`)
-      screen.debug()
+      await screen.findByText(mockRejectedValidationErrorResponse.response.data.errors[0].msg)
+      await screen.findByText(mockRejectedValidationErrorResponse.response.data.errors[1].msg)
+      await screen.findByText(mockRejectedValidationErrorResponse.response.data.errors[2].msg)
+      await screen.findByText(mockRejectedValidationErrorResponse.response.data.errors[3].msg)
+   })
+
+   test('should disappear the warning text after user enters something', async () => {
+      const modifyButton = await screen.findByRole('button', { name: `Módosítás` })
+
+      userEvent.click(modifyButton)
+      const errorMsg = await screen.findByText(mockRejectedValidationErrorResponse.response.data.errors[0].msg)
+
+      userEvent.type(await screen.findByRole('textbox', { name: /Termék szám/i }), 'ASUS10603GB')
+      await waitFor(() => expect(errorMsg).not.toBeInTheDocument())
    })
 })

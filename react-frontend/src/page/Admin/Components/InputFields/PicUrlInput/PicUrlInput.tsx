@@ -47,11 +47,11 @@ const PicUrlInput: React.FC<Props> = ({ setPictureUrls, pictureUrls, toModifyPic
                <RemoveLinkButtonStyle onClick={() => removeLinkItem(picture.id)} type='button'>
                   X
                </RemoveLinkButtonStyle>
-               <LinkToPicture type='button'>
-                  <a href={picture.pictureUrl} rel='noreferrer' target='_blank'>
+               <a href={picture.pictureUrl} rel='noreferrer' target='_blank'>
+                  <LinkToPicture type='button'>
                      <FontAwesomeIcon icon={['fas', 'external-link-alt']} />
-                  </a>
-               </LinkToPicture>
+                  </LinkToPicture>
+               </a>
             </InputFieldContainer>
          ))}
       </InputContainer>

@@ -15,10 +15,10 @@ const ModifyVga = () => {
    const [productDetails, setProductDetails] = useState<VgaType>(vgaProperties)
    const [validationErrors, setValidationErrors] = useState<ValidationError[]>([])
 
-   const sendModifyRequest = (event: React.FormEvent) => {
+   const sendModifyRequest = async (event: React.FormEvent) => {
       event.preventDefault()
       const filteredPictureArray = selectedProductPictureUrls.map((x) => x.pictureUrl)
-      axios
+      await axios
          .post('admin/vga/modify', { ...productDetails, pictureUrls: filteredPictureArray })
          .then((result) => console.log(result))
          .catch((errors: ValidationErrorWithAxiosError) => {

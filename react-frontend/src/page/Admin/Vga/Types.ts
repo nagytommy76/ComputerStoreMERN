@@ -13,7 +13,7 @@ export type ValidationError = {
    location: string
    msg: string
    param: string
-   value?: string
+   value?: string | number
 }
 
 export type PictureUrlType = {

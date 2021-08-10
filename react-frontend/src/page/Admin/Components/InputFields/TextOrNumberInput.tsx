@@ -15,7 +15,14 @@ const TextOrNumberInput: React.FC<Props> = ({ labelText, inputType = 'text', onC
    return (
       <InputContainer>
          <StyledLabel htmlFor={labelText}>{labelText}</StyledLabel>
-         <InputFieldStyle min='0' id={labelText} type={inputType} onChange={onChangeEvent} value={value} />
+         <InputFieldStyle
+            min='0'
+            id={labelText}
+            type={inputType}
+            onChange={onChangeEvent}
+            value={value}
+            isError={hasErrorNotExpired}
+         />
          <CSSTransition
             in={hasErrorNotExpired}
             unmountOnExit
