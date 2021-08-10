@@ -9,7 +9,7 @@ import DropMenu from './DropMenu/ShopDropdown/DropMenu'
 import UserDrop from './DropMenu/UserDropdown/UserDrop'
 import Toggler from './ThemeToggler/Toggle'
 import LinkItem from './LinkItems/LinkItem'
-import CartButton from './Cart/CartButton'
+import CartButton from './Cart/CartButton/CartButton'
 import CartSlide from './Cart/CartSlide'
 
 const Navbar = () => {
@@ -47,7 +47,7 @@ const Navbar = () => {
                </TogglerCartListItems>
             </StyledUnorderedList>
             <CartButton onClickEvent={() => setIsCartOpen(!isCartOpen)} />
-            <CartSlide isSlideOpen={isCartOpen} reference={CartRef} />
+            <CartSlide isSlideOpen={isCartOpen} setIsSlideOpen={setIsCartOpen} reference={CartRef} />
          </NavStyle>
          <BaseDropBackground isDropOpen={isShopDropOpen || isUserDropOpen || isCartOpen} nodeRef={BackgroundRef}>
             <DropdownBackground onClick={() => setIsCartOpen(false)} ref={BackgroundRef} />

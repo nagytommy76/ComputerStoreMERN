@@ -9,7 +9,10 @@ const ProductCard = React.lazy(() => import('../BaseComponents/ProductCard/Produ
 const Vga = () => {
    const [vgaProducts, setVgaProducts] = useState<null | VgaType[]>(null)
    useEffect(() => {
-      axios.get(`/vga`).then((vgas) => setVgaProducts(vgas.data))
+      axios
+         .get(`/vga`)
+         .then((vgas) => setVgaProducts(vgas.data))
+         .catch((error) => console.log(error))
    }, [])
    return (
       <PageContainer>
