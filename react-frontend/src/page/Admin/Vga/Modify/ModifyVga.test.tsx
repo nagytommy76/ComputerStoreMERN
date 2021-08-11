@@ -5,6 +5,7 @@ import { render, screen, waitForElementToBeRemoved } from '../../../../test-util
 import ModifyVga from './ModifyVga'
 import { waitFor } from '@testing-library/dom'
 jest.mock('axios')
+const mockedAxios = axios as jest.Mocked<typeof axios>
 
 const allVgaProductResponseToModify = {
    data: [
@@ -84,7 +85,7 @@ const mockRejectedValidationErrorResponse = {
 
 describe('Modify vga (admin)', () => {
    beforeEach(async () => {
-      axios.get.mockResolvedValue(allVgaProductResponseToModify)
+      mockedAxios.get.mockResolvedValue(allVgaProductResponseToModify)
       render(<ModifyVga />)
       const options = await screen.findByRole('combobox')
       userEvent.selectOptions(options, [allVgaProductResponseToModify.data[0]._id])
@@ -95,7 +96,7 @@ describe('Modify vga (admin)', () => {
    })
 
    test('should display the data from the API after user selects something', async () => {
-      expect(axios.get).toHaveBeenCalled()
+      expect(mockedAxios.get).toHaveBeenCalled()
       expect(await screen.findByRole('spinbutton', { name: /Ár/i })).toHaveValue(allVgaProductResponseToModify.data[0].price)
       expect(await screen.findByRole('textbox', { name: /Termék szám/i })).toHaveValue(
          allVgaProductResponseToModify.data[0].itemNumber
@@ -125,10 +126,10 @@ describe('Modify vga (admin)', () => {
 
 describe('Test', () => {
    beforeEach(async () => {
-      axios.get.mockResolvedValue(allVgaProductResponseToModify)
+      mockedAxios.get.mockResolvedValue(allVgaProductResponseToModify)
       render(<ModifyVga />)
       await screen.findByRole('combobox')
-      axios.post.mockRejectedValue(mockRejectedValidationErrorResponse)
+      mockedAxios.post.mockRejectedValue(mockRejectedValidationErrorResponse)
    })
    test('should display error messages if the user send a response with empty fields', async () => {
       const modifyButton = await screen.findByRole('button', { name: `Módosítás` })

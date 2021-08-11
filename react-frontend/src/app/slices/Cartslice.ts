@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit'
 
 import {
    checkProductExistsInTheCart,
@@ -8,6 +8,14 @@ import {
    calculateTotalPriceAndQuantity,
    increaseItemQtyByOne
 } from './helpers/CartSliceHelper'
+
+type IncomingTypes = {
+   _id: string
+   productName: string
+   price: number
+   itemQuantity: string
+   displayImage: string
+}
 
 const initialState: StateType = {
    totalQuantity: 0,
@@ -19,10 +27,7 @@ export const CartSlice = createSlice({
    name: 'cart',
    initialState,
    reducers: {
-      addToCart: (
-         state,
-         action: PayloadAction<{ _id: string; productName: string; price: number; itemQuantity: string; displayImage: string }>
-      ) => {
+      addToCart: (state, action: PayloadAction<IncomingTypes>) => {
          let singleCartItem: CartItemsType = {
             itemId: action.payload._id,
             productName: action.payload.productName,
@@ -60,6 +65,10 @@ export const CartSlice = createSlice({
       }
    }
 })
+
+const sendCartItems = (payload: IncomingTypes) => async (dispatch: Dispatch) => {
+   dispatch(addToCart(payload))
+}
 
 export const { addToCart, removeAllEntitesFromCart, increaseItemQty, decreaseItemQty } = CartSlice.actions
 
