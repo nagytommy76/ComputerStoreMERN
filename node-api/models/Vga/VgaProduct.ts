@@ -33,6 +33,11 @@ const VgaSchema = new Schema<VgaType>({
       streamProcessors: Number
    },
    typeCode: String
+}).add({
+   inStockQuantity: { type: Number, required: true, default: 0 },
+   isHighlighted: { type: Boolean, required: false, default: false },
+   ratingCount: { type: Number, required: false },
+   ratingValue: { type: Number, required: false }
 })
 
 export const VgaProduct = model<VgaType>('VgaProduct', VgaSchema)

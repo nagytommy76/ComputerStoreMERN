@@ -15,7 +15,8 @@ app.use('/api/vga', require('./routes/api/Vga/Vga'))
 app.use('/api/admin/vga', require('./routes/api/Admin/Vga'))
 
 app.use('/api/auth', require('./routes/api/User/User'))
+app.use('/api/cart', require('./routes/api/User/Cart'))
 
 app.listen(PORT, () => {
-   console.log(`The app listening at http://localhost:${PORT}`)
+   console.log(`The app started`)
 })

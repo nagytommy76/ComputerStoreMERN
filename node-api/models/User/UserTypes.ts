@@ -25,8 +25,9 @@ export type UserDetailsTypes = {
 
 type CartItemsType = {
    itemId: string
-   productName: string
+   productType: string
    quantity: number
+   /*productName: string
    price: number
-   displayImage: string
+   displayImage: string*/
 }

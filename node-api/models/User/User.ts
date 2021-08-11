@@ -29,7 +29,14 @@ const UserSchema = new Schema<UserTypes>({
          door: String
       }
    },
-   cartItems: [{ itemId: Schema.Types.ObjectId, productName: String, quantity: Number, price: Number, displayImage: String }]
+   cartItems: [
+      {
+         itemId: Schema.Types.ObjectId,
+         /* displayImage: String, displayName: String, price: Number,*/
+         quantity: Number,
+         productType: String
+      }
+   ]
 })
 
 export const User = model<UserTypes>('user', UserSchema)
