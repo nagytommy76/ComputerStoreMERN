@@ -1,4 +1,5 @@
 import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit'
+import axios from 'axios'
 
 import {
    checkProductExistsInTheCart,
@@ -66,8 +67,33 @@ export const CartSlice = createSlice({
    }
 })
 
-const sendCartItems = (payload: IncomingTypes) => async (dispatch: Dispatch) => {
-   dispatch(addToCart(payload))
+export const sendCartItemsToSaveInDB =
+   (payload: IncomingTypes, productType: string, userName: string) => async (dispatch: Dispatch, getState: any) => {
+      dispatch(addToCart(payload))
+      // Ez már a kosárba helyezés utáni állapot =
+      const totalQuantityOfAProduct = getState().cart.cartItems.find((item: any) => item.itemId === payload._id)
+      await axios
+         .post('/cart/add-items', {
+            _id: payload._id,
+            quantity: totalQuantityOfAProduct.quantity,
+            productType: productType,
+            userName: userName
+         })
+         .then((result) => console.log(result))
+         .catch((error) => console.log(error.message))
+   }
+
+export const removeItemsFromCart = (_id: string) => async (dispatch: Dispatch, getState: any) => {
+   dispatch(removeAllEntitesFromCart(_id))
+   await axios
+      .delete('/cart/remove-item', {
+         data: {
+            _id,
+            userName: getState().auth.userName
+         }
+      })
+      .then(() => {})
+      .catch((error) => console.log(error))
 }
 
 export const { addToCart, removeAllEntitesFromCart, increaseItemQty, decreaseItemQty } = CartSlice.actions

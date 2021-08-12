@@ -10,13 +10,13 @@ import {
    PriceAndQuantityStyle
 } from './CartItemStyle'
 import { useAppDispatch } from '../../../../app/hooks'
-import { removeAllEntitesFromCart } from '../../../../app/slices/CartSlice'
+import { removeItemsFromCart } from '../../../../app/slices/CartSlice'
 
 const CartItem: React.FC<Props> = ({ id, productName, price, quantity, displayImage }) => {
    const dispatch = useAppDispatch()
    return (
       <StyledCartItem>
-         <StyledCloseIcon onClick={() => dispatch(removeAllEntitesFromCart(id))}>&#10007;</StyledCloseIcon>
+         <StyledCloseIcon onClick={() => dispatch(removeItemsFromCart(id))}>&#10007;</StyledCloseIcon>
          <LeftImageContainerStyle>
             <ImageStyle src={displayImage} alt='' />
          </LeftImageContainerStyle>
