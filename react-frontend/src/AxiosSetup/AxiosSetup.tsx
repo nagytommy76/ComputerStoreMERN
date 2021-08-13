@@ -2,7 +2,11 @@ import axios from 'axios'
 import { store } from '../app/store'
 import { logoutUser, setAccessToken } from '../app/slices/AuthSlice'
 
-export default function AxiosSetup(accessToken: string | null, refreshToken: string | null) {
+// Az app megnyitásakor, ha a user ba van jelentkezve megvizsgálom, hogy érvényes-e az accessToken-je
+// Ha nem akkor a refreshToken-nel kérek egy újat,
+// Ha az sem érvényes kiléptetem és be kell újra lépnie
+
+export default async function AxiosSetup(accessToken: string | null, refreshToken: string | null) {
    axios.defaults.baseURL = 'http://localhost:5050/api'
    axios.defaults.headers['Content-Type'] = 'Application/json'
    axios.defaults.headers.Authorization = `Barer ${accessToken}`

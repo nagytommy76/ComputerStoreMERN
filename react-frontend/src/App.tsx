@@ -8,7 +8,8 @@ import { ThemeProvider } from 'styled-components'
 import { GlobalStyles } from './Theme/GlobalStyles'
 import { lightTheme, darkTheme } from './Theme/Themes'
 
-import { useAppSelector } from './app/hooks'
+import { useAppDispatch, useAppSelector } from './app/hooks'
+import { fetchCartItemsFromDB } from './app/slices/CartSlice'
 
 const Login = React.lazy(() => import('./page/Auth/Login/Login'))
 const Register = React.lazy(() => import('./page/Auth/Register/Register'))
@@ -21,14 +22,18 @@ const Admin = React.lazy(() => import('./page/Admin/Admin'))
 
 // https://lewiskori.com/blog/how-to-auto-refresh-jwts-using-axios-interceptors/
 const App = () => {
-   // Az app megnyitásakor, ha a user ba van jelentkezve megvizsgálom, hogy érvényes-e az accessToken-je
-   // Ha nem akkor a refreshToken-nel kérek egy újat,
-   // Ha az sem érvényes kiléptetem és be kell újra lépnie
+   const dispatch = useAppDispatch()
+
    const accessToken = useAppSelector((state) => state.auth.accessToken)
    const refreshToken = useAppSelector((state) => state.auth.refreshToken)
+   const userIsLoggedIn = useAppSelector((state) => state.auth.userLoggedIn)
+   const isCartEmpty = useAppSelector((state) => state.cart.cartItems.length === 0)
    useEffect(() => {
       AxiosSetup(accessToken, refreshToken)
-   }, [accessToken, refreshToken])
+      console.log(isCartEmpty)
+      if (userIsLoggedIn && isCartEmpty) dispatch(fetchCartItemsFromDB())
+   }, [accessToken, refreshToken, dispatch, userIsLoggedIn, isCartEmpty])
+
    const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
    return (
       <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>

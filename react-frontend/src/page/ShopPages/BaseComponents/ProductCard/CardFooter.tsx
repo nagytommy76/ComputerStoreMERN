@@ -15,9 +15,7 @@ const CardFooter: React.FC<Props> = ({ reference, quantityValue, changeEvent }) 
    const dispatch = useAppDispatch()
    const { _id, productName, price, displayImage } = useContext(VgaContext)
    const addItemToCart = () => {
-      dispatch(
-         sendCartItemsToSaveInDB({ _id, productName, price, itemQuantity: quantityValue, displayImage }, 'vgaproduct', 'senki123')
-      )
+      dispatch(sendCartItemsToSaveInDB({ _id, productName, price, itemQuantity: quantityValue, displayImage }, 'vgaproduct'))
    }
    return (
       <CardFooterStyle ref={reference}>

@@ -1,5 +1,5 @@
 import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit'
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 
 import {
    checkProductExistsInTheCart,
@@ -68,7 +68,7 @@ export const CartSlice = createSlice({
 })
 
 export const sendCartItemsToSaveInDB =
-   (payload: IncomingTypes, productType: string, userName: string) => async (dispatch: Dispatch, getState: any) => {
+   (payload: IncomingTypes, productType: string) => async (dispatch: Dispatch, getState: any) => {
       dispatch(addToCart(payload))
       // Ez már a kosárba helyezés utáni állapot =
       const totalQuantityOfAProduct = getState().cart.cartItems.find((item: any) => item.itemId === payload._id)
@@ -77,23 +77,49 @@ export const sendCartItemsToSaveInDB =
             _id: payload._id,
             quantity: totalQuantityOfAProduct.quantity,
             productType: productType,
-            userName: userName
+            displayImage: payload.displayImage,
+            displayName: payload.productName,
+            price: payload.price
          })
          .then((result) => console.log(result))
          .catch((error) => console.log(error.message))
    }
 
-export const removeItemsFromCart = (_id: string) => async (dispatch: Dispatch, getState: any) => {
+export const removeItemsFromCart = (_id: string) => async (dispatch: Dispatch) => {
    dispatch(removeAllEntitesFromCart(_id))
    await axios
       .delete('/cart/remove-item', {
          data: {
-            _id,
-            userName: getState().auth.userName
+            _id
          }
       })
-      .then(() => {})
       .catch((error) => console.log(error))
+}
+
+export const fetchCartItemsFromDB = () => async (dispatch: Dispatch) => {
+   await axios
+      .get('/cart/fetch-items')
+      .then(
+         (
+            cartItems: AxiosResponse<
+               { quantity: string; displayImage: string; itemId: string; price: number; displayName: string }[]
+            >
+         ) => {
+            console.log(cartItems)
+            cartItems.data.forEach((items) => {
+               dispatch(
+                  addToCart({
+                     _id: items.itemId,
+                     displayImage: items.displayImage,
+                     itemQuantity: items.quantity,
+                     price: items.price,
+                     productName: items.displayName
+                  })
+               )
+            })
+         }
+      )
+      .catch((cartErrors) => console.log(cartErrors))
 }
 
 export const { addToCart, removeAllEntitesFromCart, increaseItemQty, decreaseItemQty } = CartSlice.actions
