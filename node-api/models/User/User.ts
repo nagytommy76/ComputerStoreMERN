@@ -32,7 +32,9 @@ const UserSchema = new Schema<UserTypes>({
    cartItems: [
       {
          itemId: Schema.Types.ObjectId,
-         /* displayImage: String, displayName: String, price: Number,*/
+         displayImage: String,
+         displayName: String,
+         price: Number,
          quantity: Number,
          productType: String
       }
