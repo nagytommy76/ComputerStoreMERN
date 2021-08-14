@@ -71,11 +71,12 @@ export const sendCartItemsToSaveInDB =
    (payload: IncomingTypes, productType: string) => async (dispatch: Dispatch, getState: any) => {
       dispatch(addToCart(payload))
       // Ez már a kosárba helyezés utáni állapot =
-      const totalQuantityOfAProduct = getState().cart.cartItems.find((item: any) => item.itemId === payload._id)
+      // const totalQuantityOfAProduct = getState().cart.cartItems.find((item: any) => item.itemId === payload._id)
+      const totalQuantityOfAProduct = checkProductExistsInTheCart(payload._id, getState().cart.cartItems)?.quantity
       await axios
          .post('/cart/add-items', {
             _id: payload._id,
-            quantity: totalQuantityOfAProduct.quantity,
+            quantity: totalQuantityOfAProduct,
             productType: productType,
             displayImage: payload.displayImage,
             displayName: payload.productName,
@@ -121,6 +122,20 @@ export const fetchCartItemsFromDB = () => async (dispatch: Dispatch) => {
       )
       .catch((cartErrors) => console.log(cartErrors))
 }
+
+export const increaseOrDecreaseByOne =
+   (_id: string, isIncrease: boolean = true) =>
+   async (dispatch: Dispatch) => {
+      isIncrease ? dispatch(increaseItemQty(_id)) : dispatch(decreaseItemQty(_id))
+      await axios
+         .patch('/cart/quantity', {
+            data: {
+               itemId: _id,
+               isIncrease
+            }
+         })
+         .catch((error) => console.log(error))
+   }
 
 export const { addToCart, removeAllEntitesFromCart, increaseItemQty, decreaseItemQty } = CartSlice.actions
 

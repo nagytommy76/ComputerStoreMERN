@@ -1,15 +1,18 @@
 import React from 'react'
 import { Container, IncreaseDecreaseStyle, QuantityStyle } from './BasketStyle'
 import { useAppDispatch } from '../../../../app/hooks'
-import { decreaseItemQty, increaseItemQty } from '../../../../app/slices/CartSlice'
+import { increaseOrDecreaseByOne } from '../../../../app/slices/CartSlice'
 
 const Basket: React.FC<Props> = ({ quaintity, id }) => {
    const dispatch = useAppDispatch()
+   const decrease = () => {
+      if (quaintity !== 1) dispatch(increaseOrDecreaseByOne(id, false))
+   }
    return (
       <Container>
-         <IncreaseDecreaseStyle onClick={() => dispatch(decreaseItemQty(id))}>-</IncreaseDecreaseStyle>
+         <IncreaseDecreaseStyle onClick={decrease}>-</IncreaseDecreaseStyle>
          <QuantityStyle>{quaintity} db</QuantityStyle>
-         <IncreaseDecreaseStyle onClick={() => dispatch(increaseItemQty(id))}>+</IncreaseDecreaseStyle>
+         <IncreaseDecreaseStyle onClick={() => dispatch(increaseOrDecreaseByOne(id))}>+</IncreaseDecreaseStyle>
       </Container>
    )
 }

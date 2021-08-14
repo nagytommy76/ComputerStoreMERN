@@ -30,7 +30,7 @@ export default async function AxiosSetup(accessToken: string | null, refreshToke
             // Itt pedig be kell lépni mert a refres token se jó
             store.dispatch(logoutUser())
          }
-         return Promise.reject(error)
+         return await Promise.reject(error)
       }
    )
 }

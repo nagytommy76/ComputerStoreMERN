@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import AxiosSetup from './AxiosSetup/AxiosSetup'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Navbar from './page/Navbar/Navbar'
@@ -28,11 +28,20 @@ const App = () => {
    const refreshToken = useAppSelector((state) => state.auth.refreshToken)
    const userIsLoggedIn = useAppSelector((state) => state.auth.userLoggedIn)
    const isCartEmpty = useAppSelector((state) => state.cart.cartItems.length === 0)
+
+   const initUserCartItems = useCallback(() => {
+      if (userIsLoggedIn && isCartEmpty && accessToken !== null) dispatch(fetchCartItemsFromDB())
+   }, [userIsLoggedIn, dispatch, isCartEmpty, accessToken])
+
+   const InitAxios = useCallback(async () => {
+      await AxiosSetup(accessToken, refreshToken)
+   }, [accessToken, refreshToken])
+
    useEffect(() => {
-      AxiosSetup(accessToken, refreshToken)
-      console.log(isCartEmpty)
-      if (userIsLoggedIn && isCartEmpty) dispatch(fetchCartItemsFromDB())
-   }, [accessToken, refreshToken, dispatch, userIsLoggedIn, isCartEmpty])
+      InitAxios()
+      initUserCartItems()
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [accessToken])
 
    const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
    return (
