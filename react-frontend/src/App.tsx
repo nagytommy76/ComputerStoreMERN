@@ -1,7 +1,9 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, Suspense } from 'react'
 import AxiosSetup from './AxiosSetup/AxiosSetup'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Navbar from './page/Navbar/Navbar'
+import Container from './SuspenseComponents/ProductCard/Container'
+import PageSuspense from './SuspenseComponents/Page/PageSuspense'
 import { ProtectedRoute, GuestsRoute, AdminRoute } from './Routes/ProtectedRoute'
 
 import { ThemeProvider } from 'styled-components'
@@ -49,17 +51,19 @@ const App = () => {
          <BrowserRouter>
             <GlobalStyles />
             <Navbar />
-            <React.Suspense fallback={<h1>Tötlés...</h1>}>
-               <Switch>
+            <Switch>
+               <Suspense fallback={<PageSuspense />}>
                   <Route path='/' exact component={Welcome} />
                   <GuestsRoute path='/register' component={Register} />
                   <GuestsRoute path='/login' component={Login} />
-                  <Route path='/vga' component={Vga} />
                   <ProtectedRoute path='/vga-details' component={VgaDetails} />
                   <AdminRoute path='/admin' component={Admin} />
+               </Suspense>
+               <Suspense fallback={<Container />}>
+                  <Route path='/vga' component={Vga} />
                   <Route component={Page404} />
-               </Switch>
-            </React.Suspense>
+               </Suspense>
+            </Switch>
          </BrowserRouter>
       </ThemeProvider>
    )
