@@ -1,17 +1,9 @@
-import { Request, Response } from 'express'
-import { JwtPayload } from 'jsonwebtoken'
-import { User } from '../../models/User/User'
-import { UserTypes } from '../../models/User/UserTypes'
-import { VgaProduct } from '../../models/Vga/VgaProduct'
-import { findSingleItemInUsersCartItem, findUsersCartItemIndex } from './CartHelper'
-type GetUserAuthInfoRequest = Request & {
-   user?: UserTypes
-}
+import { Response } from 'express'
+import { findSingleItemInUsersCartItem, findUsersCartItemIndex, checkUserExists, GetUserAuthInfoRequest } from './CartHelper'
 
 export const fetchUserCartItemsController = async (req: GetUserAuthInfoRequest, res: Response) => {
    try {
-      const userEmail = req.user?.email
-      const foundUser = await User.findOne({ email: userEmail }, 'cartItems')
+      const foundUser = await checkUserExists(req, res)
       if (foundUser === null) return res.status(404).json({ message: 'Nem található ilyen felhasználó' })
       res.status(200).json(foundUser.cartItems)
    } catch (error) {
@@ -22,7 +14,6 @@ export const fetchUserCartItemsController = async (req: GetUserAuthInfoRequest, 
 export const addCartItemsToUserController = async (req: GetUserAuthInfoRequest, res: Response) => {
    try {
       const productId: string = req.body._id
-      const userEmail = req.user?.email
       let toSaveOrModifyObject = {
          itemId: productId,
          quantity: req.body.quantity,
@@ -31,7 +22,7 @@ export const addCartItemsToUserController = async (req: GetUserAuthInfoRequest, 
          displayName: req.body.displayName,
          price: req.body.price
       }
-      const foundUser = await User.findOne({ email: userEmail }, 'cartItems')
+      const foundUser = await checkUserExists(req, res)
       if (foundUser === null) return res.status(404).json({ message: 'Nem található ilyen felhasználó' })
       // Van ilyen indexes elem a kosarában
       const itemFoundIndex = findUsersCartItemIndex(foundUser.cartItems, productId)
@@ -49,9 +40,7 @@ export const addCartItemsToUserController = async (req: GetUserAuthInfoRequest, 
 }
 
 export const removeItemController = async (req: GetUserAuthInfoRequest, res: Response) => {
-   // console.log(req.body)
-   const userEmail = req.user?.email
-   const foundUser = await User.findOne({ email: userEmail }, 'cartItems')
+   const foundUser = await checkUserExists(req, res)
    if (foundUser === null) return res.status(404).json({ message: 'Nem található ilyen felhasználó' })
    const foundIndex = findUsersCartItemIndex(foundUser.cartItems, req.body._id)
    if (foundIndex >= 0) foundUser.cartItems.splice(foundIndex, 1)
@@ -60,7 +49,18 @@ export const removeItemController = async (req: GetUserAuthInfoRequest, res: Res
    return res.sendStatus(200)
 }
 
-export const addItemsToCartController = (req: Request, res: Response) => {
-   // inkább elmentem az egész Redux store adatot az adatbázisba
-   // Ha csak a qty-t kell módosítani akkor csak azt módosítom...
+export const increadeDecreaseItemQtyController = async (req: GetUserAuthInfoRequest, res: Response) => {
+   const requestData = req.body.data
+   const foundUser = await checkUserExists(req, res)
+   if (foundUser === null) return res.status(404).json({ message: 'Nem található ilyen felhasználó' })
+   const itemFoundIndex = findUsersCartItemIndex(foundUser.cartItems, requestData.itemId)
+   const foundItem = findSingleItemInUsersCartItem(foundUser.cartItems, requestData.itemId)
+
+   if (itemFoundIndex !== -1 && foundItem !== undefined) {
+      if (requestData.isIncrease) foundItem.quantity++
+      else foundItem.quantity--
+      foundUser.cartItems.splice(itemFoundIndex, 1, foundItem)
+   }
+   foundUser.save()
+   return res.status(201).json({ message: 'mennyiség sikeresen módosítva' })
 }
