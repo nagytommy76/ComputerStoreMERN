@@ -14,10 +14,10 @@ const AdminVga = () => {
    const [vgaProduct, setVgaProduct] = useState<VgaType>(vgaProperties)
    const [validationErrors, setValidationErrors] = useState<ValidationError[]>([])
 
-   const insertVga = (event: React.FormEvent) => {
+   const insertVga = async (event: React.FormEvent) => {
       event.preventDefault()
       const filteredPicUrls = pictureUrls.map((x) => x.pictureUrl)
-      axios
+      await axios
          .post('admin/vga/insert', {
             vgaProduct: { ...vgaProduct, pictureUrls: filteredPicUrls }
          })
