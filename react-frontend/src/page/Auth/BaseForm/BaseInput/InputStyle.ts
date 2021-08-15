@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const StyledFormControll = styled.section`
+export const StyledFormControl = styled.section`
    display: flex;
    width: 100%;
    flex-direction: column;

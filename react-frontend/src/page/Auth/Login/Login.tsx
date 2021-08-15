@@ -1,11 +1,12 @@
 import axios, { AxiosResponse, AxiosError } from 'axios'
-import React, { useState } from 'react'
+import React, { useState, Suspense } from 'react'
 import { ImageStyle, AuthContainer, AuthFormStyle } from '../BaseForm/BaseStyle'
 import loginImage from './login.jpg'
 import { InputTypes } from '../Register/Register'
 import { setUserLoggedIn, setAccessToken, setUserName, setRefreshToken, setAdmin } from '../../../app/slices/AuthSlice'
 import { useAppDispatch } from '../../../app/hooks'
 import { useHistory } from 'react-router'
+import LoginSuspense from '../../../SuspenseComponents/Login/Login'
 
 const InputField = React.lazy(() => import('../BaseForm/BaseInput/BaseInput'))
 const LoginForm = React.lazy(() => import('../BaseForm/Form'))
@@ -42,28 +43,30 @@ const Login = () => {
          })
    }
    return (
-      <AuthContainer>
-         <AuthFormStyle>
-            <LoginForm onSubmitEvent={loginUser} title='Belépés' buttonText='Belépés'>
-               <InputField
-                  placeHolder='Email cím/Felhasználónév...'
-                  value={email.value}
-                  labelText='Email cím/Felhasználónév'
-                  onChangeEvent={(e) => setEmail({ ...email, value: e.target.value })}>
-                  {email.hasError && email.errorMessage}
-               </InputField>
-               <InputField
-                  type='password'
-                  placeHolder='Jelszó...'
-                  value={password.value}
-                  labelText='Jelszó'
-                  onChangeEvent={(e) => setPassword({ ...email, value: e.target.value })}>
-                  {password.hasError && password.errorMessage}
-               </InputField>
-            </LoginForm>
-         </AuthFormStyle>
-         <ImageStyle image={loginImage} />
-      </AuthContainer>
+      <Suspense fallback={<LoginSuspense />}>
+         <AuthContainer>
+            <AuthFormStyle>
+               <LoginForm onSubmitEvent={loginUser} title='Belépés' buttonText='Belépés'>
+                  <InputField
+                     placeHolder='Email cím/Felhasználónév...'
+                     value={email.value}
+                     labelText='Email cím/Felhasználónév'
+                     onChangeEvent={(e) => setEmail({ ...email, value: e.target.value })}>
+                     {email.hasError && email.errorMessage}
+                  </InputField>
+                  <InputField
+                     type='password'
+                     placeHolder='Jelszó...'
+                     value={password.value}
+                     labelText='Jelszó'
+                     onChangeEvent={(e) => setPassword({ ...email, value: e.target.value })}>
+                     {password.hasError && password.errorMessage}
+                  </InputField>
+               </LoginForm>
+            </AuthFormStyle>
+            <ImageStyle image={loginImage} />
+         </AuthContainer>
+      </Suspense>
    )
 }
 

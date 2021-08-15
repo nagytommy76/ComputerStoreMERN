@@ -6,7 +6,6 @@ export const FormTitle = styled.h1`
 `
 
 export const StyledForm = styled.form`
-   /* background-color: #0077b6; */
    background-color: #2b323a;
    color: white;
    width: 500px;

@@ -38,21 +38,27 @@ const BlankImage = styled.header`
 const Body = styled.section`
    height: 175px;
    width: 100%;
+   display: flex;
+   flex-direction: column;
 `
 const Text = `
     background: hsl(0, 0%, 64%);
     height: 20px;
     margin: 0.4rem 0;
+    border-radius: 10px;
 `
 
 const Title = styled.div`
    ${Text}
+   align-self: center;
    width: 90%;
 `
 
 const Price = styled.div`
    ${Text}
-   width: 30%;
+   width: 40%;
+   margin-right: 0.3rem;
+   align-self: flex-end;
 `
 
 export default ProductCard

@@ -18,7 +18,7 @@ const PageConteiner = styled.section`
 `
 
 const Tilte = styled.h1`
-   color: hsl(0, 0% 70%);
+   color: hsl(0, 0%, 50%);
    font-size: 3.5rem;
 `
 
