@@ -6,7 +6,7 @@ import { InputTypes } from '../Register/Register'
 import { setUserLoggedIn, setAccessToken, setUserName, setRefreshToken, setAdmin } from '../../../app/slices/AuthSlice'
 import { useAppDispatch } from '../../../app/hooks'
 import { useHistory } from 'react-router'
-import LoginSuspense from '../../../SuspenseComponents/Login/Login'
+import LoginSuspense from '../../../SuspenseComponents/Auth/Login'
 
 const InputField = React.lazy(() => import('../BaseForm/BaseInput/BaseInput'))
 const LoginForm = React.lazy(() => import('../BaseForm/Form'))

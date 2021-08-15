@@ -58,6 +58,7 @@ export const Button = styled.div`
    width: 160px;
    height: 50px;
    border-radius: 15px;
+   margin: 1rem;
 `
 
 // CONTAINER

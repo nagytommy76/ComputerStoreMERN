@@ -36,6 +36,9 @@ export const NavStyle = styled.nav`
       background-color: rgba(11, 11, 11, 0.95);
       box-shadow: 0px 0px 15px #111;
    }
+
+   @media (max-width: 400px) {
+   }
 `
 
 export const StyledUnorderedList = styled.ul`
