@@ -31,7 +31,7 @@ export const checkUserIsAdmin = (req: GetUserAuthInfoRequest, res: Response, nex
          req.user = user
          next()
       } else {
-         return res.status(403).json({ msg: 'NEM VAGY ADMIN' })
+         return res.status(403).json({ errorMessage: 'user is not admin' })
       }
    })
 }

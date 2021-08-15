@@ -49,7 +49,7 @@ export const checkTokensValidityController = (req: Request, res: Response) => {
    if (!refreshToken) return res.sendStatus(401)
    try {
       jwt.verify(refreshToken, REFRESH_TOKEN_SECRET, (err, decoded: any) => {
-         if (err) return res.status(401).json({ errorMessage: 'refresh token expired' })
+         if (err) return res.status(403).json({ errorMessage: 'refresh token expired' })
          const newAccessToken = generateTokens(decoded._id, decoded.isAdmin, decoded.email, ACCESS_TOKEN_SECRET)
          res.status(200).json(newAccessToken)
       })
