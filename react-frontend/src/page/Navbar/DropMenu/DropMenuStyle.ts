@@ -22,7 +22,7 @@ export const DropStyle = styled.div`
       height: 100%;
       top: 0;
       left: 0;
-      z-index: 8;
+      z-index: 15;
       background-color: rgba(35, 35, 35, 0.95);
    }
 `

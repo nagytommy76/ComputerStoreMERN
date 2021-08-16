@@ -1,7 +1,7 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { OpenNavbarButton } from '../NavbarStyles'
-import { useAppDispatch, useAppSelector } from '../../../app/hooks'
+import { useAppSelector } from '../../../app/hooks'
 
 const OpenButton: React.FC<Props> = ({ isNavbarOpen, setIsNavbarOpen }) => {
    const isMobileSize = useAppSelector((state) => state.mobile.isMobile)

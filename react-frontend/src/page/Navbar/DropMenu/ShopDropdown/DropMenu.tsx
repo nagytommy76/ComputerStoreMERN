@@ -5,14 +5,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 type Prop = {
    reference: React.MutableRefObject<null>
+   setIsShopDropOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const DropMenu: React.FC<Prop> = ({ reference }) => {
+const DropMenu: React.FC<Prop> = ({ reference, setIsShopDropOpen }) => {
    const isMobileSize = useAppSelector((state) => state.mobile.isMobile)
+
    return (
       <DropStyle ref={reference}>
          {isMobileSize && (
-            <CloseDropdownMenu>
+            <CloseDropdownMenu onClick={() => setIsShopDropOpen(false)}>
                <FontAwesomeIcon icon={['fas', 'times']} size='2x' />
             </CloseDropdownMenu>
          )}

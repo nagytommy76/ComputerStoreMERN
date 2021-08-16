@@ -14,7 +14,7 @@ import { CSSTransition } from 'react-transition-group'
 const Navbar = () => {
    const dispatch = useAppDispatch()
    const handleWindowSizeChange = useCallback(() => {
-      if (window.innerWidth < 400) {
+      if (window.innerWidth <= 950) {
          dispatch(setIsMobileSize(true))
       } else {
          setIsNavbarOpen(true)
@@ -22,8 +22,8 @@ const Navbar = () => {
       }
    }, [dispatch])
    useEffect(() => {
-      window.addEventListener('resize', handleWindowSizeChange)
-      return () => window.removeEventListener('resize', handleWindowSizeChange)
+      window.addEventListener('load', handleWindowSizeChange)
+      return () => window.removeEventListener('load', handleWindowSizeChange)
    }, [handleWindowSizeChange])
 
    const isMobileSize = useAppSelector((state) => state.mobile.isMobile)
@@ -44,6 +44,7 @@ const Navbar = () => {
       <>
          <OpenButton isNavbarOpen={isNavbarOpen} setIsNavbarOpen={setIsNavbarOpen} />
          <CSSTransition
+            appear
             in={isNavbarOpen}
             unmountOnExit
             mountOnEnter
@@ -55,7 +56,7 @@ const Navbar = () => {
                exit: styles.NavExit,
                exitActive: styles.NavExitActive
             }}>
-            <NavStyle ref={navbarRef} onMouseLeave={() => closeDrops()}>
+            <NavStyle mobileSize={isMobileSize} ref={navbarRef} onMouseLeave={() => closeDrops()}>
                <BrandStyle to='/'>ComputerStore</BrandStyle>
                <ListItem
                   isShopDropOpen={isShopDropOpen}

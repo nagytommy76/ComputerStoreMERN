@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import LinkItem from '../LinkItems/LinkItem'
 import BaseDrop from '../DropMenu/BaseDrop/BaseDrop'
-import DropMenu from '../DropMenu/ShopDropdown/DropMenu'
+import ShopDropMenu from '../DropMenu/ShopDropdown/DropMenu'
 import UserDrop from '../DropMenu/UserDropdown/UserDrop'
 import Toggler from '../ThemeToggler/Toggle'
 
@@ -25,7 +25,7 @@ const ListItem: React.FC<Props> = ({ isShopDropOpen, isUserDropOpen, setIsShopDr
             </BaseDrop>
          )}
          <BaseDrop text='Shop Menü' dropRef={shopDropRef} isDropOpen={isShopDropOpen} setIsDropOpen={setIsShopDropOpen}>
-            <DropMenu reference={shopDropRef} />
+            <ShopDropMenu reference={shopDropRef} setIsShopDropOpen={setIsShopDropOpen} />
          </BaseDrop>
          <TogglerCartListItems>
             <Toggler />

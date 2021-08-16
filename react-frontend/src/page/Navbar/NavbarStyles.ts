@@ -36,7 +36,7 @@ export const OpenNavbarButton = styled.div`
    align-items: center;
 `
 
-export const NavStyle = styled.nav`
+export const NavStyle = styled.nav<{ mobileSize: boolean }>`
    z-index: 5;
    position: fixed;
    top: 0;
@@ -47,7 +47,7 @@ export const NavStyle = styled.nav`
    align-items: center;
    justify-content: space-evenly;
    background-color: rgba(11, 11, 11, 0.8);
-   transition: box-shadow 0.2s ease background-color 0.2s ease;
+   ${({ mobileSize }) => (mobileSize ? '' : 'transition: box-shadow 0.2s ease, background-color 0.2s ease;')}
    &:hover {
       background-color: rgba(11, 11, 11, 0.95);
       box-shadow: 0px 0px 15px #111;
