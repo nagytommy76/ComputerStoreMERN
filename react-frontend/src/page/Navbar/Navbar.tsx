@@ -1,25 +1,38 @@
-import React, { useRef, useState } from 'react'
-import { NavStyle, BrandStyle, StyledUnorderedList, DropdownBackground } from './NavbarStyles'
-import { TogglerCartListItems } from './LinkItems/LinkItemStyles'
-import { useAppSelector } from '../../app/hooks'
-import BaseDrop from './DropMenu/BaseDrop/BaseDrop'
+import React, { useRef, useState, useEffect, useCallback } from 'react'
+import { NavStyle, BrandStyle, DropdownBackground } from './NavbarStyles'
+import styles from './navbar.module.css'
+import OpenButton from './OpenButton/OpenButton'
+import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import BaseDropBackground from './DropMenu/BaseDrop/BaseDropBackground'
 
-import DropMenu from './DropMenu/ShopDropdown/DropMenu'
-import UserDrop from './DropMenu/UserDropdown/UserDrop'
-import Toggler from './ThemeToggler/Toggle'
-import LinkItem from './LinkItems/LinkItem'
+import ListItem from './ListItem/ListItem'
 import CartButton from './Cart/CartButton/CartButton'
 import CartSlide from './Cart/CartSlide'
+import { setIsMobileSize } from '../../app/slices/MobileSlice'
+import { CSSTransition } from 'react-transition-group'
 
 const Navbar = () => {
-   const userLoggedIn = useAppSelector((state) => state.auth.userLoggedIn)
-   const userName = useAppSelector((state) => state.auth.userName)
+   const dispatch = useAppDispatch()
+   const handleWindowSizeChange = useCallback(() => {
+      if (window.innerWidth < 400) {
+         dispatch(setIsMobileSize(true))
+      } else {
+         setIsNavbarOpen(true)
+         dispatch(setIsMobileSize(false))
+      }
+   }, [dispatch])
+   useEffect(() => {
+      window.addEventListener('resize', handleWindowSizeChange)
+      return () => window.removeEventListener('resize', handleWindowSizeChange)
+   }, [handleWindowSizeChange])
+
+   const isMobileSize = useAppSelector((state) => state.mobile.isMobile)
    const [isShopDropOpen, setIsShopDropOpen] = useState(false)
    const [isUserDropOpen, setIsUserDropOpen] = useState(false)
+   const [isNavbarOpen, setIsNavbarOpen] = useState(false)
    const [isCartOpen, setIsCartOpen] = useState(false)
-   const userDropRef = useRef(null)
-   const shopDropRef = useRef(null)
+
+   const navbarRef = useRef(null)
    const BackgroundRef = useRef(null)
    const CartRef = useRef(null)
 
@@ -29,29 +42,36 @@ const Navbar = () => {
    }
    return (
       <>
-         <NavStyle onMouseLeave={() => closeDrops()}>
-            <BrandStyle to='/'>ComputerStore</BrandStyle>
-            <StyledUnorderedList>
-               {!userLoggedIn && <LinkItem to='/login' linkText='Belépés' />}
-               {!userLoggedIn && <LinkItem to='/register' linkText='Regisztráció' />}
-               {userLoggedIn && (
-                  <BaseDrop text={userName} dropRef={userDropRef} isDropOpen={isUserDropOpen} setIsDropOpen={setIsUserDropOpen}>
-                     <UserDrop reference={userDropRef} />
-                  </BaseDrop>
-               )}
-               <BaseDrop text='Shop Menü' dropRef={shopDropRef} isDropOpen={isShopDropOpen} setIsDropOpen={setIsShopDropOpen}>
-                  <DropMenu reference={shopDropRef} />
-               </BaseDrop>
-               <TogglerCartListItems>
-                  <Toggler />
-               </TogglerCartListItems>
-            </StyledUnorderedList>
-            <CartButton onClickEvent={() => setIsCartOpen(!isCartOpen)} />
-            <CartSlide isSlideOpen={isCartOpen} setIsSlideOpen={setIsCartOpen} reference={CartRef} />
-         </NavStyle>
-         <BaseDropBackground isDropOpen={isShopDropOpen || isUserDropOpen || isCartOpen} nodeRef={BackgroundRef}>
-            <DropdownBackground onClick={() => setIsCartOpen(false)} ref={BackgroundRef} />
-         </BaseDropBackground>
+         <OpenButton isNavbarOpen={isNavbarOpen} setIsNavbarOpen={setIsNavbarOpen} />
+         <CSSTransition
+            in={isNavbarOpen}
+            unmountOnExit
+            mountOnEnter
+            timeout={500}
+            nodeRef={navbarRef}
+            classNames={{
+               enter: styles.NavEnter,
+               enterActive: styles.NavEnterActive,
+               exit: styles.NavExit,
+               exitActive: styles.NavExitActive
+            }}>
+            <NavStyle ref={navbarRef} onMouseLeave={() => closeDrops()}>
+               <BrandStyle to='/'>ComputerStore</BrandStyle>
+               <ListItem
+                  isShopDropOpen={isShopDropOpen}
+                  isUserDropOpen={isUserDropOpen}
+                  setIsShopDropOpen={setIsShopDropOpen}
+                  setIsUserDropOpen={setIsUserDropOpen}
+               />
+               <CartButton onClickEvent={() => setIsCartOpen(!isCartOpen)} />
+               <CartSlide isSlideOpen={isCartOpen} setIsSlideOpen={setIsCartOpen} reference={CartRef} />
+            </NavStyle>
+         </CSSTransition>
+         {!isMobileSize && (
+            <BaseDropBackground isDropOpen={isShopDropOpen || isUserDropOpen || isCartOpen} nodeRef={BackgroundRef}>
+               <DropdownBackground onClick={() => setIsCartOpen(false)} ref={BackgroundRef} />
+            </BaseDropBackground>
+         )}
       </>
    )
 }

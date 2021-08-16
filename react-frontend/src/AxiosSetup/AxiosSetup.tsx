@@ -31,7 +31,7 @@ export default async function AxiosSetup(accessToken: string | null, refreshToke
                   .catch((error) => {
                      console.log(error)
                   })
-            } else {
+            } else if (error.response.data.errorMessage === /user is not admin/i) {
                // Ha valaki ide keveredne és nem admin...
                store.dispatch(logoutUser())
             }

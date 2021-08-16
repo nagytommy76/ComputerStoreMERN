@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { mobileWindowSize } from '../../../../Theme/GlobalStyles'
 
 export const NavbarCartButtonStyle = styled.button`
    position: absolute;
@@ -13,6 +14,11 @@ export const NavbarCartButtonStyle = styled.button`
    transition: background-color 0.2s;
    &:hover {
       background-color: hsla(107, 0%, 38%, 0.8);
+   }
+   @media (max-width: ${mobileWindowSize}) {
+      top: 0;
+      width: 60px;
+      height: 60px;
    }
 `
 
@@ -31,4 +37,11 @@ export const ItemsInCartStyle = styled.div`
    background-color: hsl(5, 100%, 40%);
    color: white;
    font-weight: 600;
+
+   @media (max-width: ${mobileWindowSize}) {
+      left: -25px;
+      width: 25px;
+      height: 25px;
+      font-size: 1rem;
+   }
 `

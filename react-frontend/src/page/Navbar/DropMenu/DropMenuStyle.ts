@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { mobileWindowSize } from '../../../Theme/GlobalStyles'
 
 export const DropStyle = styled.div`
    position: fixed;
@@ -14,6 +15,28 @@ export const DropStyle = styled.div`
    }
    display: flex;
    flex-direction: column;
+   justify-content: center;
+
+   @media (max-width: ${mobileWindowSize}) {
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 8;
+      background-color: rgba(35, 35, 35, 0.95);
+   }
+`
+
+export const CloseDropdownMenu = styled.div`
+   width: 40px;
+   height: 40px;
+   border-radius: 5px;
+   background-color: red;
+   position: absolute;
+   top: 10px;
+   right: 10px;
+   display: flex;
+   align-items: center;
    justify-content: center;
 `
 

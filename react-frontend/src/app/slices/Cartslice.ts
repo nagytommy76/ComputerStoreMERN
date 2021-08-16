@@ -106,7 +106,6 @@ export const fetchCartItemsFromDB = () => async (dispatch: Dispatch) => {
                { quantity: string; displayImage: string; itemId: string; price: number; displayName: string }[]
             >
          ) => {
-            console.log(cartItems)
             cartItems.data.forEach((items) => {
                dispatch(
                   addToCart({
