@@ -20,7 +20,6 @@ export default async function AxiosSetup(accessToken: string | null, refreshToke
             // Ekkor kell egy új accessToken (Forbidden) / 403 error, tehát lejárt az accessToken
             console.log(error.response.data.errorMessage)
             if (error.response.data.errorMessage === 'accessToken token expired') {
-               console.log('dsdf')
                return await axios
                   .post('/auth/refresh-token', { refreshToken })
                   .then((newAccessToken) => {
@@ -38,7 +37,6 @@ export default async function AxiosSetup(accessToken: string | null, refreshToke
                   })
             } else if (error.response.data.errorMessage === 'user is not admin') {
                // Ha valaki ide keveredne és nem admin...
-               console.log('nem admin')
                store.dispatch(logoutUser())
             }
          }

@@ -85,18 +85,22 @@ export const sendCartItemsToSaveInDB =
          .catch((error) => console.log(error.message))
    }
 
-export const removeItemsFromCart = (_id: string) => async (dispatch: Dispatch) => {
-   await axios
-      .delete('/cart/remove-item', {
-         data: {
-            _id
-         }
-      })
-      .then((result) => {
-         if (result.status === 200) dispatch(removeAllEntitesFromCart(_id))
-         else console.log('hiba a kosár törlésnél')
-      })
-      .catch((error) => console.log(error.message))
+export const removeItemsFromCart = (_id: string) => async (dispatch: Dispatch, getState: any) => {
+   if (getState().auth.userLoggedIn) {
+      await axios
+         .delete('/cart/remove-item', {
+            data: {
+               _id
+            }
+         })
+         .then((result) => {
+            if (result && result.status === 200) dispatch(removeAllEntitesFromCart(_id))
+            else console.log('hiba a kosár törlésnél')
+         })
+         .catch((error) => {
+            console.log(error.message)
+         })
+   } else dispatch(removeAllEntitesFromCart(_id))
 }
 
 export const fetchCartItemsFromDB = () => async (dispatch: Dispatch) => {

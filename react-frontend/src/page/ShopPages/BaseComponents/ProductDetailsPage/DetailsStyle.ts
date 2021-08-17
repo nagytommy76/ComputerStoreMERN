@@ -4,7 +4,7 @@ import { navbarHeight } from '../../../Navbar/NavbarStyles'
 
 export const DetailsPage = styled.section`
    min-height: 100vh;
-   width: 85%;
+   width: 70%;
    margin: calc(${navbarHeight} + 1.5rem) auto 0 auto;
 `
 
