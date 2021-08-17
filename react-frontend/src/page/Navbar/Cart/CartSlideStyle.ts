@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { mobileWindowSize } from '../../../Theme/GlobalStyles'
 import { navbarHeight } from '../NavbarStyles'
 
 export const SlideStyle = styled.section`
@@ -9,10 +10,16 @@ export const SlideStyle = styled.section`
    position: fixed;
    right: 0;
    bottom: 0;
+   overflow: auto;
 
    display: flex;
    flex-direction: column;
    align-items: center;
+
+   @media (max-width: ${mobileWindowSize}) {
+      width: 100%;
+      height: calc(100%);
+   }
 `
 
 export const CartTitle = styled.h1`

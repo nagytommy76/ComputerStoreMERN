@@ -13,7 +13,6 @@ type Props = {
 const BaseDrop: React.FC<Props> = ({ isDropOpen, dropRef, setIsDropOpen, text, children }) => {
    const openDrop = () => {
       setIsDropOpen(true)
-      console.log('heeeeeeeeeee')
    }
 
    return (

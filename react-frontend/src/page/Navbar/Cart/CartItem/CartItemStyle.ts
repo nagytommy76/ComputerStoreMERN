@@ -1,7 +1,13 @@
 import styled from 'styled-components'
+import { mobileWindowSize } from '../../../../Theme/GlobalStyles'
 
 // Close button
 export const StyledCloseIcon = styled.div`
+   @media (max-width: ${mobileWindowSize}) {
+      top: 0;
+      right: 0;
+   }
+
    position: absolute;
    right: 2px;
    top: 2px;
@@ -37,7 +43,7 @@ export const StyledCartItem = styled.section`
 // LEft Image
 export const LeftImageContainerStyle = styled.div`
    width: 90px;
-   height: 90px;
+   height: 100%;
    flex: 1;
    display: flex;
    justify-content: center;
@@ -48,11 +54,21 @@ export const LeftImageContainerStyle = styled.div`
 export const ImageStyle = styled.img`
    object-fit: contain;
    width: 100%;
+   height: 100%;
 `
 
 // RIGHT CONTENT
 
+export const ProductNameStyle = styled.p`
+   font-size: 1rem;
+   margin: 1.3rem 0;
+   @media (max-width: ${mobileWindowSize}) {
+      font-size: 0.8rem;
+   }
+`
+
 export const RightContentContainerStyle = styled.div`
+   height: 100%;
    flex: 2;
 `
 export const PriceAndQuantityStyle = styled.div`

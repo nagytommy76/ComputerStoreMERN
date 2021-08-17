@@ -10,11 +10,14 @@ type Prop = {
 
 const DropMenu: React.FC<Prop> = ({ reference, setIsShopDropOpen }) => {
    const isMobileSize = useAppSelector((state) => state.mobile.isMobile)
-
+   const clickEvent = (event: React.MouseEvent) => {
+      event.stopPropagation()
+      setIsShopDropOpen(false)
+   }
    return (
       <DropStyle ref={reference}>
          {isMobileSize && (
-            <CloseDropdownMenu onClick={() => setIsShopDropOpen(false)}>
+            <CloseDropdownMenu onClick={clickEvent}>
                <FontAwesomeIcon icon={['fas', 'times']} size='2x' />
             </CloseDropdownMenu>
          )}

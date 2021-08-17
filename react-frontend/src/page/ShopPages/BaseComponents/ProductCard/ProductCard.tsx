@@ -1,9 +1,10 @@
-import React, { useRef, useState, useContext } from 'react'
+import React, { useRef, useState, useContext, useEffect } from 'react'
 import { StyledCard, ImageContainer, Image, CardBody, SubTitleStyle, PriceStyle } from './CardStyle'
 import NumberFormat from 'react-number-format'
 import { VgaType } from '../../Vga/VgaTypes'
 import { useHistory } from 'react-router'
 import { VgaContext } from '../../Vga/VgaContext/VgaContext'
+import { useAppSelector } from '../../../../app/hooks'
 
 import styles from './CardExpand.module.css'
 import { CSSTransition } from 'react-transition-group'
@@ -12,9 +13,15 @@ import CardFooter from './CardFooter'
 const ProductCard: React.FC<VgaType> = ({ details, type, typeCode, manufacturer, pictureUrls }) => {
    const [isCardExpanded, setIsCardExpanded] = useState<boolean>(false)
    const [quantityToCart, setQuantityToCart] = useState<string>('1')
+   const isMobile = useAppSelector((state) => state.mobile.isMobile)
+
    const history = useHistory()
    const expandRef = useRef(null)
    const { _id, productName, price } = useContext(VgaContext)
+
+   useEffect(() => {
+      if (isMobile) setIsCardExpanded(true)
+   }, [isMobile])
 
    // Esetleg később ezt átadni mint prop, hogy dinamikus legyen
    const routeToDetailsPage = () => {

@@ -71,7 +71,6 @@ export const sendCartItemsToSaveInDB =
    (payload: IncomingTypes, productType: string) => async (dispatch: Dispatch, getState: any) => {
       dispatch(addToCart(payload))
       // Ez már a kosárba helyezés utáni állapot =
-      // const totalQuantityOfAProduct = getState().cart.cartItems.find((item: any) => item.itemId === payload._id)
       const totalQuantityOfAProduct = checkProductExistsInTheCart(payload._id, getState().cart.cartItems)?.quantity
       await axios
          .post('/cart/add-items', {
@@ -87,14 +86,17 @@ export const sendCartItemsToSaveInDB =
    }
 
 export const removeItemsFromCart = (_id: string) => async (dispatch: Dispatch) => {
-   dispatch(removeAllEntitesFromCart(_id))
    await axios
       .delete('/cart/remove-item', {
          data: {
             _id
          }
       })
-      .catch((error) => console.log(error))
+      .then((result) => {
+         if (result.status === 200) dispatch(removeAllEntitesFromCart(_id))
+         else console.log('hiba a kosár törlésnél')
+      })
+      .catch((error) => console.log(error.message))
 }
 
 export const fetchCartItemsFromDB = () => async (dispatch: Dispatch) => {

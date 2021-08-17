@@ -7,7 +7,8 @@ import {
    LeftImageContainerStyle,
    RightContentContainerStyle,
    ImageStyle,
-   PriceAndQuantityStyle
+   PriceAndQuantityStyle,
+   ProductNameStyle
 } from './CartItemStyle'
 import { useAppDispatch } from '../../../../app/hooks'
 import { removeItemsFromCart } from '../../../../app/slices/CartSlice'
@@ -21,7 +22,7 @@ const CartItem: React.FC<Props> = ({ id, productName, price, quantity, displayIm
             <ImageStyle src={displayImage} alt='' />
          </LeftImageContainerStyle>
          <RightContentContainerStyle>
-            <p>{productName}</p>
+            <ProductNameStyle>{productName}</ProductNameStyle>
             <PriceAndQuantityStyle>
                <Basket quaintity={quantity} id={id} />
                <NumberFormat value={price} thousandSeparator=' ' suffix=' Ft' displayType='text' />

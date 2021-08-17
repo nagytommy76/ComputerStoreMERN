@@ -16,9 +16,14 @@ export const NavbarCartButtonStyle = styled.button`
       background-color: hsla(107, 0%, 38%, 0.8);
    }
    @media (max-width: ${mobileWindowSize}) {
+      z-index: 6;
+      background-color: transparent;
       top: 0;
       width: 60px;
       height: 60px;
+      &:hover {
+         background-color: transparent;
+      }
    }
 `
 

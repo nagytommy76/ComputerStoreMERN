@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { mobileWindowSize } from '../../../../Theme/GlobalStyles'
 
 export const StyledFormControl = styled.section`
    display: flex;
@@ -13,6 +14,10 @@ export const StyledLabel = styled.label`
    padding: 0.4rem 0 0.4rem 0;
    font-size: 1.2rem;
    text-align: left;
+   @media (max-width: ${mobileWindowSize}) {
+      font-size: 1rem;
+      width: 90%;
+   }
 `
 
 export const StyledInput = styled.input`
@@ -27,6 +32,11 @@ export const StyledInput = styled.input`
 
    &:focus {
       box-shadow: 0px 0px 15px #666;
+   }
+   @media (max-width: ${mobileWindowSize}) {
+      padding: 0.8rem;
+      font-size: 1rem;
+      width: 90%;
    }
 `
 

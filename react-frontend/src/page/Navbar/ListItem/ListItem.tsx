@@ -21,7 +21,7 @@ const ListItem: React.FC<Props> = ({ isShopDropOpen, isUserDropOpen, setIsShopDr
          {!userLoggedIn && <LinkItem to='/register' linkText='Regisztráció' />}
          {userLoggedIn && (
             <BaseDrop text={userName} dropRef={userDropRef} isDropOpen={isUserDropOpen} setIsDropOpen={setIsUserDropOpen}>
-               <UserDrop reference={userDropRef} />
+               <UserDrop setIsUserDropOpen={setIsUserDropOpen} reference={userDropRef} />
             </BaseDrop>
          )}
          <BaseDrop text='Shop Menü' dropRef={shopDropRef} isDropOpen={isShopDropOpen} setIsDropOpen={setIsShopDropOpen}>
