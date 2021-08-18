@@ -1,8 +1,10 @@
 import React from 'react'
 import { useLocation } from 'react-router'
-import { vgaDetailType } from '../VgaTypes'
-import ProductDetails from '../../BaseComponents/ProductDetailsPage/ProductDetails'
+import { VgaDetailType } from '../VgaTypes'
 import { VgaDetailsContext } from './VgaDetailsContext/DetailsContext'
+
+const ProductDetails = React.lazy(() => import('../../BaseComponents/ProductDetailsPage/ProductDetails'))
+const VgaDetailTable = React.lazy(() => import('./VgaDetailTable'))
 
 const VgaDetails = () => {
    const {
@@ -20,22 +22,16 @@ const VgaDetails = () => {
             price,
             typeCode
          }}>
-         <ProductDetails
-            _id={_id}
-            manufacturer={manufacturer}
-            pictureUrls={pictureUrls}
-            price={price}
-            type={type}
-            typeCode={typeCode}
-            warranity={details.warranity}
-         />
+         <ProductDetails>
+            <VgaDetailTable details={details} />
+         </ProductDetails>
       </VgaDetailsContext.Provider>
    )
 }
 
 type LocationType = {
    _id: string
-   details: vgaDetailType
+   details: VgaDetailType
    pictureUrls: string[]
    type: string
    manufacturer: string

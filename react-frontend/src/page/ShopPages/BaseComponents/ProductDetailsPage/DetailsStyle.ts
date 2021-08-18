@@ -53,6 +53,31 @@ export const StyledNumberFormat = styled(NumberFormat)`
 
 export const WarranityStyle = styled.p`
    text-decoration: underline #ea9f00 solid 3px;
-   margin: 1.2rem 0 1.2rem 0;
+   margin: 1.2rem 0 2rem 0;
    font-size: 1.3rem;
+`
+
+export const ManufacturerUrlPage = styled.a`
+   font-size: 1.2rem;
+   font-weight: 600;
+   transition: color 0.2s linear;
+   &:hover {
+      color: #ea9f00;
+   }
+`
+
+// BODY SECTION
+export const BodySection = styled.section<{ isDarkTheme: boolean }>`
+   min-height: 55vh;
+   display: flex;
+   flex-direction: row;
+   transition: color 0.2s;
+   color: ${({ isDarkTheme }) => (isDarkTheme ? '#FFF' : '#000')};
+`
+
+export const DescriptionStyle = styled.section`
+   margin-right: 0.5rem;
+   flex: 1;
+   font-size: 1.1rem;
+   text-align: justify;
 `

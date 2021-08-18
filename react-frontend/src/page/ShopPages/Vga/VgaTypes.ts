@@ -6,10 +6,10 @@ export type VgaType = {
    manufacturer: string
    price: number
    pictureUrls: string[]
-   details: vgaDetailType
+   details: VgaDetailType
 }
 
-export type vgaDetailType = {
+export type VgaDetailType = {
    gpuManufacturer: string
    pcieType: string
    gpuBaseClock: number

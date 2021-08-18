@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
    DetailsPage,
    HeadSection,
@@ -7,18 +7,24 @@ import {
    HorizontalLineStyle,
    StyledNumberFormat,
    WarranityStyle,
-   PriceAndCartStyle
+   PriceAndCartStyle,
+   BodySection,
+   DescriptionStyle,
+   ManufacturerUrlPage
 } from './DetailsStyle'
-import ImageSlider from './ImageSlider/ImageSlider'
-import AddToCart from './AddToCart/AddToCart'
 import { useAppSelector } from '../../../../app/hooks'
+import { VgaDetailsContext } from '../../Vga/VgaDetails/VgaDetailsContext/DetailsContext'
 
-const ProductDetails: React.FC<DetailsPropTypes> = ({ _id, warranity, pictureUrls, type, manufacturer, price, typeCode }) => {
+const AddToCart = React.lazy(() => import('./AddToCart/AddToCart'))
+const ImageSlider = React.lazy(() => import('./ImageSlider/ImageSlider'))
+
+const ProductDetails: React.FC = ({ children }) => {
    const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
+   const { manufacturer, price, type, typeCode, details } = useContext(VgaDetailsContext)
    return (
       <DetailsPage>
          <HeadSection>
-            <ImageSlider images={pictureUrls} />
+            <ImageSlider />
             <RightHeaderStyle isDarkTheme={isDarkTheme}>
                <TopHeaderTitle>
                   {manufacturer} {type} {typeCode}
@@ -35,21 +41,20 @@ const ProductDetails: React.FC<DetailsPropTypes> = ({ _id, warranity, pictureUrl
                   />
                </PriceAndCartStyle>
                <HorizontalLineStyle />
-               <WarranityStyle>{warranity} hónap gyári garanciával</WarranityStyle>
+               <WarranityStyle>{details.warranity} hónap gyári garanciával</WarranityStyle>
+               <ManufacturerUrlPage target='_blank' href={details.manufacturerPageUrl}>
+                  Ugrás a gyártói honlapra
+               </ManufacturerUrlPage>
             </RightHeaderStyle>
          </HeadSection>
+         <BodySection isDarkTheme={isDarkTheme}>
+            <DescriptionStyle>
+               <p>{details.description}</p>
+            </DescriptionStyle>
+            {children}
+         </BodySection>
       </DetailsPage>
    )
-}
-
-type DetailsPropTypes = {
-   _id: string
-   warranity: string | number
-   pictureUrls: string[]
-   type: string
-   manufacturer: string
-   price: number
-   typeCode: string
 }
 
 export default ProductDetails

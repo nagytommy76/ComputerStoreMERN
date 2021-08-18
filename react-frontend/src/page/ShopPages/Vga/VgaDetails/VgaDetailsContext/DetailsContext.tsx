@@ -1,5 +1,5 @@
 import React from 'react'
-import { vgaDetailType } from '../../VgaTypes'
+import { VgaDetailType } from '../../VgaTypes'
 
 export const VgaDetailsContext = React.createContext<ContextType>({
    _id: '',
@@ -32,9 +32,9 @@ export const VgaDetailsContext = React.createContext<ContextType>({
 })
 
 type ContextType = {
-   _id?: string
+   _id: string
    price: number
-   details: vgaDetailType
+   details: VgaDetailType
    pictureUrls: string[]
    type: string
    manufacturer: string
