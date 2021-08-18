@@ -26,7 +26,7 @@ const ProductCard: React.FC<VgaType> = ({ details, type, typeCode, manufacturer,
    // Esetleg később ezt átadni mint prop, hogy dinamikus legyen
    const routeToDetailsPage = () => {
       history.push({
-         pathname: '/vga-details',
+         pathname: '/vga/vga-details',
          state: { _id, details, pictureUrls, type, manufacturer, price, typeCode }
       })
    }

@@ -1,11 +1,13 @@
-import React, { useContext } from 'react'
+import React from 'react'
+import { useLocation } from 'react-router'
 import { StyledSlideSection } from './SliderStyle'
 import { Carousel } from 'react-responsive-carousel'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
-import { VgaDetailsContext } from '../../../Vga/VgaDetails/VgaDetailsContext/DetailsContext'
+import { LocationType } from '../../../Vga/VgaDetails/VgaDetails'
 
 const ImageSlider = () => {
-   const { pictureUrls } = useContext(VgaDetailsContext)
+   let location = useLocation<LocationType>()
+   const { pictureUrls } = location.state
    return (
       <StyledSlideSection>
          <Carousel autoPlay infiniteLoop interval={6000}>

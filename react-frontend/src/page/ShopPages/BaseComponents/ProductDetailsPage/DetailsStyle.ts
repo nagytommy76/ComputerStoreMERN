@@ -8,6 +8,19 @@ export const DetailsPage = styled.section`
    margin: calc(${navbarHeight} + 1.5rem) auto 0 auto;
 `
 
+// TOP "Navigation"
+export const TopNavigationStyle = styled.div<{ isDarkTheme: boolean }>`
+   width: 70%;
+   color: ${({ isDarkTheme }) => (isDarkTheme ? '#FFF' : '#000')};
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+`
+
+export const NavigationLink = styled.h4`
+   margin: 0 1rem;
+`
+
 // Head sections
 
 export const HeadSection = styled.section`

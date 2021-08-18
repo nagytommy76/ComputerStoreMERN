@@ -1,4 +1,5 @@
-import React, { useContext } from 'react'
+import React from 'react'
+import { useLocation } from 'react-router'
 import {
    DetailsPage,
    HeadSection,
@@ -13,16 +14,21 @@ import {
    ManufacturerUrlPage
 } from './DetailsStyle'
 import { useAppSelector } from '../../../../app/hooks'
-import { VgaDetailsContext } from '../../Vga/VgaDetails/VgaDetailsContext/DetailsContext'
+import { LocationType } from '../../Vga/VgaDetails/VgaDetails'
 
 const AddToCart = React.lazy(() => import('./AddToCart/AddToCart'))
 const ImageSlider = React.lazy(() => import('./ImageSlider/ImageSlider'))
+const TopNavigation = React.lazy(() => import('./TopNavigation/TopNavigation'))
 
 const ProductDetails: React.FC = ({ children }) => {
+   let location = useLocation<LocationType>()
+
    const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
-   const { manufacturer, price, type, typeCode, details } = useContext(VgaDetailsContext)
+   const { manufacturer, price, type, typeCode, details } = location.state
+
    return (
       <DetailsPage>
+         <TopNavigation />
          <HeadSection>
             <ImageSlider />
             <RightHeaderStyle isDarkTheme={isDarkTheme}>

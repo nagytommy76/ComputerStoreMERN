@@ -1,14 +1,16 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { CartQuantityStyle, StyledCartSection, AddToCartButton, InputAndLabelContainer, StyledLabel } from './CartStyle'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { sendCartItemsToSaveInDB } from '../../../../../app/slices/CartSlice'
 import { useAppDispatch } from '../../../../../app/hooks'
-import { VgaDetailsContext } from '../../../Vga/VgaDetails/VgaDetailsContext/DetailsContext'
+import { LocationType } from '../../../Vga/VgaDetails/VgaDetails'
+import { useLocation } from 'react-router'
 
 const AddToCart = () => {
    const dispatch = useAppDispatch()
    const [quantity, setQuantity] = useState<string>('1')
-   const { _id, manufacturer, type, typeCode, price, pictureUrls } = useContext(VgaDetailsContext)
+   let location = useLocation<LocationType>()
+   const { _id, manufacturer, type, typeCode, price, pictureUrls } = location.state
    const addItemToCart = () => {
       dispatch(
          sendCartItemsToSaveInDB(

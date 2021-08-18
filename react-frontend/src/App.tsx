@@ -55,7 +55,7 @@ const App = () => {
                   <Route path='/' exact component={Welcome} />
                   <GuestsRoute path='/register' component={Register} />
                   <GuestsRoute path='/login' component={Login} />
-                  <ProtectedRoute path='/vga-details' component={VgaDetails} />
+                  <ProtectedRoute path='/vga/vga-details' component={VgaDetails} />
                   <AdminRoute path='/admin' component={Admin} />
                   <Route path='/vga' component={Vga} />
                   <Route component={Page404} />
