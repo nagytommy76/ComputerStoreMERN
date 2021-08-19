@@ -1,18 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { DropStyle, DropLinkItem, CloseDropdownMenu } from '../DropMenuStyle'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { logoutUser } from '../../../../app/slices/AuthSlice'
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
+import { NavbarContext } from '../../NavbarContext'
 
 type Prop = {
    reference: React.MutableRefObject<null>
-   setIsUserDropOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const DropMenu: React.FC<Prop> = ({ reference, setIsUserDropOpen }) => {
+const DropMenu: React.FC<Prop> = ({ reference }) => {
    const dispatch = useAppDispatch()
    const isAdmin = useAppSelector((state) => state.auth.isAdmin)
    const isMobileSize = useAppSelector((state) => state.mobile.isMobile)
+   const { setIsUserDropOpen } = useContext(NavbarContext)
 
    const logout = () => {
       dispatch(logoutUser())

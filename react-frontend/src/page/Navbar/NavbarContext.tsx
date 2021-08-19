@@ -1,16 +1,19 @@
 import React from 'react'
 
-export const NavbarContext = React.createContext<Context>({
+export const NavbarContext = React.createContext<NavbarContextTypes>({
    isShopDropOpen: false,
-   setIsShopDropOpen: () => null,
    isUserDropOpen: false,
-   setIsUserDropOpen: () => null
+   isNavbarOpen: false,
+   setIsShopDropOpen: () => null,
+   setIsUserDropOpen: () => null,
+   setIsNavbarOpen: () => null
 })
 
-type Context = {
+export type NavbarContextTypes = {
    isShopDropOpen: boolean
-   setIsShopDropOpen: React.Dispatch<React.SetStateAction<boolean>>
-   //    setIsShopDropOpen: (value: boolean) => void
    isUserDropOpen: boolean
+   isNavbarOpen: boolean
+   setIsShopDropOpen: React.Dispatch<React.SetStateAction<boolean>>
    setIsUserDropOpen: React.Dispatch<React.SetStateAction<boolean>>
+   setIsNavbarOpen: React.Dispatch<React.SetStateAction<boolean>>
 }

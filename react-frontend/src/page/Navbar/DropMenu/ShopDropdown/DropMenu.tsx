@@ -1,18 +1,26 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { DropStyle, DropLinkItem, CloseDropdownMenu } from '../DropMenuStyle'
 import { useAppSelector } from '../../../../app/hooks'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { NavbarContext } from '../../NavbarContext'
 
 type Prop = {
    reference: React.MutableRefObject<null>
-   setIsShopDropOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const DropMenu: React.FC<Prop> = ({ reference, setIsShopDropOpen }) => {
+const DropMenu: React.FC<Prop> = ({ reference }) => {
    const isMobileSize = useAppSelector((state) => state.mobile.isMobile)
+   const { setIsShopDropOpen, setIsNavbarOpen } = useContext(NavbarContext)
    const clickEvent = (event: React.MouseEvent) => {
       event.stopPropagation()
       setIsShopDropOpen(false)
+   }
+   const closeNavbar = (event: React.MouseEvent) => {
+      if (isMobileSize) {
+         event.stopPropagation()
+         setIsShopDropOpen(false)
+         setIsNavbarOpen(false)
+      }
    }
    return (
       <DropStyle ref={reference}>
@@ -22,7 +30,9 @@ const DropMenu: React.FC<Prop> = ({ reference, setIsShopDropOpen }) => {
             </CloseDropdownMenu>
          )}
          {/* <DropLinkItem>Alaplap</DropLinkItem> */}
-         <DropLinkItem to='/vga'>Videókártya</DropLinkItem>
+         <DropLinkItem to='/vga' onClick={closeNavbar}>
+            Videókártya
+         </DropLinkItem>
          {/* <DropLinkItem>Processzor</DropLinkItem>
          <DropLinkItem>Memória</DropLinkItem>
          <DropLinkItem>Merevlemez</DropLinkItem>

@@ -1,10 +1,14 @@
 import styled from 'styled-components'
+import { mobileWindowSize } from '../../../../../Theme/GlobalStyles'
 
 export const TableStyle = styled.table`
    flex: 1;
    margin-left: 0.5rem;
    border-collapse: collapse;
    height: 650px;
+   @media (max-width: ${mobileWindowSize}) {
+      min-height: 600px;
+   }
 `
 
 export const TableRows = styled.tr`

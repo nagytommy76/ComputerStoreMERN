@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { mobileWindowSize } from '../../Theme/GlobalStyles'
 import { navbarHeight } from '../Navbar/NavbarStyles'
 import { CardWidth } from './BaseComponents/ProductCard/CardStyle'
 
@@ -8,6 +9,9 @@ export const PageContainer = styled.section`
    margin-top: calc(${navbarHeight} + 1.5rem);
    display: flex;
    justify-content: center;
+   @media (max-width: ${mobileWindowSize}) {
+      margin-top: 3rem;
+   }
 `
 
 export const CardGridContainer = styled.section`

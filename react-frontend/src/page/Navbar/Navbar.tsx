@@ -4,6 +4,7 @@ import styles from './navbar.module.css'
 import OpenButton from './OpenButton/OpenButton'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import BaseDropBackground from './DropMenu/BaseDrop/BaseDropBackground'
+import { NavbarContext } from './NavbarContext'
 
 import ListItem from './ListItem/ListItem'
 import CartButton from './Cart/CartButton/CartButton'
@@ -41,8 +42,16 @@ const Navbar = () => {
       setIsUserDropOpen(false)
    }
    return (
-      <>
-         <OpenButton isNavbarOpen={isNavbarOpen} setIsNavbarOpen={setIsNavbarOpen} />
+      <NavbarContext.Provider
+         value={{
+            isNavbarOpen,
+            isShopDropOpen,
+            isUserDropOpen,
+            setIsNavbarOpen,
+            setIsShopDropOpen,
+            setIsUserDropOpen
+         }}>
+         <OpenButton />
          <CSSTransition
             appear
             in={isNavbarOpen}
@@ -58,12 +67,7 @@ const Navbar = () => {
             }}>
             <NavStyle mobileSize={isMobileSize} ref={navbarRef} onMouseLeave={() => closeDrops()}>
                <BrandStyle to='/'>ComputerStore</BrandStyle>
-               <ListItem
-                  isShopDropOpen={isShopDropOpen}
-                  isUserDropOpen={isUserDropOpen}
-                  setIsShopDropOpen={setIsShopDropOpen}
-                  setIsUserDropOpen={setIsUserDropOpen}
-               />
+               <ListItem />
                <CartButton onClickEvent={() => setIsCartOpen(!isCartOpen)} />
                <CartSlide isSlideOpen={isCartOpen} setIsSlideOpen={setIsCartOpen} reference={CartRef} />
             </NavStyle>
@@ -73,7 +77,7 @@ const Navbar = () => {
                <DropdownBackground onClick={() => setIsCartOpen(false)} ref={BackgroundRef} />
             </BaseDropBackground>
          )}
-      </>
+      </NavbarContext.Provider>
    )
 }
 

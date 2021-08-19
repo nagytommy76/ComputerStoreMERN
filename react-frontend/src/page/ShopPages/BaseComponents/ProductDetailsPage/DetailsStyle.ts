@@ -1,11 +1,16 @@
 import styled from 'styled-components'
 import NumberFormat from 'react-number-format'
 import { navbarHeight } from '../../../Navbar/NavbarStyles'
+import { mobileWindowSize } from '../../../../Theme/GlobalStyles'
 
 export const DetailsPage = styled.section`
    min-height: 100vh;
    width: 70%;
    margin: calc(${navbarHeight} + 1.5rem) auto 0 auto;
+   @media (max-width: ${mobileWindowSize}) {
+      width: 95%;
+      margin: 3rem auto;
+   }
 `
 
 // TOP "Navigation"
@@ -15,6 +20,9 @@ export const TopNavigationStyle = styled.div<{ isDarkTheme: boolean }>`
    display: flex;
    flex-direction: row;
    align-items: center;
+   @media (max-width: ${mobileWindowSize}) {
+      width: 95%;
+   }
 `
 
 export const NavigationLink = styled.h4`
@@ -28,6 +36,9 @@ export const HeadSection = styled.section`
    flex-direction: row;
    align-items: stretch;
    justify-content: center;
+   @media (max-width: ${mobileWindowSize}) {
+      flex-direction: column;
+   }
 `
 
 export const RightHeaderStyle = styled.aside<{ isDarkTheme: boolean }>`
@@ -42,6 +53,9 @@ export const TopHeaderTitle = styled.h1`
    margin: 0;
    padding: 2rem 0 2rem 0;
    font-size: 2.2rem;
+   @media (max-width: ${mobileWindowSize}) {
+      font-size: 1.5rem;
+   }
 `
 
 export const HorizontalLineStyle = styled.div`
@@ -62,6 +76,10 @@ export const StyledNumberFormat = styled(NumberFormat)`
    font-weight: 700;
    text-align: right;
    flex: 1;
+   @media (max-width: ${mobileWindowSize}) {
+      font-size: 1.7rem;
+      font-weight: 500;
+   }
 `
 
 export const WarranityStyle = styled.p`
@@ -86,6 +104,9 @@ export const BodySection = styled.section<{ isDarkTheme: boolean }>`
    flex-direction: row;
    transition: color 0.2s;
    color: ${({ isDarkTheme }) => (isDarkTheme ? '#FFF' : '#000')};
+   @media (max-width: ${mobileWindowSize}) {
+      flex-direction: column;
+   }
 `
 
 export const DescriptionStyle = styled.section`

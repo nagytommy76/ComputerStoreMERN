@@ -24,6 +24,7 @@ const AddToCart = () => {
             'vgaproduct'
          )
       )
+      setQuantity('1')
    }
 
    return (

@@ -131,13 +131,16 @@ export const fetchCartItemsFromDB = () => async (dispatch: Dispatch) => {
 export const increaseOrDecreaseByOne =
    (_id: string, isIncrease: boolean = true) =>
    async (dispatch: Dispatch) => {
-      isIncrease ? dispatch(increaseItemQty(_id)) : dispatch(decreaseItemQty(_id))
       await axios
          .patch('/cart/quantity', {
             data: {
                itemId: _id,
                isIncrease
             }
+         })
+         .then((result) => {
+            console.log(result)
+            if (result.status === 201) isIncrease ? dispatch(increaseItemQty(_id)) : dispatch(decreaseItemQty(_id))
          })
          .catch((error) => console.log(error))
    }

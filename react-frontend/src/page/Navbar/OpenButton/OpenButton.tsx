@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { OpenNavbarButton } from '../NavbarStyles'
 import { useAppSelector } from '../../../app/hooks'
+import { NavbarContext } from '../NavbarContext'
 
-const OpenButton: React.FC<Props> = ({ isNavbarOpen, setIsNavbarOpen }) => {
+const OpenButton: React.FC = () => {
    const isMobileSize = useAppSelector((state) => state.mobile.isMobile)
+   const { isNavbarOpen, setIsNavbarOpen } = useContext(NavbarContext)
 
    if (isMobileSize) {
       return (
@@ -13,11 +15,6 @@ const OpenButton: React.FC<Props> = ({ isNavbarOpen, setIsNavbarOpen }) => {
          </OpenNavbarButton>
       )
    } else return null
-}
-
-type Props = {
-   isNavbarOpen: boolean
-   setIsNavbarOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default OpenButton
