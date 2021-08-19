@@ -6,12 +6,14 @@ import authReducer from './slices/AuthSlice'
 import ThemeSlice from './slices/ThemeSlice'
 import CartSlice from './slices/CartSlice'
 import MobileSlice from './slices/MobileSlice'
+import PaginateSlice from './slices/PaginateSlice'
 
 export const store = configureStore({
    reducer: {
       auth: persistReducer({ key: 'AuthUser', storage }, authReducer),
       theme: persistReducer({ key: 'Theme', storage }, ThemeSlice),
       cart: persistReducer({ key: 'Cart', storage }, CartSlice),
+      paginate: PaginateSlice,
       mobile: MobileSlice
    },
    middleware: getDefaultMiddleware({

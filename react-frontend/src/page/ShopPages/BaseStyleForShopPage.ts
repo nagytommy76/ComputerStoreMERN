@@ -4,11 +4,14 @@ import { navbarHeight } from '../Navbar/NavbarStyles'
 import { CardWidth } from './BaseComponents/ProductCard/CardStyle'
 
 export const PageContainer = styled.section`
-   min-height: 100vh;
+   min-height: 85vh;
    width: 100%;
    margin-top: calc(${navbarHeight} + 1.5rem);
    display: flex;
-   justify-content: center;
+   flex-direction: column;
+   align-items: center;
+   justify-content: space-between;
+
    @media (max-width: ${mobileWindowSize}) {
       margin-top: 3rem;
    }

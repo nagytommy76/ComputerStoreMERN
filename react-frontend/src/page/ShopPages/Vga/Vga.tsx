@@ -4,17 +4,28 @@ import { CardGridContainer, PageContainer } from '../BaseStyleForShopPage'
 import { VgaType } from './VgaTypes'
 import { VgaContext } from './VgaContext/VgaContext'
 import Container from '../../../SuspenseComponents/ProductCard/Container'
+import { useAppDispatch, useAppSelector } from '../../../app/hooks'
+import { setTotalPages } from '../../../app/slices/PaginateSlice'
 
 const ProductCard = React.lazy(() => import('../BaseComponents/ProductCard/ProductCard'))
+const Pagination = React.lazy(() => import('../BaseComponents/Pagination/Pagination'))
 
 const Vga = () => {
+   const dispatch = useAppDispatch()
    const [vgaProducts, setVgaProducts] = useState<VgaType[]>([])
+
+   const currentPage = useAppSelector((state) => state.paginate.currentPage)
+   const perPage = useAppSelector((state) => state.paginate.perPage)
+
    useEffect(() => {
       axios
-         .get(`/vga`)
-         .then((vgas) => setVgaProducts(vgas.data))
+         .get(`/vga?currentPage=${currentPage}&perPage=${perPage}`)
+         .then((vgas) => {
+            setVgaProducts(vgas.data.allProducts)
+            dispatch(setTotalPages(vgas.data.totalPages))
+         })
          .catch((error) => console.log(error))
-   }, [])
+   }, [currentPage, perPage, dispatch])
    return (
       <Suspense fallback={<Container />}>
          <PageContainer>
@@ -42,6 +53,7 @@ const Vga = () => {
                   </VgaContext.Provider>
                ))}
             </CardGridContainer>
+            <Pagination />
          </PageContainer>
       </Suspense>
    )
