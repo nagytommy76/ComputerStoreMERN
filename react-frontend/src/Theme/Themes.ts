@@ -1,3 +1,4 @@
+import { backgroundColor } from './GlobalStyles'
 export const lightTheme = {
    body: '#EEE',
    text: '#000',
@@ -6,7 +7,7 @@ export const lightTheme = {
 }
 
 export const darkTheme = {
-   body: '#272c33',
+   body: backgroundColor,
    text: '#FFF',
    toggleBorder: '#BBB',
    backgroundImage: 'linear-gradient(to right, #091236, #1E215D)'

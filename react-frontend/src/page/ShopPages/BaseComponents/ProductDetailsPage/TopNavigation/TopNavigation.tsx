@@ -21,7 +21,7 @@ const TopNavigation = () => {
             <NavigationLink>{FirstPage}</NavigationLink>
          </Link>
          <p>/</p>
-         <NavigationLink>{CurrentPage}</NavigationLink>
+         <NavigationLink>{CurrentPage.split('-')[0].toUpperCase()} Adatok</NavigationLink>
       </TopNavigationStyle>
    )
 }

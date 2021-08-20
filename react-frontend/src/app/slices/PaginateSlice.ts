@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 const initialState: State = {
    currentPage: 1,
-   perPage: 5,
+   perPage: 10,
    totalPages: 1
 }
 
