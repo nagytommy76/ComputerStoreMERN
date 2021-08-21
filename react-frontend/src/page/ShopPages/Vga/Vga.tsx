@@ -28,13 +28,23 @@ const Vga = () => {
 
    useEffect(() => {
       axios
-         .get(`/vga?currentPage=${currentPage}&perPage=${perPage}&orderBy=${filerOptions.orderBy}`)
+         .get(
+            `/vga?currentPage=${currentPage}&perPage=${perPage}&orderBy=${filerOptions.orderBy}&byManufacturer=${filerOptions.selectedManufacturer}`,
+            {
+               data: {
+                  currentPage,
+                  perPage,
+                  filerOptions
+               }
+            }
+         )
          .then((vgas) => {
             setVgaProducts(vgas.data.allProducts)
             dispatch(setTotalPages(vgas.data.totalPages))
          })
          .catch((error) => console.log(error))
-   }, [currentPage, perPage, dispatch, filerOptions.orderBy, filerOptions.selectedPrice])
+      // eslint-disable-next-line
+   }, [currentPage, perPage, dispatch, filerOptions.orderBy, filerOptions.selectedManufacturer])
    return (
       <Suspense fallback={<Container />}>
          <PageContainer>

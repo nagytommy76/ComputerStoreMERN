@@ -42,6 +42,7 @@ const SideFilter: React.FC<Props> = ({ filerOptions, setFilterOptions }) => {
                onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
                   setFilterOptions({ ...filerOptions, selectedManufacturer: event.target.value })
                }>
+               <option value=''>Nincs kiválasztva</option>
                {filerOptions.allManufacturer.map((man, index) => (
                   <option key={index} value={man}>
                      {man}
