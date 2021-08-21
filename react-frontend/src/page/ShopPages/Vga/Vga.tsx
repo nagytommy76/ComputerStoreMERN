@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState, Suspense } from 'react'
 import { CardGridContainer, PageContainer, RightFlexContainer } from '../BaseStyleForShopPage'
 import { VgaType } from './VgaTypes'
-import { VgaContext } from './VgaContext/VgaContext'
+import { VgaProductContext } from './VgaContext/VgaProductContext'
 import Container from '../../../SuspenseComponents/ProductCard/Container'
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'
 import { setTotalPages } from '../../../app/slices/PaginateSlice'
@@ -17,37 +17,32 @@ const Vga = () => {
 
    const currentPage = useAppSelector((state) => state.paginate.currentPage)
    const perPage = useAppSelector((state) => state.paginate.perPage)
-   const [orderBy, setOrderBy] = useState<string>('asc')
-   const [minPrice, setMinPrice] = useState<number>(0)
-   const [maxPrice, setMaxPrice] = useState<number>(200)
-   const [selectedPrice, setSelectedPrice] = useState<number>(0)
+   const [filerOptions, setFilterOptions] = useState<FilterTypes>({
+      allManufacturer: [],
+      selectedManufacturer: '',
+      maxPrice: 200,
+      minPrice: 0,
+      orderBy: 'asc',
+      selectedPrice: 0
+   })
 
    useEffect(() => {
       axios
-         .get(`/vga?currentPage=${currentPage}&perPage=${perPage}&orderBy=${orderBy}`)
+         .get(`/vga?currentPage=${currentPage}&perPage=${perPage}&orderBy=${filerOptions.orderBy}`)
          .then((vgas) => {
             setVgaProducts(vgas.data.allProducts)
-            setMinPrice(vgas.data.minPrice)
-            setSelectedPrice(vgas.data.minPrice)
-            setMaxPrice(vgas.data.maxPrice)
             dispatch(setTotalPages(vgas.data.totalPages))
          })
          .catch((error) => console.log(error))
-   }, [currentPage, perPage, dispatch, selectedPrice, orderBy])
+   }, [currentPage, perPage, dispatch, filerOptions.orderBy, filerOptions.selectedPrice])
    return (
       <Suspense fallback={<Container />}>
          <PageContainer>
-            <SideFilter
-               setOrderBy={setOrderBy}
-               maxPrice={maxPrice}
-               minPrice={minPrice}
-               selectedPrice={selectedPrice}
-               setSelectedPrice={setSelectedPrice}
-            />
+            <SideFilter filerOptions={filerOptions} setFilterOptions={setFilterOptions} />
             <RightFlexContainer>
                <CardGridContainer>
                   {vgaProducts.map((product) => (
-                     <VgaContext.Provider
+                     <VgaProductContext.Provider
                         key={product._id}
                         value={{
                            _id: product._id,
@@ -66,7 +61,7 @@ const Vga = () => {
                            typeCode={product.typeCode}
                            details={product.details}
                         />
-                     </VgaContext.Provider>
+                     </VgaProductContext.Provider>
                   ))}
                </CardGridContainer>
                <Pagination />
@@ -74,6 +69,15 @@ const Vga = () => {
          </PageContainer>
       </Suspense>
    )
+}
+
+export type FilterTypes = {
+   orderBy: string
+   minPrice: number
+   maxPrice: number
+   selectedPrice: number
+   allManufacturer: string[]
+   selectedManufacturer: string
 }
 
 export default Vga

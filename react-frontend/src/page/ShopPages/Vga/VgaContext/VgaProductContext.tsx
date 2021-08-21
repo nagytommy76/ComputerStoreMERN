@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const VgaContext = React.createContext({
+export const VgaProductContext = React.createContext({
    _id: '',
    productName: '',
    price: 0,

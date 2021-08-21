@@ -3,7 +3,7 @@ import { StyledCard, ImageContainer, Image, CardBody, SubTitleStyle, PriceStyle 
 import NumberFormat from 'react-number-format'
 import { VgaType } from '../../Vga/VgaTypes'
 import { useHistory } from 'react-router'
-import { VgaContext } from '../../Vga/VgaContext/VgaContext'
+import { VgaProductContext } from '../../Vga/VgaContext/VgaProductContext'
 import { useAppSelector } from '../../../../app/hooks'
 
 import styles from './CardExpand.module.css'
@@ -17,7 +17,7 @@ const ProductCard: React.FC<VgaType> = ({ details, type, typeCode, manufacturer,
 
    const history = useHistory()
    const expandRef = useRef(null)
-   const { _id, productName, price } = useContext(VgaContext)
+   const { _id, productName, price } = useContext(VgaProductContext)
 
    useEffect(() => {
       if (isMobile) setIsCardExpanded(true)

@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { CardFooterStyle, FooterCartQuantityStyle, FooterCartAddToCart } from './CardStyle'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useAppDispatch } from '../../../../app/hooks'
-import { VgaContext } from '../../Vga/VgaContext/VgaContext'
+import { VgaProductContext } from '../../Vga/VgaContext/VgaProductContext'
 import { sendCartItemsToSaveInDB } from '../../../../app/slices/CartSlice'
 
 type Props = {
@@ -13,7 +13,7 @@ type Props = {
 
 const CardFooter: React.FC<Props> = ({ reference, quantityValue, changeEvent }) => {
    const dispatch = useAppDispatch()
-   const { _id, productName, price, displayImage } = useContext(VgaContext)
+   const { _id, productName, price, displayImage } = useContext(VgaProductContext)
    const addItemToCart = () => {
       dispatch(sendCartItemsToSaveInDB({ _id, productName, price, itemQuantity: quantityValue, displayImage }, 'vgaproduct'))
    }
