@@ -48,7 +48,7 @@ const Vga = () => {
    return (
       <Suspense fallback={<Container />}>
          <PageContainer>
-            <SideFilter filerOptions={filerOptions} setFilterOptions={setFilterOptions} />
+            <SideFilter filterOptions={filerOptions} setFilterOptions={setFilterOptions} />
             <RightFlexContainer>
                <CardGridContainer>
                   {vgaProducts.map((product) => (

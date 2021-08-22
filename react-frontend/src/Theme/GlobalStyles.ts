@@ -7,7 +7,7 @@ body {
    -moz-osx-font-smoothing: grayscale;
     margin: 0;
     background: ${({ theme }) => theme.body};
-    transition: all .3s linear;
+    transition: all .25s linear;
 }
 
 
