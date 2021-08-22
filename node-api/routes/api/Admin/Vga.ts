@@ -1,4 +1,5 @@
 import express from 'express'
+import { body, check } from 'express-validator'
 import { checkUserIsAdmin } from '../../../middlewares/AuthenticateAccessOrRefreshTokens'
 import { insertVgaItemController, modifyVgaProductController } from '../../../controllers/Admin/Vga/AdminVgaController'
 import { insertVgaValidator, modifyVgaValidator } from './Validators/AdminVgaValidator'

@@ -7,8 +7,7 @@ export const insertVgaItemController = async (req: Request, res: Response) => {
    try {
       const errors = validationResult(req)
       if (!errors.isEmpty()) return res.status(422).json(errors)
-      // await createVgaProduct(req.body.vgaProduct)
-      const vga = new VgaProduct(returnFilledVgaProductObject(req.body.vgaProduct))
+      const vga = new VgaProduct(returnFilledVgaProductObject(req.body))
       await vga.save()
       return res.sendStatus(201)
    } catch (error) {

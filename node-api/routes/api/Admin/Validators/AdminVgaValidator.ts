@@ -1,7 +1,7 @@
 import { body } from 'express-validator'
 
 const notEmptyFieldWithMessage = (fieldName: string, messageBody: string) =>
-   body(fieldName).not().isEmpty().withMessage(`A(z) ${messageBody} mező kitöltése kötelező!`)
+   body(fieldName).isLength({ min: 5 }).trim().withMessage(`A(z) ${messageBody} mező kitöltése kötelező!`)
 
 const notZeroValueWithMessage = (fieldName: string, messageBody: string) =>
    body(fieldName).not().equals('0').withMessage(`A(z) ${messageBody} mező nem lehet nulla!`)
