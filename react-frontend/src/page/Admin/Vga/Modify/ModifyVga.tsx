@@ -22,7 +22,7 @@ const ModifyVga = () => {
          .post('admin/vga/modify', { ...productDetails, pictureUrls: filteredPictureArray })
          .then((result) => console.log(result))
          .catch((errors: ValidationErrorWithAxiosError) => {
-            if (errors.response?.data) setValidationErrors(errors.response.data.errors)
+            if (errors.response?.data) setValidationErrors(errors.response?.data.errors)
          })
    }
    return (

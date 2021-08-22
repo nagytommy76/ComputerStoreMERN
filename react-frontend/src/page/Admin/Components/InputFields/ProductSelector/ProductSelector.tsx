@@ -11,7 +11,7 @@ const ProductSelector: React.FC<Props> = ({ setDetailedProducts, setPictureUrls 
       await axios
          .get('admin/vga/get-all')
          .then((response: AxiosResponse) => {
-            setAllVgaProducts(response.data)
+            setAllVgaProducts(response.data.allProducts)
          })
          .catch((error: AxiosError) => console.log(error))
    }

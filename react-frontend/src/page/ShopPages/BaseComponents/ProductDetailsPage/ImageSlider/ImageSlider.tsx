@@ -1,6 +1,6 @@
 import React from 'react'
 import { useLocation } from 'react-router'
-import { StyledSlideSection } from './SliderStyle'
+import { StyledSlideSection, StyledImageContainer } from './SliderStyle'
 import { Carousel } from 'react-responsive-carousel'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import { LocationType } from '../../../Vga/VgaDetails/VgaDetails'
@@ -12,9 +12,9 @@ const ImageSlider = () => {
       <StyledSlideSection>
          <Carousel autoPlay infiniteLoop interval={6000}>
             {pictureUrls.map((image, index) => (
-               <div key={index}>
+               <StyledImageContainer key={index}>
                   <img src={image} alt={image + index} />
-               </div>
+               </StyledImageContainer>
             ))}
          </Carousel>
       </StyledSlideSection>

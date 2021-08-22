@@ -52,7 +52,7 @@ const BaseInputFields: React.FC<BaseInputFieldProps> = ({ vgaProduct, setVgaProd
                setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, pcieType: event.target.value } })
             }
             value={vgaProduct.details.pcieType}
-            errorMsg={setErrorMsg('details.pciType')}
+            errorMsg={setErrorMsg('details.pcieType')}
          />
          <TextOrNumberInput
             labelText='GPU alap órajel'
