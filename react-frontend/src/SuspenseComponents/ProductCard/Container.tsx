@@ -5,7 +5,7 @@ import { navbarHeight } from '../../page/Navbar/NavbarStyles'
 
 const Container = () => {
    return (
-      <ContainerStyle>
+      <ContainerStyle data-testid='suspense-cards'>
          <GridContainer>
             <ProductCard />
             <ProductCard />

@@ -61,7 +61,6 @@ const Vga = () => {
                            displayImage: product.pictureUrls[0]
                         }}>
                         <ProductCard
-                           key={product._id}
                            _id={product._id}
                            itemNumber={product.itemNumber}
                            manufacturer={product.manufacturer}
