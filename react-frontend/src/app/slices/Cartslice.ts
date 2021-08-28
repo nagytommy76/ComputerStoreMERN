@@ -12,7 +12,7 @@ import {
 
 type IncomingTypes = {
    _id: string
-   productName: string
+   displayName: string
    price: number
    itemQuantity: string
    displayImage: string
@@ -31,7 +31,7 @@ export const CartSlice = createSlice({
       addToCart: (state, action: PayloadAction<IncomingTypes>) => {
          let singleCartItem: CartItemsType = {
             itemId: action.payload._id,
-            productName: action.payload.productName,
+            displayName: action.payload.displayName,
             price: action.payload.price,
             quantity: parseInt(action.payload.itemQuantity),
             displayImage: action.payload.displayImage
@@ -67,23 +67,32 @@ export const CartSlice = createSlice({
    }
 })
 
-export const sendCartItemsToSaveInDB =
+export const sendCartItemToSaveInDB =
    (payload: IncomingTypes, productType: string) => async (dispatch: Dispatch, getState: any) => {
       dispatch(addToCart(payload))
-      // Ez már a kosárba helyezés utáni állapot =
-      const totalQuantityOfAProduct = checkProductExistsInTheCart(payload._id, getState().cart.cartItems)?.quantity
-      await axios
-         .post('/cart/add-items', {
-            _id: payload._id,
-            quantity: totalQuantityOfAProduct,
-            productType: productType,
-            displayImage: payload.displayImage,
-            displayName: payload.productName,
-            price: payload.price
-         })
-         .then((result) => console.log(result))
-         .catch((error) => console.log(error.message))
+      if (getState().auth.userLoggedIn) {
+         // Ez már a kosárba helyezés utáni állapot =
+         const totalQuantityOfAProduct = checkProductExistsInTheCart(payload._id, getState().cart.cartItems)?.quantity
+         await axios
+            .post('/cart/add-items', {
+               _id: payload._id,
+               quantity: totalQuantityOfAProduct,
+               productType: productType,
+               displayImage: payload.displayImage,
+               displayName: payload.displayName,
+               price: payload.price
+            })
+            .then((result) => console.log(result))
+            .catch((error) => console.log(error.message))
+      }
    }
+
+export const fillDBWithCartItemsAfterLogin = () => async (dispatch: Dispatch, getState: any) => {
+   const cartItems = getState().cart.cartItems
+   console.log(cartItems)
+   console.log('hellóha fill')
+   axios.post('/cart/fill-items', { cartItems }).then((result) => console.log(result))
+}
 
 export const removeItemsFromCart = (_id: string) => async (dispatch: Dispatch, getState: any) => {
    if (getState().auth.userLoggedIn) {
@@ -119,7 +128,7 @@ export const fetchCartItemsFromDB = () => async (dispatch: Dispatch) => {
                      displayImage: items.displayImage,
                      itemQuantity: items.quantity,
                      price: items.price,
-                     productName: items.displayName
+                     displayName: items.displayName
                   })
                )
             })
@@ -130,19 +139,21 @@ export const fetchCartItemsFromDB = () => async (dispatch: Dispatch) => {
 
 export const increaseOrDecreaseByOne =
    (_id: string, isIncrease: boolean = true) =>
-   async (dispatch: Dispatch) => {
-      await axios
-         .patch('/cart/quantity', {
-            data: {
-               itemId: _id,
-               isIncrease
-            }
-         })
-         .then((result) => {
-            console.log(result)
-            if (result.status === 201) isIncrease ? dispatch(increaseItemQty(_id)) : dispatch(decreaseItemQty(_id))
-         })
-         .catch((error) => console.log(error))
+   async (dispatch: Dispatch, getState: any) => {
+      if (getState().auth.userLoggedIn) {
+         await axios
+            .patch('/cart/quantity', {
+               data: {
+                  itemId: _id,
+                  isIncrease
+               }
+            })
+            .then((result) => {
+               console.log(result)
+               if (result.status === 201) isIncrease ? dispatch(increaseItemQty(_id)) : dispatch(decreaseItemQty(_id))
+            })
+            .catch((error) => console.log(error))
+      } else isIncrease ? dispatch(increaseItemQty(_id)) : dispatch(decreaseItemQty(_id))
    }
 
 export const { addToCart, removeAllEntitesFromCart, increaseItemQty, decreaseItemQty } = CartSlice.actions

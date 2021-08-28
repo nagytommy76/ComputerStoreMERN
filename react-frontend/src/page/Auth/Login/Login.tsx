@@ -4,9 +4,10 @@ import { ImageStyle, AuthContainer, AuthFormStyle } from '../BaseForm/BaseStyle'
 import loginImage from './login.jpg'
 import { InputTypes } from '../Register/Register'
 import { setUserLoggedIn, setAccessToken, setUserName, setRefreshToken, setAdmin } from '../../../app/slices/AuthSlice'
-import { useAppDispatch } from '../../../app/hooks'
+import { useAppDispatch, useAppSelector } from '../../../app/hooks'
 import { useHistory } from 'react-router'
 import LoginSuspense from '../../../SuspenseComponents/Auth/Login'
+import { fillDBWithCartItemsAfterLogin } from '../../../app/slices/CartSlice'
 
 const InputField = React.lazy(() => import('../BaseForm/BaseInput/BaseInput'))
 const LoginForm = React.lazy(() => import('../BaseForm/Form'))
@@ -14,6 +15,8 @@ const LoginForm = React.lazy(() => import('../BaseForm/Form'))
 const Login = () => {
    const history = useHistory()
    const dispatch = useAppDispatch()
+   const cartItems = useAppSelector((state) => state.cart.cartItems)
+
    const [email, setEmail] = useState<InputTypes>({ value: '', hasError: false, errorMessage: '' })
    const [password, setPassword] = useState<InputTypes>({ value: '', hasError: false, errorMessage: '' })
 
@@ -33,6 +36,7 @@ const Login = () => {
                dispatch(setRefreshToken(response.data.refreshToken))
                dispatch(setUserName(response.data.userName))
                if (response.data.isAdmin) dispatch(setAdmin(true))
+               if (cartItems.length > 0) dispatch(fillDBWithCartItemsAfterLogin())
                history.push('/')
             }
          })

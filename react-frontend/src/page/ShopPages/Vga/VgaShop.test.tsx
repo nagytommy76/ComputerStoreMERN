@@ -1,4 +1,4 @@
-import { render, screen, waitFor, waitForElementToBeRemoved } from '../../../test-utils'
+import { render, screen, waitForElementToBeRemoved, act } from '../../../test-utils'
 import axios from 'axios'
 import Vga from './Vga'
 jest.mock('axios')
@@ -6,7 +6,7 @@ const mockedAxios = axios as jest.Mocked<typeof axios>
 
 const mockResolvedFilterData = {
    data: {
-      allManufacturers: ['EVGA', 'MSI', 'PALIT', 'XFX', 'ASUS', 'Sapphire', 'Gigabyte'],
+      allManufacturers: ['PALIT', 'ASUS'],
       maxPrice: 968000,
       minPrice: 243000
    }
@@ -16,6 +16,7 @@ const mockResolvedVgaProducts = {
    data: {
       allProducts: [
          {
+            _id: 'iurtuijkhkjgfhkjdsfgkjsdafg4543345',
             details: {},
             itemNumber: 'PALIT3060TIOC',
             type: 'RTX 3060 Ti 8GB GDDR6 Dual OC',
@@ -28,6 +29,7 @@ const mockResolvedVgaProducts = {
             ]
          },
          {
+            _id: 'dbvcbvcbdfbhgfdh8788678876',
             details: {},
             itemNumber: 'ASUSRX6700XTO12G',
             type: 'RX 6700 XT TUF Gaming 12GB',
@@ -40,6 +42,7 @@ const mockResolvedVgaProducts = {
             ]
          },
          {
+            _id: '1223312trztzizouiopiou',
             details: {},
             itemNumber: 'ASUSRX6900XTO16G',
             type: 'RX 6900 XT 16GB GDDR6',
@@ -63,12 +66,12 @@ describe('Test Vga shop page and filter', () => {
       mockedAxios.get.mockResolvedValueOnce(mockResolvedVgaProducts)
       mockedAxios.get.mockResolvedValueOnce(mockResolvedFilterData)
       render(<Vga />)
+      // Amíg el nem tűnik a Suspense componens addig várok...
    })
-   afterEach(() => {
-      jest.clearAllMocks()
-   })
-   test('should display the suspense page while loading, after should display the filter menu, and the cards', async () => {
-      expect(screen.getByTestId('suspense-cards')).toBeInTheDocument()
+
+   test('should display the cards and the filter', async () => {
+      // Amíg el nem tűnik a Suspense componens addig várok...
+      await waitForElementToBeRemoved(() => screen.getByTestId('suspense-cards'))
       await screen.findByRole('heading', {
          name: /PALIT RTX 3060 Ti 8GB GDDR6 Dual OC/i
       })
@@ -78,6 +81,18 @@ describe('Test Vga shop page and filter', () => {
       await screen.findByRole('heading', {
          name: /RX 6900 XT 16GB GDDR6/i
       })
-      screen.debug()
+      await screen.findByRole('option', { name: /Legolcsóbb elöl/ })
+      await screen.findByText(/Szűrés/)
    })
+   // test('fsdsadfasdf', async () => {
+   //    // const Suspense = screen.queryByTestId(/Töltés/i)
+   //    // expect(Suspense).toBeNull()
+   //    expect(screen.queryByTestId(/suspense-cards/i)).not.toBeInTheDocument()
+   //    screen.debug()
+   //    // await waitForElementToBeRemoved(() => Suspense)
+   //    // await screen.findByRole('heading', {
+   //    //    name: /PALIT RTX 3060 Ti 8GB GDDR6 Dual OC/i
+   //    // })
+   //    // await screen.findByRole('option', { name: /Nincs kiválasztva/ })
+   // })
 })

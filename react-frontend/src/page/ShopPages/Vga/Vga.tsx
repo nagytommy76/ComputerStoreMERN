@@ -44,7 +44,7 @@ const Vga = () => {
          })
          .catch((error) => console.log(error))
       // eslint-disable-next-line
-   }, [currentPage, perPage, dispatch, filerOptions.orderBy, filerOptions.selectedManufacturer])
+   }, [currentPage, perPage, filerOptions.orderBy, filerOptions.selectedManufacturer])
    return (
       <Suspense fallback={<Container />}>
          <PageContainer>

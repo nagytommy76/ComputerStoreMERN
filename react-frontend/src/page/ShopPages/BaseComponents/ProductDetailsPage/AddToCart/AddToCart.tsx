@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { CartQuantityStyle, StyledCartSection, AddToCartButton, InputAndLabelContainer, StyledLabel } from './CartStyle'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { sendCartItemsToSaveInDB } from '../../../../../app/slices/CartSlice'
+import { sendCartItemToSaveInDB } from '../../../../../app/slices/CartSlice'
 import { useAppDispatch } from '../../../../../app/hooks'
 import { LocationType } from '../../../Vga/VgaDetails/VgaDetails'
 import { useLocation } from 'react-router'
@@ -13,10 +13,10 @@ const AddToCart = () => {
    const { _id, manufacturer, type, typeCode, price, pictureUrls } = location.state
    const addItemToCart = () => {
       dispatch(
-         sendCartItemsToSaveInDB(
+         sendCartItemToSaveInDB(
             {
                _id,
-               productName: `${manufacturer} ${type} ${typeCode}`,
+               displayName: `${manufacturer} ${type} ${typeCode}`,
                price,
                itemQuantity: quantity,
                displayImage: pictureUrls[0]

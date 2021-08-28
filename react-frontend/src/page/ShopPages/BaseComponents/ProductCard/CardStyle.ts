@@ -22,7 +22,7 @@ export const StyledCard = styled.article<Prop>`
    cursor: pointer;
    transition: all 0.15s;
    &:hover {
-      transform: scale(1.03) translateY(-5px);
+      transform: scale(1.025) translateY(-5px);
    }
 `
 
@@ -35,7 +35,7 @@ export const ImageContainer = styled.header`
 export const Image = styled.img`
    width: 100%;
    height: 100%;
-   object-fit: cover;
+   object-fit: contain;
 `
 
 // BODY

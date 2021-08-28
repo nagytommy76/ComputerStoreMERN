@@ -6,7 +6,7 @@ export type StateType = {
 
 export type CartItemsType = {
    itemId: string
-   productName: string
+   displayName: string
    quantity: number
    price: number
    displayImage: string

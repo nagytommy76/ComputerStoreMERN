@@ -12,15 +12,18 @@ const PerPage = React.lazy(() => import('./Includes/PerPage'))
 const SideFilter: React.FC<Props> = ({ filterOptions, setFilterOptions }) => {
    const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
    useEffect(() => {
-      axios.get(`/vga/filter-data`).then((filterData) => {
-         setFilterOptions({
-            ...filterOptions,
-            maxPrice: filterData.data.maxPrice,
-            minPrice: filterData.data.minPrice,
-            allManufacturer: filterData.data.allManufacturers,
-            selectedPrice: filterData.data.minPrice
+      axios
+         .get(`/vga/filter-data`)
+         .then((filterData) => {
+            setFilterOptions({
+               ...filterOptions,
+               maxPrice: filterData.data.maxPrice,
+               minPrice: filterData.data.minPrice,
+               allManufacturer: filterData.data.allManufacturers,
+               selectedPrice: filterData.data.minPrice
+            })
          })
-      })
+         .catch((error) => console.log(error))
       // eslint-disable-next-line
    }, [])
    return (

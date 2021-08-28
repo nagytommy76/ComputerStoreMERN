@@ -3,7 +3,7 @@ import { CardFooterStyle, FooterCartQuantityStyle, FooterCartAddToCart } from '.
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useAppDispatch } from '../../../../app/hooks'
 import { VgaProductContext } from '../../Vga/VgaContext/VgaProductContext'
-import { sendCartItemsToSaveInDB } from '../../../../app/slices/CartSlice'
+import { sendCartItemToSaveInDB } from '../../../../app/slices/CartSlice'
 
 type Props = {
    reference: React.MutableRefObject<null>
@@ -15,7 +15,9 @@ const CardFooter: React.FC<Props> = ({ reference, quantityValue, changeEvent }) 
    const dispatch = useAppDispatch()
    const { _id, productName, price, displayImage } = useContext(VgaProductContext)
    const addItemToCart = () => {
-      dispatch(sendCartItemsToSaveInDB({ _id, productName, price, itemQuantity: quantityValue, displayImage }, 'vgaproduct'))
+      dispatch(
+         sendCartItemToSaveInDB({ _id, displayName: productName, price, itemQuantity: quantityValue, displayImage }, 'vgaproduct')
+      )
    }
    return (
       <CardFooterStyle ref={reference}>

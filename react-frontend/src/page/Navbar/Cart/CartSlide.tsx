@@ -33,7 +33,7 @@ const CartSlide: React.FC<Props> = ({ isSlideOpen, reference, setIsSlideOpen }) 
                      id={item.itemId}
                      displayImage={item.displayImage}
                      price={item.price * item.quantity}
-                     productName={item.productName}
+                     productName={item.displayName}
                      quantity={item.quantity}
                   />
                ))

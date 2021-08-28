@@ -1,8 +1,6 @@
 import React, { useCallback, useEffect, Suspense } from 'react'
 import AxiosSetup from './AxiosSetup/AxiosSetup'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import Navbar from './page/Navbar/Navbar'
-import PageSuspense from './SuspenseComponents/Page/PageSuspense'
 import { ProtectedRoute, GuestsRoute, AdminRoute } from './Routes/ProtectedRoute'
 
 import { ThemeProvider } from 'styled-components'
@@ -11,6 +9,9 @@ import { lightTheme, darkTheme } from './Theme/Themes'
 
 import { useAppDispatch, useAppSelector } from './app/hooks'
 import { fetchCartItemsFromDB } from './app/slices/CartSlice'
+
+import PageSuspense from './SuspenseComponents/Page/PageSuspense'
+import Navbar from './page/Navbar/Navbar'
 
 const Login = React.lazy(() => import('./page/Auth/Login/Login'))
 const Register = React.lazy(() => import('./page/Auth/Register/Register'))
