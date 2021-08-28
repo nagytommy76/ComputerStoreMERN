@@ -11,6 +11,21 @@ export const fetchUserCartItemsController = async (req: GetUserAuthInfoRequest, 
    }
 }
 
+// Ha a felhasználó nincs bejelentkezve és tesz valamit a kosarába
+export const fillDBWithCartItemsAfterLoginController = async (req: GetUserAuthInfoRequest, res: Response) => {
+   try {
+      const foundUser = await checkUserExists(req, res)
+      if (foundUser === null) return res.status(404).json({ message: 'Nem található ilyen felhasználó' })
+      if (foundUser.cartItems.length === 0) {
+         foundUser.cartItems = req.body.cartItems
+         foundUser.save()
+      }
+      return res.status(200).json({ message: 'Sikeres bevitel az adatbázisba!' })
+   } catch (error) {
+      res.status(500).json(error)
+   }
+}
+
 export const addCartItemsToUserController = async (req: GetUserAuthInfoRequest, res: Response) => {
    try {
       const productId: string = req.body._id
@@ -46,7 +61,7 @@ export const removeItemController = async (req: GetUserAuthInfoRequest, res: Res
    if (foundIndex >= 0) foundUser.cartItems.splice(foundIndex, 1)
 
    foundUser.save()
-   return res.sendStatus(200)
+   return res.status(200).json({ message: 'Sikeresen törölve!' })
 }
 
 export const increadeDecreaseItemQtyController = async (req: GetUserAuthInfoRequest, res: Response) => {
@@ -62,5 +77,5 @@ export const increadeDecreaseItemQtyController = async (req: GetUserAuthInfoRequ
       foundUser.cartItems.splice(itemFoundIndex, 1, foundItem)
    }
    foundUser.save()
-   return res.status(201).json({ message: 'mennyiség sikeresen módosítva' })
+   return res.status(200).json({ message: 'mennyiség sikeresen módosítva' })
 }
