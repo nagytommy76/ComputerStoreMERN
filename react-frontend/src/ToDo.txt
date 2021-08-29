@@ -1,3 +1,1 @@
-1. Készíteni egy Suspense Loading componenst amiben van navbar/footer etc
-2. A navbarhoz csinálni egy kosarat, oldalró kinyílós pl
-3. check-access-token lefutása nem jó belépésnél
+Kosár

@@ -34,7 +34,7 @@ export const StyledCartItem = styled.section`
    position: relative;
    margin: 0.6rem 0;
    width: 85%;
-   height: 140px;
+   min-height: 145px;
    display: flex;
    align-items: center;
    background-color: white;

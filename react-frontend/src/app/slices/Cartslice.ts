@@ -121,17 +121,19 @@ export const fetchCartItemsFromDB = () => async (dispatch: Dispatch) => {
                { quantity: string; displayImage: string; itemId: string; price: number; displayName: string }[]
             >
          ) => {
-            cartItems.data.forEach((items) => {
-               dispatch(
-                  addToCart({
-                     _id: items.itemId,
-                     displayImage: items.displayImage,
-                     itemQuantity: items.quantity,
-                     price: items.price,
-                     displayName: items.displayName
-                  })
-               )
-            })
+            if (cartItems.data.length > 0) {
+               cartItems.data.forEach((items) => {
+                  dispatch(
+                     addToCart({
+                        _id: items.itemId,
+                        displayImage: items.displayImage,
+                        itemQuantity: items.quantity,
+                        price: items.price,
+                        displayName: items.displayName
+                     })
+                  )
+               })
+            } else console.log('nincs bejövő termék az adatbázisból!')
          }
       )
       .catch((cartErrors) => console.log(cartErrors))
@@ -150,7 +152,7 @@ export const increaseOrDecreaseByOne =
             })
             .then((result) => {
                console.log(result)
-               if (result.status === 201) isIncrease ? dispatch(increaseItemQty(_id)) : dispatch(decreaseItemQty(_id))
+               if (result.status === 200) isIncrease ? dispatch(increaseItemQty(_id)) : dispatch(decreaseItemQty(_id))
             })
             .catch((error) => console.log(error))
       } else isIncrease ? dispatch(increaseItemQty(_id)) : dispatch(decreaseItemQty(_id))

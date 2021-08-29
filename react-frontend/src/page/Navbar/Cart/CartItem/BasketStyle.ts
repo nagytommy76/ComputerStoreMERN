@@ -7,6 +7,7 @@ export const Container = styled.div`
 `
 
 export const IncreaseDecreaseStyle = styled.span`
+   margin-bottom: 0.5rem;
    padding: 0.2rem 0.45rem;
    font-size: 0.8rem;
    border: hsla(0, 0%, 39.21568627450981%, 0.6) solid 1px;
