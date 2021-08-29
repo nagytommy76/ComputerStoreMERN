@@ -89,9 +89,7 @@ export const sendCartItemToSaveInDB =
 
 export const fillDBWithCartItemsAfterLogin = () => async (dispatch: Dispatch, getState: any) => {
    const cartItems = getState().cart.cartItems
-   console.log(cartItems)
-   console.log('hellóha fill')
-   axios.post('/cart/fill-items', { cartItems }).then((result) => console.log(result))
+   axios.post('/cart/fill-items', { cartItems }).catch((error) => console.log(error))
 }
 
 export const removeItemsFromCart = (_id: string) => async (dispatch: Dispatch, getState: any) => {

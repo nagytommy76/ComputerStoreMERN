@@ -43,6 +43,7 @@ const Vga = () => {
             dispatch(setTotalPages(vgas.data.totalPages))
          })
          .catch((error) => console.log(error))
+      return () => {}
       // eslint-disable-next-line
    }, [currentPage, perPage, filerOptions.orderBy, filerOptions.selectedManufacturer])
    return (

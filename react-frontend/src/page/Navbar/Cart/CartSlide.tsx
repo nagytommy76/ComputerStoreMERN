@@ -45,9 +45,23 @@ const CartSlide: React.FC<Props> = ({ isSlideOpen, reference, setIsSlideOpen }) 
             </FinalPriceStyle>
             {cartItems.length > 0 && (
                <FooterStyle>
-                  <FooterButtonsStyle isDisabled={!userLoggedIn} disabled={!userLoggedIn}>
-                     Tovább a rendeléshez
-                  </FooterButtonsStyle>
+                  {userLoggedIn ? (
+                     <Link to='/checkout' onClick={() => setIsSlideOpen(false)}>
+                        <FooterButtonsStyle
+                           onClick={() => setIsSlideOpen(false)}
+                           isDisabled={!userLoggedIn}
+                           disabled={!userLoggedIn}>
+                           Tovább a rendeléshez
+                        </FooterButtonsStyle>
+                     </Link>
+                  ) : (
+                     <FooterButtonsStyle
+                        isDisabled={!userLoggedIn}
+                        disabled={!userLoggedIn}
+                        onClick={() => setIsSlideOpen(false)}>
+                        Tovább a rendeléshez
+                     </FooterButtonsStyle>
+                  )}
                   {!userLoggedIn && (
                      <Link to='/login'>
                         <FooterButtonsStyle onClick={() => setIsSlideOpen(false)}>Belépés</FooterButtonsStyle>

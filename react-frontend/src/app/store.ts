@@ -2,7 +2,8 @@ import { configureStore, ThunkAction, Action, getDefaultMiddleware } from '@redu
 import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
-import authReducer from './slices/AuthSlice'
+import authSlice from './slices/AuthSlice'
+import DetailsSlice from './slices/UserDetailsSlice'
 import ThemeSlice from './slices/ThemeSlice'
 import CartSlice from './slices/CartSlice'
 import MobileSlice from './slices/MobileSlice'
@@ -10,7 +11,8 @@ import PaginateSlice from './slices/PaginateSlice'
 
 export const store = configureStore({
    reducer: {
-      auth: persistReducer({ key: 'AuthUser', storage }, authReducer),
+      auth: persistReducer({ key: 'AuthUser', storage }, authSlice),
+      userDetails: persistReducer({ key: 'userDetails', storage }, DetailsSlice),
       theme: persistReducer({ key: 'Theme', storage }, ThemeSlice),
       cart: persistReducer({ key: 'Cart', storage }, CartSlice),
       paginate: PaginateSlice,

@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, Suspense } from 'react'
+import React, { useCallback, useEffect, Suspense, lazy } from 'react'
 import AxiosSetup from './AxiosSetup/AxiosSetup'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import { ProtectedRoute, GuestsRoute, AdminRoute } from './Routes/ProtectedRoute'
+import { GuestsRoute, AdminRoute, AuthProtectedRoute } from './Routes/ProtectedRoute'
 
 import { ThemeProvider } from 'styled-components'
 import { GlobalStyles } from './Theme/GlobalStyles'
@@ -13,14 +13,15 @@ import { fetchCartItemsFromDB } from './app/slices/CartSlice'
 import PageSuspense from './SuspenseComponents/Page/PageSuspense'
 import Navbar from './page/Navbar/Navbar'
 
-const Login = React.lazy(() => import('./page/Auth/Login/Login'))
-const Register = React.lazy(() => import('./page/Auth/Register/Register'))
-const Welcome = React.lazy(() => import('./page/Welcome/Welcome'))
-const Page404 = React.lazy(() => import('./page/404/Page404'))
+const Login = lazy(() => import('./page/Auth/Login/Login'))
+const Register = lazy(() => import('./page/Auth/Register/Register'))
+const Welcome = lazy(() => import('./page/Welcome/Welcome'))
+const Page404 = lazy(() => import('./page/404/Page404'))
+const Checkout = lazy(() => import('./page/CheckoutPage/Checkout'))
 
-const Vga = React.lazy(() => import('./page/ShopPages/Vga/Vga'))
-const VgaDetails = React.lazy(() => import('./page/ShopPages/Vga/VgaDetails/VgaDetails'))
-const Admin = React.lazy(() => import('./page/Admin/Admin'))
+const Vga = lazy(() => import('./page/ShopPages/Vga/Vga'))
+const VgaDetails = lazy(() => import('./page/ShopPages/Vga/VgaDetails/VgaDetails'))
+const Admin = lazy(() => import('./page/Admin/Admin'))
 
 // https://lewiskori.com/blog/how-to-auto-refresh-jwts-using-axios-interceptors/
 const App = () => {
@@ -54,11 +55,12 @@ const App = () => {
             <Suspense fallback={<PageSuspense />}>
                <Switch>
                   <Route path='/' exact component={Welcome} />
+                  <Route path='/vga' component={Vga} />
+                  <Route path='/vga/vga-details' component={VgaDetails} />
                   <GuestsRoute path='/register' component={Register} />
                   <GuestsRoute path='/login' component={Login} />
-                  <ProtectedRoute path='/vga/vga-details' component={VgaDetails} />
+                  <AuthProtectedRoute path='/checkout' component={Checkout} />
                   <AdminRoute path='/admin' component={Admin} />
-                  <Route path='/vga' component={Vga} />
                   <Route component={Page404} />
                </Switch>
             </Suspense>
