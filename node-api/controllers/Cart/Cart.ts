@@ -1,4 +1,5 @@
 import { Response } from 'express'
+import { CartItemsType } from '../../models/User/UserTypes'
 import { findSingleItemInUsersCartItem, findUsersCartItemIndex, checkUserExists, GetUserAuthInfoRequest } from './CartHelper'
 
 export const fetchUserCartItemsController = async (req: GetUserAuthInfoRequest, res: Response) => {
@@ -19,7 +20,27 @@ export const fillDBWithCartItemsAfterLoginController = async (req: GetUserAuthIn
       if (foundUser.cartItems.length === 0) {
          foundUser.cartItems = req.body.cartItems
          foundUser.save()
+      } else {
+         // let filteredCartItems: CartItemsType[] = []
+         // Ha van a DB ben termék és a frontend kosárban is van valami
+         // const itemIdsFromUserCartItems: string[] = foundUser.cartItems.map((itemIds) => itemIds.itemId.toString())
+         // console.log(itemIdsFromUserCartItems)
+         // foundUser.cartItems.map((item) => {
+         //    filteredCartItems = req.body.cartItems.filter(
+         //       (foundItem: CartItemsType) => foundItem.itemId != item.itemId.toString()
+         //    )
+         // })
+
+         // Csak azt teszem bele amelyik nincs benne a user cart-ban
+         // filteredCartItems = req.body.cartItems.filter((foundItem: CartItemsType) =>
+         //    itemIdsFromUserCartItems.includes(foundItem.itemId)
+         // )
+         foundUser.cartItems = req.body.cartItems
+         // foundUser.cartItems = foundUser.cartItems.concat(filteredCartItems)
+         // foundUser.cartItems = filteredCartItems
+         foundUser.save()
       }
+
       return res.status(200).json({ message: 'Sikeres bevitel az adatbázisba!' })
    } catch (error) {
       res.status(500).json(error)
