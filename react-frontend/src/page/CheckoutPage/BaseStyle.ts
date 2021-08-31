@@ -6,4 +6,8 @@ export const PageContainer = styled.section<{ isDarkTheme: boolean }>`
    width: 90%;
    color: ${({ isDarkTheme }) => (isDarkTheme ? '#FFF' : '#000')};
    transition: color 0.25s;
+
+   display: flex;
+   align-items: center;
+   justify-content: center;
 `
