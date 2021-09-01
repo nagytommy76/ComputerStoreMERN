@@ -9,7 +9,7 @@ const Checkout = () => {
    return (
       <PageContainer isDarkTheme={isDarkTheme}>
          <AdressForm />
-         <section>Ez pedig egy termék összegző rész</section>
+         <section style={{ width: '100%' }}>Ez pedig egy termék összegző rész</section>
       </PageContainer>
    )
 }

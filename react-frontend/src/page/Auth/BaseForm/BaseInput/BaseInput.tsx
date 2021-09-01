@@ -5,7 +5,7 @@ type Props = {
    type?: string
    placeHolder: string
    labelText: string
-   value: string
+   value: string | number | undefined
    onChangeEvent: (event: ChangeEvent<HTMLInputElement>) => void
 }
 

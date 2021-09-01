@@ -10,9 +10,9 @@ export const StyledFormControl = styled.section`
 `
 
 export const StyledLabel = styled.label`
-   width: 80%;
-   padding: 0.4rem 0 0.4rem 0;
-   font-size: 1.2rem;
+   width: 85%;
+   padding: 0.4rem 0 0.8rem 0;
+   font-size: 1.1rem;
    text-align: left;
    @media (max-width: ${mobileWindowSize}) {
       font-size: 1rem;
@@ -21,17 +21,17 @@ export const StyledLabel = styled.label`
 `
 
 export const StyledInput = styled.input`
-   font-size: 1.3rem;
-   padding: 1rem;
+   font-size: 1.1rem;
+   padding: 0.8rem;
    border-radius: 5px;
-   width: 80%;
+   width: 85%;
    border: none;
    outline: none;
    box-sizing: border-box;
    transition: all 0.2s linear;
 
    &:focus {
-      box-shadow: 0px 0px 15px #666;
+      box-shadow: 0px 0px 15px #888;
    }
    @media (max-width: ${mobileWindowSize}) {
       padding: 0.8rem;
@@ -41,7 +41,7 @@ export const StyledInput = styled.input`
 `
 
 export const ErrorSpanStyle = styled.span`
-   width: 80%;
+   width: 85%;
    color: #f21200;
    font-size: 1.1rem;
    padding: 0.5rem 0 0.5rem 0;

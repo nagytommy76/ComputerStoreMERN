@@ -1,13 +1,13 @@
 import styled from 'styled-components'
-import { navbarHeight } from '../Navbar/NavbarStyles'
+// import { navbarHeight } from '../Navbar/NavbarStyles'
 
 export const PageContainer = styled.section<{ isDarkTheme: boolean }>`
-   margin-top: calc(${navbarHeight} + 1.5rem);
-   width: 90%;
+   margin: 0 auto 0 auto;
+   /* width: 95%; */
+   min-height: 100vh;
    color: ${({ isDarkTheme }) => (isDarkTheme ? '#FFF' : '#000')};
    transition: color 0.25s;
 
    display: flex;
-   align-items: center;
    justify-content: center;
 `
