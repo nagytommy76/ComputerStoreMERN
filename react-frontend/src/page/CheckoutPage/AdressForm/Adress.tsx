@@ -3,10 +3,13 @@ import { useAppSelector } from '../../../app/hooks'
 import BaseInput from '../../Auth/BaseForm/BaseInput/BaseInput'
 import { AdressFormStyle, FormControlRow, StyledHeading, BackgroundImageStyle, AdressContainer } from './AdressStyle'
 import AddressFormBacground from './AdressFormBackgound.jpg'
+import { UserDetails } from '../CheckoutTypes'
+
+const AdbancedButton = React.lazy(() => import('../../BaseElements/AdvancedButton/AdvancedButton'))
 
 const Adress = () => {
    const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
-   const submitAdressForm = (event: React.FormEvent) => {
+   const submitAdressForm = (event: React.MouseEvent) => {
       event.preventDefault()
       console.log('Adatok elküldve')
    }
@@ -26,7 +29,7 @@ const Adress = () => {
    return (
       <AdressContainer>
          <BackgroundImageStyle backgroundImage={AddressFormBacground} />
-         <AdressFormStyle darkTheme={isDarkTheme} onSubmit={submitAdressForm}>
+         <AdressFormStyle darkTheme={isDarkTheme}>
             <StyledHeading>Szállítási adatok</StyledHeading>
             <FormControlRow>
                <BaseInput
@@ -112,23 +115,10 @@ const Adress = () => {
                   value={userDetails.address.door}
                />
             </FormControlRow>
+            <AdbancedButton onClickEvent={submitAdressForm}>Bevitel</AdbancedButton>
          </AdressFormStyle>
       </AdressContainer>
    )
-}
-
-type UserDetails = {
-   firstName: string
-   lastName: string
-   phone: string
-   address: {
-      zipCode: number
-      city: string
-      street: string
-      houseNumber: string
-      floor?: string
-      door?: string
-   }
 }
 
 export default Adress

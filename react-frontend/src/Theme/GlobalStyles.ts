@@ -20,5 +20,6 @@ a {
 // https://www.smashingmagazine.com/2020/04/dark-mode-react-apps-styled-components/#top
 
 export const mobileWindowSize = `950px`
+export const largeWindowSize = '2000px'
 
 export const backgroundColor = `#272c33`

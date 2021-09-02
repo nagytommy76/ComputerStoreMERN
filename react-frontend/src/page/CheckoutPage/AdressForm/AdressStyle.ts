@@ -1,19 +1,10 @@
 import styled from 'styled-components'
-// import { backgroundColor } from '../../../Theme/GlobalStyles'
+import { largeWindowSize } from '../../../Theme/GlobalStyles'
 
 export const AdressContainer = styled.section`
    width: 100%;
    display: flex;
    flex-direction: column;
-`
-
-export const AdressFormStyle = styled.form<{ darkTheme: boolean }>`
-   width: 100%;
-   height: 100%;
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
-   z-index: 2;
 `
 
 export const BackgroundImageStyle = styled.div<{ backgroundImage: string }>`
@@ -22,10 +13,26 @@ export const BackgroundImageStyle = styled.div<{ backgroundImage: string }>`
    position: absolute;
 
    background-image: url(${({ backgroundImage }) => backgroundImage});
-   background-position: center;
+   background-position: 50% 65%;
    background-repeat: no-repeat;
    background-size: cover;
-   filter: blur(5px) brightness(95%);
+   filter: brightness(50%);
+`
+
+export const AdressFormStyle = styled.form<{ darkTheme: boolean }>`
+   width: 100%;
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   z-index: 2;
+   color: #fff;
+
+   @media (min-width: ${largeWindowSize}) {
+      width: 70%;
+      margin: auto;
+   }
 `
 
 export const FormControlRow = styled.div`
@@ -36,6 +43,6 @@ export const FormControlRow = styled.div`
 `
 
 export const StyledHeading = styled.h1`
-   font-size: 2.2rem;
+   font-size: 2.5rem;
    text-align: center;
 `
