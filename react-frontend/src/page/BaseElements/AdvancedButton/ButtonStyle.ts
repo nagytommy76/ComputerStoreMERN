@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const FormSubmitButton = styled.span<{ buttonText: string }>`
    transform-style: preserve-3d;
    transform: translateZ(-25px);
-   transition: all 0.3s;
+   transition: all 0.4s;
    font-size: 1.2rem;
    font-weight: 600;
    text-transform: uppercase;

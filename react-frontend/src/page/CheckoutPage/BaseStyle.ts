@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-// import { navbarHeight } from '../Navbar/NavbarStyles'
+import { mobileWindowSize } from '../../Theme/GlobalStyles'
 
 export const PageContainer = styled.section<{ isDarkTheme: boolean }>`
    margin: 0 auto 0 auto;
@@ -10,4 +10,8 @@ export const PageContainer = styled.section<{ isDarkTheme: boolean }>`
 
    display: flex;
    justify-content: center;
+
+   @media (max-width: ${mobileWindowSize}) {
+      flex-direction: column;
+   }
 `
