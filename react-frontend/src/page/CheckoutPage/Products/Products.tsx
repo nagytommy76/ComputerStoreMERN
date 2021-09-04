@@ -1,6 +1,6 @@
 import React from 'react'
 import { useAppSelector } from '../../../app/hooks'
-import { ProductsContainer, ProductCarts } from './ProductStyle'
+import { ProductsContainer, ProductCards, SummaryHeading } from './ProductStyle'
 
 const CartItem = React.lazy(() => import('../../Navbar/Cart/CartItem/CartItem'))
 
@@ -8,7 +8,8 @@ const Products = () => {
    const itemsInCart = useAppSelector((state) => state.cart.cartItems)
    return (
       <ProductsContainer>
-         <ProductCarts>
+         <SummaryHeading>Kosár tartalma</SummaryHeading>
+         <ProductCards>
             {itemsInCart.map((cart) => (
                <CartItem
                   key={cart.itemId}
@@ -19,7 +20,7 @@ const Products = () => {
                   quantity={cart.quantity}
                />
             ))}
-         </ProductCarts>
+         </ProductCards>
       </ProductsContainer>
    )
 }

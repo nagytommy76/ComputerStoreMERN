@@ -1,11 +1,14 @@
 import styled from 'styled-components'
-import { largeWindowSize } from '../../../Theme/GlobalStyles'
+import { largeWindowSize, mobileWindowSize } from '../../../Theme/GlobalStyles'
 
 export const AdressContainer = styled.section`
    width: 100%;
    display: flex;
    flex-direction: column;
    flex: 1;
+
+   @media (max-width: ${mobileWindowSize}) {
+   }
 `
 
 export const BackgroundImageStyle = styled.div<{ backgroundImage: string }>`
@@ -18,6 +21,10 @@ export const BackgroundImageStyle = styled.div<{ backgroundImage: string }>`
    background-repeat: no-repeat;
    background-size: cover;
    filter: brightness(50%);
+
+   @media (max-width: ${mobileWindowSize}) {
+      width: 100%;
+   }
 `
 
 export const AdressFormStyle = styled.form<{ darkTheme: boolean }>`
@@ -37,13 +44,20 @@ export const AdressFormStyle = styled.form<{ darkTheme: boolean }>`
 `
 
 export const FormControlRow = styled.div`
-   width: 100%;
+   width: 90%;
+   margin: 0.7rem 0;
    display: flex;
    flex-direction: row;
    justify-content: center;
+   @media (max-width: ${mobileWindowSize}) {
+   }
 `
 
 export const StyledHeading = styled.h1`
    font-size: 2.5rem;
    text-align: center;
+
+   @media (max-width: ${mobileWindowSize}) {
+      font-size: 2rem;
+   }
 `

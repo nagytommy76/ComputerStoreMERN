@@ -13,6 +13,7 @@ export const StyledLabel = styled.label`
    text-align: left;
    margin: 0.5rem 0;
    font-size: 1.1rem;
+   width: 85%;
 `
 
 export const InputFieldStyle = styled.input<{ isError?: boolean }>`
@@ -27,7 +28,7 @@ export const InputFieldStyle = styled.input<{ isError?: boolean }>`
 `
 
 export const TextAreaStyle = styled.textarea`
-   width: 90%;
+   width: 95%;
    border: ${defaultBorder};
    border-radius: 4px;
    padding: 0.9rem;
@@ -50,8 +51,10 @@ export const StyledOption = styled.option`
 `
 
 export const StyledErrorMessage = styled.span`
-   width: 95%;
-   font-size: 0.8rem;
-   color: red;
-   padding: 0.3rem;
+   width: 90%;
+   font-size: 0.9rem;
+   padding: 0.5rem 0 0.5rem 1rem;
+   color: white;
+   background-color: red;
+   border-radius: 5px;
 `

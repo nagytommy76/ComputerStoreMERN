@@ -3,7 +3,16 @@ import { InputContainer, InputFieldStyle, StyledLabel, StyledErrorMessage } from
 import { CSSTransition } from 'react-transition-group'
 import styles from './error.module.css'
 
-const TextOrNumberInput: React.FC<Props> = ({ labelText, inputType = 'text', onChangeEvent, value, errorMsg = '' }) => {
+const TextOrNumberInput: React.FC<Props> = ({
+   labelText,
+   inputType = 'text',
+   onChangeEvent,
+   value,
+   errorMsg = '',
+   placeHolder,
+   min,
+   max
+}) => {
    const errorTextRef = useRef(null)
    const [hasErrorNotExpired, setHasErrorNotExpired] = useState<boolean>(false)
    useEffect(() => {
@@ -16,12 +25,14 @@ const TextOrNumberInput: React.FC<Props> = ({ labelText, inputType = 'text', onC
       <InputContainer>
          <StyledLabel htmlFor={labelText}>{labelText}</StyledLabel>
          <InputFieldStyle
-            min='0'
+            min={min}
+            max={max}
             id={labelText}
             type={inputType}
             onChange={onChangeEvent}
             value={value}
             isError={hasErrorNotExpired}
+            placeholder={placeHolder}
          />
          <CSSTransition
             in={hasErrorNotExpired}
@@ -49,6 +60,9 @@ type Props = {
    onChangeEvent: (event: ChangeEvent<HTMLInputElement>) => void
    value: string | number | undefined
    errorMsg?: string | undefined
+   placeHolder?: string
+   min?: number | string
+   max?: number | string
 }
 
 export default TextOrNumberInput

@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { mobileWindowSize } from '../../../Theme/GlobalStyles'
 
 export const FormSubmitButton = styled.span<{ buttonText: string }>`
    transform-style: preserve-3d;

@@ -7,13 +7,34 @@ type Props = {
    labelText: string
    value: string | number | undefined
    onChangeEvent: (event: ChangeEvent<HTMLInputElement>) => void
+   pattern?: string
+   min?: string | number
+   max?: string | number
 }
 
-const BaseInput: React.FC<Props> = ({ type = 'text', placeHolder, labelText, value, onChangeEvent, children }) => {
+const BaseInput: React.FC<Props> = ({
+   type = 'text',
+   placeHolder,
+   labelText,
+   value,
+   onChangeEvent,
+   pattern,
+   min,
+   max,
+   children
+}) => {
    return (
       <StyledFormControl>
          <StyledLabel htmlFor={labelText}>{labelText}</StyledLabel>
-         <StyledInput type={type} placeholder={placeHolder} value={value} onChange={onChangeEvent} />
+         <StyledInput
+            min={min}
+            max={max}
+            pattern={pattern}
+            type={type}
+            placeholder={placeHolder}
+            value={value}
+            onChange={onChangeEvent}
+         />
          <ErrorSpanStyle>{children}</ErrorSpanStyle>
       </StyledFormControl>
    )
