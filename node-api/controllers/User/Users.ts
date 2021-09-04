@@ -1,8 +1,8 @@
 import { Request, Response } from 'express'
-import { User } from '../models/User/User'
+import { User } from '../../models/User/User'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from '../config/endpoints.config'
+import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from '../../config/endpoints.config'
 import { validationResult } from 'express-validator'
 
 export const registerUserController = async (req: Request, res: Response) => {

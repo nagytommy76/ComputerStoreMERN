@@ -2,8 +2,10 @@ import express, { Request, Response } from 'express'
 import { UserTypes } from '../../../models/User/UserTypes'
 import { authenticateAccessToken } from '../../../middlewares/AuthenticateAccessOrRefreshTokens'
 import { ValidateRegister } from '../Validators/UserValidator'
+import { insertUserDetailsValidator } from './Validators/UserDetailsValidator'
 
-import { registerUserController, loginUserController, checkTokensValidityController } from '../../../controllers/Users'
+import { registerUserController, loginUserController, checkTokensValidityController } from '../../../controllers/User/Users'
+import { InsertUserDetailsController } from '../../../controllers/User/UserDetails'
 
 type RequestWithUser = Request & {
    user?: UserTypes | null
@@ -18,9 +20,11 @@ router.post('/login', loginUserController)
 router.post('/refresh-token', checkTokensValidityController)
 
 router.post('/check-access-token', authenticateAccessToken, (req: RequestWithUser, res: Response) => {
-   // console.log(req.user)
    return res.json({ msg: 'sikeres authentikáció' })
 })
+
+// User Details
+router.post('/insert-details', insertUserDetailsValidator, authenticateAccessToken, InsertUserDetailsController)
 
 // https://www.freecodecamp.org/news/how-to-make-input-validation-simple-and-clean-in-your-express-js-app-ea9b5ff5a8a7/
 
