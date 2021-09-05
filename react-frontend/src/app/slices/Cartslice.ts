@@ -58,6 +58,11 @@ export const CartSlice = createSlice({
             calculateTotalPriceAndQuantity(state)
          }
       },
+      removeCartItemsAfterLogout: (state) => {
+         state.cartItems = []
+         state.totalPrice = 0
+         state.totalQuantity = 0
+      },
       increaseItemQty: (state, action: PayloadAction<string>) => {
          increaseItemQtyByOne(state, action.payload)
       },
@@ -156,6 +161,7 @@ export const increaseOrDecreaseByOne =
       } else isIncrease ? dispatch(increaseItemQty(_id)) : dispatch(decreaseItemQty(_id))
    }
 
-export const { addToCart, removeAllEntitesFromCart, increaseItemQty, decreaseItemQty } = CartSlice.actions
+export const { addToCart, removeAllEntitesFromCart, increaseItemQty, decreaseItemQty, removeCartItemsAfterLogout } =
+   CartSlice.actions
 
 export default CartSlice.reducer

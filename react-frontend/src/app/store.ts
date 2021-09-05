@@ -3,7 +3,6 @@ import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, 
 import storage from 'redux-persist/lib/storage'
 
 import authSlice from './slices/AuthSlice'
-import DetailsSlice from './slices/UserDetailsSlice'
 import ThemeSlice from './slices/ThemeSlice'
 import CartSlice from './slices/CartSlice'
 import MobileSlice from './slices/MobileSlice'
@@ -12,7 +11,6 @@ import PaginateSlice from './slices/PaginateSlice'
 export const store = configureStore({
    reducer: {
       auth: persistReducer({ key: 'AuthUser', storage }, authSlice),
-      userDetails: persistReducer({ key: 'userDetails', storage }, DetailsSlice),
       theme: persistReducer({ key: 'Theme', storage }, ThemeSlice),
       cart: persistReducer({ key: 'Cart', storage }, CartSlice),
       paginate: PaginateSlice,

@@ -5,6 +5,7 @@ import AddressFormBacground from './AdressFormBackgound.jpg'
 import { UserDetails } from '../CheckoutTypes'
 import axios from 'axios'
 import { ValidationError, ValidationErrorWithAxiosError } from '../../Admin/Vga/Types'
+import { errorMsg } from '../../Helpers/SetErrorMsg'
 
 const TextOrNumberInput = React.lazy(() => import('../../Admin/Components/InputFields/TextOrNumberInput'))
 const AdbancedButton = React.lazy(() => import('../../BaseElements/AdvancedButton/AdvancedButton'))
@@ -12,12 +13,11 @@ const AdbancedButton = React.lazy(() => import('../../BaseElements/AdvancedButto
 const Adress = () => {
    const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
    const [validationErrors, setValidationErrors] = useState<ValidationError[]>([])
-   const setErrorMsg = (param: string) => validationErrors.find((x: any) => x.param === param)?.msg
 
    const submitAdressForm = (event: React.MouseEvent) => {
       event.preventDefault()
       axios
-         .post('/auth/insert-details', userDetails)
+         .post('/auth/insert-details', { userDetails })
          .then((result) => console.log(result))
          .catch((errors: ValidationErrorWithAxiosError) => {
             console.log(errors.response?.data.errors)
@@ -50,7 +50,7 @@ const Adress = () => {
                   }
                   placeHolder='Vezetéknév...'
                   value={userDetails.firstName}
-                  errorMsg={setErrorMsg('firstName')}
+                  errorMsg={errorMsg(validationErrors, 'userDetails.firstName')}
                />
                <TextOrNumberInput
                   labelText='Keresztnév *'
@@ -59,7 +59,7 @@ const Adress = () => {
                   }
                   placeHolder='Keresztnév...'
                   value={userDetails.lastName}
-                  errorMsg={setErrorMsg('lastName')}
+                  errorMsg={errorMsg(validationErrors, 'userDetails.lastName')}
                />
             </FormControlRow>
             <FormControlRow>
@@ -71,7 +71,7 @@ const Adress = () => {
                   }
                   placeHolder='36701234657'
                   value={userDetails.phone}
-                  errorMsg={setErrorMsg('phone')}
+                  errorMsg={errorMsg(validationErrors, 'userDetails.phone')}
                />
                <TextOrNumberInput
                   min='1000'
@@ -86,7 +86,8 @@ const Adress = () => {
                   }
                   placeHolder='Irányítószám...'
                   value={userDetails.address.zipCode}
-                  errorMsg={setErrorMsg('address.zipCode')}
+                  errorMsg={errorMsg(validationErrors, 'userDetails.address.zipCode')}
+                  isZipCode={true}
                />
             </FormControlRow>
             <FormControlRow>
@@ -97,7 +98,7 @@ const Adress = () => {
                   }
                   placeHolder='Város...'
                   value={userDetails.address.city}
-                  errorMsg={setErrorMsg('address.city')}
+                  errorMsg={errorMsg(validationErrors, 'userDetails.address.city')}
                />
                <TextOrNumberInput
                   labelText='Utca *'
@@ -106,7 +107,7 @@ const Adress = () => {
                   }
                   placeHolder='Utca...'
                   value={userDetails.address.street}
-                  errorMsg={setErrorMsg('address.street')}
+                  errorMsg={errorMsg(validationErrors, 'userDetails.address.street')}
                />
             </FormControlRow>
             <FormControlRow>
@@ -117,7 +118,7 @@ const Adress = () => {
                   }
                   placeHolder='Házszám...'
                   value={userDetails.address.houseNumber}
-                  errorMsg={setErrorMsg('address.houseNumber')}
+                  errorMsg={errorMsg(validationErrors, 'userDetails.address.houseNumber')}
                />
                <TextOrNumberInput
                   labelText='Emelet'

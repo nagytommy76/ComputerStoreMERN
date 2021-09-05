@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { logoutUser } from '../../../../app/slices/AuthSlice'
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
 import { NavbarContext } from '../../NavbarContext'
+import { removeCartItemsAfterLogout } from '../../../../app/slices/CartSlice'
 
 type Prop = {
    reference: React.MutableRefObject<null>
@@ -17,6 +18,7 @@ const DropMenu: React.FC<Prop> = ({ reference }) => {
 
    const logout = () => {
       dispatch(logoutUser())
+      dispatch(removeCartItemsAfterLogout())
    }
 
    const clickEvent = (event: React.MouseEvent) => {
