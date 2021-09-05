@@ -12,6 +12,7 @@ import { fetchCartItemsFromDB } from './app/slices/CartSlice'
 
 import PageSuspense from './SuspenseComponents/Page/PageSuspense'
 import Navbar from './page/Navbar/Navbar'
+import Footer from './page/Footer/Footer'
 
 const Login = lazy(() => import('./page/Auth/Login/Login'))
 const Register = lazy(() => import('./page/Auth/Register/Register'))
@@ -64,6 +65,7 @@ const App = () => {
                   <Route component={Page404} />
                </Switch>
             </Suspense>
+            <Footer />
          </BrowserRouter>
       </ThemeProvider>
    )

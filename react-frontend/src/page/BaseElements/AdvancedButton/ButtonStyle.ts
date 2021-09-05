@@ -3,18 +3,17 @@ import styled from 'styled-components'
 export const FormSubmitButton = styled.span<{ buttonText: string }>`
    transform-style: preserve-3d;
    transform: translateZ(-25px);
-   transition: all 0.4s;
+   transition: all 0.25s;
    font-size: 1.2rem;
    font-weight: 600;
    text-transform: uppercase;
-   letter-spacing: 0.15rem;
+   letter-spacing: 0.2rem;
 
    &:before,
    &:after {
       position: absolute;
       box-sizing: border-box;
       content: '${({ buttonText }) => buttonText}';
-      margin: 1rem;
       padding: 1rem;
       display: flex;
       align-items: center;
@@ -42,11 +41,9 @@ export const FormSubmitButton = styled.span<{ buttonText: string }>`
 `
 
 export const FormSubmitButtonContainer = styled.span`
-   position: relative;
    display: inline-flex;
-   width: 185px;
-   height: 60px;
-   margin: 0 15px;
+   width: 180px;
+   height: 55px;
    perspective: 1000px;
 `
 

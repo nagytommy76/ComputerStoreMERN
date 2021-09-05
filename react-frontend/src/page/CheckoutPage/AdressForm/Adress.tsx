@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useAppSelector } from '../../../app/hooks'
 import { AdressFormStyle, FormControlRow, StyledHeading, BackgroundImageStyle, AdressContainer } from './AdressStyle'
 import AddressFormBacground from './AdressFormBackgound.jpg'
@@ -13,16 +13,14 @@ const AdbancedButton = React.lazy(() => import('../../BaseElements/AdvancedButto
 const Adress = () => {
    const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
    const [validationErrors, setValidationErrors] = useState<ValidationError[]>([])
+   const [isSubmitBtnDisabled, setIsSubmitBtnDisabled] = useState<boolean>(false)
 
    const submitAdressForm = (event: React.MouseEvent) => {
       event.preventDefault()
-      axios
-         .post('/auth/insert-details', { userDetails })
-         .then((result) => console.log(result))
-         .catch((errors: ValidationErrorWithAxiosError) => {
-            console.log(errors.response?.data.errors)
-            if (errors.response?.data) setValidationErrors(errors.response.data.errors)
-         })
+      axios.post('/auth/insert-details', { userDetails }).catch((errors: ValidationErrorWithAxiosError) => {
+         console.log(errors.response?.data.errors)
+         if (errors.response?.data) setValidationErrors(errors.response.data.errors)
+      })
    }
    const [userDetails, setUserDetails] = useState<UserDetails>({
       firstName: '',
@@ -37,6 +35,15 @@ const Adress = () => {
          door: ''
       }
    })
+   useEffect(() => {
+      axios.get('/auth/get-details').then((result) => {
+         if (result.data.userDetails !== null && result.data.isDetailsFilled) {
+            setUserDetails(result.data.userDetails)
+            setValidationErrors([])
+            setIsSubmitBtnDisabled(true)
+         }
+      })
+   }, [])
    return (
       <AdressContainer>
          <BackgroundImageStyle backgroundImage={AddressFormBacground} />
@@ -72,6 +79,7 @@ const Adress = () => {
                   placeHolder='36701234657'
                   value={userDetails.phone}
                   errorMsg={errorMsg(validationErrors, 'userDetails.phone')}
+                  isPhoneField={true}
                />
                <TextOrNumberInput
                   min='1000'
@@ -137,7 +145,9 @@ const Adress = () => {
                   value={userDetails.address.door}
                />
             </FormControlRow>
-            <AdbancedButton onClickEvent={submitAdressForm}>Bevitel</AdbancedButton>
+            <AdbancedButton isButtonDisabled={isSubmitBtnDisabled} onClickEvent={submitAdressForm}>
+               Bevitel
+            </AdbancedButton>
          </AdressFormStyle>
       </AdressContainer>
    )

@@ -12,18 +12,22 @@ const TextOrNumberInput: React.FC<Props> = ({
    placeHolder,
    min,
    max,
-   isZipCode = false
+   isZipCode = false,
+   isPhoneField = false
 }) => {
    const errorTextRef = useRef(null)
    const [hasErrorNotExpired, setHasErrorNotExpired] = useState<boolean>(false)
    useEffect(() => {
       setHasErrorNotExpired(errorMsg.length > 0)
-      if (typeof value === 'string' && value.length > 2) setHasErrorNotExpired(false)
+      if (typeof value === 'string') {
+         if (value.length > 2 && !isPhoneField) setHasErrorNotExpired(false)
+         if (isPhoneField && errorMsg.length === 0) setHasErrorNotExpired(false)
+      }
       if (typeof value === 'number') {
          if (value > 0 && !isZipCode) setHasErrorNotExpired(false)
          if (isZipCode && value >= 1000 && value <= 9999) setHasErrorNotExpired(false)
       }
-   }, [errorMsg, value, isZipCode])
+   }, [errorMsg, value, isZipCode, isPhoneField])
 
    return (
       <InputContainer>
@@ -68,6 +72,7 @@ type Props = {
    min?: number | string
    max?: number | string
    isZipCode?: boolean
+   isPhoneField?: boolean
 }
 
 export default TextOrNumberInput
