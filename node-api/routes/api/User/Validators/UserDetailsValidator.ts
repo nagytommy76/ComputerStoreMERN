@@ -9,11 +9,11 @@ const notZeroValueWithMessage = (fieldName: string, messageBody: string) =>
 // 'hu-HU': /^(\+?36)(20|30|70)\d{7}$/ PHONE
 
 export const insertUserDetailsValidator = [
-   body('address.zipCode').isPostalCode('HU').withMessage(`Az irányítósám mezőnek 1000 és 9999 között kell elnnie`),
-   body('phone').isMobilePhone('hu-HU').withMessage('Telefonszám formátum szükséges'),
-   notEmptyFieldWithMessage('firstName', 'Vezetéknév'),
-   notEmptyFieldWithMessage('lastName', 'Keresztnév'),
-   notEmptyFieldWithMessage('address.city', 'Város', 2),
-   notEmptyFieldWithMessage('address.street', 'Utca'),
-   notEmptyFieldWithMessage('address.houseNumber', 'házszám')
+   body('userDetails.address.zipCode').isPostalCode('HU').withMessage(`Az irányítósám mezőnek 1000 és 9999 között kell elnnie`),
+   body('userDetails.phone').isMobilePhone('hu-HU').withMessage('Telefonszám formátum szükséges'),
+   notEmptyFieldWithMessage('userDetails.firstName', 'Vezetéknév'),
+   notEmptyFieldWithMessage('userDetails.lastName', 'Keresztnév'),
+   notEmptyFieldWithMessage('userDetails.address.city', 'Város', 2),
+   notEmptyFieldWithMessage('userDetails.address.street', 'Utca'),
+   body('userDetails.address.houseNumber').isInt({ min: 1, max: 550 }).withMessage('A házszám minimum 1 és maximum 550 lehet!')
 ]

@@ -4,6 +4,7 @@ export type UserTypes = {
    password: string
    isAdmin: boolean
    cartItems: CartItemsType[]
+   userDetails: UserDetailsTypes
    _id: string
    iat?: number
    exp?: number
@@ -27,7 +28,4 @@ export type CartItemsType = {
    itemId: string
    productType: string
    quantity: number
-   /*productName: string
-   price: number
-   displayImage: string*/
 }
