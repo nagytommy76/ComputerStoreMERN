@@ -1,8 +1,11 @@
 import express, { Request, Response } from 'express'
 import { UserTypes } from '../../../models/User/UserTypes'
-import { authenticateAccessToken } from '../../../middlewares/AuthenticateAccessOrRefreshTokens'
 import { ValidateRegister } from './Validators/UserValidator'
 import { insertUserDetailsValidator } from './Validators/UserDetailsValidator'
+
+import { authenticateAccessToken } from '../../../middlewares/AuthenticateAccessOrRefreshTokens'
+import { checkErrors } from '../../../middlewares/CheckValidationErrors'
+import { checkUserIsFound } from '../../../middlewares/CheckUserIsFound'
 
 import { registerUserController, loginUserController, checkTokensValidityController } from '../../../controllers/User/Users'
 import { insertUserDetailsController, getUserDetailsController } from '../../../controllers/User/UserDetails'
@@ -24,8 +27,15 @@ router.post('/check-access-token', authenticateAccessToken, (req: RequestWithUse
 })
 
 // User Details
-router.post('/insert-details', insertUserDetailsValidator, authenticateAccessToken, insertUserDetailsController)
-router.get('/get-details', authenticateAccessToken, getUserDetailsController)
+router.post(
+   '/insert-details',
+   insertUserDetailsValidator,
+   authenticateAccessToken,
+   checkErrors,
+   checkUserIsFound,
+   insertUserDetailsController
+)
+router.get('/get-details', authenticateAccessToken, checkUserIsFound, getUserDetailsController)
 
 // https://www.freecodecamp.org/news/how-to-make-input-validation-simple-and-clean-in-your-express-js-app-ea9b5ff5a8a7/
 

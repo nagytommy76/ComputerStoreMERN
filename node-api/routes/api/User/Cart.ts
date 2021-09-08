@@ -1,5 +1,6 @@
 import express from 'express'
 import { authenticateAccessToken } from '../../../middlewares/AuthenticateAccessOrRefreshTokens'
+import { checkUserIsFound } from '../../../middlewares/CheckUserIsFound'
 import {
    addCartItemsToUserController,
    fetchUserCartItemsController,

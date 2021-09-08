@@ -1,21 +1,20 @@
 import { Request, Response } from 'express'
 import { User } from '../../models/User/User'
-import { validationResult } from 'express-validator'
 import { GetUserAuthInfoRequest } from '../Cart/CartHelper'
-import { UserDetailsTypes } from '../../models/User/UserTypes'
+import { UserDetailsTypes, UserTypes } from '../../models/User/UserTypes'
+import { Document } from 'mongoose'
 
-type RequestBodyType = GetUserAuthInfoRequest & {
+export type RequestBodyType = GetUserAuthInfoRequest & {
    body: {
       userDetails: UserDetailsTypes
    }
+   foundUser: (UserTypes & Document<any, any>) | Response<any, Record<string, any>> | any
 }
 
+// RequestBodyType
 export const insertUserDetailsController = async (req: RequestBodyType, res: Response) => {
    try {
-      const errors = validationResult(req)
-      if (!errors.isEmpty()) return res.status(422).json(errors)
-      const foundUser = await User.findById(req.user?._id)
-      if (foundUser == null) return res.status(404).json({ message: 'Felhasználó ne mtalálható' })
+      const foundUser = req.foundUser
       foundUser.userDetails = req.body.userDetails
       foundUser.save()
       res.sendStatus(201)
@@ -24,14 +23,13 @@ export const insertUserDetailsController = async (req: RequestBodyType, res: Res
    }
 }
 
-export const getUserDetailsController = async (req: GetUserAuthInfoRequest, res: Response) => {
+// GetUserAuthInfoRequest
+export const getUserDetailsController = async (req: any, res: Response) => {
    try {
-      const foundUser = await User.findOne({ _id: req.user?._id })
-      if (foundUser == null) return res.status(404).json({ message: 'Felhasználó nem található' })
-      if (foundUser.userDetails.firstName == undefined || foundUser.userDetails.firstName == '') {
+      if (req.foundUser.userDetails.firstName == undefined || req.foundUser.userDetails.firstName == '') {
          return res.status(200).json({ userDetails: null, isDetailsFilled: false })
       }
-      return res.status(200).json({ userDetails: foundUser.userDetails, isDetailsFilled: true })
+      return res.status(200).json({ userDetails: req.foundUser.userDetails, isDetailsFilled: true })
    } catch (error) {
       res.status(500).json(error)
    }
