@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+const reactColor = '#61dbfb'
+
 export const FooterContainer = styled.footer`
    width: 100%;
    height: 110px;
@@ -19,6 +21,13 @@ export const IconContainer = styled.div`
    margin-bottom: 1rem;
 `
 
+export const AnchorStyle = styled.a`
+   transition: color 0.1s linear;
+   &:hover {
+      color: ${reactColor};
+   }
+`
+
 const baseIconStyle = `
     margin-right: .5rem;
     font-size: 1.3rem;
@@ -28,7 +37,7 @@ const baseIconStyle = `
 export const ReactIconAnchor = styled.a`
    ${baseIconStyle}
    &:hover {
-      color: #61dbfb;
+      color: ${reactColor};
    }
 `
 export const NodeIconAnchor = styled.a`

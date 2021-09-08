@@ -2,6 +2,7 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
    FooterContainer,
+   AnchorStyle,
    IconContainer,
    ReactIconAnchor,
    NodeIconAnchor,
@@ -12,7 +13,13 @@ import {
 const Footer = () => {
    return (
       <FooterContainer>
-         <p>Készítette: &copy; Nagy Tamás. 2021 Budapest</p>
+         <p>
+            Készítette: &copy;{' '}
+            <AnchorStyle target='_blank' href='https://nagytamas93.hu/'>
+               Nagy Tamás.
+            </AnchorStyle>{' '}
+            2021 Budapest.
+         </p>
          <IconContainer>
             <ReactIconAnchor href='https://reactjs.org/' target='_blank'>
                <FontAwesomeIcon icon={['fab', 'react']} size='2x' />
