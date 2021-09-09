@@ -10,10 +10,10 @@ import {
 } from '../../../controllers/Cart/Cart'
 
 const router = express.Router()
-router.get('/fetch-items', authenticateAccessToken, fetchUserCartItemsController)
-router.post('/add-items', authenticateAccessToken, addCartItemsToUserController)
-router.post('/fill-items', authenticateAccessToken, fillDBWithCartItemsAfterLoginController)
-router.patch('/quantity', authenticateAccessToken, increadeDecreaseItemQtyController)
-router.delete('/remove-item', authenticateAccessToken, removeItemController)
+router.get('/fetch-items', authenticateAccessToken, checkUserIsFound, fetchUserCartItemsController)
+router.post('/add-items', authenticateAccessToken, checkUserIsFound, addCartItemsToUserController)
+router.post('/fill-items', authenticateAccessToken, checkUserIsFound, fillDBWithCartItemsAfterLoginController)
+router.patch('/quantity', authenticateAccessToken, checkUserIsFound, increadeDecreaseItemQtyController)
+router.delete('/remove-item', authenticateAccessToken, checkUserIsFound, removeItemController)
 
 module.exports = router

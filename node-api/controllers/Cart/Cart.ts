@@ -3,9 +3,7 @@ import { findSingleItemInUsersCartItem, findUsersCartItemIndex, checkUserExists,
 
 export const fetchUserCartItemsController = async (req: GetUserAuthInfoRequest, res: Response) => {
    try {
-      const foundUser = await checkUserExists(req, res)
-      if (foundUser === null) return res.status(404).json({ message: 'Nem található ilyen felhasználó' })
-      res.status(200).json(foundUser.cartItems)
+      res.status(200).json(req.foundUser.cartItems)
    } catch (error) {
       res.status(500).json(error)
    }
@@ -14,8 +12,7 @@ export const fetchUserCartItemsController = async (req: GetUserAuthInfoRequest, 
 // Ha a felhasználó nincs bejelentkezve és tesz valamit a kosarába
 export const fillDBWithCartItemsAfterLoginController = async (req: GetUserAuthInfoRequest, res: Response) => {
    try {
-      const foundUser = await checkUserExists(req, res)
-      if (foundUser === null) return res.status(404).json({ message: 'Nem található ilyen felhasználó' })
+      const { foundUser } = req
       if (foundUser.cartItems.length === 0) {
          foundUser.cartItems = req.body.cartItems
          foundUser.save()
@@ -31,6 +28,7 @@ export const fillDBWithCartItemsAfterLoginController = async (req: GetUserAuthIn
 
 export const addCartItemsToUserController = async (req: GetUserAuthInfoRequest, res: Response) => {
    try {
+      const { foundUser } = req
       const productId: string = req.body._id
       let toSaveOrModifyObject = {
          itemId: productId,
@@ -40,8 +38,6 @@ export const addCartItemsToUserController = async (req: GetUserAuthInfoRequest, 
          displayName: req.body.displayName,
          price: req.body.price
       }
-      const foundUser = await checkUserExists(req, res)
-      if (foundUser === null) return res.status(404).json({ message: 'Nem található ilyen felhasználó' })
       // Van ilyen indexes elem a kosarában
       const itemFoundIndex = findUsersCartItemIndex(foundUser.cartItems, productId)
       const foundItem = findSingleItemInUsersCartItem(foundUser.cartItems, productId)
@@ -58,8 +54,7 @@ export const addCartItemsToUserController = async (req: GetUserAuthInfoRequest, 
 }
 
 export const removeItemController = async (req: GetUserAuthInfoRequest, res: Response) => {
-   const foundUser = await checkUserExists(req, res)
-   if (foundUser === null) return res.status(404).json({ message: 'Nem található ilyen felhasználó' })
+   const { foundUser } = req
    const foundIndex = findUsersCartItemIndex(foundUser.cartItems, req.body._id)
    if (foundIndex >= 0) foundUser.cartItems.splice(foundIndex, 1)
 
@@ -69,8 +64,7 @@ export const removeItemController = async (req: GetUserAuthInfoRequest, res: Res
 
 export const increadeDecreaseItemQtyController = async (req: GetUserAuthInfoRequest, res: Response) => {
    const requestData = req.body.data
-   const foundUser = await checkUserExists(req, res)
-   if (foundUser === null) return res.status(404).json({ message: 'Nem található ilyen felhasználó' })
+   const { foundUser } = req
    const itemFoundIndex = findUsersCartItemIndex(foundUser.cartItems, requestData.itemId)
    const foundItem = findSingleItemInUsersCartItem(foundUser.cartItems, requestData.itemId)
 

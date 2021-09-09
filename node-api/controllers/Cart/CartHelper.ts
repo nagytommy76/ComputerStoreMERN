@@ -1,9 +1,14 @@
 import { Request, Response } from 'express'
+import { Document } from 'mongoose'
 import { User } from '../../models/User/User'
-import { CartItemsType } from '../../models/User/UserTypes'
+import { CartItemsType, UserDetailsTypes } from '../../models/User/UserTypes'
 import { UserTypes } from '../../models/User/UserTypes'
 export type GetUserAuthInfoRequest = Request & {
+   body: {
+      userDetails: UserDetailsTypes
+   }
    user?: UserTypes
+   foundUser?: (UserTypes & Document<any, any>) | Response<any, Record<string, any>> | any
 }
 
 export const findUsersCartItemIndex = (cartItems: CartItemsType[], productId: string) => {
