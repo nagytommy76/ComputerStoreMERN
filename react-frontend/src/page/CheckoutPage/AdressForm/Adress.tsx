@@ -36,13 +36,16 @@ const Adress = () => {
       }
    })
    useEffect(() => {
-      axios.get('/auth/get-details').then((result) => {
-         if (result.data.userDetails !== null && result.data.isDetailsFilled) {
-            setUserDetails(result.data.userDetails)
-            setValidationErrors([])
-            setIsSubmitBtnDisabled(true)
-         }
-      })
+      axios
+         .get('/auth/get-details')
+         .then((result) => {
+            if (result.data.userDetails !== null && result.data.isDetailsFilled) {
+               setUserDetails(result.data.userDetails)
+               setValidationErrors([])
+               setIsSubmitBtnDisabled(true)
+            }
+         })
+         .catch((error) => console.log(error))
    }, [])
    return (
       <AdressContainer>

@@ -6,9 +6,10 @@ const CartItem = React.lazy(() => import('../../Navbar/Cart/CartItem/CartItem'))
 
 const Products = () => {
    const itemsInCart = useAppSelector((state) => state.cart.cartItems)
+   const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
    return (
       <ProductsContainer>
-         <SummaryHeading>Kosár tartalma</SummaryHeading>
+         <SummaryHeading darkTheme={isDarkTheme}>Kosár tartalma</SummaryHeading>
          <ProductCards>
             {itemsInCart.map((cart) => (
                <CartItem

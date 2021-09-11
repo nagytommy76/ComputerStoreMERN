@@ -22,7 +22,9 @@ export const ProductCards = styled.div`
    align-items: center;
 `
 
-export const SummaryHeading = styled.h1`
+export const SummaryHeading = styled.h1<{ darkTheme: boolean }>`
    margin-top: 0;
    font-size: 2.8rem;
+   transition: color 0.25s;
+   color: ${({ darkTheme }) => (darkTheme ? '#FFF' : '#000')};
 `
