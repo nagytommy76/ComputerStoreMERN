@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { VgaProduct } from '../models/Vga/VgaProduct'
+import { VgaProduct } from '../../../models/Products/Vga/VgaProduct'
 type QueryRequest = Request & {
    query: {
       currentPage: string

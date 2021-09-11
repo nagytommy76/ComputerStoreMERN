@@ -8,17 +8,17 @@ export const insertUserDetailsController = async (req: GetUserAuthInfoRequest, r
       foundUser.save()
       res.sendStatus(201)
    } catch (error) {
-      res.status(500).json(error)
+      return res.status(500).json(error)
    }
 }
 
 export const getUserDetailsController = async (req: GetUserAuthInfoRequest, res: Response) => {
    try {
       if (req.foundUser.userDetails.firstName == undefined || req.foundUser.userDetails.firstName == '') {
-         res.status(200).json({ userDetails: null, isDetailsFilled: false })
+         return res.status(200).json({ userDetails: null, isDetailsFilled: false })
       }
       return res.status(200).json({ userDetails: req.foundUser.userDetails, isDetailsFilled: true })
    } catch (error) {
-      res.status(500).json(error)
+      return res.status(500).json(error)
    }
 }

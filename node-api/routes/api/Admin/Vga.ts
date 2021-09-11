@@ -1,9 +1,8 @@
 import express from 'express'
-import { body, check } from 'express-validator'
 import { checkUserIsAdmin } from '../../../middlewares/AuthenticateAccessOrRefreshTokens'
 import { insertVgaItemController, modifyVgaProductController } from '../../../controllers/Admin/Vga/AdminVgaController'
 import { insertVgaValidator, modifyVgaValidator } from './Validators/AdminVgaValidator'
-import { getAllVgaItemController } from '../../../controllers/Vgas'
+import { getAllVgaItemController } from '../../../controllers/Products/Vga/Vgas'
 const router = express.Router()
 
 router.post('/insert', insertVgaValidator, checkUserIsAdmin, insertVgaItemController)

@@ -1,12 +1,8 @@
 import { Schema, model } from 'mongoose'
 import { VgaType } from './VgaTypes'
 
-const requiredFieldText = (schemaName: string) => {
-   return `A ${schemaName} megadása kötelező!`
-}
-
 const VgaSchema = new Schema<VgaType>({
-   itemNumber: { type: String, required: [true, requiredFieldText('termék szám')] },
+   itemNumber: { type: String, required: true },
    type: { type: String, required: true },
    manufacturer: { type: String, required: true },
    price: { type: Number, required: true },

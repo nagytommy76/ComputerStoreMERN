@@ -1,4 +1,4 @@
-import { VgaType } from '../../../models/Vga/VgaTypes'
+import { VgaType } from '../../../models/Products/Vga/VgaTypes'
 
 export const returnFilledVgaProductObject = (incomingVga: VgaType) => {
    return {
