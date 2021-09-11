@@ -19,11 +19,13 @@ const Routes = () => {
                <Link to='/admin/vga-modify'>Vga módosítása</Link>
             </AccordionContent>
          </AccordionTab>
-         {/* <AccordionTab>
+         <AccordionTab>
             <Input type='checkbox' id='chck2' />
-            <TabLabel htmlFor='chck2'>Alaplap</TabLabel>
-            <Link to='/admin/motherboard-insert'>Alaplap bevitele</Link>
-         </AccordionTab> */}
+            <TabLabel key='vga' onClick={() => toggleClicked('vga')} htmlFor='chck1'>
+               Cpu
+            </TabLabel>
+            <Link to='/admin/cpu-insert'>CPU bevitele</Link>
+         </AccordionTab>
       </AccordionContainer>
    )
 }
