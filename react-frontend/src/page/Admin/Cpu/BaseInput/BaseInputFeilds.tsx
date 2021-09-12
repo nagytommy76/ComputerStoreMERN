@@ -18,7 +18,7 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
          <BaseFields product={product} setProduct={setProduct} validationErrors={validationErrors} />
          <TextOrNumberInput
             inputType='number'
-            min='1'
+            min='0'
             max='128'
             labelText='Magok Száma (db) *'
             onChangeEvent={(event) =>
@@ -29,7 +29,7 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
          />
          <TextOrNumberInput
             inputType='number'
-            min='1'
+            min='0'
             max='128'
             labelText='Szálak Száma (db) *'
             onChangeEvent={(event) =>
@@ -40,7 +40,7 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
          />
          <TextOrNumberInput
             inputType='number'
-            min='1'
+            min='0'
             max='10000'
             labelText='Alap órajel (MHz) *'
             onChangeEvent={(event) =>
@@ -51,7 +51,7 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
          />
          <TextOrNumberInput
             inputType='number'
-            min='1'
+            min='0'
             max='10000'
             labelText='Turbó órajel (MHz) *'
             onChangeEvent={(event) =>
@@ -62,7 +62,7 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
          />
          <TextOrNumberInput
             inputType='number'
-            min='1'
+            min='0'
             max='500'
             labelText='Fogyasztás (Watt) *'
             onChangeEvent={(event) =>
@@ -73,7 +73,7 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
          />
          <TextOrNumberInput
             inputType='number'
-            min='1'
+            min='0'
             max='250'
             labelText='L2 Cache (Mb) *'
             onChangeEvent={(event) =>
@@ -84,7 +84,7 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
          />
          <TextOrNumberInput
             inputType='number'
-            min='1'
+            min='0'
             max='250'
             labelText='L3 Cache (Mb) *'
             onChangeEvent={(event) =>
@@ -126,6 +126,13 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
                setProduct({ ...product, details: { ...product.details, cpuCodeName: event.target.value } })
             }
             value={product.details.cpuCodeName}
+         />
+         <TextOrNumberInput
+            labelText='Gyártói oldal'
+            onChangeEvent={(event) =>
+               setProduct({ ...product, details: { ...product.details, manufacturerUrl: event.target.value } })
+            }
+            value={product.details.manufacturerUrl}
          />
          <CheckBox labelText='Gyári hűtő' onChangeEvent={handleCheckbox} checked={isCooler} />
          {isCooler && (

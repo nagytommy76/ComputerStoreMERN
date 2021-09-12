@@ -19,9 +19,11 @@ const CpuInsert = () => {
    const handleSubmit = (event: React.FormEvent) => {
       event.preventDefault()
       console.log('CPU Bevitele')
+      const filteredPicUrls = pictureUrls.map((x) => x.pictureUrl)
       axios
          .post('admin/cpu/insert', {
-            ...cpuProducts
+            ...cpuProducts,
+            pictureUrls: filteredPicUrls
          })
          .then((result) => {
             console.log(result)
