@@ -12,11 +12,13 @@ app.use(cors({ origin: 'http://localhost:3000', methods: 'GET,HEAD,PUT,PATCH,POS
 app.use(bodyParser.json())
 
 app.use('/api/vga', require('./routes/api/Vga/Vga'))
-app.use('/api/admin/vga', require('./routes/api/Admin/Vga'))
+app.use('/api/admin/vga', require('./routes/api/Admin/Vga/Vga'))
 
 app.use('/api/auth', require('./routes/api/User/User'))
 app.use('/api/cart', require('./routes/api/User/Cart'))
 
+app.use('/api/admin/cpu', require('./routes/api/Admin/Cpu/Cpu'))
+
 app.listen(PORT, () => {
-   console.log(`The app started`)
+   console.log(`The app started: ${PORT}`)
 })

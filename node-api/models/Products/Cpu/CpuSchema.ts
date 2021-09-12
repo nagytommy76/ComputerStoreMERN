@@ -2,7 +2,7 @@ import { Schema, model } from 'mongoose'
 import { CpuProductType } from './CpuTypes'
 
 const CpuSchema = new Schema<CpuProductType>({
-   itemNumber: { type: String, required: true },
+   itemNumber: { type: String },
    type: { type: String, required: true },
    manufacturer: { type: String, required: true },
    price: { type: Number, required: true },
@@ -16,8 +16,10 @@ const CpuSchema = new Schema<CpuProductType>({
       l2Cache: { type: Number, required: true },
       l3Cache: { type: Number, required: true },
       socket: { type: String, required: true },
-      integratedGraphics: { type: String },
-      integratedGraphicsName: { type: String },
+      manufacturerUrl: { type: String },
+      description: { type: String },
+      integratedGraphics: { type: String, default: 'Nem' },
+      integratedGraphicsName: { type: String, default: 'Nincs' },
       architecture: { type: String },
       cpuCodeName: { type: String },
       stockCooler: { type: Boolean },

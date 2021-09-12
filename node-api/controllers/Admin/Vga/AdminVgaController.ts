@@ -5,8 +5,6 @@ import { validationResult } from 'express-validator'
 
 export const insertVgaItemController = async (req: Request, res: Response) => {
    try {
-      const errors = validationResult(req)
-      if (!errors.isEmpty()) return res.status(422).json(errors)
       const vga = new VgaProduct(returnFilledVgaProductObject(req.body))
       await vga.save()
       return res.sendStatus(201)
@@ -17,8 +15,6 @@ export const insertVgaItemController = async (req: Request, res: Response) => {
 
 export const modifyVgaProductController = async (req: Request, res: Response) => {
    try {
-      const errors = validationResult(req)
-      if (!errors.isEmpty()) return res.status(422).json(errors)
       VgaProduct.findById(req.body._id)
          .then((vga) => {
             if (vga) {
