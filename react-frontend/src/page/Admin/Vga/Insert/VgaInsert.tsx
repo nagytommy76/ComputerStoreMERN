@@ -7,7 +7,8 @@ import BaseInputFields from '../BaseInput/BaseInputFields'
 import axios from 'axios'
 import { VgaType } from '../../../ShopPages/Vga/VgaTypes'
 import { vgaProperties } from '../VgaProperties'
-import { ValidationError, ValidationErrorWithAxiosError, PictureUrlType } from '../Types'
+import { ValidationErrorWithAxiosError, PictureUrlType } from '../Types'
+import { ValidationError } from '../../AdminTypes'
 
 const AdminVga = () => {
    const [pictureUrls, setPictureUrls] = useState<PictureUrlType[]>([])

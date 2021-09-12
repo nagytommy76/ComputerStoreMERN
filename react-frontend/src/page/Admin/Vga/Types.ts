@@ -1,5 +1,6 @@
 import { AxiosError } from 'axios'
 import { VgaType } from '../../ShopPages/Vga/VgaTypes'
+import { ValidationError } from '../AdminTypes'
 
 export type BaseInputFieldProps = {
    vgaProduct: VgaType
@@ -8,13 +9,6 @@ export type BaseInputFieldProps = {
 }
 
 export type ValidationErrorWithAxiosError = AxiosError & ValidationError
-
-export type ValidationError = {
-   location: string
-   msg: string
-   param: string
-   value?: string | number
-}
 
 export type PictureUrlType = {
    id: string

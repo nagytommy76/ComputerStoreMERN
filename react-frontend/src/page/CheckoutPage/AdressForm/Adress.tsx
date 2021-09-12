@@ -4,7 +4,8 @@ import { AdressFormStyle, FormControlRow, StyledHeading, BackgroundImageStyle, A
 import AddressFormBacground from './AdressFormBackgound.jpg'
 import { UserDetails } from '../CheckoutTypes'
 import axios from 'axios'
-import { ValidationError, ValidationErrorWithAxiosError } from '../../Admin/Vga/Types'
+import { ValidationErrorWithAxiosError } from '../../Admin/Vga/Types'
+import { ValidationError } from '../../Admin/AdminTypes'
 import { errorMsg } from '../../Helpers/SetErrorMsg'
 
 const TextOrNumberInput = React.lazy(() => import('../../Admin/Components/InputFields/TextOrNumberInput'))

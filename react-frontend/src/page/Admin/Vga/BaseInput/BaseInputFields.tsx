@@ -3,40 +3,12 @@ import { FormContainerStyle } from '../../Components/Form/FormStyle'
 import TextOrNumberInput from '../../Components/InputFields/TextOrNumberInput'
 import { BaseInputFieldProps } from '../Types'
 import { errorMsg } from '../../../Helpers/SetErrorMsg'
+import BaseInputs from '../../Components/BaseInputs'
 
 const BaseInputFields: React.FC<BaseInputFieldProps> = ({ vgaProduct, setVgaProduct, validationErrors }) => {
    return (
       <FormContainerStyle>
-         <TextOrNumberInput
-            labelText='Termék szám'
-            onChangeEvent={(event) => setVgaProduct({ ...vgaProduct, itemNumber: event.target.value })}
-            value={vgaProduct.itemNumber}
-            errorMsg={errorMsg(validationErrors, 'itemNumber')}
-         />
-         <TextOrNumberInput
-            labelText='Típus név'
-            onChangeEvent={(event) => setVgaProduct({ ...vgaProduct, type: event.target.value })}
-            value={vgaProduct.type}
-            errorMsg={errorMsg(validationErrors, 'type')}
-         />
-         <TextOrNumberInput
-            labelText='Típus kód'
-            onChangeEvent={(event) => setVgaProduct({ ...vgaProduct, typeCode: event.target.value })}
-            value={vgaProduct.typeCode}
-         />
-         <TextOrNumberInput
-            labelText='Vga gyártó'
-            onChangeEvent={(event) => setVgaProduct({ ...vgaProduct, manufacturer: event.target.value })}
-            value={vgaProduct.manufacturer}
-            errorMsg={errorMsg(validationErrors, 'manufacturer')}
-         />
-         <TextOrNumberInput
-            inputType='number'
-            labelText='Ár'
-            onChangeEvent={(event) => setVgaProduct({ ...vgaProduct, price: parseInt(event.target.value) })}
-            value={vgaProduct.price}
-            errorMsg={errorMsg(validationErrors, 'price')}
-         />
+         <BaseInputs product={vgaProduct} setProduct={setVgaProduct} validationErrors={validationErrors} />
          {/* Details */}
          <TextOrNumberInput
             labelText='Gpu gyártó'

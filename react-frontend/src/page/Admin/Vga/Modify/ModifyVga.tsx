@@ -1,14 +1,17 @@
 import axios from 'axios'
-import React, { useState } from 'react'
-import { VgaType } from '../../../ShopPages/Vga/VgaTypes'
+import React, { useState, lazy } from 'react'
 import { StyledForm, FullWidhtContainerStyle } from '../../Components/Form/FormStyle'
-import SubmitButton from '../../Components/InputFields/SubmitButton/SubmitButton'
-import BaseInputFields from '../BaseInput/BaseInputFields'
-import ProductSelector from '../../Components/InputFields/ProductSelector/ProductSelector'
+
 import { vgaProperties } from '../VgaProperties'
-import TextArea from '../../Components/InputFields/TextArea/TextArea'
-import PicUrlInput from '../../Components/InputFields/PicUrlInput/PicUrlInput'
-import { ValidationError, ValidationErrorWithAxiosError, PictureUrlType } from '../Types'
+import { VgaType } from '../../../ShopPages/Vga/VgaTypes'
+import { ValidationErrorWithAxiosError, PictureUrlType } from '../Types'
+import { ValidationError } from '../../AdminTypes'
+
+const SubmitButton = lazy(() => import('../../Components/InputFields/SubmitButton/SubmitButton'))
+const BaseInputFields = lazy(() => import('../BaseInput/BaseInputFields'))
+const ProductSelector = lazy(() => import('../../Components/InputFields/ProductSelector/ProductSelector'))
+const TextArea = lazy(() => import('../../Components/InputFields/TextArea/TextArea'))
+const PicUrlInput = lazy(() => import('../../Components/InputFields/PicUrlInput/PicUrlInput'))
 
 const ModifyVga = () => {
    const [selectedProductPictureUrls, setSelectedProductPictureUrls] = useState<PictureUrlType[]>([])
