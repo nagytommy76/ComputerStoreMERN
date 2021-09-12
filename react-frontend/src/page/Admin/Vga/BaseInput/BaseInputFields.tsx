@@ -1,11 +1,11 @@
 import React from 'react'
 import { FormContainerStyle } from '../../Components/Form/FormStyle'
 import TextOrNumberInput from '../../Components/InputFields/TextOrNumberInput'
-import { BaseInputFieldProps } from '../Types'
+import { VgaInputFieldProps } from '../Types'
 import { errorMsg } from '../../../Helpers/SetErrorMsg'
 import BaseInputs from '../../Components/BaseInputs'
 
-const BaseInputFields: React.FC<BaseInputFieldProps> = ({ vgaProduct, setVgaProduct, validationErrors }) => {
+const BaseInputFields: React.FC<VgaInputFieldProps> = ({ vgaProduct, setVgaProduct, validationErrors }) => {
    return (
       <FormContainerStyle>
          <BaseInputs product={vgaProduct} setProduct={setVgaProduct} validationErrors={validationErrors} />

@@ -2,7 +2,7 @@ import { AxiosError } from 'axios'
 import { VgaType } from '../../ShopPages/Vga/VgaTypes'
 import { ValidationError } from '../AdminTypes'
 
-export type BaseInputFieldProps = {
+export type VgaInputFieldProps = {
    vgaProduct: VgaType
    setVgaProduct: React.Dispatch<React.SetStateAction<VgaType>>
    validationErrors: ValidationError[]
