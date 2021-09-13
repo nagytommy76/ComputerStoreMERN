@@ -18,6 +18,7 @@ app.use('/api/auth', require('./routes/api/User/User'))
 app.use('/api/cart', require('./routes/api/User/Cart'))
 
 app.use('/api/admin/cpu', require('./routes/api/Admin/Cpu/Cpu'))
+app.use('/api/cpu', require('./routes/api/Cpu/Cpu'))
 
 app.listen(PORT, () => {
    console.log(`The app started: ${PORT}`)

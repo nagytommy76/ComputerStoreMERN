@@ -1,5 +1,4 @@
 import { Request, Response } from 'express'
-import { validationResult } from 'express-validator'
 import { CpuProduct } from '../../../models/Products/Cpu/CpuSchema'
 import { CpuProductType } from '../../../models/Products/Cpu/CpuTypes'
 

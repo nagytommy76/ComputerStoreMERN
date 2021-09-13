@@ -1,6 +1,6 @@
 import express from 'express'
 import { checkUserIsAdmin } from '../../../../middlewares/AuthenticateAccessOrRefreshTokens'
-import { insertCpuController } from '../../../../controllers/Admin/Cpu/AdminCpucontroller'
+import { insertCpuController } from '../../../../controllers/Admin/Cpu/AdminCpuController'
 import { insertCpuValidator } from './Validator/CpuValidator'
 import { checkErrors } from '../../../../middlewares/CheckValidationErrors'
 const router = express.Router()
