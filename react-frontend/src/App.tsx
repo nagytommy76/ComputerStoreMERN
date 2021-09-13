@@ -20,9 +20,12 @@ const Welcome = lazy(() => import('./page/Welcome/Welcome'))
 const Page404 = lazy(() => import('./page/404/Page404'))
 const Checkout = lazy(() => import('./page/CheckoutPage/Checkout'))
 
+const Admin = lazy(() => import('./page/Admin/Admin'))
+
 const Vga = lazy(() => import('./page/ShopPages/Vga/Vga'))
 const VgaDetails = lazy(() => import('./page/ShopPages/Vga/VgaDetails/VgaDetails'))
-const Admin = lazy(() => import('./page/Admin/Admin'))
+
+const Cpu = lazy(() => import('./page/ShopPages/Cpu/Cpu'))
 
 // https://lewiskori.com/blog/how-to-auto-refresh-jwts-using-axios-interceptors/
 const App = () => {
@@ -58,6 +61,7 @@ const App = () => {
                   <Route path='/' exact component={Welcome} />
                   <Route path='/vga' component={Vga} />
                   <Route path='/vga/vga-details' component={VgaDetails} />
+                  <Route path='/cpu' component={Cpu} />
                   <GuestsRoute path='/register' component={Register} />
                   <GuestsRoute path='/login' component={Login} />
                   <AuthProtectedRoute path='/checkout' component={Checkout} />

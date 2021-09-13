@@ -1,10 +1,11 @@
 import styled from 'styled-components'
+import { footerHeight } from '../../Theme/GlobalStyles'
 
 const reactColor = '#61dbfb'
 
 export const FooterContainer = styled.footer`
    width: 100%;
-   height: 110px;
+   height: ${footerHeight};
    display: flex;
    flex-direction: column;
    justify-content: center;
@@ -12,7 +13,6 @@ export const FooterContainer = styled.footer`
    background-color: #111;
    color: #fff;
    font-size: 1.1rem;
-   padding: 1rem 0;
 `
 
 export const IconContainer = styled.div`

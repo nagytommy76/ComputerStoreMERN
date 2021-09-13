@@ -1,5 +1,4 @@
-import axios from 'axios'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useAppSelector } from '../../../../app/hooks'
 import { FilterTypes } from '../../Vga/Vga'
 import { StyledFilter, MainTitle } from './FilterStyle'
@@ -11,21 +10,6 @@ const PerPage = React.lazy(() => import('./Includes/PerPage'))
 
 const SideFilter: React.FC<Props> = ({ filterOptions, setFilterOptions }) => {
    const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
-   useEffect(() => {
-      axios
-         .get(`/vga/filter-data`)
-         .then((filterData) => {
-            setFilterOptions({
-               ...filterOptions,
-               maxPrice: filterData.data.maxPrice,
-               minPrice: filterData.data.minPrice,
-               allManufacturer: filterData.data.allManufacturers,
-               selectedPrice: filterData.data.minPrice
-            })
-         })
-         .catch((error) => console.log(error))
-      // eslint-disable-next-line
-   }, [])
    return (
       <StyledFilter isDarkTheme={isDarkTheme}>
          <MainTitle>Szűrés</MainTitle>

@@ -17,7 +17,7 @@ const Vga = () => {
 
    const currentPage = useAppSelector((state) => state.paginate.currentPage)
    const perPage = useAppSelector((state) => state.paginate.perPage)
-   const [filerOptions, setFilterOptions] = useState<FilterTypes>({
+   const [filterOptions, setFilterOptions] = useState<FilterTypes>({
       allManufacturer: [],
       selectedManufacturer: '',
       maxPrice: 200,
@@ -25,16 +25,30 @@ const Vga = () => {
       orderBy: 'asc',
       selectedPrice: 0
    })
-
+   useEffect(() => {
+      axios
+         .get(`/vga/filter-data`)
+         .then((filterData) => {
+            setFilterOptions({
+               ...filterOptions,
+               maxPrice: filterData.data.maxPrice,
+               minPrice: filterData.data.minPrice,
+               allManufacturer: filterData.data.allManufacturers,
+               selectedPrice: filterData.data.minPrice
+            })
+         })
+         .catch((error) => console.log(error))
+      // eslint-disable-next-line
+   }, [])
    useEffect(() => {
       axios
          .get(
-            `/vga?currentPage=${currentPage}&perPage=${perPage}&orderBy=${filerOptions.orderBy}&byManufacturer=${filerOptions.selectedManufacturer}`,
+            `/vga?currentPage=${currentPage}&perPage=${perPage}&orderBy=${filterOptions.orderBy}&byManufacturer=${filterOptions.selectedManufacturer}`,
             {
                data: {
                   currentPage,
                   perPage,
-                  filerOptions
+                  filterOptions
                }
             }
          )
@@ -45,11 +59,11 @@ const Vga = () => {
          .catch((error) => console.log(error))
       return () => {}
       // eslint-disable-next-line
-   }, [currentPage, perPage, filerOptions.orderBy, filerOptions.selectedManufacturer])
+   }, [currentPage, perPage, filterOptions.orderBy, filterOptions.selectedManufacturer])
    return (
       <Suspense fallback={<Container />}>
          <PageContainer>
-            <SideFilter filterOptions={filerOptions} setFilterOptions={setFilterOptions} />
+            <SideFilter filterOptions={filterOptions} setFilterOptions={setFilterOptions} />
             <RightFlexContainer>
                <CardGridContainer>
                   {vgaProducts.map((product) => (

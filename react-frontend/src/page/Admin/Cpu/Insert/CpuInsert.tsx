@@ -29,7 +29,8 @@ const CpuInsert = () => {
             console.log(result)
          })
          .catch((error) => {
-            console.log(error)
+            console.log(error.response?.data.errors)
+            if (error.response?.data) setValidationErrors(error.response.data.errors)
          })
    }
    return (

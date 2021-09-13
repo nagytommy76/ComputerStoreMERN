@@ -1,10 +1,11 @@
 import styled from 'styled-components'
-import { mobileWindowSize } from '../../Theme/GlobalStyles'
+import { mobileWindowSize, footerHeight } from '../../Theme/GlobalStyles'
 import { navbarHeight } from '../Navbar/NavbarStyles'
 import { CardWidth } from './BaseComponents/ProductCard/CardStyle'
 
 export const PageContainer = styled.section`
    width: 100%;
+   min-height: calc(100vh - ${footerHeight} - ${navbarHeight} - 1.5rem);
    margin-top: calc(${navbarHeight} + 1.5rem);
    display: flex;
    flex-direction: row;

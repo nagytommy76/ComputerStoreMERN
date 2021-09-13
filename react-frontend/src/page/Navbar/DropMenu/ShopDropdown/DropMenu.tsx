@@ -29,14 +29,12 @@ const DropMenu: React.FC<Prop> = ({ reference }) => {
                <FontAwesomeIcon icon={['fas', 'times']} size='2x' />
             </CloseDropdownMenu>
          )}
-         {/* <DropLinkItem>Alaplap</DropLinkItem> */}
          <DropLinkItem to='/vga' onClick={closeNavbar}>
             Videókártya
          </DropLinkItem>
-         {/* <DropLinkItem>Processzor</DropLinkItem>
-         <DropLinkItem>Memória</DropLinkItem>
-         <DropLinkItem>Merevlemez</DropLinkItem>
-         <DropLinkItem>SSD</DropLinkItem> */}
+         <DropLinkItem to='/cpu' onClick={closeNavbar}>
+            Processzor
+         </DropLinkItem>
       </DropStyle>
    )
 }
