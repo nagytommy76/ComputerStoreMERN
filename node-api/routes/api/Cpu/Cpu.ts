@@ -1,7 +1,8 @@
 import express from 'express'
-import { getCpuProducts } from '../../../controllers/Products/Cpu/Cpus'
+import { getAllCpuItemController, getCpuFilterData } from '../../../controllers/Products/Cpu/Cpus'
 const router = express.Router()
 
-router.get('/', getCpuProducts)
+router.get('/', getAllCpuItemController)
+router.get('/filter-data', getCpuFilterData)
 
 module.exports = router

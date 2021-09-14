@@ -11,6 +11,7 @@ export const insertCpuController = async (req: RequestWithBodyType, res: Respons
       const createdCpu = new CpuProduct({
          itemNumber: req.body.itemNumber,
          type: req.body.type,
+         typeCode: req.body.typeCode,
          manufacturer: req.body.manufacturer,
          price: req.body.price,
          pictureUrls: req.body.pictureUrls,
