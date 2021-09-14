@@ -1,5 +1,5 @@
 export type BaseProductType = {
-   _id?: string
+   _id: string
    itemNumber?: string
    type: string
    typeCode?: string

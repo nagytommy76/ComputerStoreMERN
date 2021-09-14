@@ -1,6 +1,7 @@
 import { CpuProductType } from '../../ShopPages/Cpu/CpuTypes'
 
 export const cpuProperties: CpuProductType = {
+   _id: '',
    itemNumber: '',
    type: '',
    typeCode: '',

@@ -1,16 +1,15 @@
 import React, { useRef, useState, useContext, useEffect } from 'react'
-import { StyledCard, ImageContainer, Image, CardBody, SubTitleStyle, PriceStyle } from './CardStyle'
+import styles from './CardExpand.module.css'
 import NumberFormat from 'react-number-format'
-import { VgaType } from '../../Vga/VgaTypes'
 import { useHistory } from 'react-router'
 import { VgaProductContext } from '../../Vga/VgaContext/VgaProductContext'
 import { useAppSelector } from '../../../../app/hooks'
 
-import styles from './CardExpand.module.css'
+import { StyledCard, ImageContainer, Image, CardBody, SubTitleStyle, PriceStyle } from './CardStyle'
 import { CSSTransition } from 'react-transition-group'
 import CardFooter from './CardFooter'
 
-const ProductCard: React.FC<VgaType> = ({ details, type, typeCode, manufacturer, pictureUrls }) => {
+const ProductCard: React.FC<ProductCardType> = ({ details, type, typeCode, manufacturer, pictureUrls }) => {
    const [isCardExpanded, setIsCardExpanded] = useState<boolean>(false)
    const [quantityToCart, setQuantityToCart] = useState<string>('1')
    const isMobile = useAppSelector((state) => state.mobile.isMobile)
@@ -65,6 +64,17 @@ const ProductCard: React.FC<VgaType> = ({ details, type, typeCode, manufacturer,
          </CSSTransition>
       </StyledCard>
    )
+}
+
+type ProductCardType = {
+   _id?: string
+   itemNumber?: string
+   manufacturer: string
+   pictureUrls: string[]
+   price: number
+   type: string
+   typeCode?: string
+   details: any
 }
 
 export default ProductCard
