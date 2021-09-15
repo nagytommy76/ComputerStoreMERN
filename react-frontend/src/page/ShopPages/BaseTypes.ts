@@ -8,3 +8,12 @@ export type BaseProductType = {
    pictureUrls: string[]
    inStockQuantity: number
 }
+
+export type FilterTypes = {
+   orderBy: string
+   minPrice: number
+   maxPrice: number
+   selectedPrice: number
+   allManufacturer: string[]
+   selectedManufacturer: string
+}

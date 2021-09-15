@@ -1,5 +1,5 @@
 import React from 'react'
-import { FilterTypes } from '../../../Vga/Vga'
+import { FilterTypes } from '../../../BaseTypes'
 import { InputContainer, StyledLabel, StyledSelect } from '../FilterStyle'
 
 const OrderByPrice: React.FC<Props> = ({ setFilterOptions, filterOptions }) => {

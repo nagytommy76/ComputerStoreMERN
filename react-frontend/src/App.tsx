@@ -59,8 +59,8 @@ const App = () => {
             <Suspense fallback={<PageSuspense />}>
                <Switch>
                   <Route path='/' exact component={Welcome} />
-                  <Route path='/vga' component={Vga} />
                   <Route path='/vga/vga-details' component={VgaDetails} />
+                  <Route path='/vga' component={Vga} />
                   <Route path='/cpu' component={Cpu} />
                   <GuestsRoute path='/register' component={Register} />
                   <GuestsRoute path='/login' component={Login} />

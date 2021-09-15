@@ -1,6 +1,6 @@
 import React from 'react'
 import { useAppSelector } from '../../../../app/hooks'
-import { FilterTypes } from '../../Vga/Vga'
+import { FilterTypes } from '../../BaseTypes'
 import { StyledFilter, MainTitle } from './FilterStyle'
 
 const OrderByPrice = React.lazy(() => import('./Includes/OrderByPrice'))
