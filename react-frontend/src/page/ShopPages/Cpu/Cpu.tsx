@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import useFilter from '../../Hooks/UseFilter'
+import useFilter from '../Hooks/UseFilter'
 import axios from 'axios'
 import Container from '../../../SuspenseComponents/ProductCard/Container'
 import { CardGridContainer, PageContainer, RightFlexContainer } from '../BaseStyleForShopPage'

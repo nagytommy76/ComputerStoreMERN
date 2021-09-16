@@ -4,8 +4,8 @@ import { CardGridContainer, PageContainer, RightFlexContainer } from '../BaseSty
 import { VgaType } from './VgaTypes'
 
 import { ProductContext } from '../Context/ShopContext'
-import useGetProducts from '../../Hooks/useGetProducts'
-import useFilter from '../../Hooks/UseFilter'
+import useGetProducts from '../Hooks/useGetProducts'
+import useFilter from '../Hooks/UseFilter'
 
 const ProductCard = React.lazy(() => import('../BaseComponents/ProductCard/ProductCard'))
 const Pagination = React.lazy(() => import('../BaseComponents/Pagination/Pagination'))

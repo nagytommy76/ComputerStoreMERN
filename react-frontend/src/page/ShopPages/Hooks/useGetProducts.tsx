@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import axios from 'axios'
-import { FilterTypes } from '../ShopPages/BaseTypes'
+import { FilterTypes } from '../BaseTypes'
 
-import { setTotalPages } from '../../app/slices/PaginateSlice'
-import { useAppSelector, useAppDispatch } from '../../app/hooks'
+import { setTotalPages } from '../../../app/slices/PaginateSlice'
+import { useAppSelector, useAppDispatch } from '../../../app/hooks'
 
 const useGetProducts = (
    filterOptions: FilterTypes,

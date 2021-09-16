@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { FilterTypes } from '../ShopPages/BaseTypes'
+import { FilterTypes } from '../BaseTypes'
 import axios from 'axios'
 
 const useFilter = (productType: string) => {

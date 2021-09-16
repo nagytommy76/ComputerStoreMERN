@@ -1,14 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, lazy } from 'react'
 import { StyledForm, FullWidhtContainerStyle } from '../../Components/Form/FormStyle'
-import PicUrlInput from '../../Components/InputFields/PicUrlInput/PicUrlInput'
-import TextArea from '../../Components/InputFields/TextArea/TextArea'
-import SubmitButton from '../../Components/InputFields/SubmitButton/SubmitButton'
-import BaseInputFields from '../BaseInput/BaseInputFields'
-import axios from 'axios'
 import { VgaType } from '../../../ShopPages/Vga/VgaTypes'
 import { vgaProperties } from '../VgaProperties'
-import { ValidationErrorWithAxiosError, PictureUrlType } from '../Types'
+import { PictureUrlType } from '../Types'
 import { ValidationError } from '../../AdminTypes'
+import { handleInsertSubmit } from '../../Helpers/HandleInsertSubmit'
+
+const PicUrlInput = lazy(() => import('../../Components/InputFields/PicUrlInput/PicUrlInput'))
+const TextArea = lazy(() => import('../../Components/InputFields/TextArea/TextArea'))
+const SubmitButton = lazy(() => import('../../Components/InputFields/SubmitButton/SubmitButton'))
+const BaseInputFields = lazy(() => import('../BaseInput/BaseInputFields'))
 
 const AdminVga = () => {
    const [pictureUrls, setPictureUrls] = useState<PictureUrlType[]>([])
@@ -17,19 +18,7 @@ const AdminVga = () => {
 
    const insertVga = async (event: React.FormEvent) => {
       event.preventDefault()
-      const filteredPicUrls = pictureUrls.map((x) => x.pictureUrl)
-      await axios
-         .post('admin/vga/insert', {
-            ...vgaProduct,
-            pictureUrls: filteredPicUrls
-         })
-         .then((result) => {
-            if (result.status === 201) setVgaProduct(vgaProperties)
-         })
-         .catch((error: ValidationErrorWithAxiosError) => {
-            console.log(error.response?.data.errors)
-            if (error.response?.data) setValidationErrors(error.response.data.errors)
-         })
+      handleInsertSubmit('vga', vgaProduct, pictureUrls, setValidationErrors, setVgaProduct, vgaProperties)
    }
    return (
       <StyledForm onSubmit={insertVga}>
