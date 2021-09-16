@@ -7,6 +7,7 @@ const CpuSchema = new Schema<CpuProductType>({
    manufacturer: { type: String, required: true },
    price: { type: Number, required: true },
    pictureUrls: { type: Array, required: true },
+   typeCode: { type: String },
    details: {
       coreCount: { type: Number, required: true },
       threadCount: { type: Number, required: true },

@@ -1,5 +1,5 @@
 import { Response } from 'express'
-import { findSingleItemInUsersCartItem, findUsersCartItemIndex, checkUserExists, GetUserAuthInfoRequest } from './CartHelper'
+import { findSingleItemInUsersCartItem, findUsersCartItemIndex, GetUserAuthInfoRequest } from './CartHelper'
 
 export const fetchUserCartItemsController = async (req: GetUserAuthInfoRequest, res: Response) => {
    try {
