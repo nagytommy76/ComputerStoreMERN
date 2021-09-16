@@ -63,6 +63,7 @@ const ProductCard: React.FC<ProductCardType> = ({
                exitActive: styles.ExpandExitActive
             }}>
             <CardFooter
+               productType={pathNameForDetailsURL}
                quantityValue={quantityToCart}
                changeEvent={(event) => setQuantityToCart(event.target.value)}
                reference={expandRef}

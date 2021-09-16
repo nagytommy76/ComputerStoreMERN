@@ -12,7 +12,7 @@ const ByManufacturer: React.FC<Props> = ({ setFilterOptions, filterOptions }) =>
             onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
                setFilterOptions({ ...filterOptions, selectedManufacturer: event.target.value })
             }>
-            <option value=''>Nincs kiválasztva</option>
+            <option value=''>Összes</option>
             {filterOptions.allManufacturer.map((man, index) => (
                <option key={index} value={man}>
                   {man}

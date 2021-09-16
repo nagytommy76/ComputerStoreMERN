@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import useFilter from '../Hooks/UseFilter'
-import axios from 'axios'
 import Container from '../../../SuspenseComponents/ProductCard/Container'
 import { CardGridContainer, PageContainer, RightFlexContainer } from '../BaseStyleForShopPage'
 import { CpuProductType } from './CpuTypes'
 import { ProductContext } from '../Context/ShopContext'
+import useGetProducts from '../Hooks/useGetProducts'
 
 const SideFilter = React.lazy(() => import('../BaseComponents/SideFilter/SideFilter'))
 const ProductCard = React.lazy(() => import('../BaseComponents/ProductCard/ProductCard'))
@@ -12,15 +12,8 @@ const ProductCard = React.lazy(() => import('../BaseComponents/ProductCard/Produ
 const Cpu = () => {
    const [cpuProducts, setCpuProducts] = useState<CpuProductType[]>([])
    const { filterOptions, setFilterOptions } = useFilter('cpu')
-   useEffect(() => {
-      axios
-         .get('/cpu')
-         .then((allCpu) => {
-            setCpuProducts(allCpu.data.allProducts)
-         })
-         .catch((error) => console.log(error))
-      // eslint-disable-next-line
-   }, [])
+   useGetProducts(filterOptions, setCpuProducts, 'cpu')
+
    return (
       <React.Suspense fallback={<Container />}>
          <PageContainer>
