@@ -36,6 +36,12 @@ const BaseInputs: React.FC<BaseInputFieldProps> = ({ product, setProduct, valida
             value={product.price}
             errorMsg={errorMsg(validationErrors, 'price')}
          />
+         <TextOrNumberInput
+            inputType='number'
+            labelText='Raktáron lévő mennyiség'
+            onChangeEvent={(event) => setProduct({ ...product, inStockQuantity: parseInt(event.target.value) })}
+            value={product.inStockQuantity}
+         />
       </>
    )
 }

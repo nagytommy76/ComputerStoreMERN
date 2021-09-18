@@ -32,7 +32,7 @@ const useGetProducts = (
          })
          .catch((error) => console.log(error))
       // eslint-disable-next-line
-   }, [currentPage, perPage, filterOptions.orderBy, filterOptions.selectedManufacturer, filterOptions.selectedPrice])
+   }, [currentPage, perPage, filterOptions.orderBy, filterOptions.selectedManufacturer])
 }
 
 export default useGetProducts
