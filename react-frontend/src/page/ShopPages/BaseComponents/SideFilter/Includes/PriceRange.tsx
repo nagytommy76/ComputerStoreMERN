@@ -14,7 +14,7 @@ const PriceRange: React.FC<Props> = ({ setFilterOptions, filterOptions }) => {
             type='range'
             min={filterOptions.minPrice}
             max={filterOptions.maxPrice}
-            step='100'
+            step='1'
             onMouseUp={(event: any) => setFilterOptions({ ...filterOptions, selectedPrice: parseInt(event.target.value) })}
          />
       </InputContainer>

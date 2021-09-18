@@ -3,7 +3,7 @@ import { CartQuantityStyle, StyledCartSection, AddToCartButton, InputAndLabelCon
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { sendCartItemToSaveInDB } from '../../../../../app/slices/CartSlice'
 import { useAppDispatch } from '../../../../../app/hooks'
-import { LocationType } from '../../../Vga/VgaDetails/VgaDetails'
+import { LocationType } from '../../../BaseTypes'
 import { useLocation } from 'react-router'
 
 const AddToCart = () => {

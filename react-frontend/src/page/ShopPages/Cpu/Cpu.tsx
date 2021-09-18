@@ -8,6 +8,7 @@ import useGetProducts from '../Hooks/useGetProducts'
 
 const SideFilter = React.lazy(() => import('../BaseComponents/SideFilter/SideFilter'))
 const ProductCard = React.lazy(() => import('../BaseComponents/ProductCard/ProductCard'))
+const Pagination = React.lazy(() => import('../BaseComponents/Pagination/Pagination'))
 
 const Cpu = () => {
    const [cpuProducts, setCpuProducts] = useState<CpuProductType[]>([])
@@ -44,6 +45,7 @@ const Cpu = () => {
                      </ProductContext.Provider>
                   ))}
                </CardGridContainer>
+               <Pagination />
             </RightFlexContainer>
          </PageContainer>
       </React.Suspense>

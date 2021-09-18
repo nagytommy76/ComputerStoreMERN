@@ -17,7 +17,7 @@ const useGetProducts = (
    useEffect(() => {
       axios
          .get(
-            `/${productTypeForURL}?currentPage=${currentPage}&perPage=${perPage}&orderBy=${filterOptions.orderBy}&byManufacturer=${filterOptions.selectedManufacturer}`,
+            `/${productTypeForURL}?currentPage=${currentPage}&perPage=${perPage}&orderBy=${filterOptions.orderBy}&byManufacturer=${filterOptions.selectedManufacturer}&minPrice=${filterOptions.selectedPrice}`,
             {
                data: {
                   currentPage,
@@ -32,7 +32,7 @@ const useGetProducts = (
          })
          .catch((error) => console.log(error))
       // eslint-disable-next-line
-   }, [currentPage, perPage, filterOptions.orderBy, filterOptions.selectedManufacturer])
+   }, [currentPage, perPage, filterOptions.orderBy, filterOptions.selectedManufacturer, filterOptions.selectedPrice])
 }
 
 export default useGetProducts

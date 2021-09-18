@@ -2,7 +2,7 @@ import React from 'react'
 import { useAppSelector } from '../../../../../app/hooks'
 import { TopNavigationStyle, NavigationLink } from '../DetailsStyle'
 import { useLocation } from 'react-router'
-import { LocationType } from '../../../Vga/VgaDetails/VgaDetails'
+import { LocationType } from '../../../BaseTypes'
 import { Link } from 'react-router-dom'
 
 const TopNavigation = () => {

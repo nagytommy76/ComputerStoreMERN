@@ -13,9 +13,9 @@ export type CpuDetailsType = {
    l2Cache: number
    l3Cache: number
    socket: string
-   manufacturerUrl?: string
+   warranity: number
+   manufacturerPageUrl?: string
    description?: string
-   integratedGraphics?: string
    integratedGraphicsName?: string
    architecture?: string
    cpuCodeName?: string

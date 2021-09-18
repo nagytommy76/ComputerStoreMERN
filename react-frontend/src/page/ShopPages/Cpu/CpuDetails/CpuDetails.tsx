@@ -1,14 +1,14 @@
 import React from 'react'
 
 const ProductDetails = React.lazy(() => import('../../BaseComponents/ProductDetailsPage/ProductDetails'))
-const VgaDetailTable = React.lazy(() => import('./VgaDetailTable'))
+const DetailsTable = React.lazy(() => import('./CpuDetailTable'))
 
-const VgaDetails = () => {
+const CpuDetails = () => {
    return (
       <ProductDetails>
-         <VgaDetailTable />
+         <DetailsTable />
       </ProductDetails>
    )
 }
 
-export default VgaDetails
+export default CpuDetails

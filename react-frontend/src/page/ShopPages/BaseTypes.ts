@@ -17,3 +17,13 @@ export type FilterTypes = {
    allManufacturer: string[]
    selectedManufacturer: string
 }
+
+export type LocationType = {
+   _id: string
+   details: any
+   pictureUrls: string[]
+   type: string
+   manufacturer: string
+   price: number
+   typeCode: string
+}

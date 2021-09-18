@@ -1,7 +1,7 @@
 import React from 'react'
 import { TableStyle } from '../../BaseComponents/ProductDetailsPage/DetailTable/TableStyle'
 import { useLocation } from 'react-router'
-import { LocationType } from './VgaDetails'
+import { LocationType } from '../../BaseTypes'
 
 const TableRow = React.lazy(() => import('../../BaseComponents/ProductDetailsPage/DetailTable/TableRow'))
 

@@ -100,11 +100,15 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
             errorMsg={errorMsg(validationErrors, 'details.socket')}
          />
          <TextOrNumberInput
-            labelText='Integrált grafikus vezérlő'
+            labelText='Garancia *'
+            inputType='number'
+            min='0'
+            max='150'
             onChangeEvent={(event) =>
-               setProduct({ ...product, details: { ...product.details, integratedGraphics: event.target.value } })
+               setProduct({ ...product, details: { ...product.details, warranity: parseInt(event.target.value) } })
             }
-            value={product.details.integratedGraphics}
+            value={product.details.warranity}
+            errorMsg={errorMsg(validationErrors, 'details.warranity')}
          />
          <TextOrNumberInput
             labelText='Integrált grafikus neve'
@@ -130,9 +134,9 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
          <TextOrNumberInput
             labelText='Gyártói oldal'
             onChangeEvent={(event) =>
-               setProduct({ ...product, details: { ...product.details, manufacturerUrl: event.target.value } })
+               setProduct({ ...product, details: { ...product.details, manufacturerPageUrl: event.target.value } })
             }
-            value={product.details.manufacturerUrl}
+            value={product.details.manufacturerPageUrl}
          />
          <CheckBox labelText='Gyári hűtő' onChangeEvent={handleCheckbox} checked={isCooler} />
          {isCooler && (

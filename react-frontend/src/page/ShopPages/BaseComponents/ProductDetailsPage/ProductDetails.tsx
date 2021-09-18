@@ -14,7 +14,7 @@ import {
    ManufacturerUrlPage
 } from './DetailsStyle'
 import { useAppSelector } from '../../../../app/hooks'
-import { LocationType } from '../../Vga/VgaDetails/VgaDetails'
+import { LocationType } from '../../BaseTypes'
 
 const AddToCart = React.lazy(() => import('./AddToCart/AddToCart'))
 const ImageSlider = React.lazy(() => import('./ImageSlider/ImageSlider'))
