@@ -26,12 +26,12 @@ export const insertCpuController = async (req: RequestWithBodyType, res: Respons
             socket: req.body.details.socket,
             manufacturerUrl: req.body.details.manufacturerUrl,
             description: req.body.details.description,
-            integratedGraphics: req.body.details.integratedGraphics,
             integratedGraphicsName: req.body.details.integratedGraphicsName,
             architecture: req.body.details.architecture,
             cpuCodeName: req.body.details.cpuCodeName,
             stockCooler: req.body.details.stockCooler,
-            stockCoolerName: req.body.details.stockCoolerName
+            stockCoolerName: req.body.details.stockCoolerName,
+            warranity: req.body.warranity
          }
       })
       await createdCpu.save()

@@ -18,5 +18,6 @@ export const insertCpuValidator = [
    notZeroValueWithMessage('details.TDP', 'TDP'),
    notZeroValueWithMessage('details.l2Cache', 'l2Cache'),
    notZeroValueWithMessage('details.l3Cache', 'l3Cache'),
-   notEmptyFieldWithMessage('details.socket', 'Foglalat')
+   notEmptyFieldWithMessage('details.socket', 'Foglalat'),
+   notEmptyFieldWithMessage('details.warranity', 'Garancia')
 ]

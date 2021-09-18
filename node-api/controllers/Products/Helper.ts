@@ -15,7 +15,7 @@ export const returnProductModelWithPaginateInfo = async (ProductModel: Model<any
          totalPages = Math.ceil(totalItems / perPage)
          return await ProductModel.find({
             manufacturer: new RegExp(byManufacturer),
-            price: { $gt: minPrice }
+            price: { $gt: minPrice - 1 }
          })
             .sort({ price: orderBy })
             .skip((currentPage - 1) * perPage)
@@ -28,7 +28,7 @@ export const returnProductModelWithPaginateInfo = async (ProductModel: Model<any
       .catch((error) => res.status(500).json({ hasError: true, errorMsg: error }))
 }
 
-export const baseFilterData = async (ProductModel: Model<any>, req: QueryRequest, res: Response) => {
+export const baseFilterData = async (ProductModel: Model<any>, res: Response) => {
    await ProductModel.aggregate()
       .group({
          _id: null,

@@ -17,15 +17,20 @@ const CpuSchema = new Schema<CpuProductType>({
       l2Cache: { type: Number, required: true },
       l3Cache: { type: Number, required: true },
       socket: { type: String, required: true },
-      manufacturerUrl: { type: String },
+      manufacturerPageUrl: { type: String },
       description: { type: String },
-      integratedGraphics: { type: String, default: 'Nem' },
       integratedGraphicsName: { type: String, default: 'Nincs' },
       architecture: { type: String },
       cpuCodeName: { type: String },
       stockCooler: { type: Boolean },
-      stockCoolerName: { type: String }
+      stockCoolerName: { type: String },
+      warranity: { type: Number, required: true }
    }
+}).add({
+   inStockQuantity: { type: Number, required: true, default: 0 },
+   isHighlighted: { type: Boolean, required: false, default: false },
+   ratingCount: { type: Number, required: false },
+   ratingValue: { type: Number, required: false }
 })
 
 export const CpuProduct = model<CpuProductType>('CpuProduct', CpuSchema)

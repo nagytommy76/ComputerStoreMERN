@@ -4,7 +4,7 @@ import { QueryRequest, returnProductModelWithPaginateInfo, baseFilterData } from
 
 export const getCpuFilterData = async (req: QueryRequest, res: Response) => {
    try {
-      baseFilterData(CpuProduct, req, res)
+      baseFilterData(CpuProduct, res)
    } catch (error) {
       return res.status(500).json(error)
    }

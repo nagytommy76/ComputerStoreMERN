@@ -15,7 +15,7 @@ export const getAllVgaItemController = async (req: QueryRequest, res: Response) 
 
 export const getFilterData = async (req: QueryRequest, res: Response) => {
    try {
-      baseFilterData(VgaProduct, req, res)
+      baseFilterData(VgaProduct, res)
    } catch (error) {
       return res.status(500).json(error)
    }
