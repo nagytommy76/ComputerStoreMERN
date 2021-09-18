@@ -29,8 +29,7 @@ const CpuSchema = new Schema<CpuProductType>({
 }).add({
    inStockQuantity: { type: Number, required: true, default: 0 },
    isHighlighted: { type: Boolean, required: false, default: false },
-   ratingCount: { type: Number, required: false },
-   ratingValue: { type: Number, required: false }
+   ratingValues: { type: [{ rating: Number, comment: { type: String, required: false } }], required: false }
 })
 
 export const CpuProduct = model<CpuProductType>('CpuProduct', CpuSchema)
