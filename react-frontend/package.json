@@ -10,6 +10,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.15.3",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
+    "@mui/styled-engine": "npm:@mui/styled-engine-sc@latest",
     "@mui/icons-material": "^5.0.0",
     "@mui/material": "^5.0.0",
     "@mui/styled-engine-sc": "^5.0.0",
@@ -59,10 +60,12 @@
     ]
   },
   "devDependencies": {
-    "@mui/styled-engine": "npm:@mui/styled-engine-sc@latest",
     "@types/react-router-dom": "^5.1.7",
     "@types/styled-components": "^5.1.10",
     "@types/testing-library__react": "^10.2.0"
+  },
+  "resolutions": {
+      "@mui/styled-engine": "npm:@mui/styled-engine-sc@latest"
   },
   "jest": {
     "collectCoverageFrom": [
