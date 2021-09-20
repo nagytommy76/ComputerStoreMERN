@@ -2,9 +2,11 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import { useLocation } from 'react-router'
 import { LocationType } from '../../../../BaseTypes'
-import { RatingContainer, StyledButton } from './RatingStyle'
-import { Rating as RatingMU, Typography, TextField, Alert, Grow } from '@mui/material'
+import { RatingContainer, StyledButton, LeftContent, RightContent, CustomCardContent } from './RatingStyle'
+import { Rating as RatingMU, Typography, TextField, Alert, Grow, Card } from '@mui/material'
 import { useAppSelector } from '../../../../../../app/hooks'
+
+const RatingSummary = React.lazy(() => import('../Summary/Summary'))
 
 const Rating = () => {
    const {
@@ -39,33 +41,43 @@ const Rating = () => {
    }
    return (
       <RatingContainer>
-         <Typography variant='h5'>Értékelés</Typography>
-         <RatingMU
-            precision={0.5}
-            name='simple-controlled'
-            size='large'
-            value={rating}
-            onChange={(event, newValue) => {
-               setRating(newValue)
-               setHasError(false)
-            }}
-         />
-         <TextField
-            fullWidth
-            variant='outlined'
-            color='success'
-            label='Hozzászólás'
-            multiline
-            rows={7}
-            value={comment}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setComment(event.target.value)}
-         />
-         <StyledButton onClick={handleRating} color='success' variant='outlined' size='large'>
-            Értékelés Leadása
-         </StyledButton>
-         <Grow in={hasError}>
-            <Alert severity='error'>Kötelező értékelést adni!</Alert>
-         </Grow>
+         <Card>
+            <CustomCardContent>
+               <LeftContent>
+                  <Typography variant='h4'>Értékelés leadása</Typography>
+                  <RatingMU
+                     sx={{ fontSize: '2.5rem', margin: '.4rem 0' }}
+                     precision={0.5}
+                     name='simple-controlled'
+                     size='large'
+                     value={rating}
+                     onChange={(event, newValue) => {
+                        setRating(newValue)
+                        setHasError(false)
+                     }}
+                  />
+                  <TextField
+                     fullWidth
+                     variant='outlined'
+                     color='success'
+                     label='Hozzászólás'
+                     multiline
+                     rows={7}
+                     value={comment}
+                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => setComment(event.target.value)}
+                  />
+                  <StyledButton onClick={handleRating} color='success' variant='outlined' size='large'>
+                     Értékelés Leadása
+                  </StyledButton>
+                  <Grow in={hasError}>
+                     <Alert severity='error'>Kötelező értékelést adni!</Alert>
+                  </Grow>
+               </LeftContent>
+               <RightContent>
+                  <RatingSummary />
+               </RightContent>
+            </CustomCardContent>
+         </Card>
       </RatingContainer>
    )
 }
