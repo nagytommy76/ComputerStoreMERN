@@ -18,7 +18,7 @@ const Summary = () => {
             rateCount: result.data.rateCount
          })
       })
-   }, [])
+   }, [_id])
    return (
       <SummaryContainer>
          <Typography variant='h3'>{ratings.avgRating}</Typography>
