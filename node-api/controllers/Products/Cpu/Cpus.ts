@@ -2,6 +2,7 @@ import { Response, Request } from 'express'
 import { CpuProduct } from '../../../models/Products/Cpu/CpuSchema'
 import { QueryRequest, returnProductModelWithPaginateInfo, baseFilterData } from '../Helper'
 import { ObjectId } from 'mongoose'
+import { getProductRatingSummary, saveRateProductHelper } from '../Ratings/BaseRating'
 
 export const getCpuFilterData = async (req: QueryRequest, res: Response) => {
    try {
@@ -21,14 +22,7 @@ export const getAllCpuItemController = async (req: QueryRequest, res: Response) 
 
 export const rateCpuProductController = async (req: RateQueryRequest, res: Response) => {
    try {
-      const foundCpuProduct = await CpuProduct.findById(req.body._id)
-      foundCpuProduct?.ratingValues.push({
-         rating: req.body.rating,
-         comment: req.body.comment,
-         userName: req.body.userName,
-         ratedAt: new Date()
-      })
-      foundCpuProduct?.save()
+      saveRateProductHelper(req.body._id, CpuProduct, req.body.rating, req.body.comment, req.body.userName)
       return res.sendStatus(201)
    } catch (error) {
       return res.status(500).json(error)
@@ -45,16 +39,17 @@ type RateQueryRequest = Request & {
 
 export const getCpuRatingSummaryController = async (req: RequestQuery, res: Response) => {
    try {
-      const allCpuRatings = await CpuProduct.findById(req.query._id)
-      const rateCount = allCpuRatings?.ratingValues.length || 0
-      let rateSum = 0
-      allCpuRatings?.ratingValues.map((obj) => {
-         rateSum += obj.rating
-      })
-      return res.status(200).json({
-         rateCount,
-         avgRating: rateSum / rateCount
-      })
+      const returnRatingValues = await getProductRatingSummary(req.query._id, CpuProduct)
+      return res.status(200).json(returnRatingValues)
+   } catch (error) {
+      return res.status(500).json(error)
+   }
+}
+
+export const getAllComments = async (req: RequestQuery, res: Response) => {
+   try {
+      const allComments = await CpuProduct.find({ _id: req.query._id }, 'ratingValues')
+      return res.status(200).json(allComments[0].ratingValues)
    } catch (error) {
       return res.status(500).json(error)
    }
