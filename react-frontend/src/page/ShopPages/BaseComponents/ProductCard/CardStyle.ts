@@ -9,6 +9,7 @@ const CardHeight = '350px'
 const FooterHeight = '40px'
 
 export const StyledCard = styled.article<Prop>`
+   position: relative;
    display: flex;
    flex-direction: column;
    background-color: #fff;

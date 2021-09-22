@@ -7,7 +7,9 @@ import { useAppSelector } from '../../../../app/hooks'
 
 import { StyledCard, ImageContainer, Image, CardBody, SubTitleStyle, PriceStyle } from './CardStyle'
 import { CSSTransition } from 'react-transition-group'
-import CardFooter from './CardFooter'
+
+const RatingCount = React.lazy(() => import('./Ratings/RatingCount'))
+const CardFooter = React.lazy(() => import('./CardFooter'))
 
 const ProductCard: React.FC<ProductCardType> = ({
    details,
@@ -15,7 +17,8 @@ const ProductCard: React.FC<ProductCardType> = ({
    typeCode,
    manufacturer,
    pictureUrls,
-   pathNameForDetailsURL
+   pathNameForDetailsURL,
+   ratingCount
 }) => {
    const [isCardExpanded, setIsCardExpanded] = useState<boolean>(false)
    const [quantityToCart, setQuantityToCart] = useState<string>('1')
@@ -41,6 +44,7 @@ const ProductCard: React.FC<ProductCardType> = ({
          isCardExpanded={isCardExpanded}
          onMouseEnter={() => setIsCardExpanded(true)}
          onMouseLeave={() => setIsCardExpanded(false)}>
+         {ratingCount !== undefined && ratingCount > 0 && <RatingCount ratingCount={ratingCount} />}
          <ImageContainer onClick={() => routeToDetailsPage()}>
             <Image src={pictureUrls[0]} alt='' />
          </ImageContainer>
@@ -81,6 +85,7 @@ type ProductCardType = {
    price: number
    type: string
    typeCode?: string
+   ratingCount?: number
    details: any
    pathNameForDetailsURL: string
 }

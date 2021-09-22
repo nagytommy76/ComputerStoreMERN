@@ -12,7 +12,6 @@ const Summary = () => {
    const [ratings, setRatings] = useState<{ avgRating: number; rateCount: number }>({ avgRating: 0, rateCount: 0 })
    useEffect(() => {
       axios.get('/cpu/get-cpu-rates', { params: { _id } }).then((result) => {
-         console.log(result)
          setRatings({
             avgRating: result.data.avgRating,
             rateCount: result.data.rateCount

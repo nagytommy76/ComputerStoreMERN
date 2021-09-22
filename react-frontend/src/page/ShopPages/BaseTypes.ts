@@ -7,6 +7,7 @@ export type BaseProductType = {
    price: number
    pictureUrls: string[]
    inStockQuantity: number
+   ratingValues?: [{ rating: number; comment?: string; ratedAt: Date; userName: string }]
 }
 
 export type FilterTypes = {

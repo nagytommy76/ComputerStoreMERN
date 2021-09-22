@@ -41,6 +41,7 @@ const Cpu = () => {
                            price={cpu.price}
                            type={cpu.type}
                            typeCode={cpu.typeCode}
+                           ratingCount={cpu.ratingValues?.length}
                         />
                      </ProductContext.Provider>
                   ))}
