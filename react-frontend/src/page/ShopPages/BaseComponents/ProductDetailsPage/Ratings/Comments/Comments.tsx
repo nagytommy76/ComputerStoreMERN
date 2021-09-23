@@ -54,7 +54,6 @@ const Comments: React.FC = () => {
 const CommentCard = MUIStyled(Card)`
    margin-top: 2rem;
    padding: 1.5rem;
-   background-color: #fff;
 
    display: flex;
    flex-direction: row;

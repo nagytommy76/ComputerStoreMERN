@@ -26,7 +26,7 @@ export const StyledToggle = styled.button<Props>`
    svg {
       height: auto;
       width: 2.5rem;
-      transition: all 0.4s linear;
+      transition: all 0.25s linear;
 
       // sun icon
       &:first-child {

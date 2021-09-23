@@ -2,10 +2,29 @@ import React from 'react'
 import { InputContainer, StyledLabel, StyledSelect } from '../FilterStyle'
 import { Props } from './OrderByPrice'
 
+import { FormControl, Input, InputLabel, Select, SelectChangeEvent, MenuItem } from '@mui/material'
+
 const ByManufacturer: React.FC<Props> = ({ setFilterOptions, filterOptions }) => {
    return (
       <InputContainer>
-         <StyledLabel htmlFor='manufacturer'>Gyárók</StyledLabel>
+         <FormControl fullWidth>
+            <InputLabel>Gyárók</InputLabel>
+            <Select
+               variant='outlined'
+               color='warning'
+               label='Gyárók'
+               onChange={(event: SelectChangeEvent) =>
+                  setFilterOptions({ ...filterOptions, selectedManufacturer: event.target.value })
+               }>
+               <MenuItem value=''>Összes</MenuItem>
+               {filterOptions.allManufacturer.map((man, index) => (
+                  <MenuItem key={index} value={man}>
+                     {man}
+                  </MenuItem>
+               ))}
+            </Select>
+         </FormControl>
+         {/* <StyledLabel htmlFor='manufacturer'>Gyárók</StyledLabel>
          <StyledSelect
             name='manufacturer'
             id='manufacturer'
@@ -18,7 +37,7 @@ const ByManufacturer: React.FC<Props> = ({ setFilterOptions, filterOptions }) =>
                   {man}
                </option>
             ))}
-         </StyledSelect>
+         </StyledSelect> */}
       </InputContainer>
    )
 }

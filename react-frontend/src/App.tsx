@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { GuestsRoute, AdminRoute, AuthProtectedRoute } from './Routes/ProtectedRoute'
 
 import { ThemeProvider } from 'styled-components'
+import { ThemeProvider as MUIThemeProvider, createTheme } from '@mui/material'
 import { GlobalStyles } from './Theme/GlobalStyles'
 import { lightTheme, darkTheme } from './Theme/Themes'
 
@@ -36,6 +37,7 @@ const App = () => {
    const refreshToken = useAppSelector((state) => state.auth.refreshToken)
    const userIsLoggedIn = useAppSelector((state) => state.auth.userLoggedIn)
    const isCartEmpty = useAppSelector((state) => state.cart.cartItems.length === 0)
+   const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
 
    const initUserCartItems = useCallback(() => {
       if (userIsLoggedIn && isCartEmpty && accessToken !== null) dispatch(fetchCartItemsFromDB())
@@ -51,29 +53,42 @@ const App = () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [accessToken])
 
-   const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
+   const customMUITheme = createTheme({
+      palette: {
+         mode: isDarkTheme ? 'dark' : 'light',
+         primary: {
+            main: '#32AA44'
+         }
+      },
+      typography: {
+         fontFamily: 'Work+Sans'
+      }
+   })
+
    return (
-      <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
-         <BrowserRouter>
-            <GlobalStyles />
-            <Navbar />
-            <Suspense fallback={<PageSuspense />}>
-               <Switch>
-                  <Route path='/' exact component={Welcome} />
-                  <Route path='/vga/vga-details' component={VgaDetails} />
-                  <Route path='/cpu/cpu-details' component={CpuDetails} />
-                  <Route path='/vga' component={Vga} />
-                  <Route path='/cpu' component={Cpu} />
-                  <GuestsRoute path='/register' component={Register} />
-                  <GuestsRoute path='/login' component={Login} />
-                  <AuthProtectedRoute path='/checkout' component={Checkout} />
-                  <AdminRoute path='/admin' component={Admin} />
-                  <Route component={Page404} />
-               </Switch>
-            </Suspense>
-            <Footer />
-         </BrowserRouter>
-      </ThemeProvider>
+      <MUIThemeProvider theme={customMUITheme}>
+         <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
+            <BrowserRouter>
+               <GlobalStyles />
+               <Navbar />
+               <Suspense fallback={<PageSuspense />}>
+                  <Switch>
+                     <Route path='/' exact component={Welcome} />
+                     <Route path='/vga/vga-details' component={VgaDetails} />
+                     <Route path='/cpu/cpu-details' component={CpuDetails} />
+                     <Route path='/vga' component={Vga} />
+                     <Route path='/cpu' component={Cpu} />
+                     <GuestsRoute path='/register' component={Register} />
+                     <GuestsRoute path='/login' component={Login} />
+                     <AuthProtectedRoute path='/checkout' component={Checkout} />
+                     <AdminRoute path='/admin' component={Admin} />
+                     <Route component={Page404} />
+                  </Switch>
+               </Suspense>
+               <Footer />
+            </BrowserRouter>
+         </ThemeProvider>
+      </MUIThemeProvider>
    )
 }
 

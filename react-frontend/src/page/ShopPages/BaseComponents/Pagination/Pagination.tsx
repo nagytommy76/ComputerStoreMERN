@@ -3,7 +3,7 @@ import { Container } from './PaginationStyle'
 import { setCurrentPage } from '../../../../app/slices/PaginateSlice'
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
 
-import { Pagination as MaterialPagination } from '@mui/material'
+import { Pagination as MUIPagination } from '@mui/material'
 
 const Pagination: React.FC = () => {
    const dispatch = useAppDispatch()
@@ -15,7 +15,8 @@ const Pagination: React.FC = () => {
    }
    return (
       <Container>
-         <MaterialPagination
+         <MUIPagination
+            size='large'
             count={totalPages}
             page={currentPage}
             shape='rounded'

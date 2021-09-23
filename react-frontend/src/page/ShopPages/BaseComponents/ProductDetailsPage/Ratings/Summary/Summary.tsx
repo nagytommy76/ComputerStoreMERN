@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router'
 import { LocationType } from '../../../../BaseTypes'
 import { SummaryContainer } from './StyleSummary'
-import { Typography, Rating } from '@mui/material'
+import { Typography, Rating, Box } from '@mui/material'
 
 const Summary = () => {
    const {
@@ -19,11 +19,11 @@ const Summary = () => {
       })
    }, [_id])
    return (
-      <SummaryContainer>
+      <Box>
          <Typography variant='h3'>{ratings.avgRating}</Typography>
          <Typography variant='subtitle2'>Összesen {ratings.rateCount} értékelés</Typography>
          <Rating sx={{ fontSize: '3rem' }} value={ratings.avgRating} readOnly size='large' />
-      </SummaryContainer>
+      </Box>
    )
 }
 
