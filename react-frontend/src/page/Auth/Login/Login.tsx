@@ -5,15 +5,19 @@ import loginImage from './login.jpg'
 import { InputTypes } from '../Register/Register'
 import { setUserLoggedIn, setAccessToken, setUserName, setRefreshToken, setAdmin } from '../../../app/slices/AuthSlice'
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'
-import { useHistory } from 'react-router'
+import { useHistory, useLocation } from 'react-router'
 import LoginSuspense from '../../../SuspenseComponents/Auth/Login'
 import { fillDBWithCartItemsAfterLogin } from '../../../app/slices/CartSlice'
+import { Alert } from '@mui/material'
 
 const InputField = React.lazy(() => import('../BaseForm/BaseInput/BaseInput'))
 const LoginForm = React.lazy(() => import('../BaseForm/Form'))
 
 const Login = () => {
    const history = useHistory()
+   const {
+      state: { isSuccess, message }
+   } = useLocation<{ isSuccess: boolean; message: string }>()
    const dispatch = useAppDispatch()
    const cartItems = useAppSelector((state) => state.cart.cartItems)
 
@@ -66,6 +70,7 @@ const Login = () => {
                      onChangeEvent={(e) => setPassword({ ...email, value: e.target.value })}>
                      {password.hasError && password.errorMessage}
                   </InputField>
+                  {isSuccess && <Alert severity='success'>{message}</Alert>}
                </LoginForm>
             </AuthFormStyle>
             <ImageStyle image={loginImage} />

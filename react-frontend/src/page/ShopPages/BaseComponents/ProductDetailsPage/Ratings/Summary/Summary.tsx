@@ -19,7 +19,7 @@ const Summary = () => {
    }, [_id])
    return (
       <Box>
-         <Typography variant='h3'>{ratings.avgRating}</Typography>
+         <Typography variant='h3'>{ratings.avgRating.toFixed(2)}</Typography>
          <Typography variant='subtitle2'>Összesen {ratings.rateCount} értékelés</Typography>
          <Rating sx={{ fontSize: '3rem' }} value={ratings.avgRating} readOnly size='large' />
       </Box>

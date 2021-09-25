@@ -11,8 +11,8 @@ const PriceRange: React.FC<Props> = ({ setFilterOptions, filterOptions }) => {
    }
    return (
       <InputContainer>
-         <FormControl fullWidth color='primary'>
-            <FormLabel>
+         <FormControl fullWidth>
+            <FormLabel color='primary'>
                Ár: (
                <NumberFormat value={localState[0]} thousandSeparator=' ' suffix=' Ft' displayType='text' />
                - <NumberFormat value={filterOptions.maxPrice} thousandSeparator=' ' suffix=' Ft' displayType='text' />)

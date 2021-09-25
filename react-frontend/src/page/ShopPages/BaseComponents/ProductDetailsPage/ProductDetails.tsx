@@ -11,7 +11,8 @@ import {
    PriceAndCartStyle,
    BodySection,
    DescriptionStyle,
-   ManufacturerUrlPage
+   ManufacturerUrlPage,
+   BottomStyle
 } from './DetailsStyle'
 import { useAppSelector } from '../../../../app/hooks'
 import { LocationType } from '../../BaseTypes'
@@ -19,6 +20,8 @@ import { LocationType } from '../../BaseTypes'
 const AddToCart = React.lazy(() => import('./AddToCart/AddToCart'))
 const ImageSlider = React.lazy(() => import('./ImageSlider/ImageSlider'))
 const TopNavigation = React.lazy(() => import('./TopNavigation/TopNavigation'))
+const Rating = React.lazy(() => import('../../BaseComponents/ProductDetailsPage/Ratings/AddNew/Rating'))
+// const Comments = React.lazy(() => import('../../BaseComponents/ProductDetailsPage/Ratings/Comments/Comments'))
 
 const ProductDetails: React.FC = ({ children }) => {
    let location = useLocation<LocationType>()
@@ -59,6 +62,10 @@ const ProductDetails: React.FC = ({ children }) => {
             </DescriptionStyle>
             {children}
          </BodySection>
+         <BottomStyle>
+            <Rating />
+            {/* <Comments /> */}
+         </BottomStyle>
       </DetailsPage>
    )
 }

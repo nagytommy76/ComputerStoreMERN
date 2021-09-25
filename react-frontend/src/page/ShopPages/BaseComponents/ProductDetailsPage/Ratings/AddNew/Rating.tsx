@@ -7,6 +7,7 @@ import { Rating as RatingMU, Typography, TextField, Alert, Grow, Card } from '@m
 import { useAppSelector } from '../../../../../../app/hooks'
 
 const RatingSummary = React.lazy(() => import('../Summary/Summary'))
+const Comments = React.lazy(() => import('../Comments/Comments'))
 
 const Rating = () => {
    const {
@@ -23,7 +24,7 @@ const Rating = () => {
       setRating(3)
    }
 
-   const handleRating = () => {
+   const sendRating = () => {
       if (rating === null) setHasError(true)
       else {
          axios
@@ -66,7 +67,7 @@ const Rating = () => {
                      value={comment}
                      onChange={(event: React.ChangeEvent<HTMLInputElement>) => setComment(event.target.value)}
                   />
-                  <StyledButton onClick={handleRating} color='success' variant='outlined' size='large'>
+                  <StyledButton onClick={sendRating} color='success' variant='outlined' size='large'>
                      Értékelés Leadása
                   </StyledButton>
                   <Grow in={hasError}>
@@ -78,6 +79,7 @@ const Rating = () => {
                </RightContent>
             </CustomCardContent>
          </Card>
+         <Comments />
       </RatingContainer>
    )
 }

@@ -11,8 +11,8 @@ const useFilter = (productType: string) => {
       orderBy: 'asc',
       selectedPrice: [0, 5000000]
    })
-   useEffect(() => {
-      axios.get(`${productType}/filter-data`).then((filter) => {
+   const fetchFilterData = async () => {
+      await axios.get(`${productType}/filter-data`).then((filter) => {
          setFilterOptions({
             ...filterOptions,
             maxPrice: filter.data.maxPrice,
@@ -21,6 +21,9 @@ const useFilter = (productType: string) => {
             selectedPrice: [filter.data.minPrice, filter.data.maxPrice]
          })
       })
+   }
+   useEffect(() => {
+      fetchFilterData()
       // eslint-disable-next-line
    }, [])
    return { filterOptions, setFilterOptions }

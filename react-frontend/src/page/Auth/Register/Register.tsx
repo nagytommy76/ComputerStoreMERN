@@ -37,7 +37,8 @@ const Register = () => {
                secondPassword: secondPassword.value
             })
             .then((response: AxiosResponse) => {
-               if (response.status === 201) history.push('/login')
+               if (response.status === 201)
+                  history.push('/login', { isSuccess: true, message: 'A regisztráció sikeres volt - beléphetsz!' })
             })
             .catch((error: AxiosError) => {
                const responseErrors = error.response?.data.errors

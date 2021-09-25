@@ -4,7 +4,8 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { GuestsRoute, AdminRoute, AuthProtectedRoute } from './Routes/ProtectedRoute'
 
 import { ThemeProvider } from 'styled-components'
-import { ThemeProvider as MUIThemeProvider, createTheme } from '@mui/material'
+import { ThemeProvider as MUIThemeProvider } from '@mui/material'
+import useMaterialTheme from './Hooks/useTheme'
 import { GlobalStyles } from './Theme/GlobalStyles'
 import { lightTheme, darkTheme } from './Theme/Themes'
 
@@ -39,6 +40,8 @@ const App = () => {
    const isCartEmpty = useAppSelector((state) => state.cart.cartItems.length === 0)
    const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
 
+   const customMUITheme = useMaterialTheme()
+
    const initUserCartItems = useCallback(() => {
       if (userIsLoggedIn && isCartEmpty && accessToken !== null) dispatch(fetchCartItemsFromDB())
    }, [userIsLoggedIn, dispatch, isCartEmpty, accessToken])
@@ -52,18 +55,6 @@ const App = () => {
       initUserCartItems()
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [accessToken])
-
-   const customMUITheme = createTheme({
-      palette: {
-         mode: isDarkTheme ? 'dark' : 'light',
-         primary: {
-            main: '#32AA44'
-         }
-      },
-      typography: {
-         fontFamily: 'Work+Sans'
-      }
-   })
 
    return (
       <MUIThemeProvider theme={customMUITheme}>

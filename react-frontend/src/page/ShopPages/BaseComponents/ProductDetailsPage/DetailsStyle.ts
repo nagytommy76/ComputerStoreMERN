@@ -115,3 +115,10 @@ export const DescriptionStyle = styled.section`
    font-size: 1.1rem;
    text-align: justify;
 `
+
+// FOOTER
+export const BottomStyle = styled.section`
+   display: flex;
+   flex-direction: column;
+   margin: 0 auto;
+`

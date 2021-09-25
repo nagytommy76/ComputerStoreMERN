@@ -31,6 +31,7 @@ const useGetProducts = (
             dispatch(setTotalPages(product.data.totalPages))
          })
          .catch((error) => console.log(error))
+      // Megoldani, hogy ne 2szer küldjön request-et: 1szer a default adatokkal, 1szer meg amikor a selectedPrice beállítódik...
       // eslint-disable-next-line
    }, [currentPage, perPage, filterOptions.orderBy, filterOptions.selectedManufacturer, filterOptions.selectedPrice])
 }
