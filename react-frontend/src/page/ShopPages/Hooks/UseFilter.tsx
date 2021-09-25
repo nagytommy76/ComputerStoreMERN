@@ -9,7 +9,7 @@ const useFilter = (productType: string) => {
       maxPrice: 200,
       minPrice: 0,
       orderBy: 'asc',
-      selectedPrice: 0
+      selectedPrice: [0, 5000000]
    })
    useEffect(() => {
       axios.get(`${productType}/filter-data`).then((filter) => {
@@ -18,7 +18,7 @@ const useFilter = (productType: string) => {
             maxPrice: filter.data.maxPrice,
             minPrice: filter.data.minPrice,
             allManufacturer: filter.data.allManufacturers,
-            selectedPrice: filter.data.minPrice
+            selectedPrice: [filter.data.minPrice, filter.data.maxPrice]
          })
       })
       // eslint-disable-next-line

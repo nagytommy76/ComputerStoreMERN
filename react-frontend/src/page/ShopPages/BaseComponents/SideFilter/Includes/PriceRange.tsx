@@ -1,22 +1,34 @@
-import React from 'react'
-import { InputContainer, StyledLabel, StyledInput } from '../FilterStyle'
+import React, { useState } from 'react'
+import { InputContainer } from '../FilterStyle'
 import NumberFormat from 'react-number-format'
 import { Props } from './OrderByPrice'
+import { Slider, FormLabel, FormControl } from '@mui/material'
 
 const PriceRange: React.FC<Props> = ({ setFilterOptions, filterOptions }) => {
+   const [localState, setLocalState] = useState<number[]>([filterOptions.minPrice, 5000000])
+   const setLocalStateOnChange = (event: Event, newValue: number | number[]) => {
+      setLocalState(newValue as number[])
+   }
    return (
       <InputContainer>
-         <StyledLabel htmlFor='priceRange'>
-            Ár: (<NumberFormat value={filterOptions.selectedPrice} thousandSeparator=' ' suffix=' Ft' displayType='text' />
-            - <NumberFormat value={filterOptions.maxPrice} thousandSeparator=' ' suffix=' Ft' displayType='text' />)
-         </StyledLabel>
-         <StyledInput
-            type='range'
-            min={filterOptions.minPrice}
-            max={filterOptions.maxPrice}
-            step='1'
-            onMouseUp={(event: any) => setFilterOptions({ ...filterOptions, selectedPrice: parseInt(event.target.value) })}
-         />
+         <FormControl fullWidth color='primary'>
+            <FormLabel>
+               Ár: (
+               <NumberFormat value={localState[0]} thousandSeparator=' ' suffix=' Ft' displayType='text' />
+               - <NumberFormat value={filterOptions.maxPrice} thousandSeparator=' ' suffix=' Ft' displayType='text' />)
+            </FormLabel>
+            <Slider
+               getAriaLabel={() => 'Price range'}
+               min={filterOptions.minPrice}
+               max={filterOptions.maxPrice}
+               value={localState as number[]}
+               valueLabelDisplay='auto'
+               onChangeCommitted={(event, newValue: number | number[]) =>
+                  setFilterOptions({ ...filterOptions, selectedPrice: newValue as number[] })
+               }
+               onChange={setLocalStateOnChange}
+            />
+         </FormControl>
       </InputContainer>
    )
 }

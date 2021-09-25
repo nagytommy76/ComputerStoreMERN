@@ -27,7 +27,7 @@ export const MainTitle = styled.h1`
 // Inputs
 
 export const InputContainer = styled.div`
-   width: 90%;
+   width: 85%;
    display: flex;
    flex-direction: column;
    align-items: flex-start;

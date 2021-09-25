@@ -14,7 +14,7 @@ export type FilterTypes = {
    orderBy: string
    minPrice: number
    maxPrice: number
-   selectedPrice: number
+   selectedPrice: number[]
    allManufacturer: string[]
    selectedManufacturer: string
 }

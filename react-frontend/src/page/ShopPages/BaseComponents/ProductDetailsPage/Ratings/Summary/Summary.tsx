@@ -2,7 +2,6 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router'
 import { LocationType } from '../../../../BaseTypes'
-import { SummaryContainer } from './StyleSummary'
 import { Typography, Rating, Box } from '@mui/material'
 
 const Summary = () => {
