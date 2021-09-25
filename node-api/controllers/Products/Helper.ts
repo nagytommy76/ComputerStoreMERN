@@ -6,7 +6,8 @@ export const returnProductModelWithPaginateInfo = async (ProductModel: Model<any
    const perPage = parseInt(req.query.perPage) || 10
    const orderBy = req.query.orderBy || 'asc'
    const byManufacturer = req.query.byManufacturer || ''
-   const minPrice = req.query.minPrice || 0
+   const priceRange = req.query.priceRange.split(',') || [0, 5000000]
+
    let totalItems: number
    let totalPages: number
    await ProductModel.countDocuments()
@@ -15,7 +16,7 @@ export const returnProductModelWithPaginateInfo = async (ProductModel: Model<any
          totalPages = Math.ceil(totalItems / perPage)
          return await ProductModel.find({
             manufacturer: new RegExp(byManufacturer),
-            price: { $gt: minPrice - 1 }
+            price: { $gte: priceRange[0], $lte: priceRange[1] }
          })
             .sort({ price: orderBy })
             .skip((currentPage - 1) * perPage)
@@ -49,5 +50,6 @@ export type QueryRequest = Request & {
       orderBy: string
       byManufacturer: string
       minPrice: number
+      priceRange: string
    }
 }
