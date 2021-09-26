@@ -40,8 +40,7 @@ const CpuSchema = new Schema<CpuProductType>({
                type: [
                   {
                      userId: { type: String, required: true },
-                     like: Number,
-                     disLike: Number
+                     isLike: { type: Boolean, required: true }
                   }
                ]
             }

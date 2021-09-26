@@ -9,5 +9,17 @@ export type BaseProductType = {
    price: number
    pictureUrls: string[]
    inStockQuantity: number
-   ratingValues: [{ rating: number; comment?: string; ratedAt: Date; userName: string }]
+   ratingValues: RatingValues[]
+}
+
+export type RatingValues = {
+   _id: ObjectId
+   rating: number
+   comment?: string
+   ratedAt: Date
+   userName: string
+   responses: {
+      userId?: string
+      isLike: boolean
+   }
 }

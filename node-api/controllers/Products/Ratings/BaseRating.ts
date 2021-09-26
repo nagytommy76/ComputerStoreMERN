@@ -1,5 +1,6 @@
 import { Request } from 'express'
 import { Model, ObjectId } from 'mongoose'
+import { UserTypes } from '../../../models/User/UserTypes'
 
 export const getProductRatingSummary = async (productId: ObjectId, ProductModel: Model<any>) => {
    const allProductRatings = await ProductModel.findById(productId)
@@ -32,6 +33,7 @@ export const saveRateProductHelper = async (
 }
 
 export type RateQueryRequest = Request & {
+   user?: UserTypes
    body: {
       userName: string
       _id: ObjectId
@@ -41,6 +43,7 @@ export type RateQueryRequest = Request & {
 }
 
 export type RequestQuery = Request & {
+   user?: UserTypes
    query: {
       _id: ObjectId
    }
