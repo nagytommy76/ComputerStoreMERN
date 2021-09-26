@@ -1,8 +1,7 @@
 import { Response, Request } from 'express'
 import { CpuProduct } from '../../../models/Products/Cpu/CpuSchema'
 import { QueryRequest, returnProductModelWithPaginateInfo, baseFilterData } from '../Helper'
-import { ObjectId } from 'mongoose'
-import { getProductRatingSummary, saveRateProductHelper } from '../Ratings/BaseRating'
+import { getProductRatingSummary, saveRateProductHelper, RateQueryRequest, RequestQuery } from '../Ratings/BaseRating'
 
 export const getCpuFilterData = async (req: QueryRequest, res: Response) => {
    try {
@@ -20,20 +19,14 @@ export const getAllCpuItemController = async (req: QueryRequest, res: Response) 
    }
 }
 
+// Ratings
+
 export const rateCpuProductController = async (req: RateQueryRequest, res: Response) => {
    try {
       saveRateProductHelper(req.body._id, CpuProduct, req.body.rating, req.body.comment, req.body.userName)
       return res.sendStatus(201)
    } catch (error) {
       return res.status(500).json(error)
-   }
-}
-type RateQueryRequest = Request & {
-   body: {
-      userName: string
-      _id: ObjectId
-      rating: number
-      comment: string
    }
 }
 
@@ -52,11 +45,5 @@ export const getAllComments = async (req: RequestQuery, res: Response) => {
       return res.status(200).json(allComments[0].ratingValues)
    } catch (error) {
       return res.status(500).json(error)
-   }
-}
-
-type RequestQuery = Request & {
-   query: {
-      _id: ObjectId
    }
 }

@@ -32,8 +32,26 @@ const VgaSchema = new Schema<VgaType>({
 }).add({
    inStockQuantity: { type: Number, required: true, default: 0 },
    isHighlighted: { type: Boolean, required: false, default: false },
-   ratingCount: { type: Number, required: false },
-   ratingValue: { type: Number, required: false }
+   ratingValues: {
+      type: [
+         {
+            userName: { type: String, required: true },
+            rating: { type: Number, required: true },
+            ratedAt: { type: Date, required: true },
+            comment: { type: String, required: false },
+            responses: {
+               type: [
+                  {
+                     userId: { type: String, required: true },
+                     like: Number,
+                     disLike: Number
+                  }
+               ]
+            }
+         }
+      ],
+      required: false
+   }
 })
 
 export const VgaProduct = model<VgaType>('VgaProduct', VgaSchema)

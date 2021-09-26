@@ -35,7 +35,16 @@ const CpuSchema = new Schema<CpuProductType>({
             userName: { type: String, required: true },
             rating: { type: Number, required: true },
             ratedAt: { type: Date, required: true },
-            comment: { type: String, required: false }
+            comment: { type: String, required: false },
+            responses: {
+               type: [
+                  {
+                     userId: { type: String, required: true },
+                     like: Number,
+                     disLike: Number
+                  }
+               ]
+            }
          }
       ],
       required: false

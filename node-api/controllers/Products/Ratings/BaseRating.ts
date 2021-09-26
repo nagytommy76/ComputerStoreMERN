@@ -1,3 +1,4 @@
+import { Request } from 'express'
 import { Model, ObjectId } from 'mongoose'
 
 export const getProductRatingSummary = async (productId: ObjectId, ProductModel: Model<any>) => {
@@ -28,4 +29,19 @@ export const saveRateProductHelper = async (
       ratedAt: new Date()
    })
    foundProduct?.save()
+}
+
+export type RateQueryRequest = Request & {
+   body: {
+      userName: string
+      _id: ObjectId
+      rating: number
+      comment: string
+   }
+}
+
+export type RequestQuery = Request & {
+   query: {
+      _id: ObjectId
+   }
 }

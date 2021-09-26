@@ -1,4 +1,3 @@
-import { ObjectId } from 'mongoose'
 import { BaseProductType } from '../BaseTypes'
 export type CpuProductType = BaseProductType & {
    details: CpuDetailsType
