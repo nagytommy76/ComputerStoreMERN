@@ -27,7 +27,7 @@ export const RightSide = styled.div`
 export const ThumbsContainer = styled.div`
    display: flex;
    align-items: center;
-   width: 100px;
+   width: 110px;
    justify-content: space-between;
 `
 
@@ -38,7 +38,9 @@ export const ThumbIconsContainer = styled.span`
 
 export const CustomThumbUp = MUIStyled(ThumbUp)`
     margin-right: .4rem;
+    cursor: pointer;
 `
 export const CustomThumbDown = MUIStyled(ThumbDown)`
     margin-right: .4rem;
+    cursor: pointer;
 `

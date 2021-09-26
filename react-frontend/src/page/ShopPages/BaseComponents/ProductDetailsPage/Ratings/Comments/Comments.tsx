@@ -4,16 +4,9 @@ import { useLocation } from 'react-router'
 import { LocationType } from '../../../../BaseTypes'
 
 import { Typography, Rating } from '@mui/material'
-import { ThumbUp, ThumbDown } from '@mui/icons-material'
-import {
-   CommentCard,
-   RightSide,
-   LeftSide,
-   ThumbsContainer,
-   CustomThumbUp,
-   CustomThumbDown,
-   ThumbIconsContainer
-} from './CommentStyle'
+import { CommentCard, RightSide, LeftSide } from './CommentStyle'
+
+const LikeDislike = React.lazy(() => import('./Likes'))
 
 const Comments: React.FC<{ requestSend: boolean }> = ({ requestSend }) => {
    const {
@@ -30,6 +23,7 @@ const Comments: React.FC<{ requestSend: boolean }> = ({ requestSend }) => {
          second: '2-digit'
       })
    }
+
    useEffect(() => {
       axios.get(`/${productType}/get-${productType}-comments`, { params: { _id } }).then((result: AxiosResponse<RateState[]>) => {
          const ratedAtFormattedToDate = result.data.map((res) => {
@@ -47,19 +41,12 @@ const Comments: React.FC<{ requestSend: boolean }> = ({ requestSend }) => {
             <CommentCard key={comment._id}>
                <LeftSide>
                   <Typography variant='h5'>{comment.userName}</Typography>
-                  <Rating name='read-only' value={comment.rating} size='large' readOnly />
+                  <Rating name='read-only' precision={0.5} value={comment.rating} size='large' readOnly />
                   <Typography variant='subtitle2'>{formatDate(comment.ratedAt)}</Typography>
                </LeftSide>
                <RightSide>
                   <Typography variant='body1'>{comment.comment}</Typography>
-                  <ThumbsContainer>
-                     <ThumbIconsContainer>
-                        <CustomThumbUp color='secondary' />0
-                     </ThumbIconsContainer>
-                     <ThumbIconsContainer>
-                        <CustomThumbDown color='secondary' /> 0
-                     </ThumbIconsContainer>
-                  </ThumbsContainer>
+                  <LikeDislike commentId={comment._id} responses={comment.responses} />
                </RightSide>
             </CommentCard>
          ))}
@@ -73,6 +60,7 @@ type RateState = {
    comment?: string
    ratedAt: Date
    userName: string
+   responses: { isLike: boolean; userId: string }[]
 }
 
 export default Comments
