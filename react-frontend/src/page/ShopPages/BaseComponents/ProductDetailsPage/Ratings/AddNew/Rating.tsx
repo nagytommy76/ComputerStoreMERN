@@ -11,31 +11,36 @@ const Comments = React.lazy(() => import('../Comments/Comments'))
 
 const Rating = () => {
    const {
-      state: { _id }
+      state: { _id, productType }
    } = useLocation<LocationType>()
    const userName = useAppSelector((state) => state.auth.userName)
    const [rating, setRating] = useState<number | null>(3)
    const [comment, setComment] = useState<string>('')
    const [hasError, setHasError] = useState<boolean>(false)
+   const [requestSend, setRequestSend] = useState<boolean>(false)
 
    const setDefaultValues = () => {
       setComment('')
       setHasError(false)
       setRating(3)
+      setRequestSend(false)
    }
 
    const sendRating = () => {
       if (rating === null) setHasError(true)
       else {
          axios
-            .post('/cpu/rate-cpu', {
+            .post(`/${productType}/rate-${productType}`, {
                _id,
                rating,
                comment,
                userName
             })
             .then((result) => {
-               if (result.status === 201) setDefaultValues()
+               if (result.status === 201) {
+                  setRequestSend(true)
+                  setDefaultValues()
+               }
             })
             .catch((error) => console.log(error))
       }
@@ -75,11 +80,11 @@ const Rating = () => {
                   </Grow>
                </LeftContent>
                <RightContent>
-                  <RatingSummary />
+                  <RatingSummary requestSend={requestSend} />
                </RightContent>
             </CustomCardContent>
          </Card>
-         <Comments />
+         <Comments requestSend={requestSend} />
       </RatingContainer>
    )
 }

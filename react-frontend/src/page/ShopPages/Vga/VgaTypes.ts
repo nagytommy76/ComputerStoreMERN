@@ -1,11 +1,6 @@
-export type VgaType = {
-   _id: string
-   itemNumber: string
-   type: string
-   typeCode?: string
-   manufacturer: string
-   price: number
-   pictureUrls: string[]
+import { BaseProductType } from '../BaseTypes'
+
+export type VgaType = BaseProductType & {
    details: VgaDetailType
 }
 

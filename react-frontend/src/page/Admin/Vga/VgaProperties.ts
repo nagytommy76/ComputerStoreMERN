@@ -8,6 +8,8 @@ export const vgaProperties: VgaType = {
    pictureUrls: [],
    manufacturer: '',
    price: 0,
+   inStockQuantity: 0,
+   ratingValues: [{ ratedAt: new Date(), rating: 0, userName: '', comment: '' }],
    details: {
       gpuManufacturer: '',
       pcieType: '',

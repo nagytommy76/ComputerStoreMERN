@@ -27,4 +27,5 @@ export type LocationType = {
    manufacturer: string
    price: number
    typeCode: string
+   productType: string
 }

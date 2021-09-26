@@ -3,13 +3,21 @@ import axios, { AxiosResponse } from 'axios'
 import { useLocation } from 'react-router'
 import { LocationType } from '../../../../BaseTypes'
 
-import { styled as MUIStyled } from '@mui/system'
-import { Card, Typography, Rating } from '@mui/material'
-import styled from 'styled-components'
+import { Typography, Rating } from '@mui/material'
+import { ThumbUp, ThumbDown } from '@mui/icons-material'
+import {
+   CommentCard,
+   RightSide,
+   LeftSide,
+   ThumbsContainer,
+   CustomThumbUp,
+   CustomThumbDown,
+   ThumbIconsContainer
+} from './CommentStyle'
 
-const Comments: React.FC = () => {
+const Comments: React.FC<{ requestSend: boolean }> = ({ requestSend }) => {
    const {
-      state: { _id }
+      state: { _id, productType }
    } = useLocation<LocationType>()
    const [allComments, setAllComments] = useState<RateState[]>([])
    const formatDate = (date: Date) => {
@@ -23,7 +31,7 @@ const Comments: React.FC = () => {
       })
    }
    useEffect(() => {
-      axios.get('/cpu/get-cpu-comments', { params: { _id } }).then((result: AxiosResponse<RateState[]>) => {
+      axios.get(`/${productType}/get-${productType}-comments`, { params: { _id } }).then((result: AxiosResponse<RateState[]>) => {
          const ratedAtFormattedToDate = result.data.map((res) => {
             return {
                ...res,
@@ -32,7 +40,7 @@ const Comments: React.FC = () => {
          })
          setAllComments(ratedAtFormattedToDate)
       })
-   }, [_id])
+   }, [_id, requestSend, productType])
    return (
       <>
          {allComments.map((comment) => (
@@ -44,28 +52,20 @@ const Comments: React.FC = () => {
                </LeftSide>
                <RightSide>
                   <Typography variant='body1'>{comment.comment}</Typography>
+                  <ThumbsContainer>
+                     <ThumbIconsContainer>
+                        <CustomThumbUp color='secondary' />0
+                     </ThumbIconsContainer>
+                     <ThumbIconsContainer>
+                        <CustomThumbDown color='secondary' /> 0
+                     </ThumbIconsContainer>
+                  </ThumbsContainer>
                </RightSide>
             </CommentCard>
          ))}
       </>
    )
 }
-
-const CommentCard = MUIStyled(Card)`
-   margin-top: 2rem;
-   padding: 1.5rem;
-
-   display: flex;
-   flex-direction: row;
-`
-
-const LeftSide = styled.div`
-   flex: 1;
-`
-
-const RightSide = styled.div`
-   flex: 2;
-`
 
 type RateState = {
    _id: string

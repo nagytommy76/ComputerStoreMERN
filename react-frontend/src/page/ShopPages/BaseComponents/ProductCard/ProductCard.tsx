@@ -35,7 +35,7 @@ const ProductCard: React.FC<ProductCardType> = ({
    const routeToDetailsPage = () => {
       history.push({
          pathname: `/${pathNameForDetailsURL}/${pathNameForDetailsURL}-details`,
-         state: { _id, details, pictureUrls, type, manufacturer, price, typeCode }
+         state: { _id, details, pictureUrls, type, manufacturer, price, typeCode, productType: pathNameForDetailsURL }
       })
    }
 

@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 export const RatingContainer = styled.div`
    border-radius: 5px;
+   margin-bottom: 1.5rem;
 `
 
 export const LeftContent = styled.section`

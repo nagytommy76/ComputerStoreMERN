@@ -8,12 +8,12 @@ const useMaterialTheme = () => {
       isDarkTheme
          ? {
               palette: {
-                 mode: isDarkTheme ? 'dark' : 'light',
+                 mode: 'dark',
                  primary: {
                     main: '#df730e'
                  },
                  secondary: {
-                    main: '#444'
+                    main: '#FFF'
                  },
                  text: {
                     primary: '#FFF',
@@ -26,7 +26,7 @@ const useMaterialTheme = () => {
            }
          : {
               palette: {
-                 mode: isDarkTheme ? 'dark' : 'light',
+                 mode: 'light',
                  primary: {
                     main: '#df730e'
                  },

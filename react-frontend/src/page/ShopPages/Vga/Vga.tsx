@@ -40,6 +40,7 @@ const Vga = () => {
                            type={product.type}
                            typeCode={product.typeCode}
                            details={product.details}
+                           ratingCount={product.ratingValues?.length}
                         />
                      </ProductContext.Provider>
                   ))}
