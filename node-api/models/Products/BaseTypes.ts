@@ -21,5 +21,5 @@ export type RatingValues = {
    responses: {
       userId?: string
       isLike: boolean
-   }
+   }[]
 }
