@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, Suspense, lazy } from 'react'
-import AxiosSetup from './AxiosSetup/AxiosSetup'
+import useAxiosSetup from './AxiosSetup/AxiosSetup'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { GuestsRoute, AdminRoute, AuthProtectedRoute } from './Routes/ProtectedRoute'
 
@@ -46,12 +46,13 @@ const App = () => {
       if (userIsLoggedIn && isCartEmpty && accessToken !== null) dispatch(fetchCartItemsFromDB())
    }, [userIsLoggedIn, dispatch, isCartEmpty, accessToken])
 
-   const InitAxios = useCallback(async () => {
-      await AxiosSetup(accessToken, refreshToken)
-   }, [accessToken, refreshToken])
+   // const InitAxios = useCallback(async () => {
+   //    await useAxiosSetup(accessToken, refreshToken)
+   useAxiosSetup(accessToken, refreshToken)
+   // }, [accessToken, refreshToken])
 
    useEffect(() => {
-      InitAxios()
+      // InitAxios()
       initUserCartItems()
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [accessToken])

@@ -12,10 +12,11 @@ const Likes: React.FC<{ commentId: string; responses: { isLike: boolean; userId:
    const [countedLikes, setCountedLikes] = useState({ like: 0, dislike: 0 })
    useEffect(() => {
       responses.map((likes) => {
-         likes.isLike
+         return likes.isLike
             ? setCountedLikes({ ...countedLikes, like: (countedLikes.like += 1) })
             : setCountedLikes({ ...countedLikes, dislike: (countedLikes.dislike += 1) })
       })
+      // eslint-disable-next-line
    }, [responses])
 
    const handleRequest = (isLike: boolean = true) => {

@@ -13,14 +13,11 @@ import { Alert } from '@mui/material'
 const InputField = React.lazy(() => import('../BaseForm/BaseInput/BaseInput'))
 const LoginForm = React.lazy(() => import('../BaseForm/Form'))
 
-const Login = () => {
+const Login: React.FC = () => {
    const history = useHistory()
-   const {
-      state: { isSuccess, message }
-   } = useLocation<{ isSuccess: boolean; message: string }>()
+   const location = useLocation<{ isSuccess?: boolean; message?: string }>()
    const dispatch = useAppDispatch()
    const cartItems = useAppSelector((state) => state.cart.cartItems)
-
    const [email, setEmail] = useState<InputTypes>({ value: '', hasError: false, errorMessage: '' })
    const [password, setPassword] = useState<InputTypes>({ value: '', hasError: false, errorMessage: '' })
 
@@ -70,7 +67,9 @@ const Login = () => {
                      onChangeEvent={(e) => setPassword({ ...email, value: e.target.value })}>
                      {password.hasError && password.errorMessage}
                   </InputField>
-                  {isSuccess && <Alert severity='success'>{message}</Alert>}
+                  {location.state?.isSuccess && location.state?.message && (
+                     <Alert severity='success'>{location.state.message}</Alert>
+                  )}
                </LoginForm>
             </AuthFormStyle>
             <ImageStyle image={loginImage} />
