@@ -17,6 +17,7 @@ export type RatingValues = {
    rating: number
    comment?: string
    ratedAt: Date
+   userId: string
    userName: string
    responses: {
       userId?: string

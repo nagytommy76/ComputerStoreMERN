@@ -32,6 +32,7 @@ const CpuSchema = new Schema<CpuProductType>({
    ratingValues: {
       type: [
          {
+            userId: { type: String, required: true },
             userName: { type: String, required: true },
             rating: { type: Number, required: true },
             ratedAt: { type: Date, required: true },

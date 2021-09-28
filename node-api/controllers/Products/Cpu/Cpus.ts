@@ -24,7 +24,7 @@ export const getAllCpuItemController = async (req: QueryRequest, res: Response) 
 
 export const rateCpuProductController = async (req: RateQueryRequest, res: Response) => {
    try {
-      saveRateProductHelper(req.body._id, CpuProduct, req.body.rating, req.body.comment, req.body.userName)
+      saveRateProductHelper(req.body._id, CpuProduct, req.body.rating, req.body.comment, req.body.userName, req.user?._id)
       return res.sendStatus(201)
    } catch (error) {
       return res.status(500).json(error)
@@ -55,21 +55,22 @@ export const likeDislikeCommentController = async (req: LikeQuery, res: Response
       const foundProduct = await CpuProduct.findById(req.body.productId, 'ratingValues')
       if (foundProduct) {
          const foundComment = foundProduct.ratingValues.filter((comment) => comment._id == req.body.commentId)
-         const foundCommentIndex = foundProduct.ratingValues.findIndex((comment) => comment._id == req.body.commentId)
 
-         foundProduct.ratingValues.map((rating) => {
-            console.log(rating.responses.length)
-            if (rating.responses.length > 0) {
-               // Ha van már like
-               // A user adott már like/dislike-ot?
-               // Ha egy user már likeolta/dislikeolta az adott commentet, nem engedem még 1*
-               // Meg kell vizsgálni, hogy a userId benne van a DB-ben
-            } else {
-               // Ha még nincs
-               foundComment[0].responses.push({ isLike: req.body.isLike, userId: req.user?._id })
-               foundProduct.ratingValues.splice(foundCommentIndex, 1, foundComment[0])
+         // A user a saját kommentjét ne tudja like/dislikeolni
+         if (foundComment[0].userId == req.user?._id) {
+            return res.status(405).json({ message: 'A saját kommented nem like-olhatod :)' })
+         }
+         if (foundComment[0].responses.length == 0) {
+            // Ha még nincs
+            foundComment[0].responses.push({ isLike: req.body.isLike, userId: req.user?._id })
+         } else {
+            // Ha van már like
+            // A user adott már like/dislike-ot?
+            // Ha egy user már likeolta/dislikeolta az adott commentet, nem engedem még 1*
+            if (foundComment[0].responses.some((element) => element.userId == req.user?._id)) {
+               return res.status(405).json({ message: 'Már értékelted a kommentet' })
             }
-         })
+         }
 
          foundProduct.save()
          return res.sendStatus(201)

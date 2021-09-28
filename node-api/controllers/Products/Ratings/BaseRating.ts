@@ -20,14 +20,16 @@ export const saveRateProductHelper = async (
    ProductModel: Model<any>,
    rating: number,
    comment: string,
-   userName: string
+   userName: string,
+   userId?: string
 ) => {
    const foundProduct = await ProductModel.findById(productId)
    foundProduct?.ratingValues.push({
       rating,
       comment,
       userName,
-      ratedAt: new Date()
+      ratedAt: new Date(),
+      userId
    })
    foundProduct?.save()
 }
