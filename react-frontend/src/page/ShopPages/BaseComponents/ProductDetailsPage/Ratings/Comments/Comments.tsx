@@ -46,7 +46,7 @@ const Comments: React.FC<{ requestSend: boolean }> = ({ requestSend }) => {
                </LeftSide>
                <RightSide>
                   <Typography variant='body1'>{comment.comment}</Typography>
-                  <LikeDislike commentId={comment._id} responses={comment.responses} />
+                  <LikeDislike productType={productType} commentId={comment._id} responses={comment.responses} />
                </RightSide>
             </CommentCard>
          ))}
