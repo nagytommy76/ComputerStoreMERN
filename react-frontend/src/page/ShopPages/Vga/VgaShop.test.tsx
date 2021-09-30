@@ -66,23 +66,25 @@ describe('Test Vga shop page and filter', () => {
       mockedAxios.get.mockResolvedValueOnce(mockResolvedVgaProducts)
       mockedAxios.get.mockResolvedValueOnce(mockResolvedFilterData)
       render(<Vga />)
+      // https://jestjs.io/docs/mock-function-api#mockfnmockreturnvaluevalue
       // Amíg el nem tűnik a Suspense componens addig várok...
    })
 
    test('should display the cards and the filter', async () => {
       // Amíg el nem tűnik a Suspense componens addig várok...
-      await waitForElementToBeRemoved(() => screen.getByTestId('suspense-cards'))
-      await screen.findByRole('heading', {
-         name: /PALIT RTX 3060 Ti 8GB GDDR6 Dual OC/i
-      })
-      await screen.findByRole('heading', {
-         name: /ASUS RX 6700 XT TUF Gaming 12GB/i
-      })
-      await screen.findByRole('heading', {
-         name: /RX 6900 XT 16GB GDDR6/i
-      })
-      await screen.findByRole('option', { name: /Legolcsóbb elöl/ })
-      await screen.findByText(/Szűrés/)
+      // await waitForElementToBeRemoved(() => screen.getByTestId('suspense-cards'))
+      // await screen.findByRole('option', { name: /Legolcsóbb elöl/ })
+      await screen.findByRole('heading', { name: /Szűrés/ })
+      screen.debug()
+      //    await screen.findByRole('heading', {
+      //       name: /PALIT RTX 3060 Ti 8GB GDDR6 Dual OC/i
+      //    })
+      //    await screen.findByRole('heading', {
+      //       name: /ASUS RX 6700 XT TUF Gaming 12GB/i
+      //    })
+      //    await screen.findByRole('heading', {
+      //       name: /RX 6900 XT 16GB GDDR6/i
+      //    })
    })
    // test('fsdsadfasdf', async () => {
    //    // const Suspense = screen.queryByTestId(/Töltés/i)
