@@ -1,7 +1,15 @@
 import { Request, Response } from 'express'
 import { returnFilledVgaProductObject } from './CreateVga'
 import { VgaProduct } from '../../../models/Products/Vga/VgaProduct'
-import { validationResult } from 'express-validator'
+
+export const getAllVgaItemsController = async (req: Request, res: Response) => {
+   try {
+      const vgaProducts = await VgaProduct.find()
+      return res.status(200).json({ allProducts: vgaProducts })
+   } catch (error) {
+      return res.status(500).json(error)
+   }
+}
 
 export const insertVgaItemController = async (req: Request, res: Response) => {
    try {
