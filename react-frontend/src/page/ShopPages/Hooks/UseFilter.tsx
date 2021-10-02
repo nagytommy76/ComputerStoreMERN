@@ -11,15 +11,17 @@ const useFilter = (productType: string) => {
       orderBy: 'asc',
       selectedPrice: [0, 5000000]
    })
-   const fetchFilterData = async () => {
-      await axios.get(`${productType}/filter-data`).then((filter) => {
-         setFilterOptions({
-            ...filterOptions,
-            maxPrice: filter.data.maxPrice,
-            minPrice: filter.data.minPrice,
-            allManufacturer: filter.data.allManufacturers,
-            selectedPrice: [filter.data.minPrice, filter.data.maxPrice]
-         })
+   const fetchFilterData = () => {
+      axios.get(`${productType}/filter-data`).then((filter) => {
+         if (filter.status === 200) {
+            setFilterOptions({
+               ...filterOptions,
+               maxPrice: filter.data.maxPrice,
+               minPrice: filter.data.minPrice,
+               allManufacturer: filter.data.allManufacturers,
+               selectedPrice: [filter.data.minPrice, filter.data.maxPrice]
+            })
+         }
       })
    }
    useEffect(() => {
