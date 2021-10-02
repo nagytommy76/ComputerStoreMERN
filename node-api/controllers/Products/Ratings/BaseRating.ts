@@ -1,5 +1,8 @@
-import { Request } from 'express'
+import { Request, Response } from 'express'
 import { Model, ObjectId } from 'mongoose'
+import { RatingValues } from '../../../models/Products/BaseTypes'
+import { CpuProductType } from '../../../models/Products/Cpu/CpuTypes'
+import { VgaType } from '../../../models/Products/Vga/VgaTypes'
 import { UserTypes } from '../../../models/User/UserTypes'
 
 export const getProductRatingSummary = async (productId: ObjectId, ProductModel: Model<any>) => {
@@ -32,6 +35,46 @@ export const saveRateProductHelper = async (
       userId
    })
    foundProduct?.save()
+}
+
+export const likeDislikeCommentHelper = async (req: LikeQuery, res: Response, ProductModel: Model<any>) => {
+   // A request-ben bejön a comment/értékelés id-ja, ez alapján megtalálni
+   const foundProduct = await ProductModel.findById(req.body.productId, 'ratingValues')
+   if (foundProduct) {
+      const foundComment = foundProduct.ratingValues.filter((comment: RatingValues) => comment._id == req.body.commentId)
+
+      // A user a saját kommentjét ne tudja like/dislikeolni
+      if (foundComment[0].userId == req.user?._id) {
+         return res.status(405).json({ message: 'A saját kommented nem like-olhatod :)' })
+      }
+      if (foundComment[0].responses.length == 0) {
+         // Ha még nincs
+         foundComment[0].responses.push({ isLike: req.body.isLike, userId: req.user?._id })
+      } else {
+         // Ha van már like
+         // A user adott már like/dislike-ot?
+         // Ha egy user már likeolta/dislikeolta az adott commentet, nem engedem még 1*
+         if (
+            foundComment[0].responses.some(
+               (element: { userId?: string | undefined; isLike: boolean }) => element.userId == req.user?._id
+            )
+         ) {
+            return res.status(405).json({ message: 'Már értékelted a kommentet' })
+         }
+      }
+      foundProduct?.save()
+      return res.sendStatus(201)
+   }
+   return res.sendStatus(404)
+}
+
+export type LikeQuery = Request & {
+   user?: UserTypes | undefined
+   body: {
+      isLike: boolean
+      productId: string
+      commentId: string
+   }
 }
 
 export type RateQueryRequest = Request & {

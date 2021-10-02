@@ -1,7 +1,14 @@
 import { Response } from 'express'
 import { VgaProduct } from '../../../models/Products/Vga/VgaProduct'
 import { QueryRequest, returnProductModelWithPaginateInfo, baseFilterData } from '../Helper'
-import { saveRateProductHelper, RateQueryRequest, RequestQuery, getProductRatingSummary } from '../Ratings/BaseRating'
+import {
+   saveRateProductHelper,
+   RateQueryRequest,
+   RequestQuery,
+   getProductRatingSummary,
+   LikeQuery,
+   likeDislikeCommentHelper
+} from '../Ratings/BaseRating'
 
 export const getAllVgaItemController = async (req: QueryRequest, res: Response) => {
    try {
@@ -44,6 +51,14 @@ export const getAllVgaComments = async (req: RequestQuery, res: Response) => {
    try {
       const allComments = await VgaProduct.find({ _id: req.query._id }, 'ratingValues')
       return res.status(200).json(allComments[0].ratingValues)
+   } catch (error) {
+      return res.status(500).json(error)
+   }
+}
+
+export const likeDislikeVgaCommentController = async (req: LikeQuery, res: Response) => {
+   try {
+      likeDislikeCommentHelper(req, res, VgaProduct)
    } catch (error) {
       return res.status(500).json(error)
    }

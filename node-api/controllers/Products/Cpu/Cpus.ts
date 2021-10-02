@@ -1,8 +1,14 @@
-import { Response, Request } from 'express'
+import { Response } from 'express'
 import { CpuProduct } from '../../../models/Products/Cpu/CpuSchema'
-import { UserTypes } from '../../../models/User/UserTypes'
 import { QueryRequest, returnProductModelWithPaginateInfo, baseFilterData } from '../Helper'
-import { getProductRatingSummary, saveRateProductHelper, RateQueryRequest, RequestQuery } from '../Ratings/BaseRating'
+import {
+   getProductRatingSummary,
+   saveRateProductHelper,
+   likeDislikeCommentHelper,
+   RateQueryRequest,
+   RequestQuery,
+   LikeQuery
+} from '../Ratings/BaseRating'
 
 export const getCpuFilterData = async (req: QueryRequest, res: Response) => {
    try {
@@ -49,43 +55,10 @@ export const getAllComments = async (req: RequestQuery, res: Response) => {
    }
 }
 
-export const likeDislikeCommentController = async (req: LikeQuery, res: Response) => {
+export const likeDislikeCpuCommentController = async (req: LikeQuery, res: Response) => {
    try {
-      // A request-ben bejön a comment/értékelés id-ja, ez alapján megtalálni
-      const foundProduct = await CpuProduct.findById(req.body.productId, 'ratingValues')
-      if (foundProduct) {
-         const foundComment = foundProduct.ratingValues.filter((comment) => comment._id == req.body.commentId)
-
-         // A user a saját kommentjét ne tudja like/dislikeolni
-         if (foundComment[0].userId == req.user?._id) {
-            return res.status(405).json({ message: 'A saját kommented nem like-olhatod :)' })
-         }
-         if (foundComment[0].responses.length == 0) {
-            // Ha még nincs
-            foundComment[0].responses.push({ isLike: req.body.isLike, userId: req.user?._id })
-         } else {
-            // Ha van már like
-            // A user adott már like/dislike-ot?
-            // Ha egy user már likeolta/dislikeolta az adott commentet, nem engedem még 1*
-            if (foundComment[0].responses.some((element) => element.userId == req.user?._id)) {
-               return res.status(405).json({ message: 'Már értékelted a kommentet' })
-            }
-         }
-
-         foundProduct.save()
-         return res.sendStatus(201)
-      }
-      return res.sendStatus(404)
+      likeDislikeCommentHelper(req, res, CpuProduct)
    } catch (error) {
       return res.status(500).json(error)
-   }
-}
-
-type LikeQuery = Request & {
-   user?: UserTypes | undefined
-   body: {
-      isLike: boolean
-      productId: string
-      commentId: string
    }
 }
