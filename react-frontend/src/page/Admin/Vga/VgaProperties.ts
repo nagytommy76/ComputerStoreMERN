@@ -5,7 +5,7 @@ export const vgaProperties: VgaType = {
    itemNumber: '',
    type: '',
    typeCode: '',
-   pictureUrls: [],
+   pictureUrls: [''],
    manufacturer: '',
    price: 0,
    inStockQuantity: 0,

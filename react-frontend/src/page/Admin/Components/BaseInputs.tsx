@@ -9,38 +9,38 @@ const BaseInputs: React.FC<BaseInputFieldProps> = ({ product, setProduct, valida
          <TextOrNumberInput
             labelText='Termék szám'
             onChangeEvent={(event) => setProduct({ ...product, itemNumber: event.target.value })}
-            value={product.itemNumber}
+            value={product.itemNumber || ''}
             errorMsg={errorMsg(validationErrors, 'itemNumber')}
          />
          <TextOrNumberInput
             labelText='Típus név *'
             onChangeEvent={(event) => setProduct({ ...product, type: event.target.value })}
-            value={product.type}
+            value={product.type || ''}
             errorMsg={errorMsg(validationErrors, 'type')}
          />
          <TextOrNumberInput
             labelText='Típus kód'
             onChangeEvent={(event) => setProduct({ ...product, typeCode: event.target.value })}
-            value={product.typeCode}
+            value={product.typeCode || ''}
          />
          <TextOrNumberInput
             labelText='Termék gyártó *'
             onChangeEvent={(event) => setProduct({ ...product, manufacturer: event.target.value })}
-            value={product.manufacturer}
+            value={product.manufacturer || ''}
             errorMsg={errorMsg(validationErrors, 'manufacturer')}
          />
          <TextOrNumberInput
             inputType='number'
             labelText='Ár *'
             onChangeEvent={(event) => setProduct({ ...product, price: parseInt(event.target.value) })}
-            value={product.price}
+            value={product.price || 0}
             errorMsg={errorMsg(validationErrors, 'price')}
          />
          <TextOrNumberInput
             inputType='number'
             labelText='Raktáron lévő mennyiség'
             onChangeEvent={(event) => setProduct({ ...product, inStockQuantity: parseInt(event.target.value) })}
-            value={product.inStockQuantity}
+            value={product.inStockQuantity || 0}
          />
       </>
    )

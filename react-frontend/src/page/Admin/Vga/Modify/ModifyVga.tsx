@@ -37,7 +37,7 @@ const ModifyVga = () => {
          <FullWidhtContainerStyle>
             <TextArea
                labelText='Leírás'
-               value={productDetails.details.description}
+               value={productDetails.details.description || ''}
                onChangeEvent={(event) =>
                   setProductDetails({
                      ...productDetails,

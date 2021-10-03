@@ -101,7 +101,7 @@ describe('Test Vga shop page and filter', () => {
    })
 
    test('should display the filter section', async () => {
-      await waitForElementToBeRemoved(() => screen.queryByTestId(/suspense-cards/i), { timeout: 3500 })
+      // await waitForElementToBeRemoved(() => screen.getByTestId(/suspense-cards/i), { timeout: 3500 })
       await screen.findByRole('option', { name: /Legolcsóbb elöl/ })
       await screen.findByRole('heading', { name: /Szűrés/ })
    })

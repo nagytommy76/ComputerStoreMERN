@@ -99,9 +99,9 @@ describe('Modify vga (admin)', () => {
 
    test('should display the data from the API after user selects something', async () => {
       expect(mockedAxios.get).toHaveBeenCalled()
-      // expect(await screen.findAllByRole('spinbutton', { name: /Ár/i })).toHaveValue(
-      //    allVgaProductResponseToModify.data.allProducts[0].price
-      // )
+      expect(await screen.findByRole('spinbutton', { name: 'Ár *' })).toHaveValue(
+         allVgaProductResponseToModify.data.allProducts[0].price
+      )
       expect(await screen.findByRole('textbox', { name: /Termék szám/i })).toHaveValue(
          allVgaProductResponseToModify.data.allProducts[0].itemNumber
       )
