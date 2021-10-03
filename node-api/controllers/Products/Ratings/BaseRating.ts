@@ -1,8 +1,6 @@
 import { Request, Response } from 'express'
 import { Model, ObjectId } from 'mongoose'
 import { RatingValues } from '../../../models/Products/BaseTypes'
-import { CpuProductType } from '../../../models/Products/Cpu/CpuTypes'
-import { VgaType } from '../../../models/Products/Vga/VgaTypes'
 import { UserTypes } from '../../../models/User/UserTypes'
 
 export const getProductRatingSummary = async (productId: ObjectId, ProductModel: Model<any>) => {
@@ -44,6 +42,8 @@ export const likeDislikeCommentHelper = async (req: LikeQuery, res: Response, Pr
       const foundComment = foundProduct.ratingValues.filter((comment: RatingValues) => comment._id == req.body.commentId)
 
       // A user a saját kommentjét ne tudja like/dislikeolni
+      console.log(req.user?._id)
+      console.log(foundComment)
       if (foundComment[0].userId == req.user?._id) {
          return res.status(405).json({ message: 'A saját kommented nem like-olhatod :)' })
       }
@@ -62,7 +62,7 @@ export const likeDislikeCommentHelper = async (req: LikeQuery, res: Response, Pr
             return res.status(405).json({ message: 'Már értékelted a kommentet' })
          }
       }
-      foundProduct?.save()
+      foundProduct.save()
       return res.sendStatus(201)
    }
    return res.sendStatus(404)

@@ -31,7 +31,7 @@ export const getFilterData = async (req: QueryRequest, res: Response) => {
 
 export const rateVgaProductController = async (req: RateQueryRequest, res: Response) => {
    try {
-      saveRateProductHelper(req.body._id, VgaProduct, req.body.rating, req.body.comment, req.body.userName)
+      saveRateProductHelper(req.body._id, VgaProduct, req.body.rating, req.body.comment, req.body.userName, req.user?._id)
       return res.sendStatus(201)
    } catch (error) {
       return res.status(500).json(error)

@@ -35,6 +35,7 @@ const VgaSchema = new Schema<VgaType>({
    ratingValues: {
       type: [
          {
+            userId: { type: String, required: true },
             userName: { type: String, required: true },
             rating: { type: Number, required: true },
             ratedAt: { type: Date, required: true },
@@ -43,8 +44,7 @@ const VgaSchema = new Schema<VgaType>({
                type: [
                   {
                      userId: { type: String, required: true },
-                     like: Number,
-                     disLike: Number
+                     isLike: { type: Boolean, required: true }
                   }
                ]
             }
