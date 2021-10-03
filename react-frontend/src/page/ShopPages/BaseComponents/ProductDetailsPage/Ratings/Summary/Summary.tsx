@@ -1,16 +1,19 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { useLocation } from 'react-router'
 import { LocationType } from '../../../../BaseTypes'
 import { Typography, Rating, Box } from '@mui/material'
+import { RatingContext } from '../RatingContext'
 
-const Summary: React.FC<{ requestSend: boolean }> = ({ requestSend }) => {
+const Summary: React.FC = () => {
    const {
-      state: { _id }
+      state: { _id, productType }
    } = useLocation<LocationType>()
+   const { commentRequestSend } = useContext(RatingContext)
+
    const [ratings, setRatings] = useState<{ avgRating: number; rateCount: number }>({ avgRating: 0, rateCount: 0 })
    useEffect(() => {
-      axios.get('/cpu/get-cpu-rates', { params: { _id } }).then((result) => {
+      axios.get(`/${productType}/get-${productType}-rates`, { params: { _id } }).then((result) => {
          if (result.data.avgRating !== null) {
             setRatings({
                avgRating: result.data.avgRating,
@@ -18,7 +21,7 @@ const Summary: React.FC<{ requestSend: boolean }> = ({ requestSend }) => {
             })
          }
       })
-   }, [_id, requestSend])
+   }, [_id, commentRequestSend, productType])
    return ratings.avgRating ? (
       <Box>
          <Typography variant='h3'>{ratings.avgRating.toFixed(2)}</Typography>

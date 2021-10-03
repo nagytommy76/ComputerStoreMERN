@@ -5,7 +5,7 @@ import { LocationType } from '../../../../BaseTypes'
 import { ThumbsContainer, CustomThumbDown, CustomThumbUp, ThumbIconsContainer } from './CommentStyle'
 import { Tooltip, ClickAwayListener } from '@mui/material'
 
-const Likes: React.FC<{ productType: string; commentId: string; responses: { isLike: boolean; userId: string }[] }> = ({
+const Likes: React.FC<{ productType: string; commentId: string; responses: ResponsesType[] }> = ({
    productType,
    commentId,
    responses
@@ -17,20 +17,28 @@ const Likes: React.FC<{ productType: string; commentId: string; responses: { isL
    const [isOpen, setIsOpen] = useState<boolean>(false)
    const [tooltipText, setTooltipText] = useState<string>('')
    const [countedLikes, setCountedLikes] = useState({ like: 0, dislike: 0 })
-   useEffect(() => {
-      responses.map((likes) => {
-         return likes.isLike
-            ? setCountedLikes({ ...countedLikes, like: (countedLikes.like += 1) })
-            : setCountedLikes({ ...countedLikes, dislike: (countedLikes.dislike += 1) })
-      })
-      // eslint-disable-next-line
-   }, [responses, axios])
 
-   const handleRequest = (isLike: boolean = true) => {
+   const countLikesAndDislikes = (incomingResponses: ResponsesType[]) => {
+      let likeCount = 0
+      let dislikeCount = 0
+      incomingResponses.map((likes) => {
+         return likes.isLike ? (likeCount += 1) : (dislikeCount += 1)
+      })
+      setCountedLikes({ like: likeCount, dislike: dislikeCount })
+   }
+
+   useEffect(() => {
+      countLikesAndDislikes(responses)
+      // eslint-disable-next-line
+   }, [responses])
+
+   const handleLikeRequest = (isLike: boolean = true) => {
       axios
          .post(`/${productType}/${productType}-comment-like`, { isLike, productId: _id, commentId })
          .then((result) => {
-            console.log(result)
+            if (result.status === 201) {
+               countLikesAndDislikes(result.data.responses)
+            }
          })
          .catch((error: AxiosError) => {
             if (error.response?.status === 405) {
@@ -50,17 +58,23 @@ const Likes: React.FC<{ productType: string; commentId: string; responses: { isL
             disableTouchListener>
             <ThumbsContainer>
                <ThumbIconsContainer>
-                  <CustomThumbUp color='secondary' onClick={() => handleRequest()} />
+                  <CustomThumbUp color='secondary' onClick={() => handleLikeRequest()} />
                   {countedLikes.like}
                </ThumbIconsContainer>
                <ThumbIconsContainer>
-                  <CustomThumbDown color='secondary' onClick={() => handleRequest(false)} />
+                  <CustomThumbDown color='secondary' onClick={() => handleLikeRequest(false)} />
                   {countedLikes.dislike}
                </ThumbIconsContainer>
             </ThumbsContainer>
          </Tooltip>
       </ClickAwayListener>
    )
+}
+
+type ResponsesType = {
+   _id?: string
+   isLike: boolean
+   userId: string
 }
 
 export default Likes

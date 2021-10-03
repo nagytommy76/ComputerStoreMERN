@@ -1,17 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import axios, { AxiosResponse } from 'axios'
 import { useLocation } from 'react-router'
 import { LocationType } from '../../../../BaseTypes'
 
 import { Typography, Rating } from '@mui/material'
 import { CommentCard, RightSide, LeftSide } from './CommentStyle'
+import { RatingContext } from '../RatingContext'
 
 const LikeDislike = React.lazy(() => import('./Likes'))
 
-const Comments: React.FC<{ requestSend: boolean }> = ({ requestSend }) => {
+const Comments: React.FC = () => {
    const {
       state: { _id, productType }
    } = useLocation<LocationType>()
+   const { commentRequestSend } = useContext(RatingContext)
+
    const [allComments, setAllComments] = useState<RateState[]>([])
    const formatDate = (date: Date) => {
       return date.toLocaleDateString('hu-HU', {
@@ -34,7 +37,7 @@ const Comments: React.FC<{ requestSend: boolean }> = ({ requestSend }) => {
          })
          setAllComments(ratedAtFormattedToDate)
       })
-   }, [_id, requestSend, productType])
+   }, [_id, commentRequestSend, productType])
    return (
       <>
          {allComments.map((comment) => (
@@ -60,7 +63,7 @@ type RateState = {
    comment?: string
    ratedAt: Date
    userName: string
-   responses: { isLike: boolean; userId: string }[]
+   responses: { _id?: string; isLike: boolean; userId: string }[]
 }
 
 export default Comments
