@@ -1,4 +1,4 @@
-import { render, screen, waitForElementToBeRemoved } from '../../../test-utils'
+import { render, screen, waitForElementToBeRemoved, waitFor } from '../../../test-utils'
 import userEvent from '@testing-library/user-event'
 import axios from 'axios'
 import Vga from './Vga'
@@ -96,13 +96,17 @@ describe('Test Vga shop page and filter', () => {
    beforeEach(async () => {
       mockedAxios.get.mockResolvedValue(mockResolvedVgaProducts).mockResolvedValueOnce(mockResolvedFilterData)
       render(<Vga />)
+      // Várni kell a komponens updatere mert különben act warning lesz... async state update-eknél...
+      await waitFor(async () => {
+         expect(await screen.findByRole('option', { name: /Legolcsóbb elöl/ })).toBeInTheDocument()
+      })
       // https://jestjs.io/docs/mock-function-api#mockfnmockreturnvaluevalue
       // https://medium.com/@moshfiqrony/how-to-write-multiple-axios-mock-implementations-in-testing-78d3b5c6a8b5
+      // https://davidwcai.medium.com/react-testing-library-and-the-not-wrapped-in-act-errors-491a5629193b
    })
 
    test('should display the filter section', async () => {
-      // await waitForElementToBeRemoved(() => screen.getByTestId(/suspense-cards/i), { timeout: 3500 })
-      await screen.findByRole('option', { name: /Legolcsóbb elöl/ })
+      //await waitForElementToBeRemoved(() => screen.getByTestId(/suspense-cards/i), { timeout: 3500 })
       await screen.findByRole('heading', { name: /Szűrés/ })
    })
    test('should display the vga product cards properly', async () => {
