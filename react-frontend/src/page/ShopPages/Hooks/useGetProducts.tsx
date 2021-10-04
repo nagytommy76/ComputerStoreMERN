@@ -30,12 +30,13 @@ const useGetProducts = (
             if (product.status === 200) {
                setProducts(product.data.allProducts)
                dispatch(setTotalPages(product.data.totalPages))
+               console.log('LEFUTOTTAM GET_PRODUCTS')
             }
          })
          .catch((error) => console.error(error))
       // Megoldani, hogy ne 2szer küldjön request-et: 1szer a default adatokkal, 1szer meg amikor a selectedPrice beállítódik...
       // eslint-disable-next-line
-   }, [currentPage, perPage, filterOptions.orderBy, filterOptions.selectedManufacturer, filterOptions.selectedPrice])
+   }, [currentPage, perPage, filterOptions /*.orderBy, filterOptions.selectedManufacturer, filterOptions.selectedPrice*/])
 }
 
 export default useGetProducts

@@ -16,6 +16,7 @@ const useFilter = (productType: string) => {
          .get(`${productType}/filter-data`)
          .then((filter) => {
             if (filter.status === 200) {
+               console.log('LEFUTOTTAM USE_FILTER')
                setFilterOptions({
                   ...filterOptions,
                   maxPrice: filter.data.maxPrice,
@@ -28,18 +29,25 @@ const useFilter = (productType: string) => {
          .catch((error) => console.log(error))
    }
    useEffect(() => {
-      fetchFilterData()
-      return () => {
-         setFilterOptions({
-            allManufacturer: [],
-            selectedManufacturer: '',
-            maxPrice: 200,
-            minPrice: 0,
-            orderBy: 'asc',
-            selectedPrice: [0, 5000000]
-         })
+      // const cancelTokenSource = axios.CancelToken.source()
+      // https://www.youtube.com/watch?v=Hy5xPk6A1bw&ab_channel=CodingAfterThirty
+      // fetchFilterData()
+      const testFunction = async () => {
+         const filterData = await axios.get(`${productType}/filter-data`)
+         if (filterData.status === 200) {
+            console.log('LEFUTOTTAM USE_FILTER')
+            setFilterOptions({
+               ...filterOptions,
+               maxPrice: filterData.data.maxPrice,
+               minPrice: filterData.data.minPrice,
+               allManufacturer: filterData.data.allManufacturers,
+               selectedPrice: [filterData.data.minPrice, filterData.data.maxPrice]
+            })
+         }
       }
+      testFunction()
       // eslint-disable-next-line
+      return () => {}
    }, [])
    return { filterOptions, setFilterOptions }
 }
