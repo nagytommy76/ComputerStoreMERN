@@ -13,8 +13,10 @@ const SideFilter = React.lazy(() => import('../BaseComponents/SideFilter/SideFil
 
 const Vga = () => {
    const [vgaProducts, setVgaProducts] = useState<VgaType[]>([])
-   const { filterOptions, setFilterOptions } = useFilter('vga')
-   useGetProducts(filterOptions, setVgaProducts, 'vga')
+   const [isFilter, setIsFilter] = useState<boolean>(false)
+
+   const { filterOptions, setFilterOptions } = useFilter('vga', setIsFilter)
+   useGetProducts(filterOptions, setVgaProducts, 'vga', isFilter)
    return (
       <Suspense fallback={<Container />}>
          <PageContainer>

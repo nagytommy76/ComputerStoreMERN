@@ -1,1 +1,2 @@
 1. Axios interceptors-nál megoldani, hogy ha a refresh token lejár, tehát a user kilép, pusholni kéne a login page-re egy msg-el
+2. Megoldani, hogy amíg a useFilter hook le nem futott nem hívom meg a useGetProducts-ot

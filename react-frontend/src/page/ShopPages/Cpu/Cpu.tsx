@@ -12,8 +12,9 @@ const Pagination = React.lazy(() => import('../BaseComponents/Pagination/Paginat
 
 const Cpu = () => {
    const [cpuProducts, setCpuProducts] = useState<CpuProductType[]>([])
-   const { filterOptions, setFilterOptions } = useFilter('cpu')
-   useGetProducts(filterOptions, setCpuProducts, 'cpu')
+   const [isFilter, setIsFilter] = useState<boolean>(false)
+   const { filterOptions, setFilterOptions } = useFilter('cpu', setIsFilter)
+   useGetProducts(filterOptions, setCpuProducts, 'cpu', isFilter)
 
    return (
       <React.Suspense fallback={<Container />}>
@@ -53,4 +54,4 @@ const Cpu = () => {
    )
 }
 
-export default Cpu
+export default React.memo(Cpu)
