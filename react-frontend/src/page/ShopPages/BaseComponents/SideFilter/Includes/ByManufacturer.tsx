@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { SideFilterContext } from '../Context'
 import { InputContainer, StyledLabel, StyledSelect } from '../FilterStyle'
-import { Props } from './OrderByPrice'
 
-const ByManufacturer: React.FC<Props> = ({ setFilterOptions, filterOptions }) => {
+const ByManufacturer: React.FC = () => {
+   const { setFilterOptions, filterOptions } = useContext(SideFilterContext)
    return (
       <InputContainer>
          <StyledLabel htmlFor='manufacturer'>Gyárók</StyledLabel>

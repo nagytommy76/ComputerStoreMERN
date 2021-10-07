@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FilterTypes } from '../BaseTypes'
 import axios from 'axios'
 
@@ -12,7 +12,7 @@ const useFilter = (productType: string, setIsFilter: (value: React.SetStateActio
       selectedPrice: [0, 5000000]
    })
 
-   const testFunction = useCallback(async () => {
+   const getFilterData = async () => {
       const filterData = await axios.get(`${productType}/filter-data`)
       if (filterData.status === 200) {
          setFilterOptions({
@@ -24,11 +24,11 @@ const useFilter = (productType: string, setIsFilter: (value: React.SetStateActio
          })
          setIsFilter(true)
       }
-   }, [filterOptions, productType])
+   }
 
    useEffect(() => {
       // https://www.youtube.com/watch?v=Hy5xPk6A1bw&ab_channel=CodingAfterThirty
-      testFunction()
+      getFilterData()
       // eslint-disable-next-line
    }, [])
    return { filterOptions, setFilterOptions }

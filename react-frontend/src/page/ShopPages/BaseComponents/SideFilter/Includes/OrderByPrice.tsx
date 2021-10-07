@@ -1,8 +1,9 @@
-import React from 'react'
-import { FilterTypes } from '../../../BaseTypes'
+import React, { useContext } from 'react'
+import { SideFilterContext } from '../Context'
 import { InputContainer, StyledLabel, StyledSelect } from '../FilterStyle'
 
-const OrderByPrice: React.FC<Props> = ({ setFilterOptions, filterOptions }) => {
+const OrderByPrice: React.FC = () => {
+   const { filterOptions, setFilterOptions } = useContext(SideFilterContext)
    return (
       <InputContainer>
          <StyledLabel htmlFor='orderBy'>Rendezés</StyledLabel>
@@ -17,11 +18,6 @@ const OrderByPrice: React.FC<Props> = ({ setFilterOptions, filterOptions }) => {
          </StyledSelect>
       </InputContainer>
    )
-}
-
-export type Props = {
-   filterOptions: FilterTypes
-   setFilterOptions: React.Dispatch<React.SetStateAction<FilterTypes>>
 }
 
 export default OrderByPrice

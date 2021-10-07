@@ -1,14 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { InputContainer } from '../FilterStyle'
 import NumberFormat from 'react-number-format'
-import { Props } from './OrderByPrice'
 import { Slider, FormLabel, FormControl } from '@mui/material'
+import { SideFilterContext } from '../Context'
 
-const PriceRange: React.FC<Props> = ({ setFilterOptions, filterOptions }) => {
+const PriceRange: React.FC = () => {
+   const { filterOptions, setFilterOptions } = useContext(SideFilterContext)
    const [localState, setLocalState] = useState<number[]>([filterOptions.minPrice, 5000000])
    const setLocalStateOnChange = (event: Event, newValue: number | number[]) => {
       setLocalState(newValue as number[])
    }
+
    return (
       <InputContainer>
          <FormControl fullWidth>

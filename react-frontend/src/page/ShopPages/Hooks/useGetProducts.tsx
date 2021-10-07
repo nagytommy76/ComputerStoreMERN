@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react'
+import React, { useEffect } from 'react'
 import axios from 'axios'
 import { FilterTypes } from '../BaseTypes'
 
@@ -15,7 +15,7 @@ const useGetProducts = (
    const currentPage = useAppSelector((state) => state.paginate.currentPage)
    const perPage = useAppSelector((state) => state.paginate.perPage)
 
-   const testFunction = useCallback(async () => {
+   const getProductsByQueries = async () => {
       const product = await axios.get(
          `/${productTypeForURL}?currentPage=${currentPage}&perPage=${perPage}&orderBy=${filterOptions.orderBy}&byManufacturer=${filterOptions.selectedManufacturer}&priceRange=${filterOptions.selectedPrice}`,
          {
@@ -30,13 +30,12 @@ const useGetProducts = (
          setProducts(product.data.allProducts)
          dispatch(setTotalPages(product.data.totalPages))
       }
-   }, [currentPage, perPage, filterOptions, productTypeForURL])
+   }
 
    useEffect(() => {
-      if (isFilter) testFunction()
-      // Megoldani, hogy ne 2szer küldjön request-et: 1szer a default adatokkal, 1szer meg amikor a selectedPrice beállítódik...
+      if (isFilter) getProductsByQueries()
       // eslint-disable-next-line
-   }, [currentPage, perPage, filterOptions.orderBy, filterOptions.selectedManufacturer, filterOptions.selectedPrice, isFilter])
+   }, [currentPage, perPage, filterOptions, isFilter])
 }
 
 export default useGetProducts

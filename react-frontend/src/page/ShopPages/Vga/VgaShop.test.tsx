@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '../../../test-utils'
+import { render, screen, waitFor, waitForElementToBeRemoved } from '../../../test-utils'
 import userEvent from '@testing-library/user-event'
 import axios from 'axios'
 import Vga from './Vga'
@@ -93,23 +93,19 @@ const mockResolvedFilteredVgaProducts = {
 }
 
 describe('Test Vga shop page', () => {
-   beforeEach(async () => {
+   test('should display the vga product cards properly', async () => {
       mockedAxios.get.mockResolvedValue(mockResolvedVgaProducts).mockResolvedValueOnce(mockResolvedFilterData)
       render(<Vga />)
+      await waitForElementToBeRemoved(() => screen.getByTestId(/suspense-cards/i), { timeout: 2500 })
       // Várni kell a komponens updatere mert különben act warning lesz... async state update-eknél...
       // Ez esetben amíg lefutnak az async call-ok ( useFilter/useGetProducts hook-ok )
-      await waitFor(async () => {
-         expect(await screen.findByRole('option', { name: /Legolcsóbb elöl/ })).toBeInTheDocument()
-      })
-      // https://jestjs.io/docs/mock-function-api#mockfnmockreturnvaluevalue
-      // https://medium.com/@moshfiqrony/how-to-write-multiple-axios-mock-implementations-in-testing-78d3b5c6a8b5
-      // https://davidwcai.medium.com/react-testing-library-and-the-not-wrapped-in-act-errors-491a5629193b
-   })
-
-   test('should display the filter section', async () => {
-      await screen.findByRole('heading', { name: /Szűrés/ })
-   })
-   test('should display the vga product cards properly', async () => {
+      await waitFor(
+         async () => {
+            expect(await screen.findByRole('option', { name: /Legolcsóbb elöl/ })).toBeInTheDocument()
+            expect(await screen.findByRole('heading', { name: /Szűrés/ })).toBeInTheDocument()
+         },
+         { timeout: 2500 }
+      )
       await screen.findByRole('heading', {
          name: /PALIT RTX 3060 Ti 8GB GDDR6 Dual OC/i
       })
@@ -119,15 +115,21 @@ describe('Test Vga shop page', () => {
       await screen.findByRole('heading', {
          name: /RX 6900 XT 16GB GDDR6/i
       })
+      // https://jestjs.io/docs/mock-function-api#mockfnmockreturnvaluevalue
+      // https://medium.com/@moshfiqrony/how-to-write-multiple-axios-mock-implementations-in-testing-78d3b5c6a8b5
+      // https://davidwcai.medium.com/react-testing-library-and-the-not-wrapped-in-act-errors-491a5629193b
    })
 })
 describe('Vga shop filter functionality', () => {
    test('should display only the selected manufacturer vgas', async () => {
       mockedAxios.get.mockResolvedValue(mockResolvedFilteredVgaProducts).mockResolvedValueOnce(mockResolvedFilterData)
       render(<Vga />)
-      await waitFor(async () => {
-         expect(await screen.findByRole('option', { name: /Legolcsóbb elöl/ })).toBeInTheDocument()
-      })
+      await waitFor(
+         async () => {
+            expect(await screen.findByRole('option', { name: /Legolcsóbb elöl/ })).toBeInTheDocument()
+         },
+         { timeout: 2000 }
+      )
       const manSelect = await screen.findAllByRole('combobox')
       userEvent.selectOptions(manSelect[2], [mockResolvedFilterData.data.allManufacturers[0]])
       await screen.findByRole('heading', {

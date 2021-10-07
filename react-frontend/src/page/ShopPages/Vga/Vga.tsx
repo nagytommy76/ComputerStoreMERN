@@ -4,8 +4,6 @@ import { CardGridContainer, PageContainer, RightFlexContainer } from '../BaseSty
 import { VgaType } from './VgaTypes'
 
 import { ProductContext } from '../Context/ShopContext'
-import useGetProducts from '../Hooks/useGetProducts'
-import useFilter from '../Hooks/UseFilter'
 
 const ProductCard = React.lazy(() => import('../BaseComponents/ProductCard/ProductCard'))
 const Pagination = React.lazy(() => import('../BaseComponents/Pagination/Pagination'))
@@ -13,14 +11,10 @@ const SideFilter = React.lazy(() => import('../BaseComponents/SideFilter/SideFil
 
 const Vga = () => {
    const [vgaProducts, setVgaProducts] = useState<VgaType[]>([])
-   const [isFilter, setIsFilter] = useState<boolean>(false)
-
-   const { filterOptions, setFilterOptions } = useFilter('vga', setIsFilter)
-   useGetProducts(filterOptions, setVgaProducts, 'vga', isFilter)
    return (
       <Suspense fallback={<Container />}>
          <PageContainer>
-            <SideFilter filterOptions={filterOptions} setFilterOptions={setFilterOptions} />
+            <SideFilter setProducts={setVgaProducts} />
             <RightFlexContainer>
                <CardGridContainer>
                   {vgaProducts.map((product) => (
