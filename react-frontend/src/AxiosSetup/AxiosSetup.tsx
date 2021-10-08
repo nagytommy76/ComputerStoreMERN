@@ -13,7 +13,6 @@ const useAxiosSetup = (accessToken: string | null, refreshToken: string | null) 
    axios.defaults.baseURL = 'http://localhost:5050/api'
    axios.defaults.headers['Content-Type'] = 'Application/json'
    axios.defaults.headers.Authorization = `Barer ${accessToken}`
-
    useEffect(() => {
       axios.interceptors.response.use(
          (response) => {
@@ -37,20 +36,24 @@ const useAxiosSetup = (accessToken: string | null, refreshToken: string | null) 
                         console.log(error.response.data.errorMessage + ' 2')
                         if (error.response.data.errorMessage === 'refresh token expired') {
                            store.dispatch(logoutUser())
-                           history.push({ pathname: '/login', state: 'Kérlek, lépj be újra!' })
+                           // history.push({ pathname: '/login', state: { message: 'Kérlek, lépj be újra!' } })
+                           history.push('/login', { message: 'Kérlek, lépj be újra!' })
                         }
                      })
                } else if (error.response.data.errorMessage === 'user is not admin') {
                   // Ha valaki ide keveredne és nem admin...
                   store.dispatch(logoutUser())
-                  history.push({ pathname: '/login', state: 'Nem vagy jó helyen! :)' })
+                  // history.push({ pathname: '/login', state: { message: 'Nem vagy jó helyen! :)' } })
+                  history.push('/login', { message: 'Nem vagy jó helyen! :)' })
                }
             }
             if (error.response?.status === 401) {
                // Itt pedig be kell lépni mert a refres token se jó
+               // console.log(history)
                console.log('401 response')
+               console.log(history)
                store.dispatch(logoutUser())
-               history.push({ pathname: '/login', state: 'Kérlek, lépj be újra!' })
+               history.push('/login', { message: 'Kérlek, lépj be újra!' })
             }
             return await Promise.reject(error)
          }

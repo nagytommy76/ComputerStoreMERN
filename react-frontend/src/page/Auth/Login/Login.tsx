@@ -21,6 +21,8 @@ const Login: React.FC = () => {
    const [email, setEmail] = useState<InputTypes>({ value: '', hasError: false, errorMessage: '' })
    const [password, setPassword] = useState<InputTypes>({ value: '', hasError: false, errorMessage: '' })
 
+   console.log(location)
+
    const loginUser = async (event: React.FormEvent) => {
       event.preventDefault()
       if (email.value === '') return setEmail({ value: '', hasError: true, errorMessage: 'Kérem az e-mail címet!' })

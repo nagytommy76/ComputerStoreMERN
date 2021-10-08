@@ -46,13 +46,9 @@ const App = () => {
       if (userIsLoggedIn && isCartEmpty && accessToken !== null) dispatch(fetchCartItemsFromDB())
    }, [userIsLoggedIn, dispatch, isCartEmpty, accessToken])
 
-   // const InitAxios = useCallback(async () => {
-   //    await useAxiosSetup(accessToken, refreshToken)
    useAxiosSetup(accessToken, refreshToken)
-   // }, [accessToken, refreshToken])
 
    useEffect(() => {
-      // InitAxios()
       initUserCartItems()
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [accessToken])

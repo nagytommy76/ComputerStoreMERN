@@ -96,16 +96,13 @@ describe('Test Vga shop page', () => {
    test('should display the vga product cards properly', async () => {
       mockedAxios.get.mockResolvedValue(mockResolvedVgaProducts).mockResolvedValueOnce(mockResolvedFilterData)
       render(<Vga />)
-      await waitForElementToBeRemoved(() => screen.getByTestId(/suspense-cards/i), { timeout: 2500 })
+      await waitForElementToBeRemoved(() => screen.getByTestId(/suspense-cards/i), { timeout: 3200 })
       // Várni kell a komponens updatere mert különben act warning lesz... async state update-eknél...
       // Ez esetben amíg lefutnak az async call-ok ( useFilter/useGetProducts hook-ok )
-      await waitFor(
-         async () => {
-            expect(await screen.findByRole('option', { name: /Legolcsóbb elöl/ })).toBeInTheDocument()
-            expect(await screen.findByRole('heading', { name: /Szűrés/ })).toBeInTheDocument()
-         },
-         { timeout: 2500 }
-      )
+      await waitFor(async () => {
+         expect(await screen.findByRole('option', { name: /Legolcsóbb elöl/ })).toBeInTheDocument()
+         expect(await screen.findByRole('heading', { name: /Szűrés/ })).toBeInTheDocument()
+      })
       await screen.findByRole('heading', {
          name: /PALIT RTX 3060 Ti 8GB GDDR6 Dual OC/i
       })

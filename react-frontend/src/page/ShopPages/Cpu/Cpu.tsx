@@ -14,7 +14,7 @@ const Cpu = () => {
    return (
       <React.Suspense fallback={<Container />}>
          <PageContainer>
-            <SideFilter setProducts={setCpuProducts} />
+            <SideFilter setProducts={setCpuProducts} productType='cpu' />
             <RightFlexContainer>
                <CardGridContainer>
                   {cpuProducts.map((cpu) => (

@@ -10,12 +10,12 @@ const ByManufacturer = React.lazy(() => import('./Includes/ByManufacturer'))
 const PriceRange = React.lazy(() => import('./Includes/PriceRange'))
 const PerPage = React.lazy(() => import('./Includes/PerPage'))
 
-const SideFilter: React.FC<Props> = ({ setProducts }) => {
+const SideFilter: React.FC<Props> = ({ setProducts, productType }) => {
    const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
    const [isFilter, setIsFilter] = useState<boolean>(false)
 
-   const { filterOptions, setFilterOptions } = useFilter('cpu', setIsFilter)
-   useGetProducts(filterOptions, setProducts, 'cpu', isFilter)
+   const { filterOptions, setFilterOptions } = useFilter(productType, setIsFilter)
+   useGetProducts(filterOptions, setProducts, productType, isFilter)
 
    return (
       <SideFilterContext.Provider
@@ -36,6 +36,7 @@ const SideFilter: React.FC<Props> = ({ setProducts }) => {
 
 type Props = {
    setProducts: React.Dispatch<React.SetStateAction<any>>
+   productType: string
 }
 
 export default SideFilter
