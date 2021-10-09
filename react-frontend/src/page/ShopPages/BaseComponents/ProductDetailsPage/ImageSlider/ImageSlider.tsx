@@ -1,6 +1,7 @@
 import React from 'react'
 import { useLocation } from 'react-router'
-import { StyledSlideSection, StyledImageContainer, CustomCarousel, StyledImage } from './SliderStyle'
+import { StyledSlideSection, StyledImageContainer, StyledImage } from './SliderStyle'
+import Carousel from 'react-material-ui-carousel'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import { LocationType } from '../../../BaseTypes'
 
@@ -11,13 +12,15 @@ const ImageSlider = () => {
    const { pictureUrls } = location.state
    return (
       <StyledSlideSection>
-         <CustomCarousel animation='slide' autoPlay interval={6000}>
+         <Carousel animation='slide' autoPlay interval={6000}>
             {pictureUrls.map((image, index) => (
                <StyledImageContainer key={index}>
-                  <StyledImage src={image} alt={image + index} />
+                  <a href={image} target='_blank' rel='noreferrer'>
+                     <StyledImage src={image} alt={image + index} />
+                  </a>
                </StyledImageContainer>
             ))}
-         </CustomCarousel>
+         </Carousel>
       </StyledSlideSection>
    )
 }

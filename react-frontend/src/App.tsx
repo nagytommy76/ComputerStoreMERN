@@ -4,7 +4,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { GuestsRoute, AdminRoute, AuthProtectedRoute } from './Routes/ProtectedRoute'
 
 import { ThemeProvider } from 'styled-components'
-import { ThemeProvider as MUIThemeProvider } from '@mui/material'
+import { ThemeProvider as MUIThemeProvider } from '@mui/material/styles'
 import useMaterialTheme from './Hooks/useTheme'
 import { GlobalStyles } from './Theme/GlobalStyles'
 import { lightTheme, darkTheme } from './Theme/Themes'

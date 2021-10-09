@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material'
+import { createTheme } from '@mui/material/styles'
 import { useAppSelector } from '../app/hooks'
 
 const useMaterialTheme = () => {
@@ -10,14 +10,15 @@ const useMaterialTheme = () => {
               palette: {
                  mode: 'dark',
                  primary: {
-                    main: '#df730e'
+                    main: '#df730e',
+                    contrastText: '#FFF'
                  },
                  secondary: {
                     main: '#FFF'
                  },
                  text: {
                     primary: '#FFF',
-                    secondary: '#000'
+                    secondary: '#fff'
                  }
               },
               typography: {
@@ -35,7 +36,7 @@ const useMaterialTheme = () => {
                  },
                  text: {
                     primary: '#000',
-                    secondary: '#FFF'
+                    secondary: '#000'
                  }
               },
               typography: {

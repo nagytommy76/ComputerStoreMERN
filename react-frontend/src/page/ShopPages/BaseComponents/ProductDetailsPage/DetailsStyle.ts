@@ -34,7 +34,7 @@ export const NavigationLink = styled.h4`
 export const HeadSection = styled.section`
    display: flex;
    flex-direction: row;
-   /* align-items: center; */
+   align-items: stretch;
    justify-content: center;
    @media (max-width: ${mobileWindowSize}) {
       flex-direction: column;

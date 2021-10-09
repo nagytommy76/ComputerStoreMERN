@@ -69,7 +69,7 @@ const Rating = () => {
                      />
                      <TextField
                         fullWidth
-                        variant='outlined'
+                        variant='filled'
                         color='success'
                         label='Hozzászólás'
                         multiline

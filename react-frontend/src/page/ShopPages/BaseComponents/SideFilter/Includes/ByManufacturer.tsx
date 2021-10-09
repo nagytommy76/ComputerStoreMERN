@@ -1,25 +1,33 @@
 import React, { useContext } from 'react'
 import { SideFilterContext } from '../Context'
-import { InputContainer, StyledLabel, StyledSelect } from '../FilterStyle'
+import { InputContainer } from '../FilterStyle'
+import { TextField } from '@mui/material'
 
 const ByManufacturer: React.FC = () => {
    const { setFilterOptions, filterOptions } = useContext(SideFilterContext)
    return (
       <InputContainer>
-         <StyledLabel htmlFor='manufacturer'>Gyárók</StyledLabel>
-         <StyledSelect
-            name='manufacturer'
-            id='manufacturer'
-            onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
+         <TextField
+            fullWidth
+            select
+            label='Gyártó'
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                setFilterOptions({ ...filterOptions, selectedManufacturer: event.target.value })
-            }>
-            <option value=''>Összes</option>
+            }
+            helperText='Szűrés gyártók szerint'
+            variant='filled'
+            color='primary'
+            value={filterOptions.selectedManufacturer}
+            SelectProps={{
+               native: true
+            }}>
+            <option value='all'>Összes</option>
             {filterOptions.allManufacturer.map((man, index) => (
                <option key={index} value={man}>
                   {man}
                </option>
             ))}
-         </StyledSelect>
+         </TextField>
       </InputContainer>
    )
 }

@@ -1,21 +1,29 @@
 import React, { useContext } from 'react'
 import { SideFilterContext } from '../Context'
-import { InputContainer, StyledLabel, StyledSelect } from '../FilterStyle'
+import { InputContainer } from '../FilterStyle'
+import { TextField } from '@mui/material'
 
 const OrderByPrice: React.FC = () => {
    const { filterOptions, setFilterOptions } = useContext(SideFilterContext)
    return (
       <InputContainer>
-         <StyledLabel htmlFor='orderBy'>Rendezés</StyledLabel>
-         <StyledSelect
-            name='orderBy'
-            id='orderBy'
-            onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
+         <TextField
+            fullWidth
+            select
+            label='Rendezés'
+            helperText='Ár szerinti rendezés'
+            variant='filled'
+            color='primary'
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                setFilterOptions({ ...filterOptions, orderBy: event.target.value })
-            }>
-            <option value='asc'>Legolcsóbb elöl</option>
-            <option value='desc'>Legdrágább elöl</option>
-         </StyledSelect>
+            }
+            value={filterOptions.orderBy}
+            SelectProps={{
+               native: true
+            }}>
+            <option value='asc'>Legolcsóbb elől</option>
+            <option value='desc'>Legdrágább elől</option>
+         </TextField>
       </InputContainer>
    )
 }

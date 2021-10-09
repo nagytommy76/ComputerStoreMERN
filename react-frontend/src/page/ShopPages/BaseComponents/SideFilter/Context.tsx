@@ -9,7 +9,7 @@ export const SideFilterContext = createContext<ContextType>({
       maxPrice: 0,
       selectedPrice: [],
       allManufacturer: [],
-      selectedManufacturer: ''
+      selectedManufacturer: 'all'
    }
 })
 

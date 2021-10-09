@@ -1,12 +1,12 @@
 import styled from 'styled-components'
-import { backgroundColor, mobileWindowSize } from '../../../../Theme/GlobalStyles'
+import { mobileWindowSize } from '../../../../Theme/GlobalStyles'
 
 export const StyledFilter = styled.aside<{ isDarkTheme: boolean }>`
    width: 270px;
    margin-top: -1.5rem;
    min-height: 100%;
-   background-color: ${({ isDarkTheme }) => (isDarkTheme ? '#FFF' : backgroundColor)};
-   color: ${({ isDarkTheme }) => (isDarkTheme ? '#000' : '#FFF')};
+   background-color: ${({ isDarkTheme }) => (isDarkTheme ? '#222' : '#F9F9F9')};
+   color: ${({ isDarkTheme }) => (isDarkTheme ? '#FFF' : '#000')};
    transition: all 0.25s;
 
    display: flex;
@@ -32,26 +32,4 @@ export const InputContainer = styled.div`
    flex-direction: column;
    align-items: flex-start;
    margin: 0.7rem 0;
-`
-
-export const StyledLabel = styled.label`
-   font-size: 1rem;
-   margin-bottom: 0.2rem;
-`
-
-export const StyledInput = styled.input`
-   width: 100%;
-   padding: 0.5rem 0;
-`
-
-// SELECT
-export const StyledSelect = styled.select`
-   width: 100%;
-   padding: 0.5rem 0;
-   font-size: 1.025rem;
-   outline: none;
-   border-radius: 5px;
-   cursor: pointer;
-   border: none;
-   box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.35);
 `
