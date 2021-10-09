@@ -9,13 +9,15 @@ export const FormTitle = styled.h1`
    }
 `
 
-export const StyledForm = styled.form`
-   background-color: #2b323a;
-   color: white;
-   width: 500px;
-   min-height: 430px;
-   border-radius: 5px;
-   box-shadow: 7px 4px 25px #333;
+export const StyledForm = styled.form<{ isDark: boolean }>`
+   transition: all 0.25s;
+   background-color: ${({ isDark }) => (isDark ? '#222' : '#DDD')};
+   padding: 0 2.5rem;
+   color: ${({ isDark }) => (isDark ? '#FFF' : '#000')};
+   width: 450px;
+   min-height: 400px;
+   border-radius: 3px;
+   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.6);
    @media (max-width: ${mobileWindowSize}) {
       width: 90%;
    }

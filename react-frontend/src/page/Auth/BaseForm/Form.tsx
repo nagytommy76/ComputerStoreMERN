@@ -1,7 +1,7 @@
 import React from 'react'
+import { useAppSelector } from '../../../app/hooks'
 import { StyledForm, FormConrolStyle, FormTitle } from './FormStyle'
-
-const Button = React.lazy(() => import('../../BaseElements/Button/Button'))
+import { Button } from '@mui/material'
 
 type Props = {
    title: string
@@ -10,12 +10,15 @@ type Props = {
 }
 
 const Form: React.FC<Props> = ({ title, onSubmitEvent, buttonText, children }) => {
+   const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
    return (
-      <StyledForm onSubmit={onSubmitEvent}>
+      <StyledForm isDark={isDarkTheme} onSubmit={onSubmitEvent}>
          <FormTitle>{title}</FormTitle>
          <FormConrolStyle>
             {children}
-            <Button>{buttonText}</Button>
+            <Button type='submit' sx={{ margin: '1.5rem 0' }} variant='contained' color='primary' size='large'>
+               {buttonText}
+            </Button>
          </FormConrolStyle>
       </StyledForm>
    )
