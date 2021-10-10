@@ -12,8 +12,8 @@ const Cpu = () => {
    const [cpuProducts, setCpuProducts] = useState<CpuProductType[]>([])
 
    return (
-      <React.Suspense fallback={<Container />}>
-         <PageContainer>
+      <PageContainer>
+         <React.Suspense fallback={<Container />}>
             <SideFilter setProducts={setCpuProducts} productType='cpu' />
             <RightFlexContainer>
                <CardGridContainer>
@@ -44,8 +44,8 @@ const Cpu = () => {
                </CardGridContainer>
                <Pagination />
             </RightFlexContainer>
-         </PageContainer>
-      </React.Suspense>
+         </React.Suspense>
+      </PageContainer>
    )
 }
 

@@ -7,6 +7,7 @@ import ThemeSlice from './slices/ThemeSlice'
 import CartSlice from './slices/CartSlice'
 import MobileSlice from './slices/MobileSlice'
 import PaginateSlice from './slices/PaginateSlice'
+import SuspenseSlice from './slices/SuspenseSlice'
 
 export const store = configureStore({
    reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
       theme: persistReducer({ key: 'Theme', storage }, ThemeSlice),
       cart: persistReducer({ key: 'Cart', storage }, CartSlice),
       paginate: PaginateSlice,
+      suspense: SuspenseSlice,
       mobile: MobileSlice
    },
    middleware: getDefaultMiddleware({

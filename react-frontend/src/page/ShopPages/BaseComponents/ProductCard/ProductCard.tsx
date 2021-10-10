@@ -20,7 +20,7 @@ const ProductCard: React.FC<ProductCardType> = ({
    pathNameForDetailsURL,
    ratingCount
 }) => {
-   const [isCardExpanded, setIsCardExpanded] = useState<boolean>(false)
+   const [isCardExpanded, setIsCardExpanded] = useState<boolean>(true)
    const [quantityToCart, setQuantityToCart] = useState<string>('1')
    const isMobile = useAppSelector((state) => state.mobile.isMobile)
 
@@ -29,7 +29,7 @@ const ProductCard: React.FC<ProductCardType> = ({
    const { _id, productName, price } = useContext(ProductContext)
 
    useEffect(() => {
-      if (isMobile) setIsCardExpanded(true)
+      if (!isMobile) setIsCardExpanded(false)
    }, [isMobile])
 
    const routeToDetailsPage = () => {

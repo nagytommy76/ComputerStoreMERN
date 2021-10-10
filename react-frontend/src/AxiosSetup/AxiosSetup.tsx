@@ -58,6 +58,7 @@ const useAxiosSetup = (accessToken: string | null, refreshToken: string | null) 
             return await Promise.reject(error)
          }
       )
+      // eslint-disable-next-line
    }, [accessToken])
 }
 

@@ -4,6 +4,7 @@ import { FilterTypes } from '../BaseTypes'
 
 import { setTotalPages } from '../../../app/slices/PaginateSlice'
 import { useAppSelector, useAppDispatch } from '../../../app/hooks'
+import { setIsProductLoading } from '../../../app/slices/SuspenseSlice'
 
 const useGetProducts = (
    filterOptions: FilterTypes,
@@ -16,6 +17,7 @@ const useGetProducts = (
    const perPage = useAppSelector((state) => state.paginate.perPage)
 
    const getProductsByQueries = async () => {
+      dispatch(setIsProductLoading(true))
       const product = await axios.get(
          `/${productTypeForURL}?currentPage=${currentPage}&perPage=${perPage}&orderBy=${filterOptions.orderBy}&byManufacturer=${filterOptions.selectedManufacturer}&priceRange=${filterOptions.selectedPrice}`,
          {
@@ -29,6 +31,7 @@ const useGetProducts = (
       if (product.status === 200) {
          setProducts(product.data.allProducts)
          dispatch(setTotalPages(product.data.totalPages))
+         dispatch(setIsProductLoading(false))
       }
    }
 

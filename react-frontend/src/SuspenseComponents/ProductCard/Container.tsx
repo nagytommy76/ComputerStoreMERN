@@ -1,11 +1,13 @@
 import React from 'react'
 import ProductCard from './ProductCard'
 import styled from 'styled-components'
-import { navbarHeight } from '../../page/Navbar/NavbarStyles'
+import FilterSuspense from '../SideFilter/FilterSuspense'
+import { mobileWindowSize } from '../../Theme/GlobalStyles'
 
 const Container = () => {
    return (
-      <ContainerStyle data-testid='suspense-cards'>
+      <PageContainer style={{ minHeight: '100vh' }} data-testid='suspense-cards'>
+         <FilterSuspense />
          <GridContainer>
             <ProductCard />
             <ProductCard />
@@ -19,21 +21,23 @@ const Container = () => {
             <ProductCard />
             <ProductCard />
             <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
          </GridContainer>
-      </ContainerStyle>
+      </PageContainer>
    )
 }
 
-const ContainerStyle = styled.section`
-   min-height: 100vh;
+const PageContainer = styled.section`
    width: 100%;
-   margin-top: calc(${navbarHeight} + 1.5rem);
+   min-height: 100vh;
    display: flex;
-   justify-content: center;
+   flex-direction: row;
+   justify-content: space-between;
+
+   @media (max-width: ${mobileWindowSize}) {
+      flex-direction: column;
+      margin-top: 3rem;
+      align-items: center;
+   }
 `
 
 const GridContainer = styled.div`
