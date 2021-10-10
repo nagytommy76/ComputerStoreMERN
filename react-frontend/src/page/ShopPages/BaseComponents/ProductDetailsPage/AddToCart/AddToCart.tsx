@@ -18,7 +18,7 @@ const AddToCart = () => {
                _id,
                displayName: `${manufacturer} ${type} ${typeCode}`,
                price,
-               itemQuantity: quantity,
+               itemQuantity: parseInt(quantity),
                displayImage: pictureUrls[0]
             },
             'vgaproduct'

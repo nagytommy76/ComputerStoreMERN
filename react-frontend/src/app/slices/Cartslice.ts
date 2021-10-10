@@ -14,7 +14,7 @@ type IncomingTypes = {
    _id: string
    displayName: string
    price: number
-   itemQuantity: string
+   itemQuantity: number
    displayImage: string
 }
 
@@ -33,7 +33,7 @@ export const CartSlice = createSlice({
             itemId: action.payload._id,
             displayName: action.payload.displayName,
             price: action.payload.price,
-            quantity: parseInt(action.payload.itemQuantity),
+            quantity: action.payload.itemQuantity,
             displayImage: action.payload.displayImage
          }
          const foundElementIndex = searchForStartingIndexInStateCartItems(action.payload._id, state.cartItems)
@@ -42,7 +42,7 @@ export const CartSlice = createSlice({
          if (foundElementIndex >= 0 && foundCartItemInState !== undefined) {
             //  Ha true akkor van ilyen elem és át kell írni a quantity-t
             // Megkeresni az ID alapján és annak a qty-jét módosítani
-            singleCartItem.quantity = foundCartItemInState.quantity + parseInt(action.payload.itemQuantity)
+            singleCartItem.quantity = foundCartItemInState.quantity + action.payload.itemQuantity
             state.cartItems.splice(foundElementIndex, 1, singleCartItem)
             calculateTotalPriceAndQuantity(state)
          } else {
@@ -121,7 +121,7 @@ export const fetchCartItemsFromDB = () => async (dispatch: Dispatch) => {
       .then(
          (
             cartItems: AxiosResponse<
-               { quantity: string; displayImage: string; itemId: string; price: number; displayName: string }[]
+               { quantity: number; displayImage: string; itemId: string; price: number; displayName: string }[]
             >
          ) => {
             if (cartItems.data.length > 0) {

@@ -1,12 +1,11 @@
 import React, { useRef, useState, useContext, useEffect } from 'react'
-import styles from './CardExpand.module.css'
 import NumberFormat from 'react-number-format'
 import { useHistory } from 'react-router'
 import { ProductContext } from '../../Context/ShopContext'
 import { useAppSelector } from '../../../../app/hooks'
 
-import { StyledCard, ImageContainer, Image, CardBody, SubTitleStyle, PriceStyle } from './CardStyle'
-import { CSSTransition } from 'react-transition-group'
+import { SubTitleStyle, CustomCard } from './CardStyle'
+import { CardMedia, CardContent, Typography, Collapse } from '@mui/material'
 
 const RatingCount = React.lazy(() => import('./Ratings/RatingCount'))
 const CardFooter = React.lazy(() => import('./CardFooter'))
@@ -21,11 +20,9 @@ const ProductCard: React.FC<ProductCardType> = ({
    ratingCount
 }) => {
    const [isCardExpanded, setIsCardExpanded] = useState<boolean>(true)
-   const [quantityToCart, setQuantityToCart] = useState<string>('1')
    const isMobile = useAppSelector((state) => state.mobile.isMobile)
 
    const history = useHistory()
-   const expandRef = useRef(null)
    const { _id, productName, price } = useContext(ProductContext)
 
    useEffect(() => {
@@ -40,40 +37,31 @@ const ProductCard: React.FC<ProductCardType> = ({
    }
 
    return (
-      <StyledCard
+      <CustomCard
          isCardExpanded={isCardExpanded}
+         raised={isCardExpanded}
+         sx={{ maxWidth: 250, minHeight: 350 }}
          onMouseEnter={() => setIsCardExpanded(true)}
          onMouseLeave={() => setIsCardExpanded(false)}>
          {ratingCount !== undefined && ratingCount > 0 && <RatingCount ratingCount={ratingCount} />}
-         <ImageContainer onClick={() => routeToDetailsPage()}>
-            <Image src={pictureUrls[0]} alt='' />
-         </ImageContainer>
-         <CardBody onClick={() => routeToDetailsPage()}>
+         <CardMedia
+            sx={{ cursor: 'pointer' }}
+            onClick={() => routeToDetailsPage()}
+            component='img'
+            height='175'
+            image={pictureUrls[0]}
+            alt='green iguana'
+         />
+         <CardContent sx={{ cursor: 'pointer' }} onClick={() => routeToDetailsPage()}>
             <SubTitleStyle>{productName}</SubTitleStyle>
-            <PriceStyle>
+            <Typography variant='h5' color='primary'>
                <NumberFormat value={price} thousandSeparator=' ' suffix=' Ft' displayType='text' />
-            </PriceStyle>
-         </CardBody>
-         <CSSTransition
-            in={isCardExpanded}
-            unmountOnExit
-            mountOnEnter
-            timeout={150}
-            nodeRef={expandRef}
-            classNames={{
-               enter: styles.ExpandEnter,
-               enterActive: styles.ExpandEnterActive,
-               exit: styles.ExpandExit,
-               exitActive: styles.ExpandExitActive
-            }}>
-            <CardFooter
-               productType={pathNameForDetailsURL}
-               quantityValue={quantityToCart}
-               changeEvent={(event) => setQuantityToCart(event.target.value)}
-               reference={expandRef}
-            />
-         </CSSTransition>
-      </StyledCard>
+            </Typography>
+         </CardContent>
+         <Collapse in={isCardExpanded} mountOnEnter unmountOnExit collapsedSize={0} timeout={150} orientation='vertical'>
+            <CardFooter productType={pathNameForDetailsURL} />
+         </Collapse>
+      </CustomCard>
    )
 }
 

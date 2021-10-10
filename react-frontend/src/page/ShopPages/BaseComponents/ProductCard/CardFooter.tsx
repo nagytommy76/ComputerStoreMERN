@@ -1,34 +1,31 @@
 import React, { useContext } from 'react'
-import { CardFooterStyle, FooterCartQuantityStyle, FooterCartAddToCart } from './CardStyle'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { CardFooterStyle } from './CardStyle'
 import { useAppDispatch } from '../../../../app/hooks'
 import { ProductContext } from '../../Context/ShopContext'
 import { sendCartItemToSaveInDB } from '../../../../app/slices/CartSlice'
 
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
+import { CardActions, Button } from '@mui/material'
+
 type Props = {
    productType: string
-   reference: React.MutableRefObject<null>
-   quantityValue: string
-   changeEvent: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const CardFooter: React.FC<Props> = ({ productType, reference, quantityValue, changeEvent }) => {
+const CardFooter: React.FC<Props> = ({ productType }) => {
    const dispatch = useAppDispatch()
    const { _id, productName, price, displayImage } = useContext(ProductContext)
    const addItemToCart = () => {
       dispatch(
-         sendCartItemToSaveInDB(
-            { _id, displayName: productName, price, itemQuantity: quantityValue, displayImage },
-            `${productType}product`
-         )
+         sendCartItemToSaveInDB({ _id, displayName: productName, price, itemQuantity: 1, displayImage }, `${productType}product`)
       )
    }
    return (
-      <CardFooterStyle ref={reference}>
-         <FooterCartQuantityStyle value={quantityValue} type='number' onChange={changeEvent} />
-         <FooterCartAddToCart onClick={addItemToCart}>
-            <FontAwesomeIcon icon={['fas', 'cart-plus']} size='2x' />
-         </FooterCartAddToCart>
+      <CardFooterStyle>
+         <CardActions>
+            <Button onClick={addItemToCart} variant='outlined' color='success' size='large' endIcon={<AddShoppingCartIcon />}>
+               Kosárba
+            </Button>
+         </CardActions>
       </CardFooterStyle>
    )
 }

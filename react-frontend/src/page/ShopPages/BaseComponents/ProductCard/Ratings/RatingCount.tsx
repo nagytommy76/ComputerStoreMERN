@@ -10,10 +10,10 @@ const RatingCount: React.FC<{ ratingCount: number }> = ({ ratingCount }) => {
 }
 
 const StyledCount = styled.div`
-   width: 30px;
-   height: 30px;
-   background-color: #817e5c;
-   color: white;
+   width: 32px;
+   height: 32px;
+   background-color: #e9ac06;
+   color: #000;
    position: absolute;
    right: 0;
 
