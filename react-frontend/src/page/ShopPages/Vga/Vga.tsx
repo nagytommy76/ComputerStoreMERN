@@ -12,8 +12,8 @@ const SideFilter = React.lazy(() => import('../BaseComponents/SideFilter/SideFil
 const Vga = () => {
    const [vgaProducts, setVgaProducts] = useState<VgaType[]>([])
    return (
-      <Suspense fallback={<Container />}>
-         <PageContainer>
+      <PageContainer>
+         <Suspense fallback={<Container />}>
             <SideFilter setProducts={setVgaProducts} productType='vga' />
             <RightFlexContainer>
                <CardGridContainer>
@@ -43,8 +43,8 @@ const Vga = () => {
                </CardGridContainer>
                <Pagination />
             </RightFlexContainer>
-         </PageContainer>
-      </Suspense>
+         </Suspense>
+      </PageContainer>
    )
 }
 

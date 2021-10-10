@@ -42,12 +42,11 @@ const PageContainer = styled.section`
 
 const GridContainer = styled.div`
    display: grid;
-   width: 85%;
+   width: 80%;
    row-gap: 3rem;
    column-gap: 2rem;
-   justify-content: center;
    min-width: 0;
-   min-height: 0;
+   min-height: 100vh;
    grid-template-columns: repeat(auto-fit, minmax(250px, 250px));
    grid-template-rows: repeat(auto-fit, 380px);
 `

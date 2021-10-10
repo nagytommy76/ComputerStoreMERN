@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { FilterTypes } from '../BaseTypes'
 import axios from 'axios'
-import { useAppDispatch } from '../../../app/hooks'
-import { setIsFilterLoading } from '../../../app/slices/SuspenseSlice'
 
 const useFilter = (productType: string, setIsFilter: (value: React.SetStateAction<boolean>) => void) => {
-   const dispatch = useAppDispatch()
    const [filterOptions, setFilterOptions] = useState<FilterTypes>({
       allManufacturer: [],
       selectedManufacturer: '',
@@ -16,7 +13,6 @@ const useFilter = (productType: string, setIsFilter: (value: React.SetStateActio
    })
 
    const getFilterData = async () => {
-      dispatch(setIsFilterLoading(true))
       const filterData = await axios.get(`${productType}/filter-data`)
       if (filterData.status === 200) {
          setFilterOptions({
@@ -26,7 +22,6 @@ const useFilter = (productType: string, setIsFilter: (value: React.SetStateActio
             allManufacturer: filterData.data.allManufacturers,
             selectedPrice: [filterData.data.minPrice, filterData.data.maxPrice]
          })
-         dispatch(setIsFilterLoading(false))
          setIsFilter(true)
       }
    }

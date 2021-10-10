@@ -6,11 +6,11 @@ const Style = { margin: '2rem auto' }
 
 const FilterSuspense = () => {
    return (
-      <Card sx={{ width: 270, minHeight: '100%' }}>
+      <Card sx={{ width: 270, minHeight: '100%', marginTop: '-1.5rem' }}>
          <Skeleton height={30} width='50%' sx={Style} animation='wave' variant='rectangular' />
-         <Skeleton height={50} width='85%' sx={Style} animation='wave' variant='rectangular' />
-         <Skeleton height={50} width='85%' sx={Style} animation='wave' variant='rectangular' />
-         <Skeleton height={50} width='85%' sx={Style} animation='wave' variant='rectangular' />
+         <Skeleton height={60} width='85%' sx={Style} animation='wave' variant='rectangular' />
+         <Skeleton height={60} width='85%' sx={Style} animation='wave' variant='rectangular' />
+         <Skeleton height={60} width='85%' sx={Style} animation='wave' variant='rectangular' />
          <Skeleton height={20} width='85%' sx={Style} animation='wave' variant='text' />
       </Card>
    )

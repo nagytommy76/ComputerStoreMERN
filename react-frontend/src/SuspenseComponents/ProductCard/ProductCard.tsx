@@ -4,7 +4,7 @@ import { Card } from '@mui/material'
 
 const ProductCard = () => {
    return (
-      <Card sx={{ width: 250, m: 2 }}>
+      <Card sx={{ width: 250 }}>
          <Skeleton sx={{ height: 175 }} animation='wave' variant='rectangular' />
          <Skeleton sx={{ marginTop: 1, marginLeft: 1 }} animation='wave' height={20} width='80%' />
          <Skeleton sx={{ marginLeft: 1 }} animation='wave' height={20} width='60%' />
