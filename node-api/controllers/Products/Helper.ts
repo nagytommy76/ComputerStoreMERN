@@ -5,7 +5,7 @@ export const returnProductModelWithPaginateInfo = async (ProductModel: Model<any
    const currentPage = parseInt(req.query.currentPage) || 1
    const perPage = parseInt(req.query.perPage) || 10
    const orderBy = req.query.orderBy || 'asc'
-   const byManufacturer = req.query.byManufacturer || ''
+   const byManufacturer = req.query.byManufacturer == 'all' ? '' : req.query.byManufacturer
    const priceRange = req.query.priceRange.split(',') || [0, 5000000]
 
    let totalItems: number

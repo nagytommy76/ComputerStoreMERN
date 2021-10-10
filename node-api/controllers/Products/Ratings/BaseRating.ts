@@ -42,8 +42,6 @@ export const likeDislikeCommentHelper = async (req: LikeQuery, res: Response, Pr
       const foundComment = foundProduct.ratingValues.filter((comment: RatingValues) => comment._id == req.body.commentId)
 
       // A user a saját kommentjét ne tudja like/dislikeolni
-      console.log(req.user?._id)
-      console.log(foundComment)
       if (foundComment[0].userId == req.user?._id) {
          return res.status(405).json({ message: 'A saját kommented nem like-olhatod :)' })
       }
@@ -60,10 +58,10 @@ export const likeDislikeCommentHelper = async (req: LikeQuery, res: Response, Pr
             )
          ) {
             return res.status(405).json({ message: 'Már értékelted a kommentet' })
-         }
+         } else foundComment[0].responses.push({ isLike: req.body.isLike, userId: req.user?._id })
       }
       foundProduct.save()
-      return res.sendStatus(201)
+      return res.status(201).json({ responses: foundComment[0].responses })
    }
    return res.sendStatus(404)
 }
