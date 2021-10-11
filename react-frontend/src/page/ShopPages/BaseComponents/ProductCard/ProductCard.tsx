@@ -1,4 +1,4 @@
-import React, { useRef, useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import NumberFormat from 'react-number-format'
 import { useHistory } from 'react-router'
 import { ProductContext } from '../../Context/ShopContext'

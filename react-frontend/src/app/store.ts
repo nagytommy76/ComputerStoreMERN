@@ -7,12 +7,16 @@ import ThemeSlice from './slices/ThemeSlice'
 import CartSlice from './slices/CartSlice'
 import MobileSlice from './slices/MobileSlice'
 import PaginateSlice from './slices/PaginateSlice'
+import ProductSlice from './slices/ProductsSlice'
+import FilterDataSlice from './slices/FilterDataSlice'
 
 export const store = configureStore({
    reducer: {
       auth: persistReducer({ key: 'AuthUser', storage }, authSlice),
       theme: persistReducer({ key: 'Theme', storage }, ThemeSlice),
       cart: persistReducer({ key: 'Cart', storage }, CartSlice),
+      products: persistReducer({ key: 'Products', storage }, ProductSlice),
+      filter: persistReducer({ key: 'FilterData', storage }, FilterDataSlice),
       paginate: PaginateSlice,
       mobile: MobileSlice
    },

@@ -1,20 +1,22 @@
-import React, { useState, Suspense } from 'react'
+import React, { /*useState,*/ Suspense } from 'react'
 import Container from '../../../SuspenseComponents/ProductCard/Container'
 import { CardGridContainer, PageContainer, RightFlexContainer } from '../BaseStyleForShopPage'
-import { VgaType } from './VgaTypes'
+// import { VgaType } from './VgaTypes'
 
 import { ProductContext } from '../Context/ShopContext'
+import { useAppSelector } from '../../../app/hooks'
 
 const ProductCard = React.lazy(() => import('../BaseComponents/ProductCard/ProductCard'))
 const Pagination = React.lazy(() => import('../BaseComponents/Pagination/Pagination'))
 const SideFilter = React.lazy(() => import('../BaseComponents/SideFilter/SideFilter'))
 
 const Vga = () => {
-   const [vgaProducts, setVgaProducts] = useState<VgaType[]>([])
+   // const [vgaProducts, setVgaProducts] = useState<VgaType[]>([])
+   const vgaProducts = useAppSelector((state) => state.products.products)
    return (
       <PageContainer>
          <Suspense fallback={<Container />}>
-            <SideFilter setProducts={setVgaProducts} productType='vga' />
+            <SideFilter productType='vga' />
             <RightFlexContainer>
                <CardGridContainer>
                   {vgaProducts.map((product) => (

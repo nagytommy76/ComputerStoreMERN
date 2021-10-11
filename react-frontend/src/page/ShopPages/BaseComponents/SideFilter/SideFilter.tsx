@@ -3,7 +3,7 @@ import { useAppSelector } from '../../../../app/hooks'
 import useFilter from '../../Hooks/UseFilter'
 import useGetProducts from '../../Hooks/useGetProducts'
 import { StyledFilter, MainTitle } from './FilterStyle'
-import { SideFilterContext } from './Context'
+// import { SideFilterContext } from './Context'
 
 const OrderByPrice = React.lazy(() => import('./Includes/OrderByPrice'))
 const ByManufacturer = React.lazy(() => import('./Includes/ByManufacturer'))
@@ -14,28 +14,28 @@ const SideFilter: React.FC<Props> = ({ setProducts, productType }) => {
    const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
    const [isFilter, setIsFilter] = useState<boolean>(false)
 
-   const { filterOptions, setFilterOptions } = useFilter(productType, setIsFilter)
-   useGetProducts(filterOptions, setProducts, productType, isFilter)
+   useFilter(productType, setIsFilter)
+   useGetProducts(productType, isFilter)
 
    return (
-      <SideFilterContext.Provider
+      /*<SideFilterContext.Provider
          value={{
             setFilterOptions,
             filterOptions
-         }}>
-         <StyledFilter isDarkTheme={isDarkTheme}>
-            <MainTitle>Szűrés</MainTitle>
-            <PerPage />
-            <OrderByPrice />
-            <ByManufacturer />
-            <PriceRange />
-         </StyledFilter>
-      </SideFilterContext.Provider>
+         }}>*/
+      <StyledFilter isDarkTheme={isDarkTheme}>
+         <MainTitle>Szűrés</MainTitle>
+         <PerPage />
+         <OrderByPrice />
+         <ByManufacturer />
+         <PriceRange />
+      </StyledFilter>
+      /*</SideFilterContext.Provider>*/
    )
 }
 
 type Props = {
-   setProducts: React.Dispatch<React.SetStateAction<any>>
+   setProducts?: React.Dispatch<React.SetStateAction<any>>
    productType: string
 }
 

@@ -58,8 +58,8 @@ const App = () => {
          <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
             <BrowserRouter>
                <GlobalStyles />
+               <Navbar />
                <Suspense fallback={<PageSuspense />}>
-                  <Navbar />
                   <Switch>
                      <Route path='/' exact component={Welcome} />
                      <Route path='/vga/vga-details' component={VgaDetails} />
@@ -72,8 +72,8 @@ const App = () => {
                      <AdminRoute path='/admin' component={Admin} />
                      <Route component={Page404} />
                   </Switch>
-                  <Footer />
                </Suspense>
+               <Footer />
             </BrowserRouter>
          </ThemeProvider>
       </MUIThemeProvider>

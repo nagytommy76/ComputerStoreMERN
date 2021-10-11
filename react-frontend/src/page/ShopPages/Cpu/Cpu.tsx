@@ -1,20 +1,22 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Container from '../../../SuspenseComponents/ProductCard/Container'
 import { CardGridContainer, PageContainer, RightFlexContainer } from '../BaseStyleForShopPage'
-import { CpuProductType } from './CpuTypes'
+// import { CpuProductType } from './CpuTypes'
 import { ProductContext } from '../Context/ShopContext'
+import { useAppSelector } from '../../../app/hooks'
 
 const SideFilter = React.lazy(() => import('../BaseComponents/SideFilter/SideFilter'))
 const ProductCard = React.lazy(() => import('../BaseComponents/ProductCard/ProductCard'))
 const Pagination = React.lazy(() => import('../BaseComponents/Pagination/Pagination'))
 
 const Cpu = () => {
-   const [cpuProducts, setCpuProducts] = useState<CpuProductType[]>([])
+   // const [cpuProducts, setCpuProducts] = useState<CpuProductType[]>([])
+   const cpuProducts = useAppSelector((state) => state.products.products)
 
    return (
       <PageContainer>
          <React.Suspense fallback={<Container />}>
-            <SideFilter setProducts={setCpuProducts} productType='cpu' />
+            <SideFilter productType='cpu' />
             <RightFlexContainer>
                <CardGridContainer>
                   {cpuProducts.map((cpu) => (
