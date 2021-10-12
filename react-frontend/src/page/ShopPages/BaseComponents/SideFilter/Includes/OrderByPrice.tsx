@@ -1,14 +1,12 @@
-import React /*, { useContext } */ from 'react'
-// import { SideFilterContext } from '../Context'
+import React from 'react'
 import { InputContainer } from '../FilterStyle'
 import { TextField } from '@mui/material'
 import { useAppSelector, useAppDispatch } from '../../../../../app/hooks'
 import { setOrderBy } from '../../../../../app/slices/FilterDataSlice'
 
 const OrderByPrice: React.FC = () => {
-   // const { filterOptions, setFilterOptions } = useContext(SideFilterContext)
    const dispatch = useAppDispatch()
-   const filterOptions = useAppSelector((state) => state.filter.filterData)
+   const orderBy = useAppSelector((state) => state.filter.filterData.orderBy)
    return (
       <InputContainer>
          <TextField
@@ -19,7 +17,7 @@ const OrderByPrice: React.FC = () => {
             variant='filled'
             color='primary'
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => dispatch(setOrderBy(event.target.value))}
-            value={filterOptions.orderBy}
+            value={orderBy}
             SelectProps={{
                native: true
             }}>

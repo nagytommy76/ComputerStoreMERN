@@ -1,7 +1,6 @@
 import React from 'react'
 import Container from '../../../SuspenseComponents/ProductCard/Container'
 import { CardGridContainer, PageContainer, RightFlexContainer } from '../BaseStyleForShopPage'
-// import { CpuProductType } from './CpuTypes'
 import { ProductContext } from '../Context/ShopContext'
 import { useAppSelector } from '../../../app/hooks'
 
@@ -10,7 +9,6 @@ const ProductCard = React.lazy(() => import('../BaseComponents/ProductCard/Produ
 const Pagination = React.lazy(() => import('../BaseComponents/Pagination/Pagination'))
 
 const Cpu = () => {
-   // const [cpuProducts, setCpuProducts] = useState<CpuProductType[]>([])
    const cpuProducts = useAppSelector((state) => state.products.products)
 
    return (

@@ -1,14 +1,12 @@
-import React /*, { useContext }*/ from 'react'
-// import { SideFilterContext } from '../Context'
+import React from 'react'
 import { InputContainer } from '../FilterStyle'
 import { TextField } from '@mui/material'
 import { useAppSelector, useAppDispatch } from '../../../../../app/hooks'
 import { setSelectedManufacturer } from '../../../../../app/slices/FilterDataSlice'
 
 const ByManufacturer: React.FC = () => {
-   // const { setFilterOptions, filterOptions } = useContext(SideFilterContext)
    const dispatch = useAppDispatch()
-   const filterOptions = useAppSelector((state) => state.filter.filterData)
+   const { allManufacturer, selectedManufacturer } = useAppSelector((state) => state.filter.filterData)
    return (
       <InputContainer>
          <TextField
@@ -19,12 +17,12 @@ const ByManufacturer: React.FC = () => {
             helperText='Szűrés gyártók szerint'
             variant='filled'
             color='primary'
-            value={filterOptions.selectedManufacturer}
+            value={selectedManufacturer}
             SelectProps={{
                native: true
             }}>
             <option value='all'>Összes</option>
-            {filterOptions.allManufacturer.map((man, index) => (
+            {allManufacturer.map((man, index) => (
                <option key={index} value={man}>
                   {man}
                </option>

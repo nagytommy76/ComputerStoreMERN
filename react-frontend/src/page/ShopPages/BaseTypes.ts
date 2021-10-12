@@ -17,6 +17,7 @@ export type FilterTypes = {
    selectedPrice: number[]
    allManufacturer: string[]
    selectedManufacturer: string
+   productType: string
 }
 
 export type LocationType = {

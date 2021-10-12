@@ -1,16 +1,14 @@
 import { useEffect } from 'react'
 import axios from 'axios'
-// import { FilterTypes } from '../BaseTypes'
 
 import { setTotalPages } from '../../../app/slices/PaginateSlice'
 import { useAppSelector, useAppDispatch } from '../../../app/hooks'
 import { setProducts } from '../../../app/slices/ProductsSlice'
 
 const useGetProducts = (
-   /*filterOptions: FilterTypes,*/
-   /*setProducts: (value: React.SetStateAction<any[]>) => void,*/
    productTypeForURL: string,
-   isFilter: boolean
+   isFilter: boolean /*,
+stateFilters: { selectedManufacturer: string; selectedPrice: number[] }*/
 ) => {
    const dispatch = useAppDispatch()
    const currentPage = useAppSelector((state) => state.paginate.currentPage)
@@ -35,7 +33,7 @@ const useGetProducts = (
    }
 
    useEffect(() => {
-      if (isFilter) getProductsByQueries()
+      if (isFilter || filterOptions.productType !== productTypeForURL) getProductsByQueries()
       // eslint-disable-next-line
    }, [
       productTypeForURL,
@@ -43,8 +41,7 @@ const useGetProducts = (
       perPage,
       filterOptions.selectedManufacturer,
       filterOptions.selectedPrice,
-      filterOptions.orderBy,
-      isFilter
+      filterOptions.orderBy
    ])
 }
 
