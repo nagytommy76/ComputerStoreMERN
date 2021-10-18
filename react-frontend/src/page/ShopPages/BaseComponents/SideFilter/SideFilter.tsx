@@ -13,9 +13,10 @@ const PerPage = React.lazy(() => import('./Includes/PerPage'))
 const SideFilter: React.FC<Props> = ({ productType }) => {
    const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
    const [isFilter, setIsFilter] = useState<boolean>(false)
+   const [isPriceRangeSet, setIsPriceRangeSet] = useState<boolean>(false)
 
-   useFilter(productType, setIsFilter)
-   useGetProducts(productType, isFilter)
+   useFilter(productType, setIsFilter, setIsPriceRangeSet)
+   useGetProducts(productType, isFilter, isPriceRangeSet)
 
    return (
       // <SideFilterContext.Provider
@@ -28,7 +29,7 @@ const SideFilter: React.FC<Props> = ({ productType }) => {
          <PerPage />
          <OrderByPrice />
          <ByManufacturer />
-         <PriceRange />
+         <PriceRange setIsPriceRangeSet={setIsPriceRangeSet} />
       </StyledFilter>
       // </SideFilterContext.Provider>
    )

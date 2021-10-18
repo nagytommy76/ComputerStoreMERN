@@ -8,7 +8,7 @@ const initialState: InitialState = {
       maxPrice: 200,
       minPrice: 0,
       orderBy: 'asc',
-      selectedPrice: [0, 5000000],
+      priceRange: [0, 5000000],
       productType: ''
    }
 }
@@ -38,7 +38,7 @@ const FilterDataSlice = createSlice({
          state.filterData.orderBy = action.payload || 'asc'
       },
       setPriceRange: (state, action: PayloadAction<number[]>) => {
-         state.filterData.selectedPrice = action.payload || [0, 5000000]
+         state.filterData.priceRange = action.payload || [0, 5000000]
       },
       setProductType: (state, action: PayloadAction<string>) => {
          state.filterData.productType = action.payload
