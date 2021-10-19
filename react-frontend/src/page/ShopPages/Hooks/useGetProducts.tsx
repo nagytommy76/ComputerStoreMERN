@@ -4,12 +4,11 @@ import axios from 'axios'
 import { setTotalPages } from '../../../app/slices/PaginateSlice'
 import { useAppSelector, useAppDispatch } from '../../../app/hooks'
 import { setProducts } from '../../../app/slices/ProductsSlice'
-import useMounted from './UseMounted'
 
 const useGetProducts = (
    productTypeForURL: string,
    isFilter: boolean,
-   isPriceRangeSet: boolean
+   isPriceRangeSet?: boolean
    /*,
 stateFilters: { selectedManufacturer: string; selectedPrice: number[] }*/
 ) => {
@@ -17,7 +16,6 @@ stateFilters: { selectedManufacturer: string; selectedPrice: number[] }*/
    const currentPage = useAppSelector((state) => state.paginate.currentPage)
    const perPage = useAppSelector((state) => state.paginate.perPage)
    const filterOptions = useAppSelector((state) => state.filter.filterData)
-   const isMounted = useMounted()
 
    const getProductsByQueries = async () => {
       const product = await axios.get(
@@ -38,7 +36,7 @@ stateFilters: { selectedManufacturer: string; selectedPrice: number[] }*/
 
    useEffect(() => {
       // console.log(filterOptions.minPrice)
-      // console.log(filterOptions.priceRange[0])
+      // console.log(isPriceRangeSet)
       if (isFilter /*|| filterOptions.productType !== productTypeForURL*/) getProductsByQueries()
       // eslint-disable-next-line
    }, [
@@ -48,7 +46,7 @@ stateFilters: { selectedManufacturer: string; selectedPrice: number[] }*/
       perPage,
       filterOptions.selectedManufacturer,
       /*filterOptions.priceRange,*/
-      isPriceRangeSet,
+      // isPriceRangeSet,
       filterOptions.orderBy
    ])
 }

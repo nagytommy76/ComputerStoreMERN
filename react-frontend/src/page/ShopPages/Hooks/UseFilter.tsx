@@ -6,7 +6,7 @@ import { setAllManufacturer, setMinPrice, setMaxPrice, setProductType, setPriceR
 const useFilter = (
    productType: string,
    setIsFilter: (value: React.SetStateAction<boolean>) => void,
-   setIsPriceRangeSet: (value: React.SetStateAction<boolean>) => void
+   setIsPriceRangeSet?: (value: React.SetStateAction<boolean>) => void
 ) => {
    const dispatch = useAppDispatch()
    const filterOptions = useAppSelector((state) => state.filter.filterData)

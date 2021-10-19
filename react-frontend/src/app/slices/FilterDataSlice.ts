@@ -10,7 +10,8 @@ const initialState: InitialState = {
       orderBy: 'asc',
       priceRange: [0, 5000000],
       productType: ''
-   }
+   },
+   isPriceRangeSet: false
 }
 
 const FilterDataSlice = createSlice({
@@ -42,6 +43,9 @@ const FilterDataSlice = createSlice({
       },
       setProductType: (state, action: PayloadAction<string>) => {
          state.filterData.productType = action.payload
+      },
+      setIsPriceRangeSet: (state, action: PayloadAction<boolean>) => {
+         state.isPriceRangeSet = action.payload
       }
    }
 })
@@ -54,11 +58,13 @@ export const {
    setMinPrice,
    setOrderBy,
    setPriceRange,
-   setProductType
+   setProductType,
+   setIsPriceRangeSet
 } = FilterDataSlice.actions
 
 export default FilterDataSlice.reducer
 
 type InitialState = {
+   isPriceRangeSet: boolean
    filterData: FilterTypes
 }
