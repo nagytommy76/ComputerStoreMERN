@@ -1,12 +1,18 @@
 import React from 'react'
 import { useAppDispatch, useAppSelector } from '../../../../../app/hooks'
 import { setPerPage } from '../../../../../app/slices/PaginateSlice'
+import { setIsPriceRangeSet } from '../../../../../app/slices/FilterDataSlice'
 import { InputContainer } from '../FilterStyle'
 import { TextField } from '@mui/material'
 
 const PerPage: React.FC = () => {
    const dispatch = useAppDispatch()
    const perPage = useAppSelector((state) => state.paginate.perPage)
+
+   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      dispatch(setPerPage(parseInt(event.target.value)))
+      dispatch(setIsPriceRangeSet(true))
+   }
    return (
       <InputContainer>
          <TextField
@@ -16,7 +22,7 @@ const PerPage: React.FC = () => {
             helperText='Oldalankénti termékek'
             variant='filled'
             color='primary'
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => dispatch(setPerPage(parseInt(event.target.value)))}
+            onChange={handleChange}
             value={perPage}
             SelectProps={{
                native: true

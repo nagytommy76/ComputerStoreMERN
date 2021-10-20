@@ -4,6 +4,7 @@ import { setCurrentPage } from '../../../../app/slices/PaginateSlice'
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
 
 import { Pagination as MUIPagination } from '@mui/material'
+import { setIsPriceRangeSet } from '../../../../app/slices/FilterDataSlice'
 
 const Pagination: React.FC = () => {
    const dispatch = useAppDispatch()
@@ -12,6 +13,7 @@ const Pagination: React.FC = () => {
 
    const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
       dispatch(setCurrentPage(value))
+      dispatch(setIsPriceRangeSet(true))
    }
    return (
       <Container>

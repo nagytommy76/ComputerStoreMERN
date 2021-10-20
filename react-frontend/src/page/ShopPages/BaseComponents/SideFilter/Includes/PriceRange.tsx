@@ -1,26 +1,23 @@
-import React, { /* useState,*/ useRef } from 'react'
+import React, { useState } from 'react'
 import { InputContainer } from '../FilterStyle'
 import NumberFormat from 'react-number-format'
 import { Slider, FormLabel, FormControl } from '@mui/material'
 
 import { useAppSelector, useAppDispatch } from '../../../../../app/hooks'
-import { setPriceRange } from '../../../../../app/slices/FilterDataSlice'
+import { setPriceRange, setIsPriceRangeSet } from '../../../../../app/slices/FilterDataSlice'
 
-const PriceRange: React.FC<{ setIsPriceRangeSet: any }> = ({ setIsPriceRangeSet }) => {
+const PriceRange: React.FC = () => {
    const dispatch = useAppDispatch()
    const { minPrice, maxPrice, priceRange } = useAppSelector((state) => state.filter.filterData)
-   // const [localState, setLocalState] = useState<number[]>([minPrice, 5000000])
-
-   const localState = useRef<number[]>([minPrice, 5000000])
+   const [localState, setLocalState] = useState<number[]>([minPrice, 5000000])
 
    const setLocalStateOnChange = (event: Event, newValue: number | number[]) => {
-      localState.current = newValue as number[]
-      // setLocalState(newValue as number[])
+      setLocalState((newValue as number[]) || [0, 5000000])
    }
 
    const testFunction = (event: any, newValue: number | number[]) => {
       dispatch(setPriceRange(newValue as number[]))
-      setIsPriceRangeSet((prevValue: boolean) => !prevValue)
+      dispatch(setIsPriceRangeSet(true))
    }
 
    return (
@@ -35,9 +32,8 @@ const PriceRange: React.FC<{ setIsPriceRangeSet: any }> = ({ setIsPriceRangeSet 
                getAriaLabel={() => 'Price range'}
                min={minPrice}
                max={maxPrice}
-               value={localState.current as number[]}
+               value={localState as number[]}
                valueLabelDisplay='auto'
-               // onChangeCommitted={(event, newValue: number | number[]) => dispatch(setPriceRange(newValue as number[]))}
                onChangeCommitted={testFunction}
                onChange={setLocalStateOnChange}
             />

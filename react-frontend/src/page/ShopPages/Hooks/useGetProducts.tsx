@@ -4,17 +4,13 @@ import axios from 'axios'
 import { setTotalPages } from '../../../app/slices/PaginateSlice'
 import { useAppSelector, useAppDispatch } from '../../../app/hooks'
 import { setProducts } from '../../../app/slices/ProductsSlice'
+import { setIsPriceRangeSet } from '../../../app/slices/FilterDataSlice'
 
-const useGetProducts = (
-   productTypeForURL: string,
-   isFilter: boolean,
-   isPriceRangeSet?: boolean
-   /*,
-stateFilters: { selectedManufacturer: string; selectedPrice: number[] }*/
-) => {
+const useGetProducts = (productTypeForURL: string) => {
    const dispatch = useAppDispatch()
    const currentPage = useAppSelector((state) => state.paginate.currentPage)
    const perPage = useAppSelector((state) => state.paginate.perPage)
+   const isPriceRangeSet = useAppSelector((state) => state.filter.isPriceRangeSet)
    const filterOptions = useAppSelector((state) => state.filter.filterData)
 
    const getProductsByQueries = async () => {
@@ -31,22 +27,21 @@ stateFilters: { selectedManufacturer: string; selectedPrice: number[] }*/
       if (product.status === 200) {
          dispatch(setProducts(product.data.allProducts))
          dispatch(setTotalPages(product.data.totalPages))
+         dispatch(setIsPriceRangeSet(false))
       }
    }
 
    useEffect(() => {
-      // console.log(filterOptions.minPrice)
-      // console.log(isPriceRangeSet)
-      if (isFilter /*|| filterOptions.productType !== productTypeForURL*/) getProductsByQueries()
+      if (isPriceRangeSet) {
+         getProductsByQueries()
+      }
       // eslint-disable-next-line
    }, [
-      productTypeForURL,
-      filterOptions.productType,
       currentPage,
       perPage,
+      isPriceRangeSet,
       filterOptions.selectedManufacturer,
-      /*filterOptions.priceRange,*/
-      // isPriceRangeSet,
+      filterOptions.priceRange,
       filterOptions.orderBy
    ])
 }
