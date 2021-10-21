@@ -32,6 +32,7 @@ export const NavigationLink = styled.h4`
 // Head sections
 
 export const HeadSection = styled.section`
+   min-height: 50vh;
    display: flex;
    flex-direction: row;
    align-items: stretch;

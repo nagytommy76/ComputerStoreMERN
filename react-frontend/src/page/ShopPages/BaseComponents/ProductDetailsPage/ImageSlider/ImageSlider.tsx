@@ -12,7 +12,7 @@ const ImageSlider = () => {
    const { pictureUrls } = location.state
    return (
       <StyledSlideSection>
-         <Carousel animation='slide' autoPlay interval={6000}>
+         <Carousel indicatorContainerProps={{ style: { minHeight: '100%' } }} animation='slide' autoPlay={false} timeout={800}>
             {pictureUrls.map((image, index) => (
                <StyledImageContainer key={index}>
                   <a href={image} target='_blank' rel='noreferrer'>

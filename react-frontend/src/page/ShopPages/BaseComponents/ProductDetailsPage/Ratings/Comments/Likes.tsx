@@ -1,5 +1,6 @@
 import axios, { AxiosError } from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useAppSelector } from '../../../../../../app/hooks'
 import { useLocation } from 'react-router'
 import { LocationType } from '../../../../BaseTypes'
 import { ThumbsContainer, CustomThumbDown, CustomThumbUp, ThumbIconsContainer } from './CommentStyle'
@@ -13,6 +14,8 @@ const Likes: React.FC<{ productType: string; commentId: string; responses: Respo
    const {
       state: { _id }
    } = useLocation<LocationType>()
+
+   const isUserLoggedIn = useAppSelector((state) => state.auth.userLoggedIn)
 
    const [isOpen, setIsOpen] = useState<boolean>(false)
    const [tooltipText, setTooltipText] = useState<string>('')
@@ -33,19 +36,24 @@ const Likes: React.FC<{ productType: string; commentId: string; responses: Respo
    }, [responses])
 
    const handleLikeRequest = (isLike: boolean = true) => {
-      axios
-         .post(`/${productType}/${productType}-comment-like`, { isLike, productId: _id, commentId })
-         .then((result) => {
-            if (result.status === 201) {
-               countLikesAndDislikes(result.data.responses)
-            }
-         })
-         .catch((error: AxiosError) => {
-            if (error.response?.status === 405) {
-               setIsOpen(true)
-               setTooltipText(error.response.data.message)
-            }
-         })
+      if (!isUserLoggedIn) {
+         setIsOpen(true)
+         setTooltipText('Kérlek jelentkezz be a likeoláshoz :)')
+      } else {
+         axios
+            .post(`/${productType}/${productType}-comment-like`, { isLike, productId: _id, commentId })
+            .then((result) => {
+               if (result.status === 201) {
+                  countLikesAndDislikes(result.data.responses)
+               }
+            })
+            .catch((error: AxiosError) => {
+               if (error.response?.status === 405) {
+                  setIsOpen(true)
+                  setTooltipText(error.response.data.message)
+               }
+            })
+      }
    }
    return (
       <ClickAwayListener onClickAway={() => setIsOpen(false)}>
