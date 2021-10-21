@@ -37,7 +37,9 @@ export const baseFilterData = async (ProductModel: Model<any>, res: Response) =>
          minPrice: { $min: '$price' },
          allManufacturers: { $addToSet: '$manufacturer' }
       })
+      .sort({ allManufacturers: 1 })
       .then((allFilterData) => {
+         allFilterData[0].allManufacturers.sort()
          return res.status(200).json(allFilterData[0])
       })
       .catch((error) => res.status(500).json({ errorMessage: error }))
