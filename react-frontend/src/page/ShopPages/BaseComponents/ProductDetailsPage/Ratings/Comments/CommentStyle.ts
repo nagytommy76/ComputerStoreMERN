@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { styled as MUIStyled } from '@mui/system'
 import { Card } from '@mui/material'
 import { ThumbUp, ThumbDown } from '@mui/icons-material'
+import { mobileWindowSize } from '../../../../../../Theme/GlobalStyles'
 
 export const CommentCard = MUIStyled(Card)`
    margin-top: 2rem;
@@ -9,6 +10,10 @@ export const CommentCard = MUIStyled(Card)`
 
    display: flex;
    flex-direction: row;
+
+   @media (max-width: ${mobileWindowSize}) {
+      flex-direction: column;
+   }
 `
 
 export const LeftSide = styled.div`
@@ -20,6 +25,10 @@ export const RightSide = styled.div`
    display: flex;
    flex-direction: column;
    justify-content: space-between;
+   @media (max-width: ${mobileWindowSize}) {
+      margin-top: 1.5rem;
+      text-align: justify;
+   }
 `
 
 // Thumbs
@@ -29,6 +38,9 @@ export const ThumbsContainer = styled.div`
    align-items: center;
    width: 110px;
    justify-content: space-between;
+   @media (max-width: ${mobileWindowSize}) {
+      margin-top: 1.5rem;
+   }
 `
 
 export const ThumbIconsContainer = styled.span`

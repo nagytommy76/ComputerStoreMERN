@@ -38,7 +38,7 @@ const Likes: React.FC<{ productType: string; commentId: string; responses: Respo
    const handleLikeRequest = (isLike: boolean = true) => {
       if (!isUserLoggedIn) {
          setIsOpen(true)
-         setTooltipText('Kérlek jelentkezz be a likeoláshoz :)')
+         setTooltipText('Kérlek jelentkezz be a likeoláshoz!')
       } else {
          axios
             .post(`/${productType}/${productType}-comment-like`, { isLike, productId: _id, commentId })

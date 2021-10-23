@@ -17,6 +17,7 @@ const OrderByPrice: React.FC = () => {
          <TextField
             fullWidth
             select
+            aria-multiselectable
             label='Rendezés'
             helperText='Ár szerinti rendezés'
             variant='filled'

@@ -38,8 +38,8 @@ const ProductCard: React.FC<ProductCardType> = ({
 
    return (
       <CustomCard
-         isCardExpanded={isCardExpanded}
          raised={isCardExpanded}
+         isCardExpanded={isCardExpanded}
          sx={{ maxWidth: 250, minHeight: 350 }}
          onMouseEnter={() => setIsCardExpanded(true)}
          onMouseLeave={() => setIsCardExpanded(false)}>

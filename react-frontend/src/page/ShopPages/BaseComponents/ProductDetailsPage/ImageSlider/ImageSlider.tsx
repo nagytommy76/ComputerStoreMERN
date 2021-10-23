@@ -4,15 +4,23 @@ import { StyledSlideSection, StyledImageContainer, StyledImage } from './SliderS
 import Carousel from 'react-material-ui-carousel'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import { LocationType } from '../../../BaseTypes'
+import { useAppSelector } from '../../../../../app/hooks'
 
 // https://www.npmjs.com/package/react-material-ui-carousel
 
 const ImageSlider = () => {
    let location = useLocation<LocationType>()
    const { pictureUrls } = location.state
+   const mobileSize = useAppSelector((state) => state.mobile.isMobile)
    return (
       <StyledSlideSection>
-         <Carousel indicatorContainerProps={{ style: { minHeight: '100%' } }} animation='slide' autoPlay={false} timeout={800}>
+         <Carousel
+            fullHeightHover={mobileSize}
+            navButtonsAlwaysVisible={mobileSize}
+            indicatorContainerProps={{ style: { minHeight: '100%' } }}
+            animation='slide'
+            autoPlay={false}
+            timeout={800}>
             {pictureUrls.map((image, index) => (
                <StyledImageContainer key={index}>
                   <a href={image} target='_blank' rel='noreferrer'>
