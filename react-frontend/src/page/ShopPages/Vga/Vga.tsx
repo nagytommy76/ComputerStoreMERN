@@ -1,7 +1,6 @@
-import React, { /*useState,*/ Suspense } from 'react'
+import React, { Suspense } from 'react'
 import Container from '../../../SuspenseComponents/ProductCard/Container'
 import { CardGridContainer, PageContainer, RightFlexContainer } from '../BaseStyleForShopPage'
-// import { VgaType } from './VgaTypes'
 
 import { ProductContext } from '../Context/ShopContext'
 import { useAppSelector } from '../../../app/hooks'
@@ -11,7 +10,6 @@ const Pagination = React.lazy(() => import('../BaseComponents/Pagination/Paginat
 const SideFilter = React.lazy(() => import('../BaseComponents/SideFilter/SideFilter'))
 
 const Vga = () => {
-   // const [vgaProducts, setVgaProducts] = useState<VgaType[]>([])
    const vgaProducts = useAppSelector((state) => state.products.products)
    return (
       <PageContainer>

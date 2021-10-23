@@ -14,20 +14,24 @@ const useGetProducts = (productTypeForURL: string) => {
    const filterOptions = useAppSelector((state) => state.filter.filterData)
 
    const getProductsByQueries = async () => {
-      const product = await axios.get(
-         `/${productTypeForURL}?currentPage=${currentPage}&perPage=${perPage}&orderBy=${filterOptions.orderBy}&byManufacturer=${filterOptions.selectedManufacturer}&priceRange=${filterOptions.priceRange}`,
-         {
-            data: {
-               currentPage,
-               perPage,
-               filterOptions
+      try {
+         const product = await axios.get(
+            `/${productTypeForURL}?currentPage=${currentPage}&perPage=${perPage}&orderBy=${filterOptions.orderBy}&byManufacturer=${filterOptions.selectedManufacturer}&priceRange=${filterOptions.priceRange}`,
+            {
+               data: {
+                  currentPage,
+                  perPage,
+                  filterOptions
+               }
             }
+         )
+         if (product.status === 200) {
+            dispatch(setProducts(product.data.allProducts))
+            dispatch(setTotalPages(product.data.totalPages))
+            dispatch(setIsPriceRangeSet(false))
          }
-      )
-      if (product.status === 200) {
-         dispatch(setProducts(product.data.allProducts))
-         dispatch(setTotalPages(product.data.totalPages))
-         dispatch(setIsPriceRangeSet(false))
+      } catch (error) {
+         console.log(error)
       }
    }
 

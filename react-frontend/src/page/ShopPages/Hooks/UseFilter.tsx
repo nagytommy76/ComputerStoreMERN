@@ -16,13 +16,17 @@ const useFilter = (productType: string) => {
    const isPriceRangeSet = useAppSelector((state) => state.filter.isPriceRangeSet)
 
    const getFilterData = async () => {
-      const filterData = await axios.get(`${productType}/filter-data`)
-      if (filterData.status === 200) {
-         dispatch(setAllManufacturer(filterData.data.allManufacturers))
-         dispatch(setMinPrice(filterData.data.minPrice))
-         dispatch(setMaxPrice(filterData.data.maxPrice))
-         dispatch(setPriceRange([filterData.data.minPrice, filterData.data.maxPrice]))
-         dispatch(setIsPriceRangeSet(true))
+      try {
+         const filterData = await axios.get(`${productType}/filter-data`)
+         if (filterData.status === 200) {
+            dispatch(setAllManufacturer(filterData.data.allManufacturers))
+            dispatch(setMinPrice(filterData.data.minPrice))
+            dispatch(setMaxPrice(filterData.data.maxPrice))
+            dispatch(setPriceRange([filterData.data.minPrice, filterData.data.maxPrice]))
+            dispatch(setIsPriceRangeSet(true))
+         }
+      } catch (error) {
+         console.log(error)
       }
    }
 
