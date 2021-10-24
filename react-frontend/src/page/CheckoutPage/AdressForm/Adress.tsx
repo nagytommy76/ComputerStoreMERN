@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useAppSelector } from '../../../app/hooks'
 import { AdressFormStyle, FormControlRow, StyledHeading, BackgroundImageStyle, AdressContainer } from './AdressStyle'
-import AddressFormBacground from './AdressFormBackgound.jpg'
+// import AddressFormBacground from './AdressFormBackgound.jpg'
+import AddressFormBacground from './AdressBackG.jpg'
 import { UserDetails } from '../CheckoutTypes'
 import axios from 'axios'
 import { ValidationErrorWithAxiosError } from '../../Admin/Vga/Types'
@@ -19,8 +20,8 @@ const Adress = () => {
    const submitAdressForm = (event: React.MouseEvent) => {
       event.preventDefault()
       axios.post('/auth/insert-details', { userDetails }).catch((errors: ValidationErrorWithAxiosError) => {
-         console.log(errors.response?.data.errors)
-         if (errors.response?.data) setValidationErrors(errors.response.data.errors)
+         console.log(errors.response)
+         if (errors.response?.status === 422) setValidationErrors(errors.response.data.errors)
       })
    }
    const [userDetails, setUserDetails] = useState<UserDetails>({
@@ -63,6 +64,7 @@ const Adress = () => {
                   value={userDetails.firstName}
                   errorMsg={errorMsg(validationErrors, 'userDetails.firstName')}
                />
+
                <TextOrNumberInput
                   labelText='Keresztnév *'
                   onChangeEvent={(event: React.ChangeEvent<HTMLInputElement>) =>

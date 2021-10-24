@@ -20,7 +20,7 @@ export const BackgroundImageStyle = styled.div<{ backgroundImage: string }>`
    background-position: 50% 65%;
    background-repeat: no-repeat;
    background-size: cover;
-   filter: brightness(50%);
+   filter: brightness(40%);
 
    @media (max-width: ${mobileWindowSize}) {
       width: 100%;
