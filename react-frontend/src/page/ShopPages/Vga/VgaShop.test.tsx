@@ -126,11 +126,10 @@ describe('Vga shop filter functionality', () => {
       const manSelect = await screen.findAllByRole('combobox')
       mockedAxios.get.mockResolvedValueOnce(mockResolvedFilteredVgaProducts)
       userEvent.selectOptions(manSelect[2], [mockResolvedFilterData.data.allManufacturers[0]])
-      // screen.debug()
+
       await screen.findByRole('heading', {
          name: /PALIT RTX 3060 Ti 8GB GDDR6 Dual OC/i
       })
-      // screen.debug()
       expect(
          screen.queryByRole('heading', {
             name: /ASUS RX 6700 XT/i

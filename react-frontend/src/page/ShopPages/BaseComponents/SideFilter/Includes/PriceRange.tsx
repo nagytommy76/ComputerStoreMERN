@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { InputContainer } from '../FilterStyle'
 import NumberFormat from 'react-number-format'
 import { Slider, FormLabel, FormControl } from '@mui/material'
@@ -11,11 +11,15 @@ const PriceRange: React.FC = () => {
    const { minPrice, maxPrice, priceRange } = useAppSelector((state) => state.filter.filterData)
    const [localState, setLocalState] = useState<number[]>([minPrice, 5000000])
 
+   useEffect(() => {
+      setLocalState([priceRange[0], priceRange[1]])
+   }, [priceRange])
+
    const setLocalStateOnChange = (event: Event, newValue: number | number[]) => {
       setLocalState((newValue as number[]) || [0, 5000000])
    }
 
-   const testFunction = (event: any, newValue: number | number[]) => {
+   const changePriceRange = (event: any, newValue: number | number[]) => {
       dispatch(setPriceRange(newValue as number[]))
       dispatch(setIsPriceRangeSet(true))
    }
@@ -34,7 +38,7 @@ const PriceRange: React.FC = () => {
                max={maxPrice}
                value={localState as number[]}
                valueLabelDisplay='auto'
-               onChangeCommitted={testFunction}
+               onChangeCommitted={changePriceRange}
                onChange={setLocalStateOnChange}
             />
          </FormControl>
