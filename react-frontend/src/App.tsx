@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, Suspense, lazy } from 'react'
 import useAxiosSetup from './AxiosSetup/AxiosSetup'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { GuestsRoute, AdminRoute, AuthProtectedRoute } from './Routes/ProtectedRoute'
+import ScrollToTop from './Routes/ScrollToTop'
 
 import { ThemeProvider } from 'styled-components'
 import { ThemeProvider as MUIThemeProvider } from '@mui/material/styles'
@@ -59,6 +60,7 @@ const App = () => {
             <BrowserRouter>
                <GlobalStyles />
                <Navbar />
+               <ScrollToTop />
                <Suspense fallback={<PageSuspense />}>
                   <Switch>
                      <Route path='/' exact component={Welcome} />

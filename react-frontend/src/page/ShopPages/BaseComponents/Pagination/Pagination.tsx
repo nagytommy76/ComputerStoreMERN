@@ -12,8 +12,10 @@ const Pagination: React.FC = () => {
    const totalPages = useAppSelector((state) => state.paginate.totalPages)
 
    const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-      dispatch(setCurrentPage(value))
-      dispatch(setIsPriceRangeSet(true))
+      if (currentPage !== value) {
+         dispatch(setCurrentPage(value))
+         dispatch(setIsPriceRangeSet(true))
+      }
    }
    return (
       <Container>

@@ -17,10 +17,14 @@ const ImageSlider = () => {
          <Carousel
             fullHeightHover={mobileSize}
             navButtonsAlwaysVisible={mobileSize}
-            indicatorContainerProps={{ style: { minHeight: '100%' } }}
+            /*indicatorContainerProps={{ style: { minHeight: '100px' } }}*/
             animation='slide'
             autoPlay={false}
-            timeout={800}>
+            timeout={{
+               appear: 400,
+               enter: 400,
+               exit: 400
+            }}>
             {pictureUrls.map((image, index) => (
                <StyledImageContainer key={index}>
                   <a href={image} target='_blank' rel='noreferrer'>

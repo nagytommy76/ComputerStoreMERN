@@ -17,7 +17,7 @@ export const store = configureStore({
       cart: persistReducer({ key: 'Cart', storage }, CartSlice),
       products: persistReducer({ key: 'Products', storage }, ProductSlice),
       filter: persistReducer({ key: 'FilterData', storage }, FilterDataSlice),
-      paginate: PaginateSlice,
+      paginate: persistReducer({ key: 'Paginate', storage }, PaginateSlice),
       mobile: MobileSlice
    },
    middleware: getDefaultMiddleware({
