@@ -1,3 +1,4 @@
+import { amber } from '@mui/material/colors'
 import { createTheme } from '@mui/material/styles'
 import { useAppSelector } from '../app/hooks'
 
@@ -10,7 +11,7 @@ const useMaterialTheme = () => {
               palette: {
                  mode: 'dark',
                  primary: {
-                    main: '#df730e',
+                    main: amber[800],
                     contrastText: '#FFF'
                  },
                  secondary: {
@@ -29,7 +30,8 @@ const useMaterialTheme = () => {
               palette: {
                  mode: 'light',
                  primary: {
-                    main: '#df730e'
+                    main: amber[800],
+                    contrastText: '#000'
                  },
                  secondary: {
                     main: '#444'
@@ -46,5 +48,7 @@ const useMaterialTheme = () => {
    )
    return customMUITheme
 }
+
+//  main: '#df730e'
 
 export default useMaterialTheme

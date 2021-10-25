@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useAppSelector } from '../../../app/hooks'
-import { AdressFormStyle, FormControlRow, StyledHeading, BackgroundImageStyle, AdressContainer } from './AdressStyle'
+import { AdressFormStyle, FormControlRow, StyledHeading, /*BackgroundImageStyle, */ AdressContainer } from './AdressStyle'
 // import AddressFormBacground from './AdressFormBackgound.jpg'
-import AddressFormBacground from './AdressBackG.jpg'
+// import AddressFormBacground from './AdressBackG.jpg'
 import { UserDetails } from '../CheckoutTypes'
 import axios from 'axios'
 import { ValidationErrorWithAxiosError } from '../../Admin/Vga/Types'
 import { ValidationError } from '../../Admin/AdminTypes'
-import { errorMsg } from '../../Helpers/SetErrorMsg'
+import { errorMsg, errorMsgTest, ValidateErrors } from '../../Helpers/SetErrorMsg'
+
+import { TextField } from '@mui/material'
 
 const TextOrNumberInput = React.lazy(() => import('../../Admin/Components/InputFields/TextOrNumberInput'))
 const AdbancedButton = React.lazy(() => import('../../BaseElements/AdvancedButton/AdvancedButton'))
@@ -16,14 +18,6 @@ const Adress = () => {
    const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
    const [validationErrors, setValidationErrors] = useState<ValidationError[]>([])
    const [isSubmitBtnDisabled, setIsSubmitBtnDisabled] = useState<boolean>(false)
-
-   const submitAdressForm = (event: React.MouseEvent) => {
-      event.preventDefault()
-      axios.post('/auth/insert-details', { userDetails }).catch((errors: ValidationErrorWithAxiosError) => {
-         console.log(errors.response)
-         if (errors.response?.status === 422) setValidationErrors(errors.response.data.errors)
-      })
-   }
    const [userDetails, setUserDetails] = useState<UserDetails>({
       firstName: '',
       lastName: '',
@@ -37,6 +31,22 @@ const Adress = () => {
          door: ''
       }
    })
+   const [validateErrors, setValidateErrors] = useState<ValidateErrors[]>([])
+
+   const submitAdressForm = (event: React.MouseEvent) => {
+      event.preventDefault()
+      axios.post('/auth/insert-details', { userDetails }).catch((errors: ValidationErrorWithAxiosError) => {
+         if (errors.response?.status === 422) {
+            const errorResponse = errors.response.data.errors
+            setValidationErrors(errors.response.data.errors)
+            if (errorResponse.length > 0) {
+               errorResponse.forEach((error: any) => {
+                  setValidateErrors((prevErrors) => [...prevErrors, { errorMsg: error.msg, field: error.param, hasError: true }])
+               })
+            }
+         }
+      })
+   }
    useEffect(() => {
       axios
          .get('/auth/get-details')
@@ -51,57 +61,62 @@ const Adress = () => {
    }, [])
    return (
       <AdressContainer>
-         <BackgroundImageStyle backgroundImage={AddressFormBacground} />
+         {/* <BackgroundImageStyle backgroundImage={AddressFormBacground} /> */}
          <AdressFormStyle darkTheme={isDarkTheme}>
             <StyledHeading>Szállítási adatok</StyledHeading>
             <FormControlRow>
-               <TextOrNumberInput
-                  labelText='Vezetéknév *'
-                  onChangeEvent={(event: React.ChangeEvent<HTMLInputElement>) =>
-                     setUserDetails({ ...userDetails, firstName: event.target.value })
-                  }
-                  placeHolder='Vezetéknév...'
-                  value={userDetails.firstName}
-                  errorMsg={errorMsg(validationErrors, 'userDetails.firstName')}
-               />
-
-               <TextOrNumberInput
-                  labelText='Keresztnév *'
-                  onChangeEvent={(event: React.ChangeEvent<HTMLInputElement>) =>
+               <TextField
+                  error={errorMsgTest(validateErrors, 'userDetails.firstName')?.hasError}
+                  helperText={errorMsgTest(validateErrors, 'userDetails.firstName')?.errorMsg}
+                  variant='filled'
+                  required
+                  label='Vezetéknév'
+                  margin='dense'
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                      setUserDetails({ ...userDetails, lastName: event.target.value })
                   }
-                  placeHolder='Keresztnév...'
-                  value={userDetails.lastName}
-                  errorMsg={errorMsg(validationErrors, 'userDetails.lastName')}
+               />
+               <TextField
+                  error={errorMsgTest(validateErrors, 'userDetails.lastName')?.hasError}
+                  helperText={errorMsgTest(validateErrors, 'userDetails.lastName')?.errorMsg}
+                  variant='filled'
+                  required
+                  label='Keresztnév'
+                  margin='dense'
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                     setUserDetails({ ...userDetails, lastName: event.target.value })
+                  }
                />
             </FormControlRow>
             <FormControlRow>
-               <TextOrNumberInput
-                  inputType='tel'
-                  labelText='Telefonszám *'
-                  onChangeEvent={(event: React.ChangeEvent<HTMLInputElement>) =>
+               <TextField
+                  type='text'
+                  inputProps={{ inputMode: 'tel' }}
+                  error={errorMsgTest(validateErrors, 'userDetails.phone')?.hasError}
+                  helperText={errorMsgTest(validateErrors, 'userDetails.phone')?.errorMsg}
+                  variant='filled'
+                  required
+                  label='Telefonszám'
+                  margin='dense'
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                      setUserDetails({ ...userDetails, phone: event.target.value })
                   }
-                  placeHolder='36701234657'
-                  value={userDetails.phone}
-                  errorMsg={errorMsg(validationErrors, 'userDetails.phone')}
-                  isPhoneField={true}
                />
-               <TextOrNumberInput
-                  min='1000'
-                  max='9999'
-                  inputType='number'
-                  labelText='Irányítószám *'
-                  onChangeEvent={(event: React.ChangeEvent<HTMLInputElement>) =>
+               <TextField
+                  type='number'
+                  inputProps={{ inputMode: 'numeric', pattern: /[0-9] [0-9] [0-9] [0-9]/ }}
+                  error={errorMsgTest(validateErrors, 'userDetails.address.zipCode')?.hasError}
+                  helperText={errorMsgTest(validateErrors, 'userDetails.address.zipCode')?.errorMsg}
+                  variant='filled'
+                  required
+                  label='Irányítószám'
+                  margin='dense'
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                      setUserDetails({
                         ...userDetails,
                         address: { ...userDetails.address, zipCode: parseInt(event.target.value) || userDetails.address.zipCode }
                      })
                   }
-                  placeHolder='Irányítószám...'
-                  value={userDetails.address.zipCode}
-                  errorMsg={errorMsg(validationErrors, 'userDetails.address.zipCode')}
-                  isZipCode={true}
                />
             </FormControlRow>
             <FormControlRow>
