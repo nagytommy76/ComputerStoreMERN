@@ -1,10 +1,8 @@
 import styled from 'styled-components'
 import { mobileWindowSize } from '../../../Theme/GlobalStyles'
-import { navbarHeight } from '../../Navbar/NavbarStyles'
 
 export const ProductsContainer = styled.section`
    flex: 1;
-   margin-top: calc(${navbarHeight} + 1.5rem);
    color: black;
    display: flex;
    flex-direction: column;
@@ -20,11 +18,21 @@ export const ProductCards = styled.div`
    display: flex;
    flex-direction: column;
    align-items: center;
+   justify-content: center;
 `
 
-export const SummaryHeading = styled.h1<{ darkTheme: boolean }>`
-   margin-top: 0;
-   font-size: 2.8rem;
-   transition: color 0.25s;
-   color: ${({ darkTheme }) => (darkTheme ? '#FFF' : '#000')};
+export const BackgroundImageStyle = styled.div<{ backgroundImage: string }>`
+   width: 50%;
+   height: 100%;
+   position: absolute;
+
+   background-image: url(${({ backgroundImage }) => backgroundImage});
+   background-position: 50% 65%;
+   background-repeat: no-repeat;
+   background-size: cover;
+   filter: brightness(50%);
+
+   @media (max-width: ${mobileWindowSize}) {
+      width: 100%;
+   }
 `

@@ -1,15 +1,18 @@
 import React from 'react'
 import { useAppSelector } from '../../../app/hooks'
-import { ProductsContainer, ProductCards, SummaryHeading } from './ProductStyle'
+import { ProductsContainer, ProductCards, BackgroundImageStyle } from './ProductStyle'
+
+// import AddressFormBacground from './AdressFormBackgound.jpg'
+import AddressFormBacground from './AdressBackG.jpg'
 
 const CartItem = React.lazy(() => import('../../Navbar/Cart/CartItem/CartItem'))
 
 const Products = () => {
    const itemsInCart = useAppSelector((state) => state.cart.cartItems)
-   const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
+
    return (
       <ProductsContainer>
-         <SummaryHeading darkTheme={isDarkTheme}>Kosár tartalma</SummaryHeading>
+         <BackgroundImageStyle backgroundImage={AddressFormBacground} />
          <ProductCards>
             {itemsInCart.map((cart) => (
                <CartItem
