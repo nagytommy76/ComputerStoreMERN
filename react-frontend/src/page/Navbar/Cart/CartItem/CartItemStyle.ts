@@ -8,6 +8,7 @@ export const StyledCloseIcon = styled.div`
       right: 0;
    }
 
+   z-index: 5;
    position: absolute;
    right: 2px;
    top: 2px;
