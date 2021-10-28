@@ -8,6 +8,7 @@ export const AdressContainer = styled.section`
    flex: 1;
 
    @media (max-width: ${mobileWindowSize}) {
+      min-height: 160vh;
    }
 `
 
@@ -33,6 +34,9 @@ export const FormControlRow = styled.div`
    flex-direction: row;
    justify-content: space-evenly;
    @media (max-width: ${mobileWindowSize}) {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
    }
 `
 

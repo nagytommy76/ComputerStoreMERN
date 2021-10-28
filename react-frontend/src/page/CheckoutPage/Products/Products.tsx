@@ -1,6 +1,13 @@
 import React from 'react'
 import { useAppSelector } from '../../../app/hooks'
-import { ProductsContainer, ProductCards, BackgroundImageStyle, CustomCard, CustomCardContent } from './ProductStyle'
+import {
+   ProductsContainer,
+   ProductCards,
+   BackgroundImageStyle,
+   CustomCard,
+   CustomCardContent,
+   CustomCardMedia
+} from './ProductStyle'
 import { Typography, CardMedia } from '@mui/material'
 import NumberFormat from 'react-number-format'
 // import AddressFormBacground from './AdressFormBackgound.jpg'
@@ -22,7 +29,7 @@ const Products = () => {
             {itemsInCart.map((cart) => (
                <CustomCard key={cart.itemId}>
                   <DeleteIcon id={cart.itemId} />
-                  <CardMedia sx={{ width: '185px' }} component='img' image={cart.displayImage} />
+                  <CustomCardMedia image={cart.displayImage} />
                   <CustomCardContent>
                      <Typography variant='subtitle2' mr='.7rem'>
                         {cart.displayName}
