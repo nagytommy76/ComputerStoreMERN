@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { footerHeight } from '../../Theme/GlobalStyles'
+import { footerHeight, mobileWindowSize } from '../../Theme/GlobalStyles'
 
 const reactColor = '#61dbfb'
 
@@ -13,6 +13,9 @@ export const FooterContainer = styled.footer`
    background-color: #111;
    color: #fff;
    font-size: 1.1rem;
+
+   @media (max-width: ${mobileWindowSize}) {
+   }
 `
 
 export const IconContainer = styled.div`

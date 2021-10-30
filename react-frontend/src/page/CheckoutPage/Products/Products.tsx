@@ -1,34 +1,34 @@
 import React from 'react'
-import { useAppSelector } from '../../../app/hooks'
+import { useAppDispatch, useAppSelector } from '../../../app/hooks'
 import {
    ProductsContainer,
    ProductCards,
-   BackgroundImageStyle,
    CustomCard,
    CustomCardContent,
-   CustomCardMedia
+   CustomCardMedia,
+   FooterSection,
+   PriceSection
 } from './ProductStyle'
-import { Typography, CardMedia } from '@mui/material'
+import { Typography, Button } from '@mui/material'
 import NumberFormat from 'react-number-format'
 // import AddressFormBacground from './AdressFormBackgound.jpg'
 import AddressFormBacground from './AdressBackG.jpg'
+import { removeItemsFromCart } from '../../../app/slices/CartSlice'
 
 const Basket = React.lazy(() => import('../../Navbar/Cart/CartItem/Basket'))
-const DeleteIcon = React.lazy(() => import('../../Navbar/Cart/CartItem/DeleteIcon'))
 // const AdvancedButton = React.lazy(() => import('../../BaseElements/AdvancedButton/AdvancedButton'))
 
 const Products = () => {
+   const dispatch = useAppDispatch()
    const itemsInCart = useAppSelector((state) => state.cart.cartItems)
    const totalPrice = useAppSelector((state) => state.cart.totalPrice)
    // const handleNextButton = () => {}
 
    return (
-      <ProductsContainer>
-         <BackgroundImageStyle backgroundImage={AddressFormBacground} />
+      <ProductsContainer backgroundImage={AddressFormBacground}>
          <ProductCards>
             {itemsInCart.map((cart) => (
                <CustomCard key={cart.itemId}>
-                  <DeleteIcon id={cart.itemId} />
                   <CustomCardMedia image={cart.displayImage} />
                   <CustomCardContent>
                      <Typography variant='subtitle2' mr='.7rem'>
@@ -37,14 +37,19 @@ const Products = () => {
                      <Typography variant='h5' align='right' color='primary'>
                         <NumberFormat value={cart.price} thousandSeparator=' ' suffix=' Ft' displayType='text' />
                      </Typography>
-                     <Basket quaintity={cart.quantity} id={cart.itemId} />
+                     <FooterSection>
+                        <Basket quaintity={cart.quantity} id={cart.itemId} />
+                        <Button onClick={() => dispatch(removeItemsFromCart(cart.itemId))} color='error' variant='outlined'>
+                           Törlés
+                        </Button>
+                     </FooterSection>
                   </CustomCardContent>
                </CustomCard>
             ))}
          </ProductCards>
-         <Typography sx={{ zIndex: 3 }} variant='h5' color='primary'>
+         <PriceSection variant='h5' color='primary'>
             Összesen: <NumberFormat value={totalPrice} thousandSeparator=' ' suffix=' Ft' displayType='text' />
-         </Typography>
+         </PriceSection>
          {/* <AdvancedButton onClickEvent={handleNextButton}>Rendelés Leadása</AdvancedButton> */}
       </ProductsContainer>
    )

@@ -8,7 +8,8 @@ export const AdressContainer = styled.section`
    flex: 1;
 
    @media (max-width: ${mobileWindowSize}) {
-      min-height: 160vh;
+      min-height: 120vh;
+      margin-bottom: 3rem;
    }
 `
 
