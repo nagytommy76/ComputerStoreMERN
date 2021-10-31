@@ -1,38 +1,59 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import { useLocation } from 'react-router'
-import { StyledSlideSection, StyledImageContainer, StyledImage } from './SliderStyle'
-import Carousel from 'react-material-ui-carousel'
-import 'react-responsive-carousel/lib/styles/carousel.min.css'
+import { StyledSlideSection, StyledImageContainer, StyledImage, RightArrow, LeftArrow } from './SliderStyle'
 import { LocationType } from '../../../BaseTypes'
-import { useAppSelector } from '../../../../../app/hooks'
 
-// https://www.npmjs.com/package/react-material-ui-carousel
+import { IconButton, Slide } from '@mui/material'
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 
 const ImageSlider = () => {
    let location = useLocation<LocationType>()
    const { pictureUrls } = location.state
-   const mobileSize = useAppSelector((state) => state.mobile.isMobile)
+   const [currentPic, setCurrentPic] = useState<number>(0)
+   const [direction, setDirection] = useState<'left' | 'up' | 'down' | 'right'>('down')
+   const [isSlide, setIsSlide] = useState<boolean>(true)
+   const NodeRef = useRef(null)
+   // https://levelup.gitconnected.com/adding-transitions-to-a-react-carousel-with-material-ui-b95825653c1b
+   const nextImage = () => {
+      setDirection('left')
+      setIsSlide(false)
+      setTimeout(() => {
+         setCurrentPic(currentPic === pictureUrls.length - 1 ? 0 : currentPic + 1)
+         setDirection('right')
+         setIsSlide(true)
+      }, 500)
+   }
+
+   const previousImage = () => {
+      setDirection('right')
+      setIsSlide(false)
+      setTimeout(() => {
+         setCurrentPic(currentPic === 0 ? pictureUrls.length - 1 : currentPic - 1)
+         setDirection('left')
+         setIsSlide(true)
+      }, 500)
+   }
+
    return (
       <StyledSlideSection>
-         <Carousel
-            fullHeightHover={mobileSize}
-            navButtonsAlwaysVisible={mobileSize}
-            /*indicatorContainerProps={{ style: { minHeight: '100px' } }}*/
-            animation='slide'
-            autoPlay={false}
-            timeout={{
-               appear: 400,
-               enter: 400,
-               exit: 400
-            }}>
-            {pictureUrls.map((image, index) => (
-               <StyledImageContainer key={index}>
-                  <a href={image} target='_blank' rel='noreferrer'>
-                     <StyledImage src={image} alt={image + index} />
-                  </a>
-               </StyledImageContainer>
-            ))}
-         </Carousel>
+         <StyledImageContainer>
+            <RightArrow>
+               <IconButton onClick={nextImage} color='primary' size='large'>
+                  <ArrowForwardIosIcon color='primary' />
+               </IconButton>
+            </RightArrow>
+            <LeftArrow>
+               <IconButton onClick={previousImage} color='primary' size='large'>
+                  <ArrowBackIosNewIcon color='primary' />
+               </IconButton>
+            </LeftArrow>
+            <Slide direction={direction} in={isSlide} container={NodeRef.current}>
+               <a href={pictureUrls[currentPic]} target='_blank' rel='noreferrer'>
+                  <StyledImage src={pictureUrls[currentPic]} alt='' />
+               </a>
+            </Slide>
+         </StyledImageContainer>
       </StyledSlideSection>
    )
 }
