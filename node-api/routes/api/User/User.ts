@@ -8,7 +8,11 @@ import { checkErrors } from '../../../middlewares/CheckValidationErrors'
 import { checkUserIsFound } from '../../../middlewares/CheckUserIsFound'
 
 import { registerUserController, loginUserController, checkTokensValidityController } from '../../../controllers/User/Users'
-import { insertUserDetailsController, getUserDetailsController } from '../../../controllers/User/UserDetails'
+import {
+   insertUserDetailsController,
+   getUserDetailsController,
+   updateUserDetailsController
+} from '../../../controllers/User/UserDetails'
 
 type RequestWithUser = Request & {
    user?: UserTypes | null
@@ -27,6 +31,8 @@ router.post('/check-access-token', authenticateAccessToken, (req: RequestWithUse
 })
 
 // User Details
+router.get('/get-details', authenticateAccessToken, checkUserIsFound, getUserDetailsController)
+
 router.post(
    '/insert-details',
    insertUserDetailsValidator,
@@ -35,7 +41,15 @@ router.post(
    checkUserIsFound,
    insertUserDetailsController
 )
-router.get('/get-details', authenticateAccessToken, checkUserIsFound, getUserDetailsController)
+
+router.patch(
+   '/modify-details',
+   insertUserDetailsValidator,
+   authenticateAccessToken,
+   checkErrors,
+   checkUserIsFound,
+   updateUserDetailsController
+)
 
 // https://www.freecodecamp.org/news/how-to-make-input-validation-simple-and-clean-in-your-express-js-app-ea9b5ff5a8a7/
 

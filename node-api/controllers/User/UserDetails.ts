@@ -22,3 +22,14 @@ export const getUserDetailsController = async (req: GetUserAuthInfoRequest, res:
       return res.status(500).json(error)
    }
 }
+
+export const updateUserDetailsController = async (req: GetUserAuthInfoRequest, res: Response) => {
+   try {
+      const foundUser = req.foundUser
+      foundUser.userDetails = req.body.userDetails
+      foundUser.save()
+      return res.sendStatus(200)
+   } catch (error) {
+      return res.status(500).json(error)
+   }
+}
