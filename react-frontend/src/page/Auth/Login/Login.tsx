@@ -8,8 +8,9 @@ import { useAppDispatch, useAppSelector } from '../../../app/hooks'
 import { ImageStyle, AuthContainer, AuthFormStyle } from '../BaseForm/BaseStyle'
 import LoginSuspense from '../../../SuspenseComponents/Auth/Login'
 import { fillDBWithCartItemsAfterLogin } from '../../../app/slices/CartSlice'
-import { Alert } from '@mui/material'
-import { TextField } from '@mui/material'
+
+import Alert from '@mui/material/Alert'
+import TextField from '@mui/material/TextField'
 
 const LoginForm = React.lazy(() => import('../BaseForm/Form'))
 

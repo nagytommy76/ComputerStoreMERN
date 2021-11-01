@@ -5,7 +5,10 @@ import { ProductContext } from '../../Context/ShopContext'
 import { useAppSelector } from '../../../../app/hooks'
 
 import { SubTitleStyle, CustomCard } from './CardStyle'
-import { CardMedia, CardContent, Typography, Collapse } from '@mui/material'
+import Collapse from '@mui/material/Collapse'
+import CardMedia from '@mui/material/CardMedia'
+import CardContent from '@mui/material/CardContent'
+import Typography from '@mui/material/Typography'
 
 const RatingCount = React.lazy(() => import('./Ratings/RatingCount'))
 const CardFooter = React.lazy(() => import('./CardFooter'))
@@ -58,7 +61,12 @@ const ProductCard: React.FC<ProductCardType> = ({
                <NumberFormat value={price} thousandSeparator=' ' suffix=' Ft' displayType='text' />
             </Typography>
          </CardContent>
-         <Collapse in={isCardExpanded} mountOnEnter unmountOnExit collapsedSize={0} timeout={150} orientation='vertical'>
+         <Collapse
+            mountOnEnter
+            unmountOnExit
+            timeout={{ appear: 0, enter: 100, exit: 100 }}
+            in={isCardExpanded}
+            orientation='vertical'>
             <CardFooter productType={pathNameForDetailsURL} />
          </Collapse>
       </CustomCard>

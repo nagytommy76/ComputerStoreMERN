@@ -5,7 +5,7 @@ import { LeftArrow as LeftArrowStyle } from './SliderStyle'
 
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowForwardIos'
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIos'
 
 const LeftArrow: React.FC<{ previousImage: () => void; currentPic: number }> = ({ previousImage, currentPic }) => {
    let location = useLocation<LocationType>()

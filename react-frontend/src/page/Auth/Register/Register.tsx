@@ -5,7 +5,7 @@ import axios, { AxiosError, AxiosResponse } from 'axios'
 import { useHistory } from 'react-router-dom'
 import RegisterSuspense from '../../../SuspenseComponents/Auth/Register'
 
-import { TextField } from '@mui/material'
+import TextField from '@mui/material/TextField'
 
 const RegisterForm = React.lazy(() => import('../BaseForm/Form'))
 

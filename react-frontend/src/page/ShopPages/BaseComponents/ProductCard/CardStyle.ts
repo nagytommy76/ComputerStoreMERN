@@ -9,15 +9,15 @@ export const CardWidth = '250px'
 const CardHeight = '350px'
 const FooterHeight = '40px'
 
-export const CustomCard = MUIStyled(Card)<Prop>`
-   position: relative;
-   height: ${({ isCardExpanded }) => (isCardExpanded ? `calc(${CardHeight} + ${FooterHeight});` : `${CardHeight};`)};
-   width: ${CardWidth};
-   transition: all 0.15s;
-   &:hover {
-      transform: scale(1.025) translateY(-5px);
+export const CustomCard = MUIStyled(Card)<Prop>(({ theme }) => ({ isCardExpanded }) => ({
+   position: 'relative',
+   height: isCardExpanded ? CardHeight + FooterHeight : CardHeight,
+   width: CardWidth,
+   transition: 'all 0.1s',
+   '&:hover': {
+      transform: 'scale(1.025) translateY(-5px)'
    }
-`
+}))
 
 export const SubTitleStyle = styled.h5`
    font-size: 1rem;
