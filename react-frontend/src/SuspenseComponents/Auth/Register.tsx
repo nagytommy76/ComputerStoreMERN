@@ -13,7 +13,7 @@ import {
 
 const Register = () => {
    return (
-      <AuthContainer>
+      <AuthContainer data-testid='register-suspense'>
          <ImageStyle />
          <AuthFormStyle>
             <StyledForm>

@@ -3,8 +3,9 @@ import userEvent from '@testing-library/user-event'
 import Login from './Login'
 import axios from 'axios'
 jest.mock('axios')
+const mockedAxios = axios as jest.Mocked<typeof axios>
 
-const mockResponseRejectedData = {
+const mockResponseRejectedPasswordData = {
    response: {
       data: {
          errorMessage: 'Helytelen jelszó',
@@ -15,14 +16,13 @@ const mockResponseRejectedData = {
    }
 }
 
-const mockResolvedData = {
+const mockResponseRejectedEmailData = {
    response: {
-      status: 200,
       data: {
-         accessToken: 'accessTokenTest',
-         refreshToken: 'refreshTokenTest',
-         userName: 'TestUser',
-         isAdmin: true
+         errorMessage: 'Nincs regszitrálva ilyen felhasználó',
+         errorType: 'email',
+         hasError: true,
+         message: ''
       }
    }
 }
@@ -32,9 +32,9 @@ describe('Login', () => {
       render(<Login />)
    })
    test('renders the login form with 2 input fields', async () => {
-      expect(await screen.findByText('Belépés'))
-      expect(await screen.findByText(/Email cím/))
-      expect(await screen.findByText(/Jelszó/))
+      await screen.findByRole('button', { name: /Belépés/i })
+      await screen.findByText(/Email cím/)
+      await screen.findByText(/Jelszó/)
    })
 
    test('should display an error message when the email input is empty', async () => {
@@ -47,17 +47,34 @@ describe('Login', () => {
    })
 
    test('should display an error message when the password is incorrect', async () => {
-      const emailInput = await screen.findByPlaceholderText(/Email cím/i)
-      const passwordInput = await screen.findByPlaceholderText(/Jelszó/i)
+      const emailInput = screen.getByRole('textbox', { name: /Email cím/i })
+      const passwordInput = screen.getByLabelText(/Jelszó/i)
 
       userEvent.type(emailInput, 'senki123')
       userEvent.type(passwordInput, 'semmi')
 
-      axios.post.mockRejectedValue(mockResponseRejectedData)
+      mockedAxios.post.mockRejectedValue(mockResponseRejectedPasswordData)
 
-      const loginButton = await screen.findByRole('button')
+      const loginButton = await screen.findByRole('button', { name: /Belépés/i })
 
       userEvent.click(loginButton)
+
       await screen.findByText(/Helytelen jelszó/i)
+   })
+
+   test('Should display an error message when the user name/email is incorrect', async () => {
+      const emailInput = screen.getByRole('textbox', { name: /Email cím/i })
+      const passwordInput = screen.getByLabelText(/Jelszó/i)
+
+      userEvent.type(emailInput, 'senki123321')
+      userEvent.type(passwordInput, 'semmisem')
+
+      mockedAxios.post.mockRejectedValue(mockResponseRejectedEmailData)
+
+      const loginButton = await screen.findByRole('button', { name: /Belépés/i })
+
+      userEvent.click(loginButton)
+
+      await screen.findByText(/Nincs regszitrálva ilyen felhasználó/i)
    })
 })

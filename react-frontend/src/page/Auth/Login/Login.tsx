@@ -2,7 +2,7 @@ import axios, { AxiosResponse, AxiosError } from 'axios'
 import React, { useState, Suspense } from 'react'
 import { useHistory, useLocation } from 'react-router'
 import loginImage from './login.jpg'
-import { InputTypes } from '../Register/Register'
+import { InputTypes } from '../DefaultProperties'
 import { setUserLoggedIn, setAccessToken, setUserName, setRefreshToken, setAdmin } from '../../../app/slices/AuthSlice'
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'
 import { ImageStyle, AuthContainer, AuthFormStyle } from '../BaseForm/BaseStyle'
@@ -22,7 +22,7 @@ const Login: React.FC = () => {
    const [email, setEmail] = useState<InputTypes>({ value: '', hasError: false, errorMessage: '' })
    const [password, setPassword] = useState<InputTypes>({ value: '', hasError: false, errorMessage: '' })
 
-   console.log(location)
+   // console.log(location)
    const resetErrors = () => {
       setEmail({ ...email, errorMessage: '', hasError: false })
       setPassword({ ...password, errorMessage: '', hasError: false })
@@ -74,6 +74,7 @@ const Login: React.FC = () => {
             <AuthFormStyle>
                <LoginForm onSubmitEvent={loginUser} title='Belépés' buttonText='Belépés'>
                   <TextField
+                     id='Email'
                      error={email.hasError}
                      helperText={email.errorMessage}
                      variant='filled'
@@ -81,9 +82,11 @@ const Login: React.FC = () => {
                      required
                      label='Email cím/Felhasználónév'
                      margin='normal'
+                     value={email.value}
                      onChange={(e) => setEmail({ ...email, value: e.target.value })}
                   />
                   <TextField
+                     id='Password'
                      error={password.hasError}
                      helperText={password.errorMessage}
                      type='password'
@@ -92,6 +95,7 @@ const Login: React.FC = () => {
                      required
                      label='Jelszó'
                      margin='normal'
+                     value={password.value}
                      onChange={(e) => setPassword({ ...password, value: e.target.value })}
                   />
                   {location.state?.isSuccess && location.state?.message && (

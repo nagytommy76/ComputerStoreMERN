@@ -6,16 +6,12 @@ import { useHistory } from 'react-router-dom'
 import RegisterSuspense from '../../../SuspenseComponents/Auth/Register'
 
 import TextField from '@mui/material/TextField'
+import { defaultInputProperties, InputTypes } from '../DefaultProperties'
 
 const RegisterForm = React.lazy(() => import('../BaseForm/Form'))
 
 const Register = () => {
    const history = useHistory()
-   const defaultInputProperties = {
-      value: '',
-      hasError: false,
-      errorMessage: ''
-   }
    const [email, setEmail] = useState<InputTypes>(defaultInputProperties)
    const [userName, setUserName] = useState<InputTypes>(defaultInputProperties)
    const [firstPassword, setFirstPassword] = useState<InputTypes>(defaultInputProperties)
@@ -30,6 +26,7 @@ const Register = () => {
 
    const registerUser = (event: React.FormEvent) => {
       event.preventDefault()
+      resetErrors()
       // Hibaüzenetek:
       if (userName.value === '') return setUserName({ ...userName, hasError: true, errorMessage: 'Kérem a Felhasználónevet!' })
       if (email.value === '') return setEmail({ ...email, hasError: true, errorMessage: 'Kérem az e-mail címet' })
@@ -47,24 +44,22 @@ const Register = () => {
             })
             .then((response: AxiosResponse) => {
                if (response.status === 201)
-                  // history.push('/login', { isSuccess: true, message: 'A regisztráció sikeres volt - beléphetsz!' })
                   history.push({
                      pathname: '/login',
                      state: { isSuccess: true, message: 'A regisztráció sikeres volt - beléphetsz!' }
                   })
             })
             .catch((error: AxiosError) => {
-               const responseErrors = error.response?.data.errors
+               const responseErrors = error.response?.data
+               console.log(responseErrors)
                resetErrors()
-               if (responseErrors.length > 0) {
-                  responseErrors.forEach((err: any) => {
-                     if (err.param === 'firstPassword') {
-                        setSecondPassword({ ...secondPassword, hasError: true, errorMessage: err.msg })
-                     }
-                     if (err.param === 'email') {
-                        setEmail({ ...email, hasError: true, errorMessage: err.msg })
-                     }
+               if (typeof responseErrors.errors === 'object') {
+                  responseErrors.errors.forEach((error: any) => {
+                     if (error.param === 'firstPassword')
+                        setSecondPassword({ ...secondPassword, hasError: true, errorMessage: error.msg })
                   })
+               } else {
+                  setEmail({ ...email, hasError: true, errorMessage: error.response?.data.errorMessage })
                }
             })
       }
@@ -76,6 +71,7 @@ const Register = () => {
             <AuthFormStyle>
                <RegisterForm onSubmitEvent={registerUser} title='Regisztráció' buttonText='Regisztráció'>
                   <TextField
+                     id='userName'
                      error={userName.hasError}
                      helperText={userName.errorMessage}
                      variant='filled'
@@ -83,9 +79,11 @@ const Register = () => {
                      required
                      label='Felhasználónév'
                      margin='normal'
+                     value={userName.value}
                      onChange={(e) => setUserName({ ...userName, value: e.target.value })}
                   />
                   <TextField
+                     id='email'
                      error={email.hasError}
                      helperText={email.errorMessage}
                      variant='filled'
@@ -94,9 +92,11 @@ const Register = () => {
                      required
                      label='Email cím/Felhasználónév'
                      margin='normal'
+                     value={email.value}
                      onChange={(e) => setEmail({ ...email, value: e.target.value })}
                   />
                   <TextField
+                     id='firstPassword'
                      error={firstPassword.hasError}
                      helperText={firstPassword.errorMessage}
                      type='password'
@@ -105,9 +105,11 @@ const Register = () => {
                      required
                      label='Jelszó'
                      margin='normal'
+                     value={firstPassword.value}
                      onChange={(e) => setFirstPassword({ ...firstPassword, value: e.target.value })}
                   />
                   <TextField
+                     id='secondPassword'
                      error={secondPassword.hasError}
                      helperText={secondPassword.errorMessage}
                      type='password'
@@ -116,6 +118,7 @@ const Register = () => {
                      required
                      label='Jelszó még egyszer'
                      margin='normal'
+                     value={secondPassword.value}
                      onChange={(e) => setSecondPassword({ ...secondPassword, value: e.target.value })}
                   />
                </RegisterForm>
@@ -124,7 +127,5 @@ const Register = () => {
       </Suspense>
    )
 }
-
-export type InputTypes = { value: string; hasError?: boolean; errorMessage?: string }
 
 export default Register
