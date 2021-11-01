@@ -51,7 +51,6 @@ const Register = () => {
             })
             .catch((error: AxiosError) => {
                const responseErrors = error.response?.data
-               console.log(responseErrors)
                resetErrors()
                if (typeof responseErrors.errors === 'object') {
                   responseErrors.errors.forEach((error: any) => {
