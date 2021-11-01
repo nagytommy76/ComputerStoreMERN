@@ -8,13 +8,6 @@ const useMaterialTheme = () => {
    const customMUITheme = createTheme(
       isDarkTheme
          ? {
-              // components: {
-              //    MuiCardMedia: {
-              //       defaultProps: {
-              //          comp
-              //       }
-              //    }
-              // },
               palette: {
                  mode: 'dark',
                  primary: {
