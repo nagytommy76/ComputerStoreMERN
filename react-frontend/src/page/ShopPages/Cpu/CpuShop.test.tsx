@@ -2,6 +2,7 @@ import { render, screen, waitForElementToBeRemoved } from '../../../test-utils'
 import userEvent from '@testing-library/user-event'
 import Cpu from './Cpu'
 import axios from 'axios'
+import { cleanup } from '@testing-library/react'
 jest.mock('axios')
 const mockedAxios = axios as jest.Mocked<typeof axios>
 
@@ -101,34 +102,27 @@ const mockResolvedFilteredCpuProducts = {
    totalPages: 1
 }
 
-describe('Testing the proper product display', () => {
-   beforeEach(async () => {
+describe('Testing user interacting', () => {
+   test('should display the selected manufacturer products', async () => {
       mockedAxios.get.mockResolvedValue(mockResolvedCpuProducts).mockResolvedValueOnce(mockResolvedFilterData)
       render(<Cpu />)
-      //   await waitForElementToBeRemoved(() => screen.getByTestId(/suspense-cards/i))
-   })
-   test('should display the filter data on the side filter', async () => {
       expect(await screen.findByRole('heading', { name: /Szűrés/i })).toBeInTheDocument()
       expect(await screen.findByRole('option', { name: /Legolcsóbb elől/i })).toBeInTheDocument()
       expect(await screen.findByRole('option', { name: /AMD/i })).toBeInTheDocument()
-   })
-   test('should display the products properly', async () => {
       expect(await screen.findByRole('heading', { name: /Ryzen 3 1200/i })).toBeInTheDocument()
       expect(await screen.findByRole('heading', { name: /Ryzen 5 5600X/i })).toBeInTheDocument()
       expect(await screen.findByRole('heading', { name: /Core i9-11900F/i })).toBeInTheDocument()
-   })
-   test('should display the selected manufacturer products', async () => {
-      expect(await screen.findByRole('option', { name: /AMD/i })).toBeInTheDocument()
-      expect(await screen.findByRole('option', { name: /INTEL/i })).toBeInTheDocument()
-      const selectManufacturer = await screen.findAllByRole('combobox')
-      mockedAxios.get.mockResolvedValueOnce(mockResolvedFilteredCpuProducts)
 
-      userEvent.selectOptions(selectManufacturer[2], mockResolvedFilterData.data.allManufacturers[0])
-      console.log(selectManufacturer[2].innerHTML)
+      const selectManufacturer = await screen.findByRole('combobox', { name: /Gyártó/i })
+      mockedAxios.get.mockResolvedValue(mockResolvedFilteredCpuProducts)
+      userEvent.selectOptions(selectManufacturer, 'AMD')
 
-      await screen.findByRole('heading', { name: /Ryzen 3 1200/i })
+      await waitForElementToBeRemoved(() => screen.getByRole('heading', { name: /Core i9-11900F/i }))
+
+      expect(await screen.findByRole('heading', { name: /Ryzen 3 1200/i })).toBeInTheDocument()
+      expect(await screen.findByRole('heading', { name: /Ryzen 5 5600X/i })).toBeInTheDocument()
+
       expect(screen.queryByRole('heading', { name: /Core i9-11900F/i })).not.toBeInTheDocument()
-      //   await screen.findByRole('heading', { name: /Ryzen 5 5600X/i })
-      screen.debug()
+      // screen.debug()
    })
 })

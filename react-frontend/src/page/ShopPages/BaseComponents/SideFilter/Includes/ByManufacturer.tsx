@@ -15,6 +15,7 @@ const ByManufacturer: React.FC = () => {
    return (
       <InputContainer>
          <TextField
+            id='manufacturer'
             fullWidth
             select
             label='Gyártó'
