@@ -5,10 +5,10 @@ import axios, { AxiosError, AxiosResponse } from 'axios'
 import { useHistory } from 'react-router-dom'
 import RegisterSuspense from '../../../SuspenseComponents/Auth/Register'
 
-import TextField from '@mui/material/TextField'
 import { defaultInputProperties, InputTypes } from '../DefaultProperties'
 
 const RegisterForm = React.lazy(() => import('../BaseForm/Form'))
+const InputFields = React.lazy(() => import('./InputFields'))
 
 const Register = () => {
    const history = useHistory()
@@ -69,56 +69,15 @@ const Register = () => {
             <ImageStyle image={registerImage} />
             <AuthFormStyle>
                <RegisterForm onSubmitEvent={registerUser} title='Regisztráció' buttonText='Regisztráció'>
-                  <TextField
-                     id='userName'
-                     error={userName.hasError}
-                     helperText={userName.errorMessage}
-                     variant='filled'
-                     fullWidth
-                     required
-                     label='Felhasználónév'
-                     margin='normal'
-                     value={userName.value}
-                     onChange={(e) => setUserName({ ...userName, value: e.target.value })}
-                  />
-                  <TextField
-                     id='email'
-                     error={email.hasError}
-                     helperText={email.errorMessage}
-                     variant='filled'
-                     type='email'
-                     fullWidth
-                     required
-                     label='Email cím/Felhasználónév'
-                     margin='normal'
-                     value={email.value}
-                     onChange={(e) => setEmail({ ...email, value: e.target.value })}
-                  />
-                  <TextField
-                     id='firstPassword'
-                     error={firstPassword.hasError}
-                     helperText={firstPassword.errorMessage}
-                     type='password'
-                     variant='filled'
-                     fullWidth
-                     required
-                     label='Jelszó'
-                     margin='normal'
-                     value={firstPassword.value}
-                     onChange={(e) => setFirstPassword({ ...firstPassword, value: e.target.value })}
-                  />
-                  <TextField
-                     id='secondPassword'
-                     error={secondPassword.hasError}
-                     helperText={secondPassword.errorMessage}
-                     type='password'
-                     variant='filled'
-                     fullWidth
-                     required
-                     label='Jelszó még egyszer'
-                     margin='normal'
-                     value={secondPassword.value}
-                     onChange={(e) => setSecondPassword({ ...secondPassword, value: e.target.value })}
+                  <InputFields
+                     email={email}
+                     setEmail={setEmail}
+                     userName={userName}
+                     setUserName={setUserName}
+                     firstPassword={firstPassword}
+                     setFirstPassword={setFirstPassword}
+                     secondPassword={secondPassword}
+                     setSecondPassword={setSecondPassword}
                   />
                </RegisterForm>
             </AuthFormStyle>
