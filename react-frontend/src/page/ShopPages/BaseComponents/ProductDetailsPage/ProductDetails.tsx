@@ -26,6 +26,7 @@ const ProductDetails: React.FC = ({ children }) => {
    let location = useLocation<LocationType>()
 
    const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
+   console.log(location.state)
    const { manufacturer, price, type, typeCode, details } = location.state
 
    return (

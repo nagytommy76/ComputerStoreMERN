@@ -15,6 +15,7 @@ const FormInputs: React.FC<{
          <FormControlRow>
             <Box m={1} width='80%'>
                <TextField
+                  id='firstName'
                   fullWidth
                   error={findErrorByFieldType(validateErrors, 'userDetails.firstName')?.hasError}
                   helperText={findErrorByFieldType(validateErrors, 'userDetails.firstName')?.errorMsg}
@@ -30,6 +31,7 @@ const FormInputs: React.FC<{
             </Box>
             <Box m={1} width='80%'>
                <TextField
+                  id='lastName'
                   fullWidth
                   error={findErrorByFieldType(validateErrors, 'userDetails.lastName')?.hasError}
                   helperText={findErrorByFieldType(validateErrors, 'userDetails.lastName')?.errorMsg}
