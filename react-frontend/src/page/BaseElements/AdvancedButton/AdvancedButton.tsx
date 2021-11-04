@@ -12,7 +12,7 @@ const AdvancedButton: React.FC<{
       }
    }
    return (
-      <FormSubmitButtonContainer onClick={clickEventHandler}>
+      <FormSubmitButtonContainer role='button' id={children} onClick={clickEventHandler}>
          <FormSubmitButton buttonText={children} />
       </FormSubmitButtonContainer>
    )

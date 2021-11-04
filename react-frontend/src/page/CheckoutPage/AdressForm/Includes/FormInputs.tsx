@@ -49,6 +49,7 @@ const FormInputs: React.FC<{
          <FormControlRow>
             <Box m={1} width='80%'>
                <TextField
+                  id='phone'
                   fullWidth
                   type='text'
                   inputProps={{ inputMode: 'tel' }}
@@ -66,6 +67,7 @@ const FormInputs: React.FC<{
             </Box>
             <Box m={1} width='80%'>
                <TextField
+                  id='zipCode'
                   fullWidth
                   inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                   error={findErrorByFieldType(validateErrors, 'userDetails.address.zipCode')?.hasError}
@@ -90,6 +92,7 @@ const FormInputs: React.FC<{
          <FormControlRow>
             <Box m={1} width='80%'>
                <TextField
+                  id='city'
                   fullWidth
                   error={findErrorByFieldType(validateErrors, 'userDetails.address.city')?.hasError}
                   helperText={findErrorByFieldType(validateErrors, 'userDetails.address.city')?.errorMsg}
@@ -111,6 +114,7 @@ const FormInputs: React.FC<{
             </Box>
             <Box m={1} width='80%'>
                <TextField
+                  id='street'
                   fullWidth
                   error={findErrorByFieldType(validateErrors, 'userDetails.address.street')?.hasError}
                   helperText={findErrorByFieldType(validateErrors, 'userDetails.address.street')?.errorMsg}
@@ -134,6 +138,7 @@ const FormInputs: React.FC<{
          <FormControlRow>
             <Box m={1} width='80%'>
                <TextField
+                  id='houseNumber'
                   fullWidth
                   type='number'
                   inputProps={{ inputMode: 'numeric', pattern: /[0-9] [0-9] [0-9] [0-9]/ }}
@@ -157,6 +162,7 @@ const FormInputs: React.FC<{
             </Box>
             <Box m={1} width='80%'>
                <TextField
+                  id='floor'
                   fullWidth
                   error={findErrorByFieldType(validateErrors, 'userDetails.address.floor')?.hasError}
                   helperText={findErrorByFieldType(validateErrors, 'userDetails.address.floor')?.errorMsg}
@@ -177,6 +183,7 @@ const FormInputs: React.FC<{
             </Box>
             <Box m={1} width='80%'>
                <TextField
+                  id='door'
                   fullWidth
                   error={findErrorByFieldType(validateErrors, 'userDetails.address.door')?.hasError}
                   helperText={findErrorByFieldType(validateErrors, 'userDetails.address.door')?.errorMsg}

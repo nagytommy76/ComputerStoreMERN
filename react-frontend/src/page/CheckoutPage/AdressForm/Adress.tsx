@@ -76,7 +76,7 @@ const Adress = () => {
                setIsSubmitBtnDisabled(true)
             }
          })
-         .catch((error) => console.log(error))
+         .catch((error) => console.error(error))
    }, [])
    return (
       <AdressContainer>
