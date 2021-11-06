@@ -3,7 +3,7 @@ import CpuDetails from './CpuDetails'
 
 function mockFunction() {
    return {
-      ...jest.requireActual('react-router-dom'),
+      ...jest.requireActual('react-router'),
       useLocation: jest.fn().mockReturnValue({
          pathname: '/cpu/cpu-details',
          search: '',
@@ -20,7 +20,7 @@ function mockFunction() {
    }
 }
 
-jest.mock('react-router-dom', () => mockFunction())
+jest.mock('react-router', () => mockFunction())
 
 // describe('Cpu details page testing', () => {
 //    test('should display the CPU details properly', async () => {

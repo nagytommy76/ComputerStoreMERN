@@ -14,6 +14,7 @@ const Summary: React.FC = () => {
    const [ratings, setRatings] = useState<{ avgRating: number; rateCount: number }>({ avgRating: 0, rateCount: 0 })
    useEffect(() => {
       axios.get(`/${productType}/get-${productType}-rates`, { params: { _id } }).then((result) => {
+         console.log(result.data)
          if (result.data.avgRating !== null) {
             setRatings({
                avgRating: result.data.avgRating,
