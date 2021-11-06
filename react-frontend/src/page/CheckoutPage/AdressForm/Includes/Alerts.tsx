@@ -10,7 +10,7 @@ const Alerts: React.FC<{
 }> = ({ isSuccess, setIsSuccess, isModified, setIsModified }) => {
    return (
       <>
-         <Grow in={isSuccess}>
+         <Grow mountOnEnter unmountOnExit in={isSuccess}>
             <Alert
                action={
                   <IconButton
@@ -28,7 +28,7 @@ const Alerts: React.FC<{
                A számlázási adatok sikeresen rögzítésre kerültek!
             </Alert>
          </Grow>
-         <Grow in={isModified}>
+         <Grow mountOnEnter unmountOnExit in={isModified}>
             <Alert
                action={
                   <IconButton

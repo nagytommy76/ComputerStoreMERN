@@ -33,13 +33,13 @@ const Adress = () => {
 
    const submitAdressForm = (event: React.MouseEvent) => {
       event.preventDefault()
+      setValidateErrors([{ errorMsg: '', field: '', hasError: false }])
       axios
          .post('/auth/insert-details', { userDetails })
          .then((insertedDetails) => {
             if (insertedDetails.status === 201) {
                setIsSuccess(true)
                setIsSubmitBtnDisabled(true)
-               setValidateErrors([{ errorMsg: '', field: '', hasError: false }])
             }
          })
          .catch((errors: ValidationErrorWithAxiosError) => {
