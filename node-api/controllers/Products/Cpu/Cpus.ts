@@ -30,8 +30,18 @@ export const getAllCpuItemController = async (req: QueryRequest, res: Response) 
 
 export const rateCpuProductController = async (req: RateQueryRequest, res: Response) => {
    try {
-      saveRateProductHelper(req.body._id, CpuProduct, req.body.rating, req.body.comment, req.body.userName, req.user?._id)
-      return res.sendStatus(201)
+      const modifiedProduct = await saveRateProductHelper(
+         req.body._id,
+         CpuProduct,
+         req.body.rating,
+         req.body.comment,
+         req.body.userName,
+         req.user?._id
+      )
+      if (modifiedProduct !== undefined) {
+         modifiedProduct.save()
+         return res.sendStatus(201)
+      } else return res.sendStatus(422)
    } catch (error) {
       return res.status(500).json(error)
    }

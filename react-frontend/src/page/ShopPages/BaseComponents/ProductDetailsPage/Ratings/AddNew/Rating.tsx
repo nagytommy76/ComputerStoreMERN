@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { useLocation } from 'react-router'
 import { LocationType } from '../../../../BaseTypes'
 import { RatingContainer, StyledButton, LeftContent, RightContent, CustomCardContent } from './RatingStyle'
@@ -44,7 +44,10 @@ const Rating = () => {
                   setDefaultValues()
                }
             })
-            .catch((error) => console.log(error))
+            .catch((error: AxiosError) => {
+               if (error.response?.status === 422)
+                  setHasError({ isError: true, message: 'Már értékelted a terméket! Kérlek töröld és értékeld újra!' })
+            })
       }
    }
    return (

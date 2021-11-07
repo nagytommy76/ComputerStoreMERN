@@ -25,14 +25,17 @@ export const saveRateProductHelper = async (
    userId?: string
 ) => {
    const foundProduct = await ProductModel.findById(productId)
-   foundProduct?.ratingValues.push({
-      rating,
-      comment,
-      userName,
-      ratedAt: new Date(),
-      userId
-   })
-   foundProduct?.save()
+   let foundRatingByUser = foundProduct.ratingValues.find((ratings: any) => ratings.userId == userId)
+   if (foundRatingByUser === undefined) {
+      foundProduct?.ratingValues.push({
+         rating,
+         comment,
+         userName,
+         ratedAt: new Date(),
+         userId
+      })
+      return foundProduct
+   } else return undefined
 }
 
 export const likeDislikeCommentHelper = async (req: LikeQuery, res: Response, ProductModel: Model<any>) => {

@@ -183,6 +183,5 @@ describe('Testing the ratings', () => {
       userEvent.type(textInput, 'Teszi a dolgát, nekem nagyon bejött')
       userEvent.click(button)
       expect(screen.getByText(/Az értékeléshez kérlek jelentkezz be!/i)).toBeInTheDocument()
-      screen.debug()
    })
 })
