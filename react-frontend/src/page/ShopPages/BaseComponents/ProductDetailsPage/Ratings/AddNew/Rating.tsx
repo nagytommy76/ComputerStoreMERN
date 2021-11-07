@@ -66,11 +66,13 @@ const Rating = () => {
                         value={rating}
                         onChange={(event, newValue) => {
                            setRating(newValue)
-                           setHasError({ isError: false, message: '' })
+                           if (newValue === null) setHasError({ isError: true, message: 'Kötelező értékelést adni!' })
+                           else setHasError({ isError: false, message: '' })
                         }}
                      />
                      <TextField
                         fullWidth
+                        id='comment'
                         variant='filled'
                         color='success'
                         label='Hozzászólás'
