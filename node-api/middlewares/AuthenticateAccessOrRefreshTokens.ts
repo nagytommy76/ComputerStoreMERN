@@ -11,6 +11,16 @@ const getTokenFromAuthorizationHeader = (authHeader?: string) => {
    return authHeader && authHeader?.split(' ')[1]
 }
 
+export const userAuthenticatedWithAccessToken = (req: GetUserAuthInfoRequest, res: Response, next: NextFunction) => {
+   const token = getTokenFromAuthorizationHeader(req.headers.authorization)
+   if (!token) return next()
+   jwt.verify(token, ACCESS_TOKEN_SECRET, (err, user) => {
+      if (err) return res.status(403).json({ errorMessage: 'accessToken token expired' })
+      req.user = user
+      next()
+   })
+}
+
 export const authenticateAccessToken = (req: GetUserAuthInfoRequest, res: Response, next: NextFunction) => {
    const token = getTokenFromAuthorizationHeader(req.headers.authorization)
    if (!token) return res.sendStatus(401)

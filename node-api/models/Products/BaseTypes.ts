@@ -19,6 +19,7 @@ export type RatingValues = {
    ratedAt: Date
    userId: string
    userName: string
+   usersFoundCommentToDelete?: boolean
    responses: {
       userId?: string
       isLike: boolean
