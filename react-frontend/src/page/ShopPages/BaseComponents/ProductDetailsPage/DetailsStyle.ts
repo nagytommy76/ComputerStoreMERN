@@ -5,7 +5,7 @@ import { mobileWindowSize } from '../../../../Theme/GlobalStyles'
 
 export const DetailsPage = styled.section`
    min-height: 100vh;
-   width: 70%;
+   width: 55%;
    margin: calc(${navbarHeight} + 1.5rem) auto 0 auto;
    @media (max-width: ${mobileWindowSize}) {
       width: 95%;

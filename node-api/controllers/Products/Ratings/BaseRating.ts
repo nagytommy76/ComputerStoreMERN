@@ -69,6 +69,13 @@ export const likeDislikeCommentHelper = async (req: LikeQuery, res: Response, Pr
    return res.sendStatus(404)
 }
 
+export type RemoveRatingRequest = Request & {
+   user?: UserTypes | undefined
+   body: {
+      commentIdToDelete: string
+   }
+}
+
 export type LikeQuery = Request & {
    user?: UserTypes | undefined
    body: {

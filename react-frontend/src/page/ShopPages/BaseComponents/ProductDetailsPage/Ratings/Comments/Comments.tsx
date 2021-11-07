@@ -3,11 +3,14 @@ import axios, { AxiosResponse } from 'axios'
 import { useLocation } from 'react-router'
 import { LocationType } from '../../../../BaseTypes'
 
-import { Typography, Rating } from '@mui/material'
+import Typography from '@mui/material/Typography'
+import Rating from '@mui/material/Rating'
+
 import { CommentCard, RightSide, LeftSide } from './CommentStyle'
 import { RatingContext } from '../RatingContext'
 
 const LikeDislike = React.lazy(() => import('./Likes'))
+const DeleteIcon = React.lazy(() => import('./DeleteSection'))
 
 const Comments: React.FC = () => {
    const {
@@ -20,7 +23,7 @@ const Comments: React.FC = () => {
       return date.toLocaleDateString('hu-HU', {
          year: 'numeric',
          month: '2-digit',
-         day: 'numeric',
+         day: '2-digit',
          hour: '2-digit',
          minute: '2-digit',
          second: '2-digit'
@@ -51,6 +54,7 @@ const Comments: React.FC = () => {
                   <Typography variant='body1'>{comment.comment}</Typography>
                   <LikeDislike productType={productType} commentId={comment._id} responses={comment.responses} />
                </RightSide>
+               <DeleteIcon commentId={comment._id} commentsUserName={comment.userName} />
             </CommentCard>
          ))}
       </>
