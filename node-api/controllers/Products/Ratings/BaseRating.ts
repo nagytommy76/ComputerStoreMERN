@@ -73,6 +73,7 @@ export type RemoveRatingRequest = Request & {
    user?: UserTypes | undefined
    body: {
       commentIdToDelete: string
+      productId: string
    }
 }
 

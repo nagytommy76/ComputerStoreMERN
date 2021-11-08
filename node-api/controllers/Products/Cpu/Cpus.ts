@@ -68,8 +68,15 @@ export const getAllComments = async (req: RequestQuery, res: Response) => {
 
 export const removeUsersRating = async (req: RemoveRatingRequest, res: Response) => {
    try {
-      // const foundCommentTodelete = CpuProduct.find()
-      return res.status(200).json({ msg: 'Törlés sikeres, nem végleges', response: req.body.commentIdToDelete })
+      const foundCpuProduct = await CpuProduct.findById(req.body.productId, 'ratingValues')
+      if (foundCpuProduct) {
+         const updatedComments = foundCpuProduct.ratingValues.filter(
+            (rating) => rating._id != req.body.commentIdToDelete && rating.userId != req.user?._id
+         )
+         foundCpuProduct.ratingValues = updatedComments
+         // foundCpuProduct.save()
+         return res.status(200).json({ msg: 'Sikeresen törölted a kommented!', foundCpuProduct })
+      } else return res.sendStatus(404)
    } catch (error) {
       return res.status(500).json(error)
    }
