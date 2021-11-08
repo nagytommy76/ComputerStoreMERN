@@ -3,11 +3,13 @@ import axios, { AxiosResponse } from 'axios'
 import { useLocation } from 'react-router'
 import { LocationType } from '../../../../BaseTypes'
 
+import { RatingContext } from '../RatingContext'
+import { formatRatedAtToDateType, RateState } from './Helpers'
+
 import Typography from '@mui/material/Typography'
 import Rating from '@mui/material/Rating'
 
 import { CommentCard, RightSide, LeftSide } from './CommentStyle'
-import { RatingContext } from '../RatingContext'
 
 const LikeDislike = React.lazy(() => import('./Likes'))
 const DeleteIcon = React.lazy(() => import('./DeleteSection'))
@@ -32,12 +34,7 @@ const Comments: React.FC = () => {
 
    useEffect(() => {
       axios.get(`/${productType}/get-${productType}-comments`, { params: { _id } }).then((result: AxiosResponse<RateState[]>) => {
-         const ratedAtFormattedToDate = result.data.map((res) => {
-            return {
-               ...res,
-               ratedAt: new Date(res.ratedAt)
-            }
-         })
+         const ratedAtFormattedToDate = formatRatedAtToDateType(result.data)
          setAllComments(ratedAtFormattedToDate)
       })
    }, [_id, commentRequestSend, productType])
@@ -54,20 +51,11 @@ const Comments: React.FC = () => {
                   <Typography variant='body1'>{comment.comment}</Typography>
                   <LikeDislike productType={productType} commentId={comment._id} responses={comment.responses} />
                </RightSide>
-               <DeleteIcon commentId={comment._id} commentsUserName={comment.userName} />
+               <DeleteIcon setComments={setAllComments} commentId={comment._id} commentsUserName={comment.userName} />
             </CommentCard>
          ))}
       </>
    )
-}
-
-type RateState = {
-   _id: string
-   rating: number
-   comment?: string
-   ratedAt: Date
-   userName: string
-   responses: { _id?: string; isLike: boolean; userId: string }[]
 }
 
 export default Comments

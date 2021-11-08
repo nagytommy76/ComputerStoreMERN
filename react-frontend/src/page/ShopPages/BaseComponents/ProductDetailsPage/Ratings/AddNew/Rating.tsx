@@ -20,6 +20,7 @@ const Rating = () => {
    const [comment, setComment] = useState<string>('')
    const [hasError, setHasError] = useState<{ isError: boolean; message: string }>({ isError: false, message: '' })
    const [commentRequestSend, setCommentRequestSend] = useState<boolean>(false)
+   const [commentDeletedRequest, setCommentDeletedRequest] = useState<boolean>(false)
 
    const setDefaultValues = () => {
       setComment('')
@@ -53,6 +54,8 @@ const Rating = () => {
    return (
       <RatingContext.Provider
          value={{
+            commentDeletedRequest,
+            setCommentDeletedRequest,
             commentRequestSend,
             setCommentRequestSend
          }}>

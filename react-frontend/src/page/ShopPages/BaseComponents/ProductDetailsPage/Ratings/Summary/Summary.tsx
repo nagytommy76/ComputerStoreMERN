@@ -9,7 +9,7 @@ const Summary: React.FC = () => {
    const {
       state: { _id, productType }
    } = useLocation<LocationType>()
-   const { commentRequestSend } = useContext(RatingContext)
+   const { commentRequestSend, commentDeletedRequest } = useContext(RatingContext)
 
    const [ratings, setRatings] = useState<{ avgRating: number; rateCount: number }>({ avgRating: 0, rateCount: 0 })
    useEffect(() => {
@@ -21,7 +21,7 @@ const Summary: React.FC = () => {
             })
          }
       })
-   }, [_id, commentRequestSend, productType])
+   }, [_id, commentRequestSend, commentDeletedRequest, productType])
    return ratings.avgRating ? (
       <Box>
          <Typography variant='h3'>{ratings.avgRating.toFixed(2)}</Typography>
