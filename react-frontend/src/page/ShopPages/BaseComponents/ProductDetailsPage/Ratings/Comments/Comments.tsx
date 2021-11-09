@@ -8,6 +8,8 @@ import { formatRatedAtToDateType, RateState } from './Helpers'
 
 import Typography from '@mui/material/Typography'
 import Rating from '@mui/material/Rating'
+import Collapse from '@mui/material/Collapse'
+import { TransitionGroup } from 'react-transition-group'
 
 import { CommentCard, RightSide, LeftSide } from './CommentStyle'
 
@@ -39,22 +41,24 @@ const Comments: React.FC = () => {
       })
    }, [_id, commentRequestSend, productType])
    return (
-      <>
+      <TransitionGroup>
          {allComments.map((comment) => (
-            <CommentCard key={comment._id}>
-               <LeftSide>
-                  <Typography variant='h5'>{comment.userName}</Typography>
-                  <Rating name='read-only' precision={0.5} value={comment.rating} size='large' readOnly />
-                  <Typography variant='subtitle2'>{formatDate(comment.ratedAt)}</Typography>
-               </LeftSide>
-               <RightSide>
-                  <Typography variant='body1'>{comment.comment}</Typography>
-                  <LikeDislike productType={productType} commentId={comment._id} responses={comment.responses} />
-               </RightSide>
-               <DeleteIcon setComments={setAllComments} commentId={comment._id} commentsUserName={comment.userName} />
-            </CommentCard>
+            <Collapse key={comment._id}>
+               <CommentCard key={comment._id}>
+                  <LeftSide>
+                     <Typography variant='h5'>{comment.userName}</Typography>
+                     <Rating name='read-only' precision={0.5} value={comment.rating} size='large' readOnly />
+                     <Typography variant='subtitle2'>{formatDate(comment.ratedAt)}</Typography>
+                  </LeftSide>
+                  <RightSide>
+                     <Typography variant='body1'>{comment.comment}</Typography>
+                     <LikeDislike productType={productType} commentId={comment._id} responses={comment.responses} />
+                  </RightSide>
+                  <DeleteIcon setComments={setAllComments} commentId={comment._id} commentsUserName={comment.userName} />
+               </CommentCard>
+            </Collapse>
          ))}
-      </>
+      </TransitionGroup>
    )
 }
 

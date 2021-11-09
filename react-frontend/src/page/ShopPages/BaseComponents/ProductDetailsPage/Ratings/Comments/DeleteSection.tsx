@@ -24,14 +24,17 @@ const DeleteSection: React.FC<{
    const userName = useAppSelector((state) => state.auth.userName)
 
    const handleCommentDelete = async () => {
-      const response = await axios.delete(`/${productType}/${productType}-comment-remove`, {
-         data: { commentIdToDelete: commentId, productId: _id }
-      })
-      if (response.status === 200) {
-         const ratedAtFormattedToDate = formatRatedAtToDateType(response.data.foundCpuProduct.ratingValues)
-         setComments(ratedAtFormattedToDate)
-         setCommentDeletedRequest((prevValue) => !prevValue)
-         console.log(response.data.foundCpuProduct.ratingValues)
+      try {
+         const response = await axios.delete(`/${productType}/${productType}-comment-remove`, {
+            data: { commentIdToDelete: commentId, productId: _id }
+         })
+         if (response.status === 200) {
+            const ratedAtFormattedToDate = formatRatedAtToDateType(response.data.foundCpuProduct.ratingValues)
+            setComments(ratedAtFormattedToDate)
+            setCommentDeletedRequest((prevValue) => !prevValue)
+         }
+      } catch (error) {
+         console.log(error)
       }
    }
 
@@ -39,7 +42,7 @@ const DeleteSection: React.FC<{
       <>
          {isUserLoggedIn && userName === commentsUserName && (
             <Tooltip title='Komment törlése'>
-               <IconButton onClick={handleCommentDelete} sx={{ height: '50%' }} size='large'>
+               <IconButton id='deleteComment' onClick={handleCommentDelete} sx={{ height: '50%' }} size='large'>
                   <DeleteSweepIcon color='error' fontSize='medium' />
                </IconButton>
             </Tooltip>

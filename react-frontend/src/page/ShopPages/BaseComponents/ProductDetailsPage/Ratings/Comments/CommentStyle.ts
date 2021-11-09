@@ -38,6 +38,7 @@ export const ThumbsContainer = styled.div`
    align-items: center;
    width: 110px;
    justify-content: space-between;
+   margin-top: 1rem;
    @media (max-width: ${mobileWindowSize}) {
       margin-top: 1.5rem;
    }
