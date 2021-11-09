@@ -16,18 +16,27 @@ const Likes: React.FC<{ productType: string; commentId: string; responses: Respo
    } = useLocation<LocationType>()
 
    const isUserLoggedIn = useAppSelector((state) => state.auth.userLoggedIn)
+   const userId = useAppSelector((state) => state.auth.userId)
 
    const [isOpen, setIsOpen] = useState<boolean>(false)
    const [tooltipText, setTooltipText] = useState<string>('')
-   const [countedLikes, setCountedLikes] = useState({ like: 0, dislike: 0 })
+   const [countedLikes, setCountedLikes] = useState({ like: 0, dislike: 0, usersLike: false, usersDislike: false })
 
    const countLikesAndDislikes = (incomingResponses: ResponsesType[]) => {
-      let likeCount = 0
-      let dislikeCount = 0
+      let likeCount = 0,
+         dislikeCount = 0,
+         usersLike = false,
+         usersDislike = false
       incomingResponses.map((likes) => {
-         return likes.isLike ? (likeCount += 1) : (dislikeCount += 1)
+         if (likes.isLike) {
+            if (userId === likes.userId) usersLike = true
+            return (likeCount += 1)
+         } else {
+            if (userId === likes.userId) usersDislike = true
+            return (dislikeCount += 1)
+         }
       })
-      setCountedLikes({ like: likeCount, dislike: dislikeCount })
+      setCountedLikes({ usersLike, usersDislike, like: likeCount, dislike: dislikeCount })
    }
 
    useEffect(() => {
@@ -66,11 +75,14 @@ const Likes: React.FC<{ productType: string; commentId: string; responses: Respo
             disableTouchListener>
             <ThumbsContainer>
                <ThumbIconsContainer>
-                  <CustomThumbUp color='secondary' onClick={() => handleLikeRequest()} />
+                  <CustomThumbUp color={countedLikes.usersLike ? 'primary' : 'secondary'} onClick={() => handleLikeRequest()} />
                   {countedLikes.like}
                </ThumbIconsContainer>
                <ThumbIconsContainer>
-                  <CustomThumbDown color='secondary' onClick={() => handleLikeRequest(false)} />
+                  <CustomThumbDown
+                     color={countedLikes.usersDislike ? 'error' : 'secondary'}
+                     onClick={() => handleLikeRequest(false)}
+                  />
                   {countedLikes.dislike}
                </ThumbIconsContainer>
             </ThumbsContainer>

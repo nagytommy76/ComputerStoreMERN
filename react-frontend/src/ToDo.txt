@@ -1,7 +1,6 @@
 1. Axios interceptors-nál megoldani, hogy ha a refresh token lejár, tehát a user kilép, pusholni kéne a login page-re egy msg-el
 3. A Card suspense szintén nem jó...
 - Megoldani, hogy aki már like-olt annak más színű legyen az ikon
-- Megoldani, hogy a user tudja törölni a saját hozzászólását, (és ne tudjon még egyet hozzáadni???????)
 - amikor elküldöd a kommented nem jelenik meg azonnal
 
 - Megoldani a transition-tm ha lehet a MUI-t 0.2s-re állítani, ha nem akkor a sajátokat levenni 0s-re?!

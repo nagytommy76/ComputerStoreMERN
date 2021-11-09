@@ -3,7 +3,7 @@ import React, { useState, Suspense } from 'react'
 import { useHistory, useLocation } from 'react-router'
 import loginImage from './login.jpg'
 import { InputTypes } from '../DefaultProperties'
-import { setUserLoggedIn, setAccessToken, setUserName, setRefreshToken, setAdmin } from '../../../app/slices/AuthSlice'
+import { setUserLoggedIn, setAccessToken, setUserId, setUserName, setRefreshToken, setAdmin } from '../../../app/slices/AuthSlice'
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'
 import { ImageStyle, AuthContainer, AuthFormStyle } from '../BaseForm/BaseStyle'
 import LoginSuspense from '../../../SuspenseComponents/Auth/Login'
@@ -41,6 +41,7 @@ const Login: React.FC = () => {
          .then((response: AxiosResponse) => {
             if (response.status === 200) {
                dispatch(setUserLoggedIn(true))
+               dispatch(setUserId(response.data.userId))
                dispatch(setAccessToken(response.data.accessToken))
                dispatch(setRefreshToken(response.data.refreshToken))
                dispatch(setUserName(response.data.userName))
