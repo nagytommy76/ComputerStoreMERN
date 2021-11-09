@@ -1,4 +1,5 @@
 import { Response } from 'express'
+import { RatingValues } from '../../../models/Products/BaseTypes'
 import { CpuProduct } from '../../../models/Products/Cpu/CpuSchema'
 import { QueryRequest, returnProductModelWithPaginateInfo, baseFilterData } from '../Helper'
 import {
@@ -59,8 +60,10 @@ export const getCpuRatingSummaryController = async (req: RequestQuery, res: Resp
 
 export const getAllComments = async (req: RequestQuery, res: Response) => {
    try {
-      const allComments = await CpuProduct.find({ _id: req.query._id }, 'ratingValues')
-      return res.status(200).json(allComments[0].ratingValues)
+      const allComments = await CpuProduct.findById(req.query._id, 'ratingValues').sort({ ratedAt: -1 })
+      if (allComments) {
+         return res.status(200).json(allComments.ratingValues)
+      } else return res.sendStatus(404)
    } catch (error) {
       return res.status(500).json(error)
    }
@@ -74,7 +77,7 @@ export const removeUsersRating = async (req: RemoveRatingRequest, res: Response)
             (rating) => rating._id != req.body.commentIdToDelete && rating.userId != req.user?._id
          )
          foundCpuProduct.ratingValues = updatedComments
-         // foundCpuProduct.save()
+         foundCpuProduct.save()
          return res.status(200).json({ msg: 'Sikeresen törölted a kommented!', foundCpuProduct })
       } else return res.sendStatus(404)
    } catch (error) {
