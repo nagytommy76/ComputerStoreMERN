@@ -36,7 +36,7 @@ export const loginUserController = async (req: Request, res: Response) => {
       if (await bcrypt.compare(req.body.password, user.password)) {
          const accessToken = generateTokens(user._id, user.isAdmin, user.email, ACCESS_TOKEN_SECRET)
          const refreshToken = generateTokens(user._id, user.isAdmin, user.email, REFRESH_TOKEN_SECRET, '1day')
-         res.status(200).json({ accessToken, refreshToken, userName: user.userName, isAdmin: user.isAdmin })
+         res.status(200).json({ accessToken, refreshToken, userId: user._id, userName: user.userName, isAdmin: user.isAdmin })
       } else res.status(404).json(ErrorResponse(true, 'Helytelen jelszó', 'password'))
    } catch (error) {
       console.log(error)
