@@ -16,7 +16,7 @@ const Rating = () => {
    } = useLocation<LocationType>()
    const userName = useAppSelector((state) => state.auth.userName)
    const isUserLoggedIn = useAppSelector((state) => state.auth.userLoggedIn)
-   const [rating, setRating] = useState<number | null>(3)
+   const [rating, setRating] = useState<number | null>(4)
    const [comment, setComment] = useState<string>('')
    const [hasError, setHasError] = useState<{ isError: boolean; message: string }>({ isError: false, message: '' })
    const [commentRequestSend, setCommentRequestSend] = useState<boolean>(false)
@@ -41,7 +41,7 @@ const Rating = () => {
             })
             .then((result) => {
                if (result.status === 201) {
-                  setCommentRequestSend(true)
+                  setCommentRequestSend((prevValue) => !prevValue)
                   setDefaultValues()
                }
             })

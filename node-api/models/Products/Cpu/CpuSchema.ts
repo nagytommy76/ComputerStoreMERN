@@ -43,7 +43,28 @@ const CpuSchema = new Schema<CpuProductType>({
                      userId: { type: String, required: true },
                      isLike: { type: Boolean, required: true }
                   }
-               ]
+               ],
+               required: false
+            },
+            commentAnswers: {
+               type: [
+                  {
+                     userId: { type: String, required: true },
+                     userName: { type: String, required: true },
+                     answer: { type: String, required: false },
+                     answeredAt: { type: Date, required: true },
+                     responses: {
+                        type: [
+                           {
+                              userId: { type: String, required: true },
+                              isLike: { type: Boolean, required: true }
+                           }
+                        ],
+                        required: false
+                     }
+                  }
+               ],
+               required: false
             }
          }
       ],
