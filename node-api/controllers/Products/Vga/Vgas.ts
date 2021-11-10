@@ -7,7 +7,9 @@ import {
    RequestQuery,
    getProductRatingSummary,
    LikeQuery,
-   likeDislikeCommentHelper
+   likeDislikeCommentHelper,
+   RemoveRatingRequest,
+   removeUsersRatingHelper
 } from '../Ratings/BaseRating'
 
 export const getAllVgaItemController = async (req: QueryRequest, res: Response) => {
@@ -69,6 +71,14 @@ export const getAllVgaComments = async (req: RequestQuery, res: Response) => {
 export const likeDislikeVgaCommentController = async (req: LikeQuery, res: Response) => {
    try {
       likeDislikeCommentHelper(req, res, VgaProduct)
+   } catch (error) {
+      return res.status(500).json(error)
+   }
+}
+
+export const removeUsersRatingInVga = (req: RemoveRatingRequest, res: Response) => {
+   try {
+      removeUsersRatingHelper(req, res, VgaProduct)
    } catch (error) {
       return res.status(500).json(error)
    }

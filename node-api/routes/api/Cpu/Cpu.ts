@@ -6,7 +6,7 @@ import {
    getCpuRatingSummaryController,
    getAllComments,
    likeDislikeCpuCommentController,
-   removeUsersRating
+   removeUsersRatingInCpu
 } from '../../../controllers/Products/Cpu/Cpus'
 import { authenticateAccessToken } from '../../../middlewares/AuthenticateAccessOrRefreshTokens'
 const router = express.Router()
@@ -18,6 +18,6 @@ router.get('/get-cpu-comments', getAllComments)
 
 router.post('/rate-cpu', authenticateAccessToken, rateCpuProductController)
 router.post('/cpu-comment-like', authenticateAccessToken, likeDislikeCpuCommentController)
-router.delete('/cpu-comment-remove', authenticateAccessToken, removeUsersRating)
+router.delete('/cpu-comment-remove', authenticateAccessToken, removeUsersRatingInCpu)
 
 module.exports = router

@@ -5,7 +5,8 @@ import {
    getFilterData,
    getVgaRatingSummaryController,
    rateVgaProductController,
-   likeDislikeVgaCommentController
+   likeDislikeVgaCommentController,
+   removeUsersRatingInVga
 } from '../../../controllers/Products/Vga/Vgas'
 import { authenticateAccessToken } from '../../../middlewares/AuthenticateAccessOrRefreshTokens'
 const router = express.Router()
@@ -19,5 +20,6 @@ router.get('/get-vga-comments', getAllVgaComments)
 
 router.post('/rate-vga', authenticateAccessToken, rateVgaProductController)
 router.post('/vga-comment-like', authenticateAccessToken, likeDislikeVgaCommentController)
+router.delete('/vga-comment-remove', authenticateAccessToken, removeUsersRatingInVga)
 
 module.exports = router

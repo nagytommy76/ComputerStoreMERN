@@ -1,5 +1,4 @@
 import { Response } from 'express'
-import { RatingValues } from '../../../models/Products/BaseTypes'
 import { CpuProduct } from '../../../models/Products/Cpu/CpuSchema'
 import { QueryRequest, returnProductModelWithPaginateInfo, baseFilterData } from '../Helper'
 import {
@@ -9,7 +8,8 @@ import {
    RateQueryRequest,
    RequestQuery,
    LikeQuery,
-   RemoveRatingRequest
+   RemoveRatingRequest,
+   removeUsersRatingHelper
 } from '../Ratings/BaseRating'
 
 export const getCpuFilterData = async (req: QueryRequest, res: Response) => {
@@ -69,17 +69,9 @@ export const getAllComments = async (req: RequestQuery, res: Response) => {
    }
 }
 
-export const removeUsersRating = async (req: RemoveRatingRequest, res: Response) => {
+export const removeUsersRatingInCpu = async (req: RemoveRatingRequest, res: Response) => {
    try {
-      const foundCpuProduct = await CpuProduct.findById(req.body.productId, 'ratingValues')
-      if (foundCpuProduct) {
-         const updatedComments = foundCpuProduct.ratingValues.filter(
-            (rating) => rating._id != req.body.commentIdToDelete && rating.userId != req.user?._id
-         )
-         foundCpuProduct.ratingValues = updatedComments
-         foundCpuProduct.save()
-         return res.status(200).json({ msg: 'Sikeresen törölted a kommented!', foundCpuProduct })
-      } else return res.sendStatus(404)
+      removeUsersRatingHelper(req, res, CpuProduct)
    } catch (error) {
       return res.status(500).json(error)
    }

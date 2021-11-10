@@ -12,7 +12,7 @@ export const getProductRatingSummary = async (productId: ObjectId, ProductModel:
    })
    return {
       rateCount,
-      avgRating: rateSum / rateCount
+      avgRating: rateSum / rateCount || 0
    }
 }
 
@@ -67,6 +67,20 @@ export const likeDislikeCommentHelper = async (req: LikeQuery, res: Response, Pr
       return res.status(201).json({ responses: foundComment[0].responses })
    }
    return res.sendStatus(404)
+}
+
+// Remove User's comment
+
+export const removeUsersRatingHelper = async (req: RemoveRatingRequest, res: Response, ProductModel: Model<any>) => {
+   const foundProduct = await ProductModel.findById(req.body.productId, 'ratingValues')
+   if (foundProduct) {
+      const updatedComments = foundProduct.ratingValues.filter(
+         (rating: RatingValues) => rating._id != req.body.commentIdToDelete && rating.userId != req.user?._id
+      )
+      foundProduct.ratingValues = updatedComments
+      foundProduct.save()
+      return res.status(200).json({ msg: 'Sikeresen törölted a kommented!', foundCpuProduct: foundProduct })
+   } else return res.sendStatus(404)
 }
 
 export type RemoveRatingRequest = Request & {
