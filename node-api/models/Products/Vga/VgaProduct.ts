@@ -1,5 +1,6 @@
 import { Schema, model } from 'mongoose'
 import { VgaType } from './VgaTypes'
+import { ProductRatingValuesSchema } from '../Helper'
 
 const VgaSchema = new Schema<VgaType>({
    itemNumber: { type: String, required: true },
@@ -32,26 +33,7 @@ const VgaSchema = new Schema<VgaType>({
 }).add({
    inStockQuantity: { type: Number, required: true, default: 0 },
    isHighlighted: { type: Boolean, required: false, default: false },
-   ratingValues: {
-      type: [
-         {
-            userId: { type: String, required: true },
-            userName: { type: String, required: true },
-            rating: { type: Number, required: true },
-            ratedAt: { type: Date, required: true },
-            comment: { type: String, required: false },
-            responses: {
-               type: [
-                  {
-                     userId: { type: String, required: true },
-                     isLike: { type: Boolean, required: true }
-                  }
-               ]
-            }
-         }
-      ],
-      required: false
-   }
+   ratingValues: ProductRatingValuesSchema
 })
 
 export const VgaProduct = model<VgaType>('VgaProduct', VgaSchema)
