@@ -1,20 +1,17 @@
 import styled from 'styled-components'
-import { styled as MUIStyled } from '@mui/system'
-import { Card } from '@mui/material'
+import { Card, styled as MUIStyled } from '@mui/material'
 import { ThumbUp, ThumbDown } from '@mui/icons-material'
 import { mobileWindowSize } from '../../../../../../Theme/GlobalStyles'
 
-export const CommentCard = MUIStyled(Card)`
-   margin-top: 2rem;
-   padding: 1.5rem;
-
-   display: flex;
-   flex-direction: row;
-
-   @media (max-width: ${mobileWindowSize}) {
-      flex-direction: column;
+export const CommentCard = MUIStyled(Card)(() => ({
+   marginTop: '2rem',
+   padding: '1.5rem',
+   display: 'flex',
+   flexDirection: 'row',
+   [`@media (max-width: ${mobileWindowSize})`]: {
+      flexDirection: 'column'
    }
-`
+}))
 
 export const LeftSide = styled.div`
    flex: 1;
@@ -36,7 +33,7 @@ export const RightSide = styled.div`
 export const ThumbsContainer = styled.div`
    display: flex;
    align-items: center;
-   width: 110px;
+   width: 170px;
    justify-content: space-between;
    margin-top: 1rem;
    @media (max-width: ${mobileWindowSize}) {

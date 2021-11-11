@@ -1,8 +1,10 @@
-import axios, { AxiosError } from 'axios'
 import React, { useEffect, useState } from 'react'
+import axios, { AxiosError } from 'axios'
+
 import { useAppSelector } from '../../../../../../app/hooks'
 import { useLocation } from 'react-router'
 import { LocationType } from '../../../../BaseTypes'
+
 import { ThumbsContainer, CustomThumbDown, CustomThumbUp, ThumbIconsContainer } from './CommentStyle'
 import { Tooltip, ClickAwayListener } from '@mui/material'
 
@@ -19,6 +21,7 @@ const Likes: React.FC<{ productType: string; commentId: string; responses: Respo
    const userId = useAppSelector((state) => state.auth.userId)
 
    const [isOpen, setIsOpen] = useState<boolean>(false)
+   const [isAnswerOpen, setIsAnswerOpen] = useState<boolean>(false)
    const [tooltipText, setTooltipText] = useState<string>('')
    const [countedLikes, setCountedLikes] = useState({ like: 0, dislike: 0, usersLike: false, usersDislike: false })
 
@@ -85,6 +88,7 @@ const Likes: React.FC<{ productType: string; commentId: string; responses: Respo
                   />
                   {countedLikes.dislike}
                </ThumbIconsContainer>
+               <p>Válasz</p>
             </ThumbsContainer>
          </Tooltip>
       </ClickAwayListener>

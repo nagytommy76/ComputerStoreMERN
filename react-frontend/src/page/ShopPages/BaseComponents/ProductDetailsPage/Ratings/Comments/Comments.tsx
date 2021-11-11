@@ -9,12 +9,14 @@ import { formatRatedAtToDateType, RateState } from './Helpers'
 import Typography from '@mui/material/Typography'
 import Rating from '@mui/material/Rating'
 import Collapse from '@mui/material/Collapse'
+import CardContent from '@mui/material'
 import { TransitionGroup } from 'react-transition-group'
 
 import { CommentCard, RightSide, LeftSide } from './CommentStyle'
 
 const LikeDislike = React.lazy(() => import('./Likes'))
 const DeleteIcon = React.lazy(() => import('./DeleteSection'))
+const CreateAnswer = React.lazy(() => import('./Answers/CreateAnswer'))
 
 const Comments: React.FC = () => {
    const {
@@ -55,6 +57,9 @@ const Comments: React.FC = () => {
                      <LikeDislike productType={productType} commentId={comment._id} responses={comment.responses} />
                   </RightSide>
                   <DeleteIcon setComments={setAllComments} commentId={comment._id} commentsUserName={comment.userName} />
+                  {/* <CardContent>
+                     <CreateAnswer isAnswerOpen={true} />
+                  </CardContent> */}
                </CommentCard>
             </Collapse>
          ))}
