@@ -33,7 +33,7 @@ export const RightSide = styled.div`
 export const ThumbsContainer = styled.div<{ usersComment: boolean }>`
    display: flex;
    align-items: center;
-   width: ${({ usersComment }) => (usersComment ? '220px' : '100px')};
+   width: ${({ usersComment }) => (usersComment ? '200px' : '100px')};
    justify-content: space-between;
    margin-top: 1rem;
    @media (max-width: ${mobileWindowSize}) {

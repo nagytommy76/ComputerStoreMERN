@@ -7,17 +7,15 @@ import { LocationType } from '../../../../BaseTypes'
 
 import { ThumbsContainer, CustomThumbDown, CustomThumbUp, ThumbIconsContainer } from './CommentStyle'
 import { Tooltip, ClickAwayListener } from '@mui/material'
-import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
 
 const Likes: React.FC<{
-   productType: string
    commentId: string
    responses: ResponsesType[]
    setIsAnswerOpen: React.Dispatch<React.SetStateAction<boolean>>
-}> = ({ productType, commentId, responses, setIsAnswerOpen }) => {
+}> = ({ commentId, responses, setIsAnswerOpen }) => {
    const {
-      state: { _id }
+      state: { _id, productType }
    } = useLocation<LocationType>()
 
    const isUserLoggedIn = useAppSelector((state) => state.auth.userLoggedIn)
@@ -96,7 +94,7 @@ const Likes: React.FC<{
                   {countedLikes.dislike}
                </ThumbIconsContainer>
                {isUsersComment() && (
-                  <Button onClick={handleAnswerOpen} color='success' variant='outlined' endIcon={<SendIcon />}>
+                  <Button onClick={handleAnswerOpen} color='success' variant='outlined'>
                      Válasz
                   </Button>
                )}

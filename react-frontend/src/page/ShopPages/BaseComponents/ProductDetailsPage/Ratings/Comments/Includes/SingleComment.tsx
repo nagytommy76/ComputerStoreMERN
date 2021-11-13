@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useLocation } from 'react-router'
 
 import Collapse from '@mui/material/Collapse'
 import Card from '@mui/material/Card'
@@ -10,7 +9,6 @@ import Rating from '@mui/material/Rating'
 import { CommentCard, RightSide, LeftSide } from '../CommentStyle'
 
 import { RateState } from '../Helpers'
-import { LocationType } from '../../../../../BaseTypes'
 
 const LikeDislike = React.lazy(() => import('../Likes'))
 const DeleteIcon = React.lazy(() => import('../DeleteSection'))
@@ -20,9 +18,6 @@ const SingleComment: React.FC<{ comment: RateState; setAllComments: React.Dispat
    comment,
    setAllComments
 }) => {
-   const {
-      state: { productType }
-   } = useLocation<LocationType>()
    const formatDate = (date: Date) => {
       return date.toLocaleDateString('hu-HU', {
          year: 'numeric',
@@ -45,18 +40,13 @@ const SingleComment: React.FC<{ comment: RateState; setAllComments: React.Dispat
             </LeftSide>
             <RightSide>
                <Typography variant='body1'>{comment.comment}</Typography>
-               <LikeDislike
-                  setIsAnswerOpen={setIsAnswerOpen}
-                  productType={productType}
-                  commentId={comment._id}
-                  responses={comment.responses}
-               />
+               <LikeDislike setIsAnswerOpen={setIsAnswerOpen} commentId={comment._id} responses={comment.responses} />
             </RightSide>
             <DeleteIcon setComments={setAllComments} commentId={comment._id} commentsUserName={comment.userName} />
          </CommentCard>
          <Collapse in={isAnswerOpen}>
             <CardContent>
-               <CreateAnswer userName={comment.userName} />
+               <CreateAnswer commentId={comment._id} userName={comment.userName} />
             </CardContent>
          </Collapse>
       </Card>

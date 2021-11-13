@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const AnswerContainer = styled.section`
-   height: 130px;
+   min-height: 130px;
    display: flex;
    flex-direction: column;
    justify-content: space-between;

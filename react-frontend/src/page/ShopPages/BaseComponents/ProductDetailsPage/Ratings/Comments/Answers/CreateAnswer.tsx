@@ -1,20 +1,39 @@
 import React, { useState } from 'react'
 
 import TextField from '@mui/material/TextField'
-import Button from '@mui/material/Button'
+import SendIcon from '@mui/icons-material/Send'
+import LoadingButton from '@mui/lab/LoadingButton'
 
 import { AnswerContainer, ButtonAlertContainer } from './AnswerStyle'
+import axios from 'axios'
+import { useLocation } from 'react-router'
+import { LocationType } from '../../../../../BaseTypes'
 
-const CreateAnswer: React.FC<{ userName: string }> = ({ userName }) => {
+const CreateAnswer: React.FC<{ userName: string; commentId: string }> = ({ userName, commentId }) => {
+   const {
+      state: { _id, productType }
+   } = useLocation<LocationType>()
    const [answerText, setAnswerText] = useState<string>('')
+   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+   const handleTextFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       setAnswerText(event.target.value)
    }
 
-   const handleAnswerSend = () => {
+   const handleAnswerSend = async () => {
       if (answerText !== '' || answerText) {
-         console.log(answerText)
+         setIsLoading(true)
+         try {
+            const response = await axios.post(`/${productType}/save-${productType}-answer`, {
+               answer: answerText,
+               cpuId: _id,
+               commentId
+            })
+            console.log(response.data)
+            setIsLoading(false)
+         } catch (error) {
+            console.log(error)
+         }
       }
    }
 
@@ -26,14 +45,21 @@ const CreateAnswer: React.FC<{ userName: string }> = ({ userName }) => {
             placeholder={`Válasz üzenet ${userName} részére`}
             fullWidth
             multiline
-            maxRows={6}
+            maxRows={5}
             value={answerText}
-            onChange={handleChange}
+            onChange={handleTextFieldChange}
          />
          <ButtonAlertContainer>
-            <Button sx={{ width: '165px' }} onClick={handleAnswerSend} color='warning' variant='outlined'>
+            <LoadingButton
+               endIcon={<SendIcon />}
+               loading={isLoading}
+               loadingPosition='end'
+               sx={{ width: '190px' }}
+               onClick={handleAnswerSend}
+               color='warning'
+               variant='outlined'>
                Válasz küldése
-            </Button>
+            </LoadingButton>
             <h1>Alert Van!!!</h1>
          </ButtonAlertContainer>
       </AnswerContainer>
