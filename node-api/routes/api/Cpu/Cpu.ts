@@ -8,6 +8,7 @@ import {
    removeUsersRatingInCpu
 } from '../../../controllers/Products/Cpu/CpuRating'
 import { authenticateAccessToken } from '../../../middlewares/AuthenticateAccessOrRefreshTokens'
+import { saveCpuAnswerController } from '../../../controllers/Products/Cpu/CpuRatingResponse'
 const router = express.Router()
 
 router.get('/', getAllCpuItemController)
@@ -21,6 +22,6 @@ router.post('/cpu-comment-like', authenticateAccessToken, likeDislikeCpuCommentC
 router.delete('/cpu-comment-remove', authenticateAccessToken, removeUsersRatingInCpu)
 
 // Rating Answers
-// router.get('/get')
+router.post('/save-cpu-answer', authenticateAccessToken, saveCpuAnswerController)
 
 module.exports = router

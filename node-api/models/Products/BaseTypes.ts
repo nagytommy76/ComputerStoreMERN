@@ -19,9 +19,19 @@ export type RatingValues = {
    ratedAt: Date
    userId: string
    userName: string
-   usersFoundCommentToDelete?: boolean
-   responses: {
-      userId?: string
-      isLike: boolean
-   }[]
+   responses: ResponsesType[]
+   commentAnswers: CommentAnswerType[]
+}
+
+type CommentAnswerType = {
+   userId: string
+   userName: string
+   answer: string
+   answeredAt: Date
+   responses?: ResponsesType[]
+}
+
+type ResponsesType = {
+   userId?: string
+   isLike: boolean
 }
