@@ -34,8 +34,8 @@ export const loginUserController = async (req: Request, res: Response) => {
    }
    try {
       if (await bcrypt.compare(req.body.password, user.password)) {
-         const accessToken = generateTokens(user._id, user.isAdmin, user.email, ACCESS_TOKEN_SECRET)
-         const refreshToken = generateTokens(user._id, user.isAdmin, user.email, REFRESH_TOKEN_SECRET, '1day')
+         const accessToken = generateTokens(user._id, user.userName, user.isAdmin, user.email, ACCESS_TOKEN_SECRET)
+         const refreshToken = generateTokens(user._id, user.userName, user.isAdmin, user.email, REFRESH_TOKEN_SECRET, '1day')
          res.status(200).json({ accessToken, refreshToken, userId: user._id, userName: user.userName, isAdmin: user.isAdmin })
       } else res.status(404).json(ErrorResponse(true, 'Helytelen jelszó', 'password'))
    } catch (error) {
@@ -50,7 +50,7 @@ export const checkTokensValidityController = (req: Request, res: Response) => {
    try {
       jwt.verify(refreshToken, REFRESH_TOKEN_SECRET, (err, decoded: any) => {
          if (err) return res.status(403).json({ errorMessage: 'refresh token expired' })
-         const newAccessToken = generateTokens(decoded._id, decoded.isAdmin, decoded.email, ACCESS_TOKEN_SECRET)
+         const newAccessToken = generateTokens(decoded._id, decoded.userName, decoded.isAdmin, decoded.email, ACCESS_TOKEN_SECRET)
          res.status(200).json(newAccessToken)
       })
    } catch (error) {
@@ -68,12 +68,13 @@ export const checkTokensValidityController = (req: Request, res: Response) => {
  */
 export const generateTokens = (
    userId: string,
+   userName: string,
    isAdmin: boolean,
    email: string,
    TOKEN_SECRET: string,
    expiresIn: string = '20min'
 ) => {
-   return jwt.sign({ _id: userId, isAdmin, email }, TOKEN_SECRET, { expiresIn })
+   return jwt.sign({ _id: userId, userName, isAdmin, email }, TOKEN_SECRET, { expiresIn })
 }
 
 export const ErrorResponse = (

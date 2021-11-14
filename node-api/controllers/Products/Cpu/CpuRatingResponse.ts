@@ -8,6 +8,9 @@ export const saveCpuAnswerController = async (req: SaveRequesType, res: Response
       const foundCpuProduct = await CpuProduct.findById(req.body.cpuId, 'ratingValues')
       if (foundCpuProduct) {
          const foundComment = foundCpuProduct.ratingValues.find((comment: RatingValues) => comment._id == req.body.commentId)
+         const foundCommentIndex = foundCpuProduct.ratingValues.findIndex(
+            (comment: RatingValues) => comment._id == req.body.commentId
+         )
          if (foundComment && req.user) {
             foundComment.commentAnswers.push({
                answer: req.body.answer,
@@ -15,9 +18,8 @@ export const saveCpuAnswerController = async (req: SaveRequesType, res: Response
                userId: req.user._id,
                userName: req.user.userName
             })
-            console.log(foundCpuProduct.ratingValues[1].commentAnswers)
-            // foundCpuProduct.save()
-            return res.sendStatus(200)
+            foundCpuProduct.save()
+            return res.status(201).json(foundCpuProduct.ratingValues[foundCommentIndex].commentAnswers)
          }
       }
       return res.sendStatus(404)

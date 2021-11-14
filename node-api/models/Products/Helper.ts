@@ -22,7 +22,7 @@ export const ProductRatingValuesSchema = {
                {
                   userId: { type: String, required: true },
                   userName: { type: String, required: true },
-                  answer: { type: String, required: false },
+                  answer: { type: String, required: true },
                   answeredAt: { type: Date, required: true },
                   responses
                }
