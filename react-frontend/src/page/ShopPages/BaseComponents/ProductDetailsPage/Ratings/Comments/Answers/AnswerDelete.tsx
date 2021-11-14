@@ -31,7 +31,6 @@ const AnswerDelete: React.FC<{ answerUserName: string; answerId: string; comment
          })
          if (response.status === 200) {
             setCommentAnswer(response.data)
-            console.log(response.data)
          }
       } catch (error) {
          console.log(error)

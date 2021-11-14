@@ -51,11 +51,10 @@ const CreateAnswer: React.FC<{
          } else {
             const response = await axios.post(`/${productType}/save-${productType}-answer`, {
                answer: answerText,
-               cpuId: _id,
+               productId: _id,
                commentId
             })
             if (response.status === 201) {
-               console.log(response.data)
                setIsLoading(false)
                setIsAlert({ isAlertActive: true, message: 'A Válaszodat fogadtuk!', severity: 'success' })
                setCommentAnswer(response.data)
