@@ -75,6 +75,7 @@ const Login: React.FC = () => {
             <AuthFormStyle>
                <LoginForm onSubmitEvent={loginUser} title='Belépés' buttonText='Belépés'>
                   <TextField
+                     autoFocus
                      id='Email'
                      error={email.hasError}
                      helperText={email.errorMessage}

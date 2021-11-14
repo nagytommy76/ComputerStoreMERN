@@ -8,26 +8,17 @@ import Rating from '@mui/material/Rating'
 
 import { CommentCard, RightSide, LeftSide } from '../CommentStyle'
 
-import { RateState } from '../Helpers'
+import { formatDate, RateState } from '../Helpers'
 
 const LikeDislike = React.lazy(() => import('../Likes'))
 const DeleteIcon = React.lazy(() => import('../DeleteSection'))
 const CreateAnswer = React.lazy(() => import('../Answers/CreateAnswer'))
+const Answers = React.lazy(() => import('../Answers/Answers'))
 
 const SingleComment: React.FC<{ comment: RateState; setAllComments: React.Dispatch<React.SetStateAction<RateState[]>> }> = ({
    comment,
    setAllComments
 }) => {
-   const formatDate = (date: Date) => {
-      return date.toLocaleDateString('hu-HU', {
-         year: 'numeric',
-         month: '2-digit',
-         day: '2-digit',
-         hour: '2-digit',
-         minute: '2-digit',
-         second: '2-digit'
-      })
-   }
    const [isAnswerOpen, setIsAnswerOpen] = useState<boolean>(false)
 
    return (
@@ -44,6 +35,9 @@ const SingleComment: React.FC<{ comment: RateState; setAllComments: React.Dispat
             </RightSide>
             <DeleteIcon setComments={setAllComments} commentId={comment._id} commentsUserName={comment.userName} />
          </CommentCard>
+         <CardContent>
+            <Answers commentAnswers={comment.commentAnswers} />
+         </CardContent>
          <Collapse in={isAnswerOpen}>
             <CardContent>
                <CreateAnswer commentId={comment._id} userName={comment.userName} />

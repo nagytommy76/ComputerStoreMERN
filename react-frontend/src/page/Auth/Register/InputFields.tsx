@@ -16,6 +16,7 @@ const InputFields: React.FC<Props> = ({
    return (
       <>
          <TextField
+            autoFocus
             id='userName'
             error={userName.hasError}
             helperText={userName.errorMessage}
