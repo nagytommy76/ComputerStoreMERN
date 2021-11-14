@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import axios from 'axios'
 
 import TextField from '@mui/material/TextField'
@@ -11,11 +11,17 @@ import Slide from '@mui/material/Slide'
 import { AnswerContainer, ButtonAlertContainer } from './AnswerStyle'
 import { useLocation } from 'react-router'
 import { LocationType } from '../../../../../BaseTypes'
+import { AnswerContext } from '../Context/AnswerContext'
 
-const CreateAnswer: React.FC<{ userName: string; commentId: string }> = ({ userName, commentId }) => {
+const CreateAnswer: React.FC<{
+   userName: string
+   commentId: string
+}> = ({ userName, commentId }) => {
    const {
       state: { _id, productType }
    } = useLocation<LocationType>()
+   const { setCommentAnswer } = useContext(AnswerContext)
+
    const [answerText, setAnswerText] = useState<string>('')
    const [isLoading, setIsLoading] = useState<boolean>(false)
    const [isAlert, setIsAlert] = useState<{
@@ -48,9 +54,13 @@ const CreateAnswer: React.FC<{ userName: string; commentId: string }> = ({ userN
                cpuId: _id,
                commentId
             })
-            setIsLoading(false)
-            setAnswerText('')
-            setIsAlert({ isAlertActive: true, message: 'A Válaszodat fogadtuk!', severity: 'success' })
+            if (response.status === 201) {
+               console.log(response.data)
+               setIsLoading(false)
+               setIsAlert({ isAlertActive: true, message: 'A Válaszodat fogadtuk!', severity: 'success' })
+               setCommentAnswer(response.data)
+               setAnswerText('')
+            }
          }
       } catch (error) {
          console.log(error)

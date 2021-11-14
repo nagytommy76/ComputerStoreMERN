@@ -4,6 +4,7 @@ export type RateState = {
    comment?: string
    ratedAt: Date
    userName: string
+   userId: string
    responses: ResponsesType[]
    commentAnswers: CommentAnswerType[]
 }
@@ -28,17 +29,24 @@ export const formatRatedAtToDateType = (ratingValues: RateState[]) => {
    })
 }
 
+// Format date
+
+const returnFormattedDate = (date: Date) => {
+   return date.toLocaleDateString('hu-HU', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+   })
+}
+
 export const formatDate = (date: Date) => {
    try {
-      return date.toLocaleDateString('hu-HU', {
-         year: 'numeric',
-         month: '2-digit',
-         day: '2-digit',
-         hour: '2-digit',
-         minute: '2-digit',
-         second: '2-digit'
-      })
+      return returnFormattedDate(date)
    } catch (error) {
-      return date
+      const convertedDate = new Date(date)
+      return returnFormattedDate(convertedDate)
    }
 }

@@ -13,7 +13,8 @@ const Likes: React.FC<{
    commentId: string
    responses: ResponsesType[]
    setIsAnswerOpen: React.Dispatch<React.SetStateAction<boolean>>
-}> = ({ commentId, responses, setIsAnswerOpen }) => {
+   commentUserId: string
+}> = ({ commentUserId, commentId, responses, setIsAnswerOpen }) => {
    const {
       state: { _id, productType }
    } = useLocation<LocationType>()
@@ -23,7 +24,12 @@ const Likes: React.FC<{
 
    const [isOpen, setIsOpen] = useState<boolean>(false)
    const [tooltipText, setTooltipText] = useState<string>('')
-   const [countedLikes, setCountedLikes] = useState({ like: 0, dislike: 0, usersLike: false, usersDislike: false })
+   const [countedLikes, setCountedLikes] = useState({
+      like: 0,
+      dislike: 0,
+      usersLike: false,
+      usersDislike: false
+   })
 
    const countLikesAndDislikes = (incomingResponses: ResponsesType[]) => {
       let likeCount = 0,
@@ -70,7 +76,7 @@ const Likes: React.FC<{
 
    const handleAnswerOpen = () => setIsAnswerOpen((prevValue) => !prevValue)
 
-   const isUsersComment = () => countedLikes.usersDislike || countedLikes.usersLike
+   const isUsersComment = () => isUserLoggedIn && commentUserId !== userId
 
    return (
       <ClickAwayListener onClickAway={() => setIsOpen(false)}>
