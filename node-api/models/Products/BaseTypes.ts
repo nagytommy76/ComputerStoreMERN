@@ -24,6 +24,7 @@ export type RatingValues = {
 }
 
 type CommentAnswerType = {
+   _id?: ObjectId
    userId: string
    userName: string
    answer: string

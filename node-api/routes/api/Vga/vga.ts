@@ -1,13 +1,11 @@
 import express from 'express'
+import { getAllVgaItemController, getFilterData, rateVgaProductController } from '../../../controllers/Products/Vga/Vgas'
 import {
-   getAllVgaComments,
-   getAllVgaItemController,
-   getFilterData,
-   getVgaRatingSummaryController,
-   rateVgaProductController,
    likeDislikeVgaCommentController,
-   removeUsersRatingInVga
-} from '../../../controllers/Products/Vga/Vgas'
+   getVgaRatingSummaryController,
+   removeUsersRatingInVga,
+   getAllVgaComments
+} from '../../../controllers/Products/Vga/VgaRatings'
 import { authenticateAccessToken } from '../../../middlewares/AuthenticateAccessOrRefreshTokens'
 const router = express.Router()
 
@@ -21,5 +19,9 @@ router.get('/get-vga-comments', getAllVgaComments)
 router.post('/rate-vga', authenticateAccessToken, rateVgaProductController)
 router.post('/vga-comment-like', authenticateAccessToken, likeDislikeVgaCommentController)
 router.delete('/vga-comment-remove', authenticateAccessToken, removeUsersRatingInVga)
+
+// Rating Answers
+router.post('/save-vga-answer', authenticateAccessToken)
+router.delete('/vga-answer-remove', authenticateAccessToken)
 
 module.exports = router
