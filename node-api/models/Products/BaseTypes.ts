@@ -23,7 +23,7 @@ export type RatingValues = {
    commentAnswers: CommentAnswerType[]
 }
 
-type CommentAnswerType = {
+export type CommentAnswerType = {
    _id?: ObjectId
    userId: string
    userName: string

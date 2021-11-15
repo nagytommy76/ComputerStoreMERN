@@ -7,6 +7,7 @@ import {
    getAllVgaComments
 } from '../../../controllers/Products/Vga/VgaRatings'
 import { authenticateAccessToken } from '../../../middlewares/AuthenticateAccessOrRefreshTokens'
+import { removeSingleVgaCommentAnswer, saveVgaAnswerController } from '../../../controllers/Products/Vga/VgaRatingResponse'
 const router = express.Router()
 
 // https://www.albertgao.xyz/2017/05/24/how-to-test-expressjs-with-jest-and-supertest/
@@ -21,7 +22,7 @@ router.post('/vga-comment-like', authenticateAccessToken, likeDislikeVgaCommentC
 router.delete('/vga-comment-remove', authenticateAccessToken, removeUsersRatingInVga)
 
 // Rating Answers
-router.post('/save-vga-answer', authenticateAccessToken)
-router.delete('/vga-answer-remove', authenticateAccessToken)
+router.post('/save-vga-answer', authenticateAccessToken, saveVgaAnswerController)
+router.delete('/vga-answer-remove', authenticateAccessToken, removeSingleVgaCommentAnswer)
 
 module.exports = router
