@@ -5,7 +5,7 @@ import { ThumbUp, ThumbDown } from '@mui/icons-material'
 import { mobileWindowSize } from '../../../../../../Theme/GlobalStyles'
 
 export const CommentCard = MUIStyled(CardContent)(() => ({
-   padding: '1.5rem',
+   padding: '1rem 1rem 0 1rem',
    display: 'flex',
    flexDirection: 'row',
    [`@media (max-width: ${mobileWindowSize})`]: {

@@ -4,7 +4,7 @@ import { formatDate } from '../Helpers'
 import Typography from '@mui/material/Typography'
 import Collapse from '@mui/material/Collapse'
 import { TransitionGroup } from 'react-transition-group'
-import { AnswersContainerStyle, SingleAnswerStyle, LeftAnswerStyle, RightAnswerStyle } from './AnswerStyle'
+import { SingleAnswerStyle, LeftAnswerStyle, RightAnswerStyle } from './AnswerStyle'
 import { AnswerContext } from '../Context/AnswerContext'
 
 const DeleteAnswer = React.lazy(() => import('./AnswerDelete'))
@@ -12,24 +12,22 @@ const DeleteAnswer = React.lazy(() => import('./AnswerDelete'))
 const Answers: React.FC<{ commentId: string }> = ({ commentId }) => {
    const { commentAnswers } = useContext(AnswerContext)
    return (
-      <AnswersContainerStyle>
-         <TransitionGroup>
-            {commentAnswers.map((answers) => (
-               <Collapse key={answers._id}>
-                  <SingleAnswerStyle>
-                     <LeftAnswerStyle>
-                        <Typography variant='h5'>{answers.userName}</Typography>
-                        <Typography variant='subtitle1'>{formatDate(answers.answeredAt)}</Typography>
-                     </LeftAnswerStyle>
-                     <RightAnswerStyle>
-                        <Typography variant='body1'>{answers.answer}</Typography>
-                     </RightAnswerStyle>
-                     <DeleteAnswer commentId={commentId} answerId={answers._id} answerUserName={answers.userName} />
-                  </SingleAnswerStyle>
-               </Collapse>
-            ))}
-         </TransitionGroup>
-      </AnswersContainerStyle>
+      <TransitionGroup>
+         {commentAnswers.map((answers) => (
+            <Collapse key={answers._id}>
+               <SingleAnswerStyle>
+                  <LeftAnswerStyle>
+                     <Typography variant='h5'>{answers.userName}</Typography>
+                     <Typography variant='subtitle1'>{formatDate(answers.answeredAt)}</Typography>
+                  </LeftAnswerStyle>
+                  <RightAnswerStyle>
+                     <Typography variant='body1'>{answers.answer}</Typography>
+                  </RightAnswerStyle>
+                  <DeleteAnswer commentId={commentId} answerId={answers._id} answerUserName={answers.userName} />
+               </SingleAnswerStyle>
+            </Collapse>
+         ))}
+      </TransitionGroup>
    )
 }
 

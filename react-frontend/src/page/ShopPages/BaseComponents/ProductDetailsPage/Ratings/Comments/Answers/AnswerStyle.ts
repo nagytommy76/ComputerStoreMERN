@@ -16,17 +16,10 @@ export const ButtonAlertContainer = styled.section`
    justify-content: space-between;
 `
 
-export const AnswersContainerStyle = styled.section`
-   width: 100%;
-   display: flex;
-   flex-direction: column;
-   border-top: 1px solid #555;
-`
-
 export const SingleAnswerStyle = styled.section`
    display: flex;
    flex-direction: row;
-   margin: 1rem 0;
+   margin: 2rem 0 1rem 0;
 `
 
 export const LeftAnswerStyle = styled.section`

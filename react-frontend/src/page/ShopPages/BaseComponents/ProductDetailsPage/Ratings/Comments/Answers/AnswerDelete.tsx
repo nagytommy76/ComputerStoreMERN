@@ -27,7 +27,7 @@ const AnswerDelete: React.FC<{ answerUserName: string; answerId: string; comment
    const handleAnswerDelete = async () => {
       try {
          const response = await axios.delete(`/${productType}/${productType}-answer-remove`, {
-            data: { cpuId: _id, answerId, commentId }
+            data: { productId: _id, answerId, commentId }
          })
          if (response.status === 200) {
             setCommentAnswer(response.data)

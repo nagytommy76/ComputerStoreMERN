@@ -51,11 +51,9 @@ const SingleComment: React.FC<{ comment: RateState; setAllComments: React.Dispat
                commentAnswers,
                setCommentAnswer: setCommentAnswers
             }}>
-            {commentAnswers.length > 0 && (
-               <CardContent>
-                  <Answers commentId={comment._id} />
-               </CardContent>
-            )}
+            <CardContent>
+               <Answers commentId={comment._id} />
+            </CardContent>
             <Collapse in={isAnswerOpen}>
                <CardContent>
                   <CreateAnswer commentId={comment._id} userName={comment.userName} />
