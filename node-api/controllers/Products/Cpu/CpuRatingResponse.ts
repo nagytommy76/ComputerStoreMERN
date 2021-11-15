@@ -27,6 +27,7 @@ export const removeSingleCpuCommentAnswer = async (req: RemoveRequesType, res: R
       const foundCpuProduct = await CpuProduct.findById(req.body.productId, 'ratingValues')
       if (foundCpuProduct) {
          const foundComment = removeProductAnswerController(req, foundCpuProduct)
+         foundCpuProduct.save()
          return res.status(200).json(foundComment)
       }
       return res.sendStatus(404)

@@ -26,6 +26,7 @@ export const removeSingleVgaCommentAnswer = async (req: RemoveRequesType, res: R
       const foundVgaProduct = await VgaProduct.findById(req.body.productId, 'ratingValues')
       if (foundVgaProduct) {
          const foundComment = removeProductAnswerController(req, foundVgaProduct)
+         foundVgaProduct.save()
          return res.status(200).json(foundComment)
       }
       return res.sendStatus(404)
