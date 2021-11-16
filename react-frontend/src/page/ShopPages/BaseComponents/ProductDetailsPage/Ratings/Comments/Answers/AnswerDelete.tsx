@@ -1,14 +1,11 @@
 import React, { useContext } from 'react'
 import axios from 'axios'
 
-import IconButton from '@mui/material/IconButton'
-import DeleteSweepIcon from '@mui/icons-material/DeleteSweep'
-import Tooltip from '@mui/material/Tooltip'
-
-import { useAppSelector } from '../../../../../../../app/hooks'
 import { useLocation } from 'react-router'
 import { LocationType } from '../../../../../BaseTypes'
 import { AnswerContext } from '../Context/AnswerContext'
+
+const Delete = React.lazy(() => import('../Includes/DeleteIcon'))
 
 const AnswerDelete: React.FC<{ answerUserName: string; answerId: string; commentId: string }> = ({
    answerUserName,
@@ -20,9 +17,6 @@ const AnswerDelete: React.FC<{ answerUserName: string; answerId: string; comment
    } = useLocation<LocationType>()
 
    const { setCommentAnswer } = useContext(AnswerContext)
-
-   const userLoggedIn = useAppSelector((state) => state.auth.userLoggedIn)
-   const userName = useAppSelector((state) => state.auth.userName)
 
    const handleAnswerDelete = async () => {
       try {
@@ -37,17 +31,7 @@ const AnswerDelete: React.FC<{ answerUserName: string; answerId: string; comment
       }
    }
 
-   return (
-      <>
-         {userLoggedIn && userName === answerUserName && (
-            <Tooltip title='Válasz törlése' arrow placement='top'>
-               <IconButton id='deleteAnswer' onClick={handleAnswerDelete} sx={{ height: '50%' }} size='medium'>
-                  <DeleteSweepIcon color='primary' fontSize='small' />
-               </IconButton>
-            </Tooltip>
-         )}
-      </>
-   )
+   return <Delete incomingUserName={answerUserName} handleDelete={handleAnswerDelete} />
 }
 
 export default AnswerDelete
