@@ -5,7 +5,7 @@ import { useAppSelector } from '../app/hooks'
 const useMaterialTheme = () => {
    const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
 
-   const customMUITheme = createTheme(
+   const theme = createTheme(
       isDarkTheme
          ? {
               palette: {
@@ -46,6 +46,19 @@ const useMaterialTheme = () => {
               }
            }
    )
+
+   const customMUITheme = createTheme(theme, {
+      components: {
+         MuiCard: {
+            styleOverrides: {
+               root: {
+                  transition: 'all .15s linear'
+               }
+            }
+         }
+      }
+   })
+
    return customMUITheme
 }
 

@@ -1,5 +1,4 @@
 1. Axios interceptors-nál megoldani, hogy ha a refresh token lejár, tehát a user kilép, pusholni kéne a login page-re egy msg-el
 3. A Card suspense szintén nem jó...
 
-- Esetleg egy válaszadási lehetőség a commentekhez?!
 - Megoldani a transition-tm ha lehet a MUI-t 0.2s-re állítani, ha nem akkor a sajátokat levenni 0s-re?!
