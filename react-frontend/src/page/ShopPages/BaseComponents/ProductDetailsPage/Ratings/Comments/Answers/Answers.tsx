@@ -12,9 +12,9 @@ const DeleteAnswer = React.lazy(() => import('./AnswerDelete'))
 const Answers: React.FC<{ commentId: string }> = ({ commentId }) => {
    const { commentAnswers } = useContext(AnswerContext)
    return (
-      <TransitionGroup>
+      <TransitionGroup component={null}>
          {commentAnswers.map((answers) => (
-            <Collapse key={answers._id}>
+            <Collapse key={answers._id} timeout={150}>
                <SingleAnswerStyle>
                   <LeftAnswerStyle>
                      <Typography variant='h5'>{answers.userName}</Typography>

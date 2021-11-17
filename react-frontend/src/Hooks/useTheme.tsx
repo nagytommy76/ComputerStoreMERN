@@ -5,61 +5,51 @@ import { useAppSelector } from '../app/hooks'
 const useMaterialTheme = () => {
    const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
 
-   const theme = createTheme(
-      isDarkTheme
-         ? {
-              palette: {
-                 mode: 'dark',
-                 primary: {
-                    main: amber[800],
-                    contrastText: '#FFF'
-                 },
-                 secondary: {
-                    main: '#FFF'
-                 },
-                 text: {
-                    primary: '#FFF',
-                    secondary: '#fff'
-                 }
-              },
-              typography: {
-                 fontFamily: 'Work+Sans'
-              }
-           }
-         : {
-              palette: {
-                 mode: 'light',
-                 primary: {
-                    main: amber[800],
-                    contrastText: '#000'
-                 },
-                 secondary: {
-                    main: '#444'
-                 },
-                 text: {
-                    primary: '#000',
-                    secondary: '#000'
-                 }
-              },
-              typography: {
-                 fontFamily: 'Work+Sans'
-              }
-           }
-   )
+   const transitions = { create: () => 'all .15s linear' }
 
-   const customMUITheme = createTheme(theme, {
-      components: {
-         MuiCard: {
-            styleOverrides: {
-               root: {
-                  transition: 'all .15s linear'
-               }
-            }
+   const lightTheme = createTheme({
+      transitions,
+      palette: {
+         mode: 'light',
+         primary: {
+            main: amber[800],
+            contrastText: '#000'
+         },
+         secondary: {
+            main: '#444'
+         },
+         text: {
+            primary: '#000',
+            secondary: '#000'
          }
+      },
+      typography: {
+         fontFamily: 'Work+Sans'
       }
    })
 
-   return customMUITheme
+   const darkTheme = createTheme({
+      transitions,
+      palette: {
+         mode: 'dark',
+         primary: {
+            main: amber[800],
+            contrastText: '#FFF'
+         },
+         secondary: {
+            main: '#FFF'
+         },
+         text: {
+            primary: '#FFF',
+            secondary: '#fff'
+         }
+      },
+      typography: {
+         fontFamily: 'Work+Sans'
+      }
+   })
+
+   return createTheme(isDarkTheme ? darkTheme : lightTheme, {})
 }
 
 //  main: '#df730e'

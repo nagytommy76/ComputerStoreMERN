@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { mobileWindowSize } from '../../../Theme/GlobalStyles'
+import { mobileWindowSize, transitionSetup } from '../../../Theme/GlobalStyles'
 
 export const FormTitle = styled.h1`
    font-size: 2rem;
@@ -10,7 +10,7 @@ export const FormTitle = styled.h1`
 `
 
 export const StyledForm = styled.form<{ isDark: boolean }>`
-   transition: all 0.25s;
+   transition: ${transitionSetup};
    background-color: ${({ isDark }) => (isDark ? '#222' : '#DDD')};
    padding: 0 2.5rem;
    color: ${({ isDark }) => (isDark ? '#FFF' : '#000')};

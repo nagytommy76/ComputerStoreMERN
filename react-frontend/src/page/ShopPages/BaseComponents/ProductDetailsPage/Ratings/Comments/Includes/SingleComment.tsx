@@ -54,7 +54,7 @@ const SingleComment: React.FC<{ comment: RateState; setAllComments: React.Dispat
             <CardContent>
                <Answers commentId={comment._id} />
             </CardContent>
-            <Collapse in={isAnswerOpen}>
+            <Collapse in={isAnswerOpen} timeout={150}>
                <CardContent>
                   <CreateAnswer commentId={comment._id} userName={comment.userName} />
                </CardContent>

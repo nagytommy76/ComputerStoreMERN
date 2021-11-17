@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import NumberFormat from 'react-number-format'
 import { navbarHeight } from '../../../Navbar/NavbarStyles'
-import { mobileWindowSize } from '../../../../Theme/GlobalStyles'
+import { mobileWindowSize, transitionSetup } from '../../../../Theme/GlobalStyles'
 
 export const DetailsPage = styled.section`
    min-height: 100vh;
@@ -43,7 +43,7 @@ export const HeadSection = styled.section`
 `
 
 export const RightHeaderStyle = styled.aside<{ isDarkTheme: boolean }>`
-   transition: all 0.2s;
+   transition: ${transitionSetup};
    margin: 0 1rem 0 1rem;
    flex: 1;
    color: ${({ isDarkTheme }) => (isDarkTheme ? 'white' : 'black')};
@@ -92,7 +92,7 @@ export const WarranityStyle = styled.p`
 export const ManufacturerUrlPage = styled.a`
    font-size: 1.2rem;
    font-weight: 600;
-   transition: color 0.2s linear;
+   transition: ${transitionSetup};
    &:hover {
       color: #ea9f00;
    }
@@ -103,7 +103,7 @@ export const BodySection = styled.section<{ isDarkTheme: boolean }>`
    min-height: 55vh;
    display: flex;
    flex-direction: row;
-   transition: color 0.2s;
+   transition: ${transitionSetup};
    color: ${({ isDarkTheme }) => (isDarkTheme ? '#FFF' : '#000')};
    @media (max-width: ${mobileWindowSize}) {
       flex-direction: column;

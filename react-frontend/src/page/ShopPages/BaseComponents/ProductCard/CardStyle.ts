@@ -13,7 +13,7 @@ export const CustomCard = MUIStyled(Card)<Prop>(({ theme }) => ({ isCardExpanded
    position: 'relative',
    height: isCardExpanded ? CardHeight + FooterHeight : CardHeight,
    width: CardWidth,
-   transition: 'all 0.1s',
+   transition: 'transform 0.1s',
    '&:hover': {
       transform: 'scale(1.025) translateY(-5px)'
    }

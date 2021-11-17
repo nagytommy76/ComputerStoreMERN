@@ -1,5 +1,14 @@
 import { createGlobalStyle } from 'styled-components'
 
+export const mobileWindowSize = `950px`
+export const largeWindowSize = '2000px'
+
+export const backgroundColor = `#272c33`
+
+export const footerHeight = '140px'
+
+export const transitionSetup = `all .15s linear`
+
 export const GlobalStyles = createGlobalStyle<{ theme: { body: string; text: string } }>`
 body {
     font-family: 'Work Sans', sans-serif;
@@ -7,7 +16,7 @@ body {
    -moz-osx-font-smoothing: grayscale;
     margin: 0;
     background: ${({ theme }) => theme.body};
-    transition: all .15s linear;
+    transition: ${transitionSetup};
 }
 
 
@@ -18,10 +27,3 @@ a {
 `
 
 // https://www.smashingmagazine.com/2020/04/dark-mode-react-apps-styled-components/#top
-
-export const mobileWindowSize = `950px`
-export const largeWindowSize = '2000px'
-
-export const backgroundColor = `#272c33`
-
-export const footerHeight = '140px'

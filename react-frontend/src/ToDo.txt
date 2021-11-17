@@ -1,4 +1,4 @@
 1. Axios interceptors-nál megoldani, hogy ha a refresh token lejár, tehát a user kilép, pusholni kéne a login page-re egy msg-el
 3. A Card suspense szintén nem jó...
 
-- Megoldani a transition-tm ha lehet a MUI-t 0.2s-re állítani, ha nem akkor a sajátokat levenni 0s-re?!
+- A Collapse (Comment Answer-nél) valamiért megváltoztatja a transition idejét téma váltásnál

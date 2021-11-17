@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react'
+
 import NumberFormat from 'react-number-format'
 import { useHistory } from 'react-router'
 import { ProductContext } from '../../Context/ShopContext'
@@ -64,7 +65,8 @@ const ProductCard: React.FC<ProductCardType> = ({
          <Collapse
             mountOnEnter
             unmountOnExit
-            timeout={{ appear: 0, enter: 100, exit: 100 }}
+            sx={{ transition: 'all .15s' }}
+            timeout={{ appear: 100, enter: 100, exit: 100 }}
             in={isCardExpanded}
             orientation='vertical'>
             <CardFooter productType={pathNameForDetailsURL} />
