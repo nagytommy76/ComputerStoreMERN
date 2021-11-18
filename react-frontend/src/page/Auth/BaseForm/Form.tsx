@@ -9,6 +9,8 @@ type Props = {
    onSubmitEvent: (event: React.FormEvent) => void
 }
 
+const AlertSection = React.lazy(() => import('./AlertSection'))
+
 const Form: React.FC<Props> = ({ title, onSubmitEvent, buttonText, children }) => {
    const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
    return (
@@ -19,6 +21,7 @@ const Form: React.FC<Props> = ({ title, onSubmitEvent, buttonText, children }) =
             <Button type='submit' sx={{ margin: '1.5rem 0' }} variant='contained' color='primary' size='large'>
                {buttonText}
             </Button>
+            <AlertSection />
          </FormConrolStyle>
       </StyledForm>
    )

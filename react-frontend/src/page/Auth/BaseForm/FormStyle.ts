@@ -15,7 +15,7 @@ export const StyledForm = styled.form<{ isDark: boolean }>`
    padding: 0 2.5rem;
    color: ${({ isDark }) => (isDark ? '#FFF' : '#000')};
    width: 450px;
-   min-height: 400px;
+   min-height: 420px;
    border-radius: 3px;
    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.6);
    @media (max-width: ${mobileWindowSize}) {

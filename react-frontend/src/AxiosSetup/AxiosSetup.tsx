@@ -1,15 +1,19 @@
 import { useEffect } from 'react'
+import { useAppSelector } from '../app/hooks'
+import { globalHistory } from '..'
+
 import axios from 'axios'
 import { store } from '../app/store'
 import { logoutUser, setAccessToken } from '../app/slices/AuthSlice'
-import { useHistory } from 'react-router'
 
 // Az app megnyitásakor, ha a user ba van jelentkezve megvizsgálom, hogy érvényes-e az accessToken-je
 // Ha nem akkor a refreshToken-nel kérek egy újat,
 // Ha az sem érvényes kiléptetem és be kell újra lépnie
 
-const useAxiosSetup = (accessToken: string | null, refreshToken: string | null) => {
-   const history = useHistory()
+const useAxiosSetup = () => {
+   const accessToken = useAppSelector((state) => state.auth.accessToken)
+   const refreshToken = useAppSelector((state) => state.auth.refreshToken)
+
    axios.defaults.baseURL = 'http://localhost:5050/api'
    axios.defaults.headers['Content-Type'] = 'Application/json'
    axios.defaults.headers.Authorization = `Barer ${accessToken}`
@@ -21,9 +25,8 @@ const useAxiosSetup = (accessToken: string | null, refreshToken: string | null) 
          async (error) => {
             if (error.config && error.response && !error.config._retry && error.response.status === 403) {
                // Ekkor kell egy új accessToken (Forbidden) / 403 error, tehát lejárt az accessToken
-               console.log(error.response.data.errorMessage + ' 1')
                if (error.response.data.errorMessage === 'accessToken token expired') {
-                  return await axios
+                  return axios
                      .post('/auth/refresh-token', { refreshToken })
                      .then((newAccessToken) => {
                         if (newAccessToken.status === 200) {
@@ -33,27 +36,21 @@ const useAxiosSetup = (accessToken: string | null, refreshToken: string | null) 
                         }
                      })
                      .catch((error) => {
-                        console.log(error.response.data.errorMessage + ' 2')
                         if (error.response.data.errorMessage === 'refresh token expired') {
+                           globalHistory.push('/login', { isFailure: true, message: 'Kérlek, lépj be újra!' })
                            store.dispatch(logoutUser())
-                           // history.push({ pathname: '/login', state: { message: 'Kérlek, lépj be újra!' } })
-                           history.push('/login', { message: 'Kérlek, lépj be újra!' })
                         }
                      })
                } else if (error.response.data.errorMessage === 'user is not admin') {
                   // Ha valaki ide keveredne és nem admin...
+                  globalHistory.push('/login', { isFailure: true, message: 'Nem vagy jó helyen! :)' })
                   store.dispatch(logoutUser())
-                  // history.push({ pathname: '/login', state: { message: 'Nem vagy jó helyen! :)' } })
-                  history.push('/login', { message: 'Nem vagy jó helyen! :)' })
                }
             }
             if (error.response?.status === 401) {
                // Itt pedig be kell lépni mert a refres token se jó
-               // console.log(history)
-               console.log('401 response')
-               console.log(history)
+               globalHistory.push('/login', { isFailure: true, message: 'Kérlek, lépj be újra!' })
                store.dispatch(logoutUser())
-               history.push('/login', { message: 'Kérlek, lépj be újra!' })
             }
             return await Promise.reject(error)
          }
@@ -63,6 +60,8 @@ const useAxiosSetup = (accessToken: string | null, refreshToken: string | null) 
 }
 
 export default useAxiosSetup
+
+// https://bilot.group/articles/using-react-router-inside-axios-interceptors/
 
 // https://github.com/axios/axios/issues/934
 // https://github.com/axios/axios/issues/1266

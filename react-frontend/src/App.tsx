@@ -36,7 +36,6 @@ const App = () => {
    const dispatch = useAppDispatch()
 
    const accessToken = useAppSelector((state) => state.auth.accessToken)
-   const refreshToken = useAppSelector((state) => state.auth.refreshToken)
    const userIsLoggedIn = useAppSelector((state) => state.auth.userLoggedIn)
    const isCartEmpty = useAppSelector((state) => state.cart.cartItems.length === 0)
    const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
@@ -47,7 +46,7 @@ const App = () => {
       if (userIsLoggedIn && isCartEmpty && accessToken !== null) dispatch(fetchCartItemsFromDB())
    }, [userIsLoggedIn, dispatch, isCartEmpty, accessToken])
 
-   useAxiosSetup(accessToken, refreshToken)
+   useAxiosSetup()
 
    useEffect(() => {
       initUserCartItems()

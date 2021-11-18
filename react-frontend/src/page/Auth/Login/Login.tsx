@@ -1,28 +1,28 @@
 import axios, { AxiosResponse, AxiosError } from 'axios'
 import React, { useState, Suspense } from 'react'
-import { useHistory, useLocation } from 'react-router'
-import loginImage from './login.jpg'
-import { InputTypes } from '../DefaultProperties'
-import { setUserLoggedIn, setAccessToken, setUserId, setUserName, setRefreshToken, setAdmin } from '../../../app/slices/AuthSlice'
+
+import { globalHistory } from '../../..'
+
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'
-import { ImageStyle, AuthContainer, AuthFormStyle } from '../BaseForm/BaseStyle'
-import LoginSuspense from '../../../SuspenseComponents/Auth/Login'
+import { setUserLoggedIn, setAccessToken, setUserId, setUserName, setRefreshToken, setAdmin } from '../../../app/slices/AuthSlice'
 import { fillDBWithCartItemsAfterLogin } from '../../../app/slices/CartSlice'
 
-import Alert from '@mui/material/Alert'
+import loginImage from './login.jpg'
+
+import { InputTypes } from '../DefaultProperties'
+import { ImageStyle, AuthContainer, AuthFormStyle } from '../BaseForm/BaseStyle'
+import LoginSuspense from '../../../SuspenseComponents/Auth/Login'
+
 import TextField from '@mui/material/TextField'
 
 const LoginForm = React.lazy(() => import('../BaseForm/Form'))
 
 const Login: React.FC = () => {
-   const history = useHistory()
-   const location = useLocation<{ isSuccess?: boolean; message?: string }>()
    const dispatch = useAppDispatch()
    const cartItems = useAppSelector((state) => state.cart.cartItems)
    const [email, setEmail] = useState<InputTypes>({ value: '', hasError: false, errorMessage: '' })
    const [password, setPassword] = useState<InputTypes>({ value: '', hasError: false, errorMessage: '' })
 
-   // console.log(location)
    const resetErrors = () => {
       setEmail({ ...email, errorMessage: '', hasError: false })
       setPassword({ ...password, errorMessage: '', hasError: false })
@@ -47,7 +47,7 @@ const Login: React.FC = () => {
                dispatch(setUserName(response.data.userName))
                if (response.data.isAdmin) dispatch(setAdmin(true))
                if (cartItems.length > 0) dispatch(fillDBWithCartItemsAfterLogin())
-               history.push('/')
+               globalHistory.push('/')
             }
          })
          .catch((err: AxiosError) => {
@@ -100,9 +100,6 @@ const Login: React.FC = () => {
                      value={password.value}
                      onChange={(e) => setPassword({ ...password, value: e.target.value })}
                   />
-                  {location.state?.isSuccess && location.state?.message && (
-                     <Alert severity='success'>{location.state.message}</Alert>
-                  )}
                </LoginForm>
             </AuthFormStyle>
             <ImageStyle image={loginImage} />
