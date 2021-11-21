@@ -1,24 +1,18 @@
-import React from 'react'
-import styled from 'styled-components'
-import { navbarHeight } from '../../Navbar/NavbarStyles'
+import React, { useState } from 'react'
 import Routes from './Routes'
 
+import Drawer from '@mui/material/Drawer'
+
 const SideMenu = () => {
+   const [isOpen, setIsOpen] = useState<boolean>(false)
    return (
-      <SideMenuStyle>
-         <Routes />
-      </SideMenuStyle>
+      <>
+         <button onClick={() => setIsOpen((prev) => !prev)}>Open</button>
+         <Drawer anchor='left' open={isOpen} onClose={() => setIsOpen((prev) => !prev)}>
+            <Routes />
+         </Drawer>
+      </>
    )
 }
-
-const SideMenuStyle = styled.section`
-   width: 300px;
-   position: relative;
-   /* height: calc(100% - ${navbarHeight}); */
-   /* position: fixed; */
-   /* left: 0;
-   bottom: 0; */
-   background-color: white;
-`
 
 export default SideMenu

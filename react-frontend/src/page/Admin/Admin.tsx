@@ -14,9 +14,13 @@ const Admin = () => {
          <SideMenu />
          <RightContentStyle>
             <Routes>
-               <Route path='vga-insert' element={<VgaInsert />} />
-               <Route path='vga-modify' element={<VgaModify />} />
-               <Route path='cpu-insert' element={<CpuInsert />} />
+               <Route path='vga/*'>
+                  <Route path='insert' element={<VgaInsert />} />
+                  <Route path='modify' element={<VgaModify />} />
+               </Route>
+               <Route path='cpu/*'>
+                  <Route path='insert' element={<CpuInsert />} />
+               </Route>
             </Routes>
          </RightContentStyle>
       </AdminPageContainer>
