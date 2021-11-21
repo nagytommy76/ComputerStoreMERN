@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
-import { useAppSelector } from '../app/hooks'
+import axios from 'axios'
 import { globalHistory } from '..'
 
-import axios from 'axios'
+import { useAppSelector } from '../app/hooks'
 import { store } from '../app/store'
 import { logoutUser, setAccessToken } from '../app/slices/AuthSlice'
 

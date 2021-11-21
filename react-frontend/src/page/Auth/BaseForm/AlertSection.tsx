@@ -6,7 +6,6 @@ import Alert from '@mui/material/Alert'
 import Fade from '@mui/material/Fade'
 
 const AlertSection = () => {
-   console.log(globalHistory)
    return (
       <>
          {globalHistory.location.state && (

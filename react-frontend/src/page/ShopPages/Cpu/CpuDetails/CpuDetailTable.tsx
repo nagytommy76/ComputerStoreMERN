@@ -1,14 +1,13 @@
 import React from 'react'
 import { TableStyle } from '../../BaseComponents/ProductDetailsPage/DetailTable/TableStyle'
 import { LocationType } from '../../BaseTypes'
-import { useLocation } from 'react-router'
+import { useLocation } from 'react-router-dom'
 
 const TableRow = React.lazy(() => import('../../BaseComponents/ProductDetailsPage/DetailTable/TableRow'))
 
 const CpuDetailTable: React.FC = () => {
-   const {
-      state: { details }
-   } = useLocation<LocationType>()
+   const location = useLocation()
+   const { details } = location.state as LocationType
    return (
       <TableStyle>
          <tbody>

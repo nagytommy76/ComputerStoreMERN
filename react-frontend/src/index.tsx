@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-// import { Router } from 'react-router-dom'
+import { Router } from 'react-router'
 import { createBrowserHistory } from 'history'
 
 import './index.css'
@@ -16,13 +16,13 @@ export const globalHistory = createBrowserHistory<{ isFailure?: boolean; isSucce
 
 ReactDOM.render(
    <React.StrictMode>
-      {/* <Router history={globalHistory}> */}
       <Provider store={store}>
          <PersistGate loading={null} persistor={presistor}>
-            <App />
+            <Router history={globalHistory}>
+               <App />
+            </Router>
          </PersistGate>
       </Provider>
-      {/* </Router> */}
    </React.StrictMode>,
    document.getElementById('root')
 )
