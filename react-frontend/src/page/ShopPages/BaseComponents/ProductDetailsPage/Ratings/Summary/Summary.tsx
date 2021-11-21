@@ -1,14 +1,14 @@
 import axios from 'axios'
 import React, { useEffect, useState, useContext } from 'react'
-import { useLocation } from 'react-router'
+import { useLocation } from 'react-router-dom'
 import { LocationType } from '../../../../BaseTypes'
 import { Typography, Rating, Box } from '@mui/material'
 import { RatingContext } from '../RatingContext'
 
 const Summary: React.FC = () => {
-   const {
-      state: { _id, productType }
-   } = useLocation<LocationType>()
+   const location = useLocation()
+   const { _id, productType } = location.state as LocationType
+
    const { commentRequestSend, commentDeletedRequest } = useContext(RatingContext)
 
    const [ratings, setRatings] = useState<{ avgRating: number; rateCount: number }>({ avgRating: 0, rateCount: 0 })

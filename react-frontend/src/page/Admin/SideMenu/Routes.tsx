@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { AccordionContainer, AccordionTab, Input, TabLabel, AccordionContent } from './RoutesStyles'
 
 const Routes = () => {
-   /*const [clicked, setClicked] = useState(false)*/
    const toggleClicked = (key: string) => {}
    return (
       <AccordionContainer>
@@ -13,10 +12,10 @@ const Routes = () => {
                Vga
             </TabLabel>
             <AccordionContent>
-               <Link to='/admin/vga-insert'>Vga bevitele</Link>
+               <Link to='vga-insert'>Vga bevitele</Link>
             </AccordionContent>
             <AccordionContent>
-               <Link to='/admin/vga-modify'>Vga módosítása</Link>
+               <Link to='vga-modify'>Vga módosítása</Link>
             </AccordionContent>
          </AccordionTab>
          <AccordionTab>
@@ -24,7 +23,7 @@ const Routes = () => {
             <TabLabel key='vga' onClick={() => toggleClicked('vga')} htmlFor='chck2'>
                Cpu
             </TabLabel>
-            <Link to='/admin/cpu-insert'>CPU bevitele</Link>
+            <Link to='cpu-insert'>CPU bevitele</Link>
          </AccordionTab>
       </AccordionContainer>
    )

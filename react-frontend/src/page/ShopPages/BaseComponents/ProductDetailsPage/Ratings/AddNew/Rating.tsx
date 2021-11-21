@@ -1,19 +1,22 @@
 import React, { useState } from 'react'
 import axios, { AxiosError } from 'axios'
-import { useLocation } from 'react-router'
-import { LocationType } from '../../../../BaseTypes'
-import { RatingContainer, StyledButton, LeftContent, RightContent, CustomCardContent } from './RatingStyle'
-import { Rating as RatingMU, Typography, TextField, Alert, Grow, Card } from '@mui/material'
+
 import { useAppSelector } from '../../../../../../app/hooks'
 import { RatingContext } from '../RatingContext'
+
+import { useLocation } from 'react-router-dom'
+import { LocationType } from '../../../../BaseTypes'
+
+import { RatingContainer, StyledButton, LeftContent, RightContent, CustomCardContent } from './RatingStyle'
+import { Rating as RatingMU, Typography, TextField, Alert, Grow, Card } from '@mui/material'
 
 const RatingSummary = React.lazy(() => import('../Summary/Summary'))
 const Comments = React.lazy(() => import('../Comments/Comments'))
 
 const Rating = () => {
-   const {
-      state: { _id, productType }
-   } = useLocation<LocationType>()
+   const location = useLocation()
+   const { _id, productType } = location.state as LocationType
+
    const userName = useAppSelector((state) => state.auth.userName)
    const isUserLoggedIn = useAppSelector((state) => state.auth.userLoggedIn)
    const [rating, setRating] = useState<number | null>(4)

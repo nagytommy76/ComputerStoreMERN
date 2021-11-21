@@ -9,7 +9,7 @@ import Alert from '@mui/material/Alert'
 import Slide from '@mui/material/Slide'
 
 import { AnswerContainer, ButtonAlertContainer } from './AnswerStyle'
-import { useLocation } from 'react-router'
+import { useLocation } from 'react-router-dom'
 import { LocationType } from '../../../../../BaseTypes'
 import { AnswerContext } from '../Context/AnswerContext'
 
@@ -17,9 +17,9 @@ const CreateAnswer: React.FC<{
    userName: string
    commentId: string
 }> = ({ userName, commentId }) => {
-   const {
-      state: { _id, productType }
-   } = useLocation<LocationType>()
+   const location = useLocation()
+   const { _id, productType } = location.state as LocationType
+
    const { setCommentAnswer } = useContext(AnswerContext)
 
    const [answerText, setAnswerText] = useState<string>('')

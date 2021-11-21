@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react'
-
-import NumberFormat from 'react-number-format'
-import { useHistory } from 'react-router'
 import { ProductContext } from '../../Context/ShopContext'
 import { useAppSelector } from '../../../../app/hooks'
+
+import NumberFormat from 'react-number-format'
+import { useNavigate } from 'react-router-dom'
 
 import { SubTitleStyle, CustomCard } from './CardStyle'
 import Collapse from '@mui/material/Collapse'
@@ -26,7 +26,7 @@ const ProductCard: React.FC<ProductCardType> = ({
    const [isCardExpanded, setIsCardExpanded] = useState<boolean>(true)
    const isMobile = useAppSelector((state) => state.mobile.isMobile)
 
-   const history = useHistory()
+   const navigate = useNavigate()
    const { _id, productName, price } = useContext(ProductContext)
 
    useEffect(() => {
@@ -34,8 +34,7 @@ const ProductCard: React.FC<ProductCardType> = ({
    }, [isMobile])
 
    const routeToDetailsPage = () => {
-      history.push({
-         pathname: `/${pathNameForDetailsURL}/${pathNameForDetailsURL}-details`,
+      navigate(`/${pathNameForDetailsURL}/${pathNameForDetailsURL}-details`, {
          state: { _id, details, pictureUrls, type, manufacturer, price, typeCode, productType: pathNameForDetailsURL }
       })
    }

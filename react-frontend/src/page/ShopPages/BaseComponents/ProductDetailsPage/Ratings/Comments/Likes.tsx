@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios, { AxiosError } from 'axios'
-
 import { useAppSelector } from '../../../../../../app/hooks'
-import { useLocation } from 'react-router'
+
+import { useLocation } from 'react-router-dom'
 import { LocationType } from '../../../../BaseTypes'
 
 import { ThumbsContainer, CustomThumbDown, CustomThumbUp, ThumbIconsContainer } from './CommentStyle'
@@ -15,9 +15,8 @@ const Likes: React.FC<{
    setIsAnswerOpen: React.Dispatch<React.SetStateAction<boolean>>
    commentUserId: string
 }> = ({ commentUserId, commentId, responses, setIsAnswerOpen }) => {
-   const {
-      state: { _id, productType }
-   } = useLocation<LocationType>()
+   const location = useLocation()
+   const { _id, productType } = location.state as LocationType
 
    const isUserLoggedIn = useAppSelector((state) => state.auth.userLoggedIn)
    const userId = useAppSelector((state) => state.auth.userId)

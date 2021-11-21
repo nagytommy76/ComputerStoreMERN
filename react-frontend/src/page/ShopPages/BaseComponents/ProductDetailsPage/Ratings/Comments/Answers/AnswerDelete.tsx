@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import axios from 'axios'
 
-import { useLocation } from 'react-router'
+import { useLocation } from 'react-router-dom'
 import { LocationType } from '../../../../../BaseTypes'
 import { AnswerContext } from '../Context/AnswerContext'
 
@@ -12,9 +12,8 @@ const AnswerDelete: React.FC<{ answerUserName: string; answerId: string; comment
    answerId,
    commentId
 }) => {
-   const {
-      state: { _id, productType }
-   } = useLocation<LocationType>()
+   const location = useLocation()
+   const { _id, productType } = location.state as LocationType
 
    const { setCommentAnswer } = useContext(AnswerContext)
 

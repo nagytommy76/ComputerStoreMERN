@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLocation } from 'react-router'
+import { useLocation } from 'react-router-dom'
 import {
    DetailsPage,
    HeadSection,
@@ -23,11 +23,10 @@ const TopNavigation = React.lazy(() => import('./TopNavigation/TopNavigation'))
 const Rating = React.lazy(() => import('../../BaseComponents/ProductDetailsPage/Ratings/AddNew/Rating'))
 
 const ProductDetails: React.FC = ({ children }) => {
-   let location = useLocation<LocationType>()
+   let location = useLocation()
+   const { manufacturer, price, type, typeCode, details } = location.state as LocationType
 
    const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
-   // console.log(location.state)
-   const { manufacturer, price, type, typeCode, details } = location.state
 
    return (
       <DetailsPage>

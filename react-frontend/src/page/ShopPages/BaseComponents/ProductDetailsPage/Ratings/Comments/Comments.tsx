@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import axios, { AxiosResponse } from 'axios'
-import { useLocation } from 'react-router'
+import { useLocation } from 'react-router-dom'
 import { LocationType } from '../../../../BaseTypes'
 
 import { RatingContext } from '../RatingContext'
@@ -12,9 +12,9 @@ import { TransitionGroup } from 'react-transition-group'
 const SingleComment = React.lazy(() => import('./Includes/SingleComment'))
 
 const Comments: React.FC = () => {
-   const {
-      state: { _id, productType }
-   } = useLocation<LocationType>()
+   const location = useLocation()
+   const { _id, productType } = location.state as LocationType
+
    const { commentRequestSend } = useContext(RatingContext)
 
    const [allComments, setAllComments] = useState<RateState[]>([])

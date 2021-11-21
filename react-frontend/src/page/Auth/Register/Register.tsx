@@ -2,7 +2,7 @@ import React, { useState, Suspense } from 'react'
 import { AuthContainer, AuthFormStyle, ImageStyle } from '../BaseForm/BaseStyle'
 import registerImage from './register.jpg'
 import axios, { AxiosError, AxiosResponse } from 'axios'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import RegisterSuspense from '../../../SuspenseComponents/Auth/Register'
 
 import { defaultInputProperties, InputTypes } from '../DefaultProperties'
@@ -11,7 +11,7 @@ const RegisterForm = React.lazy(() => import('../BaseForm/Form'))
 const InputFields = React.lazy(() => import('./InputFields'))
 
 const Register = () => {
-   const history = useHistory()
+   const navigate = useNavigate()
    const [email, setEmail] = useState<InputTypes>(defaultInputProperties)
    const [userName, setUserName] = useState<InputTypes>(defaultInputProperties)
    const [firstPassword, setFirstPassword] = useState<InputTypes>(defaultInputProperties)
@@ -44,10 +44,7 @@ const Register = () => {
             })
             .then((response: AxiosResponse) => {
                if (response.status === 201)
-                  history.push({
-                     pathname: '/login',
-                     state: { isSuccess: true, message: 'A regisztráció sikeres volt - beléphetsz!' }
-                  })
+                  navigate('/login', { state: { isSuccess: true, message: 'A regisztráció sikeres volt - beléphetsz!' } })
             })
             .catch((error: AxiosError) => {
                const responseErrors = error.response?.data

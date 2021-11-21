@@ -1,16 +1,17 @@
 import React, { useRef, useState } from 'react'
-import { useLocation } from 'react-router'
+import { useLocation } from 'react-router-dom'
 import { StyledSlideSection, StyledImageContainer, StyledImage } from './SliderStyle'
-import { LocationType } from '../../../BaseTypes'
 
 import Slide from '@mui/material/Slide'
+import { LocationType } from '../../../BaseTypes'
 
 const RightArrow = React.lazy(() => import('./RightArrow'))
 const LeftArrow = React.lazy(() => import('./LeftArrow'))
 
 const ImageSlider = () => {
-   let location = useLocation<LocationType>()
-   const { pictureUrls } = location.state
+   let { state } = useLocation()
+   const { pictureUrls } = state as LocationType
+
    const [currentPic, setCurrentPic] = useState<number>(0)
    const [direction, setDirection] = useState<'left' | 'up' | 'down' | 'right'>('right')
    const [isSlide, setIsSlide] = useState<boolean>(true)

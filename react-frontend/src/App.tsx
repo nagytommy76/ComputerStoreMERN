@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, Suspense, lazy } from 'react'
 import useAxiosSetup from './AxiosSetup/AxiosSetup'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import { GuestsRoute, AdminRoute, AuthProtectedRoute } from './Routes/ProtectedRoute'
-import ScrollToTop from './Routes/ScrollToTop'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { AdminRoute, AuthProtectedRoute, GuestsRoute } from './Routes/ProtectedRoute'
+// import ScrollToTop from './Routes/ScrollToTop'
 
 import { ThemeProvider } from 'styled-components'
 import { ThemeProvider as MUIThemeProvider } from '@mui/material/styles'
@@ -59,20 +59,49 @@ const App = () => {
             <BrowserRouter>
                <GlobalStyles />
                <Navbar />
-               <ScrollToTop />
                <Suspense fallback={<PageSuspense />}>
-                  <Switch>
-                     <Route path='/' exact component={Welcome} />
-                     <Route path='/vga/vga-details' component={VgaDetails} />
-                     <Route path='/cpu/cpu-details' component={CpuDetails} />
-                     <Route path='/vga' component={Vga} />
-                     <Route path='/cpu' component={Cpu} />
-                     <GuestsRoute path='/register' component={Register} />
-                     <GuestsRoute path='/login' component={Login} />
-                     <AuthProtectedRoute path='/checkout' component={Checkout} />
-                     <AdminRoute path='/admin' component={Admin} />
-                     <Route component={Page404} />
-                  </Switch>
+                  {/* <ScrollToTop> */}
+                  <Routes>
+                     <Route path='/' element={<Welcome />} />
+                     <Route path='/vga/vga-details' element={<VgaDetails />} />
+                     <Route path='/cpu/cpu-details' element={<CpuDetails />} />
+                     <Route path='/vga' element={<Vga />} />
+                     <Route path='/cpu' element={<Cpu />} />
+                     <Route
+                        path='/register'
+                        element={
+                           <GuestsRoute>
+                              <Register />
+                           </GuestsRoute>
+                        }
+                     />
+                     <Route
+                        path='/login'
+                        element={
+                           <GuestsRoute>
+                              <Login />
+                           </GuestsRoute>
+                        }
+                     />
+                     <Route
+                        path='/checkout'
+                        element={
+                           <AuthProtectedRoute>
+                              <Checkout />
+                           </AuthProtectedRoute>
+                        }
+                     />
+                     <Route
+                        path='/admin/*'
+                        element={
+                           <AdminRoute>
+                              <Admin />
+                           </AdminRoute>
+                        }
+                     />
+                     <Route element={<Page404 />} />
+                  </Routes>
+                  {/* </ScrollToTop> */}
                </Suspense>
                <Footer />
             </BrowserRouter>

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import axios from 'axios'
-import { useLocation } from 'react-router'
+import { useLocation } from 'react-router-dom'
 import { LocationType } from '../../../../BaseTypes'
 import { RatingContext } from '../RatingContext'
 import { formatRatedAtToDateType, RateState } from './Helpers'
@@ -12,9 +12,9 @@ const DeleteSection: React.FC<{
    commentId: string
    setComments: React.Dispatch<React.SetStateAction<RateState[]>>
 }> = ({ commentsUserName, commentId, setComments }) => {
-   const {
-      state: { _id, productType }
-   } = useLocation<LocationType>()
+   const location = useLocation()
+   const { _id, productType } = location.state as LocationType
+
    const { setCommentDeletedRequest } = useContext(RatingContext)
 
    const handleCommentDelete = async () => {

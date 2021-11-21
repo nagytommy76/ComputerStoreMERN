@@ -3,14 +3,15 @@ import { CartQuantityStyle, StyledCartSection, AddToCartButton, InputAndLabelCon
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { sendCartItemToSaveInDB } from '../../../../../app/slices/CartSlice'
 import { useAppDispatch } from '../../../../../app/hooks'
+import { useLocation } from 'react-router-dom'
 import { LocationType } from '../../../BaseTypes'
-import { useLocation } from 'react-router'
 
 const AddToCart = () => {
    const dispatch = useAppDispatch()
    const [quantity, setQuantity] = useState<string>('1')
-   let location = useLocation<LocationType>()
-   const { _id, manufacturer, type, typeCode, price, pictureUrls } = location.state
+   let location = useLocation()
+   const state = location.state as LocationType
+   const { _id, manufacturer, type, typeCode, price, pictureUrls } = state
    const addItemToCart = () => {
       dispatch(
          sendCartItemToSaveInDB(
