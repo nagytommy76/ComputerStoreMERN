@@ -71,7 +71,7 @@ const Adress = () => {
       axios
          .get('/auth/get-details')
          .then((result) => {
-            if (result.data.userDetails !== null && result.data.isDetailsFilled) {
+            if (result.data && result.data.userDetails !== null && result.data.isDetailsFilled) {
                setUserDetails(result.data.userDetails)
                setIsSubmitBtnDisabled(true)
             }

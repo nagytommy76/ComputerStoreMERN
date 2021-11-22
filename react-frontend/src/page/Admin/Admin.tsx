@@ -1,7 +1,7 @@
 import React from 'react'
 import { AdminPageContainer, RightContentStyle } from './AdminStyle'
-import SideMenu from './SideMenu/SideMenu'
 import { Routes, Route } from 'react-router-dom'
+import SideMenu from './SideMenu/SideMenu'
 
 const VgaInsert = React.lazy(() => import('./Vga/Insert/VgaInsert'))
 const VgaModify = React.lazy(() => import('./Vga/Modify/ModifyVga'))

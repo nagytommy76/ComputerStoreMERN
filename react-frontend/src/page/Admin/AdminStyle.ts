@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { navbarHeight } from '../Navbar/NavbarStyles'
 
 export const AdminPageContainer = styled.section`
+   position: relative;
    min-height: calc(100vh - ${navbarHeight});
    width: 100%;
    margin-top: ${navbarHeight};
