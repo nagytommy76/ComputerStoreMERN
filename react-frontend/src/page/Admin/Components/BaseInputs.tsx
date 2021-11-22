@@ -3,15 +3,26 @@ import TextOrNumberInput from './InputFields/TextOrNumberInput'
 import { errorMsg } from '../../Helpers/SetErrorMsg'
 import { BaseInputFieldProps } from '../AdminTypes'
 
+import TextField from '@mui/material/TextField'
+
 const BaseInputs: React.FC<BaseInputFieldProps> = ({ product, setProduct, validationErrors }) => {
    return (
       <>
-         <TextOrNumberInput
+         <TextField
+            id='itemNumber'
+            label='Termék szám'
+            value={product.itemNumber || ''}
+            onChange={(event) => setProduct({ ...product, itemNumber: event.target.value })}
+            margin='dense'
+            variant='filled'
+            required
+         />
+         {/* <TextOrNumberInput
             labelText='Termék szám'
             onChangeEvent={(event) => setProduct({ ...product, itemNumber: event.target.value })}
             value={product.itemNumber || ''}
             errorMsg={errorMsg(validationErrors, 'itemNumber')}
-         />
+         /> */}
          <TextOrNumberInput
             labelText='Típus név *'
             onChangeEvent={(event) => setProduct({ ...product, type: event.target.value })}

@@ -1,10 +1,13 @@
 import React, { useState, lazy } from 'react'
-import { StyledForm, FullWidhtContainerStyle } from '../../Components/Form/FormStyle'
+import { FullWidhtContainerStyle } from '../../Components/Form/FormStyle'
 import { VgaType } from '../../../ShopPages/Vga/VgaTypes'
 import { vgaProperties } from '../VgaProperties'
 import { PictureUrlType } from '../Types'
 import { ValidationError } from '../../AdminTypes'
 import { handleInsertSubmit } from '../../Helpers/HandleInsertSubmit'
+
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
 
 const PicUrlInput = lazy(() => import('../../Components/InputFields/PicUrlInput/PicUrlInput'))
 const TextArea = lazy(() => import('../../Components/InputFields/TextArea/TextArea'))
@@ -21,24 +24,28 @@ const AdminVga = () => {
       handleInsertSubmit('vga', vgaProduct, pictureUrls, setValidationErrors, setVgaProduct, vgaProperties)
    }
    return (
-      <StyledForm onSubmit={insertVga}>
-         <BaseInputFields setVgaProduct={setVgaProduct} vgaProduct={vgaProduct} validationErrors={validationErrors} />
-         <FullWidhtContainerStyle>
-            <TextArea
-               labelText='Leírás'
-               onChangeEvent={(event) =>
-                  setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, description: event.target.value } })
-               }
-               value={vgaProduct.details.description}
-            />
-         </FullWidhtContainerStyle>
-         <FullWidhtContainerStyle>
-            <PicUrlInput setPictureUrls={setPictureUrls} pictureUrls={pictureUrls}></PicUrlInput>
-         </FullWidhtContainerStyle>
-         <FullWidhtContainerStyle>
-            <SubmitButton>Bevitel</SubmitButton>
-         </FullWidhtContainerStyle>
-      </StyledForm>
+      <Card sx={{ width: '70%', margin: '2rem 0' }}>
+         <CardContent>
+            <form onSubmit={insertVga}>
+               <BaseInputFields setVgaProduct={setVgaProduct} vgaProduct={vgaProduct} validationErrors={validationErrors} />
+               <FullWidhtContainerStyle>
+                  <TextArea
+                     labelText='Leírás'
+                     onChangeEvent={(event) =>
+                        setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, description: event.target.value } })
+                     }
+                     value={vgaProduct.details.description}
+                  />
+               </FullWidhtContainerStyle>
+               <FullWidhtContainerStyle>
+                  <PicUrlInput setPictureUrls={setPictureUrls} pictureUrls={pictureUrls}></PicUrlInput>
+               </FullWidhtContainerStyle>
+               <FullWidhtContainerStyle>
+                  <SubmitButton>Bevitel</SubmitButton>
+               </FullWidhtContainerStyle>
+            </form>
+         </CardContent>
+      </Card>
    )
 }
 
