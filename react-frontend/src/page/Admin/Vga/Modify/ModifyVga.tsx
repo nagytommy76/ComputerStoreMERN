@@ -10,7 +10,7 @@ import { ValidationError } from '../../AdminTypes'
 const SubmitButton = lazy(() => import('../../Components/InputFields/SubmitButton/SubmitButton'))
 const BaseInputFields = lazy(() => import('../BaseInput/BaseInputFields'))
 const ProductSelector = lazy(() => import('../../Components/InputFields/ProductSelector/ProductSelector'))
-const TextArea = lazy(() => import('../../Components/InputFields/TextArea/TextArea'))
+const DescriptionTextArea = lazy(() => import('../../Components/InputFields/TextArea/DescriptionTextArea'))
 const PicUrlInput = lazy(() => import('../../Components/InputFields/PicUrlInput/PicUrlInput'))
 
 const ModifyVga = () => {
@@ -35,7 +35,7 @@ const ModifyVga = () => {
          </FullWidhtContainerStyle>
          <BaseInputFields vgaProduct={productDetails} setVgaProduct={setProductDetails} validationErrors={validationErrors} />
          <FullWidhtContainerStyle>
-            <TextArea
+            <DescriptionTextArea
                labelText='Leírás'
                value={productDetails.details.description || ''}
                onChangeEvent={(event) =>

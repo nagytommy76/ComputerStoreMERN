@@ -1,6 +1,5 @@
 import React from 'react'
-import TextOrNumberInput from './InputFields/TextOrNumberInput'
-import { errorMsg } from '../../Helpers/SetErrorMsg'
+import { errorMsg, findOrFailErrorMsg } from '../../Helpers/SetErrorMsg'
 import { BaseInputFieldProps } from '../AdminTypes'
 
 import TextField from '@mui/material/TextField'
@@ -13,45 +12,57 @@ const BaseInputs: React.FC<BaseInputFieldProps> = ({ product, setProduct, valida
             label='Termék szám'
             value={product.itemNumber || ''}
             onChange={(event) => setProduct({ ...product, itemNumber: event.target.value })}
-            margin='dense'
+            margin='normal'
+            variant='filled'
+         />
+         <TextField
+            id='typeName'
+            label='Típus név'
+            value={product.type || ''}
+            onChange={(event) => setProduct({ ...product, type: event.target.value })}
+            margin='normal'
             variant='filled'
             required
+            error={findOrFailErrorMsg(validationErrors, 'type')}
+            helperText={errorMsg(validationErrors, 'type')}
          />
-         {/* <TextOrNumberInput
-            labelText='Termék szám'
-            onChangeEvent={(event) => setProduct({ ...product, itemNumber: event.target.value })}
-            value={product.itemNumber || ''}
-            errorMsg={errorMsg(validationErrors, 'itemNumber')}
-         /> */}
-         <TextOrNumberInput
-            labelText='Típus név *'
-            onChangeEvent={(event) => setProduct({ ...product, type: event.target.value })}
-            value={product.type || ''}
-            errorMsg={errorMsg(validationErrors, 'type')}
-         />
-         <TextOrNumberInput
-            labelText='Típus kód'
-            onChangeEvent={(event) => setProduct({ ...product, typeCode: event.target.value })}
+         <TextField
+            id='typeCode'
+            label='Típus kód'
             value={product.typeCode || ''}
+            onChange={(event) => setProduct({ ...product, typeCode: event.target.value })}
+            margin='normal'
+            variant='filled'
          />
-         <TextOrNumberInput
-            labelText='Termék gyártó *'
-            onChangeEvent={(event) => setProduct({ ...product, manufacturer: event.target.value })}
+         <TextField
+            id='manufacturer'
+            label='Termék gyártó'
             value={product.manufacturer || ''}
-            errorMsg={errorMsg(validationErrors, 'manufacturer')}
+            onChange={(event) => setProduct({ ...product, manufacturer: event.target.value })}
+            margin='normal'
+            variant='filled'
+            required
+            error={findOrFailErrorMsg(validationErrors, 'manufacturer')}
+            helperText={errorMsg(validationErrors, 'manufacturer')}
          />
-         <TextOrNumberInput
-            inputType='number'
-            labelText='Ár *'
-            onChangeEvent={(event) => setProduct({ ...product, price: parseInt(event.target.value) })}
-            value={product.price || 0}
-            errorMsg={errorMsg(validationErrors, 'price')}
+         <TextField
+            id='price'
+            label='Ár'
+            value={product.price || ''}
+            onChange={(event) => setProduct({ ...product, price: parseInt(event.target.value) })}
+            margin='normal'
+            variant='filled'
+            required
+            error={findOrFailErrorMsg(validationErrors, 'price')}
+            helperText={errorMsg(validationErrors, 'price')}
          />
-         <TextOrNumberInput
-            inputType='number'
-            labelText='Raktáron lévő mennyiség'
-            onChangeEvent={(event) => setProduct({ ...product, inStockQuantity: parseInt(event.target.value) })}
-            value={product.inStockQuantity || 0}
+         <TextField
+            id='stockQty'
+            label='Raktáron lévő mennyiség'
+            value={product.inStockQuantity || ''}
+            onChange={(event) => setProduct({ ...product, inStockQuantity: parseInt(event.target.value) })}
+            margin='normal'
+            variant='filled'
          />
       </>
    )

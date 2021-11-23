@@ -4,11 +4,11 @@ import { cpuProperties } from '../CpuProperties'
 import { CpuProductType } from '../../../ShopPages/Cpu/CpuTypes'
 import { ValidationError } from '../../AdminTypes'
 import { PictureUrlType } from '../../Vga/Types'
-import { handleInsertSubmit } from '../../Helpers/HandleInsertSubmit'
+import handleInsertSubmit from '../../Helper/HandleInsertSubmit'
 
 const SubmitButton = lazy(() => import('../../Components/InputFields/SubmitButton/SubmitButton'))
 const BaseInputFields = lazy(() => import('../BaseInput/BaseInputFeilds'))
-const TextArea = lazy(() => import('../../Components/InputFields/TextArea/TextArea'))
+const DescriptionTextArea = lazy(() => import('../../Components/InputFields/TextArea/DescriptionTextArea'))
 const PicUrlInput = lazy(() => import('../../Components/InputFields/PicUrlInput/PicUrlInput'))
 
 const CpuInsert = () => {
@@ -24,7 +24,7 @@ const CpuInsert = () => {
       <StyledForm onSubmit={handleSubmit}>
          <BaseInputFields product={cpuProducts} setProduct={setCpuProducts} validationErrors={validationErrors} />
          <FullWidhtContainerStyle>
-            <TextArea
+            <DescriptionTextArea
                labelText='Leírás'
                onChangeEvent={(event) =>
                   setCpuProducts({ ...cpuProducts, details: { ...cpuProducts.details, description: event.target.value } })

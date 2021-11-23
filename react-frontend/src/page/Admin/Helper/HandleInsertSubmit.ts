@@ -3,7 +3,7 @@ import axios from 'axios'
 import { PictureUrlType, ValidationErrorWithAxiosError } from '../Vga/Types'
 import { ValidationError } from '../AdminTypes'
 
-export const handleInsertSubmit = (
+const handleInsertSubmit = (
    productType: string,
    anyProducts: any,
    pictureUrls: PictureUrlType[],
@@ -25,3 +25,5 @@ export const handleInsertSubmit = (
          if (error.response?.data) setValidationErrors(error.response.data.errors)
       })
 }
+
+export default handleInsertSubmit

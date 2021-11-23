@@ -27,16 +27,6 @@ export const InputFieldStyle = styled.input<{ isError?: boolean }>`
    margin: 0.3rem 0;
 `
 
-export const TextAreaStyle = styled.textarea`
-   width: 95%;
-   border: ${defaultBorder};
-   border-radius: 4px;
-   padding: 0.9rem;
-   font-size: 1.1rem;
-   outline: none;
-   margin: 0.3rem 0;
-`
-
 export const StyledSelect = styled.select`
    width: 90%;
    border: ${defaultBorder};

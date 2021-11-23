@@ -16,7 +16,7 @@ export const FormContainerStyle = styled.section`
 `
 
 export const FullWidhtContainerStyle = styled.section`
-   width: 90%;
+   width: 95%;
    text-align: center;
    margin: auto;
 `
