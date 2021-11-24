@@ -8,6 +8,8 @@ import { ValidationError } from '../../AdminTypes'
 
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
+import CardHeader from '@mui/material/CardHeader'
+import Typography from '@mui/material/Typography'
 
 const PicUrlInput = lazy(() => import('../../Components/InputFields/PicUrlInput/PicUrlInput'))
 const DescriptionTextArea = lazy(() => import('../../Components/InputFields/TextArea/DescriptionTextArea'))
@@ -25,6 +27,7 @@ const AdminVga = () => {
    }
    return (
       <Card sx={{ width: '55%', margin: '2rem 0' }}>
+         <CardHeader title={<Typography variant='h5'>Vga bevitele</Typography>} />
          <CardContent>
             <form onSubmit={insertVga}>
                <BaseInputFields setVgaProduct={setVgaProduct} vgaProduct={vgaProduct} validationErrors={validationErrors} />

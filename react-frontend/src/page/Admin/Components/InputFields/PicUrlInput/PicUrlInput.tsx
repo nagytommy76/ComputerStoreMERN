@@ -1,10 +1,16 @@
 import React, { ChangeEvent } from 'react'
-import { InputContainer, InputFieldStyle } from '../InputStyle'
 import { PictureUrlType } from '../../../Vga/Types'
-import { InputFieldContainer, RemoveLinkButtonStyle, InsertNewLinkButton, LinkToPicture } from './PicStyle'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { InputFieldContainer, PicUrlContainer } from './PicStyle'
 
-const PicUrlInput: React.FC<Props> = ({ setPictureUrls, pictureUrls, toModifyPicUrls }) => {
+import RemoveIcon from './RemoveIcon'
+import PictureLinkIcon from './LinkIcon'
+
+import { TransitionGroup } from 'react-transition-group'
+import Collapse from '@mui/material/Collapse'
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'
+
+const PicUrlInput: React.FC<Props> = ({ setPictureUrls, pictureUrls }) => {
    const setNewElementToPicUrlState = (event: ChangeEvent<HTMLInputElement>, currentIteratePicture: PictureUrlType) => {
       const pictureUrl = event.target.value
       setPictureUrls((currentPicture: PictureUrlType[]) => {
@@ -31,37 +37,36 @@ const PicUrlInput: React.FC<Props> = ({ setPictureUrls, pictureUrls, toModifyPic
       setPictureUrls((currentPicUrls: PictureUrlType[]) => currentPicUrls.filter((x) => x.id !== pictureId))
    }
    return (
-      <InputContainer>
-         {/* https://github.com/benawad/react-form-arrays/blob/0_initial/src/App.tsx */}
-         <InsertNewLinkButton type='button' onClick={() => createNewInputFieldAndStateItem()}>
+      <PicUrlContainer>
+         <Button sx={{ width: '150px', margin: '1rem 0' }} variant='contained' onClick={() => createNewInputFieldAndStateItem()}>
             Új link
-         </InsertNewLinkButton>
-         {pictureUrls.map((picture) => (
-            <InputFieldContainer key={picture.id}>
-               <InputFieldStyle
-                  onChange={(event) => setNewElementToPicUrlState(event, picture)}
-                  type='text'
-                  placeholder='Kép url'
-                  value={picture.pictureUrl}
-               />
-               <RemoveLinkButtonStyle onClick={() => removeLinkItem(picture.id)} type='button'>
-                  X
-               </RemoveLinkButtonStyle>
-               <a href={picture.pictureUrl} rel='noreferrer' target='_blank'>
-                  <LinkToPicture type='button'>
-                     <FontAwesomeIcon icon={['fas', 'external-link-alt']} />
-                  </LinkToPicture>
-               </a>
-            </InputFieldContainer>
-         ))}
-      </InputContainer>
+         </Button>
+         <TransitionGroup>
+            {pictureUrls.map((picture) => (
+               <Collapse key={picture.id} timeout={150}>
+                  <InputFieldContainer>
+                     <TextField
+                        label='Kép url'
+                        fullWidth
+                        margin='dense'
+                        size='small'
+                        onChange={(event: ChangeEvent<HTMLInputElement>) => setNewElementToPicUrlState(event, picture)}
+                        value={picture.pictureUrl}
+                     />
+
+                     <RemoveIcon title='Törlés' onClickEvent={() => removeLinkItem(picture.id)} />
+                     <PictureLinkIcon pictureUrl={picture.pictureUrl} title='Ugrás a képhez' />
+                  </InputFieldContainer>
+               </Collapse>
+            ))}
+         </TransitionGroup>
+      </PicUrlContainer>
    )
 }
 
 type Props = {
    setPictureUrls: (currentPicture: any) => void
    pictureUrls: PictureUrlType[]
-   toModifyPicUrls?: PictureUrlType[]
 }
 
 export default PicUrlInput
