@@ -38,7 +38,7 @@ const PicUrlInput: React.FC<Props> = ({ setPictureUrls, pictureUrls }) => {
    }
    return (
       <PicUrlContainer>
-         <Button sx={{ width: '150px', margin: '1rem 0' }} variant='contained' onClick={() => createNewInputFieldAndStateItem()}>
+         <Button sx={{ width: '150px', margin: '1rem 0' }} variant='outlined' onClick={() => createNewInputFieldAndStateItem()}>
             Új link
          </Button>
          <TransitionGroup>

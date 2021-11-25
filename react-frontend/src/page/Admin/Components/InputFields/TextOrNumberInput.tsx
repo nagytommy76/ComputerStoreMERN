@@ -1,78 +1,41 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
-import { InputContainer, InputFieldStyle, StyledLabel, StyledErrorMessage } from './InputStyle'
-import { CSSTransition } from 'react-transition-group'
-import styles from './error.module.css'
+import React, { ChangeEvent } from 'react'
+import { findOrFailErrorMsg, errorMsg } from '../../../Helpers/SetErrorMsg'
+import { ValidationError } from '../../AdminTypes'
+
+import TextField from '@mui/material/TextField'
 
 const TextOrNumberInput: React.FC<Props> = ({
+   id,
    labelText,
-   inputType = 'text',
    onChangeEvent,
    value,
-   errorMsg = '',
-   placeHolder,
-   min,
-   max,
-   isZipCode = false,
-   isPhoneField = false
+   validationErrors = [],
+   validationErrorLocation = '',
+   required = false
 }) => {
-   const errorTextRef = useRef(null)
-   const [hasErrorNotExpired, setHasErrorNotExpired] = useState<boolean>(false)
-   useEffect(() => {
-      setHasErrorNotExpired(errorMsg.length > 0)
-      if (typeof value === 'string') {
-         if (value.length > 2 && !isPhoneField) setHasErrorNotExpired(false)
-         if (isPhoneField && errorMsg.length === 0) setHasErrorNotExpired(false)
-      }
-      if (typeof value === 'number') {
-         if (value > 0 && !isZipCode) setHasErrorNotExpired(false)
-         if (isZipCode && value >= 1000 && value <= 9999) setHasErrorNotExpired(false)
-      }
-   }, [errorMsg, value, isZipCode, isPhoneField])
-
    return (
-      <InputContainer>
-         <StyledLabel htmlFor={labelText}>{labelText}</StyledLabel>
-         <InputFieldStyle
-            min={min}
-            max={max}
-            id={labelText}
-            type={inputType}
-            onChange={onChangeEvent}
-            value={value}
-            isError={hasErrorNotExpired}
-            placeholder={placeHolder}
-         />
-         <CSSTransition
-            in={hasErrorNotExpired}
-            unmountOnExit
-            mountOnEnter
-            timeout={300}
-            nodeRef={errorTextRef}
-            classNames={{
-               enter: styles.ErrorEnter,
-               enterActive: styles.ErrorEnterActive,
-               exit: styles.ErrorExit,
-               exitActive: styles.ErrorExitActive
-            }}>
-            <StyledErrorMessage ref={errorTextRef} role='status'>
-               {errorMsg}
-            </StyledErrorMessage>
-         </CSSTransition>
-      </InputContainer>
+      <TextField
+         id={id}
+         required={required}
+         error={findOrFailErrorMsg(validationErrors, validationErrorLocation)}
+         helperText={errorMsg(validationErrors, validationErrorLocation)}
+         variant='filled'
+         margin='normal'
+         label={labelText}
+         value={value || 0 || ''}
+         onChange={onChangeEvent}
+      />
    )
 }
 
 type Props = {
+   id: string
    labelText: string
-   inputType?: string
    onChangeEvent: (event: ChangeEvent<HTMLInputElement>) => void
    value: string | number | undefined
-   errorMsg?: string | undefined
-   placeHolder?: string
-   min?: number | string
-   max?: number | string
-   isZipCode?: boolean
-   isPhoneField?: boolean
+   required?: boolean
+   validationErrors?: ValidationError[]
+   validationErrorLocation?: string
 }
 
 export default TextOrNumberInput

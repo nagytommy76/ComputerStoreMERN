@@ -1,68 +1,55 @@
 import React from 'react'
-import { errorMsg, findOrFailErrorMsg } from '../../Helpers/SetErrorMsg'
 import { BaseInputFieldProps } from '../AdminTypes'
 
-import TextField from '@mui/material/TextField'
+const TextOrNumberInput = React.lazy(() => import('./InputFields/TextOrNumberInput'))
 
 const BaseInputs: React.FC<BaseInputFieldProps> = ({ product, setProduct, validationErrors }) => {
    return (
       <>
-         <TextField
+         <TextOrNumberInput
             id='itemNumber'
-            label='Termék szám'
+            labelText='Termék szám'
             value={product.itemNumber || ''}
-            onChange={(event) => setProduct({ ...product, itemNumber: event.target.value })}
-            margin='normal'
-            variant='filled'
+            onChangeEvent={(event) => setProduct({ ...product, itemNumber: event.target.value })}
          />
-         <TextField
+         <TextOrNumberInput
+            required
             id='typeName'
-            label='Típus név'
+            labelText='Típus név'
             value={product.type || ''}
-            onChange={(event) => setProduct({ ...product, type: event.target.value })}
-            margin='normal'
-            variant='filled'
-            required
-            error={findOrFailErrorMsg(validationErrors, 'type')}
-            helperText={errorMsg(validationErrors, 'type')}
+            onChangeEvent={(event) => setProduct({ ...product, type: event.target.value })}
+            validationErrorLocation='type'
+            validationErrors={validationErrors}
          />
-         <TextField
+         <TextOrNumberInput
             id='typeCode'
-            label='Típus kód'
+            labelText='Típus kód'
             value={product.typeCode || ''}
-            onChange={(event) => setProduct({ ...product, typeCode: event.target.value })}
-            margin='normal'
-            variant='filled'
+            onChangeEvent={(event) => setProduct({ ...product, typeCode: event.target.value })}
          />
-         <TextField
+         <TextOrNumberInput
             id='manufacturer'
-            label='Termék gyártó'
+            labelText='Termék gyártó'
             value={product.manufacturer || ''}
-            onChange={(event) => setProduct({ ...product, manufacturer: event.target.value })}
-            margin='normal'
-            variant='filled'
+            onChangeEvent={(event) => setProduct({ ...product, manufacturer: event.target.value })}
             required
-            error={findOrFailErrorMsg(validationErrors, 'manufacturer')}
-            helperText={errorMsg(validationErrors, 'manufacturer')}
+            validationErrorLocation='manufacturer'
+            validationErrors={validationErrors}
          />
-         <TextField
+         <TextOrNumberInput
             id='price'
-            label='Ár'
+            labelText='Ár'
             value={product.price || ''}
-            onChange={(event) => setProduct({ ...product, price: parseInt(event.target.value) })}
-            margin='normal'
-            variant='filled'
+            onChangeEvent={(event) => setProduct({ ...product, price: parseInt(event.target.value) })}
             required
-            error={findOrFailErrorMsg(validationErrors, 'price')}
-            helperText={errorMsg(validationErrors, 'price')}
+            validationErrorLocation='price'
+            validationErrors={validationErrors}
          />
-         <TextField
+         <TextOrNumberInput
             id='stockQty'
-            label='Raktáron lévő mennyiség'
+            labelText='Raktáron lévő mennyiség'
             value={product.inStockQuantity || ''}
-            onChange={(event) => setProduct({ ...product, inStockQuantity: parseInt(event.target.value) })}
-            margin='normal'
-            variant='filled'
+            onChangeEvent={(event) => setProduct({ ...product, inStockQuantity: parseInt(event.target.value) })}
          />
       </>
    )

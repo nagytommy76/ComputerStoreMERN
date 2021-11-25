@@ -1,116 +1,119 @@
 import React from 'react'
 import { FormContainerStyle } from '../../Components/Form/FormStyle'
 import { CpuInputFieldProps } from '../Types'
-import { errorMsg } from '../../../Helpers/SetErrorMsg'
 
 const BaseFields = React.lazy(() => import('../../Components/BaseInputs'))
 const TextOrNumberInput = React.lazy(() => import('../../Components/InputFields/TextOrNumberInput'))
-const CheckBox = React.lazy(() => import('../../Components/InputFields/CheckBox/CheckBox'))
+// const CheckBox = React.lazy(() => import('../../Components/InputFields/CheckBox/CheckBox'))
 
 const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, validationErrors }) => {
-   const [isCooler, setIsCooler] = React.useState(false)
-   const handleCheckbox = () => {
-      setIsCooler(!isCooler)
-      setProduct({ ...product, details: { ...product.details, stockCooler: !isCooler } })
-   }
+   // const [isCooler, setIsCooler] = React.useState(false)
+   // const handleCheckbox = () => {
+   //    setIsCooler(!isCooler)
+   //    setProduct({ ...product, details: { ...product.details, stockCooler: !isCooler } })
+   // }
    return (
       <FormContainerStyle>
          <BaseFields product={product} setProduct={setProduct} validationErrors={validationErrors} />
          <TextOrNumberInput
-            inputType='number'
-            min='0'
-            max='128'
-            labelText='Magok Száma (db) *'
+            id='coreCount'
+            required
+            labelText='Magok Száma (db)'
             onChangeEvent={(event) =>
                setProduct({ ...product, details: { ...product.details, coreCount: parseInt(event.target.value) } })
             }
             value={product.details.coreCount}
-            errorMsg={errorMsg(validationErrors, 'details.coreCount')}
+            validationErrorLocation='details.coreCount'
+            validationErrors={validationErrors}
          />
          <TextOrNumberInput
-            inputType='number'
-            min='0'
-            max='128'
-            labelText='Szálak Száma (db) *'
+            id='threadCount'
+            required
+            labelText='Szálak Száma (db)'
             onChangeEvent={(event) =>
                setProduct({ ...product, details: { ...product.details, threadCount: parseInt(event.target.value) } })
             }
             value={product.details.threadCount}
-            errorMsg={errorMsg(validationErrors, 'details.threadCount')}
+            validationErrorLocation='details.threadCount'
+            validationErrors={validationErrors}
          />
          <TextOrNumberInput
-            inputType='number'
-            min='0'
-            max='10000'
-            labelText='Alap órajel (MHz) *'
+            id='baseClock'
+            required
+            labelText='Alap órajel (MHz)'
             onChangeEvent={(event) =>
                setProduct({ ...product, details: { ...product.details, baseClock: parseInt(event.target.value) } })
             }
             value={product.details.baseClock}
-            errorMsg={errorMsg(validationErrors, 'details.baseClock')}
+            validationErrorLocation='details.baseClock'
+            validationErrors={validationErrors}
          />
          <TextOrNumberInput
-            inputType='number'
-            min='0'
-            max='10000'
-            labelText='Turbó órajel (MHz) *'
+            id='boostClock'
+            required
+            labelText='Turbó órajel (MHz)'
             onChangeEvent={(event) =>
                setProduct({ ...product, details: { ...product.details, boostClock: parseInt(event.target.value) } })
             }
             value={product.details.boostClock}
-            errorMsg={errorMsg(validationErrors, 'details.boostClock')}
+            validationErrorLocation='details.boostClock'
+            validationErrors={validationErrors}
          />
          <TextOrNumberInput
-            inputType='number'
-            min='0'
-            max='500'
-            labelText='Fogyasztás (Watt) *'
+            id='TDP'
+            required
+            labelText='Fogyasztás (Watt)'
             onChangeEvent={(event) =>
                setProduct({ ...product, details: { ...product.details, TDP: parseInt(event.target.value) } })
             }
             value={product.details.TDP}
-            errorMsg={errorMsg(validationErrors, 'details.TDP')}
+            validationErrorLocation='details.TDP'
+            validationErrors={validationErrors}
          />
          <TextOrNumberInput
-            inputType='number'
-            min='0'
-            max='250'
-            labelText='L2 Cache (Mb) *'
+            id='l2Cache'
+            required
+            labelText='L2 Cache (Mb)'
             onChangeEvent={(event) =>
                setProduct({ ...product, details: { ...product.details, l2Cache: parseInt(event.target.value) } })
             }
             value={product.details.l2Cache}
-            errorMsg={errorMsg(validationErrors, 'details.l2Cache')}
+            validationErrorLocation='details.l2Cache'
+            validationErrors={validationErrors}
          />
          <TextOrNumberInput
-            inputType='number'
-            min='0'
-            max='250'
-            labelText='L3 Cache (Mb) *'
+            id='l3Cache'
+            required
+            labelText='L3 Cache (Mb)'
             onChangeEvent={(event) =>
                setProduct({ ...product, details: { ...product.details, l3Cache: parseInt(event.target.value) } })
             }
             value={product.details.l3Cache}
-            errorMsg={errorMsg(validationErrors, 'details.l3Cache')}
+            validationErrorLocation='details.l3Cache'
+            validationErrors={validationErrors}
          />
          <TextOrNumberInput
-            labelText='Foglalat *'
+            id='socket'
+            required
+            labelText='Foglalat'
             onChangeEvent={(event) => setProduct({ ...product, details: { ...product.details, socket: event.target.value } })}
             value={product.details.socket}
-            errorMsg={errorMsg(validationErrors, 'details.socket')}
+            validationErrorLocation='details.socket'
+            validationErrors={validationErrors}
          />
          <TextOrNumberInput
-            labelText='Garancia *'
-            inputType='number'
-            min='0'
-            max='150'
+            id='warranity'
+            required
+            labelText='Garancia'
             onChangeEvent={(event) =>
                setProduct({ ...product, details: { ...product.details, warranity: parseInt(event.target.value) } })
             }
             value={product.details.warranity}
-            errorMsg={errorMsg(validationErrors, 'details.warranity')}
+            validationErrorLocation='details.warranity'
+            validationErrors={validationErrors}
          />
          <TextOrNumberInput
+            id='integratedGraphicsName'
             labelText='Integrált grafikus neve'
             onChangeEvent={(event) =>
                setProduct({ ...product, details: { ...product.details, integratedGraphicsName: event.target.value } })
@@ -118,6 +121,7 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
             value={product.details.integratedGraphicsName}
          />
          <TextOrNumberInput
+            id='architecture'
             labelText='Arhitechtúra'
             onChangeEvent={(event) =>
                setProduct({ ...product, details: { ...product.details, architecture: event.target.value } })
@@ -125,6 +129,7 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
             value={product.details.architecture}
          />
          <TextOrNumberInput
+            id='cpuCodeName'
             labelText='CPU Kódneve'
             onChangeEvent={(event) =>
                setProduct({ ...product, details: { ...product.details, cpuCodeName: event.target.value } })
@@ -132,13 +137,14 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
             value={product.details.cpuCodeName}
          />
          <TextOrNumberInput
+            id='manufacturerPageUrl'
             labelText='Gyártói oldal'
             onChangeEvent={(event) =>
                setProduct({ ...product, details: { ...product.details, manufacturerPageUrl: event.target.value } })
             }
             value={product.details.manufacturerPageUrl}
          />
-         <CheckBox labelText='Gyári hűtő' onChangeEvent={handleCheckbox} checked={isCooler} />
+         {/* <CheckBox labelText='Gyári hűtő' onChangeEvent={handleCheckbox} checked={isCooler} />
          {isCooler && (
             <TextOrNumberInput
                labelText='Gyári hűtés'
@@ -147,7 +153,7 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
                }
                value={product.details.stockCoolerName}
             />
-         )}
+         )} */}
       </FormContainerStyle>
    )
 }

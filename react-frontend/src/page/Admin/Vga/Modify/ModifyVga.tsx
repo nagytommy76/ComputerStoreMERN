@@ -1,17 +1,16 @@
 import axios from 'axios'
 import React, { useState, lazy } from 'react'
-import { StyledForm, FullWidhtContainerStyle } from '../../Components/Form/FormStyle'
 
 import { vgaProperties } from '../VgaProperties'
 import { VgaType } from '../../../ShopPages/Vga/VgaTypes'
 import { ValidationErrorWithAxiosError, PictureUrlType } from '../Types'
 import { ValidationError } from '../../AdminTypes'
 
-const SubmitButton = lazy(() => import('../../Components/InputFields/SubmitButton/SubmitButton'))
 const BaseInputFields = lazy(() => import('../BaseInput/BaseInputFields'))
 const ProductSelector = lazy(() => import('../../Components/InputFields/ProductSelector/ProductSelector'))
 const DescriptionTextArea = lazy(() => import('../../Components/InputFields/TextArea/DescriptionTextArea'))
 const PicUrlInput = lazy(() => import('../../Components/InputFields/PicUrlInput/PicUrlInput'))
+const BaseForm = lazy(() => import('../../Components/Form/BaseForm'))
 
 const ModifyVga = () => {
    const [selectedProductPictureUrls, setSelectedProductPictureUrls] = useState<PictureUrlType[]>([])
@@ -29,30 +28,21 @@ const ModifyVga = () => {
          })
    }
    return (
-      <StyledForm onSubmit={sendModifyRequest}>
-         <FullWidhtContainerStyle>
-            <ProductSelector setDetailedProducts={setProductDetails} setPictureUrls={setSelectedProductPictureUrls} />
-         </FullWidhtContainerStyle>
+      <BaseForm handleSubmit={sendModifyRequest} submitButtonText='Vga módosítása' mainTitle='Vga módosítása'>
+         <ProductSelector setDetailedProducts={setProductDetails} setPictureUrls={setSelectedProductPictureUrls} />
          <BaseInputFields vgaProduct={productDetails} setVgaProduct={setProductDetails} validationErrors={validationErrors} />
-         <FullWidhtContainerStyle>
-            <DescriptionTextArea
-               labelText='Leírás'
-               value={productDetails.details.description || ''}
-               onChangeEvent={(event) =>
-                  setProductDetails({
-                     ...productDetails,
-                     details: { ...productDetails.details, description: event.target.value }
-                  })
-               }
-            />
-         </FullWidhtContainerStyle>
-         <FullWidhtContainerStyle>
-            <PicUrlInput setPictureUrls={setSelectedProductPictureUrls} pictureUrls={selectedProductPictureUrls} />
-         </FullWidhtContainerStyle>
-         <FullWidhtContainerStyle>
-            <SubmitButton>Módosítás</SubmitButton>
-         </FullWidhtContainerStyle>
-      </StyledForm>
+         <DescriptionTextArea
+            labelText='Leírás'
+            value={productDetails.details.description || ''}
+            onChangeEvent={(event) =>
+               setProductDetails({
+                  ...productDetails,
+                  details: { ...productDetails.details, description: event.target.value }
+               })
+            }
+         />
+         <PicUrlInput setPictureUrls={setSelectedProductPictureUrls} pictureUrls={selectedProductPictureUrls} />
+      </BaseForm>
    )
 }
 

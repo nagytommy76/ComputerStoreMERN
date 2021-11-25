@@ -6,88 +6,78 @@ import BaseInputs from '../../Components/BaseInputs'
 
 import TextField from '@mui/material/TextField'
 
+const TextOrNumberInput = React.lazy(() => import('../../Components/InputFields/TextOrNumberInput'))
+
 const BaseInputFields: React.FC<VgaInputFieldProps> = ({ vgaProduct, setVgaProduct, validationErrors }) => {
    return (
       <FormContainerStyle>
          <BaseInputs product={vgaProduct} setProduct={setVgaProduct} validationErrors={validationErrors} />
          {/* Details */}
-         <TextField
+         <TextOrNumberInput
             id='gpuMan'
-            label='Gpu gyártó'
+            labelText='Gpu gyártó'
             value={vgaProduct.details.gpuManufacturer || ''}
-            onChange={(event) =>
+            onChangeEvent={(event) =>
                setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, gpuManufacturer: event.target.value } })
             }
-            margin='normal'
-            variant='filled'
             required
-            error={findOrFailErrorMsg(validationErrors, 'details.gpuManufacturer')}
-            helperText={errorMsg(validationErrors, 'details.gpuManufacturer')}
+            validationErrorLocation='details.gpuManufacturer'
+            validationErrors={validationErrors}
          />
-         <TextField
+         <TextOrNumberInput
             id='pciType'
-            label='PCI-E típus'
+            labelText='PCI-E típus'
             value={vgaProduct.details.pcieType || ''}
-            onChange={(event) =>
+            onChangeEvent={(event) =>
                setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, pcieType: event.target.value } })
             }
-            margin='normal'
-            variant='filled'
             required
-            error={findOrFailErrorMsg(validationErrors, 'details.pcieType')}
-            helperText={errorMsg(validationErrors, 'details.pcieType')}
+            validationErrorLocation='details.pcieType'
+            validationErrors={validationErrors}
          />
-         <TextField
+         <TextOrNumberInput
             id='gpuBaseClock'
-            label='GPU alap órajel'
+            labelText='GPU alap órajel'
             value={vgaProduct.details.gpuBaseClock || ''}
-            onChange={(event) =>
+            onChangeEvent={(event) =>
                setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, gpuBaseClock: parseInt(event.target.value) } })
             }
-            margin='normal'
-            variant='filled'
             required
-            error={findOrFailErrorMsg(validationErrors, 'details.gpuBaseClock')}
-            helperText={errorMsg(validationErrors, 'details.gpuBaseClock')}
+            validationErrorLocation='details.gpuBaseClock'
+            validationErrors={validationErrors}
          />
-         <TextField
+         <TextOrNumberInput
             id='gpuPeakClock'
-            label='GPU emelt órajel'
+            labelText='GPU emelt órajel'
             value={vgaProduct.details.gpuPeakClock || ''}
-            onChange={(event) =>
+            onChangeEvent={(event) =>
                setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, gpuPeakClock: parseInt(event.target.value) } })
             }
-            margin='normal'
-            variant='filled'
             required
-            error={findOrFailErrorMsg(validationErrors, 'details.gpuPeakClock')}
-            helperText={errorMsg(validationErrors, 'details.gpuPeakClock')}
+            validationErrorLocation='details.gpuPeakClock'
+            validationErrors={validationErrors}
          />
-         <TextField
+         <TextOrNumberInput
             id='vramCapacity'
-            label='Vram kapacitás'
+            labelText='Vram kapacitás'
             value={vgaProduct.details.vramCapacity || ''}
-            onChange={(event) =>
+            onChangeEvent={(event) =>
                setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, vramCapacity: parseInt(event.target.value) } })
             }
-            margin='normal'
-            variant='filled'
             required
-            error={findOrFailErrorMsg(validationErrors, 'details.vramCapacity')}
-            helperText={errorMsg(validationErrors, 'details.vramCapacity')}
+            validationErrorLocation='details.vramCapacity'
+            validationErrors={validationErrors}
          />
-         <TextField
+         <TextOrNumberInput
             id='vramType'
-            label='Vram típusa'
+            labelText='Vram típusa'
             value={vgaProduct.details.vramType || ''}
-            onChange={(event) =>
+            onChangeEvent={(event) =>
                setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, vramType: event.target.value } })
             }
-            margin='normal'
-            variant='filled'
             required
-            error={findOrFailErrorMsg(validationErrors, 'details.vramType')}
-            helperText={errorMsg(validationErrors, 'details.vramType')}
+            validationErrorLocation='details.vramType'
+            validationErrors={validationErrors}
          />
          <TextField
             id='vramBandwidth'
