@@ -11,7 +11,7 @@ const TextOrNumberInput: React.FC<Props> = ({
    value,
    validationErrors = [],
    validationErrorLocation = '',
-   required = false
+   required = true
 }) => {
    return (
       <TextField
