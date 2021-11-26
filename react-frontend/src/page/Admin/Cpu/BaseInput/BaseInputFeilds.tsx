@@ -2,22 +2,24 @@ import React from 'react'
 import { FormContainerStyle } from '../../Components/Form/FormStyle'
 import { CpuInputFieldProps } from '../Types'
 
+// import Fade from '@mui/material/Fade'
+// import Grow from '@mui/material/Grow'
+
 const BaseFields = React.lazy(() => import('../../Components/BaseInputs'))
 const TextOrNumberInput = React.lazy(() => import('../../Components/InputFields/TextOrNumberInput'))
-// const CheckBox = React.lazy(() => import('../../Components/InputFields/CheckBox/CheckBox'))
+const CheckBox = React.lazy(() => import('../../Components/InputFields/CheckBox/CheckBox'))
 
 const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, validationErrors }) => {
-   // const [isCooler, setIsCooler] = React.useState(false)
-   // const handleCheckbox = () => {
-   //    setIsCooler(!isCooler)
-   //    setProduct({ ...product, details: { ...product.details, stockCooler: !isCooler } })
-   // }
+   const [isCooler, setIsCooler] = React.useState(false)
+   const handleCheckbox = () => {
+      setIsCooler(!isCooler)
+      setProduct({ ...product, details: { ...product.details, stockCooler: !isCooler } })
+   }
    return (
       <FormContainerStyle>
          <BaseFields product={product} setProduct={setProduct} validationErrors={validationErrors} />
          <TextOrNumberInput
             id='coreCount'
-            required
             labelText='Magok Száma (db)'
             onChangeEvent={(event) =>
                setProduct({ ...product, details: { ...product.details, coreCount: parseInt(event.target.value) } })
@@ -28,7 +30,6 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
          />
          <TextOrNumberInput
             id='threadCount'
-            required
             labelText='Szálak Száma (db)'
             onChangeEvent={(event) =>
                setProduct({ ...product, details: { ...product.details, threadCount: parseInt(event.target.value) } })
@@ -39,7 +40,6 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
          />
          <TextOrNumberInput
             id='baseClock'
-            required
             labelText='Alap órajel (MHz)'
             onChangeEvent={(event) =>
                setProduct({ ...product, details: { ...product.details, baseClock: parseInt(event.target.value) } })
@@ -50,7 +50,6 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
          />
          <TextOrNumberInput
             id='boostClock'
-            required
             labelText='Turbó órajel (MHz)'
             onChangeEvent={(event) =>
                setProduct({ ...product, details: { ...product.details, boostClock: parseInt(event.target.value) } })
@@ -61,7 +60,6 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
          />
          <TextOrNumberInput
             id='TDP'
-            required
             labelText='Fogyasztás (Watt)'
             onChangeEvent={(event) =>
                setProduct({ ...product, details: { ...product.details, TDP: parseInt(event.target.value) } })
@@ -72,7 +70,6 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
          />
          <TextOrNumberInput
             id='l2Cache'
-            required
             labelText='L2 Cache (Mb)'
             onChangeEvent={(event) =>
                setProduct({ ...product, details: { ...product.details, l2Cache: parseInt(event.target.value) } })
@@ -83,7 +80,6 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
          />
          <TextOrNumberInput
             id='l3Cache'
-            required
             labelText='L3 Cache (Mb)'
             onChangeEvent={(event) =>
                setProduct({ ...product, details: { ...product.details, l3Cache: parseInt(event.target.value) } })
@@ -94,7 +90,6 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
          />
          <TextOrNumberInput
             id='socket'
-            required
             labelText='Foglalat'
             onChangeEvent={(event) => setProduct({ ...product, details: { ...product.details, socket: event.target.value } })}
             value={product.details.socket}
@@ -103,7 +98,6 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
          />
          <TextOrNumberInput
             id='warranity'
-            required
             labelText='Garancia'
             onChangeEvent={(event) =>
                setProduct({ ...product, details: { ...product.details, warranity: parseInt(event.target.value) } })
@@ -113,6 +107,7 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
             validationErrors={validationErrors}
          />
          <TextOrNumberInput
+            required={false}
             id='integratedGraphicsName'
             labelText='Integrált grafikus neve'
             onChangeEvent={(event) =>
@@ -121,6 +116,7 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
             value={product.details.integratedGraphicsName}
          />
          <TextOrNumberInput
+            required={false}
             id='architecture'
             labelText='Arhitechtúra'
             onChangeEvent={(event) =>
@@ -129,6 +125,7 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
             value={product.details.architecture}
          />
          <TextOrNumberInput
+            required={false}
             id='cpuCodeName'
             labelText='CPU Kódneve'
             onChangeEvent={(event) =>
@@ -137,6 +134,7 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
             value={product.details.cpuCodeName}
          />
          <TextOrNumberInput
+            required={false}
             id='manufacturerPageUrl'
             labelText='Gyártói oldal'
             onChangeEvent={(event) =>
@@ -144,16 +142,18 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
             }
             value={product.details.manufacturerPageUrl}
          />
-         {/* <CheckBox labelText='Gyári hűtő' onChangeEvent={handleCheckbox} checked={isCooler} />
+         <CheckBox labelText='Gyári hűtő?' onChangeEvent={handleCheckbox} checked={isCooler} />
          {isCooler && (
             <TextOrNumberInput
+               id='cooler'
+               required={false}
                labelText='Gyári hűtés'
                onChangeEvent={(event) =>
                   setProduct({ ...product, details: { ...product.details, stockCoolerName: event.target.value } })
                }
                value={product.details.stockCoolerName}
             />
-         )} */}
+         )}
       </FormContainerStyle>
    )
 }

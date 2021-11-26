@@ -7,13 +7,13 @@ const BaseInputs: React.FC<BaseInputFieldProps> = ({ product, setProduct, valida
    return (
       <>
          <TextOrNumberInput
+            required={false}
             id='itemNumber'
             labelText='Termék szám'
             value={product.itemNumber || ''}
             onChangeEvent={(event) => setProduct({ ...product, itemNumber: event.target.value })}
          />
          <TextOrNumberInput
-            required
             id='typeName'
             labelText='Típus név'
             value={product.type || ''}
@@ -22,6 +22,7 @@ const BaseInputs: React.FC<BaseInputFieldProps> = ({ product, setProduct, valida
             validationErrors={validationErrors}
          />
          <TextOrNumberInput
+            required={false}
             id='typeCode'
             labelText='Típus kód'
             value={product.typeCode || ''}
@@ -32,7 +33,6 @@ const BaseInputs: React.FC<BaseInputFieldProps> = ({ product, setProduct, valida
             labelText='Termék gyártó'
             value={product.manufacturer || ''}
             onChangeEvent={(event) => setProduct({ ...product, manufacturer: event.target.value })}
-            required
             validationErrorLocation='manufacturer'
             validationErrors={validationErrors}
          />
@@ -41,11 +41,11 @@ const BaseInputs: React.FC<BaseInputFieldProps> = ({ product, setProduct, valida
             labelText='Ár'
             value={product.price || ''}
             onChangeEvent={(event) => setProduct({ ...product, price: parseInt(event.target.value) })}
-            required
             validationErrorLocation='price'
             validationErrors={validationErrors}
          />
          <TextOrNumberInput
+            required={false}
             id='stockQty'
             labelText='Raktáron lévő mennyiség'
             value={product.inStockQuantity || ''}

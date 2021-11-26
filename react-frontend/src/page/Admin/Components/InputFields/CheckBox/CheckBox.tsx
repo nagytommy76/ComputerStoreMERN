@@ -1,14 +1,17 @@
 import React from 'react'
-import { StyledCheckBox, LabelSyle, TickMark } from './CheckStyle'
+import { StyledCheckBoxContainer } from './CheckStyle'
+
+import Checkbox from '@mui/material/Checkbox'
+import FormControlLabel from '@mui/material/FormControlLabel'
 
 const CheckBox: React.FC<Props> = ({ labelText, onChangeEvent, checked }) => {
    return (
-      <>
-         <StyledCheckBox id='chk' type='checkbox' onChange={onChangeEvent} checked={checked} />
-         <LabelSyle htmlFor='chk'>
-            <TickMark />
-         </LabelSyle>
-      </>
+      <StyledCheckBoxContainer>
+         <FormControlLabel
+            label={labelText}
+            control={<Checkbox onChange={onChangeEvent} checked={checked} sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }} />}
+         />
+      </StyledCheckBoxContainer>
    )
 }
 
