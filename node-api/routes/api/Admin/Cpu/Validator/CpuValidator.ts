@@ -15,9 +15,8 @@ export const insertCpuValidator = [
    notZeroValueWithMessage('details.threadCount', 'Szálak száma'),
    notZeroValueWithMessage('details.baseClock', 'Alap órajel'),
    notZeroValueWithMessage('details.boostClock', 'Turbó órajel'),
-   notZeroValueWithMessage('details.TDP', 'TDP'),
-   notZeroValueWithMessage('details.l2Cache', 'l2Cache'),
    notZeroValueWithMessage('details.l3Cache', 'l3Cache'),
-   notEmptyFieldWithMessage('details.socket', 'Foglalat'),
-   notEmptyFieldWithMessage('details.warranity', 'Garancia')
+   notZeroValueWithMessage('details.warranity', 'Garancia'),
+   notZeroValueWithMessage('details.TDP', 'TDP'),
+   notEmptyFieldWithMessage('details.socket', 'Foglalat')
 ]

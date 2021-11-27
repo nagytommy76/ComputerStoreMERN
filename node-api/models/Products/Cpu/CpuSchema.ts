@@ -15,7 +15,7 @@ const CpuSchema = new Schema<CpuProductType>({
       baseClock: { type: Number, required: true },
       boostClock: { type: Number, required: true },
       TDP: { type: Number, required: true },
-      l2Cache: { type: Number, required: true },
+      l2Cache: Number,
       l3Cache: { type: Number, required: true },
       socket: { type: String, required: true },
       manufacturerPageUrl: { type: String },
@@ -25,7 +25,7 @@ const CpuSchema = new Schema<CpuProductType>({
       cpuCodeName: { type: String },
       stockCooler: { type: Boolean },
       stockCoolerName: { type: String },
-      warranity: { type: Number, required: true }
+      warranity: Number
    }
 }).add({
    inStockQuantity: { type: Number, required: true, default: 0 },
