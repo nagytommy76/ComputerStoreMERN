@@ -9,6 +9,7 @@ const handleInsertSubmit = (
    pictureUrls: PictureUrlType[],
    setValidationErrors: React.Dispatch<React.SetStateAction<ValidationError[]>>,
    setProductState: React.Dispatch<React.SetStateAction<any>>,
+   setInputSuccess: React.Dispatch<React.SetStateAction<boolean>>,
    productProperties: any
 ) => {
    const filteredPicUrls = pictureUrls.map((x) => x.pictureUrl)
@@ -18,7 +19,10 @@ const handleInsertSubmit = (
          pictureUrls: filteredPicUrls
       })
       .then((result) => {
-         if (result.status === 201) setProductState(productProperties)
+         if (result.status === 201) {
+            setInputSuccess(true)
+            setProductState(productProperties)
+         }
       })
       .catch((error: ValidationErrorWithAxiosError) => {
          if (error.response?.data) setValidationErrors(error.response.data.errors)

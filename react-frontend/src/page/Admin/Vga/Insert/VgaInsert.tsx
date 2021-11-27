@@ -14,13 +14,14 @@ const AdminVga = () => {
    const [pictureUrls, setPictureUrls] = useState<PictureUrlType[]>([])
    const [vgaProduct, setVgaProduct] = useState<VgaType>(vgaProperties)
    const [validationErrors, setValidationErrors] = useState<ValidationError[]>([])
+   const [inputSuccess, setInputSuccess] = useState<boolean>(false)
 
    const insertVga = async (event: React.FormEvent) => {
       event.preventDefault()
-      handleInsertSubmit('vga', vgaProduct, pictureUrls, setValidationErrors, setVgaProduct, vgaProperties)
+      handleInsertSubmit('vga', vgaProduct, pictureUrls, setValidationErrors, setVgaProduct, setInputSuccess, vgaProperties)
    }
    return (
-      <BaseForm mainTitle='Vga bevitele' submitButtonText='Vga bevitele' handleSubmit={insertVga}>
+      <BaseForm inputWasSuccess={inputSuccess} mainTitle='Vga bevitele' submitButtonText='Vga bevitele' handleSubmit={insertVga}>
          <BaseInputFields setVgaProduct={setVgaProduct} vgaProduct={vgaProduct} validationErrors={validationErrors} />
          <DescriptionTextArea
             labelText='Leírás'

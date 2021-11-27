@@ -6,7 +6,7 @@ import Card from '@mui/material/Card'
 export const StyledForm = styled.form`
    width: 95%;
    text-align: center;
-   margin: 1rem auto 3rem auto;
+   margin: 1rem auto;
 `
 
 export const FormContainerStyle = styled.section`

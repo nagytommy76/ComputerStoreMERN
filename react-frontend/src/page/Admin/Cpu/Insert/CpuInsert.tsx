@@ -14,13 +14,14 @@ const CpuInsert = () => {
    const [pictureUrls, setPictureUrls] = useState<PictureUrlType[]>([])
    const [cpuProducts, setCpuProducts] = useState<CpuProductType>(cpuProperties)
    const [validationErrors, setValidationErrors] = useState<ValidationError[]>([])
+   const [inputSuccess, setInputSuccess] = useState<boolean>(false)
 
    const handleSubmit = (event: React.FormEvent) => {
       event.preventDefault()
-      handleInsertSubmit('cpu', cpuProducts, pictureUrls, setValidationErrors, setCpuProducts, cpuProperties)
+      handleInsertSubmit('cpu', cpuProducts, pictureUrls, setValidationErrors, setCpuProducts, setInputSuccess, cpuProperties)
    }
    return (
-      <BaseForm handleSubmit={handleSubmit} mainTitle='Cpu bevitele' submitButtonText='Bevitel'>
+      <BaseForm inputWasSuccess={inputSuccess} handleSubmit={handleSubmit} mainTitle='Cpu bevitele' submitButtonText='Bevitel'>
          <BaseInputFields product={cpuProducts} setProduct={setCpuProducts} validationErrors={validationErrors} />
          <DescriptionTextArea
             labelText='Leírás'
