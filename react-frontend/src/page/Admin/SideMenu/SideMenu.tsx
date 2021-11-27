@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import styled from 'styled-components'
+import { ButtonContainer } from './RoutesStyles'
 
 import Routes from './Routes'
 
@@ -34,11 +34,5 @@ const SideMenu = () => {
       </>
    )
 }
-
-const ButtonContainer = styled.div`
-   position: absolute;
-   left: 5px;
-   top: 50px;
-`
 
 export default SideMenu

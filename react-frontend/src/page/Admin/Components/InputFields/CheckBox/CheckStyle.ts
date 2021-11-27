@@ -6,5 +6,3 @@ export const StyledCheckBoxContainer = styled.div`
    display: flex;
    align-items: center;
 `
-
-// https://codepen.io/himalayasingh/pen/dBJBMO?editors=1100

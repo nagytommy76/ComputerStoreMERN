@@ -21,7 +21,6 @@ const handleInsertSubmit = (
          if (result.status === 201) setProductState(productProperties)
       })
       .catch((error: ValidationErrorWithAxiosError) => {
-         console.log(error.response?.data.errors)
          if (error.response?.data) setValidationErrors(error.response.data.errors)
       })
 }

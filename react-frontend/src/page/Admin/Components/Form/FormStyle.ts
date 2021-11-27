@@ -1,4 +1,7 @@
 import styled from 'styled-components'
+import { mobileWindowSize } from '../../../../Theme/GlobalStyles'
+
+import Card from '@mui/material/Card'
 
 export const StyledForm = styled.form`
    width: 95%;
@@ -13,4 +16,11 @@ export const FormContainerStyle = styled.section`
    justify-content: center;
    row-gap: 1rem;
    column-gap: 1rem;
+   @media (max-width: ${mobileWindowSize}) {
+      grid-template-columns: 100%;
+   }
 `
+
+export const FormCard = styled(Card)(({ theme }) => ({
+   width: '100%'
+}))

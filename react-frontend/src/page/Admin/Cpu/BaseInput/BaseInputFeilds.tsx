@@ -2,8 +2,7 @@ import React from 'react'
 import { FormContainerStyle } from '../../Components/Form/FormStyle'
 import { CpuInputFieldProps } from '../Types'
 
-// import Fade from '@mui/material/Fade'
-// import Grow from '@mui/material/Grow'
+import Fade from '@mui/material/Fade'
 
 const BaseFields = React.lazy(() => import('../../Components/BaseInputs'))
 const TextOrNumberInput = React.lazy(() => import('../../Components/InputFields/TextOrNumberInput'))
@@ -143,17 +142,19 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
             value={product.details.manufacturerPageUrl}
          />
          <CheckBox labelText='Gyári hűtő?' onChangeEvent={handleCheckbox} checked={isCooler} />
-         {isCooler && (
-            <TextOrNumberInput
-               id='cooler'
-               required={false}
-               labelText='Gyári hűtés'
-               onChangeEvent={(event) =>
-                  setProduct({ ...product, details: { ...product.details, stockCoolerName: event.target.value } })
-               }
-               value={product.details.stockCoolerName}
-            />
-         )}
+         <Fade in={isCooler}>
+            <div style={{ width: '100%' }}>
+               <TextOrNumberInput
+                  id='cooler'
+                  required={false}
+                  labelText='Gyári hűtés'
+                  onChangeEvent={(event) =>
+                     setProduct({ ...product, details: { ...product.details, stockCoolerName: event.target.value } })
+                  }
+                  value={product.details.stockCoolerName}
+               />
+            </div>
+         </Fade>
       </FormContainerStyle>
    )
 }

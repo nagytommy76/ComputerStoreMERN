@@ -1,7 +1,6 @@
 import React from 'react'
+import { StyledForm, FormCard } from '../../Components/Form/FormStyle'
 
-import { StyledForm } from '../../Components/Form/FormStyle'
-import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
@@ -15,7 +14,7 @@ const BaseForm: React.FC<{ handleSubmit: (event: React.FormEvent) => void; mainT
    submitButtonText
 }) => {
    return (
-      <Card>
+      <FormCard>
          <CardHeader
             title={
                <Typography align='center' variant='h4'>
@@ -29,7 +28,7 @@ const BaseForm: React.FC<{ handleSubmit: (event: React.FormEvent) => void; mainT
                <SubmitButton>{submitButtonText}</SubmitButton>
             </StyledForm>
          </CardContent>
-      </Card>
+      </FormCard>
    )
 }
 
