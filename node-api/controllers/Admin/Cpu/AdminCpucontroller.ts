@@ -6,6 +6,24 @@ type RequestWithBodyType = Request & {
    body: CpuProductType
 }
 
+export const getAllCpuItemsController = async (req: Request, res: Response) => {
+   try {
+      const cpuProducts = await CpuProduct.find()
+      return res.status(200).json({ allProducts: cpuProducts })
+   } catch (error) {
+      return res.status(500).json(error)
+   }
+}
+
+export const getAllCpuItemsForDeleteController = async (req: Request, res: Response) => {
+   try {
+      const cpuProducts = await CpuProduct.find().select(['manufacturer', 'price', 'type', 'inStockQuantity'])
+      return res.status(200).json({ allProducts: cpuProducts })
+   } catch (error) {
+      return res.status(500).json(error)
+   }
+}
+
 export const insertCpuController = async (req: RequestWithBodyType, res: Response) => {
    try {
       const createdCpu = new CpuProduct({
@@ -27,6 +45,7 @@ export const insertCpuController = async (req: RequestWithBodyType, res: Respons
             manufacturerUrl: req.body.details.manufacturerUrl,
             description: req.body.details.description,
             integratedGraphicsName: req.body.details.integratedGraphicsName,
+            manufacturerPageUrl: req.body.details.manufacturerPageUrl,
             architecture: req.body.details.architecture,
             cpuCodeName: req.body.details.cpuCodeName,
             stockCooler: req.body.details.stockCooler,
