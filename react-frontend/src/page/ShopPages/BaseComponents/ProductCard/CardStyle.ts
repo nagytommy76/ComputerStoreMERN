@@ -1,17 +1,13 @@
 import styled from 'styled-components'
 import { Card, styled as MUIStyled } from '@mui/material'
 
-type Prop = {
-   isCardExpanded: boolean
-}
-
 export const CardWidth = '250px'
 const CardHeight = '350px'
 const FooterHeight = '40px'
 
-export const CustomCard = MUIStyled(Card)<Prop>(({ theme }) => ({ isCardExpanded }) => ({
+export const CustomCard = MUIStyled(Card)(() => ({
    position: 'relative',
-   height: isCardExpanded ? CardHeight + FooterHeight : CardHeight,
+   height: CardHeight + FooterHeight,
    width: CardWidth,
    transition: 'transform 0.1s',
    '&:hover': {

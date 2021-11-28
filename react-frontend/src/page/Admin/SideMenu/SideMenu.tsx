@@ -18,7 +18,7 @@ const SideMenu = () => {
                color='primary'
                size='large'
                onClick={() => setIsOpen((prev) => !prev)}>
-               Menü
+               Admin Menü
             </Button>
          </ButtonContainer>
          <SwipeableDrawer

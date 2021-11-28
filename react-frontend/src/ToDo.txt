@@ -2,5 +2,4 @@
 
 - A Collapse (Comment Answer-nél) valamiért megváltoztatja a transition idejét téma váltásnál
 
-
-- A módosításnál is kell egy alert, hogy jó vagy nem.
+- Admin résznél létrehozni törlést Vga/Cpu MUI Táblával?!

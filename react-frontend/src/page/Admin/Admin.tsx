@@ -8,6 +8,7 @@ const VgaModify = React.lazy(() => import('./Vga/Modify/ModifyVga'))
 
 const CpuInsert = React.lazy(() => import('./Cpu/Insert/CpuInsert'))
 const CpuModify = React.lazy(() => import('./Cpu/Modify/ModifyCpu'))
+const CpuDelete = React.lazy(() => import('./Cpu/Delete/DeleteCpu'))
 
 const Admin = () => {
    return (
@@ -22,6 +23,7 @@ const Admin = () => {
                <Route path='cpu/*'>
                   <Route path='insert' element={<CpuInsert />} />
                   <Route path='modify' element={<CpuModify />} />
+                  <Route path='delete' element={<CpuDelete />} />
                </Route>
             </Routes>
          </RightContentStyle>

@@ -18,6 +18,11 @@ const CpuLinks: React.FC<{ setSideBarOpen: React.Dispatch<React.SetStateAction<b
                <Typography variant='subtitle1'>CPU Módosítása</Typography>
             </ListItem>
          </Link>
+         <Link to='cpu/delete' onClick={() => setSideBarOpen(false)}>
+            <ListItem button>
+               <Typography variant='subtitle1'>CPU-k Törlése</Typography>
+            </ListItem>
+         </Link>
       </List>
    )
 }

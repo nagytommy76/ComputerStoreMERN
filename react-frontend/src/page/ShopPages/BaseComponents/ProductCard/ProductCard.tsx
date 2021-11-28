@@ -6,7 +6,7 @@ import NumberFormat from 'react-number-format'
 import { useNavigate } from 'react-router-dom'
 
 import { SubTitleStyle, CustomCard } from './CardStyle'
-import Collapse from '@mui/material/Collapse'
+import Fade from '@mui/material/Fade'
 import CardMedia from '@mui/material/CardMedia'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
@@ -42,7 +42,6 @@ const ProductCard: React.FC<ProductCardType> = ({
    return (
       <CustomCard
          raised={isCardExpanded}
-         isCardExpanded={isCardExpanded}
          sx={{ maxWidth: 250, minHeight: 350 }}
          onMouseEnter={() => setIsCardExpanded(true)}
          onMouseLeave={() => setIsCardExpanded(false)}>
@@ -53,7 +52,7 @@ const ProductCard: React.FC<ProductCardType> = ({
             component='img'
             height='175'
             image={pictureUrls[0]}
-            alt='green iguana'
+            alt='picture'
          />
          <CardContent sx={{ cursor: 'pointer' }} onClick={() => routeToDetailsPage()}>
             <SubTitleStyle>{productName}</SubTitleStyle>
@@ -61,15 +60,11 @@ const ProductCard: React.FC<ProductCardType> = ({
                <NumberFormat value={price} thousandSeparator=' ' suffix=' Ft' displayType='text' />
             </Typography>
          </CardContent>
-         <Collapse
-            mountOnEnter
-            unmountOnExit
-            sx={{ transition: 'all .15s' }}
-            timeout={{ appear: 100, enter: 100, exit: 100 }}
-            in={isCardExpanded}
-            orientation='vertical'>
-            <CardFooter productType={pathNameForDetailsURL} />
-         </Collapse>
+         <Fade mountOnEnter unmountOnExit timeout={100} appear={isCardExpanded} in={isCardExpanded}>
+            <div>
+               <CardFooter productType={pathNameForDetailsURL} />
+            </div>
+         </Fade>
       </CustomCard>
    )
 }
