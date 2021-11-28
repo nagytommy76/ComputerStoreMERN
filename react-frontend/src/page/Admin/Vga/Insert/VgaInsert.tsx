@@ -17,6 +17,7 @@ const AdminVga = () => {
    return (
       <BaseInsertForm
          pictureUrls={pictureUrls}
+         setPictureUrls={setPictureUrls}
          product={vgaProduct}
          setProduct={setVgaProduct}
          productBaseProperties={vgaProperties}

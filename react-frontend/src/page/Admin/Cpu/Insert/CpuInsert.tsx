@@ -18,6 +18,7 @@ const CpuInsert = () => {
       <BaseInsertForm
          productType='cpu'
          pictureUrls={pictureUrls}
+         setPictureUrls={setPictureUrls}
          product={cpuProducts}
          productBaseProperties={cpuProperties}
          setProduct={setCpuProducts}

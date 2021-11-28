@@ -20,6 +20,7 @@ const Login: React.FC = () => {
    const dispatch = useAppDispatch()
    const navigate = useNavigate()
    const cartItems = useAppSelector((state) => state.cart.cartItems)
+   const [isLoadingForResponse, setIsLoadingForResponse] = useState<boolean>(false)
    const [email, setEmail] = useState<InputTypes>({ value: '', hasError: false, errorMessage: '' })
    const [password, setPassword] = useState<InputTypes>({ value: '', hasError: false, errorMessage: '' })
 
@@ -30,6 +31,7 @@ const Login: React.FC = () => {
 
    const loginUser = (event: React.FormEvent) => {
       event.preventDefault()
+      setIsLoadingForResponse(true)
       resetErrors()
       if (email.value === '') return setEmail({ value: '', hasError: true, errorMessage: 'Kérem az e-mail címet!' })
       if (password.value === '') return setPassword({ value: '', hasError: true, errorMessage: 'Kérem a jelszót!' })
@@ -47,10 +49,12 @@ const Login: React.FC = () => {
                dispatch(setUserName(response.data.userName))
                if (response.data.isAdmin) dispatch(setAdmin(true))
                if (cartItems.length > 0) dispatch(fillDBWithCartItemsAfterLogin())
+               setIsLoadingForResponse(false)
                navigate('/')
             }
          })
          .catch((err: AxiosError) => {
+            setIsLoadingForResponse(false)
             if (err.response?.data.errorType === 'password')
                setPassword((previousState) => {
                   return {
@@ -73,7 +77,7 @@ const Login: React.FC = () => {
       <Suspense fallback={<LoginSuspense />}>
          <AuthContainer>
             <AuthFormStyle>
-               <LoginForm onSubmitEvent={loginUser} title='Belépés' buttonText='Belépés'>
+               <LoginForm onSubmitEvent={loginUser} title='Belépés' buttonText='Belépés' isLoadingButton={isLoadingForResponse}>
                   <TextField
                      autoFocus
                      id='Email'

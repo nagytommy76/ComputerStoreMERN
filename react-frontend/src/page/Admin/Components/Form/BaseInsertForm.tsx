@@ -16,6 +16,7 @@ const BaseInsertForm: React.FC<{
    setProduct: React.Dispatch<React.SetStateAction<any>>
    setValidationErrors: React.Dispatch<React.SetStateAction<ValidationError[]>>
    pictureUrls: PictureUrlType[]
+   setPictureUrls: React.Dispatch<React.SetStateAction<PictureUrlType[]>>
    productBaseProperties: any
    submitButtonText: string
 }> = ({
@@ -25,6 +26,7 @@ const BaseInsertForm: React.FC<{
    product,
    setValidationErrors,
    pictureUrls,
+   setPictureUrls,
    productBaseProperties,
    submitButtonText,
    children
@@ -43,6 +45,7 @@ const BaseInsertForm: React.FC<{
             if (result.status === 201) {
                setInputSuccess(true)
                setProduct(productBaseProperties)
+               setPictureUrls([])
             }
          })
          .catch((error: ValidationErrorWithAxiosError) => {

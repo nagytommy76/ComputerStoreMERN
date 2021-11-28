@@ -12,6 +12,7 @@ const InputFields = React.lazy(() => import('./InputFields'))
 
 const Register = () => {
    const navigate = useNavigate()
+   const [isLoadingForResponse, setIsLoadingForResponse] = useState<boolean>(false)
    const [email, setEmail] = useState<InputTypes>(defaultInputProperties)
    const [userName, setUserName] = useState<InputTypes>(defaultInputProperties)
    const [firstPassword, setFirstPassword] = useState<InputTypes>(defaultInputProperties)
@@ -26,6 +27,7 @@ const Register = () => {
 
    const registerUser = (event: React.FormEvent) => {
       event.preventDefault()
+      setIsLoadingForResponse(true)
       resetErrors()
       // Hibaüzenetek:
       if (userName.value === '') return setUserName({ ...userName, hasError: true, errorMessage: 'Kérem a Felhasználónevet!' })
@@ -43,10 +45,11 @@ const Register = () => {
                secondPassword: secondPassword.value
             })
             .then((response: AxiosResponse) => {
-               if (response.status === 201)
-                  navigate('/login', { state: { isSuccess: true, message: 'A regisztráció sikeres volt - beléphetsz!' } })
+               if (response.status === 201) setIsLoadingForResponse(false)
+               navigate('/login', { state: { isSuccess: true, message: 'A regisztráció sikeres volt - beléphetsz!' } })
             })
             .catch((error: AxiosError) => {
+               setIsLoadingForResponse(false)
                const responseErrors = error.response?.data
                resetErrors()
                if (typeof responseErrors.errors === 'object') {
@@ -65,7 +68,11 @@ const Register = () => {
          <AuthContainer>
             <ImageStyle image={registerImage} />
             <AuthFormStyle>
-               <RegisterForm onSubmitEvent={registerUser} title='Regisztráció' buttonText='Regisztráció'>
+               <RegisterForm
+                  isLoadingButton={isLoadingForResponse}
+                  onSubmitEvent={registerUser}
+                  title='Regisztráció'
+                  buttonText='Regisztráció'>
                   <InputFields
                      email={email}
                      setEmail={setEmail}
