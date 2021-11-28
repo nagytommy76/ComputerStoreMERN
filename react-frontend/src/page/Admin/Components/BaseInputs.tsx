@@ -10,13 +10,13 @@ const BaseInputs: React.FC<BaseInputFieldProps> = ({ product, setProduct, valida
             required={false}
             id='itemNumber'
             labelText='Termék szám'
-            value={product.itemNumber || ''}
+            value={product.itemNumber}
             onChangeEvent={(event) => setProduct({ ...product, itemNumber: event.target.value })}
          />
          <TextOrNumberInput
             id='typeName'
             labelText='Típus név'
-            value={product.type || ''}
+            value={product.type}
             onChangeEvent={(event) => setProduct({ ...product, type: event.target.value })}
             validationErrorLocation='type'
             validationErrors={validationErrors}
@@ -25,13 +25,13 @@ const BaseInputs: React.FC<BaseInputFieldProps> = ({ product, setProduct, valida
             required={false}
             id='typeCode'
             labelText='Típus kód'
-            value={product.typeCode || ''}
+            value={product.typeCode}
             onChangeEvent={(event) => setProduct({ ...product, typeCode: event.target.value })}
          />
          <TextOrNumberInput
             id='manufacturer'
             labelText='Termék gyártó'
-            value={product.manufacturer || ''}
+            value={product.manufacturer}
             onChangeEvent={(event) => setProduct({ ...product, manufacturer: event.target.value })}
             validationErrorLocation='manufacturer'
             validationErrors={validationErrors}
@@ -39,16 +39,15 @@ const BaseInputs: React.FC<BaseInputFieldProps> = ({ product, setProduct, valida
          <TextOrNumberInput
             id='price'
             labelText='Ár'
-            value={product.price || ''}
+            value={product.price}
             onChangeEvent={(event) => setProduct({ ...product, price: parseInt(event.target.value) })}
             validationErrorLocation='price'
             validationErrors={validationErrors}
          />
          <TextOrNumberInput
-            required={false}
             id='stockQty'
             labelText='Raktáron lévő mennyiség'
-            value={product.inStockQuantity || ''}
+            value={product.inStockQuantity}
             onChangeEvent={(event) => setProduct({ ...product, inStockQuantity: parseInt(event.target.value) })}
          />
       </>

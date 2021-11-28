@@ -1,14 +1,9 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
 import { AccordionContainer } from './RoutesStyles'
 
-import Accordion from '@mui/material/Accordion'
-import AccordionSummary from '@mui/material/AccordionSummary'
-import Typography from '@mui/material/Typography'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-
-import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
+const VgaLink = React.lazy(() => import('./Links/VgaLinks'))
+const CpuLink = React.lazy(() => import('./Links/CpuLinks'))
+const BaseAccordionPanel = React.lazy(() => import('./BaseAccordionPanel'))
 
 const Routes: React.FC<{ setSideBarOpen: React.Dispatch<React.SetStateAction<boolean>> }> = ({ setSideBarOpen }) => {
    const [expanded, setExpanded] = useState<string | false>(false)
@@ -16,39 +11,14 @@ const Routes: React.FC<{ setSideBarOpen: React.Dispatch<React.SetStateAction<boo
    const handleExpanded = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) =>
       setExpanded(isExpanded ? panel : false)
 
-   const handleCloseSideBar = () => setSideBarOpen(false)
-
    return (
       <AccordionContainer>
-         <Accordion expanded={expanded === 'panel1'} onChange={handleExpanded('panel1')}>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel1bh-content' id='panel1bh-header'>
-               <Typography variant='body1'>VGA</Typography>
-            </AccordionSummary>
-            <List>
-               <Link to='vga/insert' onClick={handleCloseSideBar}>
-                  <ListItem button>
-                     <Typography variant='subtitle1'>Vga bevitele</Typography>
-                  </ListItem>
-               </Link>
-               <Link to='vga/modify' onClick={handleCloseSideBar}>
-                  <ListItem button>
-                     <Typography variant='subtitle1'>Vga módosítása</Typography>
-                  </ListItem>
-               </Link>
-            </List>
-         </Accordion>
-         <Accordion expanded={expanded === 'panel2'} onChange={handleExpanded('panel2')}>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel2bh-content' id='panel2bh-header'>
-               <Typography variant='subtitle1'>Processzor</Typography>
-            </AccordionSummary>
-            <List>
-               <Link to='cpu/insert' onClick={handleCloseSideBar}>
-                  <ListItem button>
-                     <Typography variant='subtitle1'>CPU bevitele</Typography>
-                  </ListItem>
-               </Link>
-            </List>
-         </Accordion>
+         <BaseAccordionPanel expanded={expanded} handleExpanded={handleExpanded} panelNumber='panel1' productType='vga'>
+            <VgaLink setSideBarOpen={setSideBarOpen} />
+         </BaseAccordionPanel>
+         <BaseAccordionPanel expanded={expanded} handleExpanded={handleExpanded} panelNumber='panel2' productType='cpu'>
+            <CpuLink setSideBarOpen={setSideBarOpen} />
+         </BaseAccordionPanel>
       </AccordionContainer>
    )
 }
