@@ -33,6 +33,7 @@ export const modifyVgaProductController = async (req: Request, res: Response) =>
                vga.manufacturer = req.body.manufacturer
                vga.price = req.body.price
                vga.pictureUrls = req.body.pictureUrls
+               vga.inStockQuantity = req.body.inStockQuantity
                vga.save()
             }
          })
