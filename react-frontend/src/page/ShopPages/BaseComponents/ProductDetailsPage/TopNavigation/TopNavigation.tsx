@@ -1,27 +1,24 @@
 import React from 'react'
-import { useAppSelector } from '../../../../../app/hooks'
-import { TopNavigationStyle, NavigationLink } from '../DetailsStyle'
+import { NavigationLink } from '../DetailsStyle'
 import { useLocation } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
+import Breadcrumbs from '@mui/material/Breadcrumbs'
+
 const TopNavigation = () => {
-   const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
    let { pathname } = useLocation()
    const FirstPage = pathname.split('/')[1]
-   const CurrentPage = pathname.split('/')[2]
 
    return (
-      <TopNavigationStyle isDarkTheme={isDarkTheme}>
+      <Breadcrumbs aria-label='breadcrumb'>
          <Link to='/'>
             <NavigationLink>Főoldal</NavigationLink>
          </Link>
-         <p>/</p>
-         <Link to={FirstPage}>
-            <NavigationLink>{FirstPage}</NavigationLink>
+         <Link to={`/${FirstPage}`}>
+            <NavigationLink>{FirstPage.toUpperCase()}</NavigationLink>
          </Link>
-         <p>/</p>
-         <NavigationLink>{CurrentPage.split('-')[0].toUpperCase()} Adatok</NavigationLink>
-      </TopNavigationStyle>
+         <NavigationLink>{FirstPage.toUpperCase()} Adatok</NavigationLink>
+      </Breadcrumbs>
    )
 }
 

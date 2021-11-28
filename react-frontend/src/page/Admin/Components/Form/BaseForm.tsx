@@ -11,7 +11,14 @@ const BaseForm: React.FC<{
    mainTitle: string
    inputSuccess: boolean
    setInputSuccess: React.Dispatch<React.SetStateAction<boolean>>
-}> = ({ children, mainTitle, inputSuccess, setInputSuccess }) => {
+   alertTextAndServerity?: { serverity: 'error' | 'success' | 'warning' | 'info'; text: string }
+}> = ({
+   children,
+   mainTitle,
+   inputSuccess,
+   setInputSuccess,
+   alertTextAndServerity: alertTextAnsServerity = { serverity: 'success', text: 'Sikeres bevitel!' }
+}) => {
    return (
       <FormCard>
          <CardHeader
@@ -24,8 +31,8 @@ const BaseForm: React.FC<{
          <CardContent>
             {children}
             <Grow in={inputSuccess}>
-               <Alert severity='success' onClose={() => setInputSuccess(false)}>
-                  Sikeres bevitel!
+               <Alert severity={alertTextAnsServerity.serverity} onClose={() => setInputSuccess(false)}>
+                  {alertTextAnsServerity.text}
                </Alert>
             </Grow>
          </CardContent>

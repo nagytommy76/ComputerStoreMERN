@@ -22,14 +22,18 @@ const BaseModifyForm: React.FC<{
       const filteredPictureArray = selectedProductPictureUrls.map((x) => x.pictureUrl)
       axios
          .post(`admin/${productType}/modify`, { ...productInputs, pictureUrls: filteredPictureArray })
-         .then((result) => console.log(result))
+         .then(() => setInputSuccess(true))
          .catch((errors: ValidationErrorWithAxiosError) => {
             if (errors.response?.data) setValidationErrors(errors.response?.data.errors)
          })
    }
 
    return (
-      <BaseForm inputSuccess={inputSuccess} mainTitle={mainTitle} setInputSuccess={setInputSuccess}>
+      <BaseForm
+         alertTextAndServerity={{ serverity: 'info', text: 'Sikeres módosítás!' }}
+         inputSuccess={inputSuccess}
+         mainTitle={mainTitle}
+         setInputSuccess={setInputSuccess}>
          <StyledForm onSubmit={sendModifyRequest}>
             {children}
             <SubmitButton>{submitButtonText}</SubmitButton>

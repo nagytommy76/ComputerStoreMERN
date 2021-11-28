@@ -29,7 +29,7 @@ export const cpuProperties: CpuProductType = {
       warranity: 24,
       manufacturerPageUrl: '',
       description: '',
-      integratedGraphicsName: 'Nem',
+      integratedGraphicsName: 'Nincs',
       architecture: '',
       cpuCodeName: '',
       stockCooler: false,

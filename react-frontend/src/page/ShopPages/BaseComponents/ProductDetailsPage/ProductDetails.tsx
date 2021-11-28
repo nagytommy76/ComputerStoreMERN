@@ -17,6 +17,8 @@ import {
 import { useAppSelector } from '../../../../app/hooks'
 import { LocationType } from '../../BaseTypes'
 
+import TextField from '@mui/material/TextField'
+
 const AddToCart = React.lazy(() => import('./AddToCart/AddToCart'))
 const ImageSlider = React.lazy(() => import('./ImageSlider/ImageSlider'))
 const TopNavigation = React.lazy(() => import('./TopNavigation/TopNavigation'))
@@ -57,7 +59,7 @@ const ProductDetails: React.FC = ({ children }) => {
          </HeadSection>
          <BodySection isDarkTheme={isDarkTheme}>
             <DescriptionStyle>
-               <p>{details.description}</p>
+               <TextField fullWidth multiline minRows={18} variant='outlined' value={details.description} />
             </DescriptionStyle>
             {children}
          </BodySection>

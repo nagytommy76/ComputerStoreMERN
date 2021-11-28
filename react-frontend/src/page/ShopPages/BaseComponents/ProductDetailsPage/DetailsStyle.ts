@@ -5,7 +5,7 @@ import { mobileWindowSize, transitionSetup } from '../../../../Theme/GlobalStyle
 
 export const DetailsPage = styled.section`
    min-height: 100vh;
-   width: 55%;
+   width: 50%;
    margin: calc(${navbarHeight} + 1.5rem) auto 0 auto;
    @media (max-width: ${mobileWindowSize}) {
       width: 95%;
@@ -14,19 +14,12 @@ export const DetailsPage = styled.section`
 `
 
 // TOP "Navigation"
-export const TopNavigationStyle = styled.div<{ isDarkTheme: boolean }>`
-   width: 70%;
-   color: ${({ isDarkTheme }) => (isDarkTheme ? '#FFF' : '#000')};
-   display: flex;
-   flex-direction: row;
-   align-items: center;
-   @media (max-width: ${mobileWindowSize}) {
-      width: 95%;
+export const NavigationLink = styled.p`
+   margin: 0 0.6rem;
+   transition: color 0.1s linear;
+   &:hover {
+      color: #aaa;
    }
-`
-
-export const NavigationLink = styled.h4`
-   margin: 0 1rem;
 `
 
 // Head sections
@@ -113,7 +106,6 @@ export const BodySection = styled.section<{ isDarkTheme: boolean }>`
 export const DescriptionStyle = styled.section`
    margin-right: 0.5rem;
    flex: 1;
-   font-size: 1.1rem;
    text-align: justify;
 `
 

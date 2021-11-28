@@ -24,7 +24,12 @@ const ModifyVga = () => {
          setValidationErrors={setValidationErrors}
          submitButtonText='Vga módosítása'
          mainTitle='Vga módosítása'>
-         <ProductSelector setDetailedProducts={setVgaProductInputs} setPictureUrls={setSelectedProductPictureUrls} />
+         <ProductSelector
+            productProperties={vgaProperties}
+            productType='vga'
+            setDetailedProducts={setVgaProductInputs}
+            setPictureUrls={setSelectedProductPictureUrls}
+         />
          <BaseInputFields vgaProduct={vgaProductInputs} setVgaProduct={setVgaProductInputs} validationErrors={validationErrors} />
          <DescriptionTextArea
             labelText='Leírás'

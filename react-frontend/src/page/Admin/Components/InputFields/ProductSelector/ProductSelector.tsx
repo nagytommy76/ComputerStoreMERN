@@ -3,29 +3,29 @@ import axios, { AxiosResponse, AxiosError } from 'axios'
 
 import { VgaType } from '../../../../ShopPages/Vga/VgaTypes'
 import { PictureUrlType } from '../../../Vga/Types'
-import { vgaProperties } from '../../../Vga/VgaProperties'
 
 import TextField from '@mui/material/TextField'
 
-const ProductSelector: React.FC<Props> = ({ setDetailedProducts, setPictureUrls }) => {
+const ProductSelector: React.FC<Props> = ({ setDetailedProducts, setPictureUrls, productType, productProperties }) => {
    const [allProducts, setAllProducts] = useState<VgaType[]>([])
    const [selectedVgaProduct, setSelectedVgaProduct] = useState<VgaType>()
-   const fetchAllVga = async () => {
+   const fetchAllProduct = async () => {
       await axios
-         .get('admin/vga/get-all')
+         .get(`admin/${productType}/get-all`)
          .then((response: AxiosResponse) => {
             setAllProducts(response.data.allProducts)
          })
          .catch((error: AxiosError) => console.log(error))
    }
    useEffect(() => {
-      fetchAllVga()
-   }, [])
+      fetchAllProduct()
+      // eslint-disable-next-line
+   }, [productType])
    const handleSelect = (event: ChangeEvent<HTMLSelectElement>) => {
       event.preventDefault()
       if (event.target.value === 'none') {
-         setDetailedProducts(vgaProperties)
-         setSelectedVgaProduct(vgaProperties)
+         setDetailedProducts(productProperties)
+         setSelectedVgaProduct(productProperties)
       }
       if (setPictureUrls && event.target.value === 'none') setPictureUrls([])
       const foundElement: VgaType | undefined = allProducts.find((element: VgaType) => element._id === event.target.value)
@@ -69,8 +69,10 @@ const ProductSelector: React.FC<Props> = ({ setDetailedProducts, setPictureUrls 
 }
 
 type Props = {
-   setDetailedProducts: React.Dispatch<React.SetStateAction<VgaType>>
+   setDetailedProducts: React.Dispatch<React.SetStateAction<any>>
    setPictureUrls?: React.Dispatch<React.SetStateAction<PictureUrlType[]>>
+   productType: string
+   productProperties: any
 }
 
 export default ProductSelector
