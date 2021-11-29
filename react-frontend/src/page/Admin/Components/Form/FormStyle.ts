@@ -22,5 +22,6 @@ export const FormContainerStyle = styled.section`
 `
 
 export const FormCard = styled(Card)(({ theme }) => ({
-   width: '100%'
+   width: '100%',
+   minHeight: '50vh'
 }))
