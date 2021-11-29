@@ -17,7 +17,9 @@ export const getAllCpuItemsController = async (req: Request, res: Response) => {
 
 export const getAllCpuItemsForDeleteController = async (req: Request, res: Response) => {
    try {
-      const cpuProducts = await CpuProduct.find().select(['manufacturer', 'price', 'type', 'inStockQuantity'])
+      const cpuProducts = await CpuProduct.find()
+         .select(['manufacturer', 'price', 'type', 'inStockQuantity'])
+         .sort({ price: 'asc' })
       return res.status(200).json({ allProducts: cpuProducts })
    } catch (error) {
       return res.status(500).json(error)
