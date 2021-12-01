@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import NumberFormat from 'react-number-format'
 
 import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
 
 const DeleteButton = React.lazy(() => import('../../Components/DeleteComponents/DeleteButton'))
-// const TableHeadSection = React.lazy(() => import('../../Components/DeleteComponents/TableHead'))
 const BaseTable = React.lazy(() => import('../../Components/DeleteComponents/BaseTable'))
 
 const DeleteCpu = () => {
@@ -32,10 +32,17 @@ const DeleteCpu = () => {
                <TableCell component='th'>{product._id}</TableCell>
                <TableCell>{product.manufacturer}</TableCell>
                <TableCell>{product.type}</TableCell>
-               <TableCell>{product.price} Ft</TableCell>
+               <TableCell>
+                  <NumberFormat thousandSeparator=' ' value={product.price} suffix=' Ft' displayType='text' />
+               </TableCell>
                <TableCell>{product.inStockQuantity} (db)</TableCell>
                <TableCell>
-                  <DeleteButton productID={product._id} />
+                  <DeleteButton
+                     allProducts={allDetailedProduct}
+                     setAllProducts={setAllDetaildeProduct}
+                     productTypeForURL='cpu'
+                     productID={product._id}
+                  />
                </TableCell>
             </TableRow>
          ))}
