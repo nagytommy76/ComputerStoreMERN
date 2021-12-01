@@ -4,7 +4,8 @@ import {
    insertCpuController,
    modifyCpuProductController,
    getAllCpuItemsController,
-   getAllCpuItemsForDeleteController
+   getAllCpuItemsForDeleteController,
+   deleteCpuProductByIdController
 } from '../../../../controllers/Admin/Cpu/AdminCpuController'
 import { insertCpuValidator } from './Validator/CpuValidator'
 import { checkErrors } from '../../../../middlewares/CheckValidationErrors'
@@ -15,5 +16,6 @@ router.get('/get-to-delete', checkUserIsAdmin, getAllCpuItemsForDeleteController
 
 router.post('/insert', insertCpuValidator, checkUserIsAdmin, checkErrors, insertCpuController)
 router.post('/modify', insertCpuValidator, checkUserIsAdmin, checkErrors, modifyCpuProductController)
+router.delete('/delete', checkUserIsAdmin, deleteCpuProductByIdController)
 
 module.exports = router

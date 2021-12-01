@@ -6,20 +6,15 @@ type RequestWithBodyType = Request & {
    body: CpuProductType
 }
 
-export const getAllCpuItemsController = async (req: Request, res: Response) => {
-   try {
-      const cpuProducts = await CpuProduct.find()
-      return res.status(200).json({ allProducts: cpuProducts })
-   } catch (error) {
-      return res.status(500).json(error)
+type RequestWithCpuID = Request & {
+   body: {
+      productID: string
    }
 }
 
-export const getAllCpuItemsForDeleteController = async (req: Request, res: Response) => {
+export const getAllCpuItemsController = async (req: Request, res: Response) => {
    try {
       const cpuProducts = await CpuProduct.find()
-         .select(['manufacturer', 'price', 'type', 'inStockQuantity'])
-         .sort({ price: 'asc' })
       return res.status(200).json({ allProducts: cpuProducts })
    } catch (error) {
       return res.status(500).json(error)
@@ -80,6 +75,29 @@ export const modifyCpuProductController = async (req: Request, res: Response) =>
          })
          .catch((errors) => console.log(errors))
       return res.sendStatus(201)
+   } catch (error) {
+      return res.status(500).json(error)
+   }
+}
+
+// DELETE CPU
+
+export const getAllCpuItemsForDeleteController = async (req: Request, res: Response) => {
+   try {
+      const cpuProducts = await CpuProduct.find()
+         .select(['manufacturer', 'price', 'type', 'inStockQuantity'])
+         .sort({ price: 'asc' })
+      return res.status(200).json({ allProducts: cpuProducts })
+   } catch (error) {
+      return res.status(500).json(error)
+   }
+}
+
+export const deleteCpuProductByIdController = (req: RequestWithCpuID, res: Response) => {
+   try {
+      // CpuProduct.findByIdAndRemove(req.body.productID).then(() => {
+      return res.status(200).json({ msg: 'sikeres törlés', deleted: true })
+      // })
    } catch (error) {
       return res.status(500).json(error)
    }
