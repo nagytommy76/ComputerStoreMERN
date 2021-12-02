@@ -1,7 +1,6 @@
 import React from 'react'
 
 import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
 import TableContainer from '@mui/material/TableContainer'
 import Paper from '@mui/material/Paper'
 
@@ -13,7 +12,7 @@ const BaseTable: React.FC = ({ children }) => {
          <Table sx={{ minWidth: 750, minHeight: 130 }}>
             <caption>Termékek törlése</caption>
             <TableHeadSection />
-            <TableBody>{children}</TableBody>
+            {children}
          </Table>
       </TableContainer>
    )
