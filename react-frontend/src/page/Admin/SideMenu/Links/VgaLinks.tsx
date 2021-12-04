@@ -18,6 +18,11 @@ const VgaLinks: React.FC<{ setSideBarOpen: React.Dispatch<React.SetStateAction<b
                <Typography variant='subtitle1'>Vga módosítása</Typography>
             </ListItem>
          </Link>
+         <Link to='vga/delete' onClick={() => setSideBarOpen(false)}>
+            <ListItem button>
+               <Typography variant='subtitle1'>Vga törlése</Typography>
+            </ListItem>
+         </Link>
       </List>
    )
 }

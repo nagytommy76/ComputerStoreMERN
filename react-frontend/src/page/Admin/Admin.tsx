@@ -5,6 +5,7 @@ import SideMenu from './SideMenu/SideMenu'
 
 const VgaInsert = React.lazy(() => import('./Vga/Insert/VgaInsert'))
 const VgaModify = React.lazy(() => import('./Vga/Modify/ModifyVga'))
+const DeleteVga = React.lazy(() => import('./Vga/Delete/DeleteVga'))
 
 const CpuInsert = React.lazy(() => import('./Cpu/Insert/CpuInsert'))
 const CpuModify = React.lazy(() => import('./Cpu/Modify/ModifyCpu'))
@@ -19,6 +20,7 @@ const Admin = () => {
                <Route path='vga/*'>
                   <Route path='insert' element={<VgaInsert />} />
                   <Route path='modify' element={<VgaModify />} />
+                  <Route path='delete' element={<DeleteVga />} />
                </Route>
                <Route path='cpu/*'>
                   <Route path='insert' element={<CpuInsert />} />
