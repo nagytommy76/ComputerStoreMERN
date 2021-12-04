@@ -95,9 +95,11 @@ export const getAllCpuItemsForDeleteController = async (req: Request, res: Respo
 
 export const deleteCpuProductByIdController = (req: RequestWithCpuID, res: Response) => {
    try {
-      // CpuProduct.findByIdAndRemove(req.body.productID).then(() => {
-      return res.status(200).json({ msg: 'sikeres törlés', deleted: true })
-      // })
+      CpuProduct.findByIdAndRemove(req.body.productID)
+         .then(() => {
+            return res.status(200).json({ msg: 'sikeres törlés', deleted: true })
+         })
+         .catch((error) => res.status(500).json(error))
    } catch (error) {
       return res.status(500).json(error)
    }

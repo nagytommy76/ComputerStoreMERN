@@ -43,3 +43,32 @@ export const modifyVgaProductController = async (req: Request, res: Response) =>
       return res.status(500).json(error)
    }
 }
+
+// Delete Vga
+export const getAllVgaItemsForDeleteController = async (req: Request, res: Response) => {
+   try {
+      const vgaProducts = await VgaProduct.find()
+         .select(['manufacturer', 'price', 'type', 'inStockQuantity'])
+         .sort({ price: 'asc' })
+      return res.status(200).json({ allProducts: vgaProducts })
+   } catch (error) {
+      return res.status(500).json(error)
+   }
+}
+
+export const deleteVgaProductByIdController = (req: RequestWithVgaID, res: Response) => {
+   try {
+      // VgaProduct.findByIdAndRemove(req.body.productID)
+      // .then(() => {
+      return res.status(200).json({ msg: 'sikeres törlés', deleted: true })
+      // })
+      // .catch((error) => res.status(500).json(error))
+   } catch (error) {
+      return res.status(500).json(error)
+   }
+}
+type RequestWithVgaID = Request & {
+   body: {
+      productID: string
+   }
+}
