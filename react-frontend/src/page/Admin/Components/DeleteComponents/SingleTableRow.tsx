@@ -15,7 +15,7 @@ const SingleTableRow: React.FC<{ product: ProductToDeleteType }> = ({ product, c
             <NumberFormat thousandSeparator=' ' value={product.price} suffix=' Ft' displayType='text' />
          </TableCell>
          <TableCell>{product.inStockQuantity} (db)</TableCell>
-         <TableCell>{children}</TableCell>
+         <TableCell align='right'>{children}</TableCell>
       </TableRow>
    )
 }

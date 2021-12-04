@@ -17,7 +17,7 @@ export const AdminPageContainer = styled.section`
 `
 
 export const RightContentStyle = styled.div`
-   max-width: 65%;
+   width: 60%;
    display: flex;
    justify-content: center;
    margin-top: 1.5rem;

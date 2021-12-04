@@ -5,3 +5,8 @@ export type ProductToDeleteType = {
    price: number
    inStockQuantity: number
 }
+
+export type SnackbarStateTypes = {
+   isOpen: boolean
+   deletedProductName: string
+}
