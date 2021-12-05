@@ -1,6 +1,3 @@
 3. A Card suspense szintén nem jó...
 
 - A Collapse (Comment Answer-nél) valamiért megváltoztatja a transition idejét téma váltásnál
-
-- Admin résznél létrehozni törlést Vga/Cpu MUI Táblával?!
-- A törlésnél esetleg egy Dialog-ban megkérdezni, hogy tuti törlöd-e?!

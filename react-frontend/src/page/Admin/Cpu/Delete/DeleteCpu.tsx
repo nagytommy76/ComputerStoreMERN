@@ -1,18 +1,9 @@
-import React, { useState } from 'react'
-import { SnackbarStateTypes } from '../../Components/DeleteComponents/Types'
+import React from 'react'
 
 const BaseTable = React.lazy(() => import('../../Components/DeleteComponents/BaseTable'))
-const SnackBar = React.lazy(() => import('../../Components/DeleteComponents/SnackBar'))
 
 const DeleteCpu = () => {
-   const [isSnackOpen, setIsSnackOpen] = useState<SnackbarStateTypes>({ isOpen: false, deletedProductName: '' })
-
-   return (
-      <>
-         <BaseTable productType='cpu' setIsSnackOpen={setIsSnackOpen} />
-         <SnackBar isSnackOpen={isSnackOpen} setIsSnackOpen={setIsSnackOpen} />
-      </>
-   )
+   return <BaseTable productType='cpu' />
 }
 
 export default DeleteCpu
