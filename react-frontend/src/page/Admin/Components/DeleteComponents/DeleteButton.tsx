@@ -4,14 +4,9 @@ import axios from 'axios'
 import { ProductToDeleteType, SnackbarStateTypes } from './Types'
 
 import IconButton from '@mui/material/IconButton'
-import Button from '@mui/material/Button'
 import DeleteIcon from '@mui/icons-material/Delete'
 
-import Dialog from '@mui/material/Dialog'
-import DialogActions from '@mui/material/DialogActions'
-import DialogContent from '@mui/material/DialogContent'
-import DialogContentText from '@mui/material/DialogContentText'
-import DialogTitle from '@mui/material/DialogTitle'
+const ConfirmDialog = React.lazy(() => import('./ConfirmDialog'))
 
 const DeleteButton: React.FC<{
    productID: string
@@ -21,25 +16,22 @@ const DeleteButton: React.FC<{
    productNameForSnackbar: string
    setIsSnackOpen: React.Dispatch<React.SetStateAction<SnackbarStateTypes>>
 }> = ({ productID, productTypeForURL, setAllProducts, allProducts, setIsSnackOpen, productNameForSnackbar }) => {
-   const [isDialogOpen, setIsDialogOpen] = useState(true)
+   const [isDialogOpen, setIsDialogOpen] = useState(false)
 
-   const handleClickOpen = () => {
-      setIsDialogOpen(true)
-   }
+   const handleDialogClickOpen = async () => setIsDialogOpen(true)
 
-   const handleClose = () => {
-      setIsDialogOpen(false)
-   }
+   const handleCancelButtonClick = () => setIsDialogOpen(false)
 
-   const handleDeleteProduct = async () => {
+   const handleConfirmButtonClick = async () => {
       try {
          const deleteSuccessResponse = await axios.delete(`admin/${productTypeForURL}/delete`, { data: { productID } })
          if (deleteSuccessResponse.status === 200 && deleteSuccessResponse.data.deleted) {
             const productsWithoutDeletedItem = allProducts.filter((product) => productID !== product._id)
-            setAllProducts(productsWithoutDeletedItem)
             setIsSnackOpen((prevValues) => {
                return { ...prevValues, isOpen: true, deletedProductName: productNameForSnackbar }
             })
+            setIsDialogOpen(false)
+            setAllProducts(productsWithoutDeletedItem)
          }
       } catch (error) {
          console.log(error)
@@ -47,24 +39,16 @@ const DeleteButton: React.FC<{
    }
    return (
       <>
-         <IconButton color='error' onClick={handleDeleteProduct}>
+         <IconButton color='error' onClick={handleDialogClickOpen}>
             <DeleteIcon />
          </IconButton>
          {createPortal(
-            <Dialog open={isDialogOpen} onClose={handleClose}>
-               <DialogTitle id='alert-dialog-title'>Biztosan törlöd?</DialogTitle>
-               <DialogContent>
-                  <DialogContentText id='alert-dialog-description'>
-                     Biztosan törölni szeretnéd a(z) {productNameForSnackbar} terméket véglegesen az adatbázisból?
-                  </DialogContentText>
-               </DialogContent>
-               <DialogActions>
-                  <Button onClick={handleClose}>Mégsem</Button>
-                  <Button onClick={handleClose} autoFocus>
-                     Biztosan
-                  </Button>
-               </DialogActions>
-            </Dialog>,
+            <ConfirmDialog
+               isDialogOpen={isDialogOpen}
+               handleCancelButtonClick={handleCancelButtonClick}
+               handleConfirmButtonClick={handleConfirmButtonClick}
+               productNameForSnackbar={productNameForSnackbar}
+            />,
             document.getElementById('delete-dialog') as HTMLElement
          )}
       </>
