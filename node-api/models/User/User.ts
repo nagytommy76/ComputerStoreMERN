@@ -16,6 +16,21 @@ const UserSchema = new Schema<UserTypes>({
    },
    isAdmin: { type: Boolean, default: false }
 }).add({
+   orders: {
+      orderedAt: { type: Date, required: true },
+      totalPrice: { type: Number, required: true },
+      paymentMethod: { type: String, required: true },
+      products: {
+         type: [
+            {
+               productID: { type: Schema.Types.ObjectId, required: true },
+               productName: { type: String, required: true },
+               productQty: { type: Number, required: true }
+            }
+         ],
+         required: true
+      }
+   },
    userDetails: {
       firstName: String,
       lastName: String,
