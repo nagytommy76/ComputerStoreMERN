@@ -98,6 +98,11 @@ export const FooterSection = styled.footer`
 `
 
 export const PriceSection = MUIStyled(Typography)(({ theme }) => ({
+   width: '60%',
+   textAlign: 'center',
+   padding: '.55rem',
+   borderRadius: '5px',
+   backgroundColor: 'rgba(0,0,0, .45)',
    margin: '1rem 0',
-   fontSize: '2rem'
+   fontSize: '2.2rem'
 }))

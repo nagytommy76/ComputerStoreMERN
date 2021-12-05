@@ -87,7 +87,6 @@ export const sendCartItemToSaveInDB =
                displayName: payload.displayName,
                price: payload.price
             })
-            .then((result) => console.log(result))
             .catch((error) => console.log(error.message))
       }
    }
