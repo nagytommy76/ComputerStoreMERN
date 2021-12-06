@@ -17,6 +17,7 @@ const MakeOrder = () => {
    return (
       <LoadingButton
          sx={{
+            zIndex: 4,
             position: 'absolute',
             bottom: '40px'
          }}

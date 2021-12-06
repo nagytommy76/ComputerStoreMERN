@@ -1,4 +1,5 @@
 import React from 'react'
+import { useAppSelector } from '../../../app/hooks'
 import { FormSubmitButton, FormSubmitButtonContainer } from './ButtonStyle'
 
 const AdvancedButton: React.FC<{
@@ -6,6 +7,8 @@ const AdvancedButton: React.FC<{
    onClickEvent: React.MouseEventHandler<HTMLSpanElement>
    isButtonDisabled?: boolean
 }> = ({ children, onClickEvent, isButtonDisabled = false }) => {
+   const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
+
    const clickEventHandler = (event: React.MouseEvent<HTMLSpanElement>) => {
       if (!isButtonDisabled) {
          onClickEvent(event)
@@ -13,7 +16,7 @@ const AdvancedButton: React.FC<{
    }
    return (
       <FormSubmitButtonContainer role='button' id={children} onClick={clickEventHandler}>
-         <FormSubmitButton buttonText={children} />
+         <FormSubmitButton isDarkTheme={isDarkTheme} buttonText={children} />
       </FormSubmitButtonContainer>
    )
 }

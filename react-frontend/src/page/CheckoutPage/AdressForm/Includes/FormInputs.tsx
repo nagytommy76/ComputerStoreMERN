@@ -140,8 +140,7 @@ const FormInputs: React.FC<{
                <TextField
                   id='houseNumber'
                   fullWidth
-                  type='number'
-                  inputProps={{ inputMode: 'numeric', pattern: /[0-9] [0-9] [0-9] [0-9]/ }}
+                  inputProps={{ inputMode: 'numeric', pattern: '[0-9]' }}
                   error={findErrorByFieldType(validateErrors, 'userDetails.address.houseNumber')?.hasError}
                   helperText={findErrorByFieldType(validateErrors, 'userDetails.address.houseNumber')?.errorMsg}
                   variant='filled'

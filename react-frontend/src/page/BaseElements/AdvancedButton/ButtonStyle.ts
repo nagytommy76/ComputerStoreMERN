@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const FormSubmitButton = styled.span<{ buttonText: string }>`
+export const FormSubmitButton = styled.span<{ buttonText: string; isDarkTheme: boolean }>`
    transform-style: preserve-3d;
    transform: translateZ(-25px);
    transition: all 0.25s;
@@ -32,7 +32,7 @@ export const FormSubmitButton = styled.span<{ buttonText: string }>`
       transform: rotateY(0deg) translateZ(25px);
    }
    &:after {
-      color: #fff;
+      color: ${({ isDarkTheme }) => (isDarkTheme ? '#FFF' : '#000')};
       transform: rotateX(90deg) translateZ(25px);
    }
    &:hover {
