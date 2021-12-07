@@ -14,3 +14,16 @@ export const PageContainer = styled.section<{ isDarkTheme: boolean }>`
       flex-direction: column;
    }
 `
+
+export const LeftPageContainer = styled.section`
+   width: 100%;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   flex: 1;
+
+   @media (max-width: ${mobileWindowSize}) {
+      min-height: 120vh;
+      margin-bottom: 3rem;
+   }
+`

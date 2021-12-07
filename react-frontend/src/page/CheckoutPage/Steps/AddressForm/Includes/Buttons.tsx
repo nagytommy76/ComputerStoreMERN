@@ -1,6 +1,6 @@
 import React from 'react'
 
-const AdvancedButton = React.lazy(() => import('../../../BaseElements/AdvancedButton/AdvancedButton'))
+const AdvancedButton = React.lazy(() => import('../../../../BaseElements/AdvancedButton/AdvancedButton'))
 
 const Buttons: React.FC<{
    isSubmitBtnDisabled: boolean

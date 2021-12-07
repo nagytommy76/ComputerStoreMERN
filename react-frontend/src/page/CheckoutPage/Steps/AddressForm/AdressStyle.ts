@@ -1,21 +1,8 @@
 import styled from 'styled-components'
-import { largeWindowSize, mobileWindowSize } from '../../../Theme/GlobalStyles'
-
-export const AdressContainer = styled.section`
-   width: 100%;
-   display: flex;
-   flex-direction: column;
-   flex: 1;
-
-   @media (max-width: ${mobileWindowSize}) {
-      min-height: 120vh;
-      margin-bottom: 3rem;
-   }
-`
+import { largeWindowSize, mobileWindowSize } from '../../../../Theme/GlobalStyles'
 
 export const AdressFormStyle = styled.form<{ darkTheme: boolean }>`
    width: 100%;
-   height: 100%;
    display: flex;
    flex-direction: column;
    justify-content: center;

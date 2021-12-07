@@ -2,8 +2,8 @@ import React from 'react'
 import { Box, TextField } from '@mui/material'
 import { FormControlRow } from '../AdressStyle'
 
-import { findErrorByFieldType, ValidateErrors } from '../../../Helpers/SetErrorMsg'
-import { UserDetails } from '../../CheckoutTypes'
+import { findErrorByFieldType, ValidateErrors } from '../../../../Helpers/SetErrorMsg'
+import { UserDetails } from '../../../CheckoutTypes'
 
 const FormInputs: React.FC<{
    userDetails: UserDetails

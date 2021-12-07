@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { useAppSelector } from '../../../app/hooks'
-import { AdressFormStyle, StyledHeading, AdressContainer } from './AdressStyle'
+import { useAppSelector } from '../../../../app/hooks'
+import { AdressFormStyle, StyledHeading } from './AdressStyle'
 
-import { UserDetails } from '../CheckoutTypes'
+import { UserDetails } from '../../CheckoutTypes'
 import axios from 'axios'
-import { ValidationErrorWithAxiosError } from '../../Admin/Vga/Types'
-import { ValidateErrors } from '../../Helpers/SetErrorMsg'
+import { ValidationErrorWithAxiosError } from '../../../Admin/Vga/Types'
+import { ValidateErrors } from '../../../Helpers/SetErrorMsg'
 
 const Buttons = React.lazy(() => import('./Includes/Buttons'))
 const FormInputs = React.lazy(() => import('./Includes/FormInputs'))
@@ -79,18 +79,16 @@ const Adress = () => {
          .catch((error) => console.error(error))
    }, [])
    return (
-      <AdressContainer>
-         <AdressFormStyle darkTheme={isDarkTheme}>
-            <StyledHeading>Szállítási adatok</StyledHeading>
-            <FormInputs setUserDetails={setUserDetails} userDetails={userDetails} validateErrors={validateErrors} />
-            <Buttons
-               isSubmitBtnDisabled={isSubmitBtnDisabled}
-               submitAdressForm={submitAdressForm}
-               updateDetailsHandler={updateDetailsHandler}
-            />
-            <Alerts isModified={isModified} setIsModified={setIsModified} isSuccess={isSuccess} setIsSuccess={setIsSuccess} />
-         </AdressFormStyle>
-      </AdressContainer>
+      <AdressFormStyle darkTheme={isDarkTheme}>
+         <StyledHeading>Számlázási adatok</StyledHeading>
+         <FormInputs setUserDetails={setUserDetails} userDetails={userDetails} validateErrors={validateErrors} />
+         <Buttons
+            isSubmitBtnDisabled={isSubmitBtnDisabled}
+            submitAdressForm={submitAdressForm}
+            updateDetailsHandler={updateDetailsHandler}
+         />
+         <Alerts isModified={isModified} setIsModified={setIsModified} isSuccess={isSuccess} setIsSuccess={setIsSuccess} />
+      </AdressFormStyle>
    )
 }
 

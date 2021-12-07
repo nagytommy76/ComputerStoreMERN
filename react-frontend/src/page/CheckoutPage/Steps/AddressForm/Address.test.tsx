@@ -1,4 +1,4 @@
-import { render, screen, waitForElementToBeRemoved } from '../../../test-utils'
+import { render, screen, waitForElementToBeRemoved } from '../../../../test-utils'
 import Adress from './Adress'
 import axios from 'axios'
 import userEvent from '@testing-library/user-event'
