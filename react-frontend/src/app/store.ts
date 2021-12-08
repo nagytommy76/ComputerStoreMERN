@@ -9,6 +9,7 @@ import MobileSlice from './slices/MobileSlice'
 import PaginateSlice from './slices/PaginateSlice'
 import ProductSlice from './slices/ProductsSlice'
 import FilterDataSlice from './slices/FilterDataSlice'
+import CheckoutSlice from './slices/CheckoutSlice'
 
 export const store = configureStore({
    reducer: {
@@ -18,6 +19,7 @@ export const store = configureStore({
       products: persistReducer({ key: 'Products', storage }, ProductSlice),
       filter: persistReducer({ key: 'FilterData', storage }, FilterDataSlice),
       paginate: persistReducer({ key: 'Paginate', storage }, PaginateSlice),
+      checkout: persistReducer({ key: 'checkout', storage }, CheckoutSlice),
       mobile: MobileSlice
    },
    middleware: getDefaultMiddleware({

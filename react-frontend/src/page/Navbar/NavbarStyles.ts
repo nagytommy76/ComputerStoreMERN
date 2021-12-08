@@ -37,7 +37,7 @@ export const OpenNavbarButton = styled.div`
 `
 
 export const NavStyle = styled.nav<{ mobileSize: boolean }>`
-   z-index: 5;
+   z-index: 10;
    position: fixed;
    top: 0;
    width: 100%;
@@ -86,7 +86,7 @@ export const BrandStyle = styled(Link)`
    }
 `
 export const DropdownBackground = styled.section`
-   z-index: 3;
+   z-index: 8;
    position: fixed;
    bottom: 0;
    width: 100%;

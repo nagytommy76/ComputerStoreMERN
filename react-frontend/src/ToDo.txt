@@ -7,5 +7,6 @@
 - Ha sikeres a fizetés, és megvannak a szállítási adatok bevinni az adatbázisba a rendelést
 
 - a makeOrderButton-t csak a legvégső oldalon megjeleníteni
+- Esetleg PDF generálás?!
 
 - Email küldést megvalósítani (Rendelés után, esetleg validálni az emailt)

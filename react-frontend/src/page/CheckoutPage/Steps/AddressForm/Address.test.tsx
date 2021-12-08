@@ -1,5 +1,5 @@
 import { render, screen, waitForElementToBeRemoved } from '../../../../test-utils'
-import Adress from './Adress'
+import Adress from './Address'
 import axios from 'axios'
 import userEvent from '@testing-library/user-event'
 jest.mock('axios')

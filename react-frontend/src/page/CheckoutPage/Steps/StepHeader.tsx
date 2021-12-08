@@ -34,7 +34,7 @@ const StepHeader: React.FC<{ activeStep: number; setActiveStep: React.Dispatch<R
                <StepLabel>Rendelés leadása</StepLabel>
             </Step>
          </Stepper>
-         <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+         <Box sx={{ display: 'flex', flexDirection: 'row', mr: 5, ml: 5, mt: 2 }}>
             <Button color='inherit' disabled={activeStep === 0} onClick={handleBack}>
                Vissza
             </Button>
