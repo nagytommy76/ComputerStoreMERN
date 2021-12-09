@@ -1,15 +1,17 @@
 import React from 'react'
+import { useAppDispatch, useAppSelector } from '../../../../../app/hooks'
+import { setUserDetails } from '../../../../../app/slices/Checkout/UserDetailsSlice'
+
 import { Box, TextField } from '@mui/material'
 import { FormControlRow } from '../AdressStyle'
 
 import { findErrorByFieldType, ValidateErrors } from '../../../../Helpers/SetErrorMsg'
-import { UserDetails } from '../../../CheckoutTypes'
 
 const FormInputs: React.FC<{
-   userDetails: UserDetails
-   setUserDetails: React.Dispatch<React.SetStateAction<UserDetails>>
    validateErrors: ValidateErrors[]
-}> = ({ setUserDetails, userDetails, validateErrors }) => {
+}> = ({ validateErrors }) => {
+   const dispatch = useAppDispatch()
+   const userDetails = useAppSelector((state) => state.userDetails.userDetails)
    return (
       <>
          <FormControlRow>
@@ -25,7 +27,7 @@ const FormInputs: React.FC<{
                   margin='dense'
                   value={userDetails.firstName}
                   onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                     setUserDetails({ ...userDetails, firstName: event.target.value })
+                     dispatch(setUserDetails({ ...userDetails, firstName: event.target.value }))
                   }
                />
             </Box>
@@ -41,7 +43,7 @@ const FormInputs: React.FC<{
                   margin='dense'
                   value={userDetails.lastName}
                   onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                     setUserDetails({ ...userDetails, lastName: event.target.value })
+                     dispatch(setUserDetails({ ...userDetails, lastName: event.target.value }))
                   }
                />
             </Box>
@@ -61,7 +63,7 @@ const FormInputs: React.FC<{
                   margin='dense'
                   value={userDetails.phone}
                   onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                     setUserDetails({ ...userDetails, phone: event.target.value })
+                     dispatch(setUserDetails({ ...userDetails, phone: event.target.value }))
                   }
                />
             </Box>
@@ -78,13 +80,15 @@ const FormInputs: React.FC<{
                   margin='dense'
                   value={userDetails.address.zipCode}
                   onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                     setUserDetails({
-                        ...userDetails,
-                        address: {
-                           ...userDetails.address,
-                           zipCode: parseInt(event.target.value) || userDetails.address.zipCode
-                        }
-                     })
+                     dispatch(
+                        setUserDetails({
+                           ...userDetails,
+                           address: {
+                              ...userDetails.address,
+                              zipCode: parseInt(event.target.value) || userDetails.address.zipCode
+                           }
+                        })
+                     )
                   }
                />
             </Box>
@@ -102,13 +106,15 @@ const FormInputs: React.FC<{
                   margin='dense'
                   value={userDetails.address.city}
                   onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                     setUserDetails({
-                        ...userDetails,
-                        address: {
-                           ...userDetails.address,
-                           city: event.target.value || userDetails.address.city
-                        }
-                     })
+                     dispatch(
+                        setUserDetails({
+                           ...userDetails,
+                           address: {
+                              ...userDetails.address,
+                              city: event.target.value || userDetails.address.city
+                           }
+                        })
+                     )
                   }
                />
             </Box>
@@ -124,13 +130,15 @@ const FormInputs: React.FC<{
                   margin='dense'
                   value={userDetails.address.street}
                   onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                     setUserDetails({
-                        ...userDetails,
-                        address: {
-                           ...userDetails.address,
-                           street: event.target.value || userDetails.address.street
-                        }
-                     })
+                     dispatch(
+                        setUserDetails({
+                           ...userDetails,
+                           address: {
+                              ...userDetails.address,
+                              street: event.target.value || userDetails.address.street
+                           }
+                        })
+                     )
                   }
                />
             </Box>
@@ -149,13 +157,15 @@ const FormInputs: React.FC<{
                   margin='dense'
                   value={userDetails.address.houseNumber}
                   onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                     setUserDetails({
-                        ...userDetails,
-                        address: {
-                           ...userDetails.address,
-                           houseNumber: event.target.value || userDetails.address.houseNumber
-                        }
-                     })
+                     dispatch(
+                        setUserDetails({
+                           ...userDetails,
+                           address: {
+                              ...userDetails.address,
+                              houseNumber: event.target.value || userDetails.address.houseNumber
+                           }
+                        })
+                     )
                   }
                />
             </Box>
@@ -170,13 +180,15 @@ const FormInputs: React.FC<{
                   margin='dense'
                   value={userDetails.address.floor}
                   onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                     setUserDetails({
-                        ...userDetails,
-                        address: {
-                           ...userDetails.address,
-                           floor: event.target.value || userDetails.address.floor
-                        }
-                     })
+                     dispatch(
+                        setUserDetails({
+                           ...userDetails,
+                           address: {
+                              ...userDetails.address,
+                              floor: event.target.value || userDetails.address.floor
+                           }
+                        })
+                     )
                   }
                />
             </Box>
@@ -191,13 +203,15 @@ const FormInputs: React.FC<{
                   margin='dense'
                   value={userDetails.address.door}
                   onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                     setUserDetails({
-                        ...userDetails,
-                        address: {
-                           ...userDetails.address,
-                           door: event.target.value || userDetails.address.door
-                        }
-                     })
+                     dispatch(
+                        setUserDetails({
+                           ...userDetails,
+                           address: {
+                              ...userDetails.address,
+                              door: event.target.value || userDetails.address.door
+                           }
+                        })
+                     )
                   }
                />
             </Box>

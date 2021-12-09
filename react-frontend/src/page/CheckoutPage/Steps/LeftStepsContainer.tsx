@@ -13,7 +13,9 @@ const LeftStepsContainer = () => {
    return (
       <LeftPageContainer>
          <StepHeader activeStep={currentStep} setActiveStep={setCurrentStep} />
-         <StepsContainer>{stepComponents[currentStep]}</StepsContainer>
+         <React.Suspense fallback={<h1>Ide kell egy fallback</h1>}>
+            <StepsContainer>{stepComponents[currentStep]}</StepsContainer>
+         </React.Suspense>
       </LeftPageContainer>
    )
 }

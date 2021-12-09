@@ -1,35 +1,26 @@
 import React, { useEffect, useState } from 'react'
-import { useAppSelector } from '../../../../app/hooks'
+import { useAppSelector, useAppDispatch } from '../../../../app/hooks'
 import { AdressFormStyle, StyledHeading } from './AdressStyle'
 
-import { UserDetails } from '../../CheckoutTypes'
 import axios from 'axios'
 import { ValidationErrorWithAxiosError } from '../../../Admin/Vga/Types'
 import { ValidateErrors } from '../../../Helpers/SetErrorMsg'
+import { fetchUsersDetails } from '../../../../app/slices/Checkout/UserDetailsSlice'
 
 const Buttons = React.lazy(() => import('./Includes/Buttons'))
 const FormInputs = React.lazy(() => import('./Includes/FormInputs'))
 const Alerts = React.lazy(() => import('./Includes/Alerts'))
 
 const Adress = () => {
+   const dispatch = useAppDispatch()
    const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
+   const userDetails = useAppSelector((state) => state.userDetails.userDetails)
+   const isUserDetailsFilled = useAppSelector((state) => state.userDetails.isDetailsFilled)
+
    const [isSubmitBtnDisabled, setIsSubmitBtnDisabled] = useState<boolean>(false)
    const [isSuccess, setIsSuccess] = useState<boolean>(false)
    const [isModified, setIsModified] = useState<boolean>(false)
    const [validateErrors, setValidateErrors] = useState<ValidateErrors[]>([])
-   const [userDetails, setUserDetails] = useState<UserDetails>({
-      firstName: '',
-      lastName: '',
-      phone: '',
-      address: {
-         zipCode: 1000,
-         city: '',
-         street: '',
-         houseNumber: '',
-         floor: '',
-         door: ''
-      }
-   })
 
    const submitAdressForm = (event: React.MouseEvent) => {
       event.preventDefault()
@@ -68,20 +59,14 @@ const Adress = () => {
    }
 
    useEffect(() => {
-      axios
-         .get('/auth/get-details')
-         .then((result) => {
-            if (result.data && result.data.userDetails !== null && result.data.isDetailsFilled) {
-               setUserDetails(result.data.userDetails)
-               setIsSubmitBtnDisabled(true)
-            }
-         })
-         .catch((error) => console.error(error))
-   }, [])
+      if (!isUserDetailsFilled) {
+         dispatch(fetchUsersDetails(setIsSubmitBtnDisabled))
+      }
+   }, [isUserDetailsFilled, dispatch])
    return (
       <AdressFormStyle darkTheme={isDarkTheme}>
          <StyledHeading>Számlázási adatok</StyledHeading>
-         <FormInputs setUserDetails={setUserDetails} userDetails={userDetails} validateErrors={validateErrors} />
+         <FormInputs validateErrors={validateErrors} />
          <Buttons
             isSubmitBtnDisabled={isSubmitBtnDisabled}
             submitAdressForm={submitAdressForm}
