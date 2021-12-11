@@ -5,8 +5,8 @@ export const insertUserDetailsController = async (req: GetUserAuthInfoRequest, r
    try {
       const foundUser = req.foundUser
       foundUser.userDetails = req.body.userDetails
-      foundUser.save()
-      res.sendStatus(201)
+      // foundUser.save()
+      res.sendStatus(422)
    } catch (error) {
       return res.status(500).json(error)
    }

@@ -5,6 +5,7 @@ export type UserTypes = {
    isAdmin: boolean
    cartItems: CartItemsType[]
    userDetails: UserDetailsTypes
+   orders: UserOrders
    _id: string
    iat?: number
    exp?: number
@@ -22,6 +23,17 @@ export type UserDetailsTypes = {
       floor?: string
       door?: string
    }
+}
+
+export type UserOrders = {
+   orderedAt: Date
+   totalPrice: number
+   paymentMethod: string
+   products: {
+      productID: string
+      productName: string
+      productQty: number
+   }[]
 }
 
 export type CartItemsType = {
