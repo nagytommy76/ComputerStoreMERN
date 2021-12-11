@@ -3,9 +3,9 @@ import { useAppSelector, useAppDispatch } from '../../../../app/hooks'
 import { AdressFormStyle, StyledHeading } from './AdressStyle'
 
 import axios from 'axios'
-import { ValidationErrorWithAxiosError } from '../../../Admin/Vga/Types'
+// import { ValidationErrorWithAxiosError } from '../../../Admin/Vga/Types'
 import { ValidateErrors } from '../../../Helpers/SetErrorMsg'
-import { fetchUsersDetails } from '../../../../app/slices/Checkout/UserDetailsSlice'
+import { fetchUsersDetails, insertUserDetails } from '../../../../app/slices/Checkout/UserDetailsSlice'
 
 const Buttons = React.lazy(() => import('./Includes/Buttons'))
 const FormInputs = React.lazy(() => import('./Includes/FormInputs'))
@@ -24,28 +24,29 @@ const Adress = () => {
 
    const submitAdressForm = (event: React.MouseEvent) => {
       event.preventDefault()
+      dispatch(insertUserDetails(setIsSubmitBtnDisabled))
       setValidateErrors([{ errorMsg: '', field: '', hasError: false }])
-      axios
-         .post('/auth/insert-details', { userDetails })
-         .then((insertedDetails) => {
-            if (insertedDetails.status === 201) {
-               setIsSuccess(true)
-               setIsSubmitBtnDisabled(true)
-            }
-         })
-         .catch((errors: ValidationErrorWithAxiosError) => {
-            if (errors.response?.status === 422) {
-               const errorResponse = errors.response.data.errors
-               if (errorResponse.length > 0) {
-                  errorResponse.forEach((error: any) => {
-                     setValidateErrors((prevErrors) => [
-                        ...prevErrors,
-                        { errorMsg: error.msg, field: error.param, hasError: true }
-                     ])
-                  })
-               }
-            }
-         })
+      // axios
+      //    .post('/auth/insert-details', { userDetails })
+      //    .then((insertedDetails) => {
+      //       if (insertedDetails.status === 201) {
+      //          setIsSuccess(true)
+      //          setIsSubmitBtnDisabled(true)
+      //       }
+      //    })
+      //    .catch((errors: ValidationErrorWithAxiosError) => {
+      //       if (errors.response?.status === 422) {
+      //          const errorResponse = errors.response.data.errors
+      //          if (errorResponse.length > 0) {
+      //             errorResponse.forEach((error: any) => {
+      //                setValidateErrors((prevErrors) => [
+      //                   ...prevErrors,
+      //                   { errorMsg: error.msg, field: error.param, hasError: true }
+      //                ])
+      //             })
+      //          }
+      //       }
+      //    })
    }
 
    const updateDetailsHandler = async (event: React.MouseEvent) => {
@@ -60,8 +61,8 @@ const Adress = () => {
 
    useEffect(() => {
       if (!isUserDetailsFilled) {
-         dispatch(fetchUsersDetails(setIsSubmitBtnDisabled))
-      }
+         dispatch(fetchUsersDetails())
+      } else setIsSubmitBtnDisabled(true)
    }, [isUserDetailsFilled, dispatch])
    return (
       <AdressFormStyle darkTheme={isDarkTheme}>

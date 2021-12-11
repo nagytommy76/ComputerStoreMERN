@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
+import { useAppSelector } from '../../../app/hooks'
 
+import Tooltip from '@mui/material/Tooltip'
 import Stepper from '@mui/material/Stepper'
 import Step from '@mui/material/Step'
 import StepLabel from '@mui/material/StepLabel'
@@ -10,6 +12,8 @@ const StepHeader: React.FC<{ activeStep: number; setActiveStep: React.Dispatch<R
    activeStep,
    setActiveStep
 }) => {
+   const isUserDetailsFilled = useAppSelector((state) => state.userDetails.isDetailsFilled)
+   const [isNextBtnDisabled, setIsNextBtnDisabled] = useState<boolean>(false)
    const handleNext = () => {
       setActiveStep((prevActiveStep) => prevActiveStep + 1)
    }
@@ -17,6 +21,15 @@ const StepHeader: React.FC<{ activeStep: number; setActiveStep: React.Dispatch<R
    const handleBack = () => {
       setActiveStep((prevActiveStep) => prevActiveStep - 1)
    }
+
+   const isNextButtonDisabled = useCallback(() => {
+      if (!isUserDetailsFilled) setIsNextBtnDisabled(true)
+      activeStep === 4 && setIsNextBtnDisabled(true)
+   }, [activeStep, isUserDetailsFilled])
+
+   useEffect(() => {
+      isNextButtonDisabled()
+   }, [isUserDetailsFilled, isNextButtonDisabled])
 
    return (
       <>
@@ -39,9 +52,13 @@ const StepHeader: React.FC<{ activeStep: number; setActiveStep: React.Dispatch<R
                Vissza
             </Button>
             <Box sx={{ flex: '1 1 auto' }} />
-            <Button onClick={handleNext} disabled={activeStep === 4}>
-               {activeStep === 4 - 1 ? 'Véglegesítés' : 'Következő'}
-            </Button>
+            <Tooltip title={<p>Kötelező kitölteni a személyes adatokat a tovább lépéshez!</p>} arrow>
+               <span>
+                  <Button onClick={handleNext} disabled={isNextBtnDisabled}>
+                     {activeStep === 4 - 1 ? 'Véglegesítés' : 'Következő'}
+                  </Button>
+               </span>
+            </Tooltip>
          </Box>
       </>
    )

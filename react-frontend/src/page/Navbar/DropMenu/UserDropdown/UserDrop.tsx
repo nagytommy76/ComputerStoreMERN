@@ -1,10 +1,12 @@
 import React, { useContext } from 'react'
 import { DropStyle, DropLinkItem, CloseDropdownMenu } from '../DropMenuStyle'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { NavbarContext } from '../../NavbarContext'
+
 import { logoutUser } from '../../../../app/slices/AuthSlice'
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
-import { NavbarContext } from '../../NavbarContext'
 import { removeCartItemsAfterLogout } from '../../../../app/slices/CartSlice'
+import { restoreUserDetails } from '../../../../app/slices/Checkout/UserDetailsSlice'
 
 type Prop = {
    reference: React.MutableRefObject<null>
@@ -17,8 +19,9 @@ const DropMenu: React.FC<Prop> = ({ reference }) => {
    const { setIsUserDropOpen } = useContext(NavbarContext)
 
    const logout = () => {
-      dispatch(logoutUser())
+      dispatch(restoreUserDetails())
       dispatch(removeCartItemsAfterLogout())
+      dispatch(logoutUser())
    }
 
    const clickEvent = (event: React.MouseEvent) => {

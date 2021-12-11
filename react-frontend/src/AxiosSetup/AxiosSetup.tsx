@@ -5,6 +5,7 @@ import { globalHistory } from '..'
 import { useAppSelector } from '../app/hooks'
 import { store } from '../app/store'
 import { logoutUser, setAccessToken } from '../app/slices/AuthSlice'
+import { restoreUserDetails } from '../app/slices/Checkout/UserDetailsSlice'
 
 // Az app megnyitásakor, ha a user ba van jelentkezve megvizsgálom, hogy érvényes-e az accessToken-je
 // Ha nem akkor a refreshToken-nel kérek egy újat,
@@ -38,18 +39,21 @@ const useAxiosSetup = () => {
                      .catch((error) => {
                         if (error.response.data.errorMessage === 'refresh token expired') {
                            globalHistory.push('/login', { isFailure: true, message: 'Kérlek, lépj be újra!' })
+                           store.dispatch(restoreUserDetails())
                            store.dispatch(logoutUser())
                         }
                      })
                } else if (error.response.data.errorMessage === 'user is not admin') {
                   // Ha valaki ide keveredne és nem admin...
                   globalHistory.push('/login', { isFailure: true, message: 'Nem vagy jó helyen! :)' })
+                  store.dispatch(restoreUserDetails())
                   store.dispatch(logoutUser())
                }
             }
             if (error.response?.status === 401) {
                // Itt pedig be kell lépni mert a refres token se jó
                globalHistory.push('/login', { isFailure: true, message: 'Kérlek, lépj be újra!' })
+               store.dispatch(restoreUserDetails())
                store.dispatch(logoutUser())
             }
             return await Promise.reject(error)
