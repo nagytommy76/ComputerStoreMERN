@@ -2,6 +2,8 @@ import { createSlice, PayloadAction, createAsyncThunk, Dispatch } from '@reduxjs
 import { UserDetails } from '../../../page/CheckoutPage/CheckoutTypes'
 import axios from 'axios'
 import { RootState } from '../../store'
+import { setValidationErrors } from '../ValidationErrorSlice'
+import { ValidationError } from '../../../page/Admin/AdminTypes'
 
 const userDetailsropoerties = {
    firstName: '',
@@ -77,24 +79,16 @@ export const insertUserDetails =
       try {
          const state = getState() as RootState
          const insertResponse = await axios.post('/auth/insert-details', { userDetails: state.userDetails.userDetails })
-         console.log(insertResponse)
          if (insertResponse.status === 201) {
             dispatch(setIsInsertSuccess(true))
             setIsSubmitBtnDisabled(true)
          }
       } catch (error: any) {
          if (error.response.status === 422) {
-            const errorResponse = error.response.data.errors
-            if (errorResponse.length > 0) {
-               errorResponse.forEach((error: any) => {
-                  console.log(error)
-                  // Ide egy külön slice-ba egy validation error-t?!
-                  //  setValidateErrors((prevErrors) => [
-                  //    ...prevErrors,
-                  //    { errorMsg: error.msg, field: error.param, hasError: true }
-                  // ])
-               })
-            }
+            const errorResponse = error.response.data.errors as ValidationError[]
+            if (errorResponse?.length > 0) {
+               dispatch(setValidationErrors(errorResponse))
+            } else setValidationErrors([])
          }
       }
    }

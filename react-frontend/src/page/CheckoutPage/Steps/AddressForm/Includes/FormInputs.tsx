@@ -5,13 +5,12 @@ import { setUserDetails } from '../../../../../app/slices/Checkout/UserDetailsSl
 import { Box, TextField } from '@mui/material'
 import { FormControlRow } from '../AdressStyle'
 
-import { findErrorByFieldType, ValidateErrors } from '../../../../Helpers/SetErrorMsg'
+import { findValidationErrorByParam } from '../../../../Helpers/SetErrorMsg'
 
-const FormInputs: React.FC<{
-   validateErrors: ValidateErrors[]
-}> = ({ validateErrors }) => {
+const FormInputs = () => {
    const dispatch = useAppDispatch()
    const userDetails = useAppSelector((state) => state.userDetails.userDetails)
+   const validationErrors = useAppSelector((state) => state.validationError.validationErrors)
    return (
       <>
          <FormControlRow>
@@ -19,8 +18,8 @@ const FormInputs: React.FC<{
                <TextField
                   id='firstName'
                   fullWidth
-                  error={findErrorByFieldType(validateErrors, 'userDetails.firstName')?.hasError}
-                  helperText={findErrorByFieldType(validateErrors, 'userDetails.firstName')?.errorMsg}
+                  error={findValidationErrorByParam(validationErrors, 'userDetails.firstName')?.msg !== undefined}
+                  helperText={findValidationErrorByParam(validationErrors, 'userDetails.firstName')?.msg}
                   variant='filled'
                   required
                   label='Vezetéknév'
@@ -35,8 +34,8 @@ const FormInputs: React.FC<{
                <TextField
                   id='lastName'
                   fullWidth
-                  error={findErrorByFieldType(validateErrors, 'userDetails.lastName')?.hasError}
-                  helperText={findErrorByFieldType(validateErrors, 'userDetails.lastName')?.errorMsg}
+                  error={findValidationErrorByParam(validationErrors, 'userDetails.lastName')?.msg !== undefined}
+                  helperText={findValidationErrorByParam(validationErrors, 'userDetails.lastName')?.msg}
                   variant='filled'
                   required
                   label='Keresztnév'
@@ -55,8 +54,8 @@ const FormInputs: React.FC<{
                   fullWidth
                   type='text'
                   inputProps={{ inputMode: 'tel' }}
-                  error={findErrorByFieldType(validateErrors, 'userDetails.phone')?.hasError}
-                  helperText={findErrorByFieldType(validateErrors, 'userDetails.phone')?.errorMsg}
+                  error={findValidationErrorByParam(validationErrors, 'userDetails.phone')?.msg !== undefined}
+                  helperText={findValidationErrorByParam(validationErrors, 'userDetails.phone')?.msg}
                   variant='filled'
                   required
                   label='Telefonszám'
@@ -72,8 +71,8 @@ const FormInputs: React.FC<{
                   id='zipCode'
                   fullWidth
                   inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-                  error={findErrorByFieldType(validateErrors, 'userDetails.address.zipCode')?.hasError}
-                  helperText={findErrorByFieldType(validateErrors, 'userDetails.address.zipCode')?.errorMsg}
+                  error={findValidationErrorByParam(validationErrors, 'userDetails.address.zipCode')?.msg !== undefined}
+                  helperText={findValidationErrorByParam(validationErrors, 'userDetails.address.zipCode')?.msg}
                   variant='filled'
                   required
                   label='Irányítószám'
@@ -98,8 +97,8 @@ const FormInputs: React.FC<{
                <TextField
                   id='city'
                   fullWidth
-                  error={findErrorByFieldType(validateErrors, 'userDetails.address.city')?.hasError}
-                  helperText={findErrorByFieldType(validateErrors, 'userDetails.address.city')?.errorMsg}
+                  error={findValidationErrorByParam(validationErrors, 'userDetails.address.city')?.msg !== undefined}
+                  helperText={findValidationErrorByParam(validationErrors, 'userDetails.address.city')?.msg}
                   variant='filled'
                   required
                   label='Város'
@@ -122,8 +121,8 @@ const FormInputs: React.FC<{
                <TextField
                   id='street'
                   fullWidth
-                  error={findErrorByFieldType(validateErrors, 'userDetails.address.street')?.hasError}
-                  helperText={findErrorByFieldType(validateErrors, 'userDetails.address.street')?.errorMsg}
+                  error={findValidationErrorByParam(validationErrors, 'userDetails.address.street')?.msg !== undefined}
+                  helperText={findValidationErrorByParam(validationErrors, 'userDetails.address.street')?.msg}
                   variant='filled'
                   required
                   label='Utca'
@@ -149,8 +148,8 @@ const FormInputs: React.FC<{
                   id='houseNumber'
                   fullWidth
                   inputProps={{ inputMode: 'numeric', pattern: '[0-9]' }}
-                  error={findErrorByFieldType(validateErrors, 'userDetails.address.houseNumber')?.hasError}
-                  helperText={findErrorByFieldType(validateErrors, 'userDetails.address.houseNumber')?.errorMsg}
+                  error={findValidationErrorByParam(validationErrors, 'userDetails.address.houseNumber')?.msg !== undefined}
+                  helperText={findValidationErrorByParam(validationErrors, 'userDetails.address.houseNumber')?.msg}
                   variant='filled'
                   required
                   label='Házszám'
@@ -173,8 +172,8 @@ const FormInputs: React.FC<{
                <TextField
                   id='floor'
                   fullWidth
-                  error={findErrorByFieldType(validateErrors, 'userDetails.address.floor')?.hasError}
-                  helperText={findErrorByFieldType(validateErrors, 'userDetails.address.floor')?.errorMsg}
+                  error={findValidationErrorByParam(validationErrors, 'userDetails.address.floor')?.msg !== undefined}
+                  helperText={findValidationErrorByParam(validationErrors, 'userDetails.address.floor')?.msg}
                   variant='filled'
                   label='Emelet'
                   margin='dense'
@@ -196,8 +195,8 @@ const FormInputs: React.FC<{
                <TextField
                   id='door'
                   fullWidth
-                  error={findErrorByFieldType(validateErrors, 'userDetails.address.door')?.hasError}
-                  helperText={findErrorByFieldType(validateErrors, 'userDetails.address.door')?.errorMsg}
+                  error={findValidationErrorByParam(validationErrors, 'userDetails.address.door')?.msg !== undefined}
+                  helperText={findValidationErrorByParam(validationErrors, 'userDetails.address.door')?.msg}
                   variant='filled'
                   label='Ajtó'
                   margin='dense'

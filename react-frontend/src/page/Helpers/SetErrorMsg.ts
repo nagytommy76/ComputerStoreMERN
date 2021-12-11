@@ -11,8 +11,8 @@ export const findOrFailAndReturnErrorMsg = (validationErrors: ValidationError[],
    return false
 }
 
-export const findErrorByFieldType = (validationErrors: ValidateErrors[], param: string) => {
-   return validationErrors.find((x: ValidateErrors) => x.field === param)
+export const findValidationErrorByParam = (validationErrors: ValidationError[], param: string) => {
+   return validationErrors.find((x: ValidationError) => x.param === param)
 }
 
 export type ValidateErrors = {

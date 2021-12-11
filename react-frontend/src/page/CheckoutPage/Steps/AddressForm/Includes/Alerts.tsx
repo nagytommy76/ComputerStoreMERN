@@ -1,21 +1,24 @@
 import React from 'react'
+import { useAppDispatch, useAppSelector } from '../../../../../app/hooks'
+import { setIsInsertSuccess } from '../../../../../app/slices/Checkout/UserDetailsSlice'
+
 import { Grow, IconButton, Alert } from '@mui/material'
 import CheckIcon from '@mui/icons-material/Check'
 
 const Alerts: React.FC<{
-   isSuccess: boolean
-   setIsSuccess: React.Dispatch<React.SetStateAction<boolean>>
    isModified: boolean
    setIsModified: React.Dispatch<React.SetStateAction<boolean>>
-}> = ({ isSuccess, setIsSuccess, isModified, setIsModified }) => {
+}> = ({ isModified, setIsModified }) => {
+   const dispatch = useAppDispatch()
+   const isInsertWasSuccess = useAppSelector((state) => state.userDetails.isInsertSuccess)
    return (
       <>
-         <Grow mountOnEnter unmountOnExit in={isSuccess}>
+         <Grow mountOnEnter unmountOnExit in={isInsertWasSuccess}>
             <Alert
                action={
                   <IconButton
                      onClick={() => {
-                        setIsSuccess(false)
+                        dispatch(setIsInsertSuccess(false))
                      }}
                      aria-label='close'
                      color='inherit'>

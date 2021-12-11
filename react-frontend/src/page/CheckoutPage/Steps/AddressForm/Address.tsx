@@ -3,8 +3,6 @@ import { useAppSelector, useAppDispatch } from '../../../../app/hooks'
 import { AdressFormStyle, StyledHeading } from './AdressStyle'
 
 import axios from 'axios'
-// import { ValidationErrorWithAxiosError } from '../../../Admin/Vga/Types'
-import { ValidateErrors } from '../../../Helpers/SetErrorMsg'
 import { fetchUsersDetails, insertUserDetails } from '../../../../app/slices/Checkout/UserDetailsSlice'
 
 const Buttons = React.lazy(() => import('./Includes/Buttons'))
@@ -18,35 +16,11 @@ const Adress = () => {
    const isUserDetailsFilled = useAppSelector((state) => state.userDetails.isDetailsFilled)
 
    const [isSubmitBtnDisabled, setIsSubmitBtnDisabled] = useState<boolean>(false)
-   const [isSuccess, setIsSuccess] = useState<boolean>(false)
    const [isModified, setIsModified] = useState<boolean>(false)
-   const [validateErrors, setValidateErrors] = useState<ValidateErrors[]>([])
 
    const submitAdressForm = (event: React.MouseEvent) => {
       event.preventDefault()
       dispatch(insertUserDetails(setIsSubmitBtnDisabled))
-      setValidateErrors([{ errorMsg: '', field: '', hasError: false }])
-      // axios
-      //    .post('/auth/insert-details', { userDetails })
-      //    .then((insertedDetails) => {
-      //       if (insertedDetails.status === 201) {
-      //          setIsSuccess(true)
-      //          setIsSubmitBtnDisabled(true)
-      //       }
-      //    })
-      //    .catch((errors: ValidationErrorWithAxiosError) => {
-      //       if (errors.response?.status === 422) {
-      //          const errorResponse = errors.response.data.errors
-      //          if (errorResponse.length > 0) {
-      //             errorResponse.forEach((error: any) => {
-      //                setValidateErrors((prevErrors) => [
-      //                   ...prevErrors,
-      //                   { errorMsg: error.msg, field: error.param, hasError: true }
-      //                ])
-      //             })
-      //          }
-      //       }
-      //    })
    }
 
    const updateDetailsHandler = async (event: React.MouseEvent) => {
@@ -67,13 +41,13 @@ const Adress = () => {
    return (
       <AdressFormStyle darkTheme={isDarkTheme}>
          <StyledHeading>Számlázási adatok</StyledHeading>
-         <FormInputs validateErrors={validateErrors} />
+         <FormInputs />
          <Buttons
             isSubmitBtnDisabled={isSubmitBtnDisabled}
             submitAdressForm={submitAdressForm}
             updateDetailsHandler={updateDetailsHandler}
          />
-         <Alerts isModified={isModified} setIsModified={setIsModified} isSuccess={isSuccess} setIsSuccess={setIsSuccess} />
+         <Alerts isModified={isModified} setIsModified={setIsModified} />
       </AdressFormStyle>
    )
 }
