@@ -24,6 +24,7 @@ const StepHeader: React.FC<{ activeStep: number; setActiveStep: React.Dispatch<R
 
    const isNextButtonDisabled = useCallback(() => {
       if (!isUserDetailsFilled) setIsNextBtnDisabled(true)
+      else setIsNextBtnDisabled(false)
       activeStep === 4 && setIsNextBtnDisabled(true)
    }, [activeStep, isUserDetailsFilled])
 

@@ -16,8 +16,8 @@ const useAxiosSetup = () => {
    const refreshToken = useAppSelector((state) => state.auth.refreshToken)
 
    axios.defaults.baseURL = 'http://localhost:5050/api'
-   axios.defaults.headers['Content-Type'] = 'Application/json'
-   axios.defaults.headers.Authorization = `Barer ${accessToken}`
+   axios.defaults.headers.common['Content-Type'] = 'Application/json'
+   axios.defaults.headers.common.Authorization = `Barer ${accessToken}`
    useEffect(() => {
       axios.interceptors.response.use(
          (response) => {
