@@ -17,18 +17,17 @@ const UserSchema = new Schema<UserTypes>({
    isAdmin: { type: Boolean, default: false }
 }).add({
    orders: {
-      orderedAt: { type: Date, required: true },
-      totalPrice: { type: Number, required: true },
-      paymentMethod: { type: String, required: true },
+      orderedAt: Date,
+      totalPrice: Number,
+      paymentMethod: String,
       products: {
          type: [
             {
-               productID: { type: Schema.Types.ObjectId, required: true },
-               productName: { type: String, required: true },
-               productQty: { type: Number, required: true }
+               productID: Schema.Types.ObjectId,
+               productName: String,
+               productQty: Number
             }
-         ],
-         required: true
+         ]
       }
    },
    userDetails: {
@@ -56,4 +55,4 @@ const UserSchema = new Schema<UserTypes>({
    ]
 })
 
-export const User = model<UserTypes>('user', UserSchema)
+export const User = model<UserTypes>('User', UserSchema)

@@ -1,12 +1,13 @@
 import { Response } from 'express'
+import { User } from '../../models/User/User'
 import { GetUserAuthInfoRequest } from '../Cart/CartHelper'
 
 export const insertUserDetailsController = async (req: GetUserAuthInfoRequest, res: Response) => {
    try {
       const foundUser = req.foundUser
       foundUser.userDetails = req.body.userDetails
-      // foundUser.save()
-      res.sendStatus(422)
+      foundUser.save()
+      res.sendStatus(201)
    } catch (error) {
       return res.status(500).json(error)
    }

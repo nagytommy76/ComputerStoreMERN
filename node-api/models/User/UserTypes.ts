@@ -1,3 +1,5 @@
+import { ObjectId } from 'mongoose'
+
 export type UserTypes = {
    userName: string
    email: string
@@ -30,7 +32,7 @@ export type UserOrders = {
    totalPrice: number
    paymentMethod: string
    products: {
-      productID: string
+      productID: ObjectId | string
       productName: string
       productQty: number
    }[]
@@ -40,4 +42,7 @@ export type CartItemsType = {
    itemId: string
    productType: string
    quantity: number
+   displayImage: string
+   displayName: string
+   price: number
 }
