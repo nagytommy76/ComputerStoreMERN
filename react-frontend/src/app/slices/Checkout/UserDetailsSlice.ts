@@ -80,6 +80,7 @@ export const insertUserDetails =
          const state = getState() as RootState
          const insertResponse = await axios.post('/auth/insert-details', { userDetails: state.userDetails.userDetails })
          if (insertResponse.status === 201) {
+            dispatch(setDetailsFilled(true))
             dispatch(setIsInsertSuccess(true))
             setIsSubmitBtnDisabled(true)
          }

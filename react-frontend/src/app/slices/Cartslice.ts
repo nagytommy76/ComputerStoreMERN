@@ -72,6 +72,11 @@ export const CartSlice = createSlice({
    }
 })
 
+export const { addToCart, removeAllEntitesFromCart, increaseItemQty, decreaseItemQty, removeCartItemsAfterLogout } =
+   CartSlice.actions
+
+export default CartSlice.reducer
+
 export const sendCartItemToSaveInDB =
    (payload: IncomingTypes, productType: string) => async (dispatch: Dispatch, getState: any) => {
       dispatch(addToCart(payload))
@@ -159,8 +164,3 @@ export const increaseOrDecreaseByOne =
             .catch((error) => console.log(error))
       } else isIncrease ? dispatch(increaseItemQty(_id)) : dispatch(decreaseItemQty(_id))
    }
-
-export const { addToCart, removeAllEntitesFromCart, increaseItemQty, decreaseItemQty, removeCartItemsAfterLogout } =
-   CartSlice.actions
-
-export default CartSlice.reducer

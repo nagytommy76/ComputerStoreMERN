@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { StyledFormControl, StyledPaper } from './PickStyle'
+import React, { useEffect } from 'react'
+import { StyledPaper, StyledFormControl } from '../Style'
 
 import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
@@ -7,12 +7,30 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import FormControl from '@mui/material/FormControl'
 import FormLabel from '@mui/material/FormLabel'
 
+import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
+import { setDeliveryType, setDeliveryPrice } from '../../../../app/slices/Checkout/DeliveryPriceSlice'
+
 const PickUp = () => {
-   const [options, setOptions] = useState<string>('inStore')
+   const dispatch = useAppDispatch()
+   const type = useAppSelector((state) => state.deliveryPrice.type)
 
    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setOptions((event.target as HTMLInputElement).value)
+      dispatch(setDeliveryType((event.target as HTMLInputElement).value))
    }
+
+   useEffect(() => {
+      switch (type) {
+         case 'inStore':
+            dispatch(setDeliveryPrice(0))
+            break
+         case 'toHomeGLS':
+            dispatch(setDeliveryPrice(990))
+            break
+         case 'foxPost':
+            dispatch(setDeliveryPrice(880))
+            break
+      }
+   }, [type, dispatch])
 
    return (
       <StyledFormControl>
@@ -22,15 +40,15 @@ const PickUp = () => {
             </FormLabel>
             <RadioGroup
                aria-label='pickUpOptions'
-               defaultValue='female'
+               defaultValue='inStore'
                name='radio-buttons-group'
-               value={options}
+               value={type}
                onChange={handleChange}>
                <StyledPaper>
                   <FormControlLabel value='inStore' control={<Radio />} label='Átvétel személyesen, üzletünkben (ingyenes)' />
                </StyledPaper>
                <StyledPaper>
-                  <FormControlLabel value='toHome' control={<Radio />} label='Házhozszállítás GLS futárral (990 Ft)' />
+                  <FormControlLabel value='toHomeGLS' control={<Radio />} label='Házhozszállítás GLS futárral (990 Ft)' />
                </StyledPaper>
                <StyledPaper>
                   <FormControlLabel value='foxPost' control={<Radio />} label='FoxPost csomagautomata (880 Ft)' />

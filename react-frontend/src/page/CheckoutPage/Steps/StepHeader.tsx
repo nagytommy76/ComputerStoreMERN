@@ -14,6 +14,15 @@ const StepHeader: React.FC<{ activeStep: number; setActiveStep: React.Dispatch<R
 }) => {
    const isUserDetailsFilled = useAppSelector((state) => state.userDetails.isDetailsFilled)
    const [isNextBtnDisabled, setIsNextBtnDisabled] = useState<boolean>(false)
+   const [isTooltipOpen, setIsTooltipOpen] = useState<boolean>(false)
+
+   const handleTooltipOpen = () => {
+      if (!isUserDetailsFilled) setIsTooltipOpen(true)
+   }
+   const handleTooltipClose = () => {
+      setIsTooltipOpen(false)
+   }
+
    const handleNext = () => {
       setActiveStep((prevActiveStep) => prevActiveStep + 1)
    }
@@ -53,7 +62,12 @@ const StepHeader: React.FC<{ activeStep: number; setActiveStep: React.Dispatch<R
                Vissza
             </Button>
             <Box sx={{ flex: '1 1 auto' }} />
-            <Tooltip title={<p>Kötelező kitölteni a személyes adatokat a tovább lépéshez!</p>} arrow>
+            <Tooltip
+               open={isTooltipOpen}
+               onClose={handleTooltipClose}
+               onOpen={handleTooltipOpen}
+               title={<p>Kötelező kitölteni a személyes adatokat a tovább lépéshez!</p>}
+               arrow>
                <span>
                   <Button onClick={handleNext} disabled={isNextBtnDisabled}>
                      {activeStep === 4 - 1 ? 'Véglegesítés' : 'Következő'}

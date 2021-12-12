@@ -11,6 +11,7 @@ import ProductSlice from './slices/ProductsSlice'
 import FilterDataSlice from './slices/FilterDataSlice'
 import ValidationErrorSlice from './slices/ValidationErrorSlice'
 import UserDetailsSlice from './slices/Checkout/UserDetailsSlice'
+import DeliveryPriceSlice from './slices/Checkout/DeliveryPriceSlice'
 
 export const store = configureStore({
    reducer: {
@@ -21,6 +22,7 @@ export const store = configureStore({
       filter: persistReducer({ key: 'FilterData', storage }, FilterDataSlice),
       paginate: persistReducer({ key: 'Paginate', storage }, PaginateSlice),
       userDetails: persistReducer({ key: 'userDetails', storage }, UserDetailsSlice),
+      deliveryPrice: persistReducer({ key: 'deliveryPrice', storage }, DeliveryPriceSlice),
       validationError: ValidationErrorSlice,
       mobile: MobileSlice
    },
