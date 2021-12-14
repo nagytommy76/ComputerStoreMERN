@@ -1,5 +1,5 @@
 import React from 'react'
-import { useStripe, useElements, PaymentElement, CardElement } from '@stripe/react-stripe-js'
+import { useStripe, useElements, CardElement, PaymentElement } from '@stripe/react-stripe-js'
 import { StripeCardElement } from '@stripe/stripe-js'
 
 const PaymentForm = () => {
@@ -10,10 +10,10 @@ const PaymentForm = () => {
       if (!stripe || !elements) {
          return
       }
-      const result = await stripe.createPaymentMethod({
-         type: 'card',
-         card: elements.getElement(CardElement) as StripeCardElement
-      })
+      // const result = await stripe.createPaymentMethod({
+      //    type: 'card',
+      //    card: elements.getElement(CardElement) as StripeCardElement
+      // })
       console.log('helló')
    }
    return (

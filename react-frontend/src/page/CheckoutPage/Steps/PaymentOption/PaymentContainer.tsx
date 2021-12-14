@@ -3,6 +3,9 @@ import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 
 import Paper from '@mui/material/Paper'
+import Modal from '@mui/material/Modal'
+import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
+import { setPaymentModalOpen } from '../../../../app/slices/Checkout/PaymentSlice'
 
 const PaymentForm = React.lazy(() => import('./PaymentForm'))
 
@@ -11,21 +14,44 @@ const stripePromise = loadStripe(
 )
 
 const PaymentContainer = () => {
+   const dispatch = useAppDispatch()
+   const isModalOpen = useAppSelector((state) => state.payment.isPaymentModalOpen)
+
+   const handleCloseModal = () => dispatch(setPaymentModalOpen(false))
+
    return (
-      <Paper
-         sx={{
-            height: 500,
-            width: 500,
-            transform: 'translate(-50%, -50%)',
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            padding: 2
-         }}>
-         <Elements stripe={stripePromise}>
-            <PaymentForm />
-         </Elements>
-      </Paper>
+      <Modal open={isModalOpen} onClose={handleCloseModal}>
+         <Paper
+            sx={{
+               height: 500,
+               width: 500,
+               transform: 'translate(-50%, -50%)',
+               position: 'absolute',
+               top: '50%',
+               left: '50%',
+               padding: 2
+            }}>
+            <Elements
+               stripe={stripePromise}
+               options={{
+                  appearance: {
+                     theme: 'stripe',
+                     variables: {
+                        colorPrimary: '#0570de',
+                        colorBackground: '#ffffff',
+                        colorText: '#30313d',
+                        colorDanger: '#df1b41',
+                        fontFamily: 'Ideal Sans, system-ui, sans-serif',
+                        spacingUnit: '2px',
+                        borderRadius: '4px'
+                        // See all possible variables below
+                     }
+                  }
+               }}>
+               <PaymentForm />
+            </Elements>
+         </Paper>
+      </Modal>
    )
 }
 
