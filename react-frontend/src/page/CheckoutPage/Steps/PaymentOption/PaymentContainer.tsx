@@ -32,22 +32,12 @@ const PaymentContainer = () => {
                padding: 2
             }}>
             <Elements
-               stripe={stripePromise}
                options={{
-                  appearance: {
-                     theme: 'stripe',
-                     variables: {
-                        colorPrimary: '#0570de',
-                        colorBackground: '#ffffff',
-                        colorText: '#30313d',
-                        colorDanger: '#df1b41',
-                        fontFamily: 'Ideal Sans, system-ui, sans-serif',
-                        spacingUnit: '2px',
-                        borderRadius: '4px'
-                        // See all possible variables below
-                     }
-                  }
-               }}>
+                  appearance: { theme: 'night' },
+                  clientSecret:
+                     'pk_secret_51K3KwACsev4cEUJDwghDs3rZDrfIUnPHHkxVfbRHpBbL5tnCG4t0COTVdeMDikOcuzSW0hqftdlvf5c21Rhxa8sA00YZrP1tEu}'
+               }}
+               stripe={stripePromise}>
                <PaymentForm />
             </Elements>
          </Paper>
