@@ -23,21 +23,15 @@ const PaymentContainer = () => {
       <Modal open={isModalOpen} onClose={handleCloseModal}>
          <Paper
             sx={{
-               height: 500,
-               width: 500,
+               height: 200,
+               width: 650,
                transform: 'translate(-50%, -50%)',
                position: 'absolute',
                top: '50%',
                left: '50%',
                padding: 2
             }}>
-            <Elements
-               options={{
-                  appearance: { theme: 'night' },
-                  clientSecret:
-                     'pk_secret_51K3KwACsev4cEUJDwghDs3rZDrfIUnPHHkxVfbRHpBbL5tnCG4t0COTVdeMDikOcuzSW0hqftdlvf5c21Rhxa8sA00YZrP1tEu}'
-               }}
-               stripe={stripePromise}>
+            <Elements stripe={stripePromise} options={{ locale: 'hu' }}>
                <PaymentForm />
             </Elements>
          </Paper>

@@ -1,46 +1,44 @@
 import React from 'react'
-import { useStripe, useElements, CardElement, PaymentElement } from '@stripe/react-stripe-js'
-import { StyledCardForm } from './Styles'
+import axios from 'axios'
+import { useAppSelector } from '../../../../app/hooks'
+import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
 import { StripeCardElement } from '@stripe/stripe-js'
 
-const styleObject = {
-   base: {
-      iconColor: '#ccc12e',
-      color: '#fff',
-      fontWeight: '500',
-      fontSize: '16px',
-      fontSmoothing: 'antialiased',
-      ':-webkit-autofill': {
-         color: '#fce883'
-      },
-      '::placeholder': {
-         color: '#87BBFD'
-      }
-   },
-   invalid: {
-      iconColor: '#cf2619',
-      color: '#cf2619'
-   }
-}
+import { StyledCardForm, StyledCardContainer, styleObject } from './Styles'
+
+import Button from '@mui/material/Button'
 
 const PaymentForm = () => {
+   const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
    const stripe = useStripe()
    const elements = useElements()
+
    const handleSubmit = async (event: React.FormEvent) => {
-      event.preventDefault()
       if (!stripe || !elements) {
          return
       }
-      const result = await stripe.createPaymentMethod({
+      const { paymentMethod, error } = await stripe.createPaymentMethod({
          type: 'card',
          card: elements.getElement(CardElement) as StripeCardElement
       })
-      console.log('helló')
+      console.log(error)
+      if (!error && paymentMethod) {
+         const response = await axios.post('/payment', {
+            amount: 1000,
+            id: paymentMethod.id
+         })
+         console.log(response.data)
+      }
    }
+
    return (
-      <StyledCardForm onSubmit={handleSubmit}>
-         <PaymentElement />
-         <button>Submit</button>
+      <StyledCardForm>
+         <StyledCardContainer>
+            <CardElement options={styleObject(isDarkTheme)} />
+         </StyledCardContainer>
+         <Button onClick={handleSubmit} variant='outlined'>
+            Fizetés
+         </Button>
       </StyledCardForm>
    )
 }
