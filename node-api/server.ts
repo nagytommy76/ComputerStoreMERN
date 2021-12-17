@@ -1,13 +1,17 @@
 import express, { Application } from 'express'
 require('dotenv').config()
-const connectDB = require('./config/db')
+import connectDB from './config/db'
 const bodyParser = require('body-parser')
 const cors = require('cors')
 
 const app: Application = express()
 const PORT = process.env.PORT || 5050
 
-connectDB()
+connectDB().then(() => {
+   app.listen(PORT, () => {
+      console.log(`The app started: ${PORT}`)
+   })
+})
 app.use(cors({ origin: 'http://localhost:3000', methods: 'GET,HEAD,PUT,PATCH,POST,DELETE' }))
 app.use(bodyParser.json())
 
@@ -21,7 +25,3 @@ app.use('/api/payment', require('./routes/api/Payment/Payment'))
 
 app.use('/api/admin/cpu', require('./routes/api/Admin/Cpu/Cpu'))
 app.use('/api/cpu', require('./routes/api/Cpu/Cpu'))
-
-app.listen(PORT, () => {
-   console.log(`The app started: ${PORT}`)
-})
