@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 const initialState = {
-   isPaymentModalOpen: false
+   isPaymentModalOpen: false,
+   isPaymentSuccess: false
 }
 
 const PaymentSlice = createSlice({
@@ -10,10 +11,13 @@ const PaymentSlice = createSlice({
    reducers: {
       setPaymentModalOpen: (state, { payload }: PayloadAction<boolean>) => {
          state.isPaymentModalOpen = payload
+      },
+      setIsPaymentSuccess: (state, { payload }: PayloadAction<boolean>) => {
+         state.isPaymentSuccess = payload
       }
    }
 })
 
-export const { setPaymentModalOpen } = PaymentSlice.actions
+export const { setPaymentModalOpen, setIsPaymentSuccess } = PaymentSlice.actions
 
 export default PaymentSlice.reducer

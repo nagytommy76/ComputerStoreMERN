@@ -43,7 +43,7 @@ const Payment = () => {
                         value='stripe'
                         onClick={handleOpenModal}
                         control={<Radio />}
-                        label='Fizetés Stripe-pal (ingyenes)'
+                        label='Fizetés bankkártyával (ingyenes)'
                      />
                   </StyledPaper>
                </RadioGroup>

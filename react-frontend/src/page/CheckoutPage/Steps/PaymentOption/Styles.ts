@@ -31,8 +31,8 @@ export const styleObject = (isDarkTheme: boolean) => {
             color: isDarkTheme ? '#FFF' : '#111',
             fontWeight: 500,
             fontSize: '20px',
-            ':-webkit-autofill': { color: isDarkTheme ? '#DDD' : '#111' },
-            '::placeholder': { color: isDarkTheme ? '#DDD' : '#111' }
+            ':-webkit-autofill': { color: isDarkTheme ? '#EEE' : '#333' },
+            '::placeholder': { color: isDarkTheme ? '#EEE' : '#333' }
          },
          invalid: {
             iconColor: '#d3401c',
