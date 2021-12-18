@@ -23,7 +23,7 @@ const PaymentContainer = () => {
       <Modal open={isModalOpen} onClose={handleCloseModal}>
          <Paper
             sx={{
-               height: 200,
+               height: 300,
                width: 650,
                transform: 'translate(-50%, -50%)',
                position: 'absolute',
