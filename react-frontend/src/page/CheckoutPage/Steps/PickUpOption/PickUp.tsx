@@ -15,7 +15,7 @@ const PickUp = () => {
    const type = useAppSelector((state) => state.deliveryPrice.type)
 
    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      dispatch(setDeliveryType((event.target as HTMLInputElement).value))
+      dispatch(setDeliveryType(event.target.value as 'inStore' | 'toHomeGLS' | 'foxPost'))
    }
 
    useEffect(() => {

@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useAppSelector } from '../../../app/hooks'
 import { LeftPageContainer } from '../BaseStyle'
 import { StepsContainer } from './Style'
 
@@ -8,12 +9,12 @@ const PickUpOption = React.lazy(() => import('./PickUpOption/PickUp'))
 const Payment = React.lazy(() => import('./PaymentOption/Payment'))
 
 const LeftStepsContainer = () => {
-   const [currentStep, setCurrentStep] = useState<number>(0)
+   const currentStep = useAppSelector((state) => state.steps.currentStep)
    const stepComponents = [<AdressForm />, <PickUpOption />, <Payment />, <h1>Rendelés véglegesítése</h1>]
 
    return (
       <LeftPageContainer>
-         <StepHeader activeStep={currentStep} setActiveStep={setCurrentStep} />
+         <StepHeader />
          <React.Suspense fallback={<h1>Ide kell egy fallback</h1>}>
             <StepsContainer>{stepComponents[currentStep]}</StepsContainer>
          </React.Suspense>

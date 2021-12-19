@@ -1,5 +1,6 @@
-import React, { useEffect, useState, useCallback } from 'react'
-import { useAppSelector } from '../../../app/hooks'
+import React, { useEffect, useState } from 'react'
+import { useAppDispatch, useAppSelector } from '../../../app/hooks'
+import { handleNextButtonDisabled, setCurrentStep } from '../../../app/slices/Checkout/StepsSlice'
 
 import Tooltip from '@mui/material/Tooltip'
 import Stepper from '@mui/material/Stepper'
@@ -8,12 +9,12 @@ import StepLabel from '@mui/material/StepLabel'
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
 
-const StepHeader: React.FC<{ activeStep: number; setActiveStep: React.Dispatch<React.SetStateAction<number>> }> = ({
-   activeStep,
-   setActiveStep
-}) => {
+const StepHeader: React.FC = () => {
+   const dispatch = useAppDispatch()
    const isUserDetailsFilled = useAppSelector((state) => state.userDetails.isDetailsFilled)
-   const [isNextBtnDisabled, setIsNextBtnDisabled] = useState<boolean>(false)
+   const activeStep = useAppSelector((state) => state.steps.currentStep)
+   const isNextBtnDisabled = useAppSelector((state) => state.steps.isNextBtnDisabled)
+
    const [isTooltipOpen, setIsTooltipOpen] = useState<boolean>(false)
 
    const handleTooltipOpen = () => {
@@ -24,22 +25,16 @@ const StepHeader: React.FC<{ activeStep: number; setActiveStep: React.Dispatch<R
    }
 
    const handleNext = () => {
-      setActiveStep((prevActiveStep) => prevActiveStep + 1)
+      dispatch(setCurrentStep(activeStep + 1))
    }
 
    const handleBack = () => {
-      setActiveStep((prevActiveStep) => prevActiveStep - 1)
+      dispatch(setCurrentStep(activeStep - 1))
    }
 
-   const isNextButtonDisabled = useCallback(() => {
-      if (!isUserDetailsFilled) setIsNextBtnDisabled(true)
-      else setIsNextBtnDisabled(false)
-      activeStep === 4 && setIsNextBtnDisabled(true)
-   }, [activeStep, isUserDetailsFilled])
-
    useEffect(() => {
-      isNextButtonDisabled()
-   }, [isUserDetailsFilled, isNextButtonDisabled])
+      dispatch(handleNextButtonDisabled())
+   }, [isUserDetailsFilled, dispatch, activeStep])
 
    return (
       <>
@@ -70,7 +65,7 @@ const StepHeader: React.FC<{ activeStep: number; setActiveStep: React.Dispatch<R
                arrow>
                <span>
                   <Button onClick={handleNext} disabled={isNextBtnDisabled}>
-                     {activeStep === 4 - 1 ? 'Véglegesítés' : 'Következő'}
+                     {activeStep === 3 ? 'Véglegesítés' : 'Következő'}
                   </Button>
                </span>
             </Tooltip>

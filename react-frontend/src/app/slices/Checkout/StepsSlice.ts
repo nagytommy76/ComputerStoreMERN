@@ -1,6 +1,13 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction, Dispatch } from '@reduxjs/toolkit'
+import { RootState } from '../../store'
 
-const initialState = {
+type Props = {
+   currentStep: number
+   isNextBtnDisabled: boolean
+}
+
+const initialState: Props = {
+   currentStep: 0,
    isNextBtnDisabled: false
 }
 
@@ -8,12 +15,22 @@ const StepsSlice = createSlice({
    name: 'steps',
    initialState,
    reducers: {
+      setCurrentStep: (state, { payload }: PayloadAction<number>) => {
+         state.currentStep = payload
+      },
       setIsNextBtnDisabled: (state, { payload }: PayloadAction<boolean>) => {
          state.isNextBtnDisabled = payload
       }
    }
 })
 
-export const { setIsNextBtnDisabled } = StepsSlice.actions
+export const { setIsNextBtnDisabled, setCurrentStep } = StepsSlice.actions
 
 export default StepsSlice.reducer
+
+export const handleNextButtonDisabled = () => (dispatch: Dispatch, getState: any) => {
+   const state = getState() as RootState
+   if (!state.userDetails.isDetailsFilled) dispatch(setIsNextBtnDisabled(true))
+   else dispatch(setIsNextBtnDisabled(false))
+   state.steps.currentStep === 4 && dispatch(setIsNextBtnDisabled(true))
+}

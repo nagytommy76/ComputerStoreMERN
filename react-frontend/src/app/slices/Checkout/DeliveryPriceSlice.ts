@@ -1,6 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-const initialState: { deliveryPrice: number; type: string } = {
+type Props = {
+   deliveryPrice: number
+   type: 'inStore' | 'toHomeGLS' | 'foxPost'
+}
+
+const initialState: Props = {
    deliveryPrice: 0,
    type: 'inStore'
 }
@@ -12,7 +17,7 @@ const DeliveryPriceSlice = createSlice({
       setDeliveryPrice: (state, { payload }: PayloadAction<number>) => {
          state.deliveryPrice = payload
       },
-      setDeliveryType: (state, { payload }: PayloadAction<string>) => {
+      setDeliveryType: (state, { payload }: PayloadAction<'inStore' | 'toHomeGLS' | 'foxPost'>) => {
          state.type = payload
       }
    }

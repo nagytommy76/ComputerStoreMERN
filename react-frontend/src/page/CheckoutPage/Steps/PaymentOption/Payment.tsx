@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import { useAppDispatch } from '../../../../app/hooks'
-import { setPaymentModalOpen } from '../../../../app/slices/Checkout/PaymentSlice'
+import React, { useEffect } from 'react'
+import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
+import { setPaymentModalOpen, setSelectedPaymentMethod } from '../../../../app/slices/Checkout/PaymentSlice'
 
 import { StyledPaper, StyledFormControl } from '../Style'
 import Radio from '@mui/material/Radio'
@@ -13,14 +13,22 @@ const PaymentContainer = React.lazy(() => import('./PaymentContainer'))
 
 const Payment = () => {
    const dispatch = useAppDispatch()
-   const [options, setOptions] = useState('cashOnDelivery')
+   const { selectedPaymentMethod, isPaymentSuccess } = useAppSelector((state) => state.payment)
    // https://stripe.com/docs/stripe-js/react
 
    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setOptions(event.target.value)
-      if (event.target.value !== 'stripe') dispatch(setPaymentModalOpen(false))
+      if (!isPaymentSuccess) {
+         dispatch(setSelectedPaymentMethod(event.target.value))
+         if (event.target.value !== 'stripe') dispatch(setPaymentModalOpen(false))
+      } else dispatch(setSelectedPaymentMethod('stripe'))
    }
    const handleOpenModal = () => dispatch(setPaymentModalOpen(true))
+
+   useEffect(() => {
+      if (isPaymentSuccess) {
+         dispatch(setSelectedPaymentMethod('stripe'))
+      }
+   }, [isPaymentSuccess, dispatch])
 
    return (
       <>
@@ -31,9 +39,9 @@ const Payment = () => {
                </FormLabel>
                <RadioGroup
                   aria-label='paymentOptions'
-                  defaultValue='teszt'
-                  name='radio-buttons-group'
-                  value={options}
+                  defaultValue='cashOnDelivery'
+                  name='paymentRadioGroup'
+                  value={selectedPaymentMethod}
                   onChange={handleChange}>
                   <StyledPaper>
                      <FormControlLabel value='cashOnDelivery' control={<Radio />} label='Fizetés utánvéttel (390 Ft)' />
