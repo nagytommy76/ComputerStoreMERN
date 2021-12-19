@@ -7,10 +7,11 @@ const StepHeader = React.lazy(() => import('./StepHeader'))
 const AdressForm = React.lazy(() => import('./AddressForm/Address'))
 const PickUpOption = React.lazy(() => import('./PickUpOption/PickUp'))
 const Payment = React.lazy(() => import('./PaymentOption/Payment'))
+const SummaryOrder = React.lazy(() => import('./Summary/SummaryOrder'))
 
 const LeftStepsContainer = () => {
    const currentStep = useAppSelector((state) => state.steps.currentStep)
-   const stepComponents = [<AdressForm />, <PickUpOption />, <Payment />, <h1>Rendelés véglegesítése</h1>]
+   const stepComponents = [<AdressForm />, <PickUpOption />, <Payment />, <SummaryOrder />]
 
    return (
       <LeftPageContainer>

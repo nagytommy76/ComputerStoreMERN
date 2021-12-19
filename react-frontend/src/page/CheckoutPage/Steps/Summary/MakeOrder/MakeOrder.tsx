@@ -7,7 +7,6 @@ import DoubleArrowIcon from '@mui/icons-material/DoubleArrow'
 const MakeOrder = () => {
    const [isOrderLoading, setIsOrderLoading] = useState<boolean>(false)
    const handleNextButton = async () => {
-      console.log('rendelés leadása')
       setIsOrderLoading(true)
       const orderResult = await axios.post('/order/handle-order')
       console.log(orderResult.data)
@@ -16,11 +15,6 @@ const MakeOrder = () => {
 
    return (
       <LoadingButton
-         sx={{
-            zIndex: 4,
-            position: 'absolute',
-            bottom: '40px'
-         }}
          loading={isOrderLoading}
          loadingPosition='end'
          variant='contained'

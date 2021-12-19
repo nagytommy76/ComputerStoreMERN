@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
-
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
 import { StripeCardElement } from '@stripe/stripe-js'
 
+import NumberFormat from 'react-number-format'
 import { StyledCardForm, StyledCardContainer, styleObject, ButtonAndAlertSection } from './Styles'
 
 import LoadingButton from '@mui/lab/LoadingButton'
@@ -43,8 +43,7 @@ const PaymentForm = () => {
       if (!error && paymentMethod) {
          const response = await axios.post('/payment', {
             amount: (totalAmount + selectedDeliveryTypePrice) * 100,
-            id: paymentMethod.id,
-            product: { test: 'test123' }
+            id: paymentMethod.id
          })
          if (response.status === 200) {
             dispatch(setIsPaymentSuccess(true))
@@ -53,7 +52,6 @@ const PaymentForm = () => {
                isError: true,
                serverity: 'success'
             })
-            console.log(response.data)
          }
       } else {
          dispatch(setIsPaymentSuccess(false))
@@ -70,14 +68,27 @@ const PaymentForm = () => {
       <StyledCardForm>
          <StyledCardContainer>
             {paymentWasSuccess ? (
-               <Typography mt={2} variant='body1'>
-                  A termékek már ki lettek fizetve: {totalAmount + selectedDeliveryTypePrice} HUF összegben!
+               <Typography mt={2} variant='h6'>
+                  A termékek már ki lettek fizetve:{' '}
+                  <NumberFormat
+                     displayType='text'
+                     thousandSeparator=' '
+                     value={totalAmount + selectedDeliveryTypePrice}
+                     suffix=' HUF '
+                  />
+                  összegben!
                </Typography>
             ) : (
                <>
                   <CardElement options={styleObject(isDarkTheme)} />
-                  <Typography mt={2} variant='body1'>
-                     Fizetendő végösszeg (szállítással): {totalAmount + selectedDeliveryTypePrice} HUF
+                  <Typography mt={2} variant='h6'>
+                     Fizetendő végösszeg (szállítással):{' '}
+                     <NumberFormat
+                        displayType='text'
+                        thousandSeparator=' '
+                        value={totalAmount + selectedDeliveryTypePrice}
+                        suffix=' HUF'
+                     />
                   </Typography>
                </>
             )}

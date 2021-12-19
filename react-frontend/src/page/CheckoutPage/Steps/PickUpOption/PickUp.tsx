@@ -13,9 +13,12 @@ import { setDeliveryType, setDeliveryPrice } from '../../../../app/slices/Checko
 const PickUp = () => {
    const dispatch = useAppDispatch()
    const type = useAppSelector((state) => state.deliveryPrice.type)
+   const paymentWithCardWasSuccess = useAppSelector((state) => state.payment.isPaymentSuccess)
 
    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      dispatch(setDeliveryType(event.target.value as 'inStore' | 'toHomeGLS' | 'foxPost'))
+      if (!paymentWithCardWasSuccess) {
+         dispatch(setDeliveryType(event.target.value as 'inStore' | 'toHomeGLS' | 'foxPost'))
+      }
    }
 
    useEffect(() => {

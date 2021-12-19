@@ -1,9 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-const initialState = {
+type Props = {
+   isPaymentModalOpen: boolean
+   selectedPaymentMethod: string
+   isPaymentSuccess: boolean
+   payedAt: number
+}
+
+const initialState: Props = {
    isPaymentModalOpen: false,
    selectedPaymentMethod: 'cashOnDelivery',
-   isPaymentSuccess: false
+   isPaymentSuccess: false,
+   payedAt: 0
 }
 
 const PaymentSlice = createSlice({
