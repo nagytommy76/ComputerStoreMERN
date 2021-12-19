@@ -1,4 +1,5 @@
 import { Response } from 'express'
+import { ObjectId } from 'mongoose'
 import { VgaProduct } from '../../../models/Products/Vga/VgaProduct'
 
 import {
@@ -10,7 +11,13 @@ import {
    removeUsersRatingHelper
 } from '../Ratings/BaseRating'
 
-export const getVgaRatingSummaryController = async (req: RequestQuery, res: Response) => {
+type RequestWithQueryId = {
+   query: {
+      _id: ObjectId
+   }
+}
+
+export const getVgaRatingSummaryController = async (req: RequestWithQueryId, res: Response) => {
    try {
       const returnRatingValues = await getProductRatingSummary(req.query._id, VgaProduct)
       return res.status(200).json(returnRatingValues)
@@ -19,7 +26,7 @@ export const getVgaRatingSummaryController = async (req: RequestQuery, res: Resp
    }
 }
 
-export const getAllVgaComments = async (req: RequestQuery, res: Response) => {
+export const getAllVgaComments = async (req: RequestWithQueryId, res: Response) => {
    try {
       const allComments = await VgaProduct.find({ _id: req.query._id }, 'ratingValues')
       return res.status(200).json(allComments[0].ratingValues)

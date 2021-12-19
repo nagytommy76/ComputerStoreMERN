@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from 'express'
 import jwt, { JwtPayload } from 'jsonwebtoken'
 import { ACCESS_TOKEN_SECRET } from '../config/endpoints.config'
-import { JTWUserType } from '../controllers/Types'
+import { JWTUserType } from '../controllers/Types'
 import { UserTypes } from '../models/User/UserTypes'
 type GetUserAuthInfoRequest = Request & {
-   user: JTWUserType | JwtPayload | string
+   user?: JWTUserType | JwtPayload | string
    // user?: UserTypes | JwtPayload | string
    accessToken?: string
 }
@@ -17,8 +17,8 @@ export const authenticateAccessToken = (req: GetUserAuthInfoRequest, res: Respon
    const token = getTokenFromAuthorizationHeader(req.headers.authorization)
    if (!token) return res.sendStatus(401)
    jwt.verify(token, ACCESS_TOKEN_SECRET, (err, user) => {
-      if (err) return res.status(403).json({ errorMessage: 'accessToken token expired' })
       if (user) {
+         if (err) return res.status(403).json({ errorMessage: 'accessToken token expired' })
          req.user = user
          next()
       }
@@ -31,7 +31,7 @@ export const checkUserIsAdmin = (req: GetUserAuthInfoRequest, res: Response, nex
 
    jwt.verify(token, ACCESS_TOKEN_SECRET, (err, user) => {
       if (err) return res.status(403).json({ errorMessage: 'accessToken token expired' })
-      if (user?.isAdmin) {
+      if (user?.isAdmin && user) {
          req.user = user
          next()
       } else {

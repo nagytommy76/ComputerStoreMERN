@@ -1,7 +1,8 @@
 import { Request, Response } from 'express'
 import { Model, ObjectId } from 'mongoose'
 import { RatingValues } from '../../../models/Products/BaseTypes'
-import { UserTypes } from '../../../models/User/UserTypes'
+// import { UserTypes } from '../../../models/User/UserTypes'
+import { JWTUserType } from '../../Types'
 
 export const getProductRatingSummary = async (productId: ObjectId, ProductModel: Model<any>) => {
    const allProductRatings = await ProductModel.findById(productId)
@@ -84,7 +85,7 @@ export const removeUsersRatingHelper = async (req: RemoveRatingRequest, res: Res
 }
 
 export type RemoveRatingRequest = Request & {
-   user?: UserTypes | undefined
+   user?: JWTUserType | undefined
    body: {
       commentIdToDelete: string
       productId: string
@@ -92,7 +93,7 @@ export type RemoveRatingRequest = Request & {
 }
 
 export type LikeQuery = Request & {
-   user?: UserTypes | undefined
+   user?: JWTUserType | undefined
    body: {
       isLike: boolean
       productId: string
@@ -101,7 +102,7 @@ export type LikeQuery = Request & {
 }
 
 export type RateQueryRequest = Request & {
-   user?: UserTypes
+   user?: JWTUserType
    body: {
       userName: string
       _id: ObjectId
@@ -111,7 +112,7 @@ export type RateQueryRequest = Request & {
 }
 
 export type RequestQuery = Request & {
-   user?: UserTypes
+   user?: JWTUserType
    query: {
       _id: ObjectId
    }

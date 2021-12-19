@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { User } from '../../models/User/User'
-import { JTWUserType } from '../Types'
+import { JWTUserType } from '../Types'
 
 export const handleUserOrderController = (req: RequestWithUser, res: Response) => {
    try {
@@ -11,5 +11,5 @@ export const handleUserOrderController = (req: RequestWithUser, res: Response) =
 }
 
 type RequestWithUser = Request & {
-   user: JTWUserType
+   user?: JWTUserType
 }

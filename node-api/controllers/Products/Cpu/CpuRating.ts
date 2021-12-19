@@ -1,4 +1,5 @@
 import { Response } from 'express'
+import { ObjectId } from 'mongoose'
 import { CpuProduct } from '../../../models/Products/Cpu/CpuSchema'
 import {
    getProductRatingSummary,
@@ -30,7 +31,13 @@ export const rateCpuProductController = async (req: RateQueryRequest, res: Respo
    }
 }
 
-export const getCpuRatingSummaryController = async (req: RequestQuery, res: Response) => {
+type RequestWithQueryId = {
+   query: {
+      _id: ObjectId
+   }
+}
+
+export const getCpuRatingSummaryController = async (req: RequestWithQueryId, res: Response) => {
    try {
       const returnRatingValues = await getProductRatingSummary(req.query._id, CpuProduct)
       return res.status(200).json(returnRatingValues)
@@ -39,7 +46,7 @@ export const getCpuRatingSummaryController = async (req: RequestQuery, res: Resp
    }
 }
 
-export const getAllComments = async (req: RequestQuery, res: Response) => {
+export const getAllComments = async (req: RequestWithQueryId, res: Response) => {
    try {
       const allComments = await CpuProduct.findById(req.query._id, 'ratingValues').sort({ ratedAt: -1 })
       if (allComments) {

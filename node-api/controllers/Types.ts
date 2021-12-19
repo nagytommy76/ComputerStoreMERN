@@ -1,4 +1,4 @@
-export type JTWUserType = {
+export type JWTUserType = {
    _id: string
    email: string
    userName: string
