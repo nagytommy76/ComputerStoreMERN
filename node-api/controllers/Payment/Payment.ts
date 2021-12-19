@@ -1,8 +1,13 @@
 import { Request, Response } from 'express'
 import { Stripe } from 'stripe'
+import { JTWUserType } from '../Types'
+import { UserOrders } from '../../models/User/UserTypes'
+import { User } from '../../models/User/User'
+import { Document } from 'mongoose'
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY) as Stripe
 
-type PaymentRequest = {
+type PaymentRequest = Request & {
+   user: JTWUserType
    body: {
       id: string
       amount: number
@@ -12,6 +17,8 @@ type PaymentRequest = {
 export const handleCardPaymentController = async (req: PaymentRequest, res: Response) => {
    try {
       const { amount, id } = req.body
+      const foundUserOrder = (await User.findById(req.user._id, 'orders')) as (UserOrders & Document<any, any>) | null
+
       const payment = await stripe.paymentIntents.create({
          currency: 'HUF',
          amount,

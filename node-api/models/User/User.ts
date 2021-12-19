@@ -20,6 +20,7 @@ const UserSchema = new Schema<UserTypes>({
       orderedAt: Date,
       totalPrice: Number,
       paymentMethod: String,
+      payedAt: Date,
       products: {
          type: [
             {

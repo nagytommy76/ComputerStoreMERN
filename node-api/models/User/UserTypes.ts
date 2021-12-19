@@ -31,6 +31,7 @@ export type UserOrders = {
    orderedAt: Date
    totalPrice: number
    paymentMethod: string
+   payedAt: Date
    products: {
       productID: ObjectId | string
       productName: string

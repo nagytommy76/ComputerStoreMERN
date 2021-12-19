@@ -1,9 +1,11 @@
 import { NextFunction, Request, Response } from 'express'
 import jwt, { JwtPayload } from 'jsonwebtoken'
 import { ACCESS_TOKEN_SECRET } from '../config/endpoints.config'
+import { JTWUserType } from '../controllers/Types'
 import { UserTypes } from '../models/User/UserTypes'
 type GetUserAuthInfoRequest = Request & {
-   user?: UserTypes | JwtPayload | string
+   user: JTWUserType | JwtPayload | string
+   // user?: UserTypes | JwtPayload | string
    accessToken?: string
 }
 
@@ -16,8 +18,10 @@ export const authenticateAccessToken = (req: GetUserAuthInfoRequest, res: Respon
    if (!token) return res.sendStatus(401)
    jwt.verify(token, ACCESS_TOKEN_SECRET, (err, user) => {
       if (err) return res.status(403).json({ errorMessage: 'accessToken token expired' })
-      req.user = user
-      next()
+      if (user) {
+         req.user = user
+         next()
+      }
    })
 }
 
