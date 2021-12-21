@@ -42,11 +42,12 @@ const PaymentForm = () => {
       })
       if (!error && paymentMethod) {
          const response = await axios.post('/payment', {
-            amount: (totalAmount + selectedDeliveryTypePrice) * 100,
+            // A Stripe csak 999.999.99 Ft-ig engedi a fizetést, ezért nem szorzom 100-zal.....
+            amount: totalAmount + selectedDeliveryTypePrice,
             id: paymentMethod.id
          })
          if (response.status === 200) {
-            dispatch(setIsPaymentSuccess(true))
+            dispatch(setIsPaymentSuccess(response.data.paymentSuccess))
             setHasError({
                errorMsg: 'Sikeres fizetés!',
                isError: true,

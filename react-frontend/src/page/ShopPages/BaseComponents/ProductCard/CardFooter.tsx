@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { CardFooterStyle } from './CardStyle'
-import { useAppDispatch } from '../../../../app/hooks'
+import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
 import { ProductContext } from '../../Context/ShopContext'
 import { sendCartItemToSaveInDB } from '../../../../app/slices/CartSlice'
 
@@ -13,6 +13,7 @@ type Props = {
 
 const CardFooter: React.FC<Props> = ({ productType }) => {
    const dispatch = useAppDispatch()
+   const paymentWasSuccess = useAppSelector((state) => state.payment.isPaymentSuccess)
    const { _id, productName, price, displayImage } = useContext(ProductContext)
    const addItemToCart = () => {
       dispatch(
@@ -22,7 +23,13 @@ const CardFooter: React.FC<Props> = ({ productType }) => {
    return (
       <CardFooterStyle>
          <CardActions>
-            <Button onClick={addItemToCart} variant='outlined' color='success' size='large' endIcon={<AddShoppingCartIcon />}>
+            <Button
+               disabled={paymentWasSuccess}
+               onClick={addItemToCart}
+               variant='outlined'
+               color='success'
+               size='large'
+               endIcon={<AddShoppingCartIcon />}>
                Kosárba
             </Button>
          </CardActions>

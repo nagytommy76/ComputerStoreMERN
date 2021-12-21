@@ -23,6 +23,9 @@ const useMaterialTheme = () => {
             text: {
                primary: '#000',
                secondary: '#000'
+            },
+            action: {
+               disabled: '#888'
             }
          },
          typography: {
@@ -47,6 +50,9 @@ const useMaterialTheme = () => {
             text: {
                primary: '#FFF',
                secondary: '#fff'
+            },
+            action: {
+               disabled: '#888'
             }
          },
          typography: {
