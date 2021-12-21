@@ -1,36 +1,6 @@
 import styled from 'styled-components'
 import { mobileWindowSize } from '../../../../Theme/GlobalStyles'
 
-// Close button
-export const StyledCloseIcon = styled.div`
-   @media (max-width: ${mobileWindowSize}) {
-      top: 0;
-      right: 0;
-   }
-
-   z-index: 5;
-   position: absolute;
-   right: 2px;
-   top: 2px;
-   font-size: 1.1rem;
-   font-weight: 600;
-   color: red;
-   cursor: pointer;
-   width: 25px;
-   height: 25px;
-
-   display: flex;
-   justify-content: center;
-   align-items: center;
-
-   border-radius: 50%;
-   transition: all 0.2s;
-
-   &:hover {
-      background-color: hsla(0, 0%, 50%, 0.6);
-   }
-`
-
 export const StyledCartItem = styled.section`
    position: relative;
    margin: 0.6rem 0;

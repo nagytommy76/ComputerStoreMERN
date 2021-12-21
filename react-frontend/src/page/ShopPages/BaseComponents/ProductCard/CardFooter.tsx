@@ -7,6 +7,8 @@ import { sendCartItemToSaveInDB } from '../../../../app/slices/CartSlice'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import { CardActions, Button } from '@mui/material'
 
+const TooltipForDisabledElement = React.lazy(() => import('../../../BaseElements/TooltipForDisabled/TooltipForDisabled'))
+
 type Props = {
    productType: string
 }
@@ -23,15 +25,19 @@ const CardFooter: React.FC<Props> = ({ productType }) => {
    return (
       <CardFooterStyle>
          <CardActions>
-            <Button
-               disabled={paymentWasSuccess}
-               onClick={addItemToCart}
-               variant='outlined'
-               color='success'
-               size='large'
-               endIcon={<AddShoppingCartIcon />}>
-               Kosárba
-            </Button>
+            <TooltipForDisabledElement
+               isComponentDisabled={paymentWasSuccess}
+               tooltipText='A termékek már ki lettek fizetve! Kérlek folytasd a vásárlást!'>
+               <Button
+                  disabled={paymentWasSuccess}
+                  onClick={addItemToCart}
+                  variant='outlined'
+                  color='success'
+                  size='large'
+                  endIcon={<AddShoppingCartIcon />}>
+                  Kosárba
+               </Button>
+            </TooltipForDisabledElement>
          </CardActions>
       </CardFooterStyle>
    )

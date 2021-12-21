@@ -1,12 +1,13 @@
 import React from 'react'
-import { Container, IncreaseDecreaseStyle, QuantityStyle } from './BasketStyle'
+import { Container, QuantityStyle } from './BasketStyle'
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
 import { increaseOrDecreaseByOne } from '../../../../app/slices/CartSlice'
 
 import IconButton from '@mui/material/IconButton'
 import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
-import Tooltip from '@mui/material/Tooltip'
+
+import TooltipForDisabled from '../../../BaseElements/TooltipForDisabled/TooltipForDisabled'
 
 const Basket: React.FC<Props> = ({ quaintity, id }) => {
    const dispatch = useAppDispatch()
@@ -17,15 +18,21 @@ const Basket: React.FC<Props> = ({ quaintity, id }) => {
    const increase = () => dispatch(increaseOrDecreaseByOne(id))
    return (
       <Container>
-         <Tooltip title='A termékek már ki lettek fizetve! Kérlek folytasd a vásárlást' arrow>
+         <TooltipForDisabled
+            isComponentDisabled={paymentWasSuccess}
+            tooltipText='A termékek már ki lettek fizetve! Kérlek folytasd a vásárlást'>
             <IconButton disabled={paymentWasSuccess} onClick={decrease} color='error' aria-label='decrease' size='small'>
                <RemoveIcon />
             </IconButton>
-         </Tooltip>
+         </TooltipForDisabled>
          <QuantityStyle>{quaintity} db</QuantityStyle>
-         <IconButton disabled={paymentWasSuccess} onClick={increase} color='success' aria-label='increase' size='small'>
-            <AddIcon />
-         </IconButton>
+         <TooltipForDisabled
+            isComponentDisabled={paymentWasSuccess}
+            tooltipText='A termékek már ki lettek fizetve! Kérlek folytasd a vásárlást'>
+            <IconButton disabled={paymentWasSuccess} onClick={increase} color='success' aria-label='increase' size='small'>
+               <AddIcon />
+            </IconButton>
+         </TooltipForDisabled>
       </Container>
    )
 }
