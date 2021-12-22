@@ -13,6 +13,7 @@ import Alert from '@mui/material/Alert'
 import Fade from '@mui/material/Fade'
 import Typography from '@mui/material/Typography'
 import { setIsPaymentSuccess } from '../../../../app/slices/Checkout/PaymentSlice'
+import { setIsNextBtnDisabled } from '../../../../app/slices/Checkout/StepsSlice'
 
 const PaymentForm = () => {
    const dispatch = useAppDispatch()
@@ -48,6 +49,7 @@ const PaymentForm = () => {
          })
          if (response.status === 200) {
             dispatch(setIsPaymentSuccess(response.data.paymentSuccess))
+            dispatch(setIsNextBtnDisabled(false))
             setHasError({
                errorMsg: 'Sikeres fizetés!',
                isError: true,

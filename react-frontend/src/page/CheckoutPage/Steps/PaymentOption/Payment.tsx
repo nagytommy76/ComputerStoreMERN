@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
 import { setPaymentModalOpen, setSelectedPaymentMethod } from '../../../../app/slices/Checkout/PaymentSlice'
+import { handleNextButtonDisabled } from '../../../../app/slices/Checkout/StepsSlice'
 
 import { StyledPaper, StyledFormControl } from '../Style'
 import Radio from '@mui/material/Radio'
@@ -19,6 +20,7 @@ const Payment = () => {
    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       if (!isPaymentSuccess) {
          dispatch(setSelectedPaymentMethod(event.target.value))
+         dispatch(handleNextButtonDisabled())
          if (event.target.value !== 'stripe') dispatch(setPaymentModalOpen(false))
       } else dispatch(setSelectedPaymentMethod('stripe'))
    }

@@ -30,7 +30,13 @@ export default StepsSlice.reducer
 
 export const handleNextButtonDisabled = () => (dispatch: Dispatch, getState: any) => {
    const state = getState() as RootState
+
    if (!state.userDetails.isDetailsFilled) dispatch(setIsNextBtnDisabled(true))
    else dispatch(setIsNextBtnDisabled(false))
+
+   if (!state.payment.isPaymentSuccess && state.steps.currentStep === 2 && state.payment.selectedPaymentMethod == 'stripe')
+      dispatch(setIsNextBtnDisabled(true))
+   else dispatch(setIsNextBtnDisabled(false))
+
    state.steps.currentStep === 3 && dispatch(setIsNextBtnDisabled(true))
 }

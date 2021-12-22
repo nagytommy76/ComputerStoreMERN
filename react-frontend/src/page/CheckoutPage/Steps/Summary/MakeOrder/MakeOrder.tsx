@@ -8,8 +8,12 @@ const MakeOrder = () => {
    const [isOrderLoading, setIsOrderLoading] = useState<boolean>(false)
    const handleNextButton = async () => {
       setIsOrderLoading(true)
-      const orderResult = await axios.post('/order/handle-order')
-      console.log(orderResult.data)
+      try {
+         const orderResult = await axios.post('/order/handle-order')
+         console.log(orderResult.data)
+      } catch (error) {
+         console.log(error)
+      }
       setIsOrderLoading(false)
    }
 

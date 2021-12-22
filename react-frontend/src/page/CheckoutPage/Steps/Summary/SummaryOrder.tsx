@@ -16,7 +16,7 @@ const SummaryOrder = () => {
             <CardContent>
                <Typography variant='h5'>Fizetve:</Typography>
                <Typography mt={1} variant='body1'>
-                  Bankkártyával
+                  Bankkártyával, egyelőre hardcoded!!!
                </Typography>
             </CardContent>
          </Card>
