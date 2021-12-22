@@ -1,15 +1,21 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import { useAppSelector } from '../../../../../app/hooks'
 
 import LoadingButton from '@mui/lab/LoadingButton'
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow'
 
 const MakeOrder = () => {
+   const selectedPaymentMethod = useAppSelector((state) => state.payment.selectedPaymentMethod)
+
    const [isOrderLoading, setIsOrderLoading] = useState<boolean>(false)
+
    const handleNextButton = async () => {
       setIsOrderLoading(true)
       try {
-         const orderResult = await axios.post('/order/handle-order')
+         const orderResult = await axios.post('/order/handle-order', {
+            paymentMethod: selectedPaymentMethod
+         })
          console.log(orderResult.data)
       } catch (error) {
          console.log(error)

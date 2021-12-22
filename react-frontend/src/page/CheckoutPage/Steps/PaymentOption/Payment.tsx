@@ -21,14 +21,14 @@ const Payment = () => {
       if (!isPaymentSuccess) {
          dispatch(setSelectedPaymentMethod(event.target.value))
          dispatch(handleNextButtonDisabled())
-         if (event.target.value !== 'stripe') dispatch(setPaymentModalOpen(false))
-      } else dispatch(setSelectedPaymentMethod('stripe'))
+         if (event.target.value !== 'stripeCard') dispatch(setPaymentModalOpen(false))
+      } else dispatch(setSelectedPaymentMethod('stripeCard'))
    }
    const handleOpenModal = () => dispatch(setPaymentModalOpen(true))
 
    useEffect(() => {
       if (isPaymentSuccess) {
-         dispatch(setSelectedPaymentMethod('stripe'))
+         dispatch(setSelectedPaymentMethod('stripeCard'))
       }
    }, [isPaymentSuccess, dispatch])
 
@@ -50,7 +50,7 @@ const Payment = () => {
                   </StyledPaper>
                   <StyledPaper>
                      <FormControlLabel
-                        value='stripe'
+                        value='stripeCard'
                         onClick={handleOpenModal}
                         control={<Radio />}
                         label='Fizetés bankkártyával (ingyenes)'
