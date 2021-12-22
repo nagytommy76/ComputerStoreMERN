@@ -29,7 +29,7 @@ export const handleCardPaymentController = async (req: PaymentRequest, res: Resp
          })
 
          foundUserOrders.orders.payedAt = new Date()
-         foundUserOrders.orders.paymentMethod = 'StripeCard'
+         foundUserOrders.orders.paymentMethod = 'stripeCard'
          foundUserOrders.orders.totalPrice = amount
 
          if (payment.status === 'succeeded') foundUserOrders.save()
