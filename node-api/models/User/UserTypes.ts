@@ -28,16 +28,17 @@ export type UserDetailsTypes = {
 }
 
 export type UserOrders = {
-   orderedAt: Date
+   _id?: ObjectId | string
+   orderedAt?: Date
    totalPrice: number
    paymentMethod: string
    payedAt: Date
-   products: {
+   products?: {
       productID: ObjectId | string
       productName: string
       productQty: number
    }[]
-}
+}[]
 
 export type CartItemsType = {
    itemId: string
