@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
 import { StripeCardElement } from '@stripe/stripe-js'
+
+import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
+import { setIsPaymentSuccess, setLastPaymentId } from '../../../../app/slices/Checkout/PaymentSlice'
+import { setIsNextBtnDisabled } from '../../../../app/slices/Checkout/StepsSlice'
 
 import NumberFormat from 'react-number-format'
 import { StyledCardForm, StyledCardContainer, styleObject, ButtonAndAlertSection } from './Styles'
@@ -12,8 +15,6 @@ import PaymentIcon from '@mui/icons-material/Payment'
 import Alert from '@mui/material/Alert'
 import Fade from '@mui/material/Fade'
 import Typography from '@mui/material/Typography'
-import { setIsPaymentSuccess } from '../../../../app/slices/Checkout/PaymentSlice'
-import { setIsNextBtnDisabled } from '../../../../app/slices/Checkout/StepsSlice'
 
 const PaymentForm = () => {
    const dispatch = useAppDispatch()
@@ -48,6 +49,7 @@ const PaymentForm = () => {
             id: paymentMethod.id
          })
          if (response.status === 200) {
+            dispatch(setLastPaymentId(response.data.paymentId))
             dispatch(setIsPaymentSuccess(response.data.paymentSuccess))
             dispatch(setIsNextBtnDisabled(false))
             setHasError({

@@ -6,7 +6,6 @@
 - Integrálni a Stripe API-t (vagy simple pay-t....) a fizetésnél
 - Ha sikeres a fizetés, és megvannak a szállítási adatok bevinni az adatbázisba a rendelést
 
-- a makeOrderButton-t csak a legvégső oldalon megjeleníteni
 - Esetleg PDF generálás?!
 
 - Email küldést megvalósítani (Rendelés után, esetleg validálni az emailt)
@@ -14,7 +13,7 @@
 - Az összes fallback-et (Suspense) vizualizálni, mert most csak a Töltés... van
 
 BUG-OK: 
-- miután beléptél error van 
+- miután beléptél és átirányít a login-ről a welcom-ra, error van 
 "
     Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
 "
