@@ -20,6 +20,8 @@ const UserSchema = new Schema<UserTypes>({
       {
          orderedAt: { type: Date, default: new Date() },
          totalPrice: { type: Number, default: 0 },
+         deliveryType: { type: String, default: '' },
+         deliveryPrice: { type: Number, default: 0 },
          paymentMethod: { type: String, default: '' },
          payedAt: { type: Number, default: 0 },
          products: {

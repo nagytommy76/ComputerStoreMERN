@@ -1,27 +1,32 @@
 import { Request, Response } from 'express'
 import { User } from '../../models/User/User'
 import { JWTUserType } from '../Types'
+import { UserTypes } from '../../models/User/UserTypes'
 
 import { Stripe } from 'stripe'
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY) as Stripe
 
-export const handleUserOrderController = async (req: RequestWithUser, res: Response) => {
+type RequestWithUser = Request & {
+   user?: JWTUserType
+}
+
+type PaymentBodyType = {
+   id: string
+   amount: number
+   paymentMethod: string
+   deliveryType: string
+   deliveryPrice: number
+}
+
+export const handleUserOrderWithCardPaymentController = async (req: RequestWithUser, res: Response) => {
    try {
-      const { id, amount, paymentMethod } = req.body as PaymentBodyType
+      const { id, amount, paymentMethod, deliveryType, deliveryPrice } = req.body as PaymentBodyType
       const foundUser = await User.findById(req.user?._id)
       if (foundUser) {
-         const currentItemsInCart: { productID: string; productName: string; productQty: number }[] = foundUser.cartItems.map(
-            (product) => {
-               return {
-                  productID: product.itemId,
-                  productName: product.displayName,
-                  productQty: product.quantity
-               }
-            }
-         )
+         const currentItemsInCart = getCurrentCartItemsFromFoundUser(foundUser)
          const { created, status } = await stripe.paymentIntents.create({
             currency: 'huf',
-            amount,
+            amount: amount + deliveryPrice,
             description: 'Computer Store pet project',
             confirm: true,
             payment_method: id
@@ -32,6 +37,8 @@ export const handleUserOrderController = async (req: RequestWithUser, res: Respo
             orderedAt: new Date(),
             paymentMethod,
             totalPrice: amount,
+            deliveryType,
+            deliveryPrice,
             products: currentItemsInCart
          })
 
@@ -46,12 +53,42 @@ export const handleUserOrderController = async (req: RequestWithUser, res: Respo
    }
 }
 
-type RequestWithUser = Request & {
-   user?: JWTUserType
+export const handleUserOrderWithCashPaymentController = async (req: RequestWithUser, res: Response) => {
+   try {
+      const { amount, paymentMethod, deliveryType, deliveryPrice } = req.body as PaymentBodyType
+      const foundUser = await User.findById(req.user?._id)
+      if (foundUser) {
+         const currentItemsInCart = getCurrentCartItemsFromFoundUser(foundUser)
+
+         foundUser.orders.push({
+            orderedAt: new Date(),
+            paymentMethod,
+            totalPrice: amount,
+            deliveryType,
+            deliveryPrice,
+            products: currentItemsInCart
+         })
+
+         foundUser.cartItems = []
+
+         // foundUser.save()
+
+         return res.status(200).json({ orderSuccess: true, foundUser })
+      }
+   } catch (error) {
+      return res.status(500).json({ error, orderSuccess: false })
+   }
 }
 
-type PaymentBodyType = {
-   id: string
-   amount: number
-   paymentMethod: string
+const getCurrentCartItemsFromFoundUser = (foundUser: UserTypes) => {
+   const currentItemsInCart: { productID: string; productName: string; productQty: number }[] = foundUser.cartItems.map(
+      (product) => {
+         return {
+            productID: product.itemId,
+            productName: product.displayName,
+            productQty: product.quantity
+         }
+      }
+   )
+   return currentItemsInCart
 }
