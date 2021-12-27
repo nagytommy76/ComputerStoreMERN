@@ -9,6 +9,7 @@ import Alert from '@mui/material/Alert'
 
 const UserDetailsSection = React.lazy(() => import('./UserDetails'))
 const MakeOrderButton = React.lazy(() => import('./MakeOrder/MakeOrder'))
+const PaymentContainer = React.lazy(() => import('../PaymentOption/PaymentContainer'))
 
 const SummaryOrder = () => {
    const [isSuccesAlertOpen, setIsSuccessAlertOpen] = useState<boolean>(false)
@@ -24,6 +25,7 @@ const SummaryOrder = () => {
             </CardContent>
          </Card>
          <MakeOrderButton setAlertOpen={setIsSuccessAlertOpen} />
+         <PaymentContainer />
          <Fade in={isSuccesAlertOpen}>
             <Alert severity='success'>A Termékek sikeresen megrendelésre kerültek! Hamarosan átirányítunk a főoldalra!</Alert>
          </Fade>

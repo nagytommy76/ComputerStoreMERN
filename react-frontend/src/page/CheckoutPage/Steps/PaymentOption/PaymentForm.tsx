@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
 import { StripeCardElement } from '@stripe/stripe-js'
 
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
-import { setIsPaymentSuccess, setLastPaymentId } from '../../../../app/slices/Checkout/PaymentSlice'
+import { setDefaultPaymentOptions } from '../../../../app/slices/Checkout/PaymentSlice'
+import { removeCartItemsAfterLogout as resetCartItems } from '../../../../app/slices/CartSlice'
 import { setIsNextBtnDisabled } from '../../../../app/slices/Checkout/StepsSlice'
 
 import NumberFormat from 'react-number-format'
@@ -20,8 +23,10 @@ const PaymentForm = () => {
    const dispatch = useAppDispatch()
    const stripe = useStripe()
    const elements = useElements()
+   const navigate = useNavigate()
 
    const [isLoading, setIsLoading] = useState<boolean>(false)
+   const [paymentWasSuccess, setPaymentWasSuccess] = useState<boolean>(false)
    const [hasError, setHasError] = useState<{
       isError: boolean
       errorMsg: string | undefined
@@ -31,7 +36,7 @@ const PaymentForm = () => {
    const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
    const totalAmount = useAppSelector((state) => state.cart.totalPrice)
    const selectedDeliveryTypePrice = useAppSelector((state) => state.deliveryPrice.deliveryPrice)
-   const paymentWasSuccess = useAppSelector((state) => state.payment.isPaymentSuccess)
+   const selectedPaymentMethod = useAppSelector((state) => state.payment.selectedPaymentMethod)
 
    const handleSubmit = async () => {
       if (!stripe || !elements) {
@@ -43,30 +48,41 @@ const PaymentForm = () => {
          card: elements.getElement(CardElement) as StripeCardElement
       })
       if (!error && paymentMethod) {
-         const response = await axios.post('/payment', {
+         const response = await axios.post('/order/handle-order', {
             // A Stripe csak 999.999.99 Ft-ig engedi a fizetést, ezért nem szorzom 100-zal.....
             amount: totalAmount + selectedDeliveryTypePrice,
-            id: paymentMethod.id
+            id: paymentMethod.id,
+            paymentMethod: selectedPaymentMethod
          })
          if (response.status === 200) {
-            dispatch(setLastPaymentId(response.data.paymentId))
-            dispatch(setIsPaymentSuccess(response.data.paymentSuccess))
+            setPaymentWasSuccess(true)
             dispatch(setIsNextBtnDisabled(false))
             setHasError({
                errorMsg: 'Sikeres fizetés!',
                isError: true,
                serverity: 'success'
             })
+            setTimeout(() => {
+               dispatch(setDefaultPaymentOptions())
+               dispatch(resetCartItems())
+               setHasError({
+                  serverity: 'success',
+                  errorMsg: '',
+                  isError: false
+               })
+               setPaymentWasSuccess(false)
+               setIsLoading(false)
+               navigate('/')
+            }, 7000)
          }
       } else {
-         dispatch(setIsPaymentSuccess(false))
          setHasError({
             errorMsg: error?.message,
             isError: true,
             serverity: 'error'
          })
+         setPaymentWasSuccess(false)
       }
-      setIsLoading(false)
    }
 
    return (
@@ -107,7 +123,7 @@ const PaymentForm = () => {
                loading={isLoading}
                onClick={handleSubmit}
                variant='contained'>
-               Fizetés
+               Fizetés és megrendelés
             </LoadingButton>
             <Fade in={hasError.isError}>
                <Alert severity={hasError.serverity}>{hasError.errorMsg}</Alert>
