@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import useError from '../Hooks/Error'
 import { useNavigate } from 'react-router-dom'
 
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
@@ -27,15 +28,12 @@ const PaymentForm = () => {
 
    const [isLoading, setIsLoading] = useState<boolean>(false)
    const [paymentWasSuccess, setPaymentWasSuccess] = useState<boolean>(false)
-   const [hasError, setHasError] = useState<{
-      isError: boolean
-      errorMsg: string | undefined
-      serverity: 'error' | 'success' | 'info' | 'warning'
-   }>({ isError: false, errorMsg: '', serverity: 'success' })
+   const { hasError, setHasError } = useError()
 
    const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
    const totalAmount = useAppSelector((state) => state.cart.totalPrice)
    const selectedDeliveryTypePrice = useAppSelector((state) => state.deliveryPrice.deliveryPrice)
+   const selectedDeliveryType = useAppSelector((state) => state.deliveryPrice.type)
    const selectedPaymentMethod = useAppSelector((state) => state.payment.selectedPaymentMethod)
 
    const handleSubmit = async () => {
@@ -48,11 +46,13 @@ const PaymentForm = () => {
          card: elements.getElement(CardElement) as StripeCardElement
       })
       if (!error && paymentMethod) {
-         const response = await axios.post('/order/handle-order', {
+         const response = await axios.post('/order/handle-order-card', {
             // A Stripe csak 999.999.99 Ft-ig engedi a fizetést, ezért nem szorzom 100-zal.....
-            amount: totalAmount + selectedDeliveryTypePrice,
+            amount: totalAmount,
             id: paymentMethod.id,
-            paymentMethod: selectedPaymentMethod
+            paymentMethod: selectedPaymentMethod,
+            deliveryType: selectedDeliveryType,
+            deliveryPrice: selectedDeliveryTypePrice
          })
          if (response.status === 200) {
             setPaymentWasSuccess(true)

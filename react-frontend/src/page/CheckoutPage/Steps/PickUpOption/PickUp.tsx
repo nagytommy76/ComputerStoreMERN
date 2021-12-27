@@ -31,7 +31,7 @@ const PickUp = () => {
             break
       }
    }, [type, dispatch])
-
+   // https://cdn.foxpost.hu/apt-finder/v1/documentation/
    return (
       <StyledFormControl>
          <FormControl component='fieldset' sx={{ width: '85%' }}>

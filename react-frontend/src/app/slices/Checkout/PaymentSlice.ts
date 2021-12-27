@@ -21,7 +21,7 @@ const PaymentSlice = createSlice({
          state.selectedPaymentMethod = payload
       },
       setDefaultPaymentOptions: (state) => {
-         state.selectedPaymentMethod = ''
+         state.selectedPaymentMethod = 'cashOnDelivery'
          state.isPaymentModalOpen = false
       }
    }
