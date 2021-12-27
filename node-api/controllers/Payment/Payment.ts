@@ -28,12 +28,12 @@ export const handleCardPaymentController = async (req: PaymentRequest, res: Resp
             payment_method: id
          })
 
-         foundUserOrders.orders.push({
-            payedAt: new Date(),
-            paymentMethod: 'stripeCard',
-            totalPrice: amount
-         })
-         if (payment.status === 'succeeded') foundUserOrders.save()
+         // foundUserOrders.orders.push({
+         //    payedAt: new Date(),
+         //    paymentMethod: 'stripeCard',
+         //    totalPrice: amount
+         // })
+         // if (payment.status === 'succeeded') foundUserOrders.save()
          const lastElementID = foundUserOrders.orders[foundUserOrders.orders.length - 1]._id
          return res.status(200).json({ paymentSuccess: true, paymentId: lastElementID })
       } else return res.status(404).json({ msg: 'Nem található felhasználó' })

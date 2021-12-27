@@ -29,10 +29,10 @@ export type UserDetailsTypes = {
 
 export type UserOrders = {
    _id?: ObjectId | string
-   orderedAt?: Date
+   orderedAt: Date
    totalPrice: number
    paymentMethod: string
-   payedAt: Date
+   payedAt?: number
    products?: {
       productID: ObjectId | string
       productName: string
