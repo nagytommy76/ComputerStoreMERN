@@ -38,7 +38,6 @@ export const CartSlice = createSlice({
          }
          const foundElementIndex = searchForStartingIndexInStateCartItems(action.payload._id, state.cartItems)
          let foundCartItemInState = checkProductExistsInTheCart(action.payload._id, state.cartItems)
-
          if (foundElementIndex >= 0 && foundCartItemInState !== undefined) {
             //  Ha true akkor van ilyen elem és át kell írni a quantity-t
             // Megkeresni az ID alapján és annak a qty-jét módosítani
@@ -77,33 +76,38 @@ export const { addToCart, removeAllEntitesFromCart, increaseItemQty, decreaseIte
 
 export default CartSlice.reducer
 
-export const sendCartItemToSaveInDB =
-   (payload: IncomingTypes, productType: string) => async (dispatch: Dispatch, getState: any) => {
-      dispatch(addToCart(payload))
-      if (getState().auth.userLoggedIn) {
-         // Ez már a kosárba helyezés utáni állapot =
-         const totalQuantityOfAProduct = checkProductExistsInTheCart(payload._id, getState().cart.cartItems)?.quantity
-         await axios
-            .post('/cart/add-items', {
-               _id: payload._id,
-               quantity: totalQuantityOfAProduct,
-               productType: productType,
-               displayImage: payload.displayImage,
-               displayName: payload.displayName,
-               price: payload.price
-            })
-            .catch((error) => console.log(error.message))
-      }
+export const sendCartItemToSaveInDB = (payload: IncomingTypes, productType: string) => (dispatch: Dispatch, getState: any) => {
+   dispatch(addToCart(payload))
+   if (getState().auth.userLoggedIn) {
+      // Ez már a kosárba helyezés utáni állapot =
+      const totalQuantityOfAProduct = checkProductExistsInTheCart(payload._id, getState().cart.cartItems)?.quantity
+      axios
+         .post('/cart/add-items', {
+            _id: payload._id,
+            quantity: totalQuantityOfAProduct,
+            productType: productType,
+            displayImage: payload.displayImage,
+            displayName: payload.displayName,
+            price: payload.price
+         })
+         .catch((error) => console.log(error.message))
    }
+}
 
 export const fillDBWithCartItemsAfterLogin = () => async (dispatch: Dispatch, getState: any) => {
    const cartItems = getState().cart.cartItems
-   axios.post('/cart/fill-items', { cartItems }).catch((error) => console.log(error))
+   try {
+      await axios.post('/cart/fill-items', { cartItems })
+   } catch (error) {
+      if (axios.isAxiosError(error)) {
+         console.log(error.message)
+      }
+   }
 }
 
-export const removeItemsFromCart = (_id: string) => async (dispatch: Dispatch, getState: any) => {
+export const removeItemsFromCart = (_id: string) => (dispatch: Dispatch, getState: any) => {
    if (getState().auth.userLoggedIn) {
-      await axios
+      axios
          .delete('/cart/remove-item', {
             data: {
                _id
@@ -119,8 +123,8 @@ export const removeItemsFromCart = (_id: string) => async (dispatch: Dispatch, g
    } else dispatch(removeAllEntitesFromCart(_id))
 }
 
-export const fetchCartItemsFromDB = () => async (dispatch: Dispatch) => {
-   await axios
+export const fetchCartItemsFromDB = () => (dispatch: Dispatch) => {
+   axios
       .get('/cart/fetch-items')
       .then(
          (
@@ -148,9 +152,9 @@ export const fetchCartItemsFromDB = () => async (dispatch: Dispatch) => {
 
 export const increaseOrDecreaseByOne =
    (_id: string, isIncrease: boolean = true) =>
-   async (dispatch: Dispatch, getState: any) => {
+   (dispatch: Dispatch, getState: any) => {
       if (getState().auth.userLoggedIn) {
-         await axios
+         axios
             .patch('/cart/quantity', {
                data: {
                   itemId: _id,

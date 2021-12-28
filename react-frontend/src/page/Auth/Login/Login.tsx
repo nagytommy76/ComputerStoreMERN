@@ -49,7 +49,6 @@ const Login: React.FC = () => {
                dispatch(setUserName(response.data.userName))
                if (response.data.isAdmin) dispatch(setAdmin(true))
                if (cartItems.length > 0) dispatch(fillDBWithCartItemsAfterLogin())
-               setIsLoadingForResponse(false)
                navigate('/')
             }
          })
