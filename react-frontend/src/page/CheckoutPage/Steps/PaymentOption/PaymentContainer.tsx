@@ -16,8 +16,11 @@ const stripePromise = loadStripe(
 const PaymentContainer = () => {
    const dispatch = useAppDispatch()
    const isModalOpen = useAppSelector((state) => state.payment.isPaymentModalOpen)
+   const isCardPaySuccess = useAppSelector((state) => state.payment.isCardPaySuccess)
 
-   const handleCloseModal = () => dispatch(setPaymentModalOpen(false))
+   const handleCloseModal = () => {
+      if (!isCardPaySuccess) dispatch(setPaymentModalOpen(false))
+   }
 
    return (
       <Modal open={isModalOpen} onClose={handleCloseModal}>

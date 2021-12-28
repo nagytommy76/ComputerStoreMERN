@@ -22,11 +22,11 @@ const PaymentSlice = createSlice({
    name: 'payment',
    initialState,
    reducers: {
-      setIsCashPaySuccess: ({ isCashPaySuccess }, { payload }: PayloadAction<boolean>) => {
-         isCashPaySuccess = payload
+      setIsCashPaySuccess: (state, { payload }: PayloadAction<boolean>) => {
+         state.isCashPaySuccess = payload
       },
-      setIsCardPaySuccess: ({ isCardPaySuccess }, { payload }: PayloadAction<boolean>) => {
-         isCardPaySuccess = payload
+      setIsCardPaySuccess: (state, { payload }: PayloadAction<boolean>) => {
+         state.isCardPaySuccess = payload
       },
       setPaymentModalOpen: (state, { payload }: PayloadAction<boolean>) => {
          state.isPaymentModalOpen = payload
@@ -37,6 +37,8 @@ const PaymentSlice = createSlice({
       setDefaultPaymentOptions: (state) => {
          state.selectedPaymentMethod = 'cashOnDelivery'
          state.isPaymentModalOpen = false
+         state.isCashPaySuccess = false
+         state.isCardPaySuccess = false
       }
    }
 })
@@ -51,11 +53,13 @@ export const {
 
 export default PaymentSlice.reducer
 
-export const handleMakeOrderWithCash =
+export const handleMakeOrderWithCardOrCash =
    (
       setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
       setHasError: React.Dispatch<React.SetStateAction<AlertErrorTypes>>,
-      setStartCounter: React.Dispatch<React.SetStateAction<boolean>>
+      setStartCounter: React.Dispatch<React.SetStateAction<boolean>>,
+      paymentMethodId: string | null,
+      pamentMethodType: string
    ) =>
    async (dispatch: Dispatch, getState: any) => {
       const {
@@ -63,18 +67,19 @@ export const handleMakeOrderWithCash =
          cart: { totalPrice },
          deliveryPrice: { type, deliveryPrice }
       } = getState() as RootState
-
+      setIsLoading(true)
       try {
-         setIsLoading(true)
-         const response = await axios.post('/order/handle-order-cash', {
+         const response = await axios.post(`/order/handle-order-${pamentMethodType}`, {
+            // A Stripe csak 999.999.99 Ft-ig engedi a fizetést, ezért nem szorzom 100-zal.....
             amount: totalPrice,
             paymentMethod: selectedPaymentMethod,
             deliveryType: type,
-            deliveryPrice
+            deliveryPrice,
+            id: paymentMethodId
          })
          if (response.status === 200) {
             setIsLoading(false)
-            setIsCashPaySuccess(true)
+            paymentMethodId === 'cash' ? dispatch(setIsCashPaySuccess(true)) : dispatch(setIsCardPaySuccess(true))
             setStartCounter(true)
             setHasError({
                errorMsg: 'A Termékek sikeresen megrendelésre kerültek! Hamarosan átirányítunk a főoldalra!',

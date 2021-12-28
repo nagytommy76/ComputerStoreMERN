@@ -3,7 +3,7 @@ import useError from '../../Hooks/Error'
 import useCounter from '../../Hooks/Counter'
 
 import { useAppDispatch, useAppSelector } from '../../../../../app/hooks'
-import { handleMakeOrderWithCash } from '../../../../../app/slices/Checkout/PaymentSlice'
+import { handleMakeOrderWithCardOrCash, setPaymentModalOpen } from '../../../../../app/slices/Checkout/PaymentSlice'
 
 import LoadingButton from '@mui/lab/LoadingButton'
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow'
@@ -16,17 +16,19 @@ const MakeOrder: React.FC = () => {
    const { hasError, setHasError } = useError()
    const { counter, setStartCounter } = useCounter()
    const [isLoading, setIsLoading] = useState<boolean>(false)
-   const isCashPaySuccess = useAppSelector((state) => state.payment.isCashPaySuccess)
+   const { isCashPaySuccess, isCardPaySuccess } = useAppSelector((state) => state.payment)
+   const selectedPaymentMethod = useAppSelector((state) => state.payment.selectedPaymentMethod)
 
    const handleMakeOrderWithPayment = async () => {
-      await dispatch(handleMakeOrderWithCash(setIsLoading, setHasError, setStartCounter))
-      console.log(isCashPaySuccess)
+      if (selectedPaymentMethod === 'stripeCard') {
+         dispatch(setPaymentModalOpen(true))
+      } else await dispatch(handleMakeOrderWithCardOrCash(setIsLoading, setHasError, setStartCounter, null, 'cash'))
    }
 
    return (
       <>
          <LoadingButton
-            disabled={isCashPaySuccess}
+            disabled={isCashPaySuccess || isCardPaySuccess}
             loadingPosition='end'
             loading={isLoading}
             variant='contained'
