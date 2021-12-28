@@ -144,7 +144,7 @@ export const fetchCartItemsFromDB = () => (dispatch: Dispatch) => {
                      })
                   )
                })
-            } else console.log('nincs bejövő termék az adatbázisból!')
+            }
          }
       )
       .catch((cartErrors) => console.log(cartErrors))

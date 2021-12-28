@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import useError from '../Hooks/Error'
+import useCounter from '../Hooks/Counter'
 import { useNavigate } from 'react-router-dom'
 
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
@@ -29,6 +30,7 @@ const PaymentForm = () => {
    const [isLoading, setIsLoading] = useState<boolean>(false)
    const [paymentWasSuccess, setPaymentWasSuccess] = useState<boolean>(false)
    const { hasError, setHasError } = useError()
+   const { counter, setStartCounter } = useCounter()
 
    const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
    const totalAmount = useAppSelector((state) => state.cart.totalPrice)
@@ -55,25 +57,19 @@ const PaymentForm = () => {
             deliveryPrice: selectedDeliveryTypePrice
          })
          if (response.status === 200) {
+            setStartCounter(true)
             setPaymentWasSuccess(true)
             dispatch(setIsNextBtnDisabled(false))
             setHasError({
-               errorMsg: 'Sikeres fizetés!',
+               errorMsg: 'Sikeres fizetés! Hamarosan átirányítunk a főoldalra!',
                isError: true,
                serverity: 'success'
             })
             setTimeout(() => {
                dispatch(setDefaultPaymentOptions())
                dispatch(resetCartItems())
-               setHasError({
-                  serverity: 'success',
-                  errorMsg: '',
-                  isError: false
-               })
-               setPaymentWasSuccess(false)
-               setIsLoading(false)
                navigate('/')
-            }, 7000)
+            }, 10000)
          }
       } else {
          setHasError({
@@ -126,7 +122,9 @@ const PaymentForm = () => {
                Fizetés és megrendelés
             </LoadingButton>
             <Fade in={hasError.isError}>
-               <Alert severity={hasError.serverity}>{hasError.errorMsg}</Alert>
+               <Alert severity={hasError.serverity}>
+                  {hasError.errorMsg} {counter} mp-en belül!
+               </Alert>
             </Fade>
          </ButtonAndAlertSection>
       </StyledCardForm>

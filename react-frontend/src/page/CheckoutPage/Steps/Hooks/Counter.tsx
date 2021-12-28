@@ -1,7 +1,15 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useAppDispatch } from '../../../../app/hooks'
+
+import { setDefaultPaymentOptions } from '../../../../app/slices/Checkout/PaymentSlice'
+import { removeCartItemsAfterLogout as resetCartItems } from '../../../../app/slices/CartSlice'
 
 const useCounter = () => {
-   const [counter, setCounter] = useState(5)
+   const dispatch = useAppDispatch()
+   const navigate = useNavigate()
+
+   const [counter, setCounter] = useState(10)
    const [startCounter, setStartCounter] = useState<boolean>(false)
 
    useEffect(() => {
@@ -9,9 +17,14 @@ const useCounter = () => {
          counter > 0 && setTimeout(() => setCounter(counter - 1), 1000)
       }
       return () => {
-         if (counter === 0) setStartCounter(false)
+         if (counter === 1) {
+            dispatch(setDefaultPaymentOptions())
+            dispatch(resetCartItems())
+            navigate('/')
+            setStartCounter(false)
+         }
       }
-   }, [counter, startCounter])
+   }, [counter, startCounter, dispatch, navigate])
 
    return { counter, setStartCounter }
 }
