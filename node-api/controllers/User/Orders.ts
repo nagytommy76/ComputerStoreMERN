@@ -11,7 +11,7 @@ type RequestWithUser = Request & {
 }
 
 type PaymentBodyType = {
-   id: string
+   id?: string
    amount: number
    paymentMethod: string
    deliveryType: string
@@ -70,8 +70,7 @@ export const handleUserOrderWithCashPaymentController = async (req: RequestWithU
          })
 
          foundUser.cartItems = []
-
-         // foundUser.save()
+         foundUser.save()
 
          return res.status(200).json({ orderSuccess: true, foundUser })
       }

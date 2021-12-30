@@ -1,5 +1,6 @@
 import React from 'react'
 import { SummaryContainer } from './Styles'
+import { useAppSelector } from '../../../../app/hooks'
 
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
@@ -10,14 +11,15 @@ const MakeOrderButton = React.lazy(() => import('./MakeOrder/MakeOrder'))
 const PaymentContainer = React.lazy(() => import('../PaymentOption/PaymentContainer'))
 
 const SummaryOrder = () => {
+   const selectedPaymentMethod = useAppSelector((state) => state.payment.selectedPaymentMethod)
    return (
       <SummaryContainer>
          <UserDetailsSection />
          <Card>
             <CardContent>
-               <Typography variant='h5'>Fizetve:</Typography>
+               <Typography variant='h5'>Fizetési mód: </Typography>
                <Typography mt={1} variant='body1'>
-                  Bankkártyával, egyelőre hardcoded!!!
+                  {selectedPaymentMethod === 'cashOnDelivery' ? 'Készpénzes fizetés' : 'Bankkártyás fizetés'}
                </Typography>
             </CardContent>
          </Card>
