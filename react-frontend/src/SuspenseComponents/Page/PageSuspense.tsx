@@ -1,10 +1,11 @@
-import React from 'react'
 import styled from 'styled-components'
+
+import CircularProgress from '@mui/material/CircularProgress'
 
 const PageSuspense = () => {
    return (
       <PageConteiner>
-         <Tilte>Töltés...</Tilte>
+         <CircularProgress color='success' size={85} />
       </PageConteiner>
    )
 }
@@ -15,11 +16,6 @@ const PageConteiner = styled.section`
    display: flex;
    align-items: center;
    justify-content: center;
-`
-
-const Tilte = styled.h1`
-   color: hsl(0, 0%, 50%);
-   font-size: 3.5rem;
 `
 
 export default PageSuspense

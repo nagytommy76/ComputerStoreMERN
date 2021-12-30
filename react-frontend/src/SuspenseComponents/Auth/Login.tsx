@@ -1,33 +1,25 @@
-import React from 'react'
-import {
-   AuthContainer,
-   AuthFormStyle,
-   Button,
-   FormTitle,
-   ImageStyle,
-   InputSection,
-   StyledForm,
-   StyledInput,
-   StyledLabel
-} from './BaseStyle'
+import { useAppSelector } from '../../app/hooks'
+
+import { AuthContainer, AuthFormStyle, ImageStyle, InputSection, StyledFormPaper } from './BaseStyle'
+import Skeleton from '@mui/material/Skeleton'
+
 const Login = () => {
+   const isMobileSize = useAppSelector((state) => state.mobile.isMobile)
    return (
       <AuthContainer>
          <AuthFormStyle>
-            <StyledForm>
-               <FormTitle />
+            <StyledFormPaper>
+               <Skeleton height={75} width={220} sx={{ alignSelf: 'center', marginTop: 3 }} />
                <InputSection>
-                  <StyledLabel />
-                  <StyledInput />
+                  <Skeleton height={100} width='93%' />
                </InputSection>
                <InputSection>
-                  <StyledLabel />
-                  <StyledInput />
+                  <Skeleton height={100} width='93%' />
                </InputSection>
-               <Button />
-            </StyledForm>
+               <Skeleton height={80} width={160} sx={{ alignSelf: 'center' }} />
+            </StyledFormPaper>
          </AuthFormStyle>
-         <ImageStyle />
+         {isMobileSize && <ImageStyle />}
       </AuthContainer>
    )
 }
