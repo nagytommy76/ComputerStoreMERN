@@ -12,8 +12,8 @@ const Cpu = () => {
    const cpuProducts = useAppSelector((state) => state.products.products)
 
    return (
-      <PageContainer>
-         <React.Suspense fallback={<Container />}>
+      <React.Suspense fallback={<Container />}>
+         <PageContainer>
             <SideFilter productType='cpu' />
             <RightFlexContainer>
                <CardGridContainer>
@@ -44,8 +44,8 @@ const Cpu = () => {
                </CardGridContainer>
                <Pagination />
             </RightFlexContainer>
-         </React.Suspense>
-      </PageContainer>
+         </PageContainer>
+      </React.Suspense>
    )
 }
 

@@ -13,7 +13,7 @@ export const PageContainer = styled.section`
 
    @media (max-width: ${mobileWindowSize}) {
       flex-direction: column;
-      margin-top: 3rem;
+      margin-top: 6rem;
       align-items: center;
    }
 `

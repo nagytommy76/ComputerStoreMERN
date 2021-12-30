@@ -1,10 +1,7 @@
-import { useAppSelector } from '../../app/hooks'
-
 import { AuthContainer, AuthFormStyle, ImageStyle, InputSection, StyledFormPaper } from './BaseStyle'
 import Skeleton from '@mui/material/Skeleton'
 
 const Login = () => {
-   const isMobileSize = useAppSelector((state) => state.mobile.isMobile)
    return (
       <AuthContainer>
          <AuthFormStyle>
@@ -19,7 +16,7 @@ const Login = () => {
                <Skeleton height={80} width={160} sx={{ alignSelf: 'center' }} />
             </StyledFormPaper>
          </AuthFormStyle>
-         {isMobileSize && <ImageStyle />}
+         <ImageStyle />
       </AuthContainer>
    )
 }

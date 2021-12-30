@@ -1,13 +1,10 @@
-import { useAppSelector } from '../../app/hooks'
-
 import { AuthContainer, AuthFormStyle, ImageStyle, InputSection, StyledFormPaper } from './BaseStyle'
 import Skeleton from '@mui/material/Skeleton'
 
 const Register = () => {
-   const isMobileSize = useAppSelector((state) => state.mobile.isMobile)
    return (
       <AuthContainer data-testid='register-suspense'>
-         {isMobileSize && <ImageStyle />}
+         <ImageStyle />
          <AuthFormStyle>
             <StyledFormPaper>
                <Skeleton height={75} width={220} sx={{ alignSelf: 'center', marginTop: 2 }} />

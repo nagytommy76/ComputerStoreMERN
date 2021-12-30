@@ -48,4 +48,8 @@ export const ImageStyle = styled.section`
    background-repeat: no-repeat;
    background-size: cover;
    height: 100%;
+
+   @media (max-width: ${mobileWindowSize}) {
+      display: none;
+   }
 `

@@ -30,7 +30,7 @@ export const OpenNavbarButton = styled.div`
    left: 10px;
    background: hsl(54, 100%, 46%);
    color: hsl(0, 0%, 21%);
-   z-index: 6;
+   z-index: 11;
    display: flex;
    justify-content: center;
    align-items: center;
