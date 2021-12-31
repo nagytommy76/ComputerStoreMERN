@@ -12,6 +12,7 @@ export const PageContainer = styled.section`
    justify-content: space-between;
 
    @media (max-width: ${mobileWindowSize}) {
+      width: 100%;
       flex-direction: column;
       margin-top: 6rem;
       align-items: center;
@@ -38,5 +39,6 @@ export const CardGridContainer = styled.section`
 
    @media (max-width: ${mobileWindowSize}) {
       width: 100%;
+      min-height: 100%;
    }
 `

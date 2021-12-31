@@ -48,13 +48,13 @@ const ProductCard: React.FC<ProductCardType> = ({
          {ratingCount !== undefined && ratingCount > 0 && <RatingCount ratingCount={ratingCount} />}
          <CardMedia
             sx={{ cursor: 'pointer' }}
-            onClick={() => routeToDetailsPage()}
+            onClick={routeToDetailsPage}
             component='img'
             height='175'
             image={pictureUrls[0]}
             alt='picture'
          />
-         <CardContent sx={{ cursor: 'pointer' }} onClick={() => routeToDetailsPage()}>
+         <CardContent sx={{ cursor: 'pointer' }} onClick={routeToDetailsPage}>
             <SubTitleStyle>{productName}</SubTitleStyle>
             <Typography variant='h5' color='primary'>
                <NumberFormat value={price} thousandSeparator=' ' suffix=' Ft' displayType='text' />

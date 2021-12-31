@@ -25,11 +25,10 @@ const StyledFilterCard = styled(Paper)`
    min-height: 100%;
    margin-top: -1.5rem;
 
-   @media (max-width: ${mobileWindowSize}): {
+   @media (max-width: ${mobileWindowSize}) {
       width: 95%;
-      min-height: 100%;
-      margin-top: -2rem
-      margin-bottom: 2.5rem;
+      height: 100%;
+      margin-top: 1rem;
    }
 `
 

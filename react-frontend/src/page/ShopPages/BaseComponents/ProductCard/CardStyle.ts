@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { Card, styled as MUIStyled } from '@mui/material'
+import { mobileWindowSize } from '../../../../Theme/GlobalStyles'
 
 export const CardWidth = '250px'
 const CardHeight = '350px'
@@ -12,6 +13,9 @@ export const CustomCard = MUIStyled(Card)(() => ({
    transition: 'transform 0.1s',
    '&:hover': {
       transform: 'scale(1.025) translateY(-5px)'
+   },
+   [`@media(max-width: ${mobileWindowSize})`]: {
+      height: '390px'
    }
 }))
 
