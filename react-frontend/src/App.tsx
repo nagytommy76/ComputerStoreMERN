@@ -13,15 +13,15 @@ import { lightTheme, darkTheme } from './Theme/Themes'
 import { useAppDispatch, useAppSelector } from './app/hooks'
 import { fetchCartItemsFromDB } from './app/slices/CartSlice'
 
-import PageSuspense from './SuspenseComponents/Page/PageSuspense'
 import Navbar from './page/Navbar/Navbar'
 import Footer from './page/Footer/Footer'
+import PageSuspense from './SuspenseComponents/Page/PageSuspense'
 
-const Login = lazy(() => import('./page/Auth/Login/Login'))
-const Register = lazy(() => import('./page/Auth/Register/Register'))
-const Welcome = lazy(() => import('./page/Welcome/Welcome'))
-const Page404 = lazy(() => import('./page/404/Page404'))
-const Checkout = lazy(() => import('./page/CheckoutPage/Checkout'))
+const Login = lazy(() => import(/*webpackChunkName: "LoginPage"*/ './page/Auth/Login/Login'))
+const Register = lazy(() => import(/*webpackChunkName: "RegisterPage"*/ './page/Auth/Register/Register'))
+const Welcome = lazy(() => import(/*webpackChunkName: "WelcomePage"*/ './page/Welcome/Welcome'))
+const Page404 = lazy(() => import(/*webpackChunkName: "404Page"*/ './page/404/Page404'))
+const Checkout = lazy(() => import(/*webpackChunkName: "Checkout"*/ './page/CheckoutPage/Checkout'))
 
 const Admin = lazy(() => import('./page/Admin/Admin'))
 

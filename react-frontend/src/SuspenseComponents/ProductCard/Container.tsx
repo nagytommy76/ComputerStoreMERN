@@ -2,7 +2,6 @@ import ProductCard from './ProductCard'
 import styled from 'styled-components'
 import FilterSuspense from '../SideFilter/FilterSuspense'
 import { mobileWindowSize } from '../../Theme/GlobalStyles'
-import { navbarHeight } from '../../page/Navbar/NavbarStyles'
 
 const Container = () => {
    return (
@@ -31,7 +30,6 @@ const Container = () => {
 const PageContainer = styled.section`
    width: 100%;
    min-height: 100vh;
-   margin-top: calc(${navbarHeight} + 1.5rem);
    display: flex;
    flex-direction: row;
    justify-content: space-between;

@@ -5,11 +5,9 @@ const DetailsTable = React.lazy(() => import('./CpuDetailTable'))
 
 const CpuDetails = () => {
    return (
-      <>
-         <ProductDetails>
-            <DetailsTable />
-         </ProductDetails>
-      </>
+      <ProductDetails>
+         <DetailsTable />
+      </ProductDetails>
    )
 }
 
