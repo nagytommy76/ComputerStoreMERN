@@ -13,7 +13,7 @@ import { lightTheme, darkTheme } from './Theme/Themes'
 import { useAppDispatch, useAppSelector } from './app/hooks'
 import { fetchCartItemsFromDB } from './app/slices/CartSlice'
 
-import Navbar from './page/Navbar/Navbar'
+import Navbar from /*webpackChunkName: "Navbar"*/ './page/Navbar/Navbar'
 import Footer from './page/Footer/Footer'
 import PageSuspense from './SuspenseComponents/Page/PageSuspense'
 

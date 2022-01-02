@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, Suspense } from 'react'
 import { useAppSelector } from '../../../app/hooks'
 import { ProductsContainer, ProductCards, PriceSection } from './ProductStyle'
 
@@ -6,6 +6,7 @@ import NumberFormat from 'react-number-format'
 import AddressFormBacground from './AdressBackG.jpg'
 import { useNavigate } from 'react-router-dom'
 
+import ProductCardSuspense from '../../../SuspenseComponents/CheckoutPage/ProductCardSuspense'
 const ProductCard = React.lazy(() => import('./ProductCard/ProductCard'))
 
 const Products = () => {
@@ -21,7 +22,9 @@ const Products = () => {
       <ProductsContainer backgroundImage={AddressFormBacground}>
          <ProductCards>
             {itemsInCart.map((cart) => (
-               <ProductCard key={cart.itemId} currentCartItem={cart} />
+               <Suspense key={cart.itemId} fallback={<ProductCardSuspense />}>
+                  <ProductCard currentCartItem={cart} />
+               </Suspense>
             ))}
          </ProductCards>
          <PriceSection variant='h4' color='primary'>

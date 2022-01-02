@@ -5,7 +5,7 @@ import CircularProgress from '@mui/material/CircularProgress'
 const PageSuspense = () => {
    return (
       <PageConteiner>
-         <CircularProgress color='success' size={85} />
+         <CircularProgress color='success' size={95} />
       </PageConteiner>
    )
 }
