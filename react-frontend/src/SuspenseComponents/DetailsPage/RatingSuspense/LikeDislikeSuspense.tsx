@@ -1,5 +1,6 @@
 import React from 'react'
 import { styled } from '@mui/material'
+import { mobileWindowSize } from '../../../Theme/GlobalStyles'
 
 import Skeleton from '@mui/material/Skeleton'
 
@@ -17,7 +18,11 @@ const RightContent = styled('section')({
    flexDirection: 'column',
    justifyContent: 'space-between',
    width: '65%',
-   paddingLeft: '.9rem'
+   paddingLeft: '.9rem',
+   [`@media(max-width: ${mobileWindowSize})`]: {
+      width: '100%',
+      paddingLeft: 0
+   }
 })
 
 export default LikeDislikeSuspense

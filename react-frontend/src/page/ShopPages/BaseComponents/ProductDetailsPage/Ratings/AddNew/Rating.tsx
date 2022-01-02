@@ -108,7 +108,6 @@ const Rating = () => {
             </RatingContainer>
          </RatingContext.Provider>
       </React.Suspense>
-      // <RatingSuspense />
    )
 }
 

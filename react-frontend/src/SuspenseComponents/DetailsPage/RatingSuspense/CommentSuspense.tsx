@@ -1,5 +1,6 @@
 import React from 'react'
 import { styled } from '@mui/material'
+import { mobileWindowSize } from '../../../Theme/GlobalStyles'
 
 import { CardContentStyle } from './RatingSuspense'
 import LikeDislikeSuspense from './LikeDislikeSuspense'
@@ -33,7 +34,11 @@ const CommentsStyle = styled('section')({
 
 const LeftContent = styled('section')({
    width: '35%',
-   paddingRight: '.9rem'
+   paddingRight: '.9rem',
+   [`@media(max-width: ${mobileWindowSize})`]: {
+      width: '100%',
+      paddingRight: 0
+   }
 })
 
 export default CommentSuspense

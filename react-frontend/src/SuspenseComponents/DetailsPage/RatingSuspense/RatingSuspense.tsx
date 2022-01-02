@@ -6,6 +6,7 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 
 import SummarySuspense from './SummarySuspense'
+import { mobileWindowSize } from '../../../Theme/GlobalStyles'
 
 const RatingSuspense = () => {
    return (
@@ -30,18 +31,28 @@ const RatingStyle = styled('section')({
    minHeight: '40vh',
    display: 'flex',
    flexDirection: 'column',
-   margin: '0 auto'
+   margin: '0 auto',
+   [`@media(max-width: ${mobileWindowSize})`]: {
+      marginTop: '2rem'
+   }
 })
 
 export const CardContentStyle = styled(CardContent)({
    height: '100%',
    display: 'flex',
-   flexDirection: 'row'
+   flexDirection: 'row',
+   [`@media(max-width: ${mobileWindowSize})`]: {
+      flexDirection: 'column'
+   }
 })
 
 const LeftContent = styled('section')({
    width: '50%',
-   paddingRight: '.9rem'
+   paddingRight: '.9rem',
+   [`@media(max-width: ${mobileWindowSize})`]: {
+      width: '100%',
+      paddingRight: 0
+   }
 })
 
 export default RatingSuspense
