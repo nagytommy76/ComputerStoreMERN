@@ -7,8 +7,8 @@ import Skeleton from '@mui/material/Skeleton'
 const BodySection = () => {
    return (
       <BodySectionSuspense>
-         <Skeleton sx={{ flex: 1, marginRight: 1, padding: 0 }} height={500} variant='rectangular' animation='wave' />
-         <Skeleton sx={{ flex: 1, marginLeft: 1 }} height={650} variant='rectangular' animation='wave' />
+         <LeftSkeleton height={500} variant='rectangular' animation='wave' />
+         <RightSkeleton height={650} variant='rectangular' animation='wave' />
       </BodySectionSuspense>
    )
 }
@@ -18,7 +18,26 @@ const BodySectionSuspense = styled('section')({
    display: 'flex',
    flexDirection: 'row',
    [`@media (max-width: ${mobileWindowSize})`]: {
-      flexDirection: 'column'
+      minHeight: '100vh',
+      flexDirection: 'column',
+      justifyContent: 'center'
+   }
+})
+
+const LeftSkeleton = styled(Skeleton)({
+   flex: 1,
+   marginRight: 1,
+   [`@media (max-width: ${mobileWindowSize})`]: {
+      marginRight: 0
+   }
+})
+const RightSkeleton = styled(Skeleton)({
+   flex: 1,
+   marginLeft: 1,
+   [`@media (max-width: ${mobileWindowSize})`]: {
+      marginTop: '2rem',
+      marginLeft: 0,
+      height: 800
    }
 })
 

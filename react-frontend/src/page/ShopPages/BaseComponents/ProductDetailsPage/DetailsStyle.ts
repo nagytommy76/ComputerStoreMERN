@@ -32,6 +32,7 @@ export const HeadSection = styled.section`
    justify-content: center;
    @media (max-width: ${mobileWindowSize}) {
       flex-direction: column;
+      margin-bottom: 1rem;
    }
 `
 

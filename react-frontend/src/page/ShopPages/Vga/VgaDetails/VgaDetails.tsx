@@ -12,7 +12,6 @@ const VgaDetails = () => {
             <VgaDetailTable />
          </ProductDetails>
       </React.Suspense>
-      // <DetailsSuspense />
    )
 }
 

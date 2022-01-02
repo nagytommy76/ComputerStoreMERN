@@ -1,8 +1,12 @@
 import styled from 'styled-components'
+import { mobileWindowSize } from '../../../../../Theme/GlobalStyles'
 
 export const StyledSlideSection = styled.section`
    min-height: 100%;
    flex: 1;
+   @media (max-width: ${mobileWindowSize}) {
+      margin-top: 0.75rem;
+   }
 `
 
 export const StyledImageContainer = styled.div`
