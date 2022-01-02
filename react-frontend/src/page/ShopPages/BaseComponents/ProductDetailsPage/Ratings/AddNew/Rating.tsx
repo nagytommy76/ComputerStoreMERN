@@ -10,6 +10,7 @@ import { LocationType } from '../../../../BaseTypes'
 import { RatingContainer, StyledButton, LeftContent, RightContent, CustomCardContent } from './RatingStyle'
 import { Rating as RatingMU, Typography, TextField, Alert, Grow, Card } from '@mui/material'
 
+import RatingSuspense from '../../../../../../SuspenseComponents/DetailsPage/RatingSuspense/RatingSuspense'
 const RatingSummary = React.lazy(() => import('../Summary/Summary'))
 const Comments = React.lazy(() => import('../Comments/Comments'))
 
@@ -55,56 +56,59 @@ const Rating = () => {
       }
    }
    return (
-      <RatingContext.Provider
-         value={{
-            commentDeletedRequest,
-            setCommentDeletedRequest,
-            commentRequestSend,
-            setCommentRequestSend
-         }}>
-         <RatingContainer>
-            <Card>
-               <CustomCardContent>
-                  <LeftContent>
-                     <Typography variant='h4'>Értékelés leadása</Typography>
-                     <RatingMU
-                        sx={{ fontSize: '2.5rem', margin: '.4rem 0' }}
-                        precision={0.5}
-                        name='simple-controlled'
-                        size='large'
-                        value={rating}
-                        onChange={(event, newValue) => {
-                           setRating(newValue)
-                           if (newValue === null) setHasError({ isError: true, message: 'Kötelező értékelést adni!' })
-                           else setHasError({ isError: false, message: '' })
-                        }}
-                     />
-                     <TextField
-                        fullWidth
-                        id='comment'
-                        variant='filled'
-                        color='success'
-                        label='Hozzászólás'
-                        multiline
-                        rows={7}
-                        value={comment}
-                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => setComment(event.target.value)}
-                     />
-                     <StyledButton onClick={sendRating} color='success' variant='outlined' size='large'>
-                        Értékelés Leadása
-                     </StyledButton>
-                     <Grow in={hasError.isError}>
-                        <Alert severity='error'>{hasError.message}</Alert>
-                     </Grow>
-                  </LeftContent>
-                  <RightContent>
-                     <RatingSummary />
-                  </RightContent>
-               </CustomCardContent>
-            </Card>
-            <Comments />
-         </RatingContainer>
-      </RatingContext.Provider>
+      <React.Suspense fallback={<RatingSuspense />}>
+         <RatingContext.Provider
+            value={{
+               commentDeletedRequest,
+               setCommentDeletedRequest,
+               commentRequestSend,
+               setCommentRequestSend
+            }}>
+            <RatingContainer>
+               <Card>
+                  <CustomCardContent>
+                     <LeftContent>
+                        <Typography variant='h4'>Értékelés leadása</Typography>
+                        <RatingMU
+                           sx={{ fontSize: '2.5rem', margin: '.4rem 0' }}
+                           precision={0.5}
+                           name='simple-controlled'
+                           size='large'
+                           value={rating}
+                           onChange={(event, newValue) => {
+                              setRating(newValue)
+                              if (newValue === null) setHasError({ isError: true, message: 'Kötelező értékelést adni!' })
+                              else setHasError({ isError: false, message: '' })
+                           }}
+                        />
+                        <TextField
+                           fullWidth
+                           id='comment'
+                           variant='filled'
+                           color='success'
+                           label='Hozzászólás'
+                           multiline
+                           rows={7}
+                           value={comment}
+                           onChange={(event: React.ChangeEvent<HTMLInputElement>) => setComment(event.target.value)}
+                        />
+                        <StyledButton onClick={sendRating} color='success' variant='outlined' size='large'>
+                           Értékelés Leadása
+                        </StyledButton>
+                        <Grow in={hasError.isError}>
+                           <Alert severity='error'>{hasError.message}</Alert>
+                        </Grow>
+                     </LeftContent>
+                     <RightContent>
+                        <RatingSummary />
+                     </RightContent>
+                  </CustomCardContent>
+               </Card>
+               <Comments />
+            </RatingContainer>
+         </RatingContext.Provider>
+      </React.Suspense>
+      // <RatingSuspense />
    )
 }
 

@@ -9,6 +9,7 @@ import { formatRatedAtToDateType, RateState } from './Helpers'
 import Collapse from '@mui/material/Collapse'
 import { TransitionGroup } from 'react-transition-group'
 
+import CommentSuspense from '../../../../../../SuspenseComponents/DetailsPage/RatingSuspense/CommentSuspense'
 const SingleComment = React.lazy(() => import('./Includes/SingleComment'))
 
 const Comments: React.FC = () => {
@@ -29,7 +30,9 @@ const Comments: React.FC = () => {
       <TransitionGroup>
          {allComments.map((comment) => (
             <Collapse key={comment._id}>
-               <SingleComment comment={comment} setAllComments={setAllComments} />
+               <React.Suspense fallback={<CommentSuspense />}>
+                  <SingleComment comment={comment} setAllComments={setAllComments} />
+               </React.Suspense>
             </Collapse>
          ))}
       </TransitionGroup>
