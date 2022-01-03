@@ -9,6 +9,7 @@ export const cpuProperties: CpuProductType = {
    price: 0,
    pictureUrls: [],
    inStockQuantity: 0,
+   isHighlighted: false,
    ratingValues: [
       {
          ratedAt: new Date(),

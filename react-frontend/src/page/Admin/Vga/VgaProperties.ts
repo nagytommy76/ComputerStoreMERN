@@ -9,6 +9,7 @@ export const vgaProperties: VgaType = {
    manufacturer: '',
    price: 0,
    inStockQuantity: 0,
+   isHighlighted: false,
    ratingValues: [{ ratedAt: new Date(), rating: 0, userName: '', comment: '' }],
    details: {
       gpuManufacturer: '',

@@ -143,7 +143,7 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
          />
          <CheckBox labelText='Gyári hűtő?' onChangeEvent={handleCheckbox} checked={isCooler} />
          <Fade in={isCooler}>
-            <div style={{ width: '100%' }}>
+            <span>
                <TextOrNumberInput
                   id='cooler'
                   required={false}
@@ -153,8 +153,13 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
                   }
                   value={product.details.stockCoolerName}
                />
-            </div>
+            </span>
          </Fade>
+         <CheckBox
+            checked={product.isHighlighted}
+            labelText='A termék ki legyen emelve a főoldalon?'
+            onChangeEvent={(event) => setProduct({ ...product, isHighlighted: event.target.checked })}
+         />
       </FormContainerStyle>
    )
 }

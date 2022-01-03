@@ -5,12 +5,11 @@ export const StyledCardForm = styled.section`
    height: 100%;
    display: flex;
    flex-direction: column;
-   justify-content: space-around;
+   justify-content: space-evenly;
 `
 
 export const StyledCardContainer = styled.div`
-   height: 20%;
-   padding: 1rem 0;
+   height: 30%;
    display: flex;
    flex-direction: column;
 `

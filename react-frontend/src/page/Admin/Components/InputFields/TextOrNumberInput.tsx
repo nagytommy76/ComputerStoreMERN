@@ -23,6 +23,7 @@ const TextOrNumberInput: React.FC<Props> = ({
 
    return (
       <TextField
+         sx={{ width: '100%' }}
          id={id}
          required={required}
          error={error.hasError}

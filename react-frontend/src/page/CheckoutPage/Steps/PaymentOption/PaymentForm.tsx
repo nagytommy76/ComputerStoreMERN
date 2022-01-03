@@ -96,6 +96,9 @@ const PaymentForm = () => {
                   {hasError.errorMsg} {counter} mp-en belül!
                </Alert>
             </Fade>
+            <Typography variant='subtitle1'>Kártyaszám: 4242 4242 4242 4242</Typography>
+            <Typography variant='subtitle1'>Tetszőleges hónap/év</Typography>
+            <Typography variant='subtitle1'>Irányítószám: 5 karakteres, tetszőleges!</Typography>
          </ButtonAndAlertSection>
       </StyledCardForm>
    )

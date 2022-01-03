@@ -3,6 +3,7 @@ import { FormContainerStyle } from '../../Components/Form/FormStyle'
 import { VgaInputFieldProps } from '../Types'
 import BaseInputs from '../../Components/BaseInputs'
 
+const HighlightedCheck = React.lazy(() => import('../../Components/InputFields/CheckBox/CheckBox'))
 const TextOrNumberInput = React.lazy(() => import('../../Components/InputFields/TextOrNumberInput'))
 
 const BaseInputFields: React.FC<VgaInputFieldProps> = ({ vgaProduct, setVgaProduct, validationErrors }) => {
@@ -190,6 +191,11 @@ const BaseInputFields: React.FC<VgaInputFieldProps> = ({ vgaProduct, setVgaProdu
             onChangeEvent={(event) =>
                setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, manufacturerPageUrl: event.target.value } })
             }
+         />
+         <HighlightedCheck
+            checked={vgaProduct.isHighlighted}
+            labelText='A termék ki legyen emelve a főoldalon?'
+            onChangeEvent={(event) => setVgaProduct({ ...vgaProduct, isHighlighted: event.target.checked })}
          />
       </FormContainerStyle>
    )

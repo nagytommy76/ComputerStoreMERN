@@ -7,6 +7,7 @@ export type BaseProductType = {
    price: number
    pictureUrls: string[]
    inStockQuantity: number
+   isHighlighted: boolean
    ratingValues?: [{ rating: number; comment?: string; ratedAt: Date; userName: string }]
 }
 
