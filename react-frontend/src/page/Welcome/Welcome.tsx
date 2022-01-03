@@ -1,10 +1,20 @@
 import React from 'react'
+import { WelcomeContainer, StyledWelcomeImg, WelcomeMaintitleContainer } from './Styles'
+import WelcomeImg from './Images/Welcome.jpg'
+
+import Typography from '@mui/material/Typography'
 
 const Welcome = () => {
    return (
-      <section style={{ height: '50vh' }}>
-         <h1>Üdvözlő oldal</h1>
-      </section>
+      <WelcomeContainer>
+         <StyledWelcomeImg backgroundimage={WelcomeImg}>
+            <WelcomeMaintitleContainer>
+               <Typography sx={{ color: '#FFF' }} fontSize={45} variant='h2'>
+                  Üdvözlünk a ComputerStore webáruház honlapján
+               </Typography>
+            </WelcomeMaintitleContainer>
+         </StyledWelcomeImg>
+      </WelcomeContainer>
    )
 }
 
