@@ -4,6 +4,8 @@ import { LeftPageContainer } from '../BaseStyle'
 import { StepsContainer } from './Style'
 
 import AddressFormSuspense from '../../../SuspenseComponents/CheckoutPage/AddressFormSuspense'
+import PickUpOrPaymentSuspense from '../../../SuspenseComponents/CheckoutPage/PickUpOrPaymentSuspense'
+import SummarySuspense from '../../../SuspenseComponents/CheckoutPage/SummarySuspense'
 const StepHeader = React.lazy(() => import('./StepHeader'))
 const AdressForm = React.lazy(() => import('./AddressForm/Address'))
 const PickUpOption = React.lazy(() => import('./PickUpOption/PickUp'))
@@ -16,9 +18,15 @@ const LeftStepsContainer = () => {
       <Suspense fallback={<AddressFormSuspense />}>
          <AdressForm />
       </Suspense>,
-      <PickUpOption />,
-      <Payment />,
-      <SummaryOrder />
+      <Suspense fallback={<PickUpOrPaymentSuspense />}>
+         <PickUpOption />
+      </Suspense>,
+      <Suspense fallback={<PickUpOrPaymentSuspense isPickUp={false} />}>
+         <Payment />
+      </Suspense>,
+      <Suspense fallback={<SummarySuspense />}>
+         <SummaryOrder />
+      </Suspense>
    ]
 
    return (
