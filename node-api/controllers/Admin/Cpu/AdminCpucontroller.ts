@@ -30,6 +30,7 @@ export const insertCpuController = async (req: RequestWithBodyType, res: Respons
          manufacturer: req.body.manufacturer,
          price: req.body.price,
          pictureUrls: req.body.pictureUrls,
+         isHighlighted: req.body.isHighlighted,
          details: {
             coreCount: req.body.details.coreCount,
             threadCount: req.body.details.threadCount,
@@ -70,6 +71,7 @@ export const modifyCpuProductController = async (req: Request, res: Response) =>
                cpu.price = req.body.price
                cpu.pictureUrls = req.body.pictureUrls
                cpu.inStockQuantity = req.body.inStockQuantity
+               cpu.isHighlighted = req.body.isHighlighted
                cpu.save()
             }
          })

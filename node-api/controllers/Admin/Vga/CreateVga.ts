@@ -8,6 +8,7 @@ export const returnFilledVgaProductObject = (incomingVga: VgaType) => {
       manufacturer: incomingVga.manufacturer,
       price: incomingVga.price,
       pictureUrls: incomingVga.pictureUrls,
+      isHighlighted: incomingVga.isHighlighted,
       details: {
          gpuManufacturer: incomingVga.details.gpuManufacturer,
          pcieType: incomingVga.details.pcieType,
