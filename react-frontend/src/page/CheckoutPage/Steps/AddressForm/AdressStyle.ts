@@ -19,7 +19,7 @@ export const FormControlRow = styled.div`
    width: 85%;
    margin: 0.7rem 0;
    display: flex;
-   flex-direction: row;
+   /* flex-direction: row; */
    justify-content: space-evenly;
    @media (max-width: ${mobileWindowSize}) {
       flex-direction: column;
