@@ -1,10 +1,5 @@
-3. A Card suspense szintén nem jó...
-
-- A Collapse (Comment Answer-nél) valamiért megváltoztatja a transition idejét téma váltásnál
-
 - Esetleg PDF generálás?!
 
 - Email küldést megvalósítani (Rendelés után, esetleg validálni az emailt)
 
 - Az összes fallback-et (Suspense) vizualizálni, mert most csak a Töltés... van FOLYAMATBAN
-- A NAVBAR-hoz is rakni egy suspense-t ( megjeleníteni amíg tölt a többi?! )

@@ -26,6 +26,7 @@ const Rating = React.lazy(() => import('../../BaseComponents/ProductDetailsPage/
 
 const ProductDetails: React.FC = ({ children }) => {
    let location = useLocation()
+   console.log(location)
    const { manufacturer, price, type, typeCode, details } = location.state as LocationType
 
    const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)

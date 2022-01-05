@@ -24,5 +24,5 @@ ReactDOM.render(
          </PersistGate>
       </Provider>
    </React.StrictMode>,
-   document.getElementById('root')
+   document.getElementById('root') || document.createElement('div') // A teszteléshez kell
 )

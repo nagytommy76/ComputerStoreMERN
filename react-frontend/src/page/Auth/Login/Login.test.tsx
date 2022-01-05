@@ -1,4 +1,4 @@
-import { render, screen, act } from '../../../test-utils'
+import { render, screen, waitForElementToBeRemoved } from '../../../test-utils'
 import userEvent from '@testing-library/user-event'
 import Login from './Login'
 import axios from 'axios'
@@ -32,6 +32,7 @@ describe('Login', () => {
       render(<Login />)
    })
    test('renders the login form with 2 input fields', async () => {
+      await waitForElementToBeRemoved(() => screen.queryByTestId('loadingSuspense'))
       await screen.findByRole('button', { name: /Belépés/i })
       await screen.findByText(/Email cím/)
       await screen.findByText(/Jelszó/)

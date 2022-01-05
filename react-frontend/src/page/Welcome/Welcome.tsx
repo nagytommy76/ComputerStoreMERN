@@ -9,11 +9,12 @@ const Welcome = () => {
       <WelcomeContainer>
          <StyledWelcomeImg backgroundimage={WelcomeImg}>
             <WelcomeMaintitleContainer>
-               <Typography sx={{ color: '#FFF' }} fontSize={45} variant='h2'>
+               <Typography sx={{ color: '#FFF' }} fontSize={65} variant='h2'>
                   Üdvözlünk a ComputerStore webáruház honlapján
                </Typography>
             </WelcomeMaintitleContainer>
          </StyledWelcomeImg>
+         <h1>Kiemelt termékek helye</h1>
       </WelcomeContainer>
    )
 }

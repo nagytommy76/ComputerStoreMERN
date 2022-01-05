@@ -3,8 +3,8 @@ import CpuDetails from './CpuDetails'
 
 function mockFunction() {
    return {
-      ...jest.requireActual('react-router'),
-      useLocation: jest.fn().mockReturnValue({
+      ...jest.requireActual('react-router-dom'),
+      useLocation: /*jest.fn().mockReturnValue(*/ () => ({
          pathname: '/cpu/cpu-details',
          search: '',
          hash: '',
@@ -13,22 +13,43 @@ function mockFunction() {
             price: 31200,
             type: 'Ryzen 3 1200',
             typeCode: 'YD1200BBAEBOX',
-            details: {}
+            pictureUrls: [
+               'https://media.icdn.hu/product/GalleryMod/2018-04/464322/resp/979059_amd_ryzen_3_2200g_350ghz_am4_box.webp'
+            ],
+            details: {
+               TDP: 65,
+               architecture: '14 nm',
+               baseClock: 3100,
+               boostClock: 3400,
+               coreCount: 4,
+               cpuCodeName: '',
+               description:
+                  'AMD Ryzen 3 1200 3.10GHz AM4 dobozos processzor Wraith Stealth hűtővel.\n\n- Alap proci sebesség: 3.1 GHz\n- Max turbó proci sebesség: 3.4 GHz\n- L1 cache: 384 KB\n- L2 cache: 2 MB\n- L3 cache: 8 MB\n- TDP: 65 watt\n- Max. memória sebesség: 2667 MHz\n- Memória típus: DDR4\n- Memória csatorna: 2\n\nKompatibilis AM4 foglalatú alaplapok:\n\n- A320 chipset\n- B350 chipset\n- B450 chipset\n- X370 chipset\n- X470 chipset',
+               integratedGraphicsName: 'Nem',
+               l2Cache: 2,
+               l3Cache: 8,
+               manufacturerPageUrl: 'https://www.amd.com/en/products/cpu/amd-ryzen-3-1200',
+               socket: 'AM4',
+               stockCooler: false,
+               stockCoolerName: 'Wraith Stealth',
+               threadCount: 4,
+               warranity: 36
+            }
          },
          key: '5nvxpbdafa'
       })
    }
 }
 
-jest.mock('react-router', () => mockFunction())
+jest.mock('react-router-dom', () => mockFunction())
 
-// describe('Cpu details page testing', () => {
-//    test('should display the CPU details properly', async () => {
-//       render(<CpuDetails />)
-//       // await waitForElementToBeRemoved(() => screen.getByRole('heading', { name: /Töltés/i }))
-//       await screen.findByRole('heading', { name: /AMD Ryzen 3 1200 YD1200BBAEBOX/i })
-//       screen.debug()
-//    })
-// })
+describe('Cpu details page testing', () => {
+   test('should display the CPU details properly', async () => {
+      render(<CpuDetails />)
+      await waitForElementToBeRemoved(() => screen.getByTestId('detailsSuspense'))
+      // await screen.findByRole('heading', { name: /AMD Ryzen 3 1200 YD1200BBAEBOX/i })
+      // screen.debug()
+   })
+})
 
-test.todo('Cpu details')
+// test.todo('Cpu details')

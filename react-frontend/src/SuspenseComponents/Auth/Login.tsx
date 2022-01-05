@@ -5,7 +5,7 @@ const Login = () => {
    return (
       <AuthContainer>
          <AuthFormStyle>
-            <StyledFormPaper>
+            <StyledFormPaper data-testid='loadingSuspense'>
                <Skeleton height={75} width={220} sx={{ alignSelf: 'center', marginTop: 3 }} />
                <InputSection>
                   <Skeleton height={100} width='93%' />

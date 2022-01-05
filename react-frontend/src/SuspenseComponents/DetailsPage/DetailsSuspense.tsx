@@ -11,7 +11,7 @@ import { mobileWindowSize } from '../../Theme/GlobalStyles'
 
 const DetailsSuspense = () => {
    return (
-      <DetailsPage>
+      <DetailsPage data-testid='detailsSuspense'>
          <TopNavSuspense />
          <HeadSection>
             <ImageSection>

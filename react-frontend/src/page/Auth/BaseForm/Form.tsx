@@ -22,6 +22,8 @@ const Form: React.FC<Props> = ({ title, onSubmitEvent, buttonText, children, isL
          <FormConrolStyle>
             {children}
             <LoadingButton
+               id='loginButton'
+               title={buttonText}
                endIcon={<SendIcon />}
                loadingPosition='end'
                loading={isLoadingButton}
