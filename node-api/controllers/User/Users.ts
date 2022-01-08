@@ -2,11 +2,15 @@ import { Request, Response } from 'express'
 import { User } from '../../models/User/User'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from '../../config/endpoints.config'
+import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET, EMAIL_SECRET } from '../../config/endpoints.config'
 import { validationResult } from 'express-validator'
 
+import { sendEmailWhenUserRegisters } from '../../config/Mail/nodemailer'
+
 export const registerUserController = async (req: Request, res: Response) => {
-   const checkUserRegistered = await User.findOne({ email: req.body.email, userName: req.body.userName })
+   const userName = req.body.userName
+   const email = req.body.email
+   const checkUserRegistered = await User.findOne({ email, userName })
    if (checkUserRegistered != null) return res.status(404).json(ErrorResponse(true, 'Az email cím már regisztrálva lett'))
    const validationErrors = validationResult(req)
    if (!validationErrors.isEmpty()) {
@@ -15,23 +19,33 @@ export const registerUserController = async (req: Request, res: Response) => {
    }
    try {
       const hashedPass = await bcrypt.hash(req.body.firstPassword, 10)
+      const emailToken = jwt.sign({ userName, email }, EMAIL_SECRET, { expiresIn: '1d' })
+      const emailInfo = await sendEmailWhenUserRegisters(email, 'Tesztelés, semmi más', userName, emailToken)
       await User.create({
-         userName: req.body.userName,
+         userName,
          password: hashedPass,
-         email: req.body.email
+         email
       })
-      res.sendStatus(201)
+      res.status(201).json(emailInfo)
    } catch (error) {
       res.status(500).json(error)
    }
 }
 
+/**
+ * Generálni egy emailToken-t (jwt.sign), ami valid lesz míg rá nem mész az email címeden a linkre ami tartalmazza ezt a tokent
+ * a link átirányít egy frontend oldalra, pl confirm-email
+ * ott automatikusan be kéne illeszteni az input mezőbe, majd elküldeni a backend felé validálni
+ * ha mindez siker, átállítani az isEmailConfirmed mezőt, true ra.
+ * a Login page-en egy email újraküldés, ha esetleg nem jött meg a mail
+ */
+
 export const loginUserController = async (req: Request, res: Response) => {
    const user = await User.findOne({ $or: [{ email: req.body.email }, { userName: req.body.email }] })
 
-   if (!user) {
-      return res.status(404).json(ErrorResponse(true, 'Nincs regszitrálva ilyen felhasználó'))
-   }
+   if (!user) return res.status(404).json(ErrorResponse(true, 'Nincs regszitrálva ilyen felhasználó'))
+   if (!user.isEmailConfirmed) return res.status(403).json({ msg: 'az email címed még nem lett regsiztrálva!' })
+
    try {
       if (await bcrypt.compare(req.body.password, user.password)) {
          const accessToken = generateTokens(user._id, user.userName, user.isAdmin, user.email, ACCESS_TOKEN_SECRET)
@@ -39,7 +53,6 @@ export const loginUserController = async (req: Request, res: Response) => {
          res.status(200).json({ accessToken, refreshToken, userId: user._id, userName: user.userName, isAdmin: user.isAdmin })
       } else res.status(404).json(ErrorResponse(true, 'Helytelen jelszó', 'password'))
    } catch (error) {
-      console.log(error)
       res.status(403).json(error)
    }
 }

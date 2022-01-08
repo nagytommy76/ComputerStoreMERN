@@ -16,6 +16,7 @@ const UserSchema = new Schema<UserTypes>({
    },
    isAdmin: { type: Boolean, default: false }
 }).add({
+   isEmailConfirmed: { type: Boolean, default: false },
    orders: [
       {
          orderedAt: { type: Date, default: new Date() },

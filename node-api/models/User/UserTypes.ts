@@ -5,6 +5,7 @@ export type UserTypes = {
    email: string
    password: string
    isAdmin: boolean
+   isEmailConfirmed: boolean
    cartItems: CartItemsType[]
    userDetails: UserDetailsTypes
    orders: UserOrders
