@@ -1,7 +1,11 @@
 import { render, screen, waitForElementToBeRemoved } from '../../../../test-utils'
 import CpuDetails from './CpuDetails'
+import axios from 'axios'
+jest.mock('axios')
+const mockedAxios = axios as jest.Mocked<typeof axios>
 
 const stateObject = {
+   _id: '6145d79d432f8737d0db1ab1',
    manufacturer: 'AMD',
    price: 31200,
    type: 'Ryzen 3 1200',
@@ -28,6 +32,32 @@ const stateObject = {
    }
 }
 
+const mockResolvedCpuRatings = {
+   status: 200,
+   data: {
+      avgRating: 4.1666666666667,
+      rateCount: 3
+   }
+}
+const mockResolvedCpuComments = {
+   status: 200,
+   data: [
+      {
+         comment: 'Az árához képest so-so',
+         commentAnswers: [],
+         ratedAt: '2021-09-28T17:09:28.765Z',
+         rating: 2.5,
+         responses: [
+            { _id: '61535adc634bea29b4542ab1', isLike: false, userId: '6134ac45824b6c129cd0859b' },
+            { _id: '6159bb7d95d8e103842d13af', isLike: true, userId: '60f3f0b9c7f8211424864a2c' }
+         ],
+         userId: '614f39ce51587c3450377112',
+         userName: 'senki321',
+         _id: '61534c48f49a34129c48c0fc'
+      }
+   ]
+}
+
 jest.mock('react-router-dom', () => ({
    ...jest.requireActual('react-router-dom'),
    useLocation: () => ({
@@ -41,15 +71,18 @@ jest.mock('react-router-dom', () => ({
 
 describe('Cpu details page testing', () => {
    beforeEach(() => {
+      mockedAxios.get.mockResolvedValue(mockResolvedCpuComments).mockResolvedValue(mockResolvedCpuRatings)
       render(<CpuDetails />)
    })
-   test('should display the CPU details header without an error', async () => {
+   test('should display the CPU details without any error', async () => {
       await waitForElementToBeRemoved(() => screen.queryByTestId('detailsSuspense'))
       await screen.findByRole('heading', { name: /AMD Ryzen 3 1200 YD1200BBAEBOX/i })
-   })
-   // test('should display some information about the product', async () => {
-   // await screen.findByRole('paragraph', { name: `${stateObject.details.warranity} hónap gyári garanciával` })
-   // })
-})
+      await screen.findByText(`${stateObject.details.warranity} hónap gyári garanciával`)
+      // Table
+      await screen.findByRole('cell', { name: /garancia/i })
+      await screen.findByRole('cell', { name: /36 Hónap/i })
 
-// test.todo('Cpu details')
+      await screen.findByRole('cell', { name: /grafikus vezérlő/i })
+      await screen.findByRole('cell', { name: /nem/i })
+   })
+})

@@ -2,7 +2,6 @@ import { render, screen, waitForElementToBeRemoved } from '../../../test-utils'
 import userEvent from '@testing-library/user-event'
 import Cpu from './Cpu'
 import axios from 'axios'
-import { cleanup } from '@testing-library/react'
 jest.mock('axios')
 const mockedAxios = axios as jest.Mocked<typeof axios>
 

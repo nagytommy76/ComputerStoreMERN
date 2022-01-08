@@ -21,10 +21,13 @@ const Comments: React.FC = () => {
    const [allComments, setAllComments] = useState<RateState[]>([])
 
    useEffect(() => {
-      axios.get(`/${productType}/get-${productType}-comments`, { params: { _id } }).then((result: AxiosResponse<RateState[]>) => {
-         const ratedAtFormattedToDate = formatRatedAtToDateType(result.data)
-         setAllComments(ratedAtFormattedToDate)
-      })
+      axios
+         .get(`/${productType}/get-${productType}-comments`, { params: { _id } })
+         .then((result: AxiosResponse<RateState[]>) => {
+            const ratedAtFormattedToDate = formatRatedAtToDateType(result.data)
+            setAllComments(ratedAtFormattedToDate)
+         })
+         .catch((error) => console.log(error))
    }, [_id, commentRequestSend, productType])
    return (
       <TransitionGroup>
