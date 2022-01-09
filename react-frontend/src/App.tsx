@@ -19,6 +19,8 @@ import PageSuspense from './SuspenseComponents/Page/PageSuspense'
 
 const Login = lazy(() => import(/*webpackChunkName: "LoginPage"*/ './page/Auth/Login/Login'))
 const Register = lazy(() => import(/*webpackChunkName: "RegisterPage"*/ './page/Auth/Register/Register'))
+const EmailValidation = lazy(() => import(/*webpackChunkName: "EmailValidation"*/ './page/Auth/Validation/EmailValidation'))
+
 const Welcome = lazy(() => import(/*webpackChunkName: "WelcomePage"*/ './page/Welcome/Welcome'))
 const Page404 = lazy(() => import(/*webpackChunkName: "404Page"*/ './page/404/Page404'))
 const Checkout = lazy(() => import(/*webpackChunkName: "Checkout"*/ './page/CheckoutPage/Checkout'))
@@ -83,6 +85,7 @@ const App = () => {
                               </GuestsRoute>
                            }
                         />
+                        <Route path='/email-confirm/:confirmCode' element={<EmailValidation />} />
                         <Route
                            path='/checkout'
                            element={

@@ -1,3 +1,5 @@
+- A scroll-nak valami design-t adni
+
 - Esetleg PDF generálás?!
 
 - Email küldést megvalósítani (Rendelés után, esetleg validálni az emailt)
