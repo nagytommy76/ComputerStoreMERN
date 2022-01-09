@@ -45,8 +45,12 @@ const Register = () => {
                secondPassword: secondPassword.value
             })
             .then((response: AxiosResponse) => {
-               if (response.status === 201) setIsLoadingForResponse(false)
-               navigate('/login', { state: { isSuccess: true, message: 'A regisztráció sikeres volt - beléphetsz!' } })
+               if (response.status === 201) {
+                  setIsLoadingForResponse(false)
+                  navigate('/login', {
+                     state: { isSuccess: true, message: response.data.message }
+                  })
+               }
             })
             .catch((error: AxiosError) => {
                setIsLoadingForResponse(false)

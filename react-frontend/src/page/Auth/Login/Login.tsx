@@ -1,5 +1,6 @@
 import axios, { AxiosResponse, AxiosError } from 'axios'
-import React, { useState, Suspense } from 'react'
+import React, { useState, Suspense, useEffect } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'
 import { setUserLoggedIn, setAccessToken, setUserId, setUserName, setRefreshToken, setAdmin } from '../../../app/slices/AuthSlice'
@@ -12,17 +13,28 @@ import { ImageStyle, AuthContainer, AuthFormStyle } from '../BaseForm/BaseStyle'
 import LoginSuspense from '../../../SuspenseComponents/Auth/Login'
 
 import TextField from '@mui/material/TextField'
-import { useNavigate } from 'react-router-dom'
+import Alert from '@mui/material/Alert'
+import Fade from '@mui/material/Fade'
 
 const LoginForm = React.lazy(() => import('../BaseForm/Form'))
 
 const Login: React.FC = () => {
    const dispatch = useAppDispatch()
    const navigate = useNavigate()
+   const location = useLocation()
+
    const cartItems = useAppSelector((state) => state.cart.cartItems)
    const [isLoadingForResponse, setIsLoadingForResponse] = useState<boolean>(false)
    const [email, setEmail] = useState<InputTypes>({ value: '', hasError: false, errorMessage: '' })
    const [password, setPassword] = useState<InputTypes>({ value: '', hasError: false, errorMessage: '' })
+   const [validationError, setValidationError] = useState({ isSuccess: false, message: '' })
+
+   useEffect(() => {
+      if (location.state !== null) {
+         const { isSuccess, message } = location.state as { isSuccess: boolean; message: string }
+         setValidationError({ isSuccess, message })
+      }
+   }, [location.state])
 
    const resetErrors = () => {
       setEmail({ ...email, errorMessage: '', hasError: false })
@@ -103,6 +115,11 @@ const Login: React.FC = () => {
                      value={password.value}
                      onChange={(e) => setPassword({ ...password, value: e.target.value })}
                   />
+                  <Fade in={validationError.isSuccess}>
+                     <Alert variant='outlined' color='success'>
+                        {validationError.message}
+                     </Alert>
+                  </Fade>
                </LoginForm>
             </AuthFormStyle>
             <ImageStyle image={loginImage} />

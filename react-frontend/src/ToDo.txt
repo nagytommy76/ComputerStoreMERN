@@ -3,3 +3,7 @@
 - Email küldést megvalósítani (Rendelés után, esetleg validálni az emailt)
 
 - Az összes fallback-et (Suspense) vizualizálni, mert most csak a Töltés... van FOLYAMATBAN
+
+
+- A regisztráció után nincs egy Alert, hogy sikerült a folyamat, KÉNE!
+
