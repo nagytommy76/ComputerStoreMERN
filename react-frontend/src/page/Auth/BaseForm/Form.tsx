@@ -12,7 +12,7 @@ type Props = {
    isLoadingButton: boolean
 }
 
-const AlertSection = React.lazy(() => import('./AlertSection'))
+const AxiosAlertSection = React.lazy(() => import('./AlertSection'))
 
 const Form: React.FC<Props> = ({ title, onSubmitEvent, buttonText, children, isLoadingButton }) => {
    const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
@@ -23,7 +23,6 @@ const Form: React.FC<Props> = ({ title, onSubmitEvent, buttonText, children, isL
             {children}
             <LoadingButton
                id='loginButton'
-               title={buttonText}
                endIcon={<SendIcon />}
                loadingPosition='end'
                loading={isLoadingButton}
@@ -34,7 +33,7 @@ const Form: React.FC<Props> = ({ title, onSubmitEvent, buttonText, children, isL
                size='large'>
                {buttonText}
             </LoadingButton>
-            <AlertSection />
+            <AxiosAlertSection />
          </FormConrolStyle>
       </StyledForm>
    )

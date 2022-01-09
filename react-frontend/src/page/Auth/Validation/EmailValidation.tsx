@@ -1,16 +1,31 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import axios from 'axios'
+import { useParams, useNavigate } from 'react-router-dom'
 
 import { AuthContainer, AuthFormStyle } from '../BaseForm/BaseStyle'
 
 import TextField from '@mui/material/TextField'
 
 const ValidateForm = React.lazy(() => import('../BaseForm/Form'))
+const ErrorAlert = React.lazy(() => import('./ErrorAlert'))
 
 const EmailValidation = () => {
    let params = useParams() as { confirmCode: string }
+   const navigate = useNavigate()
+
    const [code, setCode] = useState<string>('')
    const [isPending, setIsPending] = useState<boolean>(false)
+   const [errors, setErrors] = useState<{
+      hasError: boolean
+      messageTitle: string
+      message?: string
+      errorType?: 'jwt expired' | 'invalid signature'
+   }>({
+      hasError: false,
+      messageTitle: '',
+      message: '',
+      errorType: 'jwt expired'
+   })
 
    useEffect(() => {
       if (params) setCode(params.confirmCode)
@@ -18,9 +33,32 @@ const EmailValidation = () => {
 
    const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => setCode(event.target.value)
 
-   const handleValidationForm = (event: React.FormEvent) => {
+   const handleValidationForm = async (event: React.FormEvent) => {
       event.preventDefault()
-      console.log('Küldés')
+      setIsPending(true)
+      try {
+         const verificationResponse = await axios.post('/auth/confirm-email', { confirmCode: code })
+         if (verificationResponse.status === 200) {
+            navigate('/login', { state: { isSuccess: true, message: 'Sikeres email megerősítés, most már beléphetsz!' } })
+         }
+         setIsPending(false)
+      } catch (error) {
+         if (axios.isAxiosError(error)) {
+            console.log({ ...error })
+            if (error.response?.status === 403) {
+               error.response.data.errorMsg === 'jwt expired' &&
+                  setErrors({
+                     hasError: true,
+                     messageTitle: 'Eltelt 15 perc! Lejárt a kód!',
+                     message: 'Kérlek kérj egy új emailt a lenti gombbal.',
+                     errorType: 'jwt expired'
+                  })
+               error.response.data.errorMsg === 'invalid signature' &&
+                  setErrors({ hasError: true, messageTitle: 'Helytelen megerősítő kód!', errorType: 'invalid signature' })
+            }
+            setIsPending(false)
+         } else console.log(error)
+      }
    }
 
    return (
@@ -40,6 +78,7 @@ const EmailValidation = () => {
                   value={code}
                   onChange={handleChange}
                />
+               <ErrorAlert hasError={errors.hasError} errorMsgTitle={errors.messageTitle} message={errors.message} />
             </ValidateForm>
          </AuthFormStyle>
          <p>Kép helye</p>
