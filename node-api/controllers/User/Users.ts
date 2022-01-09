@@ -10,23 +10,26 @@ import { sendEmailWhenUserRegisters } from '../../config/Mail/nodemailer'
 export const registerUserController = async (req: Request, res: Response) => {
    const userName = req.body.userName
    const email = req.body.email
+
    const checkUserRegistered = await User.findOne({ email, userName })
    if (checkUserRegistered != null) return res.status(404).json(ErrorResponse(true, 'Az email cím már regisztrálva lett'))
+
    const validationErrors = validationResult(req)
-   if (!validationErrors.isEmpty()) {
-      res.status(422).json({ errors: validationErrors.array() })
-      return
-   }
+   if (!validationErrors.isEmpty()) return res.status(422).json({ errors: validationErrors.array() })
+
    try {
       const hashedPass = await bcrypt.hash(req.body.firstPassword, 10)
-      const emailToken = jwt.sign({ userName, email }, EMAIL_SECRET, { expiresIn: '1d' })
+      const emailToken = jwt.sign({ userName, email }, EMAIL_SECRET, { expiresIn: '30min' })
       const emailInfo = await sendEmailWhenUserRegisters(email, 'Tesztelés, semmi más', userName, emailToken)
+
       await User.create({
          userName,
          password: hashedPass,
          email
       })
-      res.status(201).json(emailInfo)
+      res.status(201).json({
+         message: 'A regisztráció sikeres volt - Az email címedre megküldtük a regisztráció megerősítéhez szükséges kódot!'
+      })
    } catch (error) {
       res.status(500).json(error)
    }
@@ -44,7 +47,8 @@ export const loginUserController = async (req: Request, res: Response) => {
    const user = await User.findOne({ $or: [{ email: req.body.email }, { userName: req.body.email }] })
 
    if (!user) return res.status(404).json(ErrorResponse(true, 'Nincs regszitrálva ilyen felhasználó'))
-   if (!user.isEmailConfirmed) return res.status(403).json({ msg: 'az email címed még nem lett regsiztrálva!' })
+   if (!user.isEmailConfirmed)
+      return res.status(403).json(ErrorResponse(true, 'Az email címed még nem lett regsiztrálva! Kérlek erősítsd meg!'))
 
    try {
       if (await bcrypt.compare(req.body.password, user.password)) {
@@ -79,7 +83,7 @@ export const checkTokensValidityController = (req: Request, res: Response) => {
  * @param expiresIn string
  * @returns an accessToken or refreshToken with the passed in user's data
  */
-export const generateTokens = (
+const generateTokens = (
    userId: string,
    userName: string,
    isAdmin: boolean,
@@ -93,11 +97,11 @@ export const generateTokens = (
 export const ErrorResponse = (
    hasError: boolean,
    errorMessage: string = '',
-   errorType: string = 'email',
-   message: string = ''
+   errorType: string = 'email'
+   // message: string = ''
 ) => {
    return {
-      message,
+      // message,
       errorType,
       hasError,
       errorMessage
