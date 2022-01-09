@@ -2,6 +2,7 @@ import nodemailer from 'nodemailer'
 
 const mailUser = process.env.MAILTRAP_USER
 const mailPass = process.env.MAILTRAP_PASS
+export const EMAIL_TOKEN_EXPIRESIN = '15'
 
 let transport = nodemailer.createTransport({
    host: 'smtp.mailtrap.io',
@@ -21,8 +22,9 @@ export const sendEmailWhenUserRegisters = async (to: string, subject: string, us
       html: `
          <h1>Kedves ${userName}! Kérlek aktiváld az email címed</h1>
          <br>
-         <a href="http://localhost:3000/email-confirm/${confirmationCode}">Ezen a linken keresztül tudod megtenni</a>
+         <a href="http://localhost:3000/email-confirm/${confirmationCode}">Ezen a linken keresztül tudod megtenni</a><br>
          <p>Ha nem működik, másold be a keresősávba: http://localhost:3000/email-confirm/${confirmationCode}</p>
+         <h5>A kód ${EMAIL_TOKEN_EXPIRESIN} percig érvényes!</h5>
       ` // html body
    })
    return info

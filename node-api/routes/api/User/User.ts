@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express'
 import { UserTypes } from '../../../models/User/UserTypes'
+
 import { ValidateRegister } from './Validators/UserValidator'
 import { insertUserDetailsValidator } from './Validators/UserDetailsValidator'
 
@@ -8,6 +9,7 @@ import { checkErrors } from '../../../middlewares/CheckValidationErrors'
 import { checkUserIsFound } from '../../../middlewares/CheckUserIsFound'
 
 import { registerUserController, loginUserController, checkTokensValidityController } from '../../../controllers/User/Users'
+import { ValidateEmailRegistrationController } from '../../../controllers/User/EmailValidation'
 import {
    insertUserDetailsController,
    getUserDetailsController,
@@ -21,11 +23,10 @@ type RequestWithUser = Request & {
 const router = express.Router()
 
 router.post('/register', ValidateRegister, registerUserController)
-
 router.post('/login', loginUserController)
+router.post('/confirm-email', ValidateEmailRegistrationController)
 
 router.post('/refresh-token', checkTokensValidityController)
-
 router.post('/check-access-token', authenticateAccessToken, (req: RequestWithUser, res: Response) => {
    return res.json({ msg: 'sikeres authentikáció' })
 })
