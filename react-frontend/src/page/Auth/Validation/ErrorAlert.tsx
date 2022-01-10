@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 
 import Alert from '@mui/material/Alert'
 import AlertTitle from '@mui/material/AlertTitle'
@@ -7,14 +8,25 @@ import Fade from '@mui/material/Fade'
 import LoadingButton from '@mui/lab/LoadingButton'
 import EmailIcon from '@mui/icons-material/Email'
 
-const ErrorAlert: React.FC<{ hasError: boolean; errorMsgTitle: string; message?: string }> = ({
+const ErrorAlert: React.FC<{ hasError: boolean; errorMsgTitle: string; message?: string; validationCode: string }> = ({
    hasError,
    errorMsgTitle,
-   message
+   message,
+   validationCode
 }) => {
    const [isPending, setIsPending] = useState<boolean>(false)
-   const handleResendEmail = () => {
-      console.log('email újraküldése')
+   const handleResendEmail = async () => {
+      setIsPending(true)
+      try {
+         const emailResendResponse = await axios.post('/auth/resend-email', { confirmCode: validationCode })
+         console.log(emailResendResponse)
+         setIsPending(false)
+      } catch (error) {
+         if (axios.isAxiosError(error)) {
+            console.log(error)
+            setIsPending(false)
+         }
+      }
    }
 
    return (

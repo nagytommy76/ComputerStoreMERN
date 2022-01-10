@@ -38,6 +38,7 @@ const EmailValidation = () => {
       setIsPending(true)
       try {
          const verificationResponse = await axios.post('/auth/confirm-email', { confirmCode: code })
+         console.log(verificationResponse)
          if (verificationResponse.status === 200) {
             navigate('/login', { state: { isSuccess: true, message: 'Sikeres email megerősítés, most már beléphetsz!' } })
          }
@@ -54,7 +55,11 @@ const EmailValidation = () => {
                      errorType: 'jwt expired'
                   })
                error.response.data.errorMsg === 'invalid signature' &&
-                  setErrors({ hasError: true, messageTitle: 'Helytelen megerősítő kód!', errorType: 'invalid signature' })
+                  setErrors({
+                     hasError: true,
+                     messageTitle: 'Helytelen megerősítő kód! Kérlek ellenőrizd, vagy kérj egy újat!',
+                     errorType: 'invalid signature'
+                  })
             }
             setIsPending(false)
          } else console.log(error)
@@ -78,7 +83,12 @@ const EmailValidation = () => {
                   value={code}
                   onChange={handleChange}
                />
-               <ErrorAlert hasError={errors.hasError} errorMsgTitle={errors.messageTitle} message={errors.message} />
+               <ErrorAlert
+                  validationCode={code}
+                  hasError={errors.hasError}
+                  errorMsgTitle={errors.messageTitle}
+                  message={errors.message}
+               />
             </ValidateForm>
          </AuthFormStyle>
          <p>Kép helye</p>
