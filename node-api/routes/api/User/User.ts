@@ -9,7 +9,7 @@ import { checkErrors } from '../../../middlewares/CheckValidationErrors'
 import { checkUserIsFound } from '../../../middlewares/CheckUserIsFound'
 
 import { registerUserController, loginUserController, checkTokensValidityController } from '../../../controllers/User/Users'
-import { ValidateEmailRegistrationController } from '../../../controllers/User/EmailValidation'
+import { ResendEmailController, ValidateEmailRegistrationController } from '../../../controllers/User/EmailValidation'
 import {
    insertUserDetailsController,
    getUserDetailsController,
@@ -25,6 +25,7 @@ const router = express.Router()
 router.post('/register', ValidateRegister, registerUserController)
 router.post('/login', loginUserController)
 router.post('/confirm-email', ValidateEmailRegistrationController)
+router.post('/resend-email', ResendEmailController)
 
 router.post('/refresh-token', checkTokensValidityController)
 router.post('/check-access-token', authenticateAccessToken, (req: RequestWithUser, res: Response) => {

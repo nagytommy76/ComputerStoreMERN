@@ -18,7 +18,6 @@ export const sendEmailWhenUserRegisters = async (to: string, subject: string, us
       from: '"Comuter Store email regisztráció! 👻" <computer@store.hu>', // sender address
       to, // list of receivers
       subject, // Subject line
-      text: 'Hello world?', // plain text body
       html: `
          <h1>Kedves ${userName}! Kérlek aktiváld az email címed</h1>
          <br>
@@ -28,4 +27,20 @@ export const sendEmailWhenUserRegisters = async (to: string, subject: string, us
       ` // html body
    })
    return info
+}
+
+export const resendEmailWhenTokenExpiresOrInvalid = async (userEmail: string, newConfirmationCode: string) => {
+   let emailInformation = await transport.sendMail({
+      from: '"Comuter Store 👻" <computer@store.hu>',
+      to: userEmail,
+      subject: 'Megerősítő kód újraküldése',
+      html: `
+         <h1>Megerősítő kód</h1>
+         <br>
+         <a href="http://localhost:3000/email-confirm/${newConfirmationCode}">Ezen a linken keresztül tudod megtenni</a><br>
+         <p>Ha nem működik, másold be a keresősávba: http://localhost:3000/email-confirm/${newConfirmationCode}</p>
+         <h5>A kód ${EMAIL_TOKEN_EXPIRESIN} percig érvényes!</h5>
+      `
+   })
+   return emailInformation
 }

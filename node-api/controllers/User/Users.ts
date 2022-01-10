@@ -21,7 +21,7 @@ export const registerUserController = async (req: Request, res: Response) => {
    try {
       const hashedPass = await bcrypt.hash(req.body.firstPassword, 10)
       const emailToken = jwt.sign({ userName, email }, EMAIL_SECRET, { expiresIn: `${EMAIL_TOKEN_EXPIRESIN}min` })
-      const emailInfo = await sendEmailWhenUserRegisters(email, 'Tesztelés, semmi más', userName, emailToken)
+      await sendEmailWhenUserRegisters(email, 'Email cím regisztrálása', userName, emailToken)
 
       await User.create({
          userName,
