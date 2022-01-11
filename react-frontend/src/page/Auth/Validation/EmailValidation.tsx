@@ -40,9 +40,9 @@ const EmailValidation = () => {
          const verificationResponse = await axios.post('/auth/confirm-email', { confirmCode: code })
          console.log(verificationResponse)
          if (verificationResponse.status === 200) {
-            navigate('/login', { state: { isSuccess: true, message: 'Sikeres email megerősítés, most már beléphetsz!' } })
+            setIsPending(false)
+            navigate('/login', { state: { isSuccess: true, message: 'Sikeres email cím megerősítés, most már beléphetsz!' } })
          }
-         setIsPending(false)
       } catch (error) {
          if (axios.isAxiosError(error)) {
             console.log({ ...error })
