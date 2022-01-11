@@ -39,7 +39,7 @@ export const registerUserController = async (req: Request, res: Response) => {
 export const loginUserController = async (req: Request, res: Response) => {
    const user = await User.findOne({ $or: [{ email: req.body.email }, { userName: req.body.email }] })
 
-   if (!user) return res.status(404).json(ErrorResponse(true, 'Nincs regszitrálva ilyen felhasználó'))
+   if (!user) return res.status(404).json(ErrorResponse(true, 'Nincs regisztrálva felhasználó ezzel az email címmel'))
    if (!user.isEmailConfirmed)
       return res.status(403).json(ErrorResponse(true, 'Az email címed még nem lett regsiztrálva! Kérlek erősítsd meg!'))
 
@@ -48,9 +48,9 @@ export const loginUserController = async (req: Request, res: Response) => {
          const accessToken = generateTokens(user._id, user.userName, user.isAdmin, user.email, ACCESS_TOKEN_SECRET)
          const refreshToken = generateTokens(user._id, user.userName, user.isAdmin, user.email, REFRESH_TOKEN_SECRET, '1day')
          res.status(200).json({ accessToken, refreshToken, userId: user._id, userName: user.userName, isAdmin: user.isAdmin })
-      } else res.status(404).json(ErrorResponse(true, 'Helytelen jelszó', 'password'))
+      } else res.status(403).json(ErrorResponse(true, 'Helytelen jelszó', 'password'))
    } catch (error) {
-      res.status(403).json(error)
+      res.status(500).json(error)
    }
 }
 
@@ -87,14 +87,8 @@ const generateTokens = (
    return jwt.sign({ _id: userId, userName, isAdmin, email }, TOKEN_SECRET, { expiresIn })
 }
 
-export const ErrorResponse = (
-   hasError: boolean,
-   errorMessage: string = '',
-   errorType: string = 'email'
-   // message: string = ''
-) => {
+export const ErrorResponse = (hasError: boolean, errorMessage: string = '', errorType: string = 'email') => {
    return {
-      // message,
       errorType,
       hasError,
       errorMessage
