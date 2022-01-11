@@ -25,6 +25,8 @@ const Login: React.FC = () => {
 
    const cartItems = useAppSelector((state) => state.cart.cartItems)
    const [isLoadingForResponse, setIsLoadingForResponse] = useState<boolean>(false)
+
+   const [isInvalidatedEmail, setIsinvalidatedEmail] = useState<boolean>(false)
    const [email, setEmail] = useState<InputTypes>({ value: '', hasError: false, errorMessage: '' })
    const [password, setPassword] = useState<InputTypes>({ value: '', hasError: false, errorMessage: '' })
    const [validationError, setValidationError] = useState({ isSuccess: false, message: '' })
@@ -66,15 +68,8 @@ const Login: React.FC = () => {
          })
          .catch((err: AxiosError) => {
             setIsLoadingForResponse(false)
-            if (err.response?.data.errorType === 'password')
-               setPassword((previousState) => {
-                  return {
-                     ...previousState,
-                     hasError: err.response?.data.hasError,
-                     errorMessage: err.response?.data.errorMessage
-                  }
-               })
-            else
+            if (err.response?.data.errorType === 'email') {
+               if (err.response.status === 403) setIsinvalidatedEmail(true)
                setEmail((previousState) => {
                   return {
                      ...previousState,
@@ -82,6 +77,15 @@ const Login: React.FC = () => {
                      errorMessage: err.response?.data.errorMessage
                   }
                })
+            } else {
+               setPassword((previousState) => {
+                  return {
+                     ...previousState,
+                     hasError: err.response?.data.hasError,
+                     errorMessage: err.response?.data.errorMessage
+                  }
+               })
+            }
          })
    }
    return (

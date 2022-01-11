@@ -9,3 +9,7 @@
 
 - A regisztráció után nincs egy Alert, hogy sikerült a folyamat, KÉNE!
 
+- Elfelejtett jelszó funkcionalitás
+- Megformázni az emailt, handlebars-al? https://handlebarsjs.com/
+
+- A login-hoz tenni egy email újraküldése gombot, ha a visszaérkező üzenet (error code 403) az, hogy nem lett regisztrálva az email

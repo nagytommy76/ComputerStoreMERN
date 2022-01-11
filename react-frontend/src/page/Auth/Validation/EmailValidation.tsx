@@ -38,14 +38,12 @@ const EmailValidation = () => {
       setIsPending(true)
       try {
          const verificationResponse = await axios.post('/auth/confirm-email', { confirmCode: code })
-         console.log(verificationResponse)
          if (verificationResponse.status === 200) {
             setIsPending(false)
             navigate('/login', { state: { isSuccess: true, message: 'Sikeres email cím megerősítés, most már beléphetsz!' } })
          }
       } catch (error) {
          if (axios.isAxiosError(error)) {
-            console.log({ ...error })
             if (error.response?.status === 403) {
                error.response.data.errorMsg === 'jwt expired' &&
                   setErrors({
