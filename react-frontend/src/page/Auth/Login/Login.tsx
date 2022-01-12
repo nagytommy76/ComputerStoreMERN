@@ -15,6 +15,7 @@ import LoginSuspense from '../../../SuspenseComponents/Auth/Login'
 import TextField from '@mui/material/TextField'
 import Alert from '@mui/material/Alert'
 import Fade from '@mui/material/Fade'
+import Button from '@mui/material/Button'
 
 const LoginForm = React.lazy(() => import('../BaseForm/Form'))
 
@@ -123,6 +124,11 @@ const Login: React.FC = () => {
                      <Alert variant='outlined' color='success'>
                         {validationError.message}
                      </Alert>
+                  </Fade>
+                  <Fade in={isInvalidatedEmail}>
+                     <Button variant='contained' size='large'>
+                        Email újraküldése
+                     </Button>
                   </Fade>
                </LoginForm>
             </AuthFormStyle>
