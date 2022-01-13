@@ -15,9 +15,9 @@ import LoginSuspense from '../../../SuspenseComponents/Auth/Login'
 import TextField from '@mui/material/TextField'
 import Alert from '@mui/material/Alert'
 import Fade from '@mui/material/Fade'
-import Button from '@mui/material/Button'
 
 const LoginForm = React.lazy(() => import('../BaseForm/Form'))
+const ResendEmailButton = React.lazy(() => import('../Validation/ResendEmailButton'))
 
 const Login: React.FC = () => {
    const dispatch = useAppDispatch()
@@ -28,7 +28,7 @@ const Login: React.FC = () => {
    const [isLoadingForResponse, setIsLoadingForResponse] = useState<boolean>(false)
 
    const [isInvalidatedEmail, setIsinvalidatedEmail] = useState<boolean>(false)
-   const [email, setEmail] = useState<InputTypes>({ value: '', hasError: false, errorMessage: '' })
+   const [emailOrUsername, setEmailOrUsername] = useState<InputTypes>({ value: '', hasError: false, errorMessage: '' })
    const [password, setPassword] = useState<InputTypes>({ value: '', hasError: false, errorMessage: '' })
    const [validationError, setValidationError] = useState({ isSuccess: false, message: '' })
 
@@ -40,7 +40,7 @@ const Login: React.FC = () => {
    }, [location.state])
 
    const resetErrors = () => {
-      setEmail({ ...email, errorMessage: '', hasError: false })
+      setEmailOrUsername({ ...emailOrUsername, errorMessage: '', hasError: false })
       setPassword({ ...password, errorMessage: '', hasError: false })
    }
 
@@ -48,11 +48,12 @@ const Login: React.FC = () => {
       event.preventDefault()
       setIsLoadingForResponse(true)
       resetErrors()
-      if (email.value === '') return setEmail({ value: '', hasError: true, errorMessage: 'Kérem az e-mail címet!' })
+      if (emailOrUsername.value === '')
+         return setEmailOrUsername({ value: '', hasError: true, errorMessage: 'Kérem az e-mail címet!' })
       if (password.value === '') return setPassword({ value: '', hasError: true, errorMessage: 'Kérem a jelszót!' })
       axios
          .post('/auth/login', {
-            email: email.value,
+            email: emailOrUsername.value,
             password: password.value
          })
          .then((response: AxiosResponse) => {
@@ -71,7 +72,7 @@ const Login: React.FC = () => {
             setIsLoadingForResponse(false)
             if (err.response?.data.errorType === 'email') {
                if (err.response.status === 403) setIsinvalidatedEmail(true)
-               setEmail((previousState) => {
+               setEmailOrUsername((previousState) => {
                   return {
                      ...previousState,
                      hasError: err.response?.data.hasError,
@@ -97,15 +98,15 @@ const Login: React.FC = () => {
                   <TextField
                      autoFocus
                      id='Email'
-                     error={email.hasError}
-                     helperText={email.errorMessage}
+                     error={emailOrUsername.hasError}
+                     helperText={emailOrUsername.errorMessage}
                      variant='filled'
                      fullWidth
                      required
                      label='Email cím/Felhasználónév'
                      margin='normal'
-                     value={email.value}
-                     onChange={(e) => setEmail({ ...email, value: e.target.value })}
+                     value={emailOrUsername.value}
+                     onChange={(e) => setEmailOrUsername({ ...emailOrUsername, value: e.target.value })}
                   />
                   <TextField
                      id='Password'
@@ -120,16 +121,20 @@ const Login: React.FC = () => {
                      value={password.value}
                      onChange={(e) => setPassword({ ...password, value: e.target.value })}
                   />
-                  <Fade in={validationError.isSuccess}>
-                     <Alert variant='outlined' color='success'>
-                        {validationError.message}
-                     </Alert>
-                  </Fade>
-                  <Fade in={isInvalidatedEmail}>
-                     <Button variant='contained' size='large'>
-                        Email újraküldése
-                     </Button>
-                  </Fade>
+                  {validationError.isSuccess ? (
+                     <Fade in={validationError.isSuccess}>
+                        <Alert variant='outlined' color='success'>
+                           {validationError.message}
+                        </Alert>
+                     </Fade>
+                  ) : (
+                     <Fade in={isInvalidatedEmail}>
+                        <Alert variant='outlined' color='warning'>
+                           Nem kaptál még ilyen email? Kattints a gombra.
+                           <ResendEmailButton confirmCode={null} userEmail={emailOrUsername.value} />
+                        </Alert>
+                     </Fade>
+                  )}
                </LoginForm>
             </AuthFormStyle>
             <ImageStyle image={loginImage} />
