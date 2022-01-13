@@ -4,6 +4,7 @@ import { User } from '../../models/User/User'
 
 import { EMAIL_SECRET } from '../../config/endpoints.config'
 import { EMAIL_TOKEN_EXPIRESIN, resendEmailWhenTokenExpiresOrInvalid } from '../../config/Mail/nodemailer'
+import { Document } from 'mongoose'
 
 export const ValidateEmailRegistrationController = (req: Request, res: Response) => {
    const { confirmCode } = req.body as { confirmCode: string }
@@ -25,16 +26,34 @@ export const ValidateEmailRegistrationController = (req: Request, res: Response)
 }
 
 export const ResendEmailController = async (req: Request, res: Response) => {
-   const { confirmCode } = req.body as { confirmCode: string }
+   const { confirmCode, userEmailOrUsername } = req.body as { confirmCode: string | null; userEmailOrUsername: string | null }
    try {
-      const { email, userName } = jwt.decode(confirmCode) as { email: string; userName: string; exp: number; iat: number }
-      const emailToken = jwt.sign({ userName, email }, EMAIL_SECRET, { expiresIn: `${EMAIL_TOKEN_EXPIRESIN}min` })
-      await resendEmailWhenTokenExpiresOrInvalid(email, emailToken)
-
-      return res.status(200).json({ message: `Az új regisztrációs kód el lett küldve a korábban megadott email címre: ${email}` })
+      // Ha érvénytelen vagy hibás a valid kód
+      if (confirmCode !== null) {
+         const { email, userName } = jwt.decode(confirmCode) as { email: string; userName: string; exp: number; iat: number }
+         const emailToken = signAnEmailTokenWithUserEmailAndName(userName, email)
+         await resendEmailWhenTokenExpiresOrInvalid(email, emailToken)
+         return res
+            .status(200)
+            .json({ message: `Az új regisztrációs kód el lett küldve a korábban megadott email címre: ${email}` })
+      } else if (userEmailOrUsername !== null) {
+         // A login oldalon, ha még nincs validálva
+         const foundUser = await User.findOne({
+            $or: [{ email: userEmailOrUsername }, { userName: userEmailOrUsername }]
+         }).select('userName')
+         if (foundUser) {
+            const emailToken = signAnEmailTokenWithUserEmailAndName(foundUser.userName, userEmailOrUsername)
+            // await resendEmailWhenTokenExpiresOrInvalid(userEmailOrUsername, emailToken)
+            return res.status(200).json({ msg: foundUser, token: emailToken })
+         }
+      }
    } catch (error) {
       res.status(500).json({ error })
    }
+}
+
+const signAnEmailTokenWithUserEmailAndName = (userName: string, email: string) => {
+   return jwt.sign({ userName, email }, EMAIL_SECRET, { expiresIn: `${EMAIL_TOKEN_EXPIRESIN}min` })
 }
 
 /**
