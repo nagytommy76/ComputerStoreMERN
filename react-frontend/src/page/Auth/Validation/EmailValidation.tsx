@@ -58,6 +58,13 @@ const EmailValidation = () => {
                      messageTitle: 'Helytelen megerősítő kód! Kérlek ellenőrizd, vagy kérj egy újat!',
                      errorType: 'invalid signature'
                   })
+            } else {
+               setErrors({
+                  hasError: true,
+                  messageTitle: 'Egyéb hiba!',
+                  message: error.response?.data.message || 'Egyéb hiba',
+                  errorType: 'invalid signature'
+               })
             }
             setIsPending(false)
          } else console.log(error)

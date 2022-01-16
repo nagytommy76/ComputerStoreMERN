@@ -41,6 +41,7 @@ const useMaterialTheme = () => {
          palette: {
             mode: 'dark',
             primary: {
+               // main: '#ffc300',
                main: amber[800],
                contrastText: '#FFF'
             },

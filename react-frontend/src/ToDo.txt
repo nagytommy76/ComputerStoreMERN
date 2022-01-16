@@ -13,3 +13,5 @@
 - Megformázni az emailt, handlebars-al? https://handlebarsjs.com/
 
 - A login-hoz tenni egy email újraküldése gombot, ha a visszaérkező üzenet (error code 403) az, hogy nem lett regisztrálva az email
+
+- Ha a felhasználó regsiztrálta az email cíymét, inaktiválni kell az EmailTokent!!???!?!?!?!?
