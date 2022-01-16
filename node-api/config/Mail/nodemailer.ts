@@ -1,8 +1,11 @@
 import nodemailer from 'nodemailer'
+import { create } from 'express-handlebars'
 
 const mailUser = process.env.MAILTRAP_USER
 const mailPass = process.env.MAILTRAP_PASS
 export const EMAIL_TOKEN_EXPIRESIN = '15'
+
+const expressHbsInstance = create()
 
 let transport = nodemailer.createTransport({
    host: 'smtp.mailtrap.io',
@@ -14,17 +17,16 @@ let transport = nodemailer.createTransport({
 })
 
 export const sendEmailWhenUserRegisters = async (to: string, subject: string, userName: string, confirmationCode: string) => {
+   const renderedHtml = await expressHbsInstance.render('./views/email/Register.hbs', {
+      confirmationCode,
+      userName,
+      EMAIL_TOKEN_EXPIRESIN
+   })
    let info = await transport.sendMail({
-      from: '"Comuter Store email regisztráció! 👻" <computer@store.hu>', // sender address
+      from: '"Comuter Store 👻" <computer@store.hu>', // sender address
       to, // list of receivers
       subject, // Subject line
-      html: `
-         <h1>Kedves ${userName}! Kérlek aktiváld az email címed</h1>
-         <br>
-         <a href="http://localhost:3000/email-confirm/${confirmationCode}">Ezen a linken keresztül tudod megtenni</a><br>
-         <p>Ha nem működik, másold be a keresősávba: http://localhost:3000/email-confirm/${confirmationCode}</p>
-         <h5>A kód ${EMAIL_TOKEN_EXPIRESIN} percig érvényes!</h5>
-      ` // html body
+      html: renderedHtml
    })
    return info
 }

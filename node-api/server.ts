@@ -4,6 +4,8 @@ import connectDB from './config/db'
 const bodyParser = require('body-parser')
 const cors = require('cors')
 
+import { engine } from 'express-handlebars'
+
 const app: Application = express()
 const PORT = process.env.PORT || 5050
 
@@ -12,6 +14,16 @@ connectDB().then(() => {
       console.log(`The app started: ${PORT}`)
    })
 })
+// Email testing purposes
+// app.engine('hbs', engine())
+// app.set('view engine', 'hbs')
+// app.set('views', './views/email')
+
+// app.get('/', (req, res) => {
+//    res.render('Register', { layout: false })
+// })
+// Email testing purposes
+
 app.use(cors({ origin: 'http://localhost:3000', methods: 'GET,HEAD,PUT,PATCH,POST,DELETE' }))
 app.use(bodyParser.json())
 
