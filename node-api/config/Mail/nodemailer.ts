@@ -1,11 +1,9 @@
 import nodemailer from 'nodemailer'
-import { create } from 'express-handlebars'
+import { renderHbsToPlainHtmlForRegister } from './handlebars'
 
 const mailUser = process.env.MAILTRAP_USER
 const mailPass = process.env.MAILTRAP_PASS
 export const EMAIL_TOKEN_EXPIRESIN = '15'
-
-const expressHbsInstance = create()
 
 let transport = nodemailer.createTransport({
    host: 'smtp.mailtrap.io',
@@ -17,7 +15,7 @@ let transport = nodemailer.createTransport({
 })
 
 export const sendEmailWhenUserRegisters = async (to: string, subject: string, userName: string, confirmationCode: string) => {
-   const renderedHtml = await expressHbsInstance.render('./views/email/Register.hbs', {
+   const renderedHtml = await renderHbsToPlainHtmlForRegister('./views/email/Register.hbs', {
       confirmationCode,
       userName,
       EMAIL_TOKEN_EXPIRESIN

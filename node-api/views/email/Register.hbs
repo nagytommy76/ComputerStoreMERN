@@ -1,23 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
 <style>
     h1{
-        color: blue;
+        color:green
     }
 </style>
-<body>
-    <h1>Regisztráció</h1>
-    <h2>Teszt</h2>
-    <h1>Kedves {{userName}}! Kérlek aktiváld az email címed</h1>
-    <br>
-    <a href="http://localhost:3000/email-confirm/{{confirmationCode}}">Ezen a linken keresztül tudod megtenni</a><br>
-    <p>Ha nem működik, másold be a keresősávba: http://localhost:3000/email-confirm/{{confirmationCode}}</p>
-    <h5>A kód {{EMAIL_TOKEN_EXPIRESIN}} percig érvényes!</h5>
-</body>
-</html>
+<div class="inner-box">
+    <div class="content">
+        <h1 class="main-title">Kedves <span class="highlight">{{userName}}</span>! Kérlek aktiváld az email címed!</h1>
+        <a href="http://localhost:3000/email-confirm/{{confirmationCode}}"><h2>Ezen a linken keresztül tudod megtenni</h2></a>
+        <p>Ha nem működik, másold be a keresősávba: </p>
+        <small >http://localhost:3000/email-confirm/{{confirmationCode}}</small>
+        <h5>A kód {{EMAIL_TOKEN_EXPIRESIN}} percig érvényes!</h5>
+    </div>
+    <footer>
+        <h3>ComputerStore Webáruház</h3>
+        <p>Készítette &copy; Nagy Tamás</p>
+    </footer>
+</div>

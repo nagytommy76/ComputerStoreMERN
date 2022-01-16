@@ -15,12 +15,12 @@ connectDB().then(() => {
    })
 })
 // Email testing purposes
-// app.engine('hbs', engine())
+// app.engine('hbs', engine({ defaultLayout: 'main.hbs', layoutsDir: './views/email/' }))
 // app.set('view engine', 'hbs')
 // app.set('views', './views/email')
 
 // app.get('/', (req, res) => {
-//    res.render('Register', { layout: false })
+//    res.render('Register')
 // })
 // Email testing purposes
 

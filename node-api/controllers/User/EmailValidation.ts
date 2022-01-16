@@ -16,8 +16,8 @@ export const ValidateEmailRegistrationController = (req: Request, res: Response)
             if (foundUser) {
                foundUser.isEmailConfirmed = true
                foundUser.save()
-            }
-            return res.sendStatus(200)
+               return res.sendStatus(200)
+            } else res.status(404).json({ message: `Nem található ${email} email címmel felhasználó!` })
          })
       })
    } catch (error) {
