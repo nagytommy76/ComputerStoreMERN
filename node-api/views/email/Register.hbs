@@ -1,18 +1,10 @@
 <style>
-    h1{
-        color:green
-    }
+    
 </style>
-<div class="inner-box">
     <div class="content">
         <h1 class="main-title">Kedves <span class="highlight">{{userName}}</span>! Kérlek aktiváld az email címed!</h1>
-        <a href="http://localhost:3000/email-confirm/{{confirmationCode}}"><h2>Ezen a linken keresztül tudod megtenni</h2></a>
+        <a class="linkToConfirm" href="http://localhost:3000/email-confirm/{{confirmationCode}}">Ezen a linken keresztül tudod megtenni</a>
         <p>Ha nem működik, másold be a keresősávba: </p>
         <small >http://localhost:3000/email-confirm/{{confirmationCode}}</small>
         <h5>A kód {{EMAIL_TOKEN_EXPIRESIN}} percig érvényes!</h5>
     </div>
-    <footer>
-        <h3>ComputerStore Webáruház</h3>
-        <p>Készítette &copy; Nagy Tamás</p>
-    </footer>
-</div>
