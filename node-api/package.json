@@ -24,6 +24,7 @@
     "mongoose": "^5.12.14",
     "morgan": "~1.9.1",
     "nodemailer": "^6.7.2",
+    "nodemailer-express-handlebars": "^4.0.0",
     "stripe": "^8.194.0"
   },
   "devDependencies": {

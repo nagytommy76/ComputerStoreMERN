@@ -4,7 +4,7 @@ import connectDB from './config/db'
 const bodyParser = require('body-parser')
 const cors = require('cors')
 
-import { engine } from 'express-handlebars'
+// import { create } from 'express-handlebars'
 
 const app: Application = express()
 const PORT = process.env.PORT || 5050
@@ -15,13 +15,16 @@ connectDB().then(() => {
    })
 })
 // Email testing purposes
-app.engine('hbs', engine({ defaultLayout: 'main.hbs', layoutsDir: './views/email/' }))
-app.set('view engine', 'hbs')
-app.set('views', './views/email')
+// app.engine('hbs', engine({ defaultLayout: 'main', layoutsDir: 'views/email/', extname: 'hbs' }))
+// app.set('view engine', 'hbs')
+// const hbs = create({ defaultLayout: 'main', layoutsDir: 'views/email/', extname: 'hbs' })
+// app.engine('hbs', hbs.engine)
+// app.set('view engine', 'hbs')
+// app.set('views', './views/email')
 
-app.get('/', (req, res) => {
-   res.render('Register')
-})
+// app.get('/', (req, res) => {
+//    res.render('Register')
+// })
 // Email testing purposes
 
 app.use(cors({ origin: 'http://localhost:3000', methods: 'GET,HEAD,PUT,PATCH,POST,DELETE' }))

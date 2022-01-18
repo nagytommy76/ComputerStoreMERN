@@ -20,6 +20,7 @@ export const sendEmailWhenUserRegisters = async (to: string, subject: string, us
       userName,
       EMAIL_TOKEN_EXPIRESIN
    })
+
    let info = await transport.sendMail({
       from: '"Comuter Store 👻" <computer@store.hu>', // sender address
       to, // list of receivers
