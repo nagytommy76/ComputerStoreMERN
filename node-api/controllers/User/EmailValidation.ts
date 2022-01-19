@@ -1,10 +1,10 @@
 import { Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
 import { User } from '../../models/User/User'
-
 import { EMAIL_SECRET } from '../../config/endpoints.config'
-import { EMAIL_TOKEN_EXPIRESIN, resendEmailWhenTokenExpiresOrInvalid } from '../../config/Mail/nodemailer'
-import { Document } from 'mongoose'
+
+import NodeMailer from '../../config/Mail/nodemailer'
+const nodemailer = new NodeMailer()
 
 export const ValidateEmailRegistrationController = (req: Request, res: Response) => {
    const { confirmCode } = req.body as { confirmCode: string }
@@ -32,7 +32,7 @@ export const ResendEmailController = async (req: Request, res: Response) => {
       if (confirmCode !== null) {
          const { email, userName } = jwt.decode(confirmCode) as { email: string; userName: string; exp: number; iat: number }
          const emailToken = signAnEmailTokenWithUserEmailAndName(userName, email)
-         await resendEmailWhenTokenExpiresOrInvalid(email, emailToken)
+         await nodemailer.resendEmailWhenTokenExpiresOrInvalid(email, emailToken)
          return res
             .status(200)
             .json({ message: `Az új regisztrációs kód el lett küldve a korábban megadott email címre: ${email}` })
@@ -43,7 +43,6 @@ export const ResendEmailController = async (req: Request, res: Response) => {
          }).select('userName')
          if (foundUser) {
             const emailToken = signAnEmailTokenWithUserEmailAndName(foundUser.userName, userEmailOrUsername)
-            // await resendEmailWhenTokenExpiresOrInvalid(userEmailOrUsername, emailToken)
             return res.status(200).json({ msg: foundUser, token: emailToken })
          }
       }
@@ -53,7 +52,7 @@ export const ResendEmailController = async (req: Request, res: Response) => {
 }
 
 const signAnEmailTokenWithUserEmailAndName = (userName: string, email: string) => {
-   return jwt.sign({ userName, email }, EMAIL_SECRET, { expiresIn: `${EMAIL_TOKEN_EXPIRESIN}min` })
+   return jwt.sign({ userName, email }, EMAIL_SECRET, { expiresIn: `${nodemailer.EMAIL_TOKEN_EXPIRESIN}min` })
 }
 
 /**

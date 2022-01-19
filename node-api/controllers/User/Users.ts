@@ -3,10 +3,11 @@ import { User } from '../../models/User/User'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET, EMAIL_SECRET } from '../../config/endpoints.config'
-import { EMAIL_TOKEN_EXPIRESIN } from '../../config/Mail/nodemailer'
 import { validationResult } from 'express-validator'
 
-import { sendEmailWhenUserRegisters } from '../../config/Mail/nodemailer'
+import NodeMailer from '../../config/Mail/nodemailer'
+
+const nodemailer = new NodeMailer()
 
 export const registerUserController = async (req: Request, res: Response) => {
    const userName = req.body.userName
@@ -20,8 +21,8 @@ export const registerUserController = async (req: Request, res: Response) => {
 
    try {
       const hashedPass = await bcrypt.hash(req.body.firstPassword, 10)
-      const emailToken = jwt.sign({ userName, email }, EMAIL_SECRET, { expiresIn: `${EMAIL_TOKEN_EXPIRESIN}min` })
-      await sendEmailWhenUserRegisters(email, 'Email cím regisztrálása', userName, emailToken)
+      const emailToken = jwt.sign({ userName, email }, EMAIL_SECRET, { expiresIn: `${nodemailer.EMAIL_TOKEN_EXPIRESIN}min` })
+      await nodemailer.sendEmailWhenUserRegisters(email, 'Email cím regisztrálása', userName, emailToken)
       // await User.create({
       //    userName,
       //    password: hashedPass,
