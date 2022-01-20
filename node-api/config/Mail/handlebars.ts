@@ -1,18 +1,26 @@
 import { create } from 'express-handlebars'
 import { UnknownObject } from 'express-handlebars/types'
+import { URL_PATH } from '../endpoints.config'
 
 export default class Handlebars {
    private expressHbsInstance
    private filePath
    constructor() {
-      this.filePath = './views/email/'
-      this.expressHbsInstance = create({ defaultLayout: 'main', layoutsDir: 'views/email', extname: 'hbs' })
+      this.filePath = './views'
+      this.expressHbsInstance = create({ defaultLayout: 'main', layoutsDir: 'views/', extname: 'hbs' })
    }
 
-   async renderHbsToPlainHtmlForRegister(parametersObject?: UnknownObject | undefined) {
-      const renderedRegister = await this.expressHbsInstance.render(`${this.filePath}/Register.hbs`, parametersObject)
-      return await this.expressHbsInstance.render('./views/email/main.hbs', {
-         body: renderedRegister
+   async renderAnyHbsToPlainHtml(moduleToRender: string, parametersObject?: UnknownObject | undefined) {
+      const renderedModule = await this.expressHbsInstance.render(`${this.filePath}/${moduleToRender}.hbs`, {
+         ...parametersObject,
+         URL_PATH
+      })
+      return this.#renderMainHandlebarsModule(renderedModule)
+   }
+
+   async #renderMainHandlebarsModule(renderedHbsString: string) {
+      return await this.expressHbsInstance.render('./views/main.hbs', {
+         body: renderedHbsString
       })
    }
 }

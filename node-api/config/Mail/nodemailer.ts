@@ -1,11 +1,11 @@
 import nodemailer from 'nodemailer'
 import Handlebars from './handlebars'
 export default class NodeMailer extends Handlebars {
-   transporter
-   mailUser
-   mailPass
    EMAIL_TOKEN_EXPIRESIN
-   private senderAddress
+   private transporter
+   private mailUser: string | undefined
+   private mailPass: string | undefined
+   private senderAddress: string
    constructor() {
       super()
       this.senderAddress = '"Comuter Store 👻" <computer@store.hu>'
@@ -22,7 +22,7 @@ export default class NodeMailer extends Handlebars {
       })
    }
    async sendEmailWhenUserRegisters(to: string, subject: string, userName: string, confirmationCode: string) {
-      const renderedHtml = await this.renderHbsToPlainHtmlForRegister({
+      const renderedHtml = await this.renderAnyHbsToPlainHtml('Auth/Register', {
          confirmationCode,
          userName,
          EMAIL_TOKEN_EXPIRESIN: this.EMAIL_TOKEN_EXPIRESIN
@@ -37,17 +37,15 @@ export default class NodeMailer extends Handlebars {
    }
 
    async resendEmailWhenTokenExpiresOrInvalid(userEmail: string, newConfirmationCode: string) {
+      const renderedEmail = await this.renderAnyHbsToPlainHtml('Auth/Resend', {
+         confirmationCode: newConfirmationCode,
+         EMAIL_TOKEN_EXPIRESIN: this.EMAIL_TOKEN_EXPIRESIN
+      })
       let emailInformation = await this.transporter.sendMail({
          from: this.senderAddress,
          to: userEmail,
          subject: 'Megerősítő kód újraküldése',
-         html: `
-            <h1>Megerősítő kód</h1>
-            <br>
-            <a href="http://localhost:3000/email-confirm/${newConfirmationCode}">Ezen a linken keresztül tudod megtenni</a><br>
-            <p>Ha nem működik, másold be a keresősávba: http://localhost:3000/email-confirm/${newConfirmationCode}</p>
-            <h5>A kód ${this.EMAIL_TOKEN_EXPIRESIN} percig érvényes!</h5>
-         `
+         html: renderedEmail
       })
       return emailInformation
    }

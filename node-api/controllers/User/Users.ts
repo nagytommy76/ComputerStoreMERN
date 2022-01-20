@@ -23,11 +23,11 @@ export const registerUserController = async (req: Request, res: Response) => {
       const hashedPass = await bcrypt.hash(req.body.firstPassword, 10)
       const emailToken = jwt.sign({ userName, email }, EMAIL_SECRET, { expiresIn: `${nodemailer.EMAIL_TOKEN_EXPIRESIN}min` })
       await nodemailer.sendEmailWhenUserRegisters(email, 'Email cím regisztrálása', userName, emailToken)
-      // await User.create({
-      //    userName,
-      //    password: hashedPass,
-      //    email
-      // })
+      await User.create({
+         userName,
+         password: hashedPass,
+         email
+      })
       res.status(201).json({
          message: 'A regisztráció sikeres volt - Az email címedre megküldtük a regisztráció megerősítéhez szükséges kódot!'
       })
