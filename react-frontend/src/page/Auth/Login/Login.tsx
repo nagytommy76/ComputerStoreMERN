@@ -13,11 +13,9 @@ import { ImageStyle, AuthContainer, AuthFormStyle } from '../BaseForm/BaseStyle'
 import LoginSuspense from '../../../SuspenseComponents/Auth/Login'
 
 import TextField from '@mui/material/TextField'
-import Alert from '@mui/material/Alert'
-import Fade from '@mui/material/Fade'
 
 const LoginForm = React.lazy(() => import('../BaseForm/Form'))
-const ResendEmailButton = React.lazy(() => import('../Validation/ResendEmailButton'))
+const AlertMessages = React.lazy(() => import('./Includes/AlertMessages'))
 
 const Login: React.FC = () => {
    const dispatch = useAppDispatch()
@@ -121,20 +119,11 @@ const Login: React.FC = () => {
                      value={password.value}
                      onChange={(e) => setPassword({ ...password, value: e.target.value })}
                   />
-                  {validationError.isSuccess ? (
-                     <Fade in={validationError.isSuccess}>
-                        <Alert variant='outlined' color='success'>
-                           {validationError.message}
-                        </Alert>
-                     </Fade>
-                  ) : (
-                     <Fade in={isInvalidatedEmail}>
-                        <Alert variant='outlined' color='warning'>
-                           Nem kaptál még ilyen email? Kattints a gombra.
-                           <ResendEmailButton confirmCode={null} userEmail={emailOrUsername.value} />
-                        </Alert>
-                     </Fade>
-                  )}
+                  <AlertMessages
+                     emailOrUsername={emailOrUsername}
+                     isInvalidatedEmail={isInvalidatedEmail}
+                     validationError={validationError}
+                  />
                </LoginForm>
             </AuthFormStyle>
             <ImageStyle image={loginImage} />
