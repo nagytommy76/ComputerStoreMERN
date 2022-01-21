@@ -40,11 +40,11 @@ export const loginUserController = async (req: Request, res: Response) => {
    const user = await User.findOne({ $or: [{ email: req.body.email }, { userName: req.body.email }] })
 
    if (!user) return res.status(404).json(ErrorResponse(true, 'Nincs regisztrálva felhasználó ezzel az email címmel'))
-   if (!user.isEmailConfirmed)
-      return res.status(403).json(ErrorResponse(true, 'Az email címed még nem lett regsiztrálva! Kérlek erősítsd meg!'))
 
    try {
       if (await bcrypt.compare(req.body.password, user.password)) {
+         if (!user.isEmailConfirmed)
+            return res.status(403).json(ErrorResponse(true, 'Az email címed még nem lett regsiztrálva! Kérlek erősítsd meg!'))
          const accessToken = generateTokens(user._id, user.userName, user.isAdmin, user.email, ACCESS_TOKEN_SECRET)
          const refreshToken = generateTokens(user._id, user.userName, user.isAdmin, user.email, REFRESH_TOKEN_SECRET, '1day')
          res.status(200).json({ accessToken, refreshToken, userId: user._id, userName: user.userName, isAdmin: user.isAdmin })

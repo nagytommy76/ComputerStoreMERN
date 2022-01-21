@@ -40,10 +40,11 @@ export const ResendEmailController = async (req: Request, res: Response) => {
          // A login oldalon, ha még nincs validálva
          const foundUser = await User.findOne({
             $or: [{ email: userEmailOrUsername }, { userName: userEmailOrUsername }]
-         }).select('userName')
+         }).select('userName email')
          if (foundUser) {
-            const emailToken = signAnEmailTokenWithUserEmailAndName(foundUser.userName, userEmailOrUsername)
-            return res.status(200).json({ msg: foundUser, token: emailToken })
+            const emailToken = signAnEmailTokenWithUserEmailAndName(foundUser.userName, foundUser.email)
+            await nodemailer.resendEmailWhenTokenExpiresOrInvalid(foundUser.email, emailToken)
+            return res.status(200).json({ message: 'Az email sikeresen elküldve az email címedre!' })
          }
       }
    } catch (error) {
