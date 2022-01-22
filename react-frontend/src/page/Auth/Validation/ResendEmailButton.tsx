@@ -4,16 +4,17 @@ import axios from 'axios'
 import LoadingButton from '@mui/lab/LoadingButton'
 import EmailIcon from '@mui/icons-material/Email'
 
-const ResendEmailButton: React.FC<{ confirmCode: string | null; userEmail?: string | null }> = ({
-   confirmCode,
-   userEmail = null
-}) => {
+const ResendEmailButton: React.FC<{
+   confirmCode: string | null
+   userEmail?: string | null
+   onSnackbarOpen?: React.Dispatch<React.SetStateAction<{ open: boolean; message: string }>>
+}> = ({ confirmCode, userEmail = null, onSnackbarOpen = () => {} }) => {
    const [isPending, setIsPending] = useState<boolean>(false)
    const handleResendEmail = async () => {
       setIsPending(true)
       try {
          const emailResendResponse = await axios.post('/auth/resend-email', { confirmCode, userEmailOrUsername: userEmail })
-         console.log(emailResendResponse)
+         if (emailResendResponse.status === 200) onSnackbarOpen({ open: true, message: emailResendResponse.data.message })
          setIsPending(false)
       } catch (error) {
          if (axios.isAxiosError(error)) {
