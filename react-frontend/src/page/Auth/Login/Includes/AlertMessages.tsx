@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { InputTypes } from '../../DefaultProperties'
 
 import Alert from '@mui/material/Alert'
-import Fade from '@mui/material/Fade'
 import Collapse from '@mui/material/Collapse'
 import Snackbar from '@mui/material/Snackbar'
+import useSnackbar from '../../Hooks/useSnackbar'
 
 const ResendEmailButton = React.lazy(() => import('../../Validation/ResendEmailButton'))
 
@@ -13,28 +13,22 @@ const AlertMessages: React.FC<{
    isInvalidatedEmail: boolean
    emailOrUsername: InputTypes
 }> = ({ validationError, isInvalidatedEmail, emailOrUsername }) => {
-   const [isEmailSent, setIsEmailSent] = useState<{ open: boolean; message: string }>({ open: false, message: '' })
+   const { handleClose, isSnackOpen, setIsSnackOpen } = useSnackbar()
 
-   const handleClose = (event: React.SyntheticEvent | Event) => {
-      setIsEmailSent({ open: false, message: '' })
-   }
    return (
       <>
-         {/* {validationError.isSuccess ? ( */}
          <Collapse unmountOnExit mountOnEnter in={validationError.isSuccess}>
             <Alert variant='outlined' color='success'>
                {validationError.message}
             </Alert>
          </Collapse>
-         {/* ) : ( */}
          <Collapse unmountOnExit mountOnEnter in={isInvalidatedEmail}>
             <Alert variant='outlined' color='warning'>
                Nem kaptál még ilyen email? Kattints a gombra.
-               <ResendEmailButton confirmCode={null} userEmail={emailOrUsername.value} onSnackbarOpen={setIsEmailSent} />
+               <ResendEmailButton confirmCode={null} userEmail={emailOrUsername.value} onSnackbarOpen={setIsSnackOpen} />
             </Alert>
          </Collapse>
-         {/* )} */}
-         <Snackbar open={isEmailSent.open} onClose={handleClose} message={isEmailSent.message} />
+         <Snackbar open={isSnackOpen.open} onClose={handleClose} message={isSnackOpen.message} />
       </>
    )
 }

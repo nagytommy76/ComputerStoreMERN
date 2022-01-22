@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useParams, useNavigate } from 'react-router-dom'
 
-import { AuthContainer, AuthFormStyle } from '../BaseForm/BaseStyle'
+import { AuthContainer, AuthFormStyle, ImageStyle } from '../BaseForm/BaseStyle'
+import ValidImage from './Validation.jpg'
 
 import TextField from '@mui/material/TextField'
 
@@ -96,7 +97,7 @@ const EmailValidation = () => {
                />
             </ValidateForm>
          </AuthFormStyle>
-         <p>Kép helye</p>
+         <ImageStyle image={ValidImage} />
       </AuthContainer>
    )
 }
