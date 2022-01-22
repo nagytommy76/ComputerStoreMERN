@@ -1,123 +1,37 @@
-import axios, { AxiosResponse, AxiosError } from 'axios'
-import React, { useState, Suspense, useEffect } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import React, { Suspense } from 'react'
 
-import { useAppDispatch, useAppSelector } from '../../../app/hooks'
-import { setUserLoggedIn, setAccessToken, setUserId, setUserName, setRefreshToken, setAdmin } from '../../../app/slices/AuthSlice'
-import { fillDBWithCartItemsAfterLogin } from '../../../app/slices/CartSlice'
-
+import useLogin from '../Hooks/useLogin'
 import loginImage from './login.jpg'
 
-import { InputTypes } from '../DefaultProperties'
 import { ImageStyle, AuthContainer, AuthFormStyle } from '../BaseForm/BaseStyle'
 import LoginSuspense from '../../../SuspenseComponents/Auth/Login'
 
-import TextField from '@mui/material/TextField'
-
 const LoginForm = React.lazy(() => import('../BaseForm/Form'))
+const InputFields = React.lazy(() => import('./Includes/InputFields'))
 const AlertMessages = React.lazy(() => import('./Includes/AlertMessages'))
 
 const Login: React.FC = () => {
-   const dispatch = useAppDispatch()
-   const navigate = useNavigate()
-   const location = useLocation()
+   const {
+      loginUser,
+      isInvalidatedEmail,
+      isLoadingForResponse,
+      validationError,
+      emailOrUsername,
+      setEmailOrUsername,
+      password,
+      setPassword
+   } = useLogin()
 
-   const cartItems = useAppSelector((state) => state.cart.cartItems)
-   const [isLoadingForResponse, setIsLoadingForResponse] = useState<boolean>(false)
-
-   const [isInvalidatedEmail, setIsinvalidatedEmail] = useState<boolean>(false)
-   const [emailOrUsername, setEmailOrUsername] = useState<InputTypes>({ value: '', hasError: false, errorMessage: '' })
-   const [password, setPassword] = useState<InputTypes>({ value: '', hasError: false, errorMessage: '' })
-   const [validationError, setValidationError] = useState({ isSuccess: false, message: '' })
-
-   useEffect(() => {
-      if (location.state !== null) {
-         const { isSuccess, message } = location.state as { isSuccess: boolean; message: string }
-         setValidationError({ isSuccess, message })
-      }
-   }, [location.state])
-
-   const resetErrors = () => {
-      setEmailOrUsername({ ...emailOrUsername, errorMessage: '', hasError: false })
-      setPassword({ ...password, errorMessage: '', hasError: false })
-   }
-
-   const loginUser = (event: React.FormEvent) => {
-      event.preventDefault()
-      setIsLoadingForResponse(true)
-      resetErrors()
-      if (emailOrUsername.value === '')
-         return setEmailOrUsername({ value: '', hasError: true, errorMessage: 'Kérem az e-mail címet!' })
-      if (password.value === '') return setPassword({ value: '', hasError: true, errorMessage: 'Kérem a jelszót!' })
-      axios
-         .post('/auth/login', {
-            email: emailOrUsername.value,
-            password: password.value
-         })
-         .then((response: AxiosResponse) => {
-            if (response.status === 200) {
-               dispatch(setUserLoggedIn(true))
-               dispatch(setUserId(response.data.userId))
-               dispatch(setAccessToken(response.data.accessToken))
-               dispatch(setRefreshToken(response.data.refreshToken))
-               dispatch(setUserName(response.data.userName))
-               if (response.data.isAdmin) dispatch(setAdmin(true))
-               if (cartItems.length > 0) dispatch(fillDBWithCartItemsAfterLogin())
-               navigate('/')
-            }
-         })
-         .catch((err: AxiosError) => {
-            setIsLoadingForResponse(false)
-            if (err.response?.data.errorType === 'email') {
-               if (err.response.status === 403) setIsinvalidatedEmail(true)
-               setEmailOrUsername((previousState) => {
-                  return {
-                     ...previousState,
-                     hasError: err.response?.data.hasError,
-                     errorMessage: err.response?.data.errorMessage
-                  }
-               })
-            } else {
-               setPassword((previousState) => {
-                  return {
-                     ...previousState,
-                     hasError: err.response?.data.hasError,
-                     errorMessage: err.response?.data.errorMessage
-                  }
-               })
-            }
-         })
-   }
    return (
       <Suspense fallback={<LoginSuspense />}>
          <AuthContainer>
             <AuthFormStyle>
                <LoginForm onSubmitEvent={loginUser} title='Belépés' buttonText='Belépés' isLoadingButton={isLoadingForResponse}>
-                  <TextField
-                     autoFocus
-                     id='Email'
-                     error={emailOrUsername.hasError}
-                     helperText={emailOrUsername.errorMessage}
-                     variant='filled'
-                     fullWidth
-                     required
-                     label='Email cím/Felhasználónév'
-                     margin='normal'
-                     value={emailOrUsername.value}
-                     onChange={(e) => setEmailOrUsername({ ...emailOrUsername, value: e.target.value })}
-                  />
-                  <TextField
-                     id='Password'
-                     error={password.hasError}
-                     helperText={password.errorMessage}
-                     type='password'
-                     variant='filled'
-                     fullWidth
-                     required
-                     label='Jelszó'
-                     margin='normal'
-                     value={password.value}
-                     onChange={(e) => setPassword({ ...password, value: e.target.value })}
+                  <InputFields
+                     emailOrUsername={emailOrUsername}
+                     setEmailOrUsername={setEmailOrUsername}
+                     password={password}
+                     setPassword={setPassword}
                   />
                   <AlertMessages
                      emailOrUsername={emailOrUsername}
