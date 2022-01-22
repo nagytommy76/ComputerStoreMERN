@@ -83,7 +83,7 @@ const useLogin = () => {
       setEmailOrUsername,
       password,
       setPassword
-   }
+   } as const
 }
 
 export default useLogin

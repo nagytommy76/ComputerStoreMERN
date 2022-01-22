@@ -8,9 +8,9 @@ const useLocationState = (setValidationError: React.Dispatch<React.SetStateActio
       if (location.state !== null) {
          const { isSuccess, message } = location.state as { isSuccess: boolean; message: string }
          setValidationError({ isSuccess, message })
+         setTimeout(() => setValidationError({ isSuccess: false, message: '' }), 8500)
       }
    }, [location.state, setValidationError])
-   return null
 }
 
 export default useLocationState
