@@ -5,6 +5,8 @@ export const largeWindowSize = '2000px'
 
 export const backgroundColor = `#272c33`
 // export const backgroundColor = `#000814`
+// export const backgroundColor = `#2d3142`
+// export const CardBackground = '#4f5d75'
 
 export const footerHeight = '140px'
 

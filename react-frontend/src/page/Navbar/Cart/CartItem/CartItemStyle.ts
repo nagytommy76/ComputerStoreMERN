@@ -2,10 +2,11 @@ import styled from 'styled-components'
 import { mobileWindowSize } from '../../../../Theme/GlobalStyles'
 
 export const StyledCartItem = styled.section`
+   border-radius: 3px;
    position: relative;
    margin: 0.6rem 0;
    width: 85%;
-   min-height: 145px;
+   min-height: 155px;
    display: flex;
    align-items: center;
    background-color: white;
@@ -32,15 +33,18 @@ export const ImageStyle = styled.img`
 
 export const ProductNameStyle = styled.p`
    font-size: 1rem;
-   margin: 1.3rem 0;
+   margin: 1rem 0;
    @media (max-width: ${mobileWindowSize}) {
       font-size: 0.8rem;
    }
 `
 
 export const RightContentContainerStyle = styled.div`
-   height: 100%;
+   height: 80%;
    flex: 2;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
 `
 export const PriceAndQuantityStyle = styled.div`
    display: flex;

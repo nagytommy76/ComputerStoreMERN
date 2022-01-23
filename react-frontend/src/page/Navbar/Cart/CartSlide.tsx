@@ -1,10 +1,11 @@
 import React from 'react'
 import styles from './CartSlide.module.css'
 import { SlideStyle, CartTitle, FinalPriceStyle, FooterStyle, FooterButtonsStyle } from './CartSlideStyle'
-import { CSSTransition } from 'react-transition-group'
 import { useAppSelector } from '../../../app/hooks'
 import NumberFormat from 'react-number-format'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
+import Collapse from '@mui/material/Collapse'
 import CartItem from './CartItem/CartItem'
 import { Link } from 'react-router-dom'
 

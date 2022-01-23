@@ -26,6 +26,10 @@ const useMaterialTheme = () => {
             },
             action: {
                disabled: '#888'
+            },
+            background: {
+               default: '#FFF',
+               paper: '#FFF'
             }
          },
          typography: {

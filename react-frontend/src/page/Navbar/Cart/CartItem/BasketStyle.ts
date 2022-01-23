@@ -9,6 +9,6 @@ export const Container = styled.div`
 export const QuantityStyle = styled.span`
    font-size: 0.8rem;
    width: 40px;
-   padding: 0.4rem;
+   padding: 0.4rem 0;
    text-align: center;
 `
