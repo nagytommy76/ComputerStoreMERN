@@ -77,16 +77,17 @@ export const handleMakeOrderWithCardOrCash =
             deliveryPrice,
             id: paymentMethodId
          })
-         if (response.status === 200) {
-            setIsLoading(false)
-            paymentMethodId === 'cash' ? dispatch(setIsCashPaySuccess(true)) : dispatch(setIsCardPaySuccess(true))
-            setStartCounter(true)
-            setHasError({
-               errorMsg: 'A Termékek sikeresen megrendelésre kerültek! Hamarosan átirányítunk a főoldalra!',
-               isError: true,
-               serverity: 'success'
-            })
-         }
+         console.log(response.data)
+         // if (response.status === 200) {
+         //    setIsLoading(false)
+         //    paymentMethodId === 'cash' ? dispatch(setIsCashPaySuccess(true)) : dispatch(setIsCardPaySuccess(true))
+         //    setStartCounter(true)
+         //    setHasError({
+         //       errorMsg: 'A Termékek sikeresen megrendelésre kerültek! Hamarosan átirányítunk a főoldalra!',
+         //       isError: true,
+         //       serverity: 'success'
+         //    })
+         // }
       } catch (error) {
          if (axios.isAxiosError(error)) {
             setHasError({
