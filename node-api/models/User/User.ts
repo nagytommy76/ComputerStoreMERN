@@ -51,7 +51,7 @@ const UserSchema = new Schema<UserTypes>({
    },
    cartItems: [
       {
-         itemId: Schema.Types.ObjectId,
+         itemId: String,
          displayImage: String,
          displayName: String,
          price: Number,

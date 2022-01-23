@@ -1,17 +1,43 @@
 <style>
+    .main-title{
+        text-align: center;
+        margin: 1rem 0;
+        text-transform: uppercase;
+    }
+    .line-divider{
+        border: 1px solid #333;
+        width: 100%;
+    }
+    .top-info{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        font-size: .7rem;
+    }
+    .products-list{
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .product{
 
+    }
 </style>
-<section>
+<section class="inner-container">
     <h1 class="main-title">Köszönjük a rendelésed!</h1>
-    <hr class="line-divider">
+    <div class="line-divider"></div>
     <div class="top-info">
         <p>Vásárlási azonosító: <span class="highlight">{{ itemId }}</span></p>
         <p>Dátum: <span class="highlight">{{orderDate}}</span></p>
     </div>
     <h1>Termékek</h1>
-    <div class="products">
-        {{ #each products }}
-        <p>{{ this.displayName }}</p>
-        {{ /each }}
+    <div class="products-list">
+        {{#each products}}
+        <div class="product">
+            <p>{{ this.displayName }}</p>
+            {{!-- <img src="{{this.displayImage}}" alt="" srcset=""> --}}
+        </div>
+        {{/each}}
     </div>
 </section>

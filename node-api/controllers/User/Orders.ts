@@ -24,7 +24,7 @@ const nodemailer = new NodeMailer()
 export const handleUserOrderWithCardPaymentController = async (req: RequestWithUser, res: Response) => {
    try {
       const { id, amount, paymentMethod, deliveryType, deliveryPrice } = req.body as PaymentBodyType
-      const foundUser = await User.findById(req.user?._id)
+      const foundUser = await User.findById(req.user?._id) /*.lean()*/
       if (foundUser) {
          const currentItemsInCart = getCurrentCartItemsFromFoundUser(foundUser)
          const { created, status } = await stripe.paymentIntents.create({
@@ -44,13 +44,13 @@ export const handleUserOrderWithCardPaymentController = async (req: RequestWithU
             deliveryPrice,
             products: currentItemsInCart
          })
-
-         foundUser.cartItems = []
          // if (status === 'succeeded'){
-         //    const itemId = await foundUser.save()
+         //    const itemId = foundUser.save()
          // }
 
-         await nodemailer.sendEmailAfterUserOrder(foundUser.email, foundUser.cartItems, 'semmi', '2022.01.01')
+         const foundUserJson = foundUser.toJSON()
+         await nodemailer.sendEmailAfterUserOrder(foundUserJson.email, foundUserJson.cartItems, 'semmi', '2022.01.01')
+         foundUser.cartItems = []
          return res.status(200).json({ orderSuccess: true, paymentSuccess: true, result: foundUser })
       }
       return res.status(404).json({ msg: 'A felhasználó nem található', orderSuccess: false, paymentSuccess: false })

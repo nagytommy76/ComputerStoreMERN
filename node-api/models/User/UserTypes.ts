@@ -44,6 +44,7 @@ export type UserOrders = {
 }[]
 
 export type CartItemsType = {
+   _id: string
    itemId: string
    productType: string
    quantity: number
