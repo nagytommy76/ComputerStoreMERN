@@ -1,5 +1,7 @@
 import nodemailer from 'nodemailer'
 import Handlebars from './handlebars'
+
+import { CartItemsType } from '../../models/User/UserTypes'
 export default class NodeMailer extends Handlebars {
    EMAIL_TOKEN_EXPIRESIN
    private transporter
@@ -48,5 +50,25 @@ export default class NodeMailer extends Handlebars {
          html: renderedEmail
       })
       return emailInformation
+   }
+
+   async sendEmailAfterUserOrder(userEmail: string, products: CartItemsType[], itemId: string, orderDate: string) {
+      try {
+         const renderedEmail = await this.renderAnyHbsToPlainHtml('Orders/Orders', {
+            EMAIL_TOKEN_EXPIRESIN: this.EMAIL_TOKEN_EXPIRESIN,
+            products,
+            itemId,
+            orderDate
+         })
+         let emailInformation = await this.transporter.sendMail({
+            from: this.senderAddress,
+            to: userEmail,
+            subject: 'Megerősítő kód újraküldése',
+            html: renderedEmail
+         })
+         return emailInformation
+      } catch (error) {
+         console.log(error)
+      }
    }
 }

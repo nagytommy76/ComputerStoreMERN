@@ -3,6 +3,7 @@ import { User } from '../../models/User/User'
 import { JWTUserType } from '../Types'
 import { UserTypes } from '../../models/User/UserTypes'
 
+import NodeMailer from '../../config/Mail/nodemailer'
 import { Stripe } from 'stripe'
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY) as Stripe
 
@@ -17,6 +18,8 @@ type PaymentBodyType = {
    deliveryType: string
    deliveryPrice: number
 }
+
+const nodemailer = new NodeMailer()
 
 export const handleUserOrderWithCardPaymentController = async (req: RequestWithUser, res: Response) => {
    try {
@@ -43,8 +46,11 @@ export const handleUserOrderWithCardPaymentController = async (req: RequestWithU
          })
 
          foundUser.cartItems = []
+         // if (status === 'succeeded'){
+         //    const itemId = await foundUser.save()
+         // }
 
-         if (status === 'succeeded') foundUser.save()
+         await nodemailer.sendEmailAfterUserOrder(foundUser.email, foundUser.cartItems, 'semmi', '2022.01.01')
          return res.status(200).json({ orderSuccess: true, paymentSuccess: true, result: foundUser })
       }
       return res.status(404).json({ msg: 'A felhasználó nem található', orderSuccess: false, paymentSuccess: false })

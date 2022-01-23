@@ -1,0 +1,17 @@
+<style>
+
+</style>
+<section>
+    <h1 class="main-title">Köszönjük a rendelésed!</h1>
+    <hr class="line-divider">
+    <div class="top-info">
+        <p>Vásárlási azonosító: <span class="highlight">{{ itemId }}</span></p>
+        <p>Dátum: <span class="highlight">{{orderDate}}</span></p>
+    </div>
+    <h1>Termékek</h1>
+    <div class="products">
+        {{ #each products }}
+        <p>{{ this.displayName }}</p>
+        {{ /each }}
+    </div>
+</section>
