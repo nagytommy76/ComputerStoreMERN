@@ -24,7 +24,7 @@ const nodemailer = new NodeMailer()
 export const handleUserOrderWithCardPaymentController = async (req: RequestWithUser, res: Response) => {
    try {
       const { id, amount, paymentMethod, deliveryType, deliveryPrice } = req.body as PaymentBodyType
-      const foundUser = await User.findById(req.user?._id) /*.lean()*/
+      const foundUser = await User.findById(req.user?._id)
       if (foundUser) {
          const currentItemsInCart = getCurrentCartItemsFromFoundUser(foundUser)
          const { created, status } = await stripe.paymentIntents.create({
@@ -34,10 +34,11 @@ export const handleUserOrderWithCardPaymentController = async (req: RequestWithU
             confirm: true,
             payment_method: id
          })
-
+         const orderedAt = new Date()
+         
          foundUser.orders.push({
             payedAt: created,
-            orderedAt: new Date(),
+            orderedAt,
             paymentMethod,
             totalPrice: amount,
             deliveryType,
@@ -49,7 +50,7 @@ export const handleUserOrderWithCardPaymentController = async (req: RequestWithU
          // }
 
          const foundUserJson = foundUser.toJSON()
-         await nodemailer.sendEmailAfterUserOrder(foundUserJson.email, foundUserJson.cartItems, 'semmi', '2022.01.01')
+         await nodemailer.sendEmailAfterUserOrder(foundUserJson.email, foundUserJson.cartItems, 'termék ID', `${orderedAt.toLocaleDateString()} ${orderedAt.toLocaleTimeString()}`, amount, deliveryPrice)
          foundUser.cartItems = []
          return res.status(200).json({ orderSuccess: true, paymentSuccess: true, result: foundUser })
       }

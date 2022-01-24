@@ -1,4 +1,11 @@
 <style>
+    .body-container{
+        width: 80%;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
     .main-title{
         text-align: center;
         margin: 1rem 0;
@@ -9,20 +16,36 @@
         width: 100%;
     }
     .top-info{
+        width: 100%;
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
-        font-size: .7rem;
+        justify-content: space-around;
+        font-size: .85rem;
     }
     .products-list{
-        width: 80%;
         display: flex;
         flex-direction: column;
-        align-items: center;
+        margin: 0 auto;
     }
     .product{
-
+        width: 100%;
+        height: 180px;
+        display: flex;
+        align-items: center;
     }
+    .left-image{
+        width: 35%;
+        height: 100%;
+        object-fit: contain;
+    }
+    .right-contnent{
+        width: 65%;
+        padding: 0 .65rem;
+    }
+    .price-footer{
+        width: 70%;
+    }
+
 </style>
 <section class="inner-container">
     <h1 class="main-title">Köszönjük a rendelésed!</h1>
@@ -31,13 +54,23 @@
         <p>Vásárlási azonosító: <span class="highlight">{{ itemId }}</span></p>
         <p>Dátum: <span class="highlight">{{orderDate}}</span></p>
     </div>
-    <h1>Termékek</h1>
-    <div class="products-list">
-        {{#each products}}
-        <div class="product">
-            <p>{{ this.displayName }}</p>
-            {{!-- <img src="{{this.displayImage}}" alt="" srcset=""> --}}
+    <div class="body-container">
+        <h1>Termékek</h1>
+        <div class="products-list">
+            {{#each products}}
+            <div class="product">
+                <img class="left-image" src="{{this.displayImage}}" alt="" srcset="" />
+                <div class="right-contnent">
+                    <h4>{{this.displayName}}</h4>
+                    <p>Ár: <span class="highlight">{{this.price}}</span> Ft</p>
+                    <p>Rendelt mennyiség: <span class="highlight">{{this.quantity}} DB</span></p>
+                </div>
+            </div>
+            {{/each}}
         </div>
-        {{/each}}
+        <div class="price-footer">
+            <h3>Szállítási költség: <span class="highlight">{{deliveryPrice}} Ft</span></h3>
+            <h3>Fizetendő végösszeg: <span class="highlight">{{totalPrice}} Ft</span></h3>
+        </div>
     </div>
 </section>

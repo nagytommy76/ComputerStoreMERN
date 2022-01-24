@@ -52,13 +52,15 @@ export default class NodeMailer extends Handlebars {
       return emailInformation
    }
 
-   async sendEmailAfterUserOrder(userEmail: string, products: CartItemsType[], itemId: string, orderDate: string) {
+   async sendEmailAfterUserOrder(userEmail: string, products: CartItemsType[], itemId: string, orderDate: string, totalPrice: number, deliveryPrice: number) {
       try {
          const renderedEmail = await this.renderAnyHbsToPlainHtml('Orders/Orders', {
             EMAIL_TOKEN_EXPIRESIN: this.EMAIL_TOKEN_EXPIRESIN,
             products,
             itemId,
-            orderDate
+            orderDate,
+            totalPrice,
+            deliveryPrice
          })
          let emailInformation = await this.transporter.sendMail({
             from: this.senderAddress,
