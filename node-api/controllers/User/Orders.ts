@@ -27,62 +27,51 @@ export const handleUserOrderWithCardPaymentController = async (req: RequestWithU
       const foundUser = await User.findById(req.user?._id)
       if (foundUser) {
          const currentItemsInCart = getCurrentCartItemsFromFoundUser(foundUser)
-         const { created, status } = await stripe.paymentIntents.create({
-            currency: 'huf',
-            amount: amount + deliveryPrice,
-            description: 'Computer Store pet project',
-            confirm: true,
-            payment_method: id
-         })
          const orderedAt = new Date()
-         
+         let payedAt = new Date().valueOf()
+
+         if (paymentMethod == 'stripeCard') {
+            const { created, status } = await stripe.paymentIntents.create({
+               currency: 'huf',
+               amount: amount + deliveryPrice,
+               description: 'Computer Store pet project',
+               confirm: true,
+               payment_method: id,
+            })
+            payedAt = created
+         }
+
          foundUser.orders.push({
-            payedAt: created,
+            payedAt,
             orderedAt,
             paymentMethod,
             totalPrice: amount,
             deliveryType,
             deliveryPrice,
-            products: currentItemsInCart
+            products: currentItemsInCart,
          })
          // if (status === 'succeeded'){
-         //    const itemId = foundUser.save()
+         await foundUser.save()
          // }
+         const foundLastOrderId = foundUser.orders.pop()?._id
 
          const foundUserJson = foundUser.toJSON()
-         await nodemailer.sendEmailAfterUserOrder(foundUserJson.email, foundUserJson.cartItems, 'termék ID', `${orderedAt.toLocaleDateString()} ${orderedAt.toLocaleTimeString()}`, amount, deliveryPrice)
+         await nodemailer.sendEmailAfterUserOrder(
+            foundUserJson.email,
+            foundUserJson.cartItems,
+            'termék ID',
+            `${orderedAt.toLocaleDateString()} ${orderedAt.toLocaleTimeString()}`,
+            amount,
+            deliveryPrice,
+            foundLastOrderId
+         )
          foundUser.cartItems = []
+
          return res.status(200).json({ orderSuccess: true, paymentSuccess: true, result: foundUser })
       }
       return res.status(404).json({ msg: 'A felhasználó nem található', orderSuccess: false, paymentSuccess: false })
    } catch (error) {
       return res.status(500).json({ error, orderSuccess: false, paymentSuccess: false })
-   }
-}
-
-export const handleUserOrderWithCashPaymentController = async (req: RequestWithUser, res: Response) => {
-   try {
-      const { amount, paymentMethod, deliveryType, deliveryPrice } = req.body as PaymentBodyType
-      const foundUser = await User.findById(req.user?._id)
-      if (foundUser) {
-         const currentItemsInCart = getCurrentCartItemsFromFoundUser(foundUser)
-
-         foundUser.orders.push({
-            orderedAt: new Date(),
-            paymentMethod,
-            totalPrice: amount,
-            deliveryType,
-            deliveryPrice,
-            products: currentItemsInCart
-         })
-
-         foundUser.cartItems = []
-         foundUser.save()
-
-         return res.status(200).json({ orderSuccess: true, foundUser })
-      }
-   } catch (error) {
-      return res.status(500).json({ error, orderSuccess: false })
    }
 }
 
