@@ -41,7 +41,7 @@ const PaymentForm = () => {
          card: elements.getElement(CardElement) as StripeCardElement
       })
       if (!error && paymentMethod) {
-         dispatch(handleMakeOrderWithCardOrCash(setIsLoading, setHasError, setStartCounter, paymentMethod.id, 'card'))
+         dispatch(handleMakeOrderWithCardOrCash(setIsLoading, setHasError, setStartCounter, paymentMethod.id))
       } else {
          setHasError({
             errorMsg: error?.message,

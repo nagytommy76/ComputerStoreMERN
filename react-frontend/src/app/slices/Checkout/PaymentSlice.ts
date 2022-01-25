@@ -58,42 +58,41 @@ export const handleMakeOrderWithCardOrCash =
       setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
       setHasError: React.Dispatch<React.SetStateAction<AlertErrorTypes>>,
       setStartCounter: React.Dispatch<React.SetStateAction<boolean>>,
-      paymentMethodId: string | null,
-      pamentMethodType: string
+      paymentMethodId: string | null
    ) =>
    async (dispatch: Dispatch, getState: any) => {
       const {
          payment: { selectedPaymentMethod },
          cart: { totalPrice },
-         deliveryPrice: { type, deliveryPrice }
+         deliveryPrice: { type, deliveryPrice },
       } = getState() as RootState
       setIsLoading(true)
       try {
-         const response = await axios.post(`/order/handle-order-${pamentMethodType}`, {
+         const response = await axios.post(`/order/handle-order`, {
             // A Stripe csak 999.999.99 Ft-ig engedi a fizetést, ezért nem szorzom 100-zal.....
             amount: totalPrice,
             paymentMethod: selectedPaymentMethod,
             deliveryType: type,
             deliveryPrice,
-            id: paymentMethodId
+            id: paymentMethodId,
          })
          console.log(response.data)
-         // if (response.status === 200) {
-         //    setIsLoading(false)
-         //    paymentMethodId === 'cash' ? dispatch(setIsCashPaySuccess(true)) : dispatch(setIsCardPaySuccess(true))
-         //    setStartCounter(true)
-         //    setHasError({
-         //       errorMsg: 'A Termékek sikeresen megrendelésre kerültek! Hamarosan átirányítunk a főoldalra!',
-         //       isError: true,
-         //       serverity: 'success'
-         //    })
-         // }
+         if (response.status === 200) {
+            setIsLoading(false)
+            paymentMethodId === 'cash' ? dispatch(setIsCashPaySuccess(true)) : dispatch(setIsCardPaySuccess(true))
+            setStartCounter(true)
+            setHasError({
+               errorMsg: 'A Termékek sikeresen megrendelésre kerültek! Hamarosan átirányítunk a főoldalra!',
+               isError: true,
+               serverity: 'success',
+            })
+         }
       } catch (error) {
          if (axios.isAxiosError(error)) {
             setHasError({
                errorMsg: error.message,
                isError: true,
-               serverity: 'error'
+               serverity: 'error',
             })
          }
       }

@@ -22,7 +22,7 @@ const MakeOrder: React.FC = () => {
    const handleMakeOrderWithPayment = async () => {
       if (selectedPaymentMethod === 'stripeCard') {
          dispatch(setPaymentModalOpen(true))
-      } else await dispatch(handleMakeOrderWithCardOrCash(setIsLoading, setHasError, setStartCounter, null, 'cash'))
+      } else await dispatch(handleMakeOrderWithCardOrCash(setIsLoading, setHasError, setStartCounter, null))
    }
 
    return (
