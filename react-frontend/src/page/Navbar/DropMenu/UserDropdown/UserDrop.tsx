@@ -32,13 +32,14 @@ const DropMenu: React.FC<Prop> = ({ reference }) => {
       <DropStyle ref={reference}>
          {isMobileSize && (
             <CloseDropdownMenu onClick={clickEvent}>
-               <FontAwesomeIcon icon={['fas', 'times']} size='2x' />
+               <FontAwesomeIcon icon={['fas', 'times']} size="2x" />
             </CloseDropdownMenu>
          )}
-         <DropLinkItem onClick={logout} to=''>
+         <DropLinkItem to="/orders">Korábbi rendelések</DropLinkItem>
+         <DropLinkItem onClick={logout} to="">
             Kijelentkezés
          </DropLinkItem>
-         {isAdmin && <DropLinkItem to='/admin'>Admin Felület</DropLinkItem>}
+         {isAdmin && <DropLinkItem to="/admin">Admin Felület</DropLinkItem>}
       </DropStyle>
    )
 }

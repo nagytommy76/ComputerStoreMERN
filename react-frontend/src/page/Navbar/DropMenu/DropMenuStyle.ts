@@ -43,7 +43,7 @@ export const CloseDropdownMenu = styled.div`
 export const DropLinkItem = styled(Link)`
    max-width: 100%;
    text-align: right;
-   padding: 0.5rem 2.6rem 0.5rem 0;
+   padding: 0.5rem 1rem 0.5rem 0;
    border-left: 5px solid transparent;
    transition: all 0.1s linear;
    &:hover {

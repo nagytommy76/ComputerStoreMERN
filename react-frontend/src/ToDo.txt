@@ -12,5 +12,8 @@
 - Ha a felhasználó regsiztrálta az email cíymét, inaktiválni kell az EmailTokent!!???!?!?!?!?
 
 
-- Esetleg a csak mongoose query-knél lean-t használni, hogy csökkentsem a lekérdezési időt és méretet
+- Esetleg a csak mongoose query-knél lean-t használni, hogy csökkentsem a lekérdezési időt és méretet, OPTIMALIZÁLÁS
   https://mongoosejs.com/docs/tutorials/lean.html
+
+- Kéne egy oldal ahol vissza lehet nézni a korábbi vásárlásokat, de úgy, hogy az email-ben kapott Vásárlási azonosító egy link legyen ami 
+  átirányít egy oldalra, ha be vagy jelentkezve.

@@ -53,12 +53,13 @@ const EmailValidation = () => {
                      message: 'Kérlek kérj egy új emailt a lenti gombbal.',
                      errorType: 'jwt expired'
                   })
-               error.response.data.errorMsg === 'invalid signature' &&
-                  setErrors({
-                     hasError: true,
-                     messageTitle: 'Helytelen megerősítő kód! Kérlek ellenőrizd, vagy kérj egy újat!',
-                     errorType: 'invalid signature'
-                  })
+               error.response.data.errorMsg === 'invalid signature' ||
+                  ('invalid token' &&
+                     setErrors({
+                        hasError: true,
+                        messageTitle: 'Helytelen megerősítő kód! Kérlek ellenőrizd, vagy kérj egy újat!',
+                        errorType: 'invalid signature',
+                     }))
             } else {
                setErrors({
                   hasError: true,

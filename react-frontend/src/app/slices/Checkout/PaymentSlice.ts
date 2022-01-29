@@ -76,7 +76,7 @@ export const handleMakeOrderWithCardOrCash =
             deliveryPrice,
             id: paymentMethodId,
          })
-         console.log(response.data)
+
          if (response.status === 200) {
             setIsLoading(false)
             paymentMethodId === 'cash' ? dispatch(setIsCashPaySuccess(true)) : dispatch(setIsCardPaySuccess(true))

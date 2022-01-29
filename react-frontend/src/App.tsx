@@ -20,6 +20,7 @@ import PageSuspense from './SuspenseComponents/Page/PageSuspense'
 const Login = lazy(() => import(/*webpackChunkName: "LoginPage"*/ './page/Auth/Login/Login'))
 const Register = lazy(() => import(/*webpackChunkName: "RegisterPage"*/ './page/Auth/Register/Register'))
 const EmailValidation = lazy(() => import(/*webpackChunkName: "EmailValidation"*/ './page/Auth/Validation/EmailValidation'))
+const UserOrders = lazy(() => import('./page/Orders/Orders'))
 
 const Welcome = lazy(() => import(/*webpackChunkName: "WelcomePage"*/ './page/Welcome/Welcome'))
 const Page404 = lazy(() => import(/*webpackChunkName: "404Page"*/ './page/404/Page404'))
@@ -64,13 +65,14 @@ const App = () => {
                <Suspense fallback={<PageSuspense />}>
                   <ScrollToTop>
                      <Routes>
-                        <Route path='/' element={<Welcome />} />
-                        <Route path='/vga/vga-details' element={<VgaDetails />} />
-                        <Route path='/cpu/cpu-details' element={<CpuDetails />} />
-                        <Route path='/vga' element={<Vga />} />
-                        <Route path='/cpu' element={<Cpu />} />
+                        <Route path="/" element={<Welcome />} />
+                        <Route path="/vga/vga-details" element={<VgaDetails />} />
+                        <Route path="/cpu/cpu-details" element={<CpuDetails />} />
+                        <Route path="/vga" element={<Vga />} />
+                        <Route path="/cpu" element={<Cpu />} />
+                        <Route path="/orders" element={<UserOrders />} />
                         <Route
-                           path='/register'
+                           path="/register"
                            element={
                               <GuestsRoute>
                                  <Register />
@@ -78,16 +80,16 @@ const App = () => {
                            }
                         />
                         <Route
-                           path='/login'
+                           path="/login"
                            element={
                               <GuestsRoute>
                                  <Login />
                               </GuestsRoute>
                            }
                         />
-                        <Route path='/email-confirm/:confirmCode' element={<EmailValidation />} />
+                        <Route path="/email-confirm/:confirmCode" element={<EmailValidation />} />
                         <Route
-                           path='/checkout'
+                           path="/checkout"
                            element={
                               <AuthProtectedRoute>
                                  <Checkout />
@@ -95,14 +97,14 @@ const App = () => {
                            }
                         />
                         <Route
-                           path='/admin/*'
+                           path="/admin/*"
                            element={
                               <AdminRoute>
                                  <Admin />
                               </AdminRoute>
                            }
                         />
-                        <Route path='*' element={<Page404 />} />
+                        <Route path="*" element={<Page404 />} />
                      </Routes>
                   </ScrollToTop>
                </Suspense>
