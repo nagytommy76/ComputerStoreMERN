@@ -21,7 +21,7 @@ type PaymentBodyType = {
 
 const nodemailer = new NodeMailer()
 
-export const handleUserOrderWithCardPaymentController = async (req: RequestWithUser, res: Response) => {
+export const handleUserOrderWithCardOrCashPaymentController = async (req: RequestWithUser, res: Response) => {
    try {
       const { id, amount, paymentMethod, deliveryType, deliveryPrice } = req.body as PaymentBodyType
       const foundUser = await User.findById(req.user?._id)
@@ -31,7 +31,7 @@ export const handleUserOrderWithCardPaymentController = async (req: RequestWithU
          let payedAt = new Date().valueOf()
 
          if (paymentMethod == 'stripeCard') {
-            const { created, status } = await stripe.paymentIntents.create({
+            const { created } = await stripe.paymentIntents.create({
                currency: 'huf',
                amount: amount + deliveryPrice,
                description: 'Computer Store pet project',
@@ -50,9 +50,8 @@ export const handleUserOrderWithCardPaymentController = async (req: RequestWithU
             deliveryPrice,
             products: currentItemsInCart,
          })
-         // if (status === 'succeeded'){
+
          await foundUser.save()
-         // }
          const foundLastOrderId = foundUser.orders.pop()?._id
 
          const foundUserJson = foundUser.toJSON()
@@ -61,7 +60,7 @@ export const handleUserOrderWithCardPaymentController = async (req: RequestWithU
             foundUserJson.cartItems,
             'termék ID',
             `${orderedAt.toLocaleDateString()} ${orderedAt.toLocaleTimeString()}`,
-            amount,
+            amount + deliveryPrice,
             deliveryPrice,
             foundLastOrderId
          )

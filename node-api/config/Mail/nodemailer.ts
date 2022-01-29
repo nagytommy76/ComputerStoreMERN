@@ -75,7 +75,7 @@ export default class NodeMailer extends Handlebars {
          let emailInformation = await this.transporter.sendMail({
             from: this.senderAddress,
             to: userEmail,
-            subject: 'Megerősítő kód újraküldése',
+            subject: 'Rendelésed összegzése',
             html: renderedEmail,
          })
          return emailInformation
