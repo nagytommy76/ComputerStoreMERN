@@ -33,7 +33,7 @@ export default class UserOrders extends NodeMailer {
          if (foundUser) {
             const currentItemsInCart = this.getCurrentCartItemsFromFoundUser(foundUser)
             const orderedAt = new Date()
-            let payedAt = new Date().valueOf()
+            let payedAt = Date.now().valueOf()
 
             if (paymentMethod == 'stripeCard') {
                const { created } = await stripe.paymentIntents.create({

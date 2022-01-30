@@ -6,15 +6,15 @@ const UserSchema = new Schema<UserTypes>({
    password: {
       type: String,
       required: [true, 'Adjon meg egy jelszót!'],
-      minlength: [6, 'a jelszó min. 6 karakter legyen!']
+      minlength: [6, 'a jelszó min. 6 karakter legyen!'],
    },
    email: {
       type: String,
       required: [true, 'Adjon meg egy email címet!'],
       unique: true,
-      lowercase: true
+      lowercase: true,
    },
-   isAdmin: { type: Boolean, default: false }
+   isAdmin: { type: Boolean, default: false },
 }).add({
    isEmailConfirmed: { type: Boolean, default: false },
    orders: [
@@ -30,11 +30,12 @@ const UserSchema = new Schema<UserTypes>({
                {
                   productID: Schema.Types.ObjectId,
                   productName: String,
-                  productQty: Number
-               }
-            ]
-         }
-      }
+                  productImage: String,
+                  productQty: Number,
+               },
+            ],
+         },
+      },
    ],
    userDetails: {
       firstName: String,
@@ -46,8 +47,8 @@ const UserSchema = new Schema<UserTypes>({
          street: String,
          houseNumber: String,
          floor: String,
-         door: String
-      }
+         door: String,
+      },
    },
    cartItems: [
       {
@@ -56,9 +57,9 @@ const UserSchema = new Schema<UserTypes>({
          displayName: String,
          price: Number,
          quantity: Number,
-         productType: String
-      }
-   ]
+         productType: String,
+      },
+   ],
 })
 
 export const User = model<UserTypes>('User', UserSchema)
