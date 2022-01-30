@@ -5,7 +5,7 @@ import { UserTypes } from '../../models/User/UserTypes'
 
 import NodeMailer from '../../config/Mail/nodemailer'
 import { Stripe } from 'stripe'
-import { LeanDocument } from 'mongoose'
+import { Document, LeanDocument, ObjectId } from 'mongoose'
 import { UserOrders as UserOrderType } from '../../models/User/UserTypes'
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY) as Stripe
@@ -56,8 +56,7 @@ export default class UserOrders extends NodeMailer {
                products: currentItemsInCart,
             })
 
-            await foundUser.save()
-            const foundLastOrderId = foundUser.orders.pop()?._id
+            const foundLastOrderId = foundUser.orders[foundUser.orders.length - 1]._id
 
             const foundUserJson = foundUser.toJSON()
             await this.sendEmailAfterUserOrder(
@@ -69,8 +68,9 @@ export default class UserOrders extends NodeMailer {
                deliveryPrice,
                foundLastOrderId
             )
-            foundUser.cartItems = []
 
+            foundUser.cartItems = []
+            await foundUser.save()
             return res.status(200).json({ orderSuccess: true, paymentSuccess: true, result: foundUser })
          }
          return res.status(404).json({ msg: 'A felhasználó nem található', orderSuccess: false, paymentSuccess: false })
@@ -80,20 +80,32 @@ export default class UserOrders extends NodeMailer {
    }
 
    getUserOrders = async (request: RequestWithUser, response: Response) => {
-      const foundUserOrders = (await User.findById(request.user?._id).select('orders').lean()) as LeanDocument<UserOrderType>
-      if (foundUserOrders) {
-         response.status(200).json(foundUserOrders)
+      try {
+         const foundUserOrders = (await User.findById(request.user?._id).select('orders').lean()) as LeanDocument<
+            {
+               orders: UserOrderType[]
+               _id: ObjectId
+            } & Document<any, any>
+         >
+
+         if (foundUserOrders) {
+            response.status(200).json(foundUserOrders.orders.reverse()) // Megfordítom, hogy a legújabb legyen legelöl
+         }
+      } catch (error) {
+         response.status(500).json({ error })
       }
    }
 
    private getCurrentCartItemsFromFoundUser = (foundUser: UserTypes) => {
-      const currentItemsInCart: { productID: string; productName: string; productQty: number }[] = foundUser.cartItems.map((product) => {
-         return {
-            productID: product.itemId,
-            productName: product.displayName,
-            productQty: product.quantity,
-         }
-      })
+      const currentItemsInCart: { productID: string; productName: string; productQty: number; productImage: string }[] =
+         foundUser.cartItems.map((product) => {
+            return {
+               productID: product.itemId,
+               productImage: product.displayImage,
+               productName: product.displayName,
+               productQty: product.quantity,
+            }
+         })
       return currentItemsInCart
    }
 }
