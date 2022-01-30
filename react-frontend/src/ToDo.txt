@@ -9,7 +9,7 @@
 - Elfelejtett jelszó funkcionalitás
 - Megformázni az emailt, handlebars-al? https://handlebarsjs.com/
 
-- Ha a felhasználó regsiztrálta az email cíymét, inaktiválni kell az EmailTokent!!???!?!?!?!?
+- Ha a felhasználó regsiztrálta az email címét, inaktiválni kell az EmailTokent!!???!?!?!?!?
 
 
 - Esetleg a csak mongoose query-knél lean-t használni, hogy csökkentsem a lekérdezési időt és méretet, OPTIMALIZÁLÁS
