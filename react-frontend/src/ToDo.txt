@@ -2,7 +2,6 @@
 
 - Esetleg PDF generálás?!
 
-- Email küldést megvalósítani (Rendelés után, esetleg validálni az emailt)
 
 - Az összes fallback-et (Suspense) vizualizálni, mert most csak a Töltés... van FOLYAMATBAN
 
@@ -17,3 +16,7 @@
 
 - Kéne egy oldal ahol vissza lehet nézni a korábbi vásárlásokat, de úgy, hogy az email-ben kapott Vásárlási azonosító egy link legyen ami 
   átirányít egy oldalra, ha be vagy jelentkezve.
+- A termékekhez kéne egy link????!!!
+
+
+- Ha ladtam a rendelést, abban 10mp-ben ne lehessen törölni a termékeket!!!! ILLETVE ÚJRA RENDELNI MEGOLDANI!!!!!!!!!!!!!!!!!!

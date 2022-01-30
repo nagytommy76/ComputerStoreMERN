@@ -44,10 +44,10 @@ export const DropLinkItem = styled(Link)`
    max-width: 100%;
    text-align: right;
    padding: 0.5rem 1rem 0.5rem 0;
-   border-left: 5px solid transparent;
+   border-left: 4px solid transparent;
    transition: all 0.1s linear;
    &:hover {
       font-weight: 900;
-      border-left: 5px solid yellow;
+      border-left: 8px solid yellow;
    }
 `

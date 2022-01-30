@@ -9,8 +9,9 @@ export type UserOrders = {
    _id: string
 }
 
-type Products = {
+export type Products = {
    productID: string
+   productImage: string
    productName: string
    productQty: number
    _id: string

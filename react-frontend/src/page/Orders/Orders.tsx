@@ -6,7 +6,7 @@ import { OrdersPageContainer } from './Styles'
 
 import Typography from '@mui/material/Typography'
 
-const AccordionBody = React.lazy(() => import('./AccordionBody'))
+const AccordionBody = React.lazy(() => import('./Includes/AccordionBody'))
 
 const Orders = () => {
    const [orders, setOrders] = useState<UserOrders[]>([])
@@ -21,9 +21,13 @@ const Orders = () => {
          <Typography align='center' variant='h1' color='gray' m={2}>
             Korábbi rendelések
          </Typography>
-         {orders.map((currentOrder) => (
-            <AccordionBody key={currentOrder._id} />
-         ))}
+         {orders.length > 0 ? (
+            orders.map((currentOrder, index) => <AccordionBody key={currentOrder._id} index={index} userOrders={currentOrder} />)
+         ) : (
+            <Typography align='center' variant='h1' color='gray' m={2}>
+               Nem rendeltél még tőlünk :(
+            </Typography>
+         )}
       </OrdersPageContainer>
    )
 }

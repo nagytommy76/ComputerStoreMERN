@@ -80,6 +80,7 @@ export const handleMakeOrderWithCardOrCash =
          if (response.status === 200) {
             setIsLoading(false)
             paymentMethodId === 'cash' ? dispatch(setIsCashPaySuccess(true)) : dispatch(setIsCardPaySuccess(true))
+            dispatch(setDefaultPaymentOptions())
             setStartCounter(true)
             setHasError({
                errorMsg: 'A Termékek sikeresen megrendelésre kerültek! Hamarosan átirányítunk a főoldalra!',
