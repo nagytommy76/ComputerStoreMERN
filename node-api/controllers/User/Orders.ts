@@ -33,7 +33,7 @@ export default class UserOrders extends NodeMailer {
          if (foundUser) {
             const currentItemsInCart = this.getCurrentCartItemsFromFoundUser(foundUser)
             const orderedAt = new Date()
-            let payedAt = Date.now().valueOf()
+            let payedAt = 0
 
             if (paymentMethod == 'stripeCard') {
                const { created } = await stripe.paymentIntents.create({
@@ -97,13 +97,14 @@ export default class UserOrders extends NodeMailer {
    }
 
    private getCurrentCartItemsFromFoundUser = (foundUser: UserTypes) => {
-      const currentItemsInCart: { productID: string; productName: string; productQty: number; productImage: string }[] =
+      const currentItemsInCart: { productID: string; productName: string; productQty: number; productImage: string; productPrice: number }[] =
          foundUser.cartItems.map((product) => {
             return {
                productID: product.itemId,
                productImage: product.displayImage,
                productName: product.displayName,
                productQty: product.quantity,
+               productPrice: product.price
             }
          })
       return currentItemsInCart

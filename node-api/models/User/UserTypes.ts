@@ -40,6 +40,8 @@ export type UserOrders = {
       productID: ObjectId | string
       productName: string
       productQty: number
+      productImage: string
+      productPrice: number
    }[]
 }[]
 
