@@ -9,6 +9,7 @@ import {
    setPriceRange,
    setIsPriceRangeSet
 } from '../../../app/slices/FilterDataSlice'
+import { setToDefault } from '../../../app/slices/PaginateSlice'
 
 const useFilter = (productType: string) => {
    const dispatch = useAppDispatch()
@@ -24,6 +25,7 @@ const useFilter = (productType: string) => {
             dispatch(setMaxPrice(filterData.data.maxPrice))
             dispatch(setPriceRange([filterData.data.minPrice, filterData.data.maxPrice]))
             dispatch(setIsPriceRangeSet(true))
+            dispatch(setToDefault())
          }
       } catch (error) {
          console.log(error)

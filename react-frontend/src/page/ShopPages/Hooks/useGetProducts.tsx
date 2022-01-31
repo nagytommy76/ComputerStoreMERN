@@ -21,8 +21,8 @@ const useGetProducts = (productTypeForURL: string) => {
                data: {
                   currentPage,
                   perPage,
-                  filterOptions
-               }
+                  filterOptions,
+               },
             }
          )
          if (product.status === 200) {
@@ -40,14 +40,7 @@ const useGetProducts = (productTypeForURL: string) => {
          getProductsByQueries()
       }
       // eslint-disable-next-line
-   }, [
-      currentPage,
-      perPage,
-      isPriceRangeSet,
-      filterOptions.selectedManufacturer,
-      filterOptions.priceRange,
-      filterOptions.orderBy
-   ])
+   }, [currentPage, perPage, isPriceRangeSet, filterOptions.selectedManufacturer, filterOptions.priceRange, filterOptions.orderBy])
 }
 
 export default useGetProducts

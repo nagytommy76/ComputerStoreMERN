@@ -17,7 +17,7 @@ const AccordionBody: React.FC<{ index: number; userOrders: UserOrders }> = ({ in
       setExpanded(isExpanded ? panel : false)
    }
    const timestampToDate = (timestamp: number) => {
-      const date = new Date(timestamp * 1000)
+      const date = new Date(timestamp)
       return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`
    }
 
