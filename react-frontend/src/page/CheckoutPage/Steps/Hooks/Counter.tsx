@@ -4,6 +4,7 @@ import { useAppDispatch } from '../../../../app/hooks'
 
 import { setDefaultPaymentOptions } from '../../../../app/slices/Checkout/PaymentSlice'
 import { removeCartItemsAfterLogout as resetCartItems } from '../../../../app/slices/CartSlice'
+import { setToDefaultStepsAfterOrder } from '../../../../app/slices/Checkout/StepsSlice'
 
 const useCounter = () => {
    const dispatch = useAppDispatch()
@@ -20,6 +21,7 @@ const useCounter = () => {
          if (counter === 1) {
             dispatch(setDefaultPaymentOptions())
             dispatch(resetCartItems())
+            dispatch(setToDefaultStepsAfterOrder())
             navigate('/')
             setStartCounter(false)
          }

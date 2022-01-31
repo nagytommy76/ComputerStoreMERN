@@ -19,4 +19,6 @@
 - A termékekhez kéne egy link????!!!
 
 
-- Ha ladtam a rendelést, abban 10mp-ben ne lehessen törölni a termékeket!!!! ILLETVE ÚJRA RENDELNI MEGOLDANI!!!!!!!!!!!!!!!!!!
+- Ha ladtam a rendelést, abban a 10mp-ben ne lehessen törölni a termékeket!!!! ILLETVE ÚJRA RENDELNI STB, MEGOLDANI!!!!!!!!!!!!!!!!!!
+
+- A shop menünél kéne egy felugró ablak ha belement a kosárba! Snackbar pl

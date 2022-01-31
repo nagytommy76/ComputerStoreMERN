@@ -20,11 +20,15 @@ const StepsSlice = createSlice({
       },
       setIsNextBtnDisabled: (state, { payload }: PayloadAction<boolean>) => {
          state.isNextBtnDisabled = payload
-      }
-   }
+      },
+      setToDefaultStepsAfterOrder: (state) => {
+         state.currentStep = 0
+         state.isNextBtnDisabled = false
+      },
+   },
 })
 
-export const { setIsNextBtnDisabled, setCurrentStep } = StepsSlice.actions
+export const { setIsNextBtnDisabled, setCurrentStep, setToDefaultStepsAfterOrder } = StepsSlice.actions
 
 export default StepsSlice.reducer
 

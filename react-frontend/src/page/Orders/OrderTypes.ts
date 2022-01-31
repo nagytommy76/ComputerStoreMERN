@@ -14,5 +14,6 @@ export type Products = {
    productImage: string
    productName: string
    productQty: number
+   productPrice: number
    _id: string
 }

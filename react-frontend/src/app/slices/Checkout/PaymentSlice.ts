@@ -15,7 +15,7 @@ const initialState: Props = {
    isPaymentModalOpen: false,
    selectedPaymentMethod: 'cashOnDelivery',
    isCardPaySuccess: false,
-   isCashPaySuccess: false
+   isCashPaySuccess: false,
 }
 
 const PaymentSlice = createSlice({
@@ -39,17 +39,12 @@ const PaymentSlice = createSlice({
          state.isPaymentModalOpen = false
          state.isCashPaySuccess = false
          state.isCardPaySuccess = false
-      }
-   }
+      },
+   },
 })
 
-export const {
-   setPaymentModalOpen,
-   setSelectedPaymentMethod,
-   setDefaultPaymentOptions,
-   setIsCashPaySuccess,
-   setIsCardPaySuccess
-} = PaymentSlice.actions
+export const { setPaymentModalOpen, setSelectedPaymentMethod, setDefaultPaymentOptions, setIsCashPaySuccess, setIsCardPaySuccess } =
+   PaymentSlice.actions
 
 export default PaymentSlice.reducer
 
