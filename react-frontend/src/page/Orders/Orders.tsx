@@ -10,11 +10,17 @@ const AccordionBody = React.lazy(() => import('./Includes/AccordionBody'))
 
 const Orders = () => {
    const [orders, setOrders] = useState<UserOrders[]>([])
+   const [expanded, setExpanded] = useState<string | false>('panel0')
+
    useEffect(() => {
       axios.get('/order/get-orders').then((resultOrders: AxiosResponse<UserOrders[], any>) => {
          setOrders(resultOrders.data)
       })
    }, [])
+
+   const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+      setExpanded(isExpanded ? panel : false)
+   }
 
    return (
       <OrdersPageContainer>
@@ -22,7 +28,15 @@ const Orders = () => {
             Korábbi rendelések
          </Typography>
          {orders.length > 0 ? (
-            orders.map((currentOrder, index) => <AccordionBody key={currentOrder._id} index={index} userOrders={currentOrder} />)
+            orders.map((currentOrder, index) => (
+               <AccordionBody
+                  key={currentOrder._id}
+                  expanded={expanded}
+                  handleAccordionOpen={handleChange}
+                  index={index}
+                  userOrders={currentOrder}
+               />
+            ))
          ) : (
             <Typography align='center' variant='h1' color='gray' m={2}>
                Nem rendeltél még tőlünk :(

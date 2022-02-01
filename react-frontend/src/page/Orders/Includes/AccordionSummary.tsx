@@ -18,7 +18,12 @@ const AccordionSummaryComponent: React.FC<{ index: number; orderedAt: string; to
    }, [orderedAt])
 
    return (
-      <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls={`panel${index}bh-content`} id={`panel${index}bh-header`}>
+      <AccordionSummary
+         sx={{ backgroundColor: '#3d5a80', color: '#FFF' }}
+         expandIcon={<ExpandMoreIcon />}
+         aria-controls={`panel${index}bh-content`}
+         id={`panel${index}bh-header`}
+      >
          <Typography sx={{ width: '30%' }}>{formattedDate}</Typography>
          <Typography>
             <NumberFormat value={totalPrice} thousandSeparator=' ' suffix=' Ft' displayType='text' />

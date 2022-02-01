@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { UserOrders } from '../OrderTypes'
 
 import Accordion from '@mui/material/Accordion'
@@ -10,19 +10,19 @@ import NumberFormat from 'react-number-format'
 const AccordionSummary = React.lazy(() => import('./AccordionSummary'))
 const Products = React.lazy(() => import('./Products'))
 
-const AccordionBody: React.FC<{ index: number; userOrders: UserOrders }> = ({ index, userOrders }) => {
-   const [expanded, setExpanded] = useState<string | false>(false)
-
-   const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-      setExpanded(isExpanded ? panel : false)
-   }
+const AccordionBody: React.FC<{
+   index: number
+   userOrders: UserOrders
+   expanded: string | false
+   handleAccordionOpen: (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => void
+}> = ({ index, userOrders, expanded, handleAccordionOpen }) => {
    const timestampToDate = (timestamp: number) => {
       const date = new Date(timestamp * 1000)
       return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`
    }
 
    return (
-      <Accordion expanded={expanded === `panel${index}`} onChange={handleChange(`panel${index}`)}>
+      <Accordion disableGutters expanded={expanded === `panel${index}`} onChange={handleAccordionOpen(`panel${index}`)}>
          <AccordionSummary index={index} orderedAt={userOrders.orderedAt} totalPrice={userOrders.totalPrice} />
          <AccordionDetails>
             <Typography>Fizetési mód: {userOrders.paymentMethod === 'stripeCard' ? 'Kártya' : 'Készpénz'}</Typography>
