@@ -1,5 +1,6 @@
 import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit'
 import axios, { AxiosResponse } from 'axios'
+import { RootState } from '../store'
 
 import {
    checkProductExistsInTheCart,
@@ -7,7 +8,7 @@ import {
    StateType,
    CartItemsType,
    calculateTotalPriceAndQuantity,
-   increaseItemQtyByOne
+   increaseItemQtyByOne,
 } from './helpers/CartSliceHelper'
 
 type IncomingTypes = {
@@ -19,9 +20,10 @@ type IncomingTypes = {
 }
 
 const initialState: StateType = {
+   isSnackbarOpen: { isOpen: false, text: '' },
    totalQuantity: 0,
    totalPrice: 0,
-   cartItems: []
+   cartItems: [],
 }
 
 export const CartSlice = createSlice({
@@ -34,7 +36,7 @@ export const CartSlice = createSlice({
             displayName: action.payload.displayName,
             price: action.payload.price,
             quantity: action.payload.itemQuantity,
-            displayImage: action.payload.displayImage
+            displayImage: action.payload.displayImage,
          }
          const foundElementIndex = searchForStartingIndexInStateCartItems(action.payload._id, state.cartItems)
          let foundCartItemInState = checkProductExistsInTheCart(action.payload._id, state.cartItems)
@@ -67,20 +69,28 @@ export const CartSlice = createSlice({
       },
       decreaseItemQty: (state, action: PayloadAction<string>) => {
          increaseItemQtyByOne(state, action.payload, false)
-      }
-   }
+      },
+      handleSnackbarOpen: (state, { payload }: PayloadAction<{ isOpen: boolean; text: string }>) => {
+         state.isSnackbarOpen = payload
+      },
+   },
 })
 
-export const { addToCart, removeAllEntitesFromCart, increaseItemQty, decreaseItemQty, removeCartItemsAfterLogout } =
+export const { addToCart, removeAllEntitesFromCart, increaseItemQty, decreaseItemQty, removeCartItemsAfterLogout, handleSnackbarOpen } =
    CartSlice.actions
 
 export default CartSlice.reducer
 
 export const sendCartItemToSaveInDB = (payload: IncomingTypes, productType: string) => (dispatch: Dispatch, getState: any) => {
+   dispatch(handleSnackbarOpen({ isOpen: true, text: `A(z) ${payload.displayName} termék sikeresen hozááadva a kosárhoz!` }))
    dispatch(addToCart(payload))
-   if (getState().auth.userLoggedIn) {
+   const {
+      auth: { userLoggedIn },
+      cart: { cartItems },
+   } = getState() as RootState
+   if (userLoggedIn) {
       // Ez már a kosárba helyezés utáni állapot =
-      const totalQuantityOfAProduct = checkProductExistsInTheCart(payload._id, getState().cart.cartItems)?.quantity
+      const totalQuantityOfAProduct = checkProductExistsInTheCart(payload._id, cartItems)?.quantity
       axios
          .post('/cart/add-items', {
             _id: payload._id,
@@ -88,7 +98,7 @@ export const sendCartItemToSaveInDB = (payload: IncomingTypes, productType: stri
             productType: productType,
             displayImage: payload.displayImage,
             displayName: payload.displayName,
-            price: payload.price
+            price: payload.price,
          })
          .catch((error) => console.log(error.message))
    }
@@ -110,8 +120,8 @@ export const removeItemsFromCart = (_id: string) => (dispatch: Dispatch, getStat
       axios
          .delete('/cart/remove-item', {
             data: {
-               _id
-            }
+               _id,
+            },
          })
          .then((result) => {
             if (result && result.status === 200) dispatch(removeAllEntitesFromCart(_id))
@@ -127,11 +137,7 @@ export const fetchCartItemsFromDB = () => (dispatch: Dispatch) => {
    axios
       .get('/cart/fetch-items')
       .then(
-         (
-            cartItems: AxiosResponse<
-               { quantity: number; displayImage: string; itemId: string; price: number; displayName: string }[]
-            >
-         ) => {
+         (cartItems: AxiosResponse<{ quantity: number; displayImage: string; itemId: string; price: number; displayName: string }[]>) => {
             if (cartItems.data.length > 0) {
                cartItems.data.forEach((items) => {
                   dispatch(
@@ -140,7 +146,7 @@ export const fetchCartItemsFromDB = () => (dispatch: Dispatch) => {
                         displayImage: items.displayImage,
                         itemQuantity: items.quantity,
                         price: items.price,
-                        displayName: items.displayName
+                        displayName: items.displayName,
                      })
                   )
                })
@@ -158,8 +164,8 @@ export const increaseOrDecreaseByOne =
             .patch('/cart/quantity', {
                data: {
                   itemId: _id,
-                  isIncrease
-               }
+                  isIncrease,
+               },
             })
             .then((result) => {
                console.log(result)

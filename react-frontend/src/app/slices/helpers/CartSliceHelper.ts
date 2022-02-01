@@ -1,4 +1,5 @@
 export type StateType = {
+   isSnackbarOpen: { isOpen: boolean; text: string }
    totalQuantity: number
    totalPrice: number
    cartItems: CartItemsType[]

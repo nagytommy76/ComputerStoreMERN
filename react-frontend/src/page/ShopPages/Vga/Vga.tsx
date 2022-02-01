@@ -8,6 +8,7 @@ import { useAppSelector } from '../../../app/hooks'
 const ProductCard = React.lazy(() => import('../BaseComponents/ProductCard/ProductCard'))
 const Pagination = React.lazy(() => import('../BaseComponents/Pagination/Pagination'))
 const SideFilter = React.lazy(() => import('../BaseComponents/SideFilter/SideFilter'))
+const CartSnackBar = React.lazy(() => import('../BaseComponents/CartSnackbar/CartSnackbar'))
 
 const Vga = () => {
    const vgaProducts = useAppSelector((state) => state.products.products)
@@ -24,8 +25,9 @@ const Vga = () => {
                            _id: product._id,
                            productName: `${product.manufacturer} ${product.type} ${product.typeCode}`,
                            price: product.price,
-                           displayImage: product.pictureUrls[0]
-                        }}>
+                           displayImage: product.pictureUrls[0],
+                        }}
+                     >
                         <ProductCard
                            pathNameForDetailsURL='vga'
                            _id={product._id}
@@ -42,6 +44,7 @@ const Vga = () => {
                   ))}
                </CardGridContainer>
                <Pagination />
+               <CartSnackBar />
             </RightFlexContainer>
          </Suspense>
       </PageContainer>

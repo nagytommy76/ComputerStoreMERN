@@ -22,3 +22,5 @@
 - Ha ladtam a rendelést, abban a 10mp-ben ne lehessen törölni a termékeket!!!! ILLETVE ÚJRA RENDELNI STB, MEGOLDANI!!!!!!!!!!!!!!!!!!
 
 - A shop menünél kéne egy felugró ablak ha belement a kosárba! Snackbar pl
+
+- Új termékeket hozzáadni pl Alaplap RAM, valamint a meglévőket bővíteni

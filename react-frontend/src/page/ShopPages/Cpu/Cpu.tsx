@@ -7,6 +7,7 @@ import { useAppSelector } from '../../../app/hooks'
 const SideFilter = React.lazy(() => import('../BaseComponents/SideFilter/SideFilter'))
 const ProductCard = React.lazy(() => import('../BaseComponents/ProductCard/ProductCard'))
 const Pagination = React.lazy(() => import('../BaseComponents/Pagination/Pagination'))
+const CartSnackBar = React.lazy(() => import('../BaseComponents/CartSnackbar/CartSnackbar'))
 
 const Cpu = () => {
    const cpuProducts = useAppSelector((state) => state.products.products)
@@ -24,8 +25,9 @@ const Cpu = () => {
                            _id: cpu._id,
                            productName: `${cpu.manufacturer} ${cpu.type} ${cpu.typeCode}`,
                            price: cpu.price,
-                           displayImage: cpu.pictureUrls[0]
-                        }}>
+                           displayImage: cpu.pictureUrls[0],
+                        }}
+                     >
                         <ProductCard
                            pathNameForDetailsURL='cpu'
                            key={cpu._id}
@@ -43,6 +45,7 @@ const Cpu = () => {
                   ))}
                </CardGridContainer>
                <Pagination />
+               <CartSnackBar />
             </RightFlexContainer>
          </PageContainer>
       </React.Suspense>
