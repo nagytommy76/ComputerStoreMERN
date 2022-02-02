@@ -1,24 +1,28 @@
 import { Response } from 'express'
-import { VgaProduct } from '../../../models/Products/Vga/VgaProduct'
-import { QueryRequest, returnProductModelWithPaginateInfo, baseFilterData } from '../Helper'
+import { VgaProduct as VgaProductModel } from '../../../models/Products/Vga/VgaProduct'
+import BaseProduct from '../BaseProduct'
+import { QueryRequest } from '../Helper'
 import { saveRateProductHelper, RateQueryRequest } from '../Ratings/BaseRating'
 
-export const getAllVgaItemController = async (req: QueryRequest, res: Response) => {
-   try {
-      returnProductModelWithPaginateInfo(VgaProduct, req, res)
-   } catch (error) {
-      return res.status(500).json(error)
+export default class VgaProduct extends BaseProduct {
+   constructor() {
+      super(VgaProductModel)
    }
-}
 
-// Min/Max
-// https://www.tutorialspoint.com/get-maximum-and-minimum-value-in-mongodb
+   getAllVgaItemController = async (req: QueryRequest, res: Response) => {
+      try {
+         this.returnProductModelWithPaginateInfo(req, res)
+      } catch (error) {
+         return res.status(500).json(error)
+      }
+   }
 
-export const getFilterData = async (req: QueryRequest, res: Response) => {
-   try {
-      baseFilterData(VgaProduct, res)
-   } catch (error) {
-      return res.status(500).json(error)
+   getFilterData = async (req: QueryRequest, res: Response) => {
+      try {
+         this.baseFilterData(res)
+      } catch (error) {
+         return res.status(500).json(error)
+      }
    }
 }
 
@@ -26,7 +30,7 @@ export const rateVgaProductController = async (req: RateQueryRequest, res: Respo
    try {
       const modifiedProduct = await saveRateProductHelper(
          req.body._id,
-         VgaProduct,
+         VgaProductModel,
          req.body.rating,
          req.body.comment,
          req.body.userName,

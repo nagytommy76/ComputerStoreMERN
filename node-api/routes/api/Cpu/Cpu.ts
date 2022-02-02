@@ -1,18 +1,20 @@
 import express from 'express'
-import { getAllCpuItemController, getCpuFilterData } from '../../../controllers/Products/Cpu/Cpus'
+import CpuProduct from '../../../controllers/Products/Cpu/Cpus'
 import {
    rateCpuProductController,
    getCpuRatingSummaryController,
    getAllComments,
    likeDislikeCpuCommentController,
-   removeUsersRatingInCpu
+   removeUsersRatingInCpu,
 } from '../../../controllers/Products/Cpu/CpuRating'
 import { authenticateAccessToken } from '../../../middlewares/AuthenticateAccessOrRefreshTokens'
 import { saveCpuAnswerController, removeSingleCpuCommentAnswer } from '../../../controllers/Products/Cpu/CpuRatingResponse'
-const router = express.Router()
 
-router.get('/', getAllCpuItemController)
-router.get('/filter-data', getCpuFilterData)
+const router = express.Router()
+const cpuProduct = new CpuProduct()
+
+router.get('/', cpuProduct.getAllCpuItemController)
+router.get('/filter-data', cpuProduct.getCpuFilterData)
 
 // Ratings
 router.get('/get-cpu-rates', getCpuRatingSummaryController)
