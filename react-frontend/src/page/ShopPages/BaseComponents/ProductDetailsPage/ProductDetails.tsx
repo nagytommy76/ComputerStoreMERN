@@ -23,6 +23,7 @@ const AddToCart = React.lazy(() => import('./AddToCart/AddToCart'))
 const ImageSlider = React.lazy(() => import('./ImageSlider/ImageSlider'))
 const TopNavigation = React.lazy(() => import('./TopNavigation/TopNavigation'))
 const Rating = React.lazy(() => import('../../BaseComponents/ProductDetailsPage/Ratings/AddNew/Rating'))
+const CartSnackbar = React.lazy(() => import('../CartSnackbar/CartSnackbar'))
 
 const ProductDetails: React.FC = ({ children }) => {
    let location = useLocation()
@@ -66,6 +67,7 @@ const ProductDetails: React.FC = ({ children }) => {
          <BottomStyle>
             <Rating />
          </BottomStyle>
+         <CartSnackbar />
       </DetailsPage>
    )
 }

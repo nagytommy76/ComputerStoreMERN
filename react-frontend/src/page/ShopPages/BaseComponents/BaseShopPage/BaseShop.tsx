@@ -1,24 +1,26 @@
-import React, { Suspense } from 'react'
-import Container from '../../../SuspenseComponents/ProductCard/Container'
-import { CardGridContainer, PageContainer, RightFlexContainer } from '../BaseStyleForShopPage'
+import React, { lazy } from 'react'
 
-import { ProductContext } from '../Context/ShopContext'
-import { useAppSelector } from '../../../app/hooks'
+import { useAppSelector } from '../../../../app/hooks'
+import { ProductContext } from '../../Context/ShopContext'
 
-const ProductCard = React.lazy(() => import('../BaseComponents/ProductCard/ProductCard'))
-const Pagination = React.lazy(() => import('../BaseComponents/Pagination/Pagination'))
-const SideFilter = React.lazy(() => import('../BaseComponents/SideFilter/SideFilter'))
-const CartSnackBar = React.lazy(() => import('../BaseComponents/CartSnackbar/CartSnackbar'))
+import Container from '../../../../SuspenseComponents/ProductCard/Container'
+import { PageContainer, CardGridContainer, RightFlexContainer } from '../../BaseStyleForShopPage'
 
-const Vga = () => {
-   const vgaProducts = useAppSelector((state) => state.products.products)
+const SideFilter = lazy(() => import('../SideFilter/SideFilter'))
+const ProductCard = React.lazy(() => import('../ProductCard/ProductCard'))
+const Pagination = React.lazy(() => import('../Pagination/Pagination'))
+const CartSnackBar = React.lazy(() => import('../CartSnackbar/CartSnackbar'))
+
+const BaseShop: React.FC<{ productType: string }> = ({ productType }) => {
+   const products = useAppSelector((state) => state.products.products)
+
    return (
       <PageContainer>
-         <Suspense fallback={<Container />}>
-            <SideFilter productType='vga' />
+         <React.Suspense fallback={<Container />}>
+            <SideFilter productType={productType} />
             <RightFlexContainer>
                <CardGridContainer>
-                  {vgaProducts.map((product) => (
+                  {products.map((product) => (
                      <ProductContext.Provider
                         key={product._id}
                         value={{
@@ -29,15 +31,16 @@ const Vga = () => {
                         }}
                      >
                         <ProductCard
-                           pathNameForDetailsURL='vga'
+                           pathNameForDetailsURL={productType}
+                           key={product._id}
                            _id={product._id}
+                           details={product.details}
                            itemNumber={product.itemNumber}
                            manufacturer={product.manufacturer}
                            pictureUrls={product.pictureUrls}
                            price={product.price}
                            type={product.type}
                            typeCode={product.typeCode}
-                           details={product.details}
                            ratingCount={product.ratingValues?.length}
                         />
                      </ProductContext.Provider>
@@ -46,9 +49,9 @@ const Vga = () => {
                <Pagination />
                <CartSnackBar />
             </RightFlexContainer>
-         </Suspense>
+         </React.Suspense>
       </PageContainer>
    )
 }
 
-export default Vga
+export default BaseShop

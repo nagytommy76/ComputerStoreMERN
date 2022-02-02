@@ -17,6 +17,8 @@ import Navbar from /*webpackChunkName: "Navbar"*/ './page/Navbar/Navbar'
 import Footer from './page/Footer/Footer'
 import PageSuspense from './SuspenseComponents/Page/PageSuspense'
 
+import BaseShop from './page/ShopPages/BaseComponents/BaseShopPage/BaseShop'
+
 const Login = lazy(() => import(/*webpackChunkName: "LoginPage"*/ './page/Auth/Login/Login'))
 const Register = lazy(() => import(/*webpackChunkName: "RegisterPage"*/ './page/Auth/Register/Register'))
 const EmailValidation = lazy(() => import(/*webpackChunkName: "EmailValidation"*/ './page/Auth/Validation/EmailValidation'))
@@ -28,10 +30,8 @@ const Checkout = lazy(() => import(/*webpackChunkName: "Checkout"*/ './page/Chec
 
 const Admin = lazy(() => import('./page/Admin/Admin'))
 
-const Vga = lazy(() => import('./page/ShopPages/Vga/Vga'))
 const VgaDetails = lazy(() => import('./page/ShopPages/Vga/VgaDetails/VgaDetails'))
 
-const Cpu = lazy(() => import('./page/ShopPages/Cpu/Cpu'))
 const CpuDetails = lazy(() => import('./page/ShopPages/Cpu/CpuDetails/CpuDetails'))
 
 // https://lewiskori.com/blog/how-to-auto-refresh-jwts-using-axios-interceptors/
@@ -65,14 +65,14 @@ const App = () => {
                <Suspense fallback={<PageSuspense />}>
                   <ScrollToTop>
                      <Routes>
-                        <Route path="/" element={<Welcome />} />
-                        <Route path="/vga/vga-details" element={<VgaDetails />} />
-                        <Route path="/cpu/cpu-details" element={<CpuDetails />} />
-                        <Route path="/vga" element={<Vga />} />
-                        <Route path="/cpu" element={<Cpu />} />
-                        <Route path="/orders" element={<UserOrders />} />
+                        <Route path='/' element={<Welcome />} />
+                        <Route path='/vga/vga-details' element={<VgaDetails />} />
+                        <Route path='/cpu/cpu-details' element={<CpuDetails />} />
+                        <Route path='/vga' element={<BaseShop productType='vga' />} />
+                        <Route path='/cpu' element={<BaseShop productType='cpu' />} />
+                        <Route path='/orders' element={<UserOrders />} />
                         <Route
-                           path="/register"
+                           path='/register'
                            element={
                               <GuestsRoute>
                                  <Register />
@@ -80,16 +80,16 @@ const App = () => {
                            }
                         />
                         <Route
-                           path="/login"
+                           path='/login'
                            element={
                               <GuestsRoute>
                                  <Login />
                               </GuestsRoute>
                            }
                         />
-                        <Route path="/email-confirm/:confirmCode" element={<EmailValidation />} />
+                        <Route path='/email-confirm/:confirmCode' element={<EmailValidation />} />
                         <Route
-                           path="/checkout"
+                           path='/checkout'
                            element={
                               <AuthProtectedRoute>
                                  <Checkout />
@@ -97,14 +97,14 @@ const App = () => {
                            }
                         />
                         <Route
-                           path="/admin/*"
+                           path='/admin/*'
                            element={
                               <AdminRoute>
                                  <Admin />
                               </AdminRoute>
                            }
                         />
-                        <Route path="*" element={<Page404 />} />
+                        <Route path='*' element={<Page404 />} />
                      </Routes>
                   </ScrollToTop>
                </Suspense>

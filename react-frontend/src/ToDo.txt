@@ -24,3 +24,4 @@
 - A shop menünél kéne egy felugró ablak ha belement a kosárba! Snackbar pl
 
 - Új termékeket hozzáadni pl Alaplap RAM, valamint a meglévőket bővíteni
+- A VGA-CPU-t még valahogy egyszerűsíteni kéne, sok az ismétlődés

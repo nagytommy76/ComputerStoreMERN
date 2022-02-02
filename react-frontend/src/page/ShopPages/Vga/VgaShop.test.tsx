@@ -1,7 +1,7 @@
-import { render, screen, waitFor, waitForElementToBeRemoved } from '../../../test-utils'
+import { render, screen, waitForElementToBeRemoved } from '../../../test-utils'
 import userEvent from '@testing-library/user-event'
 import axios from 'axios'
-import Vga from './Vga'
+import BaseShop from '../BaseComponents/BaseShopPage/BaseShop'
 jest.mock('axios')
 const mockedAxios = axios as jest.Mocked<typeof axios>
 
@@ -11,8 +11,8 @@ const mockResolvedFilterData = {
       allManufacturers: ['PALIT', 'ASUS'],
       maxPrice: 968000,
       minPrice: 243000,
-      _id: null
-   }
+      _id: null,
+   },
 }
 
 const mockResolvedVgaProducts = {
@@ -29,9 +29,9 @@ const mockResolvedVgaProducts = {
             price: 243000,
             pictureUrls: [
                'https://media.icdn.hu/product/GalleryMod/2020-12/669449/resp/1557650_palit_ne6306ts19p2_190ad_geforce_rtx_3060_ti_8gb_gddr6_dual_oc_pcie.webp',
-               'https://media.icdn.hu/product/GalleryMod/2020-12/669449/resp/1557651_palit_ne6306ts19p2_190ad_geforce_rtx_3060_ti_8gb_gddr6_dual_oc_pcie.webp'
+               'https://media.icdn.hu/product/GalleryMod/2020-12/669449/resp/1557651_palit_ne6306ts19p2_190ad_geforce_rtx_3060_ti_8gb_gddr6_dual_oc_pcie.webp',
             ],
-            ratingValues: []
+            ratingValues: [],
          },
          {
             _id: 'dbvcbvcbdfbhgfdh8788678876',
@@ -43,9 +43,9 @@ const mockResolvedVgaProducts = {
             price: 249000,
             pictureUrls: [
                'https://media.icdn.hu/product/GalleryMod/2021-03/687272/resp/1608785_asus_tuf_rx6700xt_o12g_gaming_rx_6700_xt_12gb_gddr6_tuf_gaming_oc_pcie.webp',
-               'https://media.icdn.hu/product/GalleryMod/2021-03/687272/resp/1608787_asus_tuf_rx6700xt_o12g_gaming_rx_6700_xt_12gb_gddr6_tuf_gaming_oc_pcie.webp'
+               'https://media.icdn.hu/product/GalleryMod/2021-03/687272/resp/1608787_asus_tuf_rx6700xt_o12g_gaming_rx_6700_xt_12gb_gddr6_tuf_gaming_oc_pcie.webp',
             ],
-            ratingValues: []
+            ratingValues: [],
          },
          {
             _id: '1223312trztzizouiopiou',
@@ -57,15 +57,15 @@ const mockResolvedVgaProducts = {
             price: 968000,
             pictureUrls: [
                'https://media.icdn.hu/product/GalleryMod/2021-01/677078/resp/1579622_asus_tuf_rx6900xt_o16g_gaming_rx_6900_xt_16gb_gddr6_pcie.webp',
-               'https://media.icdn.hu/product/GalleryMod/2021-01/677078/resp/1579623_asus_tuf_rx6900xt_o16g_gaming_rx_6900_xt_16gb_gddr6_pcie.webp'
+               'https://media.icdn.hu/product/GalleryMod/2021-01/677078/resp/1579623_asus_tuf_rx6900xt_o16g_gaming_rx_6900_xt_16gb_gddr6_pcie.webp',
             ],
-            ratingValues: []
-         }
+            ratingValues: [],
+         },
       ],
       perPage: 2,
       totalItems: 3,
-      totalPages: 2
-   }
+      totalPages: 2,
+   },
 }
 const mockResolvedFilteredVgaProducts = {
    status: 200,
@@ -81,21 +81,21 @@ const mockResolvedFilteredVgaProducts = {
             price: 243000,
             pictureUrls: [
                'https://media.icdn.hu/product/GalleryMod/2020-12/669449/resp/1557650_palit_ne6306ts19p2_190ad_geforce_rtx_3060_ti_8gb_gddr6_dual_oc_pcie.webp',
-               'https://media.icdn.hu/product/GalleryMod/2020-12/669449/resp/1557651_palit_ne6306ts19p2_190ad_geforce_rtx_3060_ti_8gb_gddr6_dual_oc_pcie.webp'
+               'https://media.icdn.hu/product/GalleryMod/2020-12/669449/resp/1557651_palit_ne6306ts19p2_190ad_geforce_rtx_3060_ti_8gb_gddr6_dual_oc_pcie.webp',
             ],
-            ratingValues: []
-         }
+            ratingValues: [],
+         },
       ],
       perPage: 1,
       totalItems: 1,
-      totalPages: 1
-   }
+      totalPages: 1,
+   },
 }
 
 describe('Test Vga shop page', () => {
    test('should display the vga product cards properly', async () => {
       mockedAxios.get.mockResolvedValue(mockResolvedVgaProducts).mockResolvedValueOnce(mockResolvedFilterData)
-      render(<Vga />)
+      render(<BaseShop productType='vga' />)
       await waitForElementToBeRemoved(() => screen.getByTestId(/suspense-cards/i))
       // Várni kell a komponens updatere mert különben act warning lesz... async state update-eknél...
       // Ez esetben amíg lefutnak az async call-ok ( useFilter/useGetProducts hook-ok )
@@ -103,13 +103,13 @@ describe('Test Vga shop page', () => {
       expect(await screen.findByRole('option', { name: /Legolcsóbb elől/ })).toBeInTheDocument()
 
       await screen.findByRole('heading', {
-         name: /PALIT RTX 3060 Ti 8GB GDDR6 Dual OC/i
+         name: /PALIT RTX 3060 Ti 8GB GDDR6 Dual OC/i,
       })
       await screen.findByRole('heading', {
-         name: /ASUS RX 6700 XT TUF Gaming 12GB/i
+         name: /ASUS RX 6700 XT TUF Gaming 12GB/i,
       })
       await screen.findByRole('heading', {
-         name: /RX 6900 XT 16GB GDDR6/i
+         name: /RX 6900 XT 16GB GDDR6/i,
       })
       // https://jestjs.io/docs/mock-function-api#mockfnmockreturnvaluevalue
       // https://medium.com/@moshfiqrony/how-to-write-multiple-axios-mock-implementations-in-testing-78d3b5c6a8b5
@@ -119,7 +119,7 @@ describe('Test Vga shop page', () => {
 describe('Vga shop filter functionality', () => {
    test('should display only the selected manufacturer vgas', async () => {
       mockedAxios.get.mockResolvedValue(mockResolvedVgaProducts).mockResolvedValue(mockResolvedFilterData)
-      render(<Vga />)
+      render(<BaseShop productType='vga' />)
 
       expect(await screen.findByRole('option', { name: /ASUS/ })).toBeInTheDocument()
       expect(await screen.findByRole('option', { name: /PALIT/ })).toBeInTheDocument()
@@ -128,11 +128,11 @@ describe('Vga shop filter functionality', () => {
       userEvent.selectOptions(manSelect[2], [mockResolvedFilterData.data.allManufacturers[0]])
 
       await screen.findByRole('heading', {
-         name: /PALIT RTX 3060 Ti 8GB GDDR6 Dual OC/i
+         name: /PALIT RTX 3060 Ti 8GB GDDR6 Dual OC/i,
       })
       expect(
          screen.queryByRole('heading', {
-            name: /ASUS RX 6700 XT/i
+            name: /ASUS RX 6700 XT/i,
          })
       ).not.toBeInTheDocument()
    })

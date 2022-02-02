@@ -1,6 +1,7 @@
 import { render, screen, waitForElementToBeRemoved } from '../../../test-utils'
 import userEvent from '@testing-library/user-event'
-import Cpu from './Cpu'
+// import Cpu from './Cpu'
+import BaseShop from '../BaseComponents/BaseShopPage/BaseShop'
 import axios from 'axios'
 jest.mock('axios')
 const mockedAxios = axios as jest.Mocked<typeof axios>
@@ -104,7 +105,7 @@ const mockResolvedFilteredCpuProducts = {
 describe('Testing user interacting', () => {
    test('should display the selected manufacturer products', async () => {
       mockedAxios.get.mockResolvedValue(mockResolvedCpuProducts).mockResolvedValueOnce(mockResolvedFilterData)
-      render(<Cpu />)
+      render(<BaseShop productType='cpu' />)
       expect(await screen.findByRole('heading', { name: /Szűrés/i })).toBeInTheDocument()
       expect(await screen.findByRole('option', { name: /Legolcsóbb elől/i })).toBeInTheDocument()
       expect(await screen.findByRole('option', { name: /AMD/i })).toBeInTheDocument()
