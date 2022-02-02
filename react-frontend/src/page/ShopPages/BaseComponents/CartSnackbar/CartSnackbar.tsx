@@ -1,4 +1,5 @@
 import React from 'react'
+import { createPortal } from 'react-dom'
 
 import Snackbar from '@mui/material/Snackbar'
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
@@ -10,7 +11,10 @@ const CartSnackbar = () => {
    const handleClose = () => {
       dispatch(handleSnackbarOpen({ isOpen: false, text: '' }))
    }
-   return <Snackbar open={isCartSnackbarOpen.isOpen} autoHideDuration={6000} onClose={handleClose} message={isCartSnackbarOpen.text} />
+   return createPortal(
+      <Snackbar open={isCartSnackbarOpen.isOpen} autoHideDuration={6000} onClose={handleClose} message={isCartSnackbarOpen.text} />,
+      document.getElementById('add-to-cart-snackbar') as HTMLElement
+   )
 }
 
 export default CartSnackbar
