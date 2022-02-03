@@ -1,7 +1,6 @@
 import { Request, Response } from 'express'
 import { Model, ObjectId } from 'mongoose'
 import { RatingValues } from '../../../models/Products/BaseTypes'
-// import { UserTypes } from '../../../models/User/UserTypes'
 import { JWTUserType } from '../../Types'
 
 export const getProductRatingSummary = async (productId: ObjectId, ProductModel: Model<any>) => {

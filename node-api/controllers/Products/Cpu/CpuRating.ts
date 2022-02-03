@@ -6,10 +6,9 @@ import {
    saveRateProductHelper,
    likeDislikeCommentHelper,
    RateQueryRequest,
-   RequestQuery,
    LikeQuery,
    RemoveRatingRequest,
-   removeUsersRatingHelper
+   removeUsersRatingHelper,
 } from '../Ratings/BaseRating'
 
 export const rateCpuProductController = async (req: RateQueryRequest, res: Response) => {
