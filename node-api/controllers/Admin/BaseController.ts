@@ -10,16 +10,16 @@ const canInsertProduct = ({ productModel }: StateType) => ({
          details: any
       } & Document<any, any>
       return await createdProductToInser.save()
-   }
+   },
 })
 
 const canReturnAllProduct = ({ productModel }: StateType) => ({
    getAll: async () => {
       return await productModel.find()
-   } 
+   },
 })
 
-export default function baseAdminController (productModel: Model<any>)  {
+export default function baseAdminController(productModel: Model<any>) {
    // Gyakorlatilag ez a construktor
    const state: StateType = {
       productModel,
@@ -28,7 +28,7 @@ export default function baseAdminController (productModel: Model<any>)  {
    return {
       ...state,
       ...canInsertProduct(state),
-      ...canReturnAllProduct(state)
+      ...canReturnAllProduct(state),
    }
 }
 
