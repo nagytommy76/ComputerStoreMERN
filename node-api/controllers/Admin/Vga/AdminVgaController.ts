@@ -19,6 +19,7 @@ export const insertVgaItemController = async (req: Request, res: Response) => {
    try {
       const vga = new VgaProduct(returnFilledVgaProductObject(req.body))
       await vga.save()
+      // const saved = BaseAdmin.insert()
       return res.sendStatus(201)
    } catch (error) {
       return res.status(500).json(error)
