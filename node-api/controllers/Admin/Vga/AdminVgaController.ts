@@ -2,9 +2,13 @@ import { Request, Response } from 'express'
 import { returnFilledVgaProductObject } from './CreateVga'
 import { VgaProduct } from '../../../models/Products/Vga/VgaProduct'
 
+import  baseAdminController  from '../BaseController'
+
+const BaseAdmin = baseAdminController(VgaProduct)
+
 export const getAllVgaItemsController = async (req: Request, res: Response) => {
    try {
-      const vgaProducts = await VgaProduct.find()
+      const vgaProducts = await BaseAdmin.getAll()
       return res.status(200).json({ allProducts: vgaProducts })
    } catch (error) {
       return res.status(500).json(error)

@@ -1,14 +1,9 @@
 import { Model, Document } from 'mongoose'
 import { BaseProductType } from '../../models/Products/BaseTypes'
 
-export default abstract class BaseAdminController {
-   private productModel: Model<any>
-   constructor(productModel: Model<any>) {
-      this.productModel = productModel
-   }
-
-   async insertProducts(productDetails: any, productBase: BaseProductProperties) {
-      const createdProductToInser = new this.productModel({
+const canInsertProduct = ({ productModel }: StateType) => ({
+   insert: async (productDetails: any, productBase: BaseProductProperties) => {
+      const createdProductToInser = new productModel({
          ...productBase,
          productDetails,
       }) as BaseProductType & {
@@ -16,6 +11,29 @@ export default abstract class BaseAdminController {
       } & Document<any, any>
       return await createdProductToInser.save()
    }
+})
+
+const canReturnAllProduct = ({ productModel }: StateType) => ({
+   getAll: async () => {
+      return await productModel.find()
+   } 
+})
+
+export default function baseAdminController (productModel: Model<any>)  {
+   // Gyakorlatilag ez a construktor
+   const state: StateType = {
+      productModel,
+   }
+
+   return {
+      ...state,
+      ...canInsertProduct(state),
+      ...canReturnAllProduct(state)
+   }
+}
+
+type StateType = {
+   productModel: Model<any>
 }
 
 type BaseProductProperties = {
