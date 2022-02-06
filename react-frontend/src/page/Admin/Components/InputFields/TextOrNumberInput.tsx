@@ -11,7 +11,7 @@ const TextOrNumberInput: React.FC<Props> = ({
    value,
    validationErrors = [],
    validationErrorLocation = '',
-   required = true
+   required = true,
 }) => {
    const [error, setError] = useState({ hasError: false, message: '' })
    useEffect(() => {

@@ -20,7 +20,7 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
          <TextOrNumberInput
             id='coreCount'
             labelText='Magok Száma (db)'
-            onChangeEvent={(event) =>
+            onChangeEvent={event =>
                setProduct({ ...product, details: { ...product.details, coreCount: parseInt(event.target.value) } })
             }
             value={product.details.coreCount || 0}
@@ -30,7 +30,7 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
          <TextOrNumberInput
             id='threadCount'
             labelText='Szálak Száma (db)'
-            onChangeEvent={(event) =>
+            onChangeEvent={event =>
                setProduct({ ...product, details: { ...product.details, threadCount: parseInt(event.target.value) } })
             }
             value={product.details.threadCount || 0}
@@ -40,7 +40,7 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
          <TextOrNumberInput
             id='baseClock'
             labelText='Alap órajel (MHz)'
-            onChangeEvent={(event) =>
+            onChangeEvent={event =>
                setProduct({ ...product, details: { ...product.details, baseClock: parseInt(event.target.value) } })
             }
             value={product.details.baseClock || 0}
@@ -50,7 +50,7 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
          <TextOrNumberInput
             id='boostClock'
             labelText='Turbó órajel (MHz)'
-            onChangeEvent={(event) =>
+            onChangeEvent={event =>
                setProduct({ ...product, details: { ...product.details, boostClock: parseInt(event.target.value) } })
             }
             value={product.details.boostClock || 0}
@@ -60,7 +60,7 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
          <TextOrNumberInput
             id='TDP'
             labelText='Fogyasztás (Watt)'
-            onChangeEvent={(event) =>
+            onChangeEvent={event =>
                setProduct({ ...product, details: { ...product.details, TDP: parseInt(event.target.value) } })
             }
             value={product.details.TDP || 0}
@@ -70,7 +70,7 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
          <TextOrNumberInput
             id='l2Cache'
             labelText='L2 Cache (Mb)'
-            onChangeEvent={(event) =>
+            onChangeEvent={event =>
                setProduct({ ...product, details: { ...product.details, l2Cache: parseInt(event.target.value) } })
             }
             value={product.details.l2Cache || 0}
@@ -80,7 +80,7 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
          <TextOrNumberInput
             id='l3Cache'
             labelText='L3 Cache (Mb)'
-            onChangeEvent={(event) =>
+            onChangeEvent={event =>
                setProduct({ ...product, details: { ...product.details, l3Cache: parseInt(event.target.value) } })
             }
             value={product.details.l3Cache || 0}
@@ -90,7 +90,7 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
          <TextOrNumberInput
             id='socket'
             labelText='Foglalat'
-            onChangeEvent={(event) => setProduct({ ...product, details: { ...product.details, socket: event.target.value } })}
+            onChangeEvent={event => setProduct({ ...product, details: { ...product.details, socket: event.target.value } })}
             value={product.details.socket || ''}
             validationErrorLocation='details.socket'
             validationErrors={validationErrors}
@@ -98,7 +98,7 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
          <TextOrNumberInput
             id='warranity'
             labelText='Garancia'
-            onChangeEvent={(event) =>
+            onChangeEvent={event =>
                setProduct({ ...product, details: { ...product.details, warranity: parseInt(event.target.value) } })
             }
             value={product.details.warranity || 0}
@@ -109,7 +109,7 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
             required={false}
             id='integratedGraphicsName'
             labelText='Integrált grafikus neve'
-            onChangeEvent={(event) =>
+            onChangeEvent={event =>
                setProduct({ ...product, details: { ...product.details, integratedGraphicsName: event.target.value } })
             }
             value={product.details.integratedGraphicsName || 'Nincs'}
@@ -118,25 +118,21 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
             required={false}
             id='architecture'
             labelText='Arhitechtúra'
-            onChangeEvent={(event) =>
-               setProduct({ ...product, details: { ...product.details, architecture: event.target.value } })
-            }
+            onChangeEvent={event => setProduct({ ...product, details: { ...product.details, architecture: event.target.value } })}
             value={product.details.architecture || ''}
          />
          <TextOrNumberInput
             required={false}
             id='cpuCodeName'
             labelText='CPU Kódneve'
-            onChangeEvent={(event) =>
-               setProduct({ ...product, details: { ...product.details, cpuCodeName: event.target.value } })
-            }
+            onChangeEvent={event => setProduct({ ...product, details: { ...product.details, cpuCodeName: event.target.value } })}
             value={product.details.cpuCodeName || ''}
          />
          <TextOrNumberInput
             required={false}
             id='manufacturerPageUrl'
             labelText='Gyártói oldal'
-            onChangeEvent={(event) =>
+            onChangeEvent={event =>
                setProduct({ ...product, details: { ...product.details, manufacturerPageUrl: event.target.value } })
             }
             value={product.details.manufacturerPageUrl || ''}
@@ -148,18 +144,13 @@ const BaseInputFeilds: React.FC<CpuInputFieldProps> = ({ product, setProduct, va
                   id='cooler'
                   required={false}
                   labelText='Gyári hűtés'
-                  onChangeEvent={(event) =>
+                  onChangeEvent={event =>
                      setProduct({ ...product, details: { ...product.details, stockCoolerName: event.target.value } })
                   }
                   value={product.details.stockCoolerName}
                />
             </span>
          </Fade>
-         <CheckBox
-            checked={product.isHighlighted}
-            labelText='A termék ki legyen emelve a főoldalon?'
-            onChangeEvent={(event) => setProduct({ ...product, isHighlighted: event.target.checked })}
-         />
       </FormContainerStyle>
    )
 }

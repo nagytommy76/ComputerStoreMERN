@@ -10,16 +10,20 @@ const BaseInputFeilds: React.FC<MemoryInputFieldProps> = ({ product, setProduct,
    return (
       <FormContainerStyle>
          <BaseFields product={product} setProduct={setProduct} validationErrors={validationErrors} />
-         {/* <TextOrNumberInput
-            id='memoryType'
-            labelText='Memória Típusa (DDR)'
+         <SelectDDRField
             onChangeEvent={event => setProduct({ ...product, details: { ...product.details, memoryType: event.target.value } })}
-            value={product.details.memoryType || ''}
-            validationErrorLocation='details.memoryType'
+            value={product.details.memoryType}
+         />
+         <TextOrNumberInput
+            id='warranity'
+            labelText='Garancia (hónap)'
+            onChangeEvent={event =>
+               setProduct({ ...product, details: { ...product.details, warranity: parseInt(event.target.value) } })
+            }
+            value={product.details.warranity || 12}
+            validationErrorLocation='details.warranity'
             validationErrors={validationErrors}
-         /> */}
-         <SelectDDRField onChangeEvent={setProduct} value='semmi' />
-
+         />
          <TextOrNumberInput
             id='capacity'
             labelText='Kapacitás (GB)'
@@ -32,7 +36,7 @@ const BaseInputFeilds: React.FC<MemoryInputFieldProps> = ({ product, setProduct,
          />
          <TextOrNumberInput
             id='frequency'
-            labelText='Frekvencia'
+            labelText='Frekvencia (MHz)'
             onChangeEvent={event =>
                setProduct({ ...product, details: { ...product.details, frequency: parseInt(event.target.value) } })
             }
@@ -53,10 +57,8 @@ const BaseInputFeilds: React.FC<MemoryInputFieldProps> = ({ product, setProduct,
          <TextOrNumberInput
             id='voltage'
             labelText='Feszültség (V)'
-            onChangeEvent={event =>
-               setProduct({ ...product, details: { ...product.details, voltage: parseInt(event.target.value) } })
-            }
-            value={product.details.voltage || 0}
+            onChangeEvent={event => setProduct({ ...product, details: { ...product.details, voltage: event.target.value } })}
+            value={product.details.voltage || '1.35'}
             validationErrorLocation='details.voltage'
             validationErrors={validationErrors}
          />
@@ -68,6 +70,17 @@ const BaseInputFeilds: React.FC<MemoryInputFieldProps> = ({ product, setProduct,
             }
             value={product.details.moduleNumber || 1}
             validationErrorLocation='details.moduleNumber'
+            validationErrors={validationErrors}
+         />
+         <TextOrNumberInput
+            required={false}
+            id='manufacturerPageUrl'
+            labelText='Gyártói honlap link'
+            onChangeEvent={event =>
+               setProduct({ ...product, details: { ...product.details, manufacturerPageUrl: event.target.value } })
+            }
+            value={product.details.manufacturerPageUrl || ''}
+            validationErrorLocation='details.manufacturerPageUrl'
             validationErrors={validationErrors}
          />
       </FormContainerStyle>

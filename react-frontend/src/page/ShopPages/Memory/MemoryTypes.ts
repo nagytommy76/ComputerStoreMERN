@@ -5,11 +5,13 @@ export type MemoryProductType = BaseProductType & {
 }
 
 export type MemoryDetailsType = {
+   manufacturerPageUrl?: string
    description: string
    memoryType: string
    capacity: number
    frequency: number
    latency: number
-   voltage: number
+   voltage: string
    moduleNumber?: number
+   warranity: number
 }
