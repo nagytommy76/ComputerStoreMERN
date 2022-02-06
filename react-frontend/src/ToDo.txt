@@ -6,7 +6,6 @@
 - Az összes fallback-et (Suspense) vizualizálni, mert most csak a Töltés... van FOLYAMATBAN
 
 - Elfelejtett jelszó funkcionalitás
-- Megformázni az emailt, handlebars-al? https://handlebarsjs.com/
 
 - Ha a felhasználó regsiztrálta az email címét, inaktiválni kell az EmailTokent!!???!?!?!?!?
 
@@ -14,14 +13,21 @@
 - Esetleg a csak mongoose query-knél lean-t használni, hogy csökkentsem a lekérdezési időt és méretet, OPTIMALIZÁLÁS
   https://mongoosejs.com/docs/tutorials/lean.html
 
-- Kéne egy oldal ahol vissza lehet nézni a korábbi vásárlásokat, de úgy, hogy az email-ben kapott Vásárlási azonosító egy link legyen ami 
-  átirányít egy oldalra, ha be vagy jelentkezve.
 - A termékekhez kéne egy link????!!!
 
 
 - Ha ladtam a rendelést, abban a 10mp-ben ne lehessen törölni a termékeket!!!! ILLETVE ÚJRA RENDELNI STB, MEGOLDANI!!!!!!!!!!!!!!!!!!
 
-- A shop menünél kéne egy felugró ablak ha belement a kosárba! Snackbar pl
 
 - Új termékeket hozzáadni pl Alaplap RAM, valamint a meglévőket bővíteni
+
+- Jobban belemenni a Unit/Integration tesztekbe.
+
+MEGCSINÁLTAM:
+- Megformázni az emailt, handlebars-al? https://handlebarsjs.com/
 - A VGA-CPU-t még valahogy egyszerűsíteni kéne, sok az ismétlődés MEGOLDVA
+
+- A shop menünél kéne egy felugró ablak ha belement a kosárba! Snackbar pl
+
+- Kéne egy oldal ahol vissza lehet nézni a korábbi vásárlásokat, de úgy, hogy az email-ben kapott Vásárlási azonosító egy link legyen ami 
+  átirányít egy oldalra, ha be vagy jelentkezve.

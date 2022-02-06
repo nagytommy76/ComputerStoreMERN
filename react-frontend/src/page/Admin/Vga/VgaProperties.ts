@@ -1,16 +1,8 @@
 import { VgaType } from '../../ShopPages/Vga/VgaTypes'
+import { baseProperties } from '../BaseProperties'
 
 export const vgaProperties: VgaType = {
-   _id: '',
-   itemNumber: '',
-   type: '',
-   typeCode: '',
-   pictureUrls: [''],
-   manufacturer: '',
-   price: 0,
-   inStockQuantity: 0,
-   isHighlighted: false,
-   ratingValues: [{ ratedAt: new Date(), rating: 0, userName: '', comment: '' }],
+   ...baseProperties,
    details: {
       gpuManufacturer: '',
       pcieType: '',
@@ -30,6 +22,6 @@ export const vgaProperties: VgaType = {
       minPowerSupply: 0,
       manufacturerPageUrl: '',
       length: 0,
-      streamProcessors: 0
-   }
+      streamProcessors: 0,
+   },
 }

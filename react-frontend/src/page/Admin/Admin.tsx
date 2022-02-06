@@ -1,15 +1,17 @@
-import React from 'react'
+import { lazy } from 'react'
 import { AdminPageContainer, RightContentStyle } from './AdminStyle'
 import { Routes, Route } from 'react-router-dom'
 import SideMenu from './SideMenu/SideMenu'
 
-const VgaInsert = React.lazy(() => import('./Vga/Insert/VgaInsert'))
-const VgaModify = React.lazy(() => import('./Vga/Modify/ModifyVga'))
-const DeleteVga = React.lazy(() => import('./Vga/Delete/DeleteVga'))
+const VgaInsert = lazy(() => import('./Vga/Insert/VgaInsert'))
+const VgaModify = lazy(() => import('./Vga/Modify/ModifyVga'))
+const DeleteVga = lazy(() => import('./Vga/Delete/DeleteVga'))
 
-const CpuInsert = React.lazy(() => import('./Cpu/Insert/CpuInsert'))
-const CpuModify = React.lazy(() => import('./Cpu/Modify/ModifyCpu'))
-const CpuDelete = React.lazy(() => import('./Cpu/Delete/DeleteCpu'))
+const CpuInsert = lazy(() => import('./Cpu/Insert/CpuInsert'))
+const CpuModify = lazy(() => import('./Cpu/Modify/ModifyCpu'))
+const CpuDelete = lazy(() => import('./Cpu/Delete/DeleteCpu'))
+
+const MemoryInsert = lazy(() => import('./Memory/Insert/MemoryInsert'))
 
 const Admin = () => {
    return (
@@ -26,6 +28,11 @@ const Admin = () => {
                   <Route path='insert' element={<CpuInsert />} />
                   <Route path='modify' element={<CpuModify />} />
                   <Route path='delete' element={<CpuDelete />} />
+               </Route>
+               <Route path='memory/*'>
+                  <Route path='insert' element={<MemoryInsert />} />
+                  {/* <Route path='modify' element={<CpuModify />} />
+                  <Route path='delete' element={<CpuDelete />} /> */}
                </Route>
             </Routes>
          </RightContentStyle>

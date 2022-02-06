@@ -1,23 +1,8 @@
 import { CpuProductType } from '../../ShopPages/Cpu/CpuTypes'
+import { baseProperties } from '../BaseProperties'
 
 export const cpuProperties: CpuProductType = {
-   _id: '',
-   itemNumber: '',
-   type: '',
-   typeCode: '',
-   manufacturer: '',
-   price: 0,
-   pictureUrls: [],
-   inStockQuantity: 0,
-   isHighlighted: false,
-   ratingValues: [
-      {
-         ratedAt: new Date(),
-         rating: 0,
-         userName: '',
-         comment: ''
-      }
-   ],
+   ...baseProperties,
    details: {
       coreCount: 0,
       threadCount: 0,
@@ -34,6 +19,6 @@ export const cpuProperties: CpuProductType = {
       architecture: '',
       cpuCodeName: '',
       stockCooler: false,
-      stockCoolerName: 'Nincs'
-   }
+      stockCoolerName: 'Nincs',
+   },
 }
