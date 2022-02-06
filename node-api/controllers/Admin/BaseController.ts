@@ -1,21 +1,21 @@
 import { Model, Document } from 'mongoose'
 import { BaseProductType } from '../../models/Products/BaseTypes'
 
+const canReturnAllProduct = ({ productModel }: StateType) => ({
+   getAll: async () => {
+      return await productModel.find()
+   },
+})
+
 const canInsertProduct = ({ productModel }: StateType) => ({
    insert: async (productDetails: any, productBase: BaseProductProperties) => {
       const createdProductToInser = new productModel({
          ...productBase,
-         productDetails,
+         details: productDetails,
       }) as BaseProductType & {
          details: any
       } & Document<any, any>
       return await createdProductToInser.save()
-   },
-})
-
-const canReturnAllProduct = ({ productModel }: StateType) => ({
-   getAll: async () => {
-      return await productModel.find()
    },
 })
 
@@ -36,7 +36,7 @@ type StateType = {
    productModel: Model<any>
 }
 
-type BaseProductProperties = {
+export type BaseProductProperties = {
    itemNumber?: string
    type: string
    typeCode?: string

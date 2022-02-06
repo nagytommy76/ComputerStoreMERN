@@ -1,6 +1,8 @@
 import { Request, Response } from 'express'
 import { MemoryProduct } from '../../../models/Products/Memory/Memory'
-import baseAdminController from '../BaseController'
+import baseAdminController, { BaseProductProperties } from '../BaseController'
+
+import { MemoryDetails } from '../../../models/Products/Memory/MemoryTypes'
 
 const AdminController = baseAdminController(MemoryProduct)
 
@@ -13,10 +15,27 @@ export const getAllMemoryController = async (request: Request, response: Respons
    }
 }
 
-export const insertMemoryProduct = (request: Request, response: Response) => {
+export const insertMemoryProduct = async (request: Request, response: Response) => {
    try {
-      // AdminController.
+      const { details, inStockQuantity, manufacturer, pictureUrls, price, type, isHighlighted, itemNumber, typeCode } =
+         request.body as BodyType
+      details.voltage = parseFloat(details.voltage as string)
+      const result = await AdminController.insert(details, {
+         inStockQuantity,
+         manufacturer,
+         pictureUrls,
+         price,
+         type,
+         isHighlighted,
+         itemNumber,
+         typeCode,
+      })
+      response.status(201).json({ msg: 'sikeres bevitel', result })
    } catch (error) {
       response.status(500).json(error)
    }
+}
+
+type BodyType = BaseProductProperties & {
+   details: MemoryDetails
 }
