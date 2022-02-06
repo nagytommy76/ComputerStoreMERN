@@ -3,6 +3,7 @@ import { AccordionContainer } from './RoutesStyles'
 
 const VgaLink = React.lazy(() => import('./Links/VgaLinks'))
 const CpuLink = React.lazy(() => import('./Links/CpuLinks'))
+const MemoryLink = React.lazy(() => import('./Links/MemoryLinks'))
 const BaseAccordionPanel = React.lazy(() => import('./BaseAccordionPanel'))
 
 const Routes: React.FC<{ setSideBarOpen: React.Dispatch<React.SetStateAction<boolean>> }> = ({ setSideBarOpen }) => {
@@ -18,6 +19,9 @@ const Routes: React.FC<{ setSideBarOpen: React.Dispatch<React.SetStateAction<boo
          </BaseAccordionPanel>
          <BaseAccordionPanel expanded={expanded} handleExpanded={handleExpanded} panelNumber='panel2' productType='cpu'>
             <CpuLink setSideBarOpen={setSideBarOpen} />
+         </BaseAccordionPanel>
+         <BaseAccordionPanel expanded={expanded} handleExpanded={handleExpanded} panelNumber='panel3' productType='ram'>
+            <MemoryLink setSideBarOpen={setSideBarOpen} />
          </BaseAccordionPanel>
       </AccordionContainer>
    )

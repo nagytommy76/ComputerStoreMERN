@@ -7,9 +7,9 @@ export type MemoryProductType = BaseProductType & {
 export type MemoryDetailsType = {
    description: string
    memoryType: string
-   capacity: string
+   capacity: number
    frequency: number
-   latency: string
-   voltage: string
+   latency: number
+   voltage: number
    moduleNumber?: number
 }

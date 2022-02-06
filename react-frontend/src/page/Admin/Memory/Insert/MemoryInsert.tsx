@@ -25,10 +25,10 @@ const MemoryInsert = () => {
          productBaseProperties={memoryProperties}
          setProduct={setMemoryProducts}
          setValidationErrors={setValidationErrors}
-         mainTitle='Cpu bevitele'
+         mainTitle='Memória bevitele'
          submitButtonText='Bevitel'
       >
-         <BaseInputFields /*product={memoryProducts} setProduct={setMemoryProducts} validationErrors={validationErrors} */ />
+         <BaseInputFields product={memoryProducts} setProduct={setMemoryProducts} validationErrors={validationErrors} />
          <DescriptionTextArea
             labelText='Leírás'
             onChangeEvent={event =>
