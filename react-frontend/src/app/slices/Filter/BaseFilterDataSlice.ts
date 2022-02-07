@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { FilterTypes } from '../../page/ShopPages/BaseTypes'
+import { FilterTypes } from '../../../page/ShopPages/BaseTypes'
 
 const initialState: InitialState = {
    filterData: {
@@ -9,12 +9,12 @@ const initialState: InitialState = {
       minPrice: 0,
       orderBy: 'asc',
       priceRange: [0, 5000000],
-      productType: ''
+      productType: '',
    },
-   isPriceRangeSet: false
+   isPriceRangeSet: false,
 }
 
-const FilterDataSlice = createSlice({
+const BaseFilterData = createSlice({
    name: 'filterData',
    initialState,
    reducers: {
@@ -46,8 +46,8 @@ const FilterDataSlice = createSlice({
       },
       setIsPriceRangeSet: (state, action: PayloadAction<boolean>) => {
          state.isPriceRangeSet = action.payload
-      }
-   }
+      },
+   },
 })
 
 export const {
@@ -59,10 +59,10 @@ export const {
    setOrderBy,
    setPriceRange,
    setProductType,
-   setIsPriceRangeSet
-} = FilterDataSlice.actions
+   setIsPriceRangeSet,
+} = BaseFilterData.actions
 
-export default FilterDataSlice.reducer
+export default BaseFilterData.reducer
 
 type InitialState = {
    isPriceRangeSet: boolean

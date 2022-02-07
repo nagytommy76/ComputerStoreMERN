@@ -8,7 +8,7 @@ import CartSlice from './slices/CartSlice'
 import MobileSlice from './slices/MobileSlice'
 import PaginateSlice from './slices/PaginateSlice'
 import ProductSlice from './slices/ProductsSlice'
-import FilterDataSlice from './slices/FilterDataSlice'
+import FilterDataSlice from './slices/Filter/BaseFilterDataSlice'
 import ValidationErrorSlice from './slices/ValidationErrorSlice'
 import UserDetailsSlice from './slices/Checkout/UserDetailsSlice'
 import DeliveryPriceSlice from './slices/Checkout/DeliveryPriceSlice'
@@ -28,13 +28,13 @@ export const store = configureStore({
       payment: persistReducer({ key: 'payment', storage }, PaymentSlice),
       steps: StepsSlice,
       validationError: ValidationErrorSlice,
-      mobile: MobileSlice
+      mobile: MobileSlice,
    },
    middleware: getDefaultMiddleware({
       serializableCheck: {
-         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
-      }
-   })
+         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+   }),
 })
 
 export const presistor = persistStore(store)

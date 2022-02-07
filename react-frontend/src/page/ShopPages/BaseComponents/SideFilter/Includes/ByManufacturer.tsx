@@ -2,11 +2,11 @@ import React from 'react'
 import { InputContainer } from '../FilterStyle'
 import { TextField } from '@mui/material'
 import { useAppSelector, useAppDispatch } from '../../../../../app/hooks'
-import { setIsPriceRangeSet, setSelectedManufacturer } from '../../../../../app/slices/FilterDataSlice'
+import { setIsPriceRangeSet, setSelectedManufacturer } from '../../../../../app/slices/Filter/BaseFilterDataSlice'
 
 const ByManufacturer: React.FC = () => {
    const dispatch = useAppDispatch()
-   const { allManufacturer, selectedManufacturer } = useAppSelector((state) => state.filter.filterData)
+   const { allManufacturer, selectedManufacturer } = useAppSelector(state => state.filter.filterData)
 
    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       dispatch(setSelectedManufacturer(event.target.value))
@@ -25,8 +25,9 @@ const ByManufacturer: React.FC = () => {
             color='primary'
             value={selectedManufacturer}
             SelectProps={{
-               native: true
-            }}>
+               native: true,
+            }}
+         >
             <option value='all'>Összes</option>
             {allManufacturer.map((man, index) => (
                <option key={index} value={man}>

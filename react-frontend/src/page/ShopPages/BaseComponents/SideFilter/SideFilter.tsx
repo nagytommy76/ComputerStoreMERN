@@ -9,8 +9,8 @@ const ByManufacturer = React.lazy(() => import('./Includes/ByManufacturer'))
 const PriceRange = React.lazy(() => import('./Includes/PriceRange'))
 const PerPage = React.lazy(() => import('./Includes/PerPage'))
 
-const SideFilter: React.FC<Props> = ({ productType }) => {
-   const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
+const SideFilter: React.FC<Props> = ({ productType, children }) => {
+   const isDarkTheme = useAppSelector(state => state.theme.isDarkTheme)
 
    useFilter(productType)
    useGetProducts(productType)
@@ -22,6 +22,7 @@ const SideFilter: React.FC<Props> = ({ productType }) => {
          <OrderByPrice />
          <ByManufacturer />
          <PriceRange />
+         {children}
       </StyledFilter>
    )
 }

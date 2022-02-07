@@ -4,14 +4,14 @@ import axios from 'axios'
 import { setTotalPages } from '../../../app/slices/PaginateSlice'
 import { useAppSelector, useAppDispatch } from '../../../app/hooks'
 import { setProducts } from '../../../app/slices/ProductsSlice'
-import { setIsPriceRangeSet } from '../../../app/slices/FilterDataSlice'
+import { setIsPriceRangeSet } from '../../../app/slices/Filter/BaseFilterDataSlice'
 
 const useGetProducts = (productTypeForURL: string) => {
    const dispatch = useAppDispatch()
-   const currentPage = useAppSelector((state) => state.paginate.currentPage)
-   const perPage = useAppSelector((state) => state.paginate.perPage)
-   const isPriceRangeSet = useAppSelector((state) => state.filter.isPriceRangeSet)
-   const filterOptions = useAppSelector((state) => state.filter.filterData)
+   const currentPage = useAppSelector(state => state.paginate.currentPage)
+   const perPage = useAppSelector(state => state.paginate.perPage)
+   const isPriceRangeSet = useAppSelector(state => state.filter.isPriceRangeSet)
+   const filterOptions = useAppSelector(state => state.filter.filterData)
 
    const getProductsByQueries = async () => {
       try {
@@ -40,7 +40,14 @@ const useGetProducts = (productTypeForURL: string) => {
          getProductsByQueries()
       }
       // eslint-disable-next-line
-   }, [currentPage, perPage, isPriceRangeSet, filterOptions.selectedManufacturer, filterOptions.priceRange, filterOptions.orderBy])
+   }, [
+      currentPage,
+      perPage,
+      isPriceRangeSet,
+      filterOptions.selectedManufacturer,
+      filterOptions.priceRange,
+      filterOptions.orderBy,
+   ])
 }
 
 export default useGetProducts

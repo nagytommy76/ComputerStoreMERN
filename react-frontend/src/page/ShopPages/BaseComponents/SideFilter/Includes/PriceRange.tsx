@@ -4,11 +4,11 @@ import NumberFormat from 'react-number-format'
 import { Slider, FormLabel, FormControl } from '@mui/material'
 
 import { useAppSelector, useAppDispatch } from '../../../../../app/hooks'
-import { setPriceRange, setIsPriceRangeSet } from '../../../../../app/slices/FilterDataSlice'
+import { setPriceRange, setIsPriceRangeSet } from '../../../../../app/slices/Filter/BaseFilterDataSlice'
 
 const PriceRange: React.FC = () => {
    const dispatch = useAppDispatch()
-   const { minPrice, maxPrice, priceRange } = useAppSelector((state) => state.filter.filterData)
+   const { minPrice, maxPrice, priceRange } = useAppSelector(state => state.filter.filterData)
    const [localState, setLocalState] = useState<number[]>([minPrice, 5000000])
 
    useEffect(() => {

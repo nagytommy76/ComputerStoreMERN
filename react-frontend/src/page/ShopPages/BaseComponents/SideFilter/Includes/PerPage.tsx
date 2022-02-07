@@ -1,13 +1,13 @@
 import React from 'react'
 import { useAppDispatch, useAppSelector } from '../../../../../app/hooks'
 import { setPerPage } from '../../../../../app/slices/PaginateSlice'
-import { setIsPriceRangeSet } from '../../../../../app/slices/FilterDataSlice'
+import { setIsPriceRangeSet } from '../../../../../app/slices/Filter/BaseFilterDataSlice'
 import { InputContainer } from '../FilterStyle'
 import { TextField } from '@mui/material'
 
 const PerPage: React.FC = () => {
    const dispatch = useAppDispatch()
-   const perPage = useAppSelector((state) => state.paginate.perPage)
+   const perPage = useAppSelector(state => state.paginate.perPage)
 
    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       dispatch(setPerPage(parseInt(event.target.value)))
@@ -25,8 +25,9 @@ const PerPage: React.FC = () => {
             onChange={handleChange}
             value={perPage}
             SelectProps={{
-               native: true
-            }}>
+               native: true,
+            }}
+         >
             <option value='12'>12</option>
             <option value='24'>24</option>
             <option value='36'>36</option>

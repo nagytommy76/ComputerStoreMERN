@@ -4,12 +4,12 @@ import { setCurrentPage } from '../../../../app/slices/PaginateSlice'
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
 
 import { Pagination as MUIPagination } from '@mui/material'
-import { setIsPriceRangeSet } from '../../../../app/slices/FilterDataSlice'
+import { setIsPriceRangeSet } from '../../../../app/slices/Filter/BaseFilterDataSlice'
 
 const Pagination: React.FC = () => {
    const dispatch = useAppDispatch()
-   const currentPage = useAppSelector((state) => state.paginate.currentPage)
-   const totalPages = useAppSelector((state) => state.paginate.totalPages)
+   const currentPage = useAppSelector(state => state.paginate.currentPage)
+   const totalPages = useAppSelector(state => state.paginate.totalPages)
 
    const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
       if (currentPage !== value) {

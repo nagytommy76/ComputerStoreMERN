@@ -34,6 +34,8 @@ const VgaDetails = lazy(() => import('./page/ShopPages/Vga/VgaDetails/VgaDetails
 
 const CpuDetails = lazy(() => import('./page/ShopPages/Cpu/CpuDetails/CpuDetails'))
 
+const MemoryProducts = lazy(() => import('./page/ShopPages/Memory/MemoryShop'))
+
 // https://lewiskori.com/blog/how-to-auto-refresh-jwts-using-axios-interceptors/
 const App = () => {
    const dispatch = useAppDispatch()
@@ -70,7 +72,7 @@ const App = () => {
                         <Route path='/cpu/cpu-details' element={<CpuDetails />} />
                         <Route path='/vga' element={<BaseShop productType='vga' />} />
                         <Route path='/cpu' element={<BaseShop productType='cpu' />} />
-                        <Route path='/memory' element={<BaseShop productType='memory' />} />
+                        <Route path='/memory' element={<MemoryProducts />} />
                         <Route path='/orders' element={<UserOrders />} />
                         <Route
                            path='/register'

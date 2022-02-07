@@ -6,21 +6,22 @@ import { ProductContext } from '../../Context/ShopContext'
 import Container from '../../../../SuspenseComponents/ProductCard/Container'
 import { PageContainer, CardGridContainer, RightFlexContainer } from '../../BaseStyleForShopPage'
 
-const SideFilter = lazy(() => import('../SideFilter/SideFilter'))
-const ProductCard = React.lazy(() => import('../ProductCard/ProductCard'))
-const Pagination = React.lazy(() => import('../Pagination/Pagination'))
-const CartSnackBar = React.lazy(() => import('../CartSnackbar/CartSnackbar'))
+// const SideFilter = lazy(() => import('../SideFilter/SideFilter'))
+const ProductCard = lazy(() => import('../ProductCard/ProductCard'))
+const Pagination = lazy(() => import('../Pagination/Pagination'))
+const CartSnackBar = lazy(() => import('../CartSnackbar/CartSnackbar'))
 
-const BaseShop: React.FC<{ productType: string }> = ({ productType }) => {
-   const products = useAppSelector((state) => state.products.products)
+const BaseShop: React.FC<{ productType: string }> = ({ productType, children }) => {
+   const products = useAppSelector(state => state.products.products)
 
    return (
       <PageContainer>
          <React.Suspense fallback={<Container />}>
-            <SideFilter productType={productType} />
+            {/* <SideFilter productType={productType} /> */}
+            {children}
             <RightFlexContainer>
                <CardGridContainer>
-                  {products.map((product) => (
+                  {products.map(product => (
                      <ProductContext.Provider
                         key={product._id}
                         value={{

@@ -7,14 +7,14 @@ import {
    setMaxPrice,
    setProductType,
    setPriceRange,
-   setIsPriceRangeSet
-} from '../../../app/slices/FilterDataSlice'
+   setIsPriceRangeSet,
+} from '../../../app/slices/Filter/BaseFilterDataSlice'
 import { setToDefault } from '../../../app/slices/PaginateSlice'
 
-const useFilter = (productType: string) => {
+const useFilter = (productType: string, otherFilterDispatches?: () => void) => {
    const dispatch = useAppDispatch()
-   const filterOptions = useAppSelector((state) => state.filter.filterData)
-   const isPriceRangeSet = useAppSelector((state) => state.filter.isPriceRangeSet)
+   const filterOptions = useAppSelector(state => state.filter.filterData)
+   const isPriceRangeSet = useAppSelector(state => state.filter.isPriceRangeSet)
 
    const getFilterData = async () => {
       try {
@@ -26,6 +26,7 @@ const useFilter = (productType: string) => {
             dispatch(setPriceRange([filterData.data.minPrice, filterData.data.maxPrice]))
             dispatch(setIsPriceRangeSet(true))
             dispatch(setToDefault())
+            otherFilterDispatches && otherFilterDispatches()
          }
       } catch (error) {
          console.log(error)
