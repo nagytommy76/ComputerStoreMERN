@@ -27,3 +27,4 @@ app.use('/api/admin/cpu', require('./routes/api/Admin/Cpu/Cpu'))
 app.use('/api/cpu', require('./routes/api/Cpu/Cpu'))
 
 app.use('/api/admin/memory', require('./routes/api/Admin/Memory/Memory'))
+app.use('/api/memory', require('./routes/api/Memory/Memory'))
