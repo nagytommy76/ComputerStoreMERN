@@ -20,6 +20,7 @@
 
 
 - Új termékeket hozzáadni pl Alaplap RAM, valamint a meglévőket bővíteni
+- egyes termékeknél további szűrés, pl.: RAM DDR4, CPU AM4 stb...
 
 - Jobban belemenni a Unit/Integration tesztekbe.
 

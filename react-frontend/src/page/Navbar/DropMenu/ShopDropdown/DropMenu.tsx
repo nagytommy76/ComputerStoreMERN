@@ -9,7 +9,7 @@ type Prop = {
 }
 
 const DropMenu: React.FC<Prop> = ({ reference }) => {
-   const isMobileSize = useAppSelector((state) => state.mobile.isMobile)
+   const isMobileSize = useAppSelector(state => state.mobile.isMobile)
    const { setIsShopDropOpen, setIsNavbarOpen } = useContext(NavbarContext)
    const clickEvent = (event: React.MouseEvent) => {
       event.stopPropagation()
@@ -34,6 +34,9 @@ const DropMenu: React.FC<Prop> = ({ reference }) => {
          </DropLinkItem>
          <DropLinkItem to='/cpu' onClick={closeNavbar}>
             Processzor
+         </DropLinkItem>
+         <DropLinkItem to='/memory' onClick={closeNavbar}>
+            Memóriák
          </DropLinkItem>
       </DropStyle>
    )

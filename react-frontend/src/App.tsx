@@ -38,10 +38,10 @@ const CpuDetails = lazy(() => import('./page/ShopPages/Cpu/CpuDetails/CpuDetails
 const App = () => {
    const dispatch = useAppDispatch()
 
-   const accessToken = useAppSelector((state) => state.auth.accessToken)
-   const userIsLoggedIn = useAppSelector((state) => state.auth.userLoggedIn)
-   const isCartEmpty = useAppSelector((state) => state.cart.cartItems.length === 0)
-   const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
+   const accessToken = useAppSelector(state => state.auth.accessToken)
+   const userIsLoggedIn = useAppSelector(state => state.auth.userLoggedIn)
+   const isCartEmpty = useAppSelector(state => state.cart.cartItems.length === 0)
+   const isDarkTheme = useAppSelector(state => state.theme.isDarkTheme)
 
    const customMUITheme = useMaterialTheme()
 
@@ -70,6 +70,7 @@ const App = () => {
                         <Route path='/cpu/cpu-details' element={<CpuDetails />} />
                         <Route path='/vga' element={<BaseShop productType='vga' />} />
                         <Route path='/cpu' element={<BaseShop productType='cpu' />} />
+                        <Route path='/memory' element={<BaseShop productType='memory' />} />
                         <Route path='/orders' element={<UserOrders />} />
                         <Route
                            path='/register'
