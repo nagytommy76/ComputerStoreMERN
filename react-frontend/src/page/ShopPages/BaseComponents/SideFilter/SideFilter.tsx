@@ -30,7 +30,7 @@ const SideFilter: React.FC<Props> = ({ productType, extraQueryParameters, extraD
 type Props = {
    productType: string
    extraQueryParameters?: string
-   extraDispatches?: (allMemoryTypes: string[], frequencyRanges: number[]) => void
+   extraDispatches?: (params: any) => void
 }
 
 export default SideFilter

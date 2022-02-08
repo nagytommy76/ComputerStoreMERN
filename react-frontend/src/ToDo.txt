@@ -20,9 +20,12 @@
 
 
 - Új termékeket hozzáadni pl Alaplap RAM, valamint a meglévőket bővíteni
-- egyes termékeknél további szűrés, pl.: RAM DDR4, CPU AM4 stb...
 
 - Jobban belemenni a Unit/Integration tesztekbe.
+
+- egyes termékeknél további szűrés, pl.: RAM DDR4, CPU AM4 stb...
+- Az adatbázisból bejövő adatokkal feltölteni pl a kapacitás/típus selectet
+
 
 MEGCSINÁLTAM:
 - Megformázni az emailt, handlebars-al? https://handlebarsjs.com/

@@ -11,10 +11,7 @@ import {
 } from '../../../app/slices/Filter/BaseFilterDataSlice'
 import { setToDefault } from '../../../app/slices/PaginateSlice'
 
-const useFilter = (
-   productType: string,
-   extraFilterDispatches?: (allMemoryTypes: string[], frequencyRanges: number[]) => void
-) => {
+const useFilter = (productType: string, extraFilterDispatches?: (params: any) => void) => {
    const dispatch = useAppDispatch()
    const filterOptions = useAppSelector(state => state.filter.filterData)
    const isPriceRangeSet = useAppSelector(state => state.filter.isPriceRangeSet)
@@ -29,7 +26,13 @@ const useFilter = (
             dispatch(setPriceRange([filterData.data.minPrice, filterData.data.maxPrice]))
             dispatch(setIsPriceRangeSet(true))
             dispatch(setToDefault())
-            extraFilterDispatches && extraFilterDispatches(['egyelőre', 'semmi'], [2666, 6000])
+            // Parameterként át kéne adni az egész filterData-t, majd kiszedni az adatokat a shop-ban!?
+            extraFilterDispatches &&
+               extraFilterDispatches({
+                  allMemoryTypes: ['egyelőre', 'semmi'],
+                  frequencyRanges: [2666, 6000],
+                  allCapacities: [2, 4],
+               })
          }
       } catch (error) {
          console.log(error)
