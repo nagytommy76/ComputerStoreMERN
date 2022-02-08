@@ -1,6 +1,6 @@
 # Computer Store (Hobby project)
 
-### `Description`
+## `Description`
 
 I'm working on this project since 18 july 2021.
 My goal was to learn the foundamentals of Node.js (Express.js), and a NoSQL database like MongoDB.

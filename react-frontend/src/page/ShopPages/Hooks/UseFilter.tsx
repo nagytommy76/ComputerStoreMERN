@@ -11,7 +11,10 @@ import {
 } from '../../../app/slices/Filter/BaseFilterDataSlice'
 import { setToDefault } from '../../../app/slices/PaginateSlice'
 
-const useFilter = (productType: string, otherFilterDispatches?: () => void) => {
+const useFilter = (
+   productType: string,
+   extraFilterDispatches?: (allMemoryTypes: string[], frequencyRanges: number[]) => void
+) => {
    const dispatch = useAppDispatch()
    const filterOptions = useAppSelector(state => state.filter.filterData)
    const isPriceRangeSet = useAppSelector(state => state.filter.isPriceRangeSet)
@@ -26,7 +29,7 @@ const useFilter = (productType: string, otherFilterDispatches?: () => void) => {
             dispatch(setPriceRange([filterData.data.minPrice, filterData.data.maxPrice]))
             dispatch(setIsPriceRangeSet(true))
             dispatch(setToDefault())
-            otherFilterDispatches && otherFilterDispatches()
+            extraFilterDispatches && extraFilterDispatches(['egyelőre', 'semmi'], [2666, 6000])
          }
       } catch (error) {
          console.log(error)

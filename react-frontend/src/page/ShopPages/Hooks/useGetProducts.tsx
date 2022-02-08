@@ -6,7 +6,7 @@ import { useAppSelector, useAppDispatch } from '../../../app/hooks'
 import { setProducts } from '../../../app/slices/ProductsSlice'
 import { setIsPriceRangeSet } from '../../../app/slices/Filter/BaseFilterDataSlice'
 
-const useGetProducts = (productTypeForURL: string) => {
+const useGetProducts = (productTypeForURL: string, extraQueryParameters: string = '') => {
    const dispatch = useAppDispatch()
    const currentPage = useAppSelector(state => state.paginate.currentPage)
    const perPage = useAppSelector(state => state.paginate.perPage)
@@ -16,7 +16,7 @@ const useGetProducts = (productTypeForURL: string) => {
    const getProductsByQueries = async () => {
       try {
          const product = await axios.get(
-            `/${productTypeForURL}?currentPage=${currentPage}&perPage=${perPage}&orderBy=${filterOptions.orderBy}&byManufacturer=${filterOptions.selectedManufacturer}&priceRange=${filterOptions.priceRange}`,
+            `/${productTypeForURL}?currentPage=${currentPage}&perPage=${perPage}&orderBy=${filterOptions.orderBy}&byManufacturer=${filterOptions.selectedManufacturer}&priceRange=${filterOptions.priceRange}${extraQueryParameters}`,
             {
                data: {
                   currentPage,
