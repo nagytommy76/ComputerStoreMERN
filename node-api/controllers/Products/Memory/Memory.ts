@@ -12,14 +12,15 @@ export default class MemoryProduct extends BaseProduct {
       try {
          const memoryType = request.query.memoryType == 'all' ? '' : request.query.memoryType
          const selectedFrequencyRange = request.query.selectedFrequencyRange.split(',') || [400, 14000]
-         const selectedCapacity = request.query.selectedCapacity > 0 ? request.query.selectedCapacity : ''
+         const selectedCapacity =
+            request.query.selectedCapacity > 0
+               ? { $eq: request.query.selectedCapacity }
+               : {
+                    $ne: request.query.selectedCapacity,
+                 }
          const extraFilterParameters = {
-            // details: {
-            //    capacity: selectedCapacity,
-            //    memoryType: new RegExp(memoryType),
-            //    // selectedFrequencyRange: { $gte: selectedFrequencyRange[0], $lte: selectedFrequencyRange[1] },
-            // },
-            // 'details.capacity': selectedCapacity,
+            'details.frequency': { $gte: selectedFrequencyRange[0], $lte: selectedFrequencyRange[1] },
+            'details.capacity': selectedCapacity,
             'details.memoryType': new RegExp(memoryType, 'i'),
          }
          this.returnProductModelWithPaginateInfo(request, response, extraFilterParameters)

@@ -27,15 +27,9 @@ export default abstract class BaseProduct {
             totalItems = count
             totalPages = Math.ceil(totalItems / perPage)
             // A find-ba beilleszteni (spread) egy objectet ami tartalmazza az adott termék egyedi keresési szempontjait
-            const queryObject = {
-               manufacturer: new RegExp(byManufacturer),
-               price: { $gte: priceRange[0], $lte: priceRange[1] },
-               ...extraFilerParameters,
-            }
-            console.log(queryObject)
             return await this.productModel
                .find({
-                  manufacturer: new RegExp(byManufacturer),
+                  manufacturer: new RegExp(byManufacturer, 'i'),
                   price: { $gte: priceRange[0], $lte: priceRange[1] },
                   ...extraFilerParameters,
                })
