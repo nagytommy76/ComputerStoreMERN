@@ -8,10 +8,23 @@ export default class MemoryProduct extends BaseProduct {
       super(MemoryModel)
    }
 
-   getAllMemoryProductController = async (request: QueryRequest, response: Response) => {
+   getAllMemoryProductController = async (request: MemoryQueryRequestType, response: Response) => {
       try {
-         this.returnProductModelWithPaginateInfo(request, response)
+         const memoryType = request.query.memoryType == 'all' ? '' : request.query.memoryType
+         const selectedFrequencyRange = request.query.selectedFrequencyRange.split(',') || [400, 14000]
+         const selectedCapacity = request.query.selectedCapacity > 0 ? request.query.selectedCapacity : ''
+         const extraFilterParameters = {
+            // details: {
+            //    capacity: selectedCapacity,
+            //    memoryType: new RegExp(memoryType),
+            //    // selectedFrequencyRange: { $gte: selectedFrequencyRange[0], $lte: selectedFrequencyRange[1] },
+            // },
+            // 'details.capacity': selectedCapacity,
+            'details.memoryType': new RegExp(memoryType, 'i'),
+         }
+         this.returnProductModelWithPaginateInfo(request, response, extraFilterParameters)
       } catch (error) {
+         console.log(error)
          response.status(500).json(error)
       }
    }
@@ -22,5 +35,13 @@ export default class MemoryProduct extends BaseProduct {
       } catch (error) {
          response.status(500).json(error)
       }
+   }
+}
+
+type MemoryQueryRequestType = QueryRequest & {
+   query: {
+      memoryType: string
+      selectedFrequencyRange: string
+      selectedCapacity: number
    }
 }
