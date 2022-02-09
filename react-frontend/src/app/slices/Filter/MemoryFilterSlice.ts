@@ -4,7 +4,7 @@ const initialState: Props = {
    allMemoryTypes: [],
    memoryType: 'all',
    frequencyRange: [400, 14000],
-   selectedFrequency: 400,
+   selectedFrequencyRange: [400, 14000],
    allCapacities: [2, 4, 8, 16, 32, 64],
    selectedCapacity: 8,
 }
@@ -27,8 +27,8 @@ const MemoryFilterData = createSlice({
       setFrequencyRange: (state, { payload }: PayloadAction<number[]>) => {
          state.frequencyRange = payload
       },
-      setSelectedFrequency: (state, { payload }: PayloadAction<number>) => {
-         state.selectedFrequency = payload
+      setSelectedFrequencyRange: (state, { payload }: PayloadAction<number[]>) => {
+         state.selectedFrequencyRange = payload
       },
       setAllCapacities: (state, { payload }: PayloadAction<number[]>) => {
          state.allCapacities = payload
@@ -43,7 +43,7 @@ export const {
    setFrequencyRange,
    setMemoryType,
    setAllMemoryTypes,
-   setSelectedFrequency,
+   setSelectedFrequencyRange,
    setAllCapacities,
    setSelectedCapacity,
 } = MemoryFilterData.actions
@@ -54,7 +54,7 @@ type Props = {
    allMemoryTypes: string[]
    memoryType: string
    frequencyRange: number[]
-   selectedFrequency: number
+   selectedFrequencyRange: number[]
    allCapacities: number[]
    selectedCapacity: number
 }

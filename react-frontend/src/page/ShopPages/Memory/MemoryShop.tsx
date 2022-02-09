@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../../app/hooks'
 import {
    setAllCapacities,
    setAllMemoryTypes,
-   setFrequencyRange,
+   setSelectedFrequencyRange,
 } from '../../../app/slices/Filter/MemoryFilterSlice'
 import { ExtraDispatchesParameterType } from './MemoryTypes'
 
@@ -14,12 +14,14 @@ const ByMemoryType = React.lazy(() => import('./Extra/ByMemoryType'))
 const BySelectedCapacity = React.lazy(() => import('./Extra/BySelectedCapacity'))
 
 const MemoryShop = () => {
-   const { memoryType, selectedCapacity, selectedFrequency } = useAppSelector(state => state.memoryFilter)
+   const { memoryType, selectedCapacity, selectedFrequencyRange } = useAppSelector(
+      state => state.memoryFilter
+   )
    const dispatch = useAppDispatch()
 
    const extraDispatches = (params: ExtraDispatchesParameterType) => {
       dispatch(setAllMemoryTypes(params.allMemoryTypes))
-      dispatch(setFrequencyRange(params.frequencyRanges))
+      dispatch(setSelectedFrequencyRange(params.frequencyRanges))
       dispatch(setAllCapacities(params.allCapacities))
    }
 
@@ -27,7 +29,7 @@ const MemoryShop = () => {
       <BaseShop productType='memory'>
          <SideFilter
             productType='memory'
-            extraQueryParameters={`&memoryType=${memoryType}&selectedFrequency=${selectedFrequency}&selectedCapacity=${selectedCapacity}`}
+            extraQueryParameters={`&memoryType=${memoryType}&selectedFrequencyRange=${selectedFrequencyRange}&selectedCapacity=${selectedCapacity}`}
             extraDispatches={extraDispatches}
          >
             <ByMemoryType />

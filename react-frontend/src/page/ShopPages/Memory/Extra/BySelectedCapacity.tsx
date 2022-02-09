@@ -31,7 +31,7 @@ const BySelectedCapacity = () => {
                native: true,
             }}
          >
-            <option value='all'>Összes</option>
+            <option value='0'>Összes</option>
             <option value='2'>2GB</option>
             <option value='4'>4GB</option>
             <option value='8'>8GB</option>
