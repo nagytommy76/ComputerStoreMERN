@@ -32,7 +32,11 @@ export default class MemoryProduct extends BaseProduct {
 
    getMemoryFilterData = async (request: QueryRequest, response: Response) => {
       try {
-         this.baseFilterData(response)
+         const extraGoupParameters = {
+            minFrequency: { $min: '$details.frequency' },
+            maxFrequency: { $max: '$details.frequency' },
+         }
+         this.baseFilterData(response, extraGoupParameters)
       } catch (error) {
          response.status(500).json(error)
       }

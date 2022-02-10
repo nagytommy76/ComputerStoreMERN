@@ -51,7 +51,7 @@ export default abstract class BaseProduct {
          .catch(error => response.status(500).json({ hasError: true, errorMsg: error }))
    }
 
-   baseFilterData = async (res: Response) => {
+   baseFilterData = async (res: Response, extraGroupParameters: any = {}) => {
       await this.productModel
          .aggregate()
          .group({
@@ -59,6 +59,7 @@ export default abstract class BaseProduct {
             maxPrice: { $max: '$price' },
             minPrice: { $min: '$price' },
             allManufacturers: { $addToSet: '$manufacturer' },
+            ...extraGroupParameters,
          })
          .sort({ allManufacturers: 1 })
          .then(allFilterData => {
