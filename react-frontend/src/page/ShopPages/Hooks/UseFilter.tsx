@@ -27,12 +27,7 @@ const useFilter = (productType: string, extraFilterDispatches?: (params: any) =>
             dispatch(setIsPriceRangeSet(true))
             dispatch(setToDefault())
             // Parameterként át kéne adni az egész filterData-t, majd kiszedni az adatokat a shop-ban!?
-            extraFilterDispatches &&
-               extraFilterDispatches({
-                  allMemoryTypes: ['egyelőre', 'semmi'],
-                  frequencyRanges: [2666, 6000],
-                  allCapacities: [2, 4],
-               })
+            extraFilterDispatches && extraFilterDispatches(filterData.data)
          }
       } catch (error) {
          console.log(error)

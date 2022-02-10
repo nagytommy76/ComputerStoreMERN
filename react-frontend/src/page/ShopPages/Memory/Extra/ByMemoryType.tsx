@@ -32,7 +32,6 @@ const ByMemoryType = () => {
             }}
          >
             <option value='all'>Összes</option>
-            <option value='ddr'>DDR</option>
             <option value='ddr2'>DDR2</option>
             <option value='ddr3'>DDR3</option>
             <option value='ddr4'>DDR4</option>

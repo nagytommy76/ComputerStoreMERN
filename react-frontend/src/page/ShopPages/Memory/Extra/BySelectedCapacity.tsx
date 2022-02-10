@@ -37,6 +37,9 @@ const BySelectedCapacity = () => {
             <option value='8'>8GB</option>
             <option value='16'>16GB</option>
             <option value='32'>32GB</option>
+            <option value='64'>64GB</option>
+            <option value='128'>128GB</option>
+            <option value='256'>256GB</option>
          </TextField>
       </InputContainer>
    )

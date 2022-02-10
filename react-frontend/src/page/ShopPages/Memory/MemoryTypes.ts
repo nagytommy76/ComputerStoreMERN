@@ -15,9 +15,3 @@ export type MemoryDetailsType = {
    moduleNumber?: number
    warranity: number
 }
-
-export type ExtraDispatchesParameterType = {
-   allMemoryTypes: string[]
-   frequencyRanges: number[]
-   allCapacities: number[]
-}
