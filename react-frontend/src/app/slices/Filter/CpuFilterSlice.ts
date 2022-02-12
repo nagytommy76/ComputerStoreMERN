@@ -4,7 +4,7 @@ const initialState: Props = {
    allSocket: ['AM4', 'LGA-1200', 'sWRX8', 'LGA2011-3'],
    selectedSocket: 'all',
    coreCounts: [2, 128],
-   selectedCoreCount: 0,
+   selectedCoreCountRange: [2, 128],
    baseFrequencyRange: [2000, 6000],
    selectedBaseFrequencyRange: [2000, 6000],
 }
@@ -29,8 +29,8 @@ const CpuFilterData = createSlice({
       setCoreCounts: (state, { payload }: PayloadAction<number[]>) => {
          state.coreCounts = payload
       },
-      setSelectedCoreCount: (state, { payload }: PayloadAction<number>) => {
-         state.selectedCoreCount = payload
+      setSelectedCoreCountRange: (state, { payload }: PayloadAction<number[]>) => {
+         state.selectedCoreCountRange = payload
       },
       setBaseFrequencyRange: (state, { payload }: PayloadAction<number[]>) => {
          state.baseFrequencyRange = payload
@@ -46,7 +46,7 @@ export const {
    setBaseFrequencyRange,
    setCoreCounts,
    setSelectedBaseFrequencyRange,
-   setSelectedCoreCount,
+   setSelectedCoreCountRange,
    setSelectedSocket,
 } = CpuFilterData.actions
 
@@ -56,7 +56,7 @@ type Props = {
    allSocket: string[]
    selectedSocket: string
    coreCounts: number[]
-   selectedCoreCount: number
+   selectedCoreCountRange: number[]
    baseFrequencyRange: number[]
    selectedBaseFrequencyRange: number[]
 }

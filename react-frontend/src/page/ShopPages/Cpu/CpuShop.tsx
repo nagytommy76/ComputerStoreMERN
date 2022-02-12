@@ -6,10 +6,11 @@ const SideFilter = lazy(() => import('../BaseComponents/SideFilter/SideFilter'))
 
 const BySocket = lazy(() => import('./Extra/BySocket'))
 const ByBaseFrequencyRange = lazy(() => import('./Extra/ByBaseFrequency'))
+const ByCorecount = React.lazy(() => import('./Extra/ByCoreCount'))
 
 const CpuShop = () => {
    //    const dispatch = useAppDispatch()
-   const { selectedSocket, selectedBaseFrequencyRange, selectedCoreCount } = useAppSelector(
+   const { selectedSocket, selectedBaseFrequencyRange, selectedCoreCountRange } = useAppSelector(
       state => state.cpuFilter
    )
 
@@ -19,12 +20,13 @@ const CpuShop = () => {
       <BaseShop productType='cpu'>
          <SideFilter
             productType='cpu'
-            extraQueryParameters={`&coreCount=${selectedCoreCount}&selectedBaseFrequencyRange=${selectedBaseFrequencyRange}&selectedSocket=${selectedSocket}`}
+            extraQueryParameters={`&coreCount=${selectedCoreCountRange}&selectedBaseFrequencyRange=${selectedBaseFrequencyRange}&selectedSocket=${selectedSocket}`}
             extraDispatches={extraDispatches}
             /*sideEffectTrigger={selectedFrequencyRange}*/
          >
             <BySocket />
             <ByBaseFrequencyRange />
+            <ByCorecount />
          </SideFilter>
       </BaseShop>
    )
