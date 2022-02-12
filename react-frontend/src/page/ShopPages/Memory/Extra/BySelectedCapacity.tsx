@@ -1,47 +1,31 @@
 import React from 'react'
 
-import { InputContainer } from '../../BaseComponents/SideFilter/FilterStyle'
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
 import { setIsPriceRangeSet } from '../../../../app/slices/Filter/BaseFilterDataSlice'
 import { setSelectedCapacity } from '../../../../app/slices/Filter/MemoryFilterSlice'
 
-import TextField from '@mui/material/TextField'
+const BaseCapacitySelect = React.lazy(() => import('../../BaseComponents/SideFilter/Base/BaseSelect'))
 
 const BySelectedCapacity = () => {
-   const capacity = useAppSelector(state => state.memoryFilter.selectedCapacity)
+   const selectedCapacity = useAppSelector(state => state.memoryFilter.selectedCapacity)
    const dispatch = useAppDispatch()
 
    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       dispatch(setSelectedCapacity(parseInt(event.target.value)))
       dispatch(setIsPriceRangeSet(true))
    }
+   const allCapacities = [2, 4, 8, 16, 32, 64, 128]
    return (
-      <InputContainer>
-         <TextField
-            fullWidth
-            select
-            aria-multiselectable
-            label='Szűrés'
-            helperText='Kapacitás'
-            variant='filled'
-            color='primary'
-            onChange={handleChange}
-            value={capacity}
-            SelectProps={{
-               native: true,
-            }}
-         >
-            <option value='0'>Összes</option>
-            <option value='2'>2GB</option>
-            <option value='4'>4GB</option>
-            <option value='8'>8GB</option>
-            <option value='16'>16GB</option>
-            <option value='32'>32GB</option>
-            <option value='64'>64GB</option>
-            <option value='128'>128GB</option>
-            <option value='256'>256GB</option>
-         </TextField>
-      </InputContainer>
+      <BaseCapacitySelect
+         allOption={allCapacities}
+         selectedOption={selectedCapacity}
+         handleChange={handleChange}
+         labelText='Kapacitás'
+         helperText='Kapacitás szerint'
+         postFix='GB'
+      >
+         <option value='0'>Összes</option>
+      </BaseCapacitySelect>
    )
 }
 

@@ -1,25 +1,25 @@
 import React from 'react'
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
-import { setSelectedFrequencyRange } from '../../../../app/slices/Filter/MemoryFilterSlice'
+import { setSelectedBaseFrequencyRange } from '../../../../app/slices/Filter/CpuFilterSlice'
 import { setIsPriceRangeSet } from '../../../../app/slices/Filter/BaseFilterDataSlice'
 
 const BaseFrequencySlider = React.lazy(() => import('../../BaseComponents/SideFilter/Base/BaseSlider'))
 
 const FrequencyRange = () => {
    const dispatch = useAppDispatch()
-   const { frequencyRange, selectedFrequencyRange } = useAppSelector(state => state.memoryFilter)
+   const { selectedBaseFrequencyRange, baseFrequencyRange } = useAppSelector(state => state.cpuFilter)
 
    const changeFrequencyRange = (_: any, newValue: number | number[]) => {
-      dispatch(setSelectedFrequencyRange(newValue as number[]))
+      dispatch(setSelectedBaseFrequencyRange(newValue as number[]))
       dispatch(setIsPriceRangeSet(true))
    }
 
    return (
       <BaseFrequencySlider
-         range={frequencyRange}
-         selectedRange={selectedFrequencyRange}
+         range={baseFrequencyRange}
+         selectedRange={selectedBaseFrequencyRange}
          changeRange={changeFrequencyRange}
-         text='Frekvencia'
+         text='Alap frekvencia (MHz)'
       />
    )
 }

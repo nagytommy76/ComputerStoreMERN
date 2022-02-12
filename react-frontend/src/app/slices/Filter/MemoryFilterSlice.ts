@@ -6,14 +6,9 @@ const initialState: Props = {
    selectedFrequencyRange: [400, 14000],
    selectedCapacity: 0,
 }
-/**
- * Szűrés
- * - DDR4 pl
- * - MHz range
- * - Kapacitás pl. 16gb, 8gb
- */
+
 const MemoryFilterData = createSlice({
-   name: 'filterData',
+   name: 'memoryFilterData',
    initialState,
    reducers: {
       setMemoryType: (state, { payload }: PayloadAction<string>) => {

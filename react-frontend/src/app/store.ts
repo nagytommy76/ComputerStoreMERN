@@ -1,5 +1,14 @@
 import { configureStore, ThunkAction, Action, getDefaultMiddleware } from '@reduxjs/toolkit'
-import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
+import {
+   persistReducer,
+   persistStore,
+   FLUSH,
+   REHYDRATE,
+   PAUSE,
+   PERSIST,
+   PURGE,
+   REGISTER,
+} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
 import authSlice from './slices/AuthSlice'
@@ -16,6 +25,7 @@ import StepsSlice from './slices/Checkout/StepsSlice'
 
 import FilterDataSlice from './slices/Filter/BaseFilterDataSlice'
 import MemoryFilterSlice from './slices/Filter/MemoryFilterSlice'
+import CpuFilterSlice from './slices/Filter/CpuFilterSlice'
 
 export const store = configureStore({
    reducer: {
@@ -29,6 +39,7 @@ export const store = configureStore({
       payment: persistReducer({ key: 'payment', storage }, PaymentSlice),
       filter: persistReducer({ key: 'FilterData', storage }, FilterDataSlice),
       memoryFilter: persistReducer({ key: 'memoryFilter', storage }, MemoryFilterSlice),
+      cpuFilter: persistReducer({ key: 'cpuFilter', storage }, CpuFilterSlice),
       steps: StepsSlice,
       validationError: ValidationErrorSlice,
       mobile: MobileSlice,

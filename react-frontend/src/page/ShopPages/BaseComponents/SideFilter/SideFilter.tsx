@@ -37,7 +37,7 @@ type Props = {
    productType: string
    extraQueryParameters?: string
    extraDispatches?: (params: any) => void
-   sideEffectTrigger: any
+   sideEffectTrigger?: any
 }
 
 export default SideFilter
