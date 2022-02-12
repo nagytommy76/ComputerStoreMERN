@@ -6,19 +6,21 @@ import FormLabel from '@mui/material/FormLabel'
 import Slider from '@mui/material/Slider'
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
 import { setSelectedFrequencyRange } from '../../../../app/slices/Filter/MemoryFilterSlice'
+import { setIsPriceRangeSet } from '../../../../app/slices/Filter/BaseFilterDataSlice'
 
 const FrequencyRange = () => {
    const dispatch = useAppDispatch()
    const [value, setValue] = useState<number[]>([400, 12000])
    const { frequencyRange, selectedFrequencyRange } = useAppSelector(state => state.memoryFilter)
 
-   const handleChange = (event: Event, newValue: number | number[]) => {
+   const handleChange = (_: any, newValue: number | number[]) => {
       setValue(newValue as number[])
    }
 
    const changeFrequencyRange = (_: any, newValue: number | number[]) => {
       console.log(newValue)
       dispatch(setSelectedFrequencyRange(newValue as number[]))
+      dispatch(setIsPriceRangeSet(true))
    }
 
    return (

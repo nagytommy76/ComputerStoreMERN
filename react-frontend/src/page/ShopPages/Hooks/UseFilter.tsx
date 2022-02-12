@@ -40,7 +40,7 @@ const useFilter = (productType: string, extraFilterDispatches?: (params: any) =>
       }
       dispatch(setProductType(productType))
       // eslint-disable-next-line
-   }, [productType, isPriceRangeSet])
+   }, [dispatch, productType, isPriceRangeSet])
 }
 
 export default useFilter
