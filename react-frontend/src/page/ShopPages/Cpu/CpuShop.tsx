@@ -19,15 +19,25 @@ import {
 const BaseShop = lazy(() => import('../BaseComponents/BaseShopPage/BaseShop'))
 const SideFilter = lazy(() => import('../BaseComponents/SideFilter/SideFilter'))
 
+const ByCoreCount = lazy(() => import('./Extra/ByCoreCount'))
+const ByThreadCount = lazy(() => import('./Extra/ByThreadCount'))
 const BySocket = lazy(() => import('./Extra/BySocket'))
 const ByBaseFrequencyRange = lazy(() => import('./Extra/ByBaseFrequency'))
-const ByCorecount = React.lazy(() => import('./Extra/ByCoreCount'))
+const ByTurboFrequencyRange = lazy(() => import('./Extra/ByTurboFrequency'))
+const ByTDPRange = lazy(() => import('./Extra/ByTDPRange'))
+const ByL3Cache = lazy(() => import('./Extra/ByL3Cache'))
 
 const CpuShop = () => {
    const dispatch = useAppDispatch()
-   const { selectedSocket, selectedBaseFrequencyRange, selectedCoreCountRange } = useAppSelector(
-      state => state.cpuFilter
-   )
+   const {
+      selectedSocket,
+      selectedBaseFrequencyRange,
+      selectedTurboFrequencyRange,
+      selectedCoreCountRange,
+      selectedThreadCountRange,
+      selectedTDPRange,
+      selectedL3CacheRange,
+   } = useAppSelector(state => state.cpuFilter)
 
    const extraDispatches = (params: IncomingParamsType) => {
       dispatch(setAllSockets(params.allSockets))
@@ -58,12 +68,16 @@ const CpuShop = () => {
       <BaseShop productType='cpu'>
          <SideFilter
             productType='cpu'
-            extraQueryParameters={`&coreCount=${selectedCoreCountRange}&selectedBaseFrequencyRange=${selectedBaseFrequencyRange}&selectedSocket=${selectedSocket}`}
+            extraQueryParameters={`&coreCount=${selectedCoreCountRange}&threadCount=${selectedThreadCountRange}&baseFrequencyRange=${selectedBaseFrequencyRange}&turboFrequencyRange=${selectedTurboFrequencyRange}&selectedSocket=${selectedSocket}&tdpRange=${selectedTDPRange}&l3CacheRange=${selectedL3CacheRange}`}
             extraDispatches={extraDispatches}
          >
             <BySocket />
+            <ByCoreCount />
+            <ByThreadCount />
             <ByBaseFrequencyRange />
-            <ByCorecount />
+            <ByTurboFrequencyRange />
+            <ByTDPRange />
+            <ByL3Cache />
          </SideFilter>
       </BaseShop>
    )
