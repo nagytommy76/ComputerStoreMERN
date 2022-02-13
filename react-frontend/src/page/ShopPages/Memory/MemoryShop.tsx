@@ -27,7 +27,6 @@ const MemoryShop = () => {
             productType='memory'
             extraQueryParameters={`&memoryType=${memoryType}&selectedFrequencyRange=${selectedFrequencyRange}&selectedCapacity=${selectedCapacity}`}
             extraDispatches={extraDispatches}
-            sideEffectTrigger={selectedFrequencyRange}
          >
             <ByMemoryType />
             <BySelectedCapacity />

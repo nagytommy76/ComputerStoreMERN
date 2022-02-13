@@ -1,5 +1,5 @@
 import React, { lazy } from 'react'
-import { useAppSelector, useAppDispatch } from '../../../app/hooks'
+import { useAppSelector } from '../../../app/hooks'
 
 const BaseShop = lazy(() => import('../BaseComponents/BaseShopPage/BaseShop'))
 const SideFilter = lazy(() => import('../BaseComponents/SideFilter/SideFilter'))
@@ -22,7 +22,6 @@ const CpuShop = () => {
             productType='cpu'
             extraQueryParameters={`&coreCount=${selectedCoreCountRange}&selectedBaseFrequencyRange=${selectedBaseFrequencyRange}&selectedSocket=${selectedSocket}`}
             extraDispatches={extraDispatches}
-            /*sideEffectTrigger={selectedFrequencyRange}*/
          >
             <BySocket />
             <ByBaseFrequencyRange />
