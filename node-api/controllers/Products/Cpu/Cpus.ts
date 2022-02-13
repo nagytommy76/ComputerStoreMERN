@@ -10,14 +10,32 @@ export default class CpuProduct extends BaseProduct {
 
    getAllCpuItemController = async (req: CpuQueryRequestType, res: Response) => {
       try {
-         const { coreCount, selectedBaseFrequencyRange, selectedSocket } = req.query
+         const {
+            coreCount,
+            baseFrequencyRange,
+            selectedSocket,
+            l3CacheRange,
+            tdpRange,
+            threadCount,
+            turboFrequencyRange,
+         } = req.query
+
          const socket = selectedSocket == 'all' ? '' : selectedSocket
          const coreRange = this.splitStringAndConvertToArray(coreCount)
-         const frequencyRange = this.splitStringAndConvertToArray(selectedBaseFrequencyRange)
+         const threadRange = this.splitStringAndConvertToArray(threadCount)
+         const frequencyRange = this.splitStringAndConvertToArray(baseFrequencyRange)
+         const turboRange = this.splitStringAndConvertToArray(turboFrequencyRange)
+         const tdp = this.splitStringAndConvertToArray(tdpRange)
+         const l3Range = this.splitStringAndConvertToArray(l3CacheRange)
+
          const extraQueryParams = {
-            'details.coreCount': { $gte: coreRange[0], $lte: coreRange[1] },
-            'details.baseClock': { $gte: frequencyRange[0], $lte: frequencyRange[1] },
             'details.socket': new RegExp(socket),
+            'details.coreCount': { $gte: coreRange[0], $lte: coreRange[1] },
+            'details.threadCount': { $gte: threadRange[0], $lte: threadRange[1] },
+            'details.baseClock': { $gte: frequencyRange[0], $lte: frequencyRange[1] },
+            'details.boostClock': { $gte: turboRange[0], $lte: turboRange[1] },
+            'details.l3Cache': { $gte: l3Range[0], $lte: l3Range[1] },
+            'details.TDP': { $gte: tdp[0], $lte: tdp[1] },
          }
          const { foundProduct, perPage, totalItems, totalPages } =
             await this.returnProductModelWithPaginateInfo(req, extraQueryParams)
@@ -61,7 +79,11 @@ export default class CpuProduct extends BaseProduct {
 type CpuQueryRequestType = QueryRequest & {
    query: {
       selectedSocket: string
-      selectedBaseFrequencyRange: string
+      baseFrequencyRange: string
+      turboFrequencyRange: string
       coreCount: string
+      threadCount: string
+      tdpRange: string
+      l3CacheRange: string
    }
 }

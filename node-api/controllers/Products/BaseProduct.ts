@@ -1,5 +1,5 @@
-import { Response } from 'express'
-import { Model } from 'mongoose'
+import { Document, Model } from 'mongoose'
+import { BaseProductType } from '../../models/Products/BaseTypes'
 import { QueryRequest } from './Helper'
 
 export default abstract class BaseProduct {
@@ -10,18 +10,19 @@ export default abstract class BaseProduct {
 
    returnProductModelWithPaginateInfo = async (request: QueryRequest, extraFilerParameters: any = {}) => {
       const currentPage = parseInt(request.query.currentPage) || 1
-      const perPage = parseInt(request.query.perPage) || 10
+      const perPage = parseInt(request.query.perPage) || 12
       const orderBy = request.query.orderBy || 'asc'
       const byManufacturer = request.query.byManufacturer == 'all' ? '' : request.query.byManufacturer
-      const priceRange = request.query.priceRange.split(',') || [0, 5000000]
+      const priceRange = this.splitStringAndConvertToArray(request.query.priceRange)
 
-      let totalItems: number
       let totalPages: number
-      const documentCount = await this.productModel.countDocuments()
-      totalItems = documentCount
-      totalPages = Math.ceil(totalItems / perPage)
+      const totalItems = await this.productModel.countDocuments()
+      // totalPages = Math.ceil(totalItems / perPage)
+
       // A find-ba beilleszteni (spread) egy objectet ami tartalmazza az adott termék egyedi keresési szempontjait
-      const foundProduct = await this.productModel
+      const foundProduct: (BaseProductType & {
+         details: any
+      } & Document<any, any>)[] = await this.productModel
          .find({
             manufacturer: new RegExp(byManufacturer, 'i'),
             price: { $gte: priceRange[0], $lte: priceRange[1] },
@@ -30,6 +31,12 @@ export default abstract class BaseProduct {
          .sort({ price: orderBy })
          .skip((currentPage - 1) * perPage)
          .limit(perPage)
+
+      totalPages =
+         foundProduct.length >= perPage
+            ? Math.ceil(totalItems / perPage)
+            : Math.ceil(foundProduct.length / perPage)
+
       return { foundProduct, totalItems, totalPages, perPage }
    }
 

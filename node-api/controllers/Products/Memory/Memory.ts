@@ -11,16 +11,14 @@ export default class MemoryProduct extends BaseProduct {
    getAllMemoryProductController = async (request: MemoryQueryRequestType, response: Response) => {
       try {
          const memoryType = request.query.memoryType == 'all' ? '' : request.query.memoryType
-         const selectedFrequencyRange = request.query.selectedFrequencyRange.split(',') || [400, 14000]
-         const selectedCapacity =
-            request.query.selectedCapacity > 0
-               ? { $eq: request.query.selectedCapacity }
-               : {
-                    $ne: request.query.selectedCapacity,
-                 }
+         const selectedFrequencyRange = this.splitStringAndConvertToArray(
+            request.query.selectedFrequencyRange
+         )
+         const selectedCapacity = this.splitStringAndConvertToArray(request.query.selectedCapacity)
+
          const extraFilterParameters = {
             'details.frequency': { $gte: selectedFrequencyRange[0], $lte: selectedFrequencyRange[1] },
-            'details.capacity': selectedCapacity,
+            'details.capacity': { $gte: selectedCapacity[0], $lte: selectedCapacity[1] },
             'details.memoryType': new RegExp(memoryType, 'i'),
          }
          const { foundProduct, perPage, totalItems, totalPages } =
@@ -47,6 +45,7 @@ export default class MemoryProduct extends BaseProduct {
             capacities: { $addToSet: '$details.capacity' },
          }
          const filters = await this.baseFilterData(extraGoupParameters)
+         filters[0].capacities.sort()
          response.status(200).json(filters[0])
       } catch (error) {
          response.status(500).json({ errorMessage: error })
@@ -58,6 +57,6 @@ type MemoryQueryRequestType = QueryRequest & {
    query: {
       memoryType: string
       selectedFrequencyRange: string
-      selectedCapacity: number
+      selectedCapacity: string
    }
 }
