@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { InputContainer } from '../FilterStyle'
 
 import FormControl from '@mui/material/FormControl'
@@ -11,6 +11,10 @@ const BaseSlider: React.FC<Props> = ({ range, selectedRange, changeRange, text, 
    const handleChange = (_: any, newValue: number | number[]) => {
       setValue(newValue as number[])
    }
+
+   useEffect(() => {
+      setValue(selectedRange)
+   }, [selectedRange])
 
    return (
       <InputContainer>
