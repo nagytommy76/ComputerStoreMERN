@@ -11,7 +11,15 @@ export default class VgaProduct extends BaseProduct {
 
    getAllVgaItemController = async (req: QueryRequest, res: Response) => {
       try {
-         this.returnProductModelWithPaginateInfo(req, res)
+         const extraFilterParams = {}
+         const { foundProduct, perPage, totalItems, totalPages } =
+            await this.returnProductModelWithPaginateInfo(req, extraFilterParams)
+         res.json({
+            allProducts: foundProduct,
+            totalItems,
+            perPage,
+            totalPages,
+         })
       } catch (error) {
          return res.status(500).json(error)
       }
@@ -19,9 +27,11 @@ export default class VgaProduct extends BaseProduct {
 
    getFilterData = async (req: QueryRequest, res: Response) => {
       try {
-         this.baseFilterData(res)
+         const extraGroup = {}
+         const filterData = await this.baseFilterData(extraGroup)
+         res.status(200).json(filterData[0])
       } catch (error) {
-         return res.status(500).json(error)
+         return res.status(500).json({ errorMessage: error })
       }
    }
 }

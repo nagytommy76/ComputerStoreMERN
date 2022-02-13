@@ -7,12 +7,7 @@ export default class CpuProduct extends BaseProduct {
    constructor() {
       super(CpuProductModel)
    }
-   /**
-    * Magok száma slider
-    * frekvencia base/turbo slider
-    * socket AM4 LGA2011 stb
-    *
-    */
+
    getAllCpuItemController = async (req: CpuQueryRequestType, res: Response) => {
       try {
          const { coreCount, selectedBaseFrequencyRange, selectedSocket } = req.query
@@ -25,23 +20,40 @@ export default class CpuProduct extends BaseProduct {
             'details.socket': new RegExp(socket),
          }
          const { foundProduct, perPage, totalItems, totalPages } =
-            await this.returnProductModelWithPaginateInfo(req, res, extraQueryParams)
-         return res.json({
+            await this.returnProductModelWithPaginateInfo(req, extraQueryParams)
+         res.json({
             allProducts: foundProduct,
             totalItems,
             perPage,
             totalPages,
          })
       } catch (error) {
-         return res.status(500).json(error)
+         res.status(500).json(error)
       }
    }
 
-   getCpuFilterData = async (req: QueryRequest, res: Response) => {
+   getCpuFilterData = async (_: any, res: Response) => {
       try {
-         this.baseFilterData(res)
+         const extraGroup = {
+            minCoreCount: { $min: '$details.coreCount' },
+            maxCoreCount: { $max: '$details.coreCount' },
+            minThreadCount: { $min: '$details.threadCount' },
+            maxThreadCount: { $max: '$details.threadCount' },
+            minBaseFrequency: { $min: '$details.baseClock' },
+            maxBaseFrequency: { $max: '$details.baseClock' },
+            minTurboFrequency: { $min: '$details.boostClock' },
+            maxTurboFrequency: { $max: '$details.boostClock' },
+            minL3Cache: { $min: '$details.l3Cache' },
+            maxL3Cache: { $max: '$details.l3Cache' },
+            minTDP: { $min: '$details.TDP' },
+            maxTDP: { $max: '$details.TDP' },
+            allSockets: { $addToSet: '$details.socket' },
+         }
+         const filtererGroups = await this.baseFilterData(extraGroup)
+         filtererGroups[0].allSockets.sort()
+         res.status(200).json(filtererGroups[0])
       } catch (error) {
-         return res.status(500).json(error)
+         res.status(500).json({ errorMessage: error })
       }
    }
 }

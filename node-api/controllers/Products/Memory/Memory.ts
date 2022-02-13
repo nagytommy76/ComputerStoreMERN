@@ -23,22 +23,33 @@ export default class MemoryProduct extends BaseProduct {
             'details.capacity': selectedCapacity,
             'details.memoryType': new RegExp(memoryType, 'i'),
          }
-         this.returnProductModelWithPaginateInfo(request, response, extraFilterParameters)
+         const { foundProduct, perPage, totalItems, totalPages } =
+            await this.returnProductModelWithPaginateInfo(request, extraFilterParameters)
+         return response.json({
+            allProducts: foundProduct,
+            totalItems,
+            perPage,
+            totalPages,
+         })
       } catch (error) {
          console.log(error)
          response.status(500).json(error)
       }
    }
 
-   getMemoryFilterData = async (request: QueryRequest, response: Response) => {
+   getMemoryFilterData = async (_: any, response: Response) => {
       try {
          const extraGoupParameters = {
             minFrequency: { $min: '$details.frequency' },
             maxFrequency: { $max: '$details.frequency' },
+            minLatency: { $min: '$details.latency' },
+            maxLatency: { $max: '$details.latency' },
+            capacities: { $addToSet: '$details.capacity' },
          }
-         this.baseFilterData(response, extraGoupParameters)
+         const filters = await this.baseFilterData(extraGoupParameters)
+         response.status(200).json(filters[0])
       } catch (error) {
-         response.status(500).json(error)
+         response.status(500).json({ errorMessage: error })
       }
    }
 }
