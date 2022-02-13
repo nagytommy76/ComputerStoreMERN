@@ -18,9 +18,9 @@ const BaseSlider: React.FC<Props> = ({ range, selectedRange, changeRange, text, 
             <FormLabel color='primary'>
                <div>{text}</div>
                <span>
-                  ( {selectedRange[0]}
+                  {selectedRange[0]}
                   {unit} - {selectedRange[1]}
-                  {unit} )
+                  {unit}
                </span>
             </FormLabel>
             <Slider

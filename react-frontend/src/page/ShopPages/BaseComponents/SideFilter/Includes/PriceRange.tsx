@@ -28,9 +28,20 @@ const PriceRange: React.FC = () => {
       <InputContainer>
          <FormControl fullWidth>
             <FormLabel color='primary'>
-               Ár: (
-               <NumberFormat value={priceRange[0] || 0} thousandSeparator=' ' suffix=' Ft' displayType='text' />
-               - <NumberFormat value={priceRange[1] || 5000000} thousandSeparator=' ' suffix=' Ft' displayType='text' />)
+               <div>Ár: </div>
+               <NumberFormat
+                  value={priceRange[0] || 0}
+                  thousandSeparator=' '
+                  suffix=' Ft'
+                  displayType='text'
+               />
+               -{' '}
+               <NumberFormat
+                  value={priceRange[1] || 5000000}
+                  thousandSeparator=' '
+                  suffix=' Ft'
+                  displayType='text'
+               />
             </FormLabel>
             <Slider
                getAriaLabel={() => 'Price range'}
