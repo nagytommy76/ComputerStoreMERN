@@ -6,7 +6,6 @@ import { ProductContext } from '../../Context/ShopContext'
 import Container from '../../../../SuspenseComponents/ProductCard/Container'
 import { PageContainer, CardGridContainer, RightFlexContainer } from '../../BaseStyleForShopPage'
 
-// const SideFilter = lazy(() => import('../SideFilter/SideFilter'))
 const ProductCard = lazy(() => import('../ProductCard/ProductCard'))
 const Pagination = lazy(() => import('../Pagination/Pagination'))
 const CartSnackBar = lazy(() => import('../CartSnackbar/CartSnackbar'))
@@ -17,7 +16,6 @@ const BaseShop: React.FC<{ productType: string }> = ({ productType, children }) 
    return (
       <PageContainer>
          <React.Suspense fallback={<Container />}>
-            {/* <SideFilter productType={productType} /> */}
             {children}
             <RightFlexContainer>
                <CardGridContainer>

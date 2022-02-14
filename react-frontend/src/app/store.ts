@@ -26,6 +26,7 @@ import StepsSlice from './slices/Checkout/StepsSlice'
 import FilterDataSlice from './slices/Filter/BaseFilterDataSlice'
 import MemoryFilterSlice from './slices/Filter/MemoryFilterSlice'
 import CpuFilterSlice from './slices/Filter/CpuFilterSlice'
+import VgaFilterSlice from './slices/Filter/VgaFilterSlice'
 
 export const store = configureStore({
    reducer: {
@@ -40,6 +41,7 @@ export const store = configureStore({
       filter: persistReducer({ key: 'FilterData', storage }, FilterDataSlice),
       memoryFilter: persistReducer({ key: 'memoryFilter', storage }, MemoryFilterSlice),
       cpuFilter: persistReducer({ key: 'cpuFilter', storage }, CpuFilterSlice),
+      vgaFilter: persistReducer({ key: 'vgaFilter', storage }, VgaFilterSlice),
       steps: StepsSlice,
       validationError: ValidationErrorSlice,
       mobile: MobileSlice,

@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 
 import { setTotalPages } from '../../../app/slices/PaginateSlice'
 import { useAppSelector, useAppDispatch } from '../../../app/hooks'
@@ -15,7 +15,7 @@ const useGetProducts = (productTypeForURL: string, extraQueryParameters: string 
 
    const getProductsByQueries = async () => {
       try {
-         const product = await axios.get(
+         const product: AxiosResponse<{ allProducts: any[]; totalPages: number }, any[]> = await axios.get(
             `/${productTypeForURL}?currentPage=${currentPage}&perPage=${perPage}&orderBy=${filterOptions.orderBy}&byManufacturer=${filterOptions.selectedManufacturer}&priceRange=${filterOptions.priceRange}${extraQueryParameters}`,
             {
                data: {

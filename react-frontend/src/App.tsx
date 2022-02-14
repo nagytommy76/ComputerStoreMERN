@@ -17,8 +17,6 @@ import Navbar from /*webpackChunkName: "Navbar"*/ './page/Navbar/Navbar'
 import Footer from './page/Footer/Footer'
 import PageSuspense from './SuspenseComponents/Page/PageSuspense'
 
-import BaseShop from './page/ShopPages/BaseComponents/BaseShopPage/BaseShop'
-
 const Login = lazy(() => import(/*webpackChunkName: "LoginPage"*/ './page/Auth/Login/Login'))
 const Register = lazy(() => import(/*webpackChunkName: "RegisterPage"*/ './page/Auth/Register/Register'))
 const EmailValidation = lazy(
@@ -32,6 +30,7 @@ const Checkout = lazy(() => import(/*webpackChunkName: "Checkout"*/ './page/Chec
 
 const Admin = lazy(() => import('./page/Admin/Admin'))
 
+const VgaProducts = lazy(() => import('./page/ShopPages/Vga/VgaShop'))
 const VgaDetails = lazy(() => import('./page/ShopPages/Vga/VgaDetails/VgaDetails'))
 
 const CpuProducts = lazy(() => import('./page/ShopPages/Cpu/CpuShop'))
@@ -73,7 +72,7 @@ const App = () => {
                         <Route path='/' element={<Welcome />} />
                         <Route path='/vga/vga-details' element={<VgaDetails />} />
                         <Route path='/cpu/cpu-details' element={<CpuDetails />} />
-                        <Route path='/vga' element={<BaseShop productType='vga' />} />
+                        <Route path='/vga' element={<VgaProducts />} />
                         <Route path='/cpu' element={<CpuProducts />} />
                         <Route path='/memory' element={<MemoryProducts />} />
                         <Route path='/orders' element={<UserOrders />} />
