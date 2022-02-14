@@ -17,7 +17,7 @@ export default abstract class BaseProduct {
 
       let totalPages: number
       const totalItems = await this.productModel.countDocuments()
-      // totalPages = Math.ceil(totalItems / perPage)
+      totalPages = Math.ceil(totalItems / perPage)
 
       // A find-ba beilleszteni (spread) egy objectet ami tartalmazza az adott termék egyedi keresési szempontjait
       const foundProduct: (BaseProductType & {
@@ -32,12 +32,12 @@ export default abstract class BaseProduct {
          .skip((currentPage - 1) * perPage)
          .limit(perPage)
 
-      totalPages =
-         foundProduct.length >= perPage
-            ? Math.ceil(totalItems / perPage)
-            : Math.ceil(foundProduct.length / perPage)
+      // totalPages =
+      //    foundProduct.length >= perPage
+      //       ? Math.ceil(totalItems / perPage)
+      //       : Math.ceil(foundProduct.length / perPage)
 
-      return { foundProduct, totalItems, totalPages, perPage }
+      return { foundProduct, totalItems, totalPages }
    }
 
    baseFilterData = async (extraGroupParameters: any = {}) => {

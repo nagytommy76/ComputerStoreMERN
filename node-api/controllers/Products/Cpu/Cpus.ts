@@ -37,12 +37,13 @@ export default class CpuProduct extends BaseProduct {
             'details.l3Cache': { $gte: l3Range[0], $lte: l3Range[1] },
             'details.TDP': { $gte: tdp[0], $lte: tdp[1] },
          }
-         const { foundProduct, perPage, totalItems, totalPages } =
-            await this.returnProductModelWithPaginateInfo(req, extraQueryParams)
+         const { foundProduct, totalItems, totalPages } = await this.returnProductModelWithPaginateInfo(
+            req,
+            extraQueryParams
+         )
          res.json({
             allProducts: foundProduct,
             totalItems,
-            perPage,
             totalPages,
          })
       } catch (error) {

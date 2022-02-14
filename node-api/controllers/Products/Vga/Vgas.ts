@@ -2,7 +2,6 @@ import { Response } from 'express'
 import { VgaProduct as VgaProductModel } from '../../../models/Products/Vga/VgaProduct'
 import BaseProduct from '../BaseProduct'
 import { QueryRequest } from '../Helper'
-import { saveRateProductHelper, RateQueryRequest } from '../Ratings/BaseRating'
 
 export default class VgaProduct extends BaseProduct {
    constructor() {
@@ -11,13 +10,14 @@ export default class VgaProduct extends BaseProduct {
 
    getAllVgaItemController = async (req: QueryRequest, res: Response) => {
       try {
-         const extraFilterParams = {}
-         const { foundProduct, perPage, totalItems, totalPages } =
-            await this.returnProductModelWithPaginateInfo(req, extraFilterParams)
+         const extraQueryParams = {}
+         const { foundProduct, totalItems, totalPages } = await this.returnProductModelWithPaginateInfo(
+            req,
+            extraQueryParams
+         )
          res.json({
             allProducts: foundProduct,
             totalItems,
-            perPage,
             totalPages,
          })
       } catch (error) {
@@ -33,24 +33,5 @@ export default class VgaProduct extends BaseProduct {
       } catch (error) {
          return res.status(500).json({ errorMessage: error })
       }
-   }
-}
-
-export const rateVgaProductController = async (req: RateQueryRequest, res: Response) => {
-   try {
-      const modifiedProduct = await saveRateProductHelper(
-         req.body._id,
-         VgaProductModel,
-         req.body.rating,
-         req.body.comment,
-         req.body.userName,
-         req.user?._id
-      )
-      if (modifiedProduct !== undefined) {
-         modifiedProduct.save()
-         return res.sendStatus(201)
-      } else return res.sendStatus(422)
-   } catch (error) {
-      return res.status(500).json(error)
    }
 }

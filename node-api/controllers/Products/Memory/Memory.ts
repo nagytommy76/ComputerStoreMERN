@@ -21,12 +21,13 @@ export default class MemoryProduct extends BaseProduct {
             'details.capacity': { $gte: selectedCapacity[0], $lte: selectedCapacity[1] },
             'details.memoryType': new RegExp(memoryType, 'i'),
          }
-         const { foundProduct, perPage, totalItems, totalPages } =
-            await this.returnProductModelWithPaginateInfo(request, extraFilterParameters)
+         const { foundProduct, totalItems, totalPages } = await this.returnProductModelWithPaginateInfo(
+            request,
+            extraFilterParameters
+         )
          return response.json({
             allProducts: foundProduct,
             totalItems,
-            perPage,
             totalPages,
          })
       } catch (error) {

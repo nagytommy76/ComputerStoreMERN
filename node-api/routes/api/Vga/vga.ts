@@ -1,14 +1,17 @@
 import express from 'express'
-import { rateVgaProductController } from '../../../controllers/Products/Vga/Vgas'
 import VgaProduct from '../../../controllers/Products/Vga/Vgas'
 import {
    likeDislikeVgaCommentController,
    getVgaRatingSummaryController,
    removeUsersRatingInVga,
    getAllVgaComments,
+   rateVgaProductController,
 } from '../../../controllers/Products/Vga/VgaRatings'
 import { authenticateAccessToken } from '../../../middlewares/AuthenticateAccessOrRefreshTokens'
-import { removeSingleVgaCommentAnswer, saveVgaAnswerController } from '../../../controllers/Products/Vga/VgaRatingResponse'
+import {
+   removeSingleVgaCommentAnswer,
+   saveVgaAnswerController,
+} from '../../../controllers/Products/Vga/VgaRatingResponse'
 
 const vgaProduct = new VgaProduct()
 const router = express.Router()
