@@ -1,56 +1,41 @@
 import React, { lazy } from 'react'
-import { useAppSelector, useAppDispatch } from '../../../app/hooks'
-import {
-   setBaseClockRange,
-   setBoostClockRange,
-   setGpuManufacturers,
-   setLengths,
-   setPcieTypes,
-   setPowerConsuptions,
-   setSelectedBaseClockRange,
-   setSelectedBoostClockRange,
-   setSelectedGpuManufacturer,
-   setSelectedLength,
-   setSelectedPcie,
-   setSelectedPowerConsuption,
-   setSelectedVramBandwidth,
-   setSelectedVramCapRange,
-   setSelectedVramType,
-   setVramBandwidths,
-   setVramCapacitiyRange,
-   setVramTypes,
-} from '../../../app/slices/Filter/VgaFilterSlice'
+import useExtraDispatch from './Hook/useExtraDispatch'
 
 const BaseVgaShop = lazy(() => import('../BaseComponents/BaseShopPage/BaseShop'))
 const VgaSideFilter = lazy(() => import('../BaseComponents/SideFilter/SideFilter'))
 
-const VgaShop = () => {
-   const dispatch = useAppDispatch()
-   const {
-      selectedBaseClockRange,
-      selectedBoostClockRange,
-      selectedGpuMan,
-      selectedLength,
-      selectedPcie,
-      selectedPowerConsuption,
-      selectedVramBandwidth,
-      selectedVramCapRange,
-      selectedVramType,
-   } = useAppSelector(state => state.vgaFilter)
+const ByBaseClock = lazy(() => import('./Extra/ByBaseClock'))
+const ByBoostClock = lazy(() => import('./Extra/ByBoostClock'))
+const ByGpuMan = lazy(() => import('./Extra/ByGpuManufacturer'))
+const ByLength = lazy(() => import('./Extra/ByLength'))
+const ByPciEType = lazy(() => import('./Extra/ByPciType'))
+const ByTDP = lazy(() => import('./Extra/ByPowerConsumption'))
+const ByVramBandwidth = lazy(() => import('./Extra/ByBandwidth'))
+const ByVramCapacity = lazy(() => import('./Extra/ByCapacity'))
+const ByVramType = lazy(() => import('./Extra/ByVramType'))
 
-   const extraDispatches = (params: IncomingParamsType) => {}
+const VgaShop = () => {
+   const { extraDispatches, extraQueryParameters } = useExtraDispatch()
 
    return (
       <BaseVgaShop productType='vga'>
          <VgaSideFilter
             productType='vga'
             extraDispatches={extraDispatches}
-            extraQueryParameters={``}
-         ></VgaSideFilter>
+            extraQueryParameters={extraQueryParameters}
+         >
+            <ByGpuMan />
+            <ByPciEType />
+            <ByVramType />
+            <ByBaseClock />
+            <ByBoostClock />
+            <ByLength />
+            <ByTDP />
+            <ByVramBandwidth />
+            <ByVramCapacity />
+         </VgaSideFilter>
       </BaseVgaShop>
    )
 }
 
 export default VgaShop
-
-type IncomingParamsType = {}

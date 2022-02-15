@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 const initialState: InitialState = {
-   gpuManufacturers: [],
+   gpuManufacturers: ['AMD', 'NVIDIA'],
    selectedGpuMan: '',
 
    baseClockRange: [500, 2000],
