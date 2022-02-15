@@ -1,5 +1,6 @@
 import React, { lazy } from 'react'
 import useExtraDispatch from './Hook/useExtraDispatch'
+import useExtraQuery from './Hook/useExtraQuery'
 
 const BaseVgaShop = lazy(() => import('../BaseComponents/BaseShopPage/BaseShop'))
 const VgaSideFilter = lazy(() => import('../BaseComponents/SideFilter/SideFilter'))
@@ -15,8 +16,8 @@ const ByVramCapacity = lazy(() => import('./Extra/ByCapacity'))
 const ByVramType = lazy(() => import('./Extra/ByVramType'))
 
 const VgaShop = () => {
-   const { extraDispatches, extraQueryParameters } = useExtraDispatch()
-
+   const extraDispatches = useExtraDispatch()
+   const extraQueryParameters = useExtraQuery()
    return (
       <BaseVgaShop productType='vga'>
          <VgaSideFilter
