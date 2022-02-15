@@ -4,12 +4,27 @@ import { InputContainer } from '../FilterStyle'
 import FormControl from '@mui/material/FormControl'
 import FormLabel from '@mui/material/FormLabel'
 import Slider from '@mui/material/Slider'
+import { useAppDispatch } from '../../../../../app/hooks'
+import { setIsPriceRangeSet } from '../../../../../app/slices/Filter/BaseFilterDataSlice'
+import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 
-const BaseSlider: React.FC<Props> = ({ range, selectedRange, changeRange, text, unit = 'MHz' }) => {
+const BaseSlider: React.FC<Props> = ({
+   range,
+   selectedRange,
+   setSelectedDispatchValue,
+   text,
+   unit = 'MHz',
+}) => {
+   const dispatch = useAppDispatch()
    const [value, setValue] = useState<number[]>([0, 8000])
 
    const handleChange = (_: any, newValue: number | number[]) => {
       setValue(newValue as number[])
+   }
+
+   const handleRangeOnComitted = (_: any, newValue: number | number[]) => {
+      dispatch(setSelectedDispatchValue(newValue as number[]))
+      dispatch(setIsPriceRangeSet(true))
    }
 
    useEffect(() => {
@@ -33,7 +48,7 @@ const BaseSlider: React.FC<Props> = ({ range, selectedRange, changeRange, text, 
                max={range[1]}
                value={value as number[]}
                valueLabelDisplay='auto'
-               onChangeCommitted={changeRange}
+               onChangeCommitted={handleRangeOnComitted}
                onChange={handleChange}
             />
          </FormControl>
@@ -46,7 +61,7 @@ export default BaseSlider
 type Props = {
    range: number[]
    selectedRange: number[]
-   changeRange: (_: any, newValue: number | number[]) => void
    text: string
    unit?: string
+   setSelectedDispatchValue: ActionCreatorWithPayload<number[], string>
 }
