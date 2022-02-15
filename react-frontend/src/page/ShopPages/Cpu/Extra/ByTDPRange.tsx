@@ -1,23 +1,17 @@
 import React from 'react'
-import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
-import { setIsPriceRangeSet } from '../../../../app/slices/Filter/BaseFilterDataSlice'
+import { useAppSelector } from '../../../../app/hooks'
 import { setSelectedTDPRange } from '../../../../app/slices/Filter/CpuFilterSlice'
 
 const BaseTDPSelect = React.lazy(() => import('../../BaseComponents/SideFilter/Base/BaseSlider'))
 
 const ByTDPRange = () => {
-   const dispatch = useAppDispatch()
    const { tdpRange, selectedTDPRange } = useAppSelector(state => state.cpuFilter)
 
-   const handleRange = (_: any, newValue: number | number[]) => {
-      dispatch(setSelectedTDPRange(newValue as number[]))
-      dispatch(setIsPriceRangeSet(true))
-   }
    return (
       <BaseTDPSelect
+         setSelectedDispatchValue={setSelectedTDPRange}
          range={tdpRange}
          selectedRange={selectedTDPRange}
-         changeRange={handleRange}
          text='Fogyasztás'
          unit=' Watt'
       ></BaseTDPSelect>
