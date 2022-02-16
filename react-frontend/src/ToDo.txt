@@ -29,6 +29,8 @@
 
 - Megoldani a pagination bugot, ha kevesebb termék van mint amennyi perPage van beállítva akkor is lehet lépkedni
 
+- Admin vga felületnél egy select-ben megadni a gpu gyártót (Nvidia/AMD) illetve a PCI-e típusát!!!!!!
+
 
 MEGCSINÁLTAM:
 - Megformázni az emailt, handlebars-al? https://handlebarsjs.com/

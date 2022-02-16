@@ -1,6 +1,6 @@
 import React from 'react'
 import { useAppSelector } from '../../../../app/hooks'
-import { setVramCapacitiyRange } from '../../../../app/slices/Filter/VgaFilterSlice'
+import { setSelectedVramCapRange } from '../../../../app/slices/Filter/VgaFilterSlice'
 
 const BaseCapacity = React.lazy(() => import('../../BaseComponents/SideFilter/Base/BaseSlider'))
 
@@ -10,7 +10,7 @@ const ByBandwidth = () => {
       <BaseCapacity
          range={vramCapacitiyRange}
          selectedRange={selectedVramCapRange}
-         setSelectedDispatchValue={setVramCapacitiyRange}
+         setSelectedDispatchValue={setSelectedVramCapRange}
          text='Vram Kapacitás'
          unit=' GB'
       />

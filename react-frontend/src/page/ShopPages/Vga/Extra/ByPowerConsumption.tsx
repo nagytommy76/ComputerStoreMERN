@@ -1,6 +1,6 @@
 import React from 'react'
 import { useAppSelector } from '../../../../app/hooks'
-import { setPowerConsuptions } from '../../../../app/slices/Filter/VgaFilterSlice'
+import { setSelectedPowerConsuption } from '../../../../app/slices/Filter/VgaFilterSlice'
 
 const BasePowerCon = React.lazy(() => import('../../BaseComponents/SideFilter/Base/BaseSlider'))
 
@@ -10,7 +10,7 @@ const ByPowerConsumption = () => {
       <BasePowerCon
          range={powerConsuptions}
          selectedRange={selectedPowerConsuption}
-         setSelectedDispatchValue={setPowerConsuptions}
+         setSelectedDispatchValue={setSelectedPowerConsuption}
          text='TDP Fogyasztás'
          unit=' Watt'
       />

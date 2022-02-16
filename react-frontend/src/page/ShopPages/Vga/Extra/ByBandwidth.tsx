@@ -1,6 +1,6 @@
 import React from 'react'
 import { useAppSelector } from '../../../../app/hooks'
-import { setVramBandwidths } from '../../../../app/slices/Filter/VgaFilterSlice'
+import { setSelectedVramBandwidth } from '../../../../app/slices/Filter/VgaFilterSlice'
 
 const BaseBandwidth = React.lazy(() => import('../../BaseComponents/SideFilter/Base/BaseSlider'))
 
@@ -10,7 +10,7 @@ const ByBandwidth = () => {
       <BaseBandwidth
          range={vramBandwidths}
          selectedRange={selectedVramBandwidth}
-         setSelectedDispatchValue={setVramBandwidths}
+         setSelectedDispatchValue={setSelectedVramBandwidth}
          text='Vram sávszélesség'
          unit=' bit'
       />

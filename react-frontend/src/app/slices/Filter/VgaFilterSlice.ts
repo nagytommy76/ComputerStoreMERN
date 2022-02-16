@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 const initialState: InitialState = {
    gpuManufacturers: ['AMD', 'NVIDIA'],
-   selectedGpuMan: '',
+   selectedGpuMan: 'all',
 
    baseClockRange: [500, 2000],
    selectedBaseClockRange: [500, 2000],
@@ -11,13 +11,13 @@ const initialState: InitialState = {
    selectedBoostClockRange: [500, 2000],
 
    pcieTypes: [],
-   selectedPcie: '',
+   selectedPcie: 'all',
 
    vramCapacitiyRange: [2, 24],
    selectedVramCapRange: [2, 24],
 
    vramTypes: [],
-   selectedVramType: '',
+   selectedVramType: 'all',
 
    vramBandwidths: [128, 512],
    selectedVramBandwidth: [128, 512],

@@ -4,7 +4,7 @@ import { FilterTypes } from '../../../page/ShopPages/BaseTypes'
 const initialState: InitialState = {
    filterData: {
       allManufacturer: [],
-      selectedManufacturer: '',
+      selectedManufacturer: 'all',
       maxPrice: 200,
       minPrice: 0,
       orderBy: 'asc',
@@ -18,7 +18,10 @@ const BaseFilterData = createSlice({
    name: 'filterData',
    initialState,
    reducers: {
-      setFilterOptions: (state, action: PayloadAction<{ allManufacturer?: string[]; minPrice?: number; maxPrice?: number }>) => {
+      setFilterOptions: (
+         state,
+         action: PayloadAction<{ allManufacturer?: string[]; minPrice?: number; maxPrice?: number }>
+      ) => {
          state.filterData.allManufacturer = action.payload.allManufacturer || []
          state.filterData.minPrice = action.payload.minPrice || 0
          state.filterData.maxPrice = action.payload.maxPrice || 200

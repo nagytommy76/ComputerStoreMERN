@@ -1,6 +1,6 @@
 import React from 'react'
 import { useAppSelector } from '../../../../app/hooks'
-import { setSelectedSocket } from '../../../../app/slices/Filter/CpuFilterSlice'
+import { setSelectedGpuManufacturer } from '../../../../app/slices/Filter/VgaFilterSlice'
 
 const BaseGpuManufacturerSelect = React.lazy(() => import('../../BaseComponents/SideFilter/Base/BaseSelect'))
 
@@ -9,7 +9,7 @@ const ByGpuManufacturerSelect = () => {
 
    return (
       <BaseGpuManufacturerSelect
-         setSelectedDispatchValue={setSelectedSocket}
+         setSelectedDispatchValue={setSelectedGpuManufacturer}
          allOption={gpuManufacturers}
          selectedOption={selectedGpuMan}
          helperText='GPU gyártó'
