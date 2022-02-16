@@ -29,7 +29,7 @@ export default class CpuProduct extends BaseProduct {
          const l3Range = this.splitStringAndConvertToArray(l3CacheRange)
 
          const extraQueryParams = {
-            'details.socket': new RegExp(socket),
+            'details.socket': new RegExp(socket, 'i'),
             'details.coreCount': { $gte: coreRange[0], $lte: coreRange[1] },
             'details.threadCount': { $gte: threadRange[0], $lte: threadRange[1] },
             'details.baseClock': { $gte: frequencyRange[0], $lte: frequencyRange[1] },
