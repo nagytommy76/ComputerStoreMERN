@@ -1,13 +1,6 @@
 import React from 'react'
-import { useAppDispatch, useAppSelector } from '../../../app/hooks'
-import {
-   setSelectedFrequencyRange,
-   setFrequencyRange,
-   setAllLatencies,
-   setSelectedLatency,
-   setAllCapacities,
-   setSelectedCapacity,
-} from '../../../app/slices/Filter/MemoryFilterSlice'
+import useExtraDispatch from './Hooks/useExtraDispatch'
+import useExtraQuery from './Hooks/useExtraQuery'
 
 const BaseShop = React.lazy(() => import('../BaseComponents/BaseShopPage/BaseShop'))
 const SideFilter = React.lazy(() => import('../BaseComponents/SideFilter/SideFilter'))
@@ -18,29 +11,13 @@ const FrequencyRange = React.lazy(() => import('./Extra/FrequencyRange'))
 const ByLatencyRange = React.lazy(() => import('./Extra/ByLatencyRange'))
 
 const MemoryShop = () => {
-   const { memoryType, selectedCapacity, selectedFrequencyRange, selectedLatency } = useAppSelector(
-      state => state.memoryFilter
-   )
-   const dispatch = useAppDispatch()
-
-   const extraDispatches = (params: IncomingParamsType) => {
-      const frequencyRange = [params.minFrequency, params.maxFrequency]
-      dispatch(setSelectedFrequencyRange(frequencyRange))
-      dispatch(setFrequencyRange(frequencyRange))
-
-      const latencyRange = [params.minLatency, params.maxLatency]
-      dispatch(setAllLatencies(latencyRange))
-      dispatch(setSelectedLatency(latencyRange))
-
-      dispatch(setAllCapacities(params.capacities))
-      dispatch(setSelectedCapacity(params.capacities))
-   }
-
+   const extraDispatches = useExtraDispatch()
+   const extraQueryParams = useExtraQuery()
    return (
       <BaseShop productType='memory'>
          <SideFilter
             productType='memory'
-            extraQueryParameters={`&memoryType=${memoryType}&selectedFrequencyRange=${selectedFrequencyRange}&selectedCapacity=${selectedCapacity}&latency=${selectedLatency}`}
+            extraQueryParameters={extraQueryParams}
             extraDispatches={extraDispatches}
          >
             <ByMemoryType />
@@ -53,15 +30,3 @@ const MemoryShop = () => {
 }
 
 export default MemoryShop
-
-type IncomingParamsType = {
-   allManufacturers: string[]
-   capacities: number[]
-   maxFrequency: number
-   maxLatency: number
-   maxPrice: number
-   minFrequency: number
-   minLatency: number
-   minPrice: number
-   _id: null
-}
