@@ -4,7 +4,7 @@ import { RatingValues } from '../../../models/Products/BaseTypes'
 import { JWTUserType } from '../../Types'
 
 export const getProductRatingSummary = async (productId: ObjectId, ProductModel: Model<any>) => {
-   const allProductRatings = await ProductModel.findById(productId)
+   const allProductRatings = await ProductModel.findById(productId).lean()
    const rateCount = allProductRatings?.ratingValues.length || 0
    let rateSum = 0
    allProductRatings?.ratingValues.map((obj: any) => {
@@ -12,7 +12,7 @@ export const getProductRatingSummary = async (productId: ObjectId, ProductModel:
    })
    return {
       rateCount,
-      avgRating: rateSum / rateCount || 0
+      avgRating: rateSum / rateCount || 0,
    }
 }
 
@@ -32,7 +32,7 @@ export const saveRateProductHelper = async (
          comment,
          userName,
          ratedAt: new Date(),
-         userId
+         userId,
       })
       return foundProduct
    } else return undefined
@@ -42,7 +42,9 @@ export const likeDislikeCommentHelper = async (req: LikeQuery, res: Response, Pr
    // A request-ben bejön a comment/értékelés id-ja, ez alapján megtalálni
    const foundProduct = await ProductModel.findById(req.body.productId, 'ratingValues')
    if (foundProduct) {
-      const foundComment = foundProduct.ratingValues.filter((comment: RatingValues) => comment._id == req.body.commentId)
+      const foundComment = foundProduct.ratingValues.filter(
+         (comment: RatingValues) => comment._id == req.body.commentId
+      )
 
       // A user a saját kommentjét ne tudja like/dislikeolni
       if (foundComment[0].userId == req.user?._id) {
@@ -71,7 +73,11 @@ export const likeDislikeCommentHelper = async (req: LikeQuery, res: Response, Pr
 
 // Remove User's comment
 
-export const removeUsersRatingHelper = async (req: RemoveRatingRequest, res: Response, ProductModel: Model<any>) => {
+export const removeUsersRatingHelper = async (
+   req: RemoveRatingRequest,
+   res: Response,
+   ProductModel: Model<any>
+) => {
    const foundProduct = await ProductModel.findById(req.body.productId, 'ratingValues')
    if (foundProduct) {
       const updatedComments = foundProduct.ratingValues.filter(
