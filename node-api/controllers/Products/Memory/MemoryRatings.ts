@@ -1,7 +1,15 @@
 import { Response } from 'express'
 import { ObjectId } from 'mongoose'
 import { MemoryProduct } from '../../../models/Products/Memory/Memory'
-import { RateQueryRequest, saveRateProductHelper, getProductRatingSummary } from '../Ratings/BaseRating'
+import {
+   RateQueryRequest,
+   saveRateProductHelper,
+   getProductRatingSummary,
+   LikeQuery,
+   likeDislikeCommentHelper,
+   RemoveRatingRequest,
+   removeUsersRatingHelper,
+} from '../Ratings/BaseRating'
 
 export const getMemoryRatingSummaryController = async (req: RequestWithQueryId, res: Response) => {
    try {
@@ -35,6 +43,22 @@ export const rateMemoryProductController = async (req: RateQueryRequest, res: Re
          modifiedProduct.save()
          return res.sendStatus(201)
       } else return res.sendStatus(422)
+   } catch (error) {
+      return res.status(500).json(error)
+   }
+}
+
+export const likeDislikeMemoryCommentController = async (req: LikeQuery, res: Response) => {
+   try {
+      likeDislikeCommentHelper(req, res, MemoryProduct)
+   } catch (error) {
+      return res.status(500).json(error)
+   }
+}
+
+export const removeUsersRatingInMemory = (req: RemoveRatingRequest, res: Response) => {
+   try {
+      removeUsersRatingHelper(req, res, MemoryProduct)
    } catch (error) {
       return res.status(500).json(error)
    }
