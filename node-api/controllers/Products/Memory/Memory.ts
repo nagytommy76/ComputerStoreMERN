@@ -15,10 +15,12 @@ export default class MemoryProduct extends BaseProduct {
             request.query.selectedFrequencyRange
          )
          const selectedCapacity = this.splitStringAndConvertToArray(request.query.selectedCapacity)
+         const selectedLatencyRange = this.splitStringAndConvertToArray(request.query.latency)
 
          const extraFilterParameters = {
             'details.frequency': { $gte: selectedFrequencyRange[0], $lte: selectedFrequencyRange[1] },
             'details.capacity': { $gte: selectedCapacity[0], $lte: selectedCapacity[1] },
+            'details.latency': { $gte: selectedLatencyRange[0], $lte: selectedLatencyRange[1] },
             'details.memoryType': new RegExp(memoryType, 'i'),
          }
          const { foundProduct, totalItems, totalPages } = await this.returnProductModelWithPaginateInfo(
@@ -59,5 +61,6 @@ type MemoryQueryRequestType = QueryRequest & {
       memoryType: string
       selectedFrequencyRange: string
       selectedCapacity: string
+      latency: string
    }
 }
