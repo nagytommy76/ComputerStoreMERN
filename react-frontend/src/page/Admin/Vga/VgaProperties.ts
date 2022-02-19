@@ -4,12 +4,12 @@ import { baseProperties } from '../BaseProperties'
 export const vgaProperties: VgaType = {
    ...baseProperties,
    details: {
-      gpuManufacturer: '',
-      pcieType: '',
+      gpuManufacturer: 'AMD',
+      pcieType: 'PCI-E 16x 4.0',
       gpuBaseClock: 0,
       gpuPeakClock: 0,
       vramCapacity: 0,
-      vramType: '',
+      vramType: 'GDDR6',
       vramBandwidth: 0,
       vramSpeed: 0,
       powerConsuption: 0,

@@ -23,9 +23,6 @@
 
 - Jobban belemenni a Unit/Integration tesztekbe.
 
-- egyes termékeknél további szűrés, pl.: RAM DDR4, CPU AM4 stb...
-- Az adatbázisból bejövő adatokkal feltölteni pl a kapacitás/típus selectet
-
 
 - Megoldani a pagination bugot, ha kevesebb termék van mint amennyi perPage van beállítva akkor is lehet lépkedni
 
@@ -40,3 +37,5 @@ MEGCSINÁLTAM:
 
 - Kéne egy oldal ahol vissza lehet nézni a korábbi vásárlásokat, de úgy, hogy az email-ben kapott Vásárlási azonosító egy link legyen ami 
   átirányít egy oldalra, ha be vagy jelentkezve.
+
+- Az adatbázisból bejövő adatokkal feltölteni pl a kapacitás/típus selectet

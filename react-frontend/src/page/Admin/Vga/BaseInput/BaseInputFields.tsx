@@ -4,38 +4,55 @@ import { VgaInputFieldProps } from '../Types'
 import BaseInputs from '../../Components/BaseInputs'
 
 const TextOrNumberInput = React.lazy(() => import('../../Components/InputFields/TextOrNumberInput'))
+const SelectField = React.lazy(() => import('../../Components/InputFields/Select/SelectField'))
 
 const BaseInputFields: React.FC<VgaInputFieldProps> = ({ vgaProduct, setVgaProduct, validationErrors }) => {
    return (
       <FormContainerStyle>
          <BaseInputs product={vgaProduct} setProduct={setVgaProduct} validationErrors={validationErrors} />
          {/* Details */}
-         <TextOrNumberInput
+         <SelectField
             id='gpuMan'
-            labelText='Gpu gyártó'
+            text='Gpu gyártó'
             value={vgaProduct.details.gpuManufacturer}
             onChangeEvent={event =>
-               setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, gpuManufacturer: event.target.value } })
+               setVgaProduct({
+                  ...vgaProduct,
+                  details: { ...vgaProduct.details, gpuManufacturer: event.target.value },
+               })
             }
-            validationErrorLocation='details.gpuManufacturer'
             validationErrors={validationErrors}
-         />
-         <TextOrNumberInput
+            validationErrorLocation='details.gpuManufacturer'
+         >
+            <option value='AMD'>AMD</option>
+            <option value='NVIDIA'>NVIDIA</option>
+         </SelectField>
+         <SelectField
             id='pciType'
-            labelText='PCI-E típus'
+            text='PCI-E típus'
             value={vgaProduct.details.pcieType}
             onChangeEvent={event =>
-               setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, pcieType: event.target.value } })
+               setVgaProduct({
+                  ...vgaProduct,
+                  details: { ...vgaProduct.details, pcieType: event.target.value },
+               })
             }
-            validationErrorLocation='details.pcieType'
             validationErrors={validationErrors}
-         />
+            validationErrorLocation='details.pcieType'
+         >
+            <option value='PCI-E 16x 4.0'>PCI-E 16x 4.0</option>
+            <option value='PCI-E 16x 3.0'>PCI-E 16x 3.0</option>
+            <option value='PCI-E 16x 2.0'>PCI-E 16x 2.0</option>
+         </SelectField>
          <TextOrNumberInput
             id='gpuBaseClock'
             labelText='GPU alap órajel'
             value={vgaProduct.details.gpuBaseClock}
             onChangeEvent={event =>
-               setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, gpuBaseClock: parseInt(event.target.value) } })
+               setVgaProduct({
+                  ...vgaProduct,
+                  details: { ...vgaProduct.details, gpuBaseClock: parseInt(event.target.value) },
+               })
             }
             validationErrorLocation='details.gpuBaseClock'
             validationErrors={validationErrors}
@@ -45,7 +62,10 @@ const BaseInputFields: React.FC<VgaInputFieldProps> = ({ vgaProduct, setVgaProdu
             labelText='GPU emelt órajel'
             value={vgaProduct.details.gpuPeakClock}
             onChangeEvent={event =>
-               setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, gpuPeakClock: parseInt(event.target.value) } })
+               setVgaProduct({
+                  ...vgaProduct,
+                  details: { ...vgaProduct.details, gpuPeakClock: parseInt(event.target.value) },
+               })
             }
             validationErrorLocation='details.gpuPeakClock'
             validationErrors={validationErrors}
@@ -55,27 +75,42 @@ const BaseInputFields: React.FC<VgaInputFieldProps> = ({ vgaProduct, setVgaProdu
             labelText='Vram kapacitás'
             value={vgaProduct.details.vramCapacity}
             onChangeEvent={event =>
-               setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, vramCapacity: parseInt(event.target.value) } })
+               setVgaProduct({
+                  ...vgaProduct,
+                  details: { ...vgaProduct.details, vramCapacity: parseInt(event.target.value) },
+               })
             }
             validationErrorLocation='details.vramCapacity'
             validationErrors={validationErrors}
          />
-         <TextOrNumberInput
+         <SelectField
             id='vramType'
-            labelText='Vram típusa'
+            text='Vram típusa'
             value={vgaProduct.details.vramType}
             onChangeEvent={event =>
-               setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, vramType: event.target.value } })
+               setVgaProduct({
+                  ...vgaProduct,
+                  details: { ...vgaProduct.details, vramType: event.target.value },
+               })
             }
-            validationErrorLocation='details.vramType'
             validationErrors={validationErrors}
-         />
+            validationErrorLocation='details.vramType'
+         >
+            <option value='GDDR6'>GDDR6</option>
+            <option value='GDDR6X'>GDDR6X</option>
+            <option value='GDDR5'>GDDR5</option>
+            <option value='DDR4'>DDR4</option>
+            <option value='HBM2'>HBM2</option>
+         </SelectField>
          <TextOrNumberInput
             id='vramBandwidth'
             labelText='Vram sávszélesség (bit)'
             value={vgaProduct.details.vramBandwidth}
             onChangeEvent={event =>
-               setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, vramBandwidth: parseInt(event.target.value) } })
+               setVgaProduct({
+                  ...vgaProduct,
+                  details: { ...vgaProduct.details, vramBandwidth: parseInt(event.target.value) },
+               })
             }
             validationErrorLocation='details.vramBandwidth'
             validationErrors={validationErrors}
@@ -85,7 +120,10 @@ const BaseInputFields: React.FC<VgaInputFieldProps> = ({ vgaProduct, setVgaProdu
             labelText='Vram sebesség (GB/s)'
             value={vgaProduct.details.vramSpeed}
             onChangeEvent={event =>
-               setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, vramSpeed: parseInt(event.target.value) } })
+               setVgaProduct({
+                  ...vgaProduct,
+                  details: { ...vgaProduct.details, vramSpeed: parseInt(event.target.value) },
+               })
             }
             validationErrorLocation='details.vramSpeed'
             validationErrors={validationErrors}
@@ -95,27 +133,43 @@ const BaseInputFields: React.FC<VgaInputFieldProps> = ({ vgaProduct, setVgaProdu
             labelText='Energia fogyasztás (W)'
             value={vgaProduct.details.powerConsuption}
             onChangeEvent={event =>
-               setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, powerConsuption: parseInt(event.target.value) } })
+               setVgaProduct({
+                  ...vgaProduct,
+                  details: { ...vgaProduct.details, powerConsuption: parseInt(event.target.value) },
+               })
             }
             validationErrorLocation='details.powerConsuption'
             validationErrors={validationErrors}
          />
-         <TextOrNumberInput
+         <SelectField
             id='powerPin'
-            labelText='Táp csatlakozók'
+            text='Táp csatlakozók'
             value={vgaProduct.details.powerPin}
             onChangeEvent={event =>
-               setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, powerPin: event.target.value } })
+               setVgaProduct({
+                  ...vgaProduct,
+                  details: { ...vgaProduct.details, powerPin: event.target.value },
+               })
             }
-            validationErrorLocation='details.powerPin'
             validationErrors={validationErrors}
-         />
+            validationErrorLocation='details.powerPin'
+         >
+            <option value='1 * 6pin'>1 * 6pin</option>
+            <option value='1 * 6pin + 1 * 8pin'>1 * 6pin + 1 * 8pin</option>
+            <option value='1 * 6pin + 2 * 8pin'>1 * 6pin + 2 * 8pin</option>
+            <option value='1 * 8pin'>1 * 8pin</option>
+            <option value='2 * 8pin'>2 * 8pin</option>
+            <option value='3 * 8pin'>3 * 8pin</option>
+         </SelectField>
          <TextOrNumberInput
             id='warranity'
             labelText='Garancia'
             value={vgaProduct.details.warranity}
             onChangeEvent={event =>
-               setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, warranity: parseInt(event.target.value) } })
+               setVgaProduct({
+                  ...vgaProduct,
+                  details: { ...vgaProduct.details, warranity: parseInt(event.target.value) },
+               })
             }
             validationErrorLocation='details.warranity'
             validationErrors={validationErrors}
@@ -125,7 +179,10 @@ const BaseInputFields: React.FC<VgaInputFieldProps> = ({ vgaProduct, setVgaProdu
             labelText='Display Port (DB)'
             value={vgaProduct.details.displayPort}
             onChangeEvent={event =>
-               setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, displayPort: parseInt(event.target.value) } })
+               setVgaProduct({
+                  ...vgaProduct,
+                  details: { ...vgaProduct.details, displayPort: parseInt(event.target.value) },
+               })
             }
             validationErrorLocation='details.displayPort'
             validationErrors={validationErrors}
@@ -135,7 +192,10 @@ const BaseInputFields: React.FC<VgaInputFieldProps> = ({ vgaProduct, setVgaProdu
             labelText='DVI (DB)'
             value={vgaProduct.details.DVI}
             onChangeEvent={event =>
-               setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, DVI: parseInt(event.target.value) } })
+               setVgaProduct({
+                  ...vgaProduct,
+                  details: { ...vgaProduct.details, DVI: parseInt(event.target.value) },
+               })
             }
             validationErrorLocation='details.DVI'
             validationErrors={validationErrors}
@@ -145,7 +205,10 @@ const BaseInputFields: React.FC<VgaInputFieldProps> = ({ vgaProduct, setVgaProdu
             labelText='HDMI (DB)'
             value={vgaProduct.details.HDMI}
             onChangeEvent={event =>
-               setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, HDMI: parseInt(event.target.value) } })
+               setVgaProduct({
+                  ...vgaProduct,
+                  details: { ...vgaProduct.details, HDMI: parseInt(event.target.value) },
+               })
             }
             validationErrorLocation='details.HDMI'
             validationErrors={validationErrors}
@@ -155,7 +218,10 @@ const BaseInputFields: React.FC<VgaInputFieldProps> = ({ vgaProduct, setVgaProdu
             labelText='Ajánlott tápegység'
             value={vgaProduct.details.minPowerSupply}
             onChangeEvent={event =>
-               setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, minPowerSupply: parseInt(event.target.value) } })
+               setVgaProduct({
+                  ...vgaProduct,
+                  details: { ...vgaProduct.details, minPowerSupply: parseInt(event.target.value) },
+               })
             }
             validationErrorLocation='details.minPowerSupply'
             validationErrors={validationErrors}
@@ -165,7 +231,10 @@ const BaseInputFields: React.FC<VgaInputFieldProps> = ({ vgaProduct, setVgaProdu
             labelText='Hosszúság'
             value={vgaProduct.details.length}
             onChangeEvent={event =>
-               setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, length: parseInt(event.target.value) } })
+               setVgaProduct({
+                  ...vgaProduct,
+                  details: { ...vgaProduct.details, length: parseInt(event.target.value) },
+               })
             }
             validationErrorLocation='details.length'
             validationErrors={validationErrors}
@@ -188,7 +257,10 @@ const BaseInputFields: React.FC<VgaInputFieldProps> = ({ vgaProduct, setVgaProdu
             labelText='Gyártói oldal link'
             value={vgaProduct.details.manufacturerPageUrl}
             onChangeEvent={event =>
-               setVgaProduct({ ...vgaProduct, details: { ...vgaProduct.details, manufacturerPageUrl: event.target.value } })
+               setVgaProduct({
+                  ...vgaProduct,
+                  details: { ...vgaProduct.details, manufacturerPageUrl: event.target.value },
+               })
             }
          />
       </FormContainerStyle>

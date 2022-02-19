@@ -1,6 +1,6 @@
-import React, { ChangeEvent, useEffect, useState } from 'react'
-import { findOrFailAndReturnErrorMsg } from '../../../Helpers/SetErrorMsg'
+import React, { ChangeEvent } from 'react'
 import { ValidationError } from '../../AdminTypes'
+import useError from './Hooks/useError'
 
 import TextField from '@mui/material/TextField'
 
@@ -13,13 +13,7 @@ const TextOrNumberInput: React.FC<Props> = ({
    validationErrorLocation = '',
    required = true,
 }) => {
-   const [error, setError] = useState({ hasError: false, message: '' })
-   useEffect(() => {
-      if (validationErrors.length > 0) {
-         const foundError = findOrFailAndReturnErrorMsg(validationErrors, validationErrorLocation)
-         foundError && setError(foundError)
-      }
-   }, [validationErrors, validationErrorLocation])
+   const error = useError(validationErrors, validationErrorLocation)
 
    return (
       <TextField
