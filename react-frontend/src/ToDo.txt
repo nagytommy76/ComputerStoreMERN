@@ -16,18 +16,16 @@
 - A termékekhez kéne egy link????!!!
 
 
-- Ha ladtam a rendelést, abban a 10mp-ben ne lehessen törölni a termékeket!!!! ILLETVE ÚJRA RENDELNI STB, MEGOLDANI!!!!!!!!!!!!!!!!!!
 
 
 - Új termékeket hozzáadni pl Alaplap RAM, valamint a meglévőket bővíteni
 
-- Jobban belemenni a Unit/Integration tesztekbe.
 
 
 - Megoldani a pagination bugot, ha kevesebb termék van mint amennyi perPage van beállítva akkor is lehet lépkedni
 
-- Admin vga felületnél egy select-ben megadni a gpu gyártót (Nvidia/AMD) illetve a PCI-e típusát!!!!!!
 
+- Jobban belemenni a Unit/Integration tesztekbe.
 
 MEGCSINÁLTAM:
 - Megformázni az emailt, handlebars-al? https://handlebarsjs.com/
@@ -39,3 +37,7 @@ MEGCSINÁLTAM:
   átirányít egy oldalra, ha be vagy jelentkezve.
 
 - Az adatbázisból bejövő adatokkal feltölteni pl a kapacitás/típus selectet
+
+- Admin vga felületnél egy select-ben megadni a gpu gyártót (Nvidia/AMD) illetve a PCI-e típusát!!!!!!
+
+- Ha ladtam a rendelést, abban a 10mp-ben ne lehessen törölni a termékeket!!!! ILLETVE ÚJRA RENDELNI STB, MEGOLDANI!!!!!!!!!!!!!!!!!!
