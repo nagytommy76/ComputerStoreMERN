@@ -25,7 +25,7 @@ const EmailValidation = () => {
       hasError: false,
       messageTitle: '',
       message: '',
-      errorType: 'jwt expired'
+      errorType: 'jwt expired',
    })
 
    useEffect(() => {
@@ -41,19 +41,21 @@ const EmailValidation = () => {
          const verificationResponse = await axios.post('/auth/confirm-email', { confirmCode: code })
          if (verificationResponse.status === 200) {
             setIsPending(false)
-            navigate('/login', { state: { isSuccess: true, message: 'Sikeres email cím megerősítés, most már beléphetsz!' } })
+            navigate('/login', {
+               state: { isSuccess: true, message: 'Sikeres email cím megerősítés, most már beléphetsz!' },
+            })
          }
       } catch (error) {
          if (axios.isAxiosError(error)) {
             if (error.response?.status === 403) {
-               error.response.data.errorMsg === 'jwt expired' &&
+               error.response.data.errorMsg === /jwt expired/i &&
                   setErrors({
                      hasError: true,
                      messageTitle: 'Eltelt 15 perc! Lejárt a kód!',
                      message: 'Kérlek kérj egy új emailt a lenti gombbal.',
-                     errorType: 'jwt expired'
+                     errorType: 'jwt expired',
                   })
-               error.response.data.errorMsg === 'invalid signature' ||
+               error.response.data.errorMsg === /invalid signature/i ||
                   ('invalid token' &&
                      setErrors({
                         hasError: true,
@@ -65,7 +67,7 @@ const EmailValidation = () => {
                   hasError: true,
                   messageTitle: 'Egyéb hiba!',
                   message: error.response?.data.message || 'Egyéb hiba',
-                  errorType: 'invalid signature'
+                  errorType: 'invalid signature',
                })
             }
             setIsPending(false)
@@ -80,7 +82,8 @@ const EmailValidation = () => {
                buttonText='Megerősítés'
                isLoadingButton={isPending}
                onSubmitEvent={handleValidationForm}
-               title='Email cím regisztráció'>
+               title='Email cím regisztráció'
+            >
                <TextField
                   label='Megerősítő kód'
                   fullWidth
