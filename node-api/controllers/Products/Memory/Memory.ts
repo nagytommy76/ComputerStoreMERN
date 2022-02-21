@@ -23,13 +23,12 @@ export default class MemoryProduct extends BaseProduct {
             'details.latency': { $gte: selectedLatencyRange[0], $lte: selectedLatencyRange[1] },
             'details.memoryType': new RegExp(memoryType, 'i'),
          }
-         const { foundProduct, totalItems, totalPages } = await this.returnProductModelWithPaginateInfo(
+         const { foundProduct, totalPages } = await this.returnProductModelWithPaginateInfo(
             request,
             extraFilterParameters
          )
          return response.json({
             allProducts: foundProduct,
-            totalItems,
             totalPages,
          })
       } catch (error) {

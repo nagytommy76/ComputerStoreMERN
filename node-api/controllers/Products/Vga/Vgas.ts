@@ -44,13 +44,12 @@ export default class VgaProduct extends BaseProduct {
             'details.vramType': new RegExp(selectedVramType, 'i'),
          }
 
-         const { foundProduct, totalItems, totalPages } = await this.returnProductModelWithPaginateInfo(
+         const { foundProduct, totalPages } = await this.returnProductModelWithPaginateInfo(
             req,
             extraQueryParams
          )
          res.json({
             allProducts: foundProduct,
-            totalItems,
             totalPages,
          })
       } catch (error) {

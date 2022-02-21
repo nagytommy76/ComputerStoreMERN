@@ -14,12 +14,8 @@ export default abstract class BaseProduct {
       const orderBy = request.query.orderBy || 'asc'
       const byManufacturer = request.query.byManufacturer == 'all' ? '' : request.query.byManufacturer
       const priceRange = this.splitStringAndConvertToArray(request.query.priceRange)
-
       let totalPages: number
-      const totalItems = await this.productModel.countDocuments()
-      totalPages = Math.ceil(totalItems / perPage)
 
-      // A find-ba beilleszteni (spread) egy objectet ami tartalmazza az adott termék egyedi keresési szempontjait
       const foundProduct: (BaseProductType & {
          details: any
       } & Document<any, any>)[] = await this.productModel
@@ -29,15 +25,15 @@ export default abstract class BaseProduct {
             ...extraFilerParameters,
          })
          .sort({ price: orderBy })
-         .skip((currentPage - 1) * perPage)
-         .limit(perPage)
+         .lean()
+      // .skip((currentPage - 1) * perPage)
+      // .limit(perPage)
+      const startIndex = (currentPage - 1) * perPage
+      const endIndex = currentPage * perPage
+      const pagedProducts = foundProduct.slice(startIndex, endIndex)
 
-      // totalPages =
-      //    foundProduct.length >= perPage
-      //       ? Math.ceil(totalItems / perPage)
-      //       : Math.ceil(foundProduct.length / perPage)
-
-      return { foundProduct, totalItems, totalPages }
+      totalPages = Math.ceil(foundProduct.length / perPage)
+      return { foundProduct: pagedProducts, totalPages }
    }
 
    baseFilterData = async (extraGroupParameters: any = {}) => {
