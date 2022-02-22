@@ -1,13 +1,35 @@
 import { Model, Document } from 'mongoose'
 import { BaseProductType } from '../../models/Products/BaseTypes'
 
-const canReturnAllProduct = ({ productModel }: StateType) => ({
-   getAll: async () => {
+const canReturnProducts = ({ productModel }: StateType) => ({
+   getAllProduct: async () => {
       return await productModel.find()
+   },
+   getProductToModify: async (productID: string) => {
+      return (await productModel.findById(productID)) as
+         | (BaseProductType & {
+              details: any
+           } & Document<any, any>)
+         | null
+   },
+   getAllToDeleteProducts: async () => {
+      const allProductsToDelete = (await productModel
+         .find()
+         .select(['manufacturer', 'price', 'type', 'inStockQuantity'])
+         .sort({ price: 'asc' })) as ({
+         _id: string
+         manufacturer: string
+         price: number
+         type: string
+         inStockQuantity: number
+      } & {
+         details: any
+      } & Document<any, any>)[]
+      return allProductsToDelete
    },
 })
 
-const canInsertProduct = ({ productModel }: StateType) => ({
+const canInsertDeleteModifyProduct = ({ productModel }: StateType) => ({
    insert: async (productDetails: any, productBase: BaseProductProperties) => {
       const createdProductToInser = new productModel({
          ...productBase,
@@ -17,6 +39,9 @@ const canInsertProduct = ({ productModel }: StateType) => ({
       } & Document<any, any>
       return await createdProductToInser.save()
    },
+   delete: async (productID: string) => {
+      return productModel.findByIdAndRemove(productID)
+   },
 })
 
 export default function baseAdminController(productModel: Model<any>) {
@@ -24,11 +49,10 @@ export default function baseAdminController(productModel: Model<any>) {
    const state: StateType = {
       productModel,
    }
-
    return {
       ...state,
-      ...canInsertProduct(state),
-      ...canReturnAllProduct(state),
+      ...canInsertDeleteModifyProduct(state),
+      ...canReturnProducts(state),
    }
 }
 
