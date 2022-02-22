@@ -8,7 +8,7 @@ const BaseAdmin = baseAdminController(VgaProduct)
 
 export const getAllVgaItemsController = async (req: Request, res: Response) => {
    try {
-      const vgaProducts = await BaseAdmin.getAll()
+      const vgaProducts = await BaseAdmin.getAllProduct()
       return res.status(200).json({ allProducts: vgaProducts })
    } catch (error) {
       return res.status(500).json(error)
@@ -53,7 +53,9 @@ export const modifyVgaProductController = async (req: Request, res: Response) =>
 // Delete Vga
 export const getAllVgaItemsForDeleteController = async (req: Request, res: Response) => {
    try {
-      const vgaProducts = await VgaProduct.find().select(['manufacturer', 'price', 'type', 'inStockQuantity']).sort({ price: 'asc' })
+      const vgaProducts = await VgaProduct.find()
+         .select(['manufacturer', 'price', 'type', 'inStockQuantity'])
+         .sort({ price: 'asc' })
       return res.status(200).json({ allProducts: vgaProducts })
    } catch (error) {
       return res.status(500).json(error)
