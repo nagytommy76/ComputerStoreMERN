@@ -12,11 +12,11 @@ export const CustomCard = MUIStyled(Card)(() => ({
    width: CardWidth,
    transition: 'transform 0.1s',
    '&:hover': {
-      transform: 'scale(1.025) translateY(-5px)'
+      transform: 'scale(1.025) translateY(-5px)',
    },
    [`@media(max-width: ${mobileWindowSize})`]: {
-      height: '390px'
-   }
+      height: '390px',
+   },
 }))
 
 export const SubTitleStyle = styled.h5`

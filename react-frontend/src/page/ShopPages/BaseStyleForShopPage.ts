@@ -27,13 +27,13 @@ export const RightFlexContainer = styled.section`
 `
 
 export const CardGridContainer = styled.section`
+   min-height: 100vh;
    display: grid;
    width: 85%;
    row-gap: 3rem;
    column-gap: 2rem;
    justify-content: center;
    min-width: 0%;
-   min-height: 100vh;
    grid-template-columns: repeat(auto-fit, minmax(250px, ${CardWidth}));
    grid-template-rows: repeat(auto-fit, 380px);
 

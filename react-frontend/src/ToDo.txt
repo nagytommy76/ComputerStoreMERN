@@ -16,16 +16,17 @@
 - A termékekhez kéne egy link????!!!
 
 
-
-
 - Új termékeket hozzáadni pl Alaplap RAM, valamint a meglévőket bővíteni
 
-
-
-- Megoldani a pagination bugot, ha kevesebb termék van mint amennyi perPage van beállítva akkor is lehet lépkedni
-
+- Ha 24 termékre állítom az utolsó sorok összecsúsznak GRID min-height probléma???
 
 - Jobban belemenni a Unit/Integration tesztekbe.
+
+- A stílus nem működik Gmail/hotmail esetén... MEGOLDANI
+
+
+- megvalósítani, ha vesznek valamiből a készlet változzon!!!
+- A termék bevitelénél ha nincs picURL kéne egy alert mert most nincs
 
 MEGCSINÁLTAM:
 - Megformázni az emailt, handlebars-al? https://handlebarsjs.com/
@@ -41,3 +42,5 @@ MEGCSINÁLTAM:
 - Admin vga felületnél egy select-ben megadni a gpu gyártót (Nvidia/AMD) illetve a PCI-e típusát!!!!!!
 
 - Ha ladtam a rendelést, abban a 10mp-ben ne lehessen törölni a termékeket!!!! ILLETVE ÚJRA RENDELNI STB, MEGOLDANI!!!!!!!!!!!!!!!!!!
+
+- Megoldani a pagination bugot, ha kevesebb termék van mint amennyi perPage van beállítva akkor is lehet lépkedni MEGOLDVA! BÁR NEM A LEG SZEBBEN

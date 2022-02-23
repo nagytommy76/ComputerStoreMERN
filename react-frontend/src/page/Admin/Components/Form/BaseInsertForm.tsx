@@ -29,19 +29,19 @@ const BaseInsertForm: React.FC<{
    setPictureUrls,
    productBaseProperties,
    submitButtonText,
-   children
+   children,
 }) => {
    const [inputSuccess, setInputSuccess] = useState<boolean>(false)
 
    const handleProductSubmit = (event: React.FormEvent) => {
       event.preventDefault()
-      const filteredPicUrls = pictureUrls.map((x) => x.pictureUrl)
+      const filteredPicUrls = pictureUrls.map(x => x.pictureUrl)
       axios
          .post(`admin/${productType}/insert`, {
             ...product,
-            pictureUrls: filteredPicUrls
+            pictureUrls: filteredPicUrls,
          })
-         .then((result) => {
+         .then(result => {
             if (result.status === 201) {
                setInputSuccess(true)
                setProduct(productBaseProperties)
