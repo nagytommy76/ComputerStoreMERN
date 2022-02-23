@@ -21,7 +21,10 @@ const SnackBar = React.lazy(() => import('./SnackBar'))
 const BaseTable: React.FC<{
    productType: string
 }> = ({ productType }) => {
-   const [isSnackOpen, setIsSnackOpen] = useState<SnackbarStateTypes>({ isOpen: false, deletedProductName: '' })
+   const [isSnackOpen, setIsSnackOpen] = useState<SnackbarStateTypes>({
+      isOpen: false,
+      deletedProductName: '',
+   })
    const { setAllDetailedProduct, allDetailedProduct } = useDeleteProduct(productType)
    const { rowsPerPage, currentPage, handleChangePage, handleChangeRowsPerPage } = usePaginate()
 
@@ -33,16 +36,19 @@ const BaseTable: React.FC<{
                <TableHeadSection />
                <TableBody>
                   {(rowsPerPage > 0
-                     ? allDetailedProduct.slice(currentPage * rowsPerPage, currentPage * rowsPerPage + rowsPerPage)
+                     ? allDetailedProduct.slice(
+                          currentPage * rowsPerPage,
+                          currentPage * rowsPerPage + rowsPerPage
+                       )
                      : allDetailedProduct
-                  ).map((product) => (
+                  ).map(product => (
                      <SingleTableRow product={product} key={product._id}>
                         <DeleteButton
                            productNameForSnackbar={product.type}
                            setIsSnackOpen={setIsSnackOpen}
                            allProducts={allDetailedProduct}
                            setAllProducts={setAllDetailedProduct}
-                           productTypeForURL='cpu'
+                           productTypeForURL={productType}
                            productID={product._id}
                         />
                      </SingleTableRow>
@@ -59,7 +65,7 @@ const BaseTable: React.FC<{
                         onPageChange={handleChangePage}
                         onRowsPerPageChange={handleChangeRowsPerPage}
                         SelectProps={{
-                           native: true
+                           native: true,
                         }}
                      />
                   </TableRow>
