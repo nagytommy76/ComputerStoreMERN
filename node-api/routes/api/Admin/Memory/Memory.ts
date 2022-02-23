@@ -5,15 +5,17 @@ import {
    getAllMemoryController,
    insertMemoryProduct,
    modifyMemoryProductController,
+   getAllMemoryItemsForDeleteController,
 } from '../../../../controllers/Admin/Memory/Memory'
 import { insertMemoryValidator } from './Validator/MemoryValidator'
 import { checkErrors } from '../../../../middlewares/CheckValidationErrors'
 
 const router = express.Router()
 
-router.get('/get-all', insertMemoryValidator, checkUserIsAdmin, checkErrors, getAllMemoryController)
-router.post('/insert', checkUserIsAdmin, checkErrors, insertMemoryProduct)
+router.get('/get-all', checkUserIsAdmin, getAllMemoryController)
+router.get('/get-to-delete', checkUserIsAdmin, getAllMemoryItemsForDeleteController)
 
+router.post('/insert', checkUserIsAdmin, checkErrors, insertMemoryProduct)
 router.post('/modify', insertMemoryValidator, checkUserIsAdmin, checkErrors, modifyMemoryProductController)
 router.delete('/delete', checkUserIsAdmin, deleteMemoryProductByIdController)
 

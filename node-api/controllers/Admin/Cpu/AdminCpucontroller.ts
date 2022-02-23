@@ -69,7 +69,7 @@ export const modifyCpuProductController = async (req: Request, res: Response) =>
          toModifyCpuProduct.pictureUrls = req.body.pictureUrls
          toModifyCpuProduct.inStockQuantity = req.body.inStockQuantity
          toModifyCpuProduct.isHighlighted = req.body.isHighlighted
-         toModifyCpuProduct.save()
+         await toModifyCpuProduct.save()
          return res.sendStatus(201)
       } else return res.sendStatus(404)
    } catch (error) {

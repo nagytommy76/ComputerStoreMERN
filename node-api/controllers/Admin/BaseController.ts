@@ -3,7 +3,7 @@ import { BaseProductType } from '../../models/Products/BaseTypes'
 
 const canReturnProducts = ({ productModel }: StateType) => ({
    getAllProduct: async () => {
-      return await productModel.find()
+      return await productModel.find().lean()
    },
    getProductToModify: async (productID: string) => {
       return (await productModel.findById(productID)) as
