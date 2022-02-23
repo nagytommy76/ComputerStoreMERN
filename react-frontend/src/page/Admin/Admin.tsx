@@ -12,6 +12,8 @@ const CpuModify = lazy(() => import('./Cpu/Modify/ModifyCpu'))
 const CpuDelete = lazy(() => import('./Cpu/Delete/DeleteCpu'))
 
 const MemoryInsert = lazy(() => import('./Memory/Insert/MemoryInsert'))
+const MemoryModify = lazy(() => import('./Memory/Modify/ModifyMemory'))
+const MemoryDelete = lazy(() => import('./Memory/Delete/DeleteMemory'))
 
 const Admin = () => {
    return (
@@ -31,8 +33,8 @@ const Admin = () => {
                </Route>
                <Route path='memory/*'>
                   <Route path='insert' element={<MemoryInsert />} />
-                  {/* <Route path='modify' element={<CpuModify />} />
-                  <Route path='delete' element={<CpuDelete />} /> */}
+                  <Route path='modify' element={<MemoryModify />} />
+                  <Route path='delete' element={<MemoryDelete />} />
                </Route>
             </Routes>
          </RightContentStyle>
