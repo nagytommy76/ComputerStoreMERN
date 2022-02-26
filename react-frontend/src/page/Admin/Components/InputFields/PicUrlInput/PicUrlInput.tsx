@@ -11,14 +11,17 @@ import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 
 const PicUrlInput: React.FC<Props> = ({ setPictureUrls, pictureUrls }) => {
-   const setNewElementToPicUrlState = (event: ChangeEvent<HTMLInputElement>, currentIteratePicture: PictureUrlType) => {
+   const setNewElementToPicUrlState = (
+      event: ChangeEvent<HTMLInputElement>,
+      currentIteratePicture: PictureUrlType
+   ) => {
       const pictureUrl = event.target.value
       setPictureUrls((currentPicture: PictureUrlType[]) => {
-         return currentPicture.map((pic) =>
+         return currentPicture.map(pic =>
             pic.id === currentIteratePicture.id
                ? {
                     ...pic,
-                    pictureUrl
+                    pictureUrl,
                  }
                : pic
          )
@@ -29,28 +32,35 @@ const PicUrlInput: React.FC<Props> = ({ setPictureUrls, pictureUrls }) => {
          ...currentPicUrls,
          {
             id: Date.now().toString(),
-            pictureUrl: ''
-         }
+            pictureUrl: '',
+         },
       ])
    }
    const removeLinkItem = (pictureId: string) => {
-      setPictureUrls((currentPicUrls: PictureUrlType[]) => currentPicUrls.filter((x) => x.id !== pictureId))
+      setPictureUrls((currentPicUrls: PictureUrlType[]) => currentPicUrls.filter(x => x.id !== pictureId))
    }
    return (
       <PicUrlContainer>
-         <Button sx={{ width: '150px', margin: '1rem 0' }} variant='outlined' onClick={() => createNewInputFieldAndStateItem()}>
+         <Button
+            sx={{ width: '150px', margin: '1rem 0' }}
+            variant='outlined'
+            onClick={() => createNewInputFieldAndStateItem()}
+         >
             Új link
          </Button>
          <TransitionGroup>
-            {pictureUrls.map((picture) => (
+            {pictureUrls.map(picture => (
                <Collapse key={picture.id} timeout={150}>
                   <InputFieldContainer>
                      <TextField
+                        id='pictureUrl'
                         label='Kép url'
                         fullWidth
                         margin='dense'
                         size='small'
-                        onChange={(event: ChangeEvent<HTMLInputElement>) => setNewElementToPicUrlState(event, picture)}
+                        onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                           setNewElementToPicUrlState(event, picture)
+                        }
                         value={picture.pictureUrl}
                      />
 
