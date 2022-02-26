@@ -10,8 +10,8 @@ const SelectDDRField: React.FC<{ onChangeEvent: (event: SelectChangeEvent) => vo
 }) => {
    return (
       <FormControl margin='normal'>
-         <InputLabel id='uncontrolled-native'>Memória Típusa</InputLabel>
-         <Select value={value} id='uncontrolled-native' onChange={onChangeEvent} native variant='filled'>
+         <InputLabel id='memoryType'>Memória Típusa</InputLabel>
+         <Select value={value} id='memoryType' onChange={onChangeEvent} native variant='filled'>
             <option value='DDR'>DDR</option>
             <option value='DDR2'>DDR2</option>
             <option value='DDR3'>DDR3</option>
