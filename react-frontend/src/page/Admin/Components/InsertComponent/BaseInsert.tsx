@@ -30,7 +30,9 @@ const BaseInsert: React.FC<{
          {children}
          <DescriptionTextArea
             labelText='Leírás'
-            onChangeEvent={event => setProducts({ ...product, details: { ...product.details, description: event.target.value } })}
+            onChangeEvent={event =>
+               setProducts({ ...product, details: { ...product.details, description: event.target.value } })
+            }
             value={product.details.description}
          />
          <PicUrlInput setPictureUrls={setPictureUrls} pictureUrls={pictureUrls}></PicUrlInput>

@@ -32,7 +32,6 @@ const BaseInsertForm: React.FC<{
    children,
 }) => {
    const [inputSuccess, setInputSuccess] = useState<boolean>(false)
-
    const handleProductSubmit = (event: React.FormEvent) => {
       event.preventDefault()
       const filteredPicUrls = pictureUrls.map(x => x.pictureUrl)
