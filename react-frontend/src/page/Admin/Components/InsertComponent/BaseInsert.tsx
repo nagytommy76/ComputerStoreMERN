@@ -1,29 +1,21 @@
-import React, { lazy, useState } from 'react'
-import { ValidationError } from '../../AdminTypes'
-import { PictureUrlType } from '../../Vga/Types'
+import React, { lazy, useContext } from 'react'
+import { AdminContext } from '../../Context/AdminContext'
 
 const DescriptionTextArea = lazy(() => import('../InputFields/TextArea/DescriptionTextArea'))
 const PicUrlInput = lazy(() => import('../InputFields/PicUrlInput/PicUrlInput'))
 const BaseInsertForm = lazy(() => import('../Form/BaseInsertForm'))
+const PicUrlErrorAlert = lazy(() => import('./Include/PicUrlError'))
 
 const BaseInsert: React.FC<{
    title: string
    productType: string
    productProperties: any
-   product: any
-   setProducts: React.Dispatch<any>
-   setValidationErrors: React.Dispatch<React.SetStateAction<ValidationError[]>>
-}> = ({ children, title, productType, productProperties, product, setProducts, setValidationErrors }) => {
-   const [pictureUrls, setPictureUrls] = useState<PictureUrlType[]>([])
+}> = ({ children, title, productType, productProperties }) => {
+   const { validationErrors, productInputs, setProductInputs } = useContext(AdminContext)
    return (
       <BaseInsertForm
          productType={productType}
-         pictureUrls={pictureUrls}
-         setPictureUrls={setPictureUrls}
-         product={product}
          productBaseProperties={productProperties}
-         setProduct={setProducts}
-         setValidationErrors={setValidationErrors}
          mainTitle={`${title} bevitele`}
          submitButtonText='Bevitel'
       >
@@ -31,11 +23,15 @@ const BaseInsert: React.FC<{
          <DescriptionTextArea
             labelText='Leírás'
             onChangeEvent={event =>
-               setProducts({ ...product, details: { ...product.details, description: event.target.value } })
+               setProductInputs({
+                  ...productInputs,
+                  details: { ...productInputs.details, description: event.target.value },
+               })
             }
-            value={product.details.description}
+            value={productInputs.details.description}
          />
-         <PicUrlInput setPictureUrls={setPictureUrls} pictureUrls={pictureUrls}></PicUrlInput>
+         <PicUrlInput />
+         <PicUrlErrorAlert validationErrors={validationErrors} />
       </BaseInsertForm>
    )
 }

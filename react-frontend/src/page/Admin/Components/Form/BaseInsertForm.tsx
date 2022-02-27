@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import axios from 'axios'
+import { AdminContext } from '../../Context/AdminContext'
 
 import { StyledForm } from '../../Components/Form/FormStyle'
-
-import { ValidationError } from '../../AdminTypes'
-import { PictureUrlType, ValidationErrorWithAxiosError } from '../../Vga/Types'
+import { ValidationErrorWithAxiosError } from '../../Vga/Types'
 
 const BaseForm = React.lazy(() => import('./BaseForm'))
 const SubmitButton = React.lazy(() => import('../../Components/InputFields/SubmitButton/SubmitButton'))
@@ -12,39 +11,31 @@ const SubmitButton = React.lazy(() => import('../../Components/InputFields/Submi
 const BaseInsertForm: React.FC<{
    mainTitle: string
    productType: string
-   product: any
-   setProduct: React.Dispatch<React.SetStateAction<any>>
-   setValidationErrors: React.Dispatch<React.SetStateAction<ValidationError[]>>
-   pictureUrls: PictureUrlType[]
-   setPictureUrls: React.Dispatch<React.SetStateAction<PictureUrlType[]>>
    productBaseProperties: any
    submitButtonText: string
-}> = ({
-   mainTitle,
-   setProduct,
-   productType,
-   product,
-   setValidationErrors,
-   pictureUrls,
-   setPictureUrls,
-   productBaseProperties,
-   submitButtonText,
-   children,
-}) => {
+}> = ({ mainTitle, productType, productBaseProperties, submitButtonText, children }) => {
    const [inputSuccess, setInputSuccess] = useState<boolean>(false)
+   const {
+      setValidationErrors,
+      setProductInputs,
+      productInputs,
+      selectedProductPictureUrls,
+      setSelectedProductPictureUrls,
+   } = useContext(AdminContext)
+
    const handleProductSubmit = (event: React.FormEvent) => {
       event.preventDefault()
-      const filteredPicUrls = pictureUrls.map(x => x.pictureUrl)
+      const filteredPicUrls = selectedProductPictureUrls.map(x => x.pictureUrl)
       axios
          .post(`admin/${productType}/insert`, {
-            ...product,
-            pictureUrls: filteredPicUrls,
+            ...productInputs,
+            selectedProductPictureUrls: filteredPicUrls,
          })
          .then(result => {
             if (result.status === 201) {
                setInputSuccess(true)
-               setProduct(productBaseProperties)
-               setPictureUrls([])
+               setProductInputs(productBaseProperties)
+               setSelectedProductPictureUrls([])
             }
          })
          .catch((error: ValidationErrorWithAxiosError) => {

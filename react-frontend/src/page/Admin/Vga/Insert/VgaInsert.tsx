@@ -1,26 +1,34 @@
 import React, { useState, lazy } from 'react'
+import { AdminContext } from '../../Context/AdminContext'
 import { vgaProperties } from '../VgaProperties'
-import { VgaType } from '../../../ShopPages/Vga/VgaTypes'
+
 import { ValidationError } from '../../AdminTypes'
+import { VgaType } from '../../../ShopPages/Vga/VgaTypes'
+import { PictureUrlType } from '../Types'
 
 const BaseInputFields = lazy(() => import('../BaseInput/BaseInputFields'))
 const BaseProductInsert = lazy(() => import('../../Components/InsertComponent/BaseInsert'))
 
 const AdminVga = () => {
    const [vgaProduct, setVgaProduct] = useState<VgaType>(vgaProperties)
+   const [pictureUrls, setPictureUrls] = useState<PictureUrlType[]>([])
    const [validationErrors, setValidationErrors] = useState<ValidationError[]>([])
 
    return (
-      <BaseProductInsert
-         product={vgaProduct}
-         setProducts={setVgaProduct}
-         productProperties={vgaProperties}
-         productType='vga'
-         setValidationErrors={setValidationErrors}
-         title='Vga'
+      <AdminContext.Provider
+         value={{
+            productInputs: vgaProduct,
+            setProductInputs: setVgaProduct,
+            selectedProductPictureUrls: pictureUrls,
+            setSelectedProductPictureUrls: setPictureUrls,
+            validationErrors,
+            setValidationErrors,
+         }}
       >
-         <BaseInputFields setVgaProduct={setVgaProduct} vgaProduct={vgaProduct} validationErrors={validationErrors} />
-      </BaseProductInsert>
+         <BaseProductInsert productProperties={vgaProperties} productType='vga' title='Vga'>
+            <BaseInputFields />
+         </BaseProductInsert>
+      </AdminContext.Provider>
    )
 }
 

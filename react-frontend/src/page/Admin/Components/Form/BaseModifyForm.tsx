@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { AdminContext } from '../../Context/AdminContext'
 import axios from 'axios'
-import { PictureUrlType, ValidationErrorWithAxiosError } from '../../Vga/Types'
+import { ValidationErrorWithAxiosError } from '../../Vga/Types'
 import { StyledForm } from '../../Components/Form/FormStyle'
-import { ValidationError } from '../../AdminTypes'
 
 const BaseForm = React.lazy(() => import('./BaseForm'))
 const SubmitButton = React.lazy(() => import('../../Components/InputFields/SubmitButton/SubmitButton'))
@@ -10,16 +10,14 @@ const SubmitButton = React.lazy(() => import('../../Components/InputFields/Submi
 const BaseModifyForm: React.FC<{
    mainTitle: string
    productType: string
-   productInputs: any
-   setValidationErrors: React.Dispatch<React.SetStateAction<ValidationError[]>>
-   selectedProductPictureUrls: PictureUrlType[]
    submitButtonText: string
-}> = ({ mainTitle, productType, productInputs, setValidationErrors, selectedProductPictureUrls, submitButtonText, children }) => {
+}> = ({ mainTitle, productType, submitButtonText, children }) => {
    const [inputSuccess, setInputSuccess] = useState<boolean>(false)
+   const { productInputs, selectedProductPictureUrls, setValidationErrors } = useContext(AdminContext)
 
    const sendModifyRequest = (event: React.FormEvent) => {
       event.preventDefault()
-      const filteredPictureArray = selectedProductPictureUrls.map((x) => x.pictureUrl)
+      const filteredPictureArray = selectedProductPictureUrls.map(x => x.pictureUrl)
       axios
          .post(`admin/${productType}/modify`, { ...productInputs, pictureUrls: filteredPictureArray })
          .then(() => setInputSuccess(true))
@@ -33,7 +31,8 @@ const BaseModifyForm: React.FC<{
          alertTextAndServerity={{ serverity: 'info', text: 'Sikeres módosítás!' }}
          inputSuccess={inputSuccess}
          mainTitle={mainTitle}
-         setInputSuccess={setInputSuccess}>
+         setInputSuccess={setInputSuccess}
+      >
          <StyledForm onSubmit={sendModifyRequest}>
             {children}
             <SubmitButton>{submitButtonText}</SubmitButton>

@@ -1,14 +1,16 @@
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import React, { ChangeEvent, useContext, useEffect, useState } from 'react'
+import { AdminContext } from '../../../Context/AdminContext'
 import axios, { AxiosResponse, AxiosError } from 'axios'
 
 import { VgaType } from '../../../../ShopPages/Vga/VgaTypes'
-import { PictureUrlType } from '../../../Vga/Types'
 
 import TextField from '@mui/material/TextField'
 
-const ProductSelector: React.FC<Props> = ({ setDetailedProducts, setPictureUrls, productType, productProperties }) => {
+const ProductSelector: React.FC<Props> = ({ productType, productProperties }) => {
    const [allProducts, setAllProducts] = useState<VgaType[]>([])
    const [selectedVgaProduct, setSelectedVgaProduct] = useState<VgaType>()
+   const { setProductInputs, setSelectedProductPictureUrls } = useContext(AdminContext)
+
    const fetchAllProduct = async () => {
       await axios
          .get(`admin/${productType}/get-all`)
@@ -24,22 +26,24 @@ const ProductSelector: React.FC<Props> = ({ setDetailedProducts, setPictureUrls,
    const handleSelect = (event: ChangeEvent<HTMLSelectElement>) => {
       event.preventDefault()
       if (event.target.value === 'none') {
-         setDetailedProducts(productProperties)
+         setProductInputs(productProperties)
          setSelectedVgaProduct(productProperties)
       }
-      if (setPictureUrls && event.target.value === 'none') setPictureUrls([])
-      const foundElement: VgaType | undefined = allProducts.find((element: VgaType) => element._id === event.target.value)
+      if (setSelectedProductPictureUrls && event.target.value === 'none') setSelectedProductPictureUrls([])
+      const foundElement: VgaType | undefined = allProducts.find(
+         (element: VgaType) => element._id === event.target.value
+      )
       if (foundElement !== undefined) {
-         setDetailedProducts(foundElement)
+         setProductInputs(foundElement)
          setSelectedVgaProduct(foundElement)
-         if (setPictureUrls) {
+         if (setSelectedProductPictureUrls) {
             const picUrlsWithId = foundElement.pictureUrls.map((url, index) => {
                return {
                   id: index.toString(),
-                  pictureUrl: url
+                  pictureUrl: url,
                }
             })
-            setPictureUrls(picUrlsWithId)
+            setSelectedProductPictureUrls(picUrlsWithId)
          }
       }
    }
@@ -54,11 +58,12 @@ const ProductSelector: React.FC<Props> = ({ setDetailedProducts, setPictureUrls,
             value={selectedVgaProduct?._id || 'none'}
             onChange={(event: any) => handleSelect(event)}
             SelectProps={{
-               native: true
+               native: true,
             }}
-            helperText='Válaszd ki a módosítani kívánt terméket'>
+            helperText='Válaszd ki a módosítani kívánt terméket'
+         >
             <option value='none'>-- Nincs kiválasztva termék! --</option>
-            {allProducts.map((item) => (
+            {allProducts.map(item => (
                <option value={item._id} key={item._id}>
                   {item.manufacturer} {item.type} {item.typeCode} {item.price} Ft
                </option>
@@ -69,8 +74,6 @@ const ProductSelector: React.FC<Props> = ({ setDetailedProducts, setPictureUrls,
 }
 
 type Props = {
-   setDetailedProducts: React.Dispatch<React.SetStateAction<any>>
-   setPictureUrls?: React.Dispatch<React.SetStateAction<PictureUrlType[]>>
    productType: string
    productProperties: any
 }

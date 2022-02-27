@@ -1,4 +1,5 @@
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent, useContext } from 'react'
+import { AdminContext } from '../../../Context/AdminContext'
 import { PictureUrlType } from '../../../Vga/Types'
 import { InputFieldContainer, PicUrlContainer } from './PicStyle'
 
@@ -10,13 +11,14 @@ import Collapse from '@mui/material/Collapse'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 
-const PicUrlInput: React.FC<Props> = ({ setPictureUrls, pictureUrls }) => {
+const PicUrlInput: React.FC = () => {
+   const { selectedProductPictureUrls, setSelectedProductPictureUrls } = useContext(AdminContext)
    const setNewElementToPicUrlState = (
       event: ChangeEvent<HTMLInputElement>,
       currentIteratePicture: PictureUrlType
    ) => {
       const pictureUrl = event.target.value
-      setPictureUrls((currentPicture: PictureUrlType[]) => {
+      setSelectedProductPictureUrls((currentPicture: PictureUrlType[]) => {
          return currentPicture.map(pic =>
             pic.id === currentIteratePicture.id
                ? {
@@ -28,7 +30,7 @@ const PicUrlInput: React.FC<Props> = ({ setPictureUrls, pictureUrls }) => {
       })
    }
    const createNewInputFieldAndStateItem = () => {
-      setPictureUrls((currentPicUrls: PictureUrlType[]) => [
+      setSelectedProductPictureUrls((currentPicUrls: PictureUrlType[]) => [
          ...currentPicUrls,
          {
             id: Date.now().toString(),
@@ -37,7 +39,9 @@ const PicUrlInput: React.FC<Props> = ({ setPictureUrls, pictureUrls }) => {
       ])
    }
    const removeLinkItem = (pictureId: string) => {
-      setPictureUrls((currentPicUrls: PictureUrlType[]) => currentPicUrls.filter(x => x.id !== pictureId))
+      setSelectedProductPictureUrls((currentPicUrls: PictureUrlType[]) =>
+         currentPicUrls.filter(x => x.id !== pictureId)
+      )
    }
    return (
       <PicUrlContainer>
@@ -49,7 +53,7 @@ const PicUrlInput: React.FC<Props> = ({ setPictureUrls, pictureUrls }) => {
             Új link
          </Button>
          <TransitionGroup>
-            {pictureUrls.map(picture => (
+            {selectedProductPictureUrls.map(picture => (
                <Collapse key={picture.id} timeout={150}>
                   <InputFieldContainer>
                      <TextField
@@ -72,11 +76,6 @@ const PicUrlInput: React.FC<Props> = ({ setPictureUrls, pictureUrls }) => {
          </TransitionGroup>
       </PicUrlContainer>
    )
-}
-
-type Props = {
-   setPictureUrls: (currentPicture: any) => void
-   pictureUrls: PictureUrlType[]
 }
 
 export default PicUrlInput

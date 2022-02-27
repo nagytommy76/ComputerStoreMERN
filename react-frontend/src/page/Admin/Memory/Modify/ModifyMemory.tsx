@@ -1,4 +1,6 @@
 import React, { lazy, useState } from 'react'
+import { AdminContext } from '../../Context/AdminContext'
+
 import { ValidationError } from '../../AdminTypes'
 import { PictureUrlType } from '../../Vga/Types'
 import { MemoryProductType } from '../../../ShopPages/Memory/MemoryTypes'
@@ -13,42 +15,40 @@ const BaseModifyForm = lazy(() => import('../../Components/Form/BaseModifyForm')
 const ModifyMemory = () => {
    const [selectedProductPictureUrls, setSelectedProductPictureUrls] = useState<PictureUrlType[]>([])
    const [memoryProductInputs, setMemoryProductInputs] = useState<MemoryProductType>(memoryProperties)
-   const [validationErrors, setValidationErrors] = useState<ValidationError[]>([])
+   const [validationErrors, setValidationErrors] = useState<ValidationError[]>([
+      { location: '', msg: '', param: '' },
+   ])
    return (
-      <BaseModifyForm
-         productInputs={memoryProductInputs}
-         productType='memory'
-         selectedProductPictureUrls={selectedProductPictureUrls}
-         setValidationErrors={setValidationErrors}
-         submitButtonText='Memória módosítása'
-         mainTitle='Memória módosítása'
+      <AdminContext.Provider
+         value={{
+            productInputs: memoryProductInputs,
+            setProductInputs: setMemoryProductInputs,
+            selectedProductPictureUrls,
+            setSelectedProductPictureUrls,
+            validationErrors,
+            setValidationErrors,
+         }}
       >
-         <ProductSelector
-            productProperties={memoryProperties}
+         <BaseModifyForm
             productType='memory'
-            setDetailedProducts={setMemoryProductInputs}
-            setPictureUrls={setSelectedProductPictureUrls}
-         />
-         <BaseInputFields
-            product={memoryProductInputs}
-            setProduct={setMemoryProductInputs}
-            validationErrors={validationErrors}
-         />
-         <DescriptionTextArea
-            labelText='Leírás'
-            value={memoryProductInputs.details.description || ''}
-            onChangeEvent={event =>
-               setMemoryProductInputs({
-                  ...memoryProductInputs,
-                  details: { ...memoryProductInputs.details, description: event.target.value },
-               })
-            }
-         />
-         <PicUrlInput
-            setPictureUrls={setSelectedProductPictureUrls}
-            pictureUrls={selectedProductPictureUrls}
-         />
-      </BaseModifyForm>
+            submitButtonText='Memória módosítása'
+            mainTitle='Memória módosítása'
+         >
+            <ProductSelector productProperties={memoryProperties} productType='memory' />
+            <BaseInputFields />
+            <DescriptionTextArea
+               labelText='Leírás'
+               value={memoryProductInputs.details.description || ''}
+               onChangeEvent={event =>
+                  setMemoryProductInputs({
+                     ...memoryProductInputs,
+                     details: { ...memoryProductInputs.details, description: event.target.value },
+                  })
+               }
+            />
+            <PicUrlInput />
+         </BaseModifyForm>
+      </AdminContext.Provider>
    )
 }
 

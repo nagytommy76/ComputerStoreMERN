@@ -1,5 +1,5 @@
 import React, { useState, lazy } from 'react'
-
+import { AdminContext } from '../../Context/AdminContext'
 import { vgaProperties } from '../VgaProperties'
 import { VgaType } from '../../../ShopPages/Vga/VgaTypes'
 import { PictureUrlType } from '../Types'
@@ -17,32 +17,32 @@ const ModifyVga = () => {
    const [validationErrors, setValidationErrors] = useState<ValidationError[]>([])
 
    return (
-      <BaseModifyForm
-         productInputs={vgaProductInputs}
-         productType='vga'
-         selectedProductPictureUrls={selectedProductPictureUrls}
-         setValidationErrors={setValidationErrors}
-         submitButtonText='Vga módosítása'
-         mainTitle='Vga módosítása'>
-         <ProductSelector
-            productProperties={vgaProperties}
-            productType='vga'
-            setDetailedProducts={setVgaProductInputs}
-            setPictureUrls={setSelectedProductPictureUrls}
-         />
-         <BaseInputFields vgaProduct={vgaProductInputs} setVgaProduct={setVgaProductInputs} validationErrors={validationErrors} />
-         <DescriptionTextArea
-            labelText='Leírás'
-            value={vgaProductInputs.details.description || ''}
-            onChangeEvent={(event) =>
-               setVgaProductInputs({
-                  ...vgaProductInputs,
-                  details: { ...vgaProductInputs.details, description: event.target.value }
-               })
-            }
-         />
-         <PicUrlInput setPictureUrls={setSelectedProductPictureUrls} pictureUrls={selectedProductPictureUrls} />
-      </BaseModifyForm>
+      <AdminContext.Provider
+         value={{
+            productInputs: vgaProductInputs,
+            setProductInputs: setVgaProductInputs,
+            selectedProductPictureUrls,
+            setSelectedProductPictureUrls,
+            validationErrors,
+            setValidationErrors,
+         }}
+      >
+         <BaseModifyForm productType='vga' submitButtonText='Vga módosítása' mainTitle='Vga módosítása'>
+            <ProductSelector productProperties={vgaProperties} productType='vga' />
+            <BaseInputFields />
+            <DescriptionTextArea
+               labelText='Leírás'
+               value={vgaProductInputs.details.description || ''}
+               onChangeEvent={event =>
+                  setVgaProductInputs({
+                     ...vgaProductInputs,
+                     details: { ...vgaProductInputs.details, description: event.target.value },
+                  })
+               }
+            />
+            <PicUrlInput />
+         </BaseModifyForm>
+      </AdminContext.Provider>
    )
 }
 

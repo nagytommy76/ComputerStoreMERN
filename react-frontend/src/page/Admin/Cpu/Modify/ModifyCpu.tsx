@@ -1,4 +1,5 @@
 import React, { lazy, useState } from 'react'
+import { AdminContext } from '../../Context/AdminContext'
 import { CpuProductType } from '../../../ShopPages/Cpu/CpuTypes'
 import { ValidationError } from '../../AdminTypes'
 import { PictureUrlType } from '../../Vga/Types'
@@ -16,32 +17,32 @@ const ModifyCpu = () => {
    const [validationErrors, setValidationErrors] = useState<ValidationError[]>([])
 
    return (
-      <BaseModifyForm
-         productInputs={cpuProductInputs}
-         productType='cpu'
-         selectedProductPictureUrls={selectedProductPictureUrls}
-         setValidationErrors={setValidationErrors}
-         submitButtonText='Cpu módosítása'
-         mainTitle='CPU módosítása'>
-         <ProductSelector
-            productProperties={cpuProperties}
-            productType='cpu'
-            setDetailedProducts={setCpuProductInputs}
-            setPictureUrls={setSelectedProductPictureUrls}
-         />
-         <BaseInputFields product={cpuProductInputs} setProduct={setCpuProductInputs} validationErrors={validationErrors} />
-         <DescriptionTextArea
-            labelText='Leírás'
-            value={cpuProductInputs.details.description || ''}
-            onChangeEvent={(event) =>
-               setCpuProductInputs({
-                  ...cpuProductInputs,
-                  details: { ...cpuProductInputs.details, description: event.target.value }
-               })
-            }
-         />
-         <PicUrlInput setPictureUrls={setSelectedProductPictureUrls} pictureUrls={selectedProductPictureUrls} />
-      </BaseModifyForm>
+      <AdminContext.Provider
+         value={{
+            productInputs: cpuProductInputs,
+            setProductInputs: setCpuProductInputs,
+            selectedProductPictureUrls,
+            setSelectedProductPictureUrls,
+            validationErrors,
+            setValidationErrors,
+         }}
+      >
+         <BaseModifyForm productType='cpu' submitButtonText='Cpu módosítása' mainTitle='CPU módosítása'>
+            <ProductSelector productProperties={cpuProperties} productType='cpu' />
+            <BaseInputFields />
+            <DescriptionTextArea
+               labelText='Leírás'
+               value={cpuProductInputs.details.description || ''}
+               onChangeEvent={event =>
+                  setCpuProductInputs({
+                     ...cpuProductInputs,
+                     details: { ...cpuProductInputs.details, description: event.target.value },
+                  })
+               }
+            />
+            <PicUrlInput />
+         </BaseModifyForm>
+      </AdminContext.Provider>
    )
 }
 
