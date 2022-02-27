@@ -1,10 +1,18 @@
 import React, { useState } from 'react'
-import { CartQuantityStyle, StyledCartSection, AddToCartButton, InputAndLabelContainer, StyledLabel } from './CartStyle'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useLocation } from 'react-router-dom'
+
 import { sendCartItemToSaveInDB } from '../../../../../app/slices/CartSlice'
 import { useAppDispatch } from '../../../../../app/hooks'
-import { useLocation } from 'react-router-dom'
 import { LocationType } from '../../../BaseTypes'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+   CartQuantityStyle,
+   StyledCartSection,
+   AddToCartButton,
+   InputAndLabelContainer,
+   StyledLabel,
+} from './CartStyle'
 
 const AddToCart = () => {
    const dispatch = useAppDispatch()
@@ -20,7 +28,7 @@ const AddToCart = () => {
                displayName: `${manufacturer} ${type} ${typeCode}`,
                price,
                itemQuantity: parseInt(quantity),
-               displayImage: pictureUrls[0]
+               displayImage: pictureUrls[0],
             },
             'vgaproduct'
          )

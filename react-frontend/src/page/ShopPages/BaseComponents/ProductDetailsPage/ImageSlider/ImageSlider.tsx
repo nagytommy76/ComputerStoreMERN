@@ -1,9 +1,9 @@
 import React, { useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import { StyledSlideSection, StyledImageContainer, StyledImage } from './SliderStyle'
+import { LocationType } from '../../../BaseTypes'
 
 import Slide from '@mui/material/Slide'
-import { LocationType } from '../../../BaseTypes'
+import { StyledSlideSection, StyledImageContainer, StyledImage } from './SliderStyle'
 
 const RightArrow = React.lazy(() => import('./RightArrow'))
 const LeftArrow = React.lazy(() => import('./LeftArrow'))

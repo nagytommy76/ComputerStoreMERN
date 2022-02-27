@@ -1,10 +1,10 @@
 import React from 'react'
-import { Container } from './PaginationStyle'
+import { setIsPriceRangeSet } from '../../../../app/slices/Filter/BaseFilterDataSlice'
 import { setCurrentPage } from '../../../../app/slices/PaginateSlice'
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
 
+import { Container } from './PaginationStyle'
 import { Pagination as MUIPagination } from '@mui/material'
-import { setIsPriceRangeSet } from '../../../../app/slices/Filter/BaseFilterDataSlice'
 
 const Pagination: React.FC = () => {
    const dispatch = useAppDispatch()

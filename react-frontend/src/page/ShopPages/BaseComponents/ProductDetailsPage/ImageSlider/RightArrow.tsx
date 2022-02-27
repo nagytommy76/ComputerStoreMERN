@@ -1,11 +1,11 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom'
-import { RightArrow as RightArrowStyle } from './SliderStyle'
+import { LocationType } from '../../../BaseTypes'
 
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
-import { LocationType } from '../../../BaseTypes'
+import { RightArrow as RightArrowStyle } from './SliderStyle'
 
 const RightArrow: React.FC<{ nextImage: () => void; currentPic: number }> = ({ nextImage, currentPic }) => {
    let { state } = useLocation()
