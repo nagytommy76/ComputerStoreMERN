@@ -7,17 +7,21 @@ export type StateType = {
 
 export type CartItemsType = {
    itemId: string
+   productType: string
    displayName: string
+   displayImage: string
    quantity: number
    price: number
-   displayImage: string
 }
 
 export const checkProductExistsInTheCart = (productId: string, StateCartItems: CartItemsType[]) => {
    return StateCartItems.find((item: CartItemsType) => item.itemId === productId)
 }
 
-export const searchForStartingIndexInStateCartItems = (productId: string, StateCartItems: CartItemsType[]) => {
+export const searchForStartingIndexInStateCartItems = (
+   productId: string,
+   StateCartItems: CartItemsType[]
+) => {
    return StateCartItems.findIndex((item: CartItemsType) => item.itemId === productId)
 }
 
@@ -26,9 +30,9 @@ export const searchForStartingIndexInStateCartItems = (productId: string, StateC
 export const calculateTotalPriceAndQuantity = (state: StateType, stateCartItems?: CartItemsType[]) => {
    let result = {
       quantity: 0,
-      price: 0
+      price: 0,
    }
-   state.cartItems.forEach((cartItem) => {
+   state.cartItems.forEach(cartItem => {
       result.price += cartItem.price * cartItem.quantity
       result.quantity += cartItem.quantity
    })
