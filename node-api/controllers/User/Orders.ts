@@ -1,12 +1,14 @@
 import { Request, Response } from 'express'
-import { User } from '../../models/User/User'
-import { JWTUserType } from '../Types'
-import { UserTypes } from '../../models/User/UserTypes'
-
-import NodeMailer from '../../config/Mail/nodemailer'
-import { Stripe } from 'stripe'
 import { Document, LeanDocument, ObjectId } from 'mongoose'
+import { Stripe } from 'stripe'
+import NodeMailer from '../../config/Mail/nodemailer'
+
 import { UserOrders as UserOrderType } from '../../models/User/UserTypes'
+import { JWTUserType } from '../Types'
+import { CartItemsType, UserTypes } from '../../models/User/UserTypes'
+
+import { User } from '../../models/User/User'
+import { CpuProduct } from '../../models/Products/Cpu/CpuSchema'
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY) as Stripe
 
@@ -68,12 +70,16 @@ export default class UserOrders extends NodeMailer {
                deliveryPrice,
                foundLastOrderId
             )
+            // Módosítom az összes kosárban lévő termék stockQty-jét
+            await this.modifyProductStockQtyAfterOrder(foundUser.cartItems)
 
             foundUser.cartItems = []
             await foundUser.save()
             return res.status(200).json({ orderSuccess: true, paymentSuccess: true, result: foundUser })
          }
-         return res.status(404).json({ msg: 'A felhasználó nem található', orderSuccess: false, paymentSuccess: false })
+         return res
+            .status(404)
+            .json({ msg: 'A felhasználó nem található', orderSuccess: false, paymentSuccess: false })
       } catch (error) {
          return res.status(500).json({ error, orderSuccess: false, paymentSuccess: false })
       }
@@ -81,7 +87,9 @@ export default class UserOrders extends NodeMailer {
 
    getUserOrders = async (request: RequestWithUser, response: Response) => {
       try {
-         const foundUserOrders = (await User.findById(request.user?._id).select('orders').lean()) as LeanDocument<
+         const foundUserOrders = (await User.findById(request.user?._id)
+            .select('orders')
+            .lean()) as LeanDocument<
             {
                orders: UserOrderType[]
                _id: ObjectId
@@ -96,17 +104,38 @@ export default class UserOrders extends NodeMailer {
       }
    }
 
+   private modifyProductStockQtyAfterOrder = async (cartItems: CartItemsType[]) => {
+      cartItems.forEach(async cart => {
+         switch (cart.productType) {
+            case 'cpu':
+               const foundCpuItem = await CpuProduct.findById(cart.itemId).select('inStockQuantity')
+               if (foundCpuItem) {
+                  foundCpuItem.inStockQuantity = foundCpuItem.inStockQuantity - cart.quantity
+                  foundCpuItem.save()
+               }
+               break
+         }
+      })
+   }
+
    private getCurrentCartItemsFromFoundUser = (foundUser: UserTypes) => {
-      const currentItemsInCart: { productID: string; productName: string; productQty: number; productImage: string; productPrice: number }[] =
-         foundUser.cartItems.map((product) => {
-            return {
-               productID: product.itemId,
-               productImage: product.displayImage,
-               productName: product.displayName,
-               productQty: product.quantity,
-               productPrice: product.price
-            }
-         })
+      const currentItemsInCart: {
+         productID: string
+         productName: string
+         productQty: number
+         productImage: string
+         productPrice: number
+         productType: string
+      }[] = foundUser.cartItems.map(product => {
+         return {
+            productID: product.itemId,
+            productImage: product.displayImage,
+            productName: product.displayName,
+            productQty: product.quantity,
+            productPrice: product.price,
+            productType: product.productType,
+         }
+      })
       return currentItemsInCart
    }
 }
