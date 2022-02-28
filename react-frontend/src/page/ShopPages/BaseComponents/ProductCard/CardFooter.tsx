@@ -8,17 +8,17 @@ import { CardFooterStyle } from './CardStyle'
 import { CardActions, Button } from '@mui/material'
 
 type Props = {
-   productType: string
+   pathNameForDetailsURL: string
 }
 
-const CardFooter: React.FC<Props> = ({ productType }) => {
+const CardFooter: React.FC<Props> = ({ pathNameForDetailsURL }) => {
    const dispatch = useAppDispatch()
-   const { _id, productName, price, displayImage } = useContext(ProductContext)
+   const { _id, productName, price, displayImage, productType } = useContext(ProductContext)
    const addItemToCart = () => {
       dispatch(
          sendCartItemToSaveInDB(
-            { _id, displayName: productName, price, itemQuantity: 1, displayImage },
-            `${productType}product`
+            { _id, displayName: productName, price, itemQuantity: 1, displayImage, productType },
+            `${pathNameForDetailsURL}product`
          )
       )
    }

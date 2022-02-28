@@ -19,16 +19,17 @@ const AddToCart = () => {
    const [quantity, setQuantity] = useState<string>('1')
    let location = useLocation()
    const state = location.state as LocationType
-   const { _id, manufacturer, type, typeCode, price, pictureUrls } = state
+   const { _id, manufacturer, type, typeCode, price, pictureUrls, productType } = state
    const addItemToCart = () => {
       dispatch(
          sendCartItemToSaveInDB(
             {
                _id,
+               productType,
                displayName: `${manufacturer} ${type} ${typeCode}`,
+               displayImage: pictureUrls[0],
                price,
                itemQuantity: parseInt(quantity),
-               displayImage: pictureUrls[0],
             },
             'vgaproduct'
          )

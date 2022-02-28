@@ -21,10 +21,10 @@ const ProductCard: React.FC<ProductCardType> = ({
    manufacturer,
    pictureUrls,
    pathNameForDetailsURL,
-   ratingCount
+   ratingCount,
 }) => {
    const [isCardExpanded, setIsCardExpanded] = useState<boolean>(true)
-   const isMobile = useAppSelector((state) => state.mobile.isMobile)
+   const isMobile = useAppSelector(state => state.mobile.isMobile)
 
    const navigate = useNavigate()
    const { _id, productName, price } = useContext(ProductContext)
@@ -35,7 +35,16 @@ const ProductCard: React.FC<ProductCardType> = ({
 
    const routeToDetailsPage = () => {
       navigate(`/${pathNameForDetailsURL}/${pathNameForDetailsURL}-details`, {
-         state: { _id, details, pictureUrls, type, manufacturer, price, typeCode, productType: pathNameForDetailsURL }
+         state: {
+            _id,
+            details,
+            pictureUrls,
+            type,
+            manufacturer,
+            price,
+            typeCode,
+            productType: pathNameForDetailsURL,
+         },
       })
    }
 
@@ -44,7 +53,8 @@ const ProductCard: React.FC<ProductCardType> = ({
          raised={isCardExpanded}
          sx={{ maxWidth: 250, minHeight: 350 }}
          onMouseEnter={() => setIsCardExpanded(true)}
-         onMouseLeave={() => setIsCardExpanded(false)}>
+         onMouseLeave={() => setIsCardExpanded(false)}
+      >
          {ratingCount !== undefined && ratingCount > 0 && <RatingCount ratingCount={ratingCount} />}
          <CardMedia
             sx={{ cursor: 'pointer' }}
@@ -62,7 +72,7 @@ const ProductCard: React.FC<ProductCardType> = ({
          </CardContent>
          <Fade mountOnEnter unmountOnExit timeout={100} appear={isCardExpanded} in={isCardExpanded}>
             <div>
-               <CardFooter productType={pathNameForDetailsURL} />
+               <CardFooter pathNameForDetailsURL={pathNameForDetailsURL} />
             </div>
          </Fade>
       </CustomCard>
