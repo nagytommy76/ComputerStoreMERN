@@ -24,9 +24,10 @@ const BaseShop: React.FC<{ productType: string }> = ({ productType, children }) 
                         key={product._id}
                         value={{
                            _id: product._id,
+                           productType,
                            productName: `${product.manufacturer} ${product.type} ${product.typeCode}`,
-                           price: product.price,
                            displayImage: product.pictureUrls[0],
+                           price: product.price,
                         }}
                      >
                         <ProductCard

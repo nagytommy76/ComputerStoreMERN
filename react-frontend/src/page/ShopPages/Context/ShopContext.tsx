@@ -2,7 +2,8 @@ import React from 'react'
 
 export const ProductContext = React.createContext({
    _id: '',
+   productType: '',
    productName: '',
-   price: 0,
    displayImage: '',
+   price: 0,
 })
