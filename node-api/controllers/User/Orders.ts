@@ -8,7 +8,11 @@ import { JWTUserType } from '../Types'
 import { CartItemsType, UserTypes } from '../../models/User/UserTypes'
 
 import { User } from '../../models/User/User'
+import { BaseProductType } from '../../models/Products/BaseTypes'
+
 import { CpuProduct } from '../../models/Products/Cpu/CpuSchema'
+import { VgaProduct } from '../../models/Products/Vga/VgaProduct'
+import { MemoryProduct } from '../../models/Products/Memory/Memory'
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY) as Stripe
 
@@ -105,17 +109,45 @@ export default class UserOrders extends NodeMailer {
    }
 
    private modifyProductStockQtyAfterOrder = async (cartItems: CartItemsType[]) => {
-      cartItems.forEach(async cart => {
+      cartItems.map(async cart => {
          switch (cart.productType) {
             case 'cpu':
                const foundCpuItem = await CpuProduct.findById(cart.itemId).select('inStockQuantity')
                if (foundCpuItem) {
-                  foundCpuItem.inStockQuantity = foundCpuItem.inStockQuantity - cart.quantity
-                  foundCpuItem.save()
+                  this.determineTheQuantity(foundCpuItem, cart.quantity)
+               }
+               break
+            case 'vga':
+               const foundVgaItem = await VgaProduct.findById(cart.itemId).select('inStockQuantity')
+               if (foundVgaItem) {
+                  this.determineTheQuantity(foundVgaItem, cart.quantity)
+               }
+               break
+            case 'memory':
+               const foundMemoryItem = await MemoryProduct.findById(cart.itemId).select('inStockQuantity')
+               if (foundMemoryItem) {
+                  this.determineTheQuantity(foundMemoryItem, cart.quantity)
                }
                break
          }
       })
+   }
+
+   private determineTheQuantity = (
+      foundItem: BaseProductType & {
+         details: any
+      } & Document<any, any>,
+      currentCartItemQty: number
+   ) => {
+      const afterPurchaseQuantityinDataBase = foundItem.inStockQuantity - currentCartItemQty
+      if (afterPurchaseQuantityinDataBase >= 0) {
+         foundItem.inStockQuantity = afterPurchaseQuantityinDataBase
+         foundItem.save()
+      } else {
+         // Kifogyott a készlet, rendelni kell stb......
+         foundItem.inStockQuantity = 0
+         foundItem.save()
+      }
    }
 
    private getCurrentCartItemsFromFoundUser = (foundUser: UserTypes) => {
