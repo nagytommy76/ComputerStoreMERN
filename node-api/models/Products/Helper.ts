@@ -2,10 +2,10 @@ const responses = {
    type: [
       {
          userId: { type: String, required: true },
-         isLike: { type: Boolean, required: true }
-      }
+         isLike: { type: Boolean, required: true },
+      },
    ],
-   required: false
+   required: false,
 }
 
 export const ProductRatingValuesSchema = {
@@ -24,12 +24,24 @@ export const ProductRatingValuesSchema = {
                   userName: { type: String, required: true },
                   answer: { type: String, required: true },
                   answeredAt: { type: Date, required: true },
-                  responses
-               }
+                  responses,
+               },
             ],
-            required: false
-         }
-      }
+            required: false,
+         },
+      },
    ],
-   required: false
+   required: false,
+}
+
+export const BaseSchemaPropertiesAndTypes = {
+   itemNumber: { type: String },
+   type: { type: String, required: true },
+   manufacturer: { type: String, required: true },
+   price: { type: Number, required: true },
+   pictureUrls: { type: Array, required: true },
+   typeCode: { type: String },
+   inStockQuantity: { type: Number, default: 0 },
+   isHighlighted: { type: Boolean, default: false },
+   ratingValues: ProductRatingValuesSchema,
 }
