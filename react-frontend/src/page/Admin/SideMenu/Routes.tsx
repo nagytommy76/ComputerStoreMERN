@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, lazy } from 'react'
 import { AccordionContainer } from './RoutesStyles'
 
-const VgaLink = React.lazy(() => import('./Links/VgaLinks'))
-const CpuLink = React.lazy(() => import('./Links/CpuLinks'))
-const MemoryLink = React.lazy(() => import('./Links/MemoryLinks'))
+const VgaLink = lazy(() => import('./Links/VgaLinks'))
+const CpuLink = lazy(() => import('./Links/CpuLinks'))
+const MemoryLink = lazy(() => import('./Links/MemoryLinks'))
+const HDDLink = lazy(() => import('./Links/HddLinks'))
 const BaseAccordionPanel = React.lazy(() => import('./BaseAccordionPanel'))
 
-const Routes: React.FC<{ setSideBarOpen: React.Dispatch<React.SetStateAction<boolean>> }> = ({ setSideBarOpen }) => {
+const Routes: React.FC<{ setSideBarOpen: React.Dispatch<React.SetStateAction<boolean>> }> = ({
+   setSideBarOpen,
+}) => {
    const [expanded, setExpanded] = useState<string | false>(false)
 
    const handleExpanded = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) =>
@@ -14,14 +17,37 @@ const Routes: React.FC<{ setSideBarOpen: React.Dispatch<React.SetStateAction<boo
 
    return (
       <AccordionContainer>
-         <BaseAccordionPanel expanded={expanded} handleExpanded={handleExpanded} panelNumber='panel1' productType='vga'>
+         <BaseAccordionPanel
+            expanded={expanded}
+            handleExpanded={handleExpanded}
+            panelNumber='panel1'
+            productType='vga'
+         >
             <VgaLink setSideBarOpen={setSideBarOpen} />
          </BaseAccordionPanel>
-         <BaseAccordionPanel expanded={expanded} handleExpanded={handleExpanded} panelNumber='panel2' productType='cpu'>
+         <BaseAccordionPanel
+            expanded={expanded}
+            handleExpanded={handleExpanded}
+            panelNumber='panel2'
+            productType='cpu'
+         >
             <CpuLink setSideBarOpen={setSideBarOpen} />
          </BaseAccordionPanel>
-         <BaseAccordionPanel expanded={expanded} handleExpanded={handleExpanded} panelNumber='panel3' productType='ram'>
+         <BaseAccordionPanel
+            expanded={expanded}
+            handleExpanded={handleExpanded}
+            panelNumber='panel3'
+            productType='ram'
+         >
             <MemoryLink setSideBarOpen={setSideBarOpen} />
+         </BaseAccordionPanel>
+         <BaseAccordionPanel
+            expanded={expanded}
+            handleExpanded={handleExpanded}
+            panelNumber='panel4'
+            productType='hdd'
+         >
+            <HDDLink setSideBarOpen={setSideBarOpen} />
          </BaseAccordionPanel>
       </AccordionContainer>
    )

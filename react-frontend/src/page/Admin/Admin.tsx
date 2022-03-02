@@ -15,6 +15,8 @@ const MemoryInsert = lazy(() => import('./Memory/Insert/MemoryInsert'))
 const MemoryModify = lazy(() => import('./Memory/Modify/ModifyMemory'))
 const MemoryDelete = lazy(() => import('./Memory/Delete/DeleteMemory'))
 
+const HDDInsert = lazy(() => import('./HDD/Insert/InsertHdd'))
+
 const Admin = () => {
    return (
       <AdminPageContainer>
@@ -35,6 +37,9 @@ const Admin = () => {
                   <Route path='insert' element={<MemoryInsert />} />
                   <Route path='modify' element={<MemoryModify />} />
                   <Route path='delete' element={<MemoryDelete />} />
+               </Route>
+               <Route path='hdd/*'>
+                  <Route path='insert' element={<HDDInsert />} />
                </Route>
             </Routes>
          </RightContentStyle>
