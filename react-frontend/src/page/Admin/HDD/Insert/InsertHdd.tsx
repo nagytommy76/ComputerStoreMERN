@@ -26,7 +26,7 @@ const InsertHdd = () => {
             setSelectedProductPictureUrls: setPictureUrls,
          }}
       >
-         <BaseProductInsert productProperties={{}} productType='hdd' title='Merevlemezek'>
+         <BaseProductInsert productProperties={hddProperties} productType='hdd' title='Merevlemezek'>
             <BaseHDDInputFields />
          </BaseProductInsert>
       </AdminContext.Provider>

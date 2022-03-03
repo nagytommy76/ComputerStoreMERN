@@ -28,7 +28,7 @@ const BaseInsert: React.FC<{
                   details: { ...productInputs.details, description: event.target.value },
                })
             }
-            value={productInputs.details.description}
+            value={productInputs?.details.description || ''}
          />
          <PicUrlInput />
          <PicUrlErrorAlert validationErrors={validationErrors} />
