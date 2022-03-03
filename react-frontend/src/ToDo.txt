@@ -16,7 +16,7 @@
 - A termékekhez kéne egy link????!!!
 
 
-- Új termékeket hozzáadni pl Alaplap RAM, valamint a meglévőket bővíteni
+- Új termékeket hozzáadni pl Alaplap HDD/SSD, valamint a meglévőket bővíteni
 
 - Ha 24 termékre állítom az utolsó sorok összecsúsznak GRID min-height probléma???
 
@@ -25,7 +25,7 @@
 - A stílus nem működik Gmail/hotmail esetén... MEGOLDANI
 
 
-- megvalósítani, ha vesznek valamiből a készlet változzon!!!
+- ha vesznek valamiből a készlet változzon!!!
 - A termék bevitelénél ha nincs picURL kéne egy alert mert most nincs
 
 MEGCSINÁLTAM:

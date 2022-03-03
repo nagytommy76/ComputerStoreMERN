@@ -46,10 +46,10 @@ const BaseInputFeilds: React.FC = () => {
             onChangeEvent={event =>
                setProductInputs({
                   ...productInputs,
-                  details: { ...productInputs.details, voltage: parseInt(event.target.value) },
+                  details: { ...productInputs.details, sataType: parseInt(event.target.value) },
                })
             }
-            value={productInputs.details.voltage || 3}
+            value={productInputs.details.sataType || 3}
             validationErrorLocation='details.sataType'
             validationErrors={validationErrors}
          />
@@ -59,10 +59,10 @@ const BaseInputFeilds: React.FC = () => {
             onChangeEvent={event =>
                setProductInputs({
                   ...productInputs,
-                  details: { ...productInputs.details, voltage: parseInt(event.target.value) },
+                  details: { ...productInputs.details, sizeInCol: parseInt(event.target.value) },
                })
             }
-            value={productInputs.details.voltage || 3.5}
+            value={productInputs.details.sizeInCol || 3.5}
             validationErrorLocation='details.sizeInCol'
             validationErrors={validationErrors}
          />
@@ -72,10 +72,10 @@ const BaseInputFeilds: React.FC = () => {
             onChangeEvent={event =>
                setProductInputs({
                   ...productInputs,
-                  details: { ...productInputs.details, voltage: parseInt(event.target.value) },
+                  details: { ...productInputs.details, rpm: parseInt(event.target.value) },
                })
             }
-            value={productInputs.details.voltage || 5400}
+            value={productInputs.details.rpm || 5400}
             validationErrorLocation='details.rpm'
             validationErrors={validationErrors}
          />
@@ -85,10 +85,10 @@ const BaseInputFeilds: React.FC = () => {
             onChangeEvent={event =>
                setProductInputs({
                   ...productInputs,
-                  details: { ...productInputs.details, voltage: parseInt(event.target.value) },
+                  details: { ...productInputs.details, cache: parseInt(event.target.value) },
                })
             }
-            value={productInputs.details.voltage || 0}
+            value={productInputs.details.cache || 0}
             validationErrorLocation='details.cache'
             validationErrors={validationErrors}
          />

@@ -32,7 +32,6 @@ export default class MemoryProduct extends BaseProduct {
             totalPages,
          })
       } catch (error) {
-         console.log(error)
          response.status(500).json(error)
       }
    }

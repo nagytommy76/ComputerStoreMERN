@@ -9,7 +9,7 @@ const pictureUrlsLengthGreaterOne: CustomValidator = (value: string[]) => {
 export const insertMemoryValidator = [
    body('pictureUrls').custom(pictureUrlsLengthGreaterOne),
    notEmptyFieldWithMessage('type', 'típus név'),
-   notEmptyFieldWithMessage('manufacturer', 'Cpu gyártó'),
+   notEmptyFieldWithMessage('manufacturer', 'Memória gyártó'),
    notZeroValueWithMessage('price', 'Ár'),
    notZeroValueWithMessage('details.capacity', 'Kapacitás'),
    notZeroValueWithMessage('details.memoryType', 'Típus'),
