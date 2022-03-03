@@ -29,7 +29,7 @@ const BaseInsertForm: React.FC<{
       axios
          .post(`admin/${productType}/insert`, {
             ...productInputs,
-            selectedProductPictureUrls: filteredPicUrls,
+            pictureUrls: filteredPicUrls,
          })
          .then(result => {
             if (result.status === 201) {
