@@ -1,6 +1,6 @@
 import React from 'react'
 import { useAppSelector } from '../../../../app/hooks'
-import { setCacheRange } from '../../../../app/slices/Filter/HddFilterSlice'
+import { setSelectedCacheRange } from '../../../../app/slices/Filter/HddFilterSlice'
 
 const BaseCacheSlider = React.lazy(() => import('../../BaseComponents/SideFilter/Base/BaseSlider'))
 
@@ -11,7 +11,7 @@ const ByCache = () => {
       <BaseCacheSlider
          range={cacheRange}
          selectedRange={selectedCacheRange}
-         setSelectedDispatchValue={setCacheRange}
+         setSelectedDispatchValue={setSelectedCacheRange}
          text='Cache'
          unit=' MB'
       />

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useAppSelector } from '../../../../app/hooks'
-import { setRpmRange } from '../../../../app/slices/Filter/HddFilterSlice'
+import { setSelectedRpmRange } from '../../../../app/slices/Filter/HddFilterSlice'
 
 const BaseRpmSlider = React.lazy(() => import('../../BaseComponents/SideFilter/Base/BaseSlider'))
 
@@ -11,7 +11,7 @@ const ByRpmRange = () => {
       <BaseRpmSlider
          range={rpmRange}
          selectedRange={selectedRpmRange}
-         setSelectedDispatchValue={setRpmRange}
+         setSelectedDispatchValue={setSelectedRpmRange}
          text='Fordulat'
          unit=' rpm'
       />
