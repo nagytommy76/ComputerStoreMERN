@@ -41,7 +41,7 @@ export default class CpuProduct extends BaseProduct {
             req,
             extraQueryParams
          )
-         res.json({
+         res.status(200).json({
             allProducts: foundProduct,
             totalPages,
          })

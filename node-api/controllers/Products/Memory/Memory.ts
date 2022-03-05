@@ -27,7 +27,7 @@ export default class MemoryProduct extends BaseProduct {
             request,
             extraFilterParameters
          )
-         return response.json({
+         return response.status(200).json({
             allProducts: foundProduct,
             totalPages,
          })
