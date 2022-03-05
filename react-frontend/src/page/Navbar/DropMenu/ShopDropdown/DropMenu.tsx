@@ -38,6 +38,9 @@ const DropMenu: React.FC<Prop> = ({ reference }) => {
          <DropLinkItem to='/memory' onClick={closeNavbar}>
             Memóriák
          </DropLinkItem>
+         <DropLinkItem to='/hdd' onClick={closeNavbar}>
+            Merevlemezek
+         </DropLinkItem>
       </DropStyle>
    )
 }
