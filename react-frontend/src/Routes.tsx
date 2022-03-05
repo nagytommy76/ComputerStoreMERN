@@ -26,6 +26,7 @@ const MemoryProducts = lazy(() => import('./page/ShopPages/Memory/MemoryShop'))
 const MemoryDetails = lazy(() => import('./page/ShopPages/Memory/MemoryDetails/MemoryDetails'))
 
 const HDDProducts = lazy(() => import('./page/ShopPages/HDD/HDDShop'))
+const HDDDetails = lazy(() => import('./page/ShopPages/HDD/HDDDetails/HDDDetails'))
 
 const Routes = () => {
    return (
@@ -35,6 +36,7 @@ const Routes = () => {
             <Route path='/vga/vga-details' element={<VgaDetails />} />
             <Route path='/cpu/cpu-details' element={<CpuDetails />} />
             <Route path='/memory/memory-details' element={<MemoryDetails />} />
+            <Route path='/hdd/hdd-details' element={<HDDDetails />} />
             <Route path='/vga' element={<VgaProducts />} />
             <Route path='/cpu' element={<CpuProducts />} />
             <Route path='/memory' element={<MemoryProducts />} />

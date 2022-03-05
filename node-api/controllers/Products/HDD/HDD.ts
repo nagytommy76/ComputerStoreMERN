@@ -7,9 +7,17 @@ export default class HDDProduct extends BaseProduct {
    constructor() {
       super(HDDModel)
    }
-   getAllHDDProductController = async (request: QueryRequest, response: Response) => {
+   getAllHDDProductController = async (request: HDDQueryRequestType, response: Response) => {
       try {
-         const extraFilterParams = {}
+         const cacheRange = this.splitStringAndConvertToArray(request.query.cacheRange)
+         const capacityRange = this.splitStringAndConvertToArray(request.query.capacityRange)
+         const rpmRange = this.splitStringAndConvertToArray(request.query.rpmRange)
+
+         const extraFilterParams = {
+            'details.cache': { $gte: cacheRange[0], $lte: cacheRange[1] },
+            'details.capacity': { $gte: capacityRange[0], $lte: capacityRange[1] },
+            'details.rpm': { $gte: rpmRange[0], $lte: rpmRange[1] },
+         }
          const { foundProduct, totalPages } = await this.returnProductModelWithPaginateInfo(
             request,
             extraFilterParams
@@ -38,5 +46,13 @@ export default class HDDProduct extends BaseProduct {
       } catch (error) {
          response.status(500).json({ errorMessage: error })
       }
+   }
+}
+
+type HDDQueryRequestType = QueryRequest & {
+   query: {
+      cacheRange: string
+      capacityRange: string
+      rpmRange: string
    }
 }

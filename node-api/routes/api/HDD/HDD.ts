@@ -8,3 +8,5 @@ const router = Router()
 
 router.get('/', hddProduct.getAllHDDProductController)
 router.get('/filter-data', hddProduct.getHDDFilterData)
+
+module.exports = router

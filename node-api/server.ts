@@ -30,3 +30,4 @@ app.use('/api/admin/memory', require('./routes/api/Admin/Memory/Memory'))
 app.use('/api/memory', require('./routes/api/Memory/Memory'))
 
 app.use('/api/admin/hdd', require('./routes/api/Admin/HDD/HDD'))
+app.use('/api/hdd', require('./routes/api/HDD/HDD'))
