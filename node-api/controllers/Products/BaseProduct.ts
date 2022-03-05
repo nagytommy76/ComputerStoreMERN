@@ -35,6 +35,41 @@ export default abstract class BaseProduct {
       totalPages = Math.ceil(foundProduct.length / perPage)
       return { foundProduct: pagedProducts, totalPages }
    }
+   returnProductModelWithPaginateInfoWithoutDetails = async (
+      request: QueryRequest,
+      extraFilerParameters: any = {}
+   ) => {
+      const currentPage = parseInt(request.query.currentPage) || 1
+      const perPage = parseInt(request.query.perPage) || 12
+      const orderBy = request.query.orderBy || 'asc'
+      const byManufacturer = request.query.byManufacturer == 'all' ? '' : request.query.byManufacturer
+      const priceRange = this.splitStringAndConvertToArray(request.query.priceRange)
+      let totalPages: number
+
+      const foundProduct: (BaseProductType & {
+         details: any
+      } & Document<any, any>)[] = await this.productModel
+         .find({
+            manufacturer: new RegExp(byManufacturer, 'i'),
+            price: { $gte: priceRange[0], $lte: priceRange[1] },
+            ...extraFilerParameters,
+         })
+         .select('price manufacturer type typeCode pictureUrls')
+         .sort({ price: orderBy })
+         .lean()
+
+      const startIndex = (currentPage - 1) * perPage
+      const endIndex = currentPage * perPage
+      const pagedProducts = foundProduct.slice(startIndex, endIndex)
+
+      totalPages = Math.ceil(foundProduct.length / perPage)
+      return { foundProduct: pagedProducts, totalPages }
+   }
+
+   returnProductDetails = async (productId: string) => {
+      const foundProductDetails = await this.productModel.findById(productId).select('details').lean()
+      return foundProductDetails
+   }
 
    baseFilterData = async (extraGroupParameters: any = {}) => {
       const filterDataGroup = await this.productModel.aggregate().group({
