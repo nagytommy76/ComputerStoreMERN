@@ -5,9 +5,26 @@ import { useLocation } from 'react-router-dom'
 const TableRow = React.lazy(() => import('../../BaseComponents/ProductDetailsPage/DetailTable/TableRow'))
 
 const HDDTable = () => {
-   const {
-      state: { details },
-   } = useLocation()
+   // const {
+   //    state: { details },
+   // } = useLocation()
+   const test = {
+      manufacturer: 'semmi',
+      price: 222,
+      type: 'sesfdsfs',
+      typeCode: '233223',
+      details: {
+         warranity: 32,
+         manufacturerPageUrl: 'dfsdhl',
+         description: 'sddasadsdas',
+         capacity: 'asdasas',
+         rpm: '3434',
+         cache: 'sdfdsds',
+         sataType: 3,
+         sizeInCol: '33',
+      },
+   }
+   const { details } = test
    return (
       <TableStyle>
          <tbody>

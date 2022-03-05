@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
+import axios from 'axios'
 import {
    DetailsPage,
    HeadSection,
@@ -12,7 +13,7 @@ import {
    BodySection,
    DescriptionStyle,
    ManufacturerUrlPage,
-   BottomStyle
+   BottomStyle,
 } from './DetailsStyle'
 import { useAppSelector } from '../../../../app/hooks'
 import { LocationType } from '../../BaseTypes'
@@ -26,10 +27,30 @@ const Rating = React.lazy(() => import('../../BaseComponents/ProductDetailsPage/
 const CartSnackbar = React.lazy(() => import('../CartSnackbar/CartSnackbar'))
 
 const ProductDetails: React.FC = ({ children }) => {
+   useEffect(() => {
+      handleAxiosRequest()
+   }, [])
    let location = useLocation()
-   const { manufacturer, price, type, typeCode, details } = location.state as LocationType
+   // const { manufacturer, price, type, typeCode, details } = location.state as LocationType
+   const test = {
+      manufacturer: 'semmi',
+      price: 222,
+      type: 'sesfdsfs',
+      typeCode: '233223',
+      details: {
+         warranity: 32,
+         manufacturerPageUrl: 'dfsdhl',
+         description: 'sddasadsdas',
+      },
+   }
+   const { manufacturer, price, type, typeCode, details } = test
 
-   const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
+   const handleAxiosRequest = async () => {
+      const foundProductDetails = await axios.get(`hdd/details?productId=6221070207d5ed2968c3b8b7`)
+      console.log(foundProductDetails)
+   }
+
+   const isDarkTheme = useAppSelector(state => state.theme.isDarkTheme)
 
    return (
       <DetailsPage>
@@ -60,7 +81,14 @@ const ProductDetails: React.FC = ({ children }) => {
          </HeadSection>
          <BodySection isDarkTheme={isDarkTheme}>
             <DescriptionStyle>
-               <TextField name='description' fullWidth multiline minRows={18} variant='outlined' value={details.description} />
+               <TextField
+                  name='description'
+                  fullWidth
+                  multiline
+                  minRows={18}
+                  variant='outlined'
+                  value={details.description}
+               />
             </DescriptionStyle>
             {children}
          </BodySection>
