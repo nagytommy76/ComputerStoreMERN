@@ -1,13 +1,26 @@
-import React from 'react'
-import axios, { AxiosResponse } from 'axios'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 
-const useGetDetails = async (productType: string, productId: string) => {
-   const foundProductsDetails = (await axios.get(`${productType}/details?${productId}`)) as {
-      description: string
-      manufacturerPageUrl: string
-      warranity: number
+const useGetDetails = (productType: string, productId: string) => {
+   const [foundDetails, setFoundDetails] = useState({
+      details: {},
+      _id: '',
+      pictureUrls: [''],
+      manufacturer: '',
+      price: 0,
+      type: '',
+      typeCode: '',
+   })
+   const handleRequest = async (productId: string) => {
+      const foundProductDetails = await axios.get(`${productType}/details?productId=${productId}`)
+      setFoundDetails(foundProductDetails.data.productDetails)
    }
-   return foundProductsDetails
+
+   useEffect(() => {
+      handleRequest(productId)
+   }, [])
+
+   return foundDetails
 }
 
 export default useGetDetails

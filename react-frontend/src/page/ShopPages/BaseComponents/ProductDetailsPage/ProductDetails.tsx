@@ -1,6 +1,4 @@
-import React, { useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
-import axios from 'axios'
+import React from 'react'
 import {
    DetailsPage,
    HeadSection,
@@ -16,7 +14,6 @@ import {
    BottomStyle,
 } from './DetailsStyle'
 import { useAppSelector } from '../../../../app/hooks'
-import { LocationType } from '../../BaseTypes'
 
 import TextField from '@mui/material/TextField'
 
@@ -26,44 +23,38 @@ const TopNavigation = React.lazy(() => import('./TopNavigation/TopNavigation'))
 const Rating = React.lazy(() => import('../../BaseComponents/ProductDetailsPage/Ratings/AddNew/Rating'))
 const CartSnackbar = React.lazy(() => import('../CartSnackbar/CartSnackbar'))
 
-const ProductDetails: React.FC = ({ children }) => {
-   useEffect(() => {
-      handleAxiosRequest()
-   }, [])
-   let location = useLocation()
-   // const { manufacturer, price, type, typeCode, details } = location.state as LocationType
-   const test = {
-      manufacturer: 'semmi',
-      price: 222,
-      type: 'sesfdsfs',
-      typeCode: '233223',
-      details: {
-         warranity: 32,
-         manufacturerPageUrl: 'dfsdhl',
-         description: 'sddasadsdas',
-      },
-   }
-   const { manufacturer, price, type, typeCode, details } = test
-
-   const handleAxiosRequest = async () => {
-      const foundProductDetails = await axios.get(`hdd/details?productId=6221070207d5ed2968c3b8b7`)
-      console.log(foundProductDetails)
-   }
-
+const ProductDetails: React.FC<{
+   details: any
+   _id: string
+   pictureUrls: string[]
+   manufacturer: string
+   price: number
+   type: string
+   typeCode: string
+   productType: string
+}> = ({ _id, details, pictureUrls, manufacturer, price, type, typeCode, productType, children }) => {
    const isDarkTheme = useAppSelector(state => state.theme.isDarkTheme)
 
    return (
       <DetailsPage>
          <TopNavigation />
          <HeadSection>
-            <ImageSlider />
+            <ImageSlider pictureUrls={pictureUrls} />
             <RightHeaderStyle isDarkTheme={isDarkTheme}>
                <TopHeaderTitle>
                   {manufacturer} {type} {typeCode}
                </TopHeaderTitle>
                <HorizontalLineStyle />
                <PriceAndCartStyle>
-                  <AddToCart />
+                  <AddToCart
+                     _id={_id}
+                     manufacturer={manufacturer}
+                     pictureUrls={pictureUrls}
+                     price={price}
+                     productType={productType}
+                     type={type}
+                     typeCode={typeCode}
+                  />
                   <StyledNumberFormat
                      renderText={(value: number, props: any) => <h1 {...props}>{value}</h1>}
                      value={price}
