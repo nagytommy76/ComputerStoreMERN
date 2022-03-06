@@ -18,7 +18,8 @@ const useGetDetails = (productType: string, productId: string) => {
 
    useEffect(() => {
       handleRequest(productId)
-   }, [])
+      // eslint-disable-next-line
+   }, [productId])
 
    return foundDetails
 }

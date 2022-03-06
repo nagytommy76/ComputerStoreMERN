@@ -1,5 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
+import DetailsContext from '../../Context/DetailsContext'
 import useGetDetails from '../../Hooks/useGetDetails'
 
 import DetailsSuspense from '../../../../SuspenseComponents/DetailsPage/DetailsSuspense'
@@ -13,18 +14,22 @@ const HDDDetails = () => {
 
    return (
       <React.Suspense fallback={<DetailsSuspense />}>
-         <ProductDetails
-            productType='hdd'
-            details={hddDetails.details}
-            _id={hddDetails._id}
-            pictureUrls={hddDetails.pictureUrls}
-            manufacturer={hddDetails.manufacturer}
-            price={hddDetails.price}
-            type={hddDetails.type}
-            typeCode={hddDetails.typeCode}
+         <DetailsContext.Provider
+            value={{
+               details: hddDetails.details,
+               productId: hddDetails._id,
+               manufacturer: hddDetails.manufacturer,
+               pictureUrls: hddDetails.pictureUrls,
+               price: hddDetails.price,
+               productType: 'hdd',
+               type: hddDetails.type,
+               typeCode: hddDetails.typeCode,
+            }}
          >
-            <HDDDetailsTable details={hddDetails.details} />
-         </ProductDetails>
+            <ProductDetails>
+               <HDDDetailsTable details={hddDetails.details} />
+            </ProductDetails>
+         </DetailsContext.Provider>
       </React.Suspense>
    )
 }

@@ -1,13 +1,9 @@
 import React from 'react'
 import { TableStyle } from '../../BaseComponents/ProductDetailsPage/DetailTable/TableStyle'
-import { useLocation } from 'react-router-dom'
 
 const TableRow = React.lazy(() => import('../../BaseComponents/ProductDetailsPage/DetailTable/TableRow'))
 
-const VgaDetailTable: React.FC = () => {
-   const {
-      state: { details }
-   } = useLocation()
+const VgaDetailTable: React.FC<{ details: any }> = ({ details }) => {
    return (
       <TableStyle>
          <tbody>

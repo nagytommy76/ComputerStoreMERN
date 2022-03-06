@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
    DetailsPage,
    HeadSection,
@@ -16,6 +16,7 @@ import {
 import { useAppSelector } from '../../../../app/hooks'
 
 import TextField from '@mui/material/TextField'
+import DetailsContext from '../../Context/DetailsContext'
 
 const AddToCart = React.lazy(() => import('./AddToCart/AddToCart'))
 const ImageSlider = React.lazy(() => import('./ImageSlider/ImageSlider'))
@@ -23,38 +24,21 @@ const TopNavigation = React.lazy(() => import('./TopNavigation/TopNavigation'))
 const Rating = React.lazy(() => import('../../BaseComponents/ProductDetailsPage/Ratings/AddNew/Rating'))
 const CartSnackbar = React.lazy(() => import('../CartSnackbar/CartSnackbar'))
 
-const ProductDetails: React.FC<{
-   details: any
-   _id: string
-   pictureUrls: string[]
-   manufacturer: string
-   price: number
-   type: string
-   typeCode: string
-   productType: string
-}> = ({ _id, details, pictureUrls, manufacturer, price, type, typeCode, productType, children }) => {
+const ProductDetails: React.FC = ({ children }) => {
    const isDarkTheme = useAppSelector(state => state.theme.isDarkTheme)
-
+   const { manufacturer, type, typeCode, details, price } = useContext(DetailsContext)
    return (
       <DetailsPage>
          <TopNavigation />
          <HeadSection>
-            <ImageSlider pictureUrls={pictureUrls} />
+            <ImageSlider />
             <RightHeaderStyle isDarkTheme={isDarkTheme}>
                <TopHeaderTitle>
                   {manufacturer} {type} {typeCode}
                </TopHeaderTitle>
                <HorizontalLineStyle />
                <PriceAndCartStyle>
-                  <AddToCart
-                     _id={_id}
-                     manufacturer={manufacturer}
-                     pictureUrls={pictureUrls}
-                     price={price}
-                     productType={productType}
-                     type={type}
-                     typeCode={typeCode}
-                  />
+                  <AddToCart />
                   <StyledNumberFormat
                      renderText={(value: number, props: any) => <h1 {...props}>{value}</h1>}
                      value={price}

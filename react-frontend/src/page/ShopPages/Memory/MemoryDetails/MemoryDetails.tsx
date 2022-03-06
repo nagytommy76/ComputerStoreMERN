@@ -1,5 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
+import DetailsContext from '../../Context/DetailsContext'
 import useGetDetails from '../../Hooks/useGetDetails'
 import DetailsSuspense from '../../../../SuspenseComponents/DetailsPage/DetailsSuspense'
 
@@ -12,18 +13,22 @@ const MemoryDetails = () => {
    const memoryDetails = useGetDetails('memory', params.productId)
    return (
       <React.Suspense fallback={<DetailsSuspense />}>
-         <ProductDetails
-            details={memoryDetails.details}
-            _id={memoryDetails._id}
-            productType='memory'
-            pictureUrls={memoryDetails.pictureUrls}
-            manufacturer={memoryDetails.manufacturer}
-            price={memoryDetails.price}
-            type={memoryDetails.type}
-            typeCode={memoryDetails.typeCode}
+         <DetailsContext.Provider
+            value={{
+               details: memoryDetails.details,
+               productId: memoryDetails._id,
+               manufacturer: memoryDetails.manufacturer,
+               pictureUrls: memoryDetails.pictureUrls,
+               price: memoryDetails.price,
+               productType: 'memory',
+               type: memoryDetails.type,
+               typeCode: memoryDetails.typeCode,
+            }}
          >
-            <MemoryTable details={memoryDetails.details} />
-         </ProductDetails>
+            <ProductDetails>
+               <MemoryTable details={memoryDetails.details} />
+            </ProductDetails>
+         </DetailsContext.Provider>
       </React.Suspense>
    )
 }

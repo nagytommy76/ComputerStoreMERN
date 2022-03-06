@@ -1,12 +1,14 @@
-import React, { useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 
 import Slide from '@mui/material/Slide'
 import { StyledSlideSection, StyledImageContainer, StyledImage } from './SliderStyle'
+import DetailsContext from '../../../Context/DetailsContext'
 
 const RightArrow = React.lazy(() => import('./RightArrow'))
 const LeftArrow = React.lazy(() => import('./LeftArrow'))
 
-const ImageSlider: React.FC<{ pictureUrls: string[] }> = ({ pictureUrls }) => {
+const ImageSlider: React.FC = () => {
+   const { pictureUrls } = useContext(DetailsContext)
    const [currentPic, setCurrentPic] = useState<number>(0)
    const [direction, setDirection] = useState<'left' | 'up' | 'down' | 'right'>('right')
    const [isSlide, setIsSlide] = useState<boolean>(true)
@@ -39,8 +41,16 @@ const ImageSlider: React.FC<{ pictureUrls: string[] }> = ({ pictureUrls }) => {
    return (
       <StyledSlideSection>
          <StyledImageContainer ref={NodeRef}>
-            <RightArrow nextImage={nextImage} currentPic={currentPic} />
-            <LeftArrow previousImage={previousImage} currentPic={currentPic} />
+            <RightArrow
+               pictureUrlsLength={pictureUrls.length}
+               nextImage={nextImage}
+               currentPic={currentPic}
+            />
+            <LeftArrow
+               pictureUrlsLength={pictureUrls.length}
+               previousImage={previousImage}
+               currentPic={currentPic}
+            />
             <Slide direction={direction} in={isSlide} container={NodeRef.current}>
                <div>
                   <a href={pictureUrls[currentPic]} target='_blank' rel='noreferrer'>

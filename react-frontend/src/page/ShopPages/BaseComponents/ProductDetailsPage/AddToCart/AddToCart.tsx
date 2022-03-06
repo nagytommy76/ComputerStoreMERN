@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { sendCartItemToSaveInDB } from '../../../../../app/slices/CartSlice'
 import { useAppDispatch } from '../../../../../app/hooks'
 
@@ -10,23 +10,18 @@ import {
    InputAndLabelContainer,
    StyledLabel,
 } from './CartStyle'
+import DetailsContext from '../../../Context/DetailsContext'
 
-const AddToCart: React.FC<{
-   _id: string
-   manufacturer: string
-   type: string
-   typeCode: string
-   price: number
-   pictureUrls: string[]
-   productType: string
-}> = ({ _id, manufacturer, pictureUrls, price, productType, type, typeCode }) => {
+const AddToCart: React.FC = () => {
    const dispatch = useAppDispatch()
+   const { productId, manufacturer, pictureUrls, price, productType, type, typeCode } =
+      useContext(DetailsContext)
    const [quantity, setQuantity] = useState<string>('1')
 
    const addItemToCart = () => {
       dispatch(
          sendCartItemToSaveInDB({
-            _id,
+            _id: productId,
             productType,
             displayName: `${manufacturer} ${type} ${typeCode}`,
             displayImage: pictureUrls[0],
