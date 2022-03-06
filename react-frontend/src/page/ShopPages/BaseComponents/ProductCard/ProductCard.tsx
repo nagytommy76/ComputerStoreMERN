@@ -1,5 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
-import { ProductContext } from '../../Context/ShopContext'
+import React, { useState, useEffect } from 'react'
 import { useAppSelector } from '../../../../app/hooks'
 
 import NumberFormat from 'react-number-format'
@@ -15,7 +14,8 @@ const RatingCount = React.lazy(() => import('./Ratings/RatingCount'))
 const CardFooter = React.lazy(() => import('./CardFooter'))
 
 const ProductCard: React.FC<ProductCardType> = ({
-   details,
+   _id,
+   price,
    type,
    typeCode,
    manufacturer,
@@ -23,29 +23,16 @@ const ProductCard: React.FC<ProductCardType> = ({
    pathNameForDetailsURL,
    ratingCount,
 }) => {
+   const navigate = useNavigate()
    const [isCardExpanded, setIsCardExpanded] = useState<boolean>(true)
    const isMobile = useAppSelector(state => state.mobile.isMobile)
-
-   const navigate = useNavigate()
-   const { _id, productName, price } = useContext(ProductContext)
 
    useEffect(() => {
       if (!isMobile) setIsCardExpanded(false)
    }, [isMobile])
 
    const routeToDetailsPage = () => {
-      navigate(`/${pathNameForDetailsURL}/${pathNameForDetailsURL}-details`, {
-         state: {
-            _id,
-            details,
-            pictureUrls,
-            type,
-            manufacturer,
-            price,
-            typeCode,
-            productType: pathNameForDetailsURL,
-         },
-      })
+      navigate(`/${pathNameForDetailsURL}/${pathNameForDetailsURL}-details/${_id}`)
    }
 
    return (
@@ -65,14 +52,25 @@ const ProductCard: React.FC<ProductCardType> = ({
             alt='picture'
          />
          <CardContent sx={{ cursor: 'pointer' }} onClick={routeToDetailsPage}>
-            <SubTitleStyle>{productName}</SubTitleStyle>
+            <SubTitleStyle>
+               {manufacturer} {type} {typeCode}
+            </SubTitleStyle>
             <Typography variant='h5' color='primary'>
                <NumberFormat value={price} thousandSeparator=' ' suffix=' Ft' displayType='text' />
             </Typography>
          </CardContent>
          <Fade mountOnEnter unmountOnExit timeout={100} appear={isCardExpanded} in={isCardExpanded}>
             <div>
-               <CardFooter pathNameForDetailsURL={pathNameForDetailsURL} />
+               <CardFooter
+                  toSaveCartItems={{
+                     _id,
+                     displayImage: pictureUrls[0],
+                     displayName: `${manufacturer} ${type} ${typeCode}`,
+                     itemQuantity: 1,
+                     price,
+                     productType: pathNameForDetailsURL,
+                  }}
+               />
             </div>
          </Fade>
       </CustomCard>
@@ -80,15 +78,13 @@ const ProductCard: React.FC<ProductCardType> = ({
 }
 
 type ProductCardType = {
-   _id?: string
-   itemNumber?: string
+   _id: string
    manufacturer: string
    pictureUrls: string[]
    price: number
    type: string
    typeCode?: string
    ratingCount?: number
-   details: any
    pathNameForDetailsURL: string
 }
 
