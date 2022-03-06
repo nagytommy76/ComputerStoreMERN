@@ -21,7 +21,7 @@ const CpuDetails = () => {
                manufacturer: cpuDetails.manufacturer,
                pictureUrls: cpuDetails.pictureUrls,
                price: cpuDetails.price,
-               productType: 'hdd',
+               productType: 'cpu',
                type: cpuDetails.type,
                typeCode: cpuDetails.typeCode,
             }}
