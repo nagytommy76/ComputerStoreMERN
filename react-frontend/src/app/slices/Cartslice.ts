@@ -89,34 +89,33 @@ export const {
 
 export default CartSlice.reducer
 
-export const sendCartItemToSaveInDB =
-   (payload: IncomingTypes, productType: string) => (dispatch: Dispatch, getState: any) => {
-      dispatch(
-         handleSnackbarOpen({
-            isOpen: true,
-            text: `A(z) ${payload.displayName} termék sikeresen hozááadva a kosárhoz!`,
+export const sendCartItemToSaveInDB = (payload: IncomingTypes) => (dispatch: Dispatch, getState: any) => {
+   dispatch(
+      handleSnackbarOpen({
+         isOpen: true,
+         text: `A(z) ${payload.displayName} termék sikeresen hozááadva a kosárhoz!`,
+      })
+   )
+   dispatch(addToCart(payload))
+   const {
+      auth: { userLoggedIn },
+      cart: { cartItems },
+   } = getState() as RootState
+   if (userLoggedIn) {
+      // Ez már a kosárba helyezés utáni állapot =
+      const totalQuantityOfAProduct = checkProductExistsInTheCart(payload._id, cartItems)?.quantity
+      axios
+         .post('/cart/add-items', {
+            _id: payload._id,
+            quantity: totalQuantityOfAProduct,
+            productType: payload.productType,
+            displayImage: payload.displayImage,
+            displayName: payload.displayName,
+            price: payload.price,
          })
-      )
-      dispatch(addToCart(payload))
-      const {
-         auth: { userLoggedIn },
-         cart: { cartItems },
-      } = getState() as RootState
-      if (userLoggedIn) {
-         // Ez már a kosárba helyezés utáni állapot =
-         const totalQuantityOfAProduct = checkProductExistsInTheCart(payload._id, cartItems)?.quantity
-         axios
-            .post('/cart/add-items', {
-               _id: payload._id,
-               quantity: totalQuantityOfAProduct,
-               productType: payload.productType,
-               displayImage: payload.displayImage,
-               displayName: payload.displayName,
-               price: payload.price,
-            })
-            .catch(error => console.log(error.message))
-      }
+         .catch(error => console.log(error.message))
    }
+}
 
 export const fillDBWithCartItemsAfterLogin = () => async (dispatch: Dispatch, getState: any) => {
    const cartItems = getState().cart.cartItems

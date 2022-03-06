@@ -1,26 +1,26 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { useAppDispatch } from '../../../../app/hooks'
 import { sendCartItemToSaveInDB } from '../../../../app/slices/CartSlice'
-import { ProductContext } from '../../Context/ShopContext'
 
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import { CardFooterStyle } from './CardStyle'
 import { CardActions, Button } from '@mui/material'
 
 type Props = {
-   pathNameForDetailsURL: string
+   toSaveCartItems: {
+      _id: string
+      displayName: string
+      price: number
+      itemQuantity: number
+      displayImage: string
+      productType: string
+   }
 }
 
-const CardFooter: React.FC<Props> = ({ pathNameForDetailsURL }) => {
+const CardFooter: React.FC<Props> = ({ toSaveCartItems }) => {
    const dispatch = useAppDispatch()
-   const { _id, productName, price, displayImage, productType } = useContext(ProductContext)
    const addItemToCart = () => {
-      dispatch(
-         sendCartItemToSaveInDB(
-            { _id, displayName: productName, price, itemQuantity: 1, displayImage, productType },
-            `${pathNameForDetailsURL}product`
-         )
-      )
+      dispatch(sendCartItemToSaveInDB(toSaveCartItems))
    }
    return (
       <CardFooterStyle>

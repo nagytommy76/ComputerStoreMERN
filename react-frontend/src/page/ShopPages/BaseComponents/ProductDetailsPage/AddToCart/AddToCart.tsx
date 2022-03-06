@@ -22,17 +22,14 @@ const AddToCart = () => {
    const { _id, manufacturer, type, typeCode, price, pictureUrls, productType } = state
    const addItemToCart = () => {
       dispatch(
-         sendCartItemToSaveInDB(
-            {
-               _id,
-               productType,
-               displayName: `${manufacturer} ${type} ${typeCode}`,
-               displayImage: pictureUrls[0],
-               price,
-               itemQuantity: parseInt(quantity),
-            },
-            'vgaproduct'
-         )
+         sendCartItemToSaveInDB({
+            _id,
+            productType,
+            displayName: `${manufacturer} ${type} ${typeCode}`,
+            displayImage: pictureUrls[0],
+            price,
+            itemQuantity: parseInt(quantity),
+         })
       )
       setQuantity('1')
    }
