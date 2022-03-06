@@ -33,10 +33,10 @@ const Routes = () => {
       <ScrollToTop>
          <RoutesDOM>
             <Route path='/' element={<Welcome />} />
-            <Route path='/vga/vga-details' element={<VgaDetails />} />
-            <Route path='/cpu/cpu-details' element={<CpuDetails />} />
-            <Route path='/memory/memory-details' element={<MemoryDetails />} />
-            <Route path='/hdd/hdd-details' element={<HDDDetails />} />
+            <Route path='/vga/vga-details/:productId' element={<VgaDetails />} />
+            <Route path='/cpu/cpu-details/:productId' element={<CpuDetails />} />
+            <Route path='/memory/memory-details/:productId' element={<MemoryDetails />} />
+            <Route path='/hdd/hdd-details/:productId' element={<HDDDetails />} />
             <Route path='/vga' element={<VgaProducts />} />
             <Route path='/cpu' element={<CpuProducts />} />
             <Route path='/memory' element={<MemoryProducts />} />
