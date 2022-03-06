@@ -20,6 +20,7 @@ const router = express.Router()
 
 router.get('/', vgaProduct.getAllVgaItemController)
 router.get('/filter-data', vgaProduct.getFilterData)
+router.get('/details', vgaProduct.getVgaDetailsController)
 
 // Ratings
 router.get('/get-vga-rates', getVgaRatingSummaryController)

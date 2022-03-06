@@ -10,3 +10,9 @@ export type QueryRequest = Request & {
       priceRange: string
    }
 }
+
+export type DetailsQueryRequestType = {
+   query: {
+      productId: string
+   }
+}

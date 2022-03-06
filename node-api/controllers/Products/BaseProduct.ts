@@ -54,7 +54,7 @@ export default abstract class BaseProduct {
             price: { $gte: priceRange[0], $lte: priceRange[1] },
             ...extraFilerParameters,
          })
-         .select('price manufacturer type typeCode pictureUrls')
+         .select('price manufacturer type typeCode pictureUrls ratingValues')
          .sort({ price: orderBy })
          .lean()
 
@@ -67,7 +67,10 @@ export default abstract class BaseProduct {
    }
 
    returnProductDetails = async (productId: string) => {
-      const foundProductDetails = await this.productModel.findById(productId).select('details').lean()
+      const foundProductDetails = await this.productModel
+         .findById(productId)
+         .select('type typeCode pictureUrls price manufacturer details')
+         .lean()
       return foundProductDetails
    }
 

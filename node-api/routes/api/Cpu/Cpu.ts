@@ -8,13 +8,17 @@ import {
    removeUsersRatingInCpu,
 } from '../../../controllers/Products/Cpu/CpuRating'
 import { authenticateAccessToken } from '../../../middlewares/AuthenticateAccessOrRefreshTokens'
-import { saveCpuAnswerController, removeSingleCpuCommentAnswer } from '../../../controllers/Products/Cpu/CpuRatingResponse'
+import {
+   saveCpuAnswerController,
+   removeSingleCpuCommentAnswer,
+} from '../../../controllers/Products/Cpu/CpuRatingResponse'
 
 const router = express.Router()
 const cpuProduct = new CpuProduct()
 
 router.get('/', cpuProduct.getAllCpuItemController)
 router.get('/filter-data', cpuProduct.getCpuFilterData)
+router.get('/details', cpuProduct.getCpuDetailsController)
 
 // Ratings
 router.get('/get-cpu-rates', getCpuRatingSummaryController)

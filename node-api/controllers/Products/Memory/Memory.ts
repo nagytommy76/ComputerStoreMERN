@@ -1,6 +1,6 @@
 import { Response } from 'express'
 import BaseProduct from '../BaseProduct'
-import { QueryRequest } from '../Helper'
+import { DetailsQueryRequestType, QueryRequest } from '../Helper'
 import { MemoryProduct as MemoryModel } from '../../../models/Products/Memory/Memory'
 
 export default class MemoryProduct extends BaseProduct {
@@ -23,7 +23,7 @@ export default class MemoryProduct extends BaseProduct {
             'details.latency': { $gte: selectedLatencyRange[0], $lte: selectedLatencyRange[1] },
             'details.memoryType': new RegExp(memoryType, 'i'),
          }
-         const { foundProduct, totalPages } = await this.returnProductModelWithPaginateInfo(
+         const { foundProduct, totalPages } = await this.returnProductModelWithPaginateInfoWithoutDetails(
             request,
             extraFilterParameters
          )
@@ -33,6 +33,15 @@ export default class MemoryProduct extends BaseProduct {
          })
       } catch (error) {
          response.status(500).json(error)
+      }
+   }
+
+   getMemoryDetailsController = async (request: DetailsQueryRequestType, response: Response) => {
+      try {
+         const foundDetails = await this.returnProductDetails(request.query.productId)
+         response.status(200).json({ productDetails: foundDetails })
+      } catch (error) {
+         response.status(500).json({ errorMessage: error })
       }
    }
 

@@ -1,7 +1,7 @@
 import { Response } from 'express'
 import { VgaProduct as VgaProductModel } from '../../../models/Products/Vga/VgaProduct'
 import BaseProduct from '../BaseProduct'
-import { QueryRequest } from '../Helper'
+import { DetailsQueryRequestType, QueryRequest } from '../Helper'
 
 export default class VgaProduct extends BaseProduct {
    constructor() {
@@ -44,7 +44,7 @@ export default class VgaProduct extends BaseProduct {
             'details.vramType': new RegExp(selectedVramType, 'i'),
          }
 
-         const { foundProduct, totalPages } = await this.returnProductModelWithPaginateInfo(
+         const { foundProduct, totalPages } = await this.returnProductModelWithPaginateInfoWithoutDetails(
             req,
             extraQueryParams
          )
@@ -54,6 +54,15 @@ export default class VgaProduct extends BaseProduct {
          })
       } catch (error) {
          return res.status(500).json(error)
+      }
+   }
+
+   getVgaDetailsController = async (request: DetailsQueryRequestType, response: Response) => {
+      try {
+         const foundDetails = await this.returnProductDetails(request.query.productId)
+         response.status(200).json({ productDetails: foundDetails })
+      } catch (error) {
+         response.status(500).json({ errorMessage: error })
       }
    }
 

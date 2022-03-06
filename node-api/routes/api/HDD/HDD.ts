@@ -8,7 +8,6 @@ const router = Router()
 
 router.get('/', hddProduct.getAllHDDProductController)
 router.get('/filter-data', hddProduct.getHDDFilterData)
-
 router.get('/details', hddProduct.getHDDDetailsController)
 
 module.exports = router

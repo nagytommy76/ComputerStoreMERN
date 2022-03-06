@@ -18,6 +18,7 @@ const memoryProduct = new MemoryProduct()
 
 router.get('/', memoryProduct.getAllMemoryProductController)
 router.get('/filter-data', memoryProduct.getMemoryFilterData)
+router.get('/details', memoryProduct.getMemoryDetailsController)
 
 // Ratings
 router.get('/get-memory-rates', getMemoryRatingSummaryController)

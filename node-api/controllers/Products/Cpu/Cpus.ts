@@ -1,6 +1,6 @@
 import { Response } from 'express'
 import { CpuProduct as CpuProductModel } from '../../../models/Products/Cpu/CpuSchema'
-import { QueryRequest } from '../Helper'
+import { DetailsQueryRequestType, QueryRequest } from '../Helper'
 import BaseProduct from '../BaseProduct'
 
 export default class CpuProduct extends BaseProduct {
@@ -37,7 +37,7 @@ export default class CpuProduct extends BaseProduct {
             'details.l3Cache': { $gte: l3Range[0], $lte: l3Range[1] },
             'details.TDP': { $gte: tdp[0], $lte: tdp[1] },
          }
-         const { foundProduct, totalPages } = await this.returnProductModelWithPaginateInfo(
+         const { foundProduct, totalPages } = await this.returnProductModelWithPaginateInfoWithoutDetails(
             req,
             extraQueryParams
          )
@@ -47,6 +47,15 @@ export default class CpuProduct extends BaseProduct {
          })
       } catch (error) {
          res.status(500).json(error)
+      }
+   }
+
+   getCpuDetailsController = async (request: DetailsQueryRequestType, response: Response) => {
+      try {
+         const foundDetails = await this.returnProductDetails(request.query.productId)
+         response.status(200).json({ productDetails: foundDetails })
+      } catch (error) {
+         response.status(500).json({ errorMessage: error })
       }
    }
 

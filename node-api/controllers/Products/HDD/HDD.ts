@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import BaseProduct from '../BaseProduct'
 import { HddProduct as HDDModel } from '../../../models/Products/HDD/Hdd'
-import { QueryRequest } from '../Helper'
+import { DetailsQueryRequestType, QueryRequest } from '../Helper'
 
 export default class HDDProduct extends BaseProduct {
    constructor() {
@@ -18,10 +18,6 @@ export default class HDDProduct extends BaseProduct {
             'details.capacity': { $gte: capacityRange[0], $lte: capacityRange[1] },
             'details.rpm': { $gte: rpmRange[0], $lte: rpmRange[1] },
          }
-         // const { foundProduct, totalPages } = await this.returnProductModelWithPaginateInfo(
-         //    request,
-         //    extraFilterParams
-         // )
          const { foundProduct, totalPages } = await this.returnProductModelWithPaginateInfoWithoutDetails(
             request,
             extraFilterParams
@@ -38,7 +34,7 @@ export default class HDDProduct extends BaseProduct {
    getHDDDetailsController = async (request: DetailsQueryRequestType, response: Response) => {
       try {
          const foundDetails = await this.returnProductDetails(request.query.productId)
-         response.status(200).json({ productDetails: foundDetails.details })
+         response.status(200).json({ productDetails: foundDetails })
       } catch (error) {
          response.status(500).json({ errorMessage: error })
       }
@@ -67,11 +63,5 @@ type HDDQueryRequestType = QueryRequest & {
       cacheRange: string
       capacityRange: string
       rpmRange: string
-   }
-}
-
-type DetailsQueryRequestType = {
-   query: {
-      productId: string
    }
 }
