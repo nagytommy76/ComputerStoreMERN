@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
 import axios from 'axios'
-import { useLocation } from 'react-router-dom'
-import { LocationType } from '../../../../BaseTypes'
+
 import { RatingContext } from '../RatingContext'
+import DetailsContext from '../../../../Context/DetailsContext'
 import { formatRatedAtToDateType, RateState } from './Helpers'
 
 const Delete = React.lazy(() => import('./Includes/DeleteIcon'))
@@ -12,27 +12,27 @@ const DeleteSection: React.FC<{
    commentId: string
    setComments: React.Dispatch<React.SetStateAction<RateState[]>>
 }> = ({ commentsUserName, commentId, setComments }) => {
-   const location = useLocation()
-   const { _id, productType } = location.state as LocationType
-
+   const { productType, productId } = useContext(DetailsContext)
    const { setCommentDeletedRequest } = useContext(RatingContext)
 
    const handleCommentDelete = async () => {
       try {
          const response = await axios.delete(`/${productType}/${productType}-comment-remove`, {
-            data: { commentIdToDelete: commentId, productId: _id }
+            data: { commentIdToDelete: commentId, productId },
          })
          if (response.status === 200) {
             const ratedAtFormattedToDate = formatRatedAtToDateType(response.data.foundCpuProduct.ratingValues)
             setComments(ratedAtFormattedToDate)
-            setCommentDeletedRequest((prevValue) => !prevValue)
+            setCommentDeletedRequest(prevValue => !prevValue)
          }
       } catch (error) {
          console.log(error)
       }
    }
 
-   return <Delete deleteText='Komment' handleDelete={handleCommentDelete} incomingUserName={commentsUserName} />
+   return (
+      <Delete deleteText='Komment' handleDelete={handleCommentDelete} incomingUserName={commentsUserName} />
+   )
 }
 
 export default DeleteSection

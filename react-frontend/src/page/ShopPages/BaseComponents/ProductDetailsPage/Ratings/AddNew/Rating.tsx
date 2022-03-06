@@ -1,11 +1,9 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import axios, { AxiosError } from 'axios'
 
 import { useAppSelector } from '../../../../../../app/hooks'
 import { RatingContext } from '../RatingContext'
-
-import { useLocation } from 'react-router-dom'
-import { LocationType } from '../../../../BaseTypes'
+import DetailsContext from '../../../../Context/DetailsContext'
 
 import { RatingContainer, StyledButton, LeftContent, RightContent, CustomCardContent } from './RatingStyle'
 import { Rating as RatingMU, Typography, TextField, Alert, Grow, Card } from '@mui/material'
@@ -14,15 +12,17 @@ import RatingSuspense from '../../../../../../SuspenseComponents/DetailsPage/Rat
 const RatingSummary = React.lazy(() => import('../Summary/Summary'))
 const Comments = React.lazy(() => import('../Comments/Comments'))
 
-const Rating = () => {
-   const location = useLocation()
-   const { _id, productType } = location.state as LocationType
+const Rating: React.FC = () => {
+   const { productId, productType } = useContext(DetailsContext)
 
-   const userName = useAppSelector((state) => state.auth.userName)
-   const isUserLoggedIn = useAppSelector((state) => state.auth.userLoggedIn)
+   const userName = useAppSelector(state => state.auth.userName)
+   const isUserLoggedIn = useAppSelector(state => state.auth.userLoggedIn)
    const [rating, setRating] = useState<number | null>(4)
    const [comment, setComment] = useState<string>('')
-   const [hasError, setHasError] = useState<{ isError: boolean; message: string }>({ isError: false, message: '' })
+   const [hasError, setHasError] = useState<{ isError: boolean; message: string }>({
+      isError: false,
+      message: '',
+   })
    const [commentRequestSend, setCommentRequestSend] = useState<boolean>(false)
    const [commentDeletedRequest, setCommentDeletedRequest] = useState<boolean>(false)
 
@@ -38,20 +38,23 @@ const Rating = () => {
       else {
          axios
             .post(`/${productType}/rate-${productType}`, {
-               _id,
+               productId,
                rating,
                comment,
-               userName
+               userName,
             })
-            .then((result) => {
+            .then(result => {
                if (result.status === 201) {
-                  setCommentRequestSend((prevValue) => !prevValue)
+                  setCommentRequestSend(prevValue => !prevValue)
                   setDefaultValues()
                }
             })
             .catch((error: AxiosError) => {
                if (error.response?.status === 422)
-                  setHasError({ isError: true, message: 'Már értékelted a terméket! Kérlek töröld és értékeld újra!' })
+                  setHasError({
+                     isError: true,
+                     message: 'Már értékelted a terméket! Kérlek töröld és értékeld újra!',
+                  })
             })
       }
    }
@@ -62,8 +65,9 @@ const Rating = () => {
                commentDeletedRequest,
                setCommentDeletedRequest,
                commentRequestSend,
-               setCommentRequestSend
-            }}>
+               setCommentRequestSend,
+            }}
+         >
             <RatingContainer>
                <Card>
                   <CustomCardContent>
@@ -77,7 +81,8 @@ const Rating = () => {
                            value={rating}
                            onChange={(event, newValue) => {
                               setRating(newValue)
-                              if (newValue === null) setHasError({ isError: true, message: 'Kötelező értékelést adni!' })
+                              if (newValue === null)
+                                 setHasError({ isError: true, message: 'Kötelező értékelést adni!' })
                               else setHasError({ isError: false, message: '' })
                            }}
                         />
@@ -90,7 +95,9 @@ const Rating = () => {
                            multiline
                            rows={7}
                            value={comment}
-                           onChange={(event: React.ChangeEvent<HTMLInputElement>) => setComment(event.target.value)}
+                           onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                              setComment(event.target.value)
+                           }
                         />
                         <StyledButton onClick={sendRating} color='success' variant='outlined' size='large'>
                            Értékelés Leadása

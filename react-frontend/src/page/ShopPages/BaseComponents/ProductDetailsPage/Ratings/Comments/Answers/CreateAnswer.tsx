@@ -1,24 +1,22 @@
 import React, { useState, useContext } from 'react'
 import axios from 'axios'
 
+import { AnswerContext } from '../Context/AnswerContext'
+import DetailsContext from '../../../../../Context/DetailsContext'
+
 import TextField from '@mui/material/TextField'
 import SendIcon from '@mui/icons-material/Send'
 import LoadingButton from '@mui/lab/LoadingButton'
 import Button from '@mui/material/Button'
 import Alert from '@mui/material/Alert'
 import Slide from '@mui/material/Slide'
-
 import { AnswerContainer, ButtonAlertContainer } from './AnswerStyle'
-import { useLocation } from 'react-router-dom'
-import { LocationType } from '../../../../../BaseTypes'
-import { AnswerContext } from '../Context/AnswerContext'
 
 const CreateAnswer: React.FC<{
    userName: string
    commentId: string
 }> = ({ userName, commentId }) => {
-   const location = useLocation()
-   const { _id, productType } = location.state as LocationType
+   const { productId, productType } = useContext(DetailsContext)
 
    const { setCommentAnswer } = useContext(AnswerContext)
 
@@ -34,7 +32,7 @@ const CreateAnswer: React.FC<{
       setIsAlert({
          isAlertActive: false,
          message: '',
-         severity: 'success'
+         severity: 'success',
       })
    }
 
@@ -51,8 +49,8 @@ const CreateAnswer: React.FC<{
          } else {
             const response = await axios.post(`/${productType}/save-${productType}-answer`, {
                answer: answerText,
-               productId: _id,
-               commentId
+               productId,
+               commentId,
             })
             if (response.status === 201) {
                setIsLoading(false)
@@ -87,7 +85,8 @@ const CreateAnswer: React.FC<{
                sx={{ width: '190px' }}
                onClick={handleAnswerSend}
                color='warning'
-               variant='outlined'>
+               variant='outlined'
+            >
                Válasz küldése
             </LoadingButton>
             <Slide direction='left' in={isAlert.isAlertActive}>
@@ -98,7 +97,8 @@ const CreateAnswer: React.FC<{
                      </Button>
                   }
                   severity={isAlert.severity}
-                  variant='standard'>
+                  variant='standard'
+               >
                   {isAlert.message}
                </Alert>
             </Slide>

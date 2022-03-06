@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import axios, { AxiosError } from 'axios'
 import { useAppSelector } from '../../../../../../app/hooks'
 
-import { useLocation } from 'react-router-dom'
-import { LocationType } from '../../../../BaseTypes'
+import DetailsContext from '../../../../Context/DetailsContext'
 
 import { ThumbsContainer, CustomThumbDown, CustomThumbUp, ThumbIconsContainer } from './CommentStyle'
 import { Tooltip, ClickAwayListener } from '@mui/material'
@@ -15,11 +14,10 @@ const Likes: React.FC<{
    setIsAnswerOpen: React.Dispatch<React.SetStateAction<boolean>>
    commentUserId: string
 }> = ({ commentUserId, commentId, responses, setIsAnswerOpen }) => {
-   const location = useLocation()
-   const { _id, productType } = location.state as LocationType
+   const { productType, productId } = useContext(DetailsContext)
 
-   const isUserLoggedIn = useAppSelector((state) => state.auth.userLoggedIn)
-   const userId = useAppSelector((state) => state.auth.userId)
+   const isUserLoggedIn = useAppSelector(state => state.auth.userLoggedIn)
+   const userId = useAppSelector(state => state.auth.userId)
 
    const [isOpen, setIsOpen] = useState<boolean>(false)
    const [tooltipText, setTooltipText] = useState<string>('')
@@ -27,7 +25,7 @@ const Likes: React.FC<{
       like: 0,
       dislike: 0,
       usersLike: false,
-      usersDislike: false
+      usersDislike: false,
    })
 
    const countLikesAndDislikes = (incomingResponses: ResponsesType[]) => {
@@ -35,7 +33,7 @@ const Likes: React.FC<{
          dislikeCount = 0,
          usersLike = false,
          usersDislike = false
-      incomingResponses.map((likes) => {
+      incomingResponses.map(likes => {
          if (likes.isLike) {
             if (userId === likes.userId) usersLike = true
             return (likeCount += 1)
@@ -58,8 +56,8 @@ const Likes: React.FC<{
          setTooltipText('Kérlek jelentkezz be a likeoláshoz!')
       } else {
          axios
-            .post(`/${productType}/${productType}-comment-like`, { isLike, productId: _id, commentId })
-            .then((result) => {
+            .post(`/${productType}/${productType}-comment-like`, { isLike, productId, commentId })
+            .then(result => {
                if (result.status === 201) {
                   countLikesAndDislikes(result.data.responses)
                }
@@ -73,7 +71,7 @@ const Likes: React.FC<{
       }
    }
 
-   const handleAnswerOpen = () => setIsAnswerOpen((prevValue) => !prevValue)
+   const handleAnswerOpen = () => setIsAnswerOpen(prevValue => !prevValue)
 
    const isUsersComment = () => isUserLoggedIn && commentUserId !== userId
 
@@ -85,10 +83,14 @@ const Likes: React.FC<{
             onClose={() => setIsOpen(false)}
             disableFocusListener
             disableHoverListener
-            disableTouchListener>
+            disableTouchListener
+         >
             <ThumbsContainer usersComment={isUsersComment()}>
                <ThumbIconsContainer>
-                  <CustomThumbUp color={countedLikes.usersLike ? 'primary' : 'secondary'} onClick={() => handleLikeRequest()} />
+                  <CustomThumbUp
+                     color={countedLikes.usersLike ? 'primary' : 'secondary'}
+                     onClick={() => handleLikeRequest()}
+                  />
                   {countedLikes.like}
                </ThumbIconsContainer>
                <ThumbIconsContainer>
