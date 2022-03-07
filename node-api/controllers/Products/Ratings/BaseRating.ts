@@ -3,6 +3,35 @@ import { Model, ObjectId } from 'mongoose'
 import { RatingValues } from '../../../models/Products/BaseTypes'
 import { JWTUserType } from '../../Types'
 
+type StateType = { productModel: Model<any, {}, {}> }
+
+const canReturnRating = ({ productModel }: StateType) => ({
+   getProductRatingSummary: async (productId: ObjectId) => {
+      const allProductRatings = await productModel.findById(productId).lean()
+      const rateCount = allProductRatings?.ratingValues.length || 0
+      let rateSum = 0
+      allProductRatings?.ratingValues.map((obj: any) => {
+         rateSum += obj.rating
+      })
+      return {
+         rateCount,
+         avgRating: rateSum / rateCount || 0,
+      }
+   },
+   getAllComments: async (productId: ObjectId) => {
+      return await productModel.findById(productId).select('ratingValues').lean()
+   },
+})
+
+export default function BaseRatingController(productModel: Model<any>) {
+   const state: StateType = {
+      productModel,
+   }
+   return {
+      ...canReturnRating(state),
+   }
+}
+
 export const getProductRatingSummary = async (productId: ObjectId, ProductModel: Model<any>) => {
    const allProductRatings = await ProductModel.findById(productId).lean()
    const rateCount = allProductRatings?.ratingValues.length || 0
