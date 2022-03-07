@@ -1,3 +1,5 @@
+import { ObjectId } from 'mongoose'
+
 export type JWTUserType = {
    _id: string
    email: string
@@ -5,4 +7,10 @@ export type JWTUserType = {
    isAdmin: boolean
    exp: number
    iat: number
+}
+
+export type RequestWithQueryId = {
+   query: {
+      _id: ObjectId
+   }
 }
