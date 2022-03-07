@@ -1,6 +1,6 @@
 import { Response } from 'express'
-import { ObjectId } from 'mongoose'
 import { MemoryProduct } from '../../../models/Products/Memory/Memory'
+import { RequestWithQueryId } from '../../Types'
 import {
    RateQueryRequest,
    saveRateProductHelper,
@@ -61,11 +61,5 @@ export const removeUsersRatingInMemory = (req: RemoveRatingRequest, res: Respons
       removeUsersRatingHelper(req, res, MemoryProduct)
    } catch (error) {
       return res.status(500).json(error)
-   }
-}
-
-type RequestWithQueryId = {
-   query: {
-      _id: ObjectId
    }
 }
