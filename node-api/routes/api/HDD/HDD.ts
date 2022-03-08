@@ -1,7 +1,11 @@
 import { Router } from 'express'
 import { authenticateAccessToken } from '../../../middlewares/AuthenticateAccessOrRefreshTokens'
 import HDDProduct from '../../../controllers/Products/HDD/HDD'
-import { getAllHDDComments, getHDDRatingSummaryController } from '../../../controllers/Products/HDD/HDDRating'
+import {
+   getAllHDDComments,
+   getHDDRatingSummaryController,
+   rateHDDProductController,
+} from '../../../controllers/Products/HDD/HDDRating'
 
 const hddProduct = new HDDProduct()
 
@@ -14,5 +18,7 @@ router.get('/details', hddProduct.getHDDDetailsController)
 // Ratings
 router.get('/get-hdd-rates', getHDDRatingSummaryController)
 router.get('/get-hdd-comments', getAllHDDComments)
+
+router.post('/rate-hdd', authenticateAccessToken, rateHDDProductController)
 
 module.exports = router
