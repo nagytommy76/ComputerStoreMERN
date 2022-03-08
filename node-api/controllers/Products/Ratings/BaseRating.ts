@@ -5,9 +5,18 @@ import { JWTUserType } from '../../Types'
 
 type StateType = { productModel: Model<any, {}, {}> }
 
-const canReturnRating = ({ productModel }: StateType) => ({
+const canReturnById = (state: StateType) => ({
+   getLeanProductById: async (ProductId: ObjectId) => {
+      return await state.productModel.findById(ProductId).lean()
+   },
+   getProductById: async (ProductId: ObjectId) => {
+      return await state.productModel.findById(ProductId)
+   },
+})
+
+const canReturnRatingAndComments = (getLeanProductById: (productId: ObjectId) => Promise<any>) => ({
    getProductRatingSummary: async (productId: ObjectId) => {
-      const allProductRatings = await productModel.findById(productId).lean()
+      const allProductRatings = await getLeanProductById(productId)
       const rateCount = allProductRatings?.ratingValues.length || 0
       let rateSum = 0
       allProductRatings?.ratingValues.map((obj: any) => {
@@ -18,8 +27,51 @@ const canReturnRating = ({ productModel }: StateType) => ({
          avgRating: rateSum / rateCount || 0,
       }
    },
+})
+
+const canReturnAllComments = ({ productModel }: StateType) => ({
    getAllComments: async (productId: ObjectId) => {
       return await productModel.findById(productId).select('ratingValues').lean()
+   },
+})
+
+const canGetProductRatingSummary = (getLeanProductById: (productId: ObjectId) => Promise<any>) => ({
+   getProductRatingSummary: async (productId: ObjectId) => {
+      const allProductRatings = await getLeanProductById(productId)
+      const rateCount = allProductRatings?.ratingValues.length || 0
+      let rateSum = 0
+      allProductRatings?.ratingValues.map((obj: any) => {
+         rateSum += obj.rating
+      })
+      return {
+         rateCount,
+         avgRating: rateSum / rateCount || 0,
+      }
+   },
+})
+
+// Save
+
+const canRateProduct = (getProductById: (productId: ObjectId) => Promise<any>) => ({
+   saveRateProductHelper: async (
+      productId: ObjectId,
+      rating: number,
+      comment: string,
+      userName: string,
+      userId?: string
+   ) => {
+      const foundProduct = await getProductById(productId)
+      let foundRatingByUser = foundProduct.ratingValues.find((ratings: any) => ratings.userId == userId)
+      if (foundRatingByUser === undefined) {
+         foundProduct?.ratingValues.push({
+            rating,
+            comment,
+            userName,
+            ratedAt: new Date(),
+            userId,
+         })
+         return foundProduct
+      } else return undefined
    },
 })
 
@@ -27,8 +79,14 @@ export default function BaseRatingController(productModel: Model<any>) {
    const state: StateType = {
       productModel,
    }
+
+   const getProductById = canReturnById(state)
+
    return {
-      ...canReturnRating(state),
+      ...canReturnRatingAndComments(getProductById.getLeanProductById),
+      ...canReturnAllComments(state),
+      ...canGetProductRatingSummary(getProductById.getLeanProductById),
+      ...canRateProduct(getProductById.getProductById),
    }
 }
 
