@@ -1,7 +1,8 @@
 import { Request, Response } from 'express'
+import { ObjectId } from 'mongoose'
 import { HddProduct } from '../../../models/Products/HDD/Hdd'
 import { RequestWithQueryId } from '../../Types'
-import BaseRatingController, { RateQueryRequest } from '../Ratings/BaseRating'
+import BaseRatingController, { LikeQuery, RateQueryRequest } from '../Ratings/BaseRating'
 
 const BaseRating = BaseRatingController(HddProduct)
 
@@ -38,5 +39,18 @@ export const rateHDDProductController = async (req: RateQueryRequest, res: Respo
       } else return res.sendStatus(422)
    } catch (error) {
       return res.status(500).json({ error })
+   }
+}
+
+export const likeDislikeHDDCommentController = async (req: LikeQuery, res: Response) => {
+   try {
+      const result = await BaseRating.likeDislikeComment(
+         req.body.productId,
+         req.body.commentId,
+         req.user?._id
+      )
+      res.status(200).json(result)
+   } catch (error) {
+      return res.status(500).json(error)
    }
 }

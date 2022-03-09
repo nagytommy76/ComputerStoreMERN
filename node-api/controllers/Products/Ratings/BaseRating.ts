@@ -12,6 +12,12 @@ const canReturnById = (state: StateType) => ({
    getProductById: async (ProductId: ObjectId) => {
       return await state.productModel.findById(ProductId)
    },
+   getLeanRatingValuesByProductId: async (productId: ObjectId) => {
+      return await state.productModel.findById(productId, 'ratingValues').lean()
+   },
+   getRatingValuesByProductId: async (productId: ObjectId) => {
+      return await state.productModel.findById(productId, 'ratingValues')
+   },
 })
 
 const canReturnRatingAndComments = (getLeanProductById: (productId: ObjectId) => Promise<any>) => ({
@@ -29,9 +35,9 @@ const canReturnRatingAndComments = (getLeanProductById: (productId: ObjectId) =>
    },
 })
 
-const canReturnAllComments = ({ productModel }: StateType) => ({
+const canReturnAllComments = (getRatingValues: (productId: ObjectId) => Promise<any>) => ({
    getAllComments: async (productId: ObjectId) => {
-      return await productModel.findById(productId).select('ratingValues').lean()
+      return await getRatingValues(productId)
    },
 })
 
@@ -75,6 +81,47 @@ const canRateProduct = (getProductById: (productId: ObjectId) => Promise<any>) =
    },
 })
 
+const canLikeDislike = (getLeanProductById: (productId: ObjectId) => Promise<any>) => ({
+   likeDislikeComment: async (productId: ObjectId, commentId: ObjectId, userId: string | undefined) => {
+      const foundProduct = await getLeanProductById(productId)
+      if (foundProduct) {
+         const foundComment = foundProduct.ratingValues.filter(
+            (comment: RatingValues) => comment._id == commentId
+         ) as RatingValues[]
+         if (foundComment[0].userId == userId) {
+            return {
+               statusCode: 405,
+               message: 'A saját kommented nem like-olhatod :)',
+            } as LikeDislikeResponseType
+         }
+         return foundComment
+      }
+      //    // A user a saját kommentjét ne tudja like/dislikeolni
+      //    if (foundComment[0].userId == req.user?._id) {
+      //       return res.status(405).json({ message: 'A saját kommented nem like-olhatod :)' })
+      //    }
+      //    if (foundComment[0].responses.length == 0) {
+      //       // Ha még nincs
+      //       foundComment[0].responses.push({ isLike: req.body.isLike, userId: req.user?._id })
+      //    } else {
+      //       // Ha van már like
+      //       // A user adott már like/dislike-ot?
+      //       // Ha egy user már likeolta/dislikeolta az adott commentet, nem engedem még 1*
+      //       if (
+      //          foundComment[0].responses.some(
+      //             (element: { userId?: string | undefined; isLike: boolean }) => element.userId == req.user?._id
+      //          )
+      //       ) {
+      //          return res.status(405).json({ message: 'Már értékelted a kommentet' })
+      //       } else foundComment[0].responses.push({ isLike: req.body.isLike, userId: req.user?._id })
+      //    }
+      //    foundProduct.save()
+      //    return res.status(201).json({ responses: foundComment[0].responses })
+      // }
+      // return res.sendStatus(404)
+   },
+})
+
 export default function BaseRatingController(productModel: Model<any>) {
    const state: StateType = {
       productModel,
@@ -84,9 +131,10 @@ export default function BaseRatingController(productModel: Model<any>) {
 
    return {
       ...canReturnRatingAndComments(getProductById.getLeanProductById),
-      ...canReturnAllComments(state),
+      ...canReturnAllComments(getProductById.getLeanRatingValuesByProductId),
       ...canGetProductRatingSummary(getProductById.getLeanProductById),
       ...canRateProduct(getProductById.getProductById),
+      ...canLikeDislike(getProductById.getRatingValuesByProductId),
    }
 }
 
@@ -188,8 +236,8 @@ export type LikeQuery = Request & {
    user?: JWTUserType | undefined
    body: {
       isLike: boolean
-      productId: string
-      commentId: string
+      productId: string | ObjectId
+      commentId: string | ObjectId
    }
 }
 
@@ -208,4 +256,9 @@ export type RequestQuery = Request & {
    query: {
       _id: ObjectId
    }
+}
+
+export type LikeDislikeResponseType = {
+   statusCode: number
+   message: string
 }
