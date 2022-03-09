@@ -33,7 +33,7 @@ export type CommentAnswerType = {
    responses?: ResponsesType[]
 }
 
-type ResponsesType = {
+export type ResponsesType = {
    userId?: string
    isLike: boolean
 }

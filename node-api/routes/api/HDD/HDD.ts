@@ -5,6 +5,7 @@ import {
    getAllHDDComments,
    getHDDRatingSummaryController,
    rateHDDProductController,
+   likeDislikeHDDCommentController,
 } from '../../../controllers/Products/HDD/HDDRating'
 
 const hddProduct = new HDDProduct()
@@ -20,5 +21,6 @@ router.get('/get-hdd-rates', getHDDRatingSummaryController)
 router.get('/get-hdd-comments', getAllHDDComments)
 
 router.post('/rate-hdd', authenticateAccessToken, rateHDDProductController)
+router.post('/hdd-comment-like', authenticateAccessToken, likeDislikeHDDCommentController)
 
 module.exports = router
