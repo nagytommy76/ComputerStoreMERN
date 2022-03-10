@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
-import { Model, ObjectId } from 'mongoose'
-import { RatingValues } from '../../../models/Products/BaseTypes'
+import { Document, Model, ObjectId, Query } from 'mongoose'
+import { BaseProductType, RatingValues } from '../../../models/Products/BaseTypes'
 import { JWTUserType } from '../../Types'
 
 type StateType = { productModel: Model<any, {}, {}> }
@@ -81,44 +81,48 @@ const canRateProduct = (getProductById: (productId: ObjectId) => Promise<any>) =
    },
 })
 
-const canLikeDislike = (getLeanProductById: (productId: ObjectId) => Promise<any>) => ({
-   likeDislikeComment: async (productId: ObjectId, commentId: ObjectId, userId: string | undefined) => {
-      const foundProduct = await getLeanProductById(productId)
+const canLikeDislike = (getRatingValuesByProductId: (productId: ObjectId) => Promise<any>) => ({
+   likeDislikeComment: async (
+      productId: ObjectId,
+      commentId: ObjectId,
+      userId: string | undefined,
+      isLike: boolean
+   ) => {
+      const foundProduct = await getRatingValuesByProductId(productId)
       if (foundProduct) {
          const foundComment = foundProduct.ratingValues.filter(
             (comment: RatingValues) => comment._id == commentId
          ) as RatingValues[]
+         // A user a saját kommentjét ne tudja like/dislikeolni
          if (foundComment[0].userId == userId) {
             return {
                statusCode: 405,
                message: 'A saját kommented nem like-olhatod :)',
             } as LikeDislikeResponseType
          }
-         return foundComment
+         if (foundComment[0].responses.length == 0) {
+            // Ha még nincs like/dislike
+            foundComment[0].responses.push({ isLike: isLike, userId })
+         } else {
+            // Ha van már like
+            // A user adott már like/dislike-ot?
+            // Ha egy user már likeolta/dislikeolta az adott commentet, nem engedem még 1*
+            if (
+               foundComment[0].responses.some(
+                  (element: { userId?: string | undefined; isLike: boolean }) => element.userId == userId
+               )
+            ) {
+               return { message: 'Már értékelted a kommentet', statusCode: 405 } as LikeDislikeResponseType
+            } else foundComment[0].responses.push({ isLike, userId })
+         }
+         foundProduct.save()
+         return {
+            message: 'Sikeresen mentve!',
+            statusCode: 201,
+            responses: foundComment[0].responses,
+         } as LikeDislikeResponseType
       }
-      //    // A user a saját kommentjét ne tudja like/dislikeolni
-      //    if (foundComment[0].userId == req.user?._id) {
-      //       return res.status(405).json({ message: 'A saját kommented nem like-olhatod :)' })
-      //    }
-      //    if (foundComment[0].responses.length == 0) {
-      //       // Ha még nincs
-      //       foundComment[0].responses.push({ isLike: req.body.isLike, userId: req.user?._id })
-      //    } else {
-      //       // Ha van már like
-      //       // A user adott már like/dislike-ot?
-      //       // Ha egy user már likeolta/dislikeolta az adott commentet, nem engedem még 1*
-      //       if (
-      //          foundComment[0].responses.some(
-      //             (element: { userId?: string | undefined; isLike: boolean }) => element.userId == req.user?._id
-      //          )
-      //       ) {
-      //          return res.status(405).json({ message: 'Már értékelted a kommentet' })
-      //       } else foundComment[0].responses.push({ isLike: req.body.isLike, userId: req.user?._id })
-      //    }
-      //    foundProduct.save()
-      //    return res.status(201).json({ responses: foundComment[0].responses })
-      // }
-      // return res.sendStatus(404)
+      return { message: '', statusCode: 404 } as LikeDislikeResponseType
    },
 })
 
@@ -261,4 +265,5 @@ export type RequestQuery = Request & {
 export type LikeDislikeResponseType = {
    statusCode: number
    message: string
+   responses?: any
 }
