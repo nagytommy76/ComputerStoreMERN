@@ -47,9 +47,17 @@ export const likeDislikeHDDCommentController = async (req: LikeQuery, res: Respo
       const result = await BaseRating.likeDislikeComment(
          req.body.productId,
          req.body.commentId,
-         req.user?._id
+         req.user?._id,
+         req.body.isLike
       )
-      res.status(200).json(result)
+      switch (result.statusCode) {
+         case 201:
+            return res.status(result.statusCode).json({ responses: result.responses })
+            break
+         case 405:
+            return res.status(result.statusCode).json(result)
+            break
+      }
    } catch (error) {
       return res.status(500).json(error)
    }
