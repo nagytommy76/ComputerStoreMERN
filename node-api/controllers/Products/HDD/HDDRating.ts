@@ -1,8 +1,9 @@
-import { Request, Response } from 'express'
-import { ObjectId } from 'mongoose'
+import { Response } from 'express'
 import { HddProduct } from '../../../models/Products/HDD/Hdd'
+import BaseRatingController from '../Ratings/BaseRating'
+
 import { RequestWithQueryId } from '../../Types'
-import BaseRatingController, { LikeQuery, RateQueryRequest } from '../Ratings/BaseRating'
+import { LikeQuery, RateQueryRequest } from '../Ratings/RatingTypes'
 
 const BaseRating = BaseRatingController(HddProduct)
 
@@ -53,10 +54,10 @@ export const likeDislikeHDDCommentController = async (req: LikeQuery, res: Respo
       switch (result.statusCode) {
          case 201:
             return res.status(result.statusCode).json({ responses: result.responses })
-            break
          case 405:
             return res.status(result.statusCode).json(result)
-            break
+         case 404:
+            return res.sendStatus(result.statusCode)
       }
    } catch (error) {
       return res.status(500).json(error)

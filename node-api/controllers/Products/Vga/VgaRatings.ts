@@ -1,28 +1,25 @@
 import { Response } from 'express'
-import { ObjectId } from 'mongoose'
 import { VgaProduct } from '../../../models/Products/Vga/VgaProduct'
+import BaseRatingController from '../Ratings/BaseRating'
 
-import {
-   getProductRatingSummary,
-   LikeQuery,
-   likeDislikeCommentHelper,
-   RemoveRatingRequest,
-   removeUsersRatingHelper,
-   RateQueryRequest,
-   saveRateProductHelper,
-} from '../Ratings/BaseRating'
+import { RequestWithQueryId } from '../../Types'
+import { LikeQuery, RateQueryRequest, RemoveRatingRequest } from '../Ratings/RatingTypes'
 
-type RequestWithQueryId = {
-   query: {
-      _id: ObjectId
+const BaseRating = BaseRatingController(VgaProduct)
+
+export const getVgaRatingSummaryController = async (req: RequestWithQueryId, res: Response) => {
+   try {
+      const returnRatingValues = await BaseRating.getProductRatingSummary(req.query._id)
+      return res.status(200).json(returnRatingValues)
+   } catch (error) {
+      return res.status(500).json(error)
    }
 }
 
 export const rateVgaProductController = async (req: RateQueryRequest, res: Response) => {
    try {
-      const modifiedProduct = await saveRateProductHelper(
-         req.body._id,
-         VgaProduct,
+      const modifiedProduct = await BaseRating.saveRateProductHelper(
+         req.body.productId,
          req.body.rating,
          req.body.comment,
          req.body.userName,
@@ -32,15 +29,6 @@ export const rateVgaProductController = async (req: RateQueryRequest, res: Respo
          modifiedProduct.save()
          return res.sendStatus(201)
       } else return res.sendStatus(422)
-   } catch (error) {
-      return res.status(500).json(error)
-   }
-}
-
-export const getVgaRatingSummaryController = async (req: RequestWithQueryId, res: Response) => {
-   try {
-      const returnRatingValues = await getProductRatingSummary(req.query._id, VgaProduct)
-      return res.status(200).json(returnRatingValues)
    } catch (error) {
       return res.status(500).json(error)
    }
@@ -57,15 +45,37 @@ export const getAllVgaComments = async (req: RequestWithQueryId, res: Response) 
 
 export const likeDislikeVgaCommentController = async (req: LikeQuery, res: Response) => {
    try {
-      likeDislikeCommentHelper(req, res, VgaProduct)
+      const result = await BaseRating.likeDislikeComment(
+         req.body.productId,
+         req.body.commentId,
+         req.user?._id,
+         req.body.isLike
+      )
+      switch (result.statusCode) {
+         case 201:
+            return res.status(result.statusCode).json({ responses: result.responses })
+         case 405:
+            return res.status(result.statusCode).json(result)
+         case 404:
+            return res.sendStatus(result.statusCode)
+      }
    } catch (error) {
       return res.status(500).json(error)
    }
 }
 
-export const removeUsersRatingInVga = (req: RemoveRatingRequest, res: Response) => {
+export const removeUsersRatingInVga = async (req: RemoveRatingRequest, res: Response) => {
    try {
-      removeUsersRatingHelper(req, res, VgaProduct)
+      const {
+         body: { productId, commentIdToDelete },
+      } = req as RemoveRatingRequest
+      const result = await BaseRating.removeUsersRating(productId, commentIdToDelete, req.user?._id)
+      switch (result.statusCode) {
+         case 200:
+            return res.status(result.statusCode).json(result)
+         case 404:
+            return res.sendStatus(404)
+      }
    } catch (error) {
       return res.status(500).json(error)
    }

@@ -34,7 +34,3 @@ router.post('/save-vga-answer', authenticateAccessToken, saveVgaAnswerController
 router.delete('/vga-answer-remove', authenticateAccessToken, removeSingleVgaCommentAnswer)
 
 module.exports = router
-
-/**
- * A Rating-et is class-ra alakítani!
- */
