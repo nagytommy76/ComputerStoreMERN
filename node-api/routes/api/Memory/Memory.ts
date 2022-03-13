@@ -6,11 +6,9 @@ import {
    likeDislikeMemoryCommentController,
    rateMemoryProductController,
    removeUsersRatingInMemory,
-} from '../../../controllers/Products/Memory/MemoryRatings'
-import {
    removeSingleMemoryCommentAnswer,
    saveMemoryAnswerController,
-} from '../../../controllers/Products/Memory/RatingResponses'
+} from '../../../controllers/Products/Memory/MemoryRatings'
 import { authenticateAccessToken } from '../../../middlewares/AuthenticateAccessOrRefreshTokens'
 
 const router = Router()

@@ -6,12 +6,10 @@ import {
    removeUsersRatingInVga,
    getAllVgaComments,
    rateVgaProductController,
-} from '../../../controllers/Products/Vga/VgaRatings'
-import { authenticateAccessToken } from '../../../middlewares/AuthenticateAccessOrRefreshTokens'
-import {
    removeSingleVgaCommentAnswer,
    saveVgaAnswerController,
-} from '../../../controllers/Products/Vga/VgaRatingResponse'
+} from '../../../controllers/Products/Vga/VgaRatings'
+import { authenticateAccessToken } from '../../../middlewares/AuthenticateAccessOrRefreshTokens'
 
 const vgaProduct = new VgaProduct()
 const router = express.Router()

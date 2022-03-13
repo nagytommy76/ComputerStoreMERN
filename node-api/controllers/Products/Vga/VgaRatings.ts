@@ -3,7 +3,13 @@ import { VgaProduct } from '../../../models/Products/Vga/VgaProduct'
 import BaseRatingController from '../Ratings/BaseRating'
 
 import { RequestWithQueryId } from '../../Types'
-import { LikeQuery, RateQueryRequest, RemoveRatingRequest } from '../Ratings/RatingTypes'
+import {
+   LikeQuery,
+   RateQueryRequest,
+   RemoveRatingRequest,
+   SaveRequesType,
+   RemoveRequesType,
+} from '../Ratings/RatingTypes'
 
 const BaseRating = BaseRatingController(VgaProduct)
 
@@ -76,6 +82,39 @@ export const removeUsersRatingInVga = async (req: RemoveRatingRequest, res: Resp
          case 404:
             return res.sendStatus(404)
       }
+   } catch (error) {
+      return res.status(500).json(error)
+   }
+}
+
+// Rating answers
+export const saveVgaAnswerController = async (req: SaveRequesType, res: Response) => {
+   try {
+      const { foundProduct, newCommentAnswers } = await BaseRating.saveProductAnswerController(
+         req.body.productId,
+         req.body.commentId,
+         req.body.answer,
+         req.user
+      )
+      foundProduct.save()
+      return res.status(201).json(newCommentAnswers)
+   } catch (error) {
+      res.status(500).json({ error })
+   }
+}
+
+export const removeSingleVgaCommentAnswer = async (req: RemoveRequesType, res: Response) => {
+   try {
+      const { foundComment, foundProduct } = await BaseRating.removeProductAnswerController(
+         req.body.productId,
+         req.body.commentId,
+         req.body.answerId
+      )
+      if (foundProduct) {
+         foundProduct.save()
+         return res.status(200).json(foundComment)
+      }
+      return res.sendStatus(404)
    } catch (error) {
       return res.status(500).json(error)
    }

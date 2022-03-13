@@ -3,7 +3,13 @@ import { MemoryProduct } from '../../../models/Products/Memory/Memory'
 import BaseRatingController from '../Ratings/BaseRating'
 
 import { RequestWithQueryId } from '../../Types'
-import { LikeQuery, RateQueryRequest, RemoveRatingRequest } from '../Ratings/RatingTypes'
+import {
+   LikeQuery,
+   RateQueryRequest,
+   RemoveRatingRequest,
+   RemoveRequesType,
+   SaveRequesType,
+} from '../Ratings/RatingTypes'
 
 const BaseRating = BaseRatingController(MemoryProduct)
 
@@ -76,6 +82,40 @@ export const removeUsersRatingInMemory = async (req: RemoveRatingRequest, res: R
          case 404:
             return res.sendStatus(404)
       }
+   } catch (error) {
+      return res.status(500).json(error)
+   }
+}
+
+// Rating answers
+
+export const saveMemoryAnswerController = async (req: SaveRequesType, res: Response) => {
+   try {
+      const { foundProduct, newCommentAnswers } = await BaseRating.saveProductAnswerController(
+         req.body.productId,
+         req.body.commentId,
+         req.body.answer,
+         req.user
+      )
+      foundProduct.save()
+      return res.status(201).json(newCommentAnswers)
+   } catch (error) {
+      res.status(500).json({ error })
+   }
+}
+
+export const removeSingleMemoryCommentAnswer = async (req: RemoveRequesType, res: Response) => {
+   try {
+      const { foundComment, foundProduct } = await BaseRating.removeProductAnswerController(
+         req.body.productId,
+         req.body.commentId,
+         req.body.answerId
+      )
+      if (foundProduct) {
+         foundProduct.save()
+         return res.status(200).json(foundComment)
+      }
+      return res.sendStatus(404)
    } catch (error) {
       return res.status(500).json(error)
    }

@@ -1,5 +1,6 @@
 import { Request } from 'express'
 import { ObjectId } from 'mongoose'
+import { UserTypes } from '../../../models/User/UserTypes'
 import { JWTUserType } from '../../Types'
 
 export type RemoveRatingRequest = Request & {
@@ -40,4 +41,23 @@ export type LikeDislikeResponseType = {
    statusCode: number
    message: string
    responses?: any
+}
+
+// Responses type
+export type SaveRequesType = Request & {
+   user?: UserTypes
+   body: {
+      productId: string
+      commentId: string
+      answer: string
+   }
+}
+
+export type RemoveRequesType = Request & {
+   user?: UserTypes
+   body: {
+      productId: string
+      commentId: string
+      answerId: string
+   }
 }

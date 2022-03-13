@@ -6,12 +6,10 @@ import {
    getAllComments,
    likeDislikeCpuCommentController,
    removeUsersRatingInCpu,
-} from '../../../controllers/Products/Cpu/CpuRating'
-import { authenticateAccessToken } from '../../../middlewares/AuthenticateAccessOrRefreshTokens'
-import {
    saveCpuAnswerController,
    removeSingleCpuCommentAnswer,
-} from '../../../controllers/Products/Cpu/CpuRatingResponse'
+} from '../../../controllers/Products/Cpu/CpuRating'
+import { authenticateAccessToken } from '../../../middlewares/AuthenticateAccessOrRefreshTokens'
 
 const router = express.Router()
 const cpuProduct = new CpuProduct()

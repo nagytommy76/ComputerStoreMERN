@@ -3,7 +3,13 @@ import { HddProduct } from '../../../models/Products/HDD/Hdd'
 import BaseRatingController from '../Ratings/BaseRating'
 
 import { RequestWithQueryId } from '../../Types'
-import { LikeQuery, RateQueryRequest } from '../Ratings/RatingTypes'
+import {
+   LikeQuery,
+   RateQueryRequest,
+   RemoveRatingRequest,
+   SaveRequesType,
+   RemoveRequesType,
+} from '../Ratings/RatingTypes'
 
 const BaseRating = BaseRatingController(HddProduct)
 
@@ -59,6 +65,57 @@ export const likeDislikeHDDCommentController = async (req: LikeQuery, res: Respo
          case 404:
             return res.sendStatus(result.statusCode)
       }
+   } catch (error) {
+      return res.status(500).json(error)
+   }
+}
+
+export const removeUsersRatingInHDDController = async (req: RemoveRatingRequest, res: Response) => {
+   try {
+      const {
+         body: { productId, commentIdToDelete },
+      } = req as RemoveRatingRequest
+      const result = await BaseRating.removeUsersRating(productId, commentIdToDelete, req.user?._id)
+      switch (result.statusCode) {
+         case 200:
+            return res.status(result.statusCode).json(result)
+         case 404:
+            return res.sendStatus(404)
+      }
+   } catch (error) {
+      return res.status(500).json(error)
+   }
+}
+
+// Rating answers
+
+export const saveHddAnswerController = async (req: SaveRequesType, res: Response) => {
+   try {
+      const { foundProduct, newCommentAnswers } = await BaseRating.saveProductAnswerController(
+         req.body.productId,
+         req.body.commentId,
+         req.body.answer,
+         req.user
+      )
+      foundProduct.save()
+      return res.status(201).json(newCommentAnswers)
+   } catch (error) {
+      res.status(500).json({ error })
+   }
+}
+
+export const removeSingleHddCommentAnswer = async (req: RemoveRequesType, res: Response) => {
+   try {
+      const { foundComment, foundProduct } = await BaseRating.removeProductAnswerController(
+         req.body.productId,
+         req.body.commentId,
+         req.body.answerId
+      )
+      if (foundProduct) {
+         foundProduct.save()
+         return res.status(200).json(foundComment)
+      }
+      return res.sendStatus(404)
    } catch (error) {
       return res.status(500).json(error)
    }
