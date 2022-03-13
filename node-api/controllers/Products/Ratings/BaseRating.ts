@@ -1,5 +1,6 @@
 import { Model, ObjectId } from 'mongoose'
-import { RatingValues } from '../../../models/Products/BaseTypes'
+import { CommentAnswerType, RatingValues } from '../../../models/Products/BaseTypes'
+import { UserTypes } from '../../../models/User/UserTypes'
 import { LikeDislikeResponseType } from './RatingTypes'
 
 type StateType = { productModel: Model<any, {}, {}> }
@@ -143,6 +144,49 @@ const canRemoveRating = (getRatingValuesByProductId: (productId: ObjectId) => Pr
    },
 })
 
+// Responses
+
+const canSaveProductAnswer = (getRatingValuesByProductId: (productId: ObjectId) => Promise<any>) => ({
+   saveProductAnswerController: async (
+      productId: ObjectId,
+      commentId: ObjectId,
+      answer: string,
+      user: UserTypes | undefined
+   ) => {
+      const foundProduct = await getRatingValuesByProductId(productId)
+      const foundComment = foundProduct.ratingValues.find((comment: RatingValues) => comment._id == commentId)
+      const foundCommentIndex = foundProduct.ratingValues.findIndex(
+         (comment: RatingValues) => comment._id == commentId
+      )
+      if (foundComment && user) {
+         foundComment.commentAnswers.push({
+            answer: answer,
+            answeredAt: new Date(),
+            userId: user._id,
+            userName: user.userName,
+         })
+      }
+      return {
+         newCommentAnswers: foundProduct.ratingValues[foundCommentIndex].commentAnswers,
+         foundProduct,
+      }
+   },
+})
+
+const canRemoveProductAnswer = (getRatingValuesByProductId: (productId: ObjectId) => Promise<any>) => ({
+   removeProductAnswerController: async (productId: ObjectId, commentId: ObjectId, answerId: ObjectId) => {
+      const foundProduct = await getRatingValuesByProductId(productId)
+      const foundComment = foundProduct.ratingValues.find((comment: RatingValues) => comment._id == commentId)
+      if (foundComment) {
+         const filteredAnswers = foundComment.commentAnswers.filter(
+            (answer: CommentAnswerType) => answer._id != answerId
+         )
+         foundComment.commentAnswers = filteredAnswers
+      }
+      return { foundComment: foundComment.commentAnswers, foundProduct }
+   },
+})
+
 export default function BaseRatingController(productModel: Model<any>) {
    const state: StateType = {
       productModel,
@@ -155,5 +199,8 @@ export default function BaseRatingController(productModel: Model<any>) {
       ...canRateProduct(getProductById.getProductById),
       ...canLikeDislike(getProductById.getRatingValuesByProductId),
       ...canRemoveRating(getProductById.getRatingValuesByProductId),
+      // Responses
+      ...canSaveProductAnswer(getProductById.getRatingValuesByProductId),
+      ...canRemoveProductAnswer(getProductById.getRatingValuesByProductId),
    }
 }
