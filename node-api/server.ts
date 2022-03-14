@@ -1,6 +1,9 @@
 import express, { Application } from 'express'
 require('dotenv').config()
+import fs from 'fs'
 import connectDB from './config/db'
+import morgan from 'morgan'
+import path from 'path'
 const bodyParser = require('body-parser')
 const cors = require('cors')
 
@@ -13,7 +16,10 @@ connectDB().then(() => {
    })
 })
 
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
+
 app.use(cors({ origin: 'http://localhost:3000', methods: 'GET,HEAD,PUT,PATCH,POST,DELETE' }))
+app.use(morgan('combined', { stream: accessLogStream }))
 app.use(bodyParser.json())
 
 app.use('/api/vga', require('./routes/api/Vga/Vga'))
