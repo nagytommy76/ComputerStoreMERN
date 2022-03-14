@@ -16,6 +16,8 @@ const MemoryModify = lazy(() => import('./Memory/Modify/ModifyMemory'))
 const MemoryDelete = lazy(() => import('./Memory/Delete/DeleteMemory'))
 
 const HDDInsert = lazy(() => import('./HDD/Insert/InsertHdd'))
+const HDDModify = lazy(() => import('./HDD/Modify/ModifyHDD'))
+const HDDDelete = lazy(() => import('./HDD/Delete/DeleteHDD'))
 
 const Admin = () => {
    return (
@@ -40,6 +42,8 @@ const Admin = () => {
                </Route>
                <Route path='hdd/*'>
                   <Route path='insert' element={<HDDInsert />} />
+                  <Route path='modify' element={<HDDModify />} />
+                  <Route path='delete' element={<HDDDelete />} />
                </Route>
             </Routes>
          </RightContentStyle>
