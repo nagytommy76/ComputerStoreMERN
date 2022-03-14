@@ -27,7 +27,8 @@
 - ha vesznek valamiből a készlet változzon!!!
 - A termék bevitelénél ha nincs picURL kéne egy alert mert most nincs
 
-- A termékekhez kéne egy link????!!! Külön szedni a details lekérdezést az adatok oldalon
+- A korábbi rendeléseknél egy linket a termékekhez!!!
+- Megoldani, hogy a rating values a shop paage-en csak egy hosszként jelenjen meg, ne az egész rating values..
 
 
 MEGCSINÁLTAM:
@@ -46,3 +47,5 @@ MEGCSINÁLTAM:
 - Ha ladtam a rendelést, abban a 10mp-ben ne lehessen törölni a termékeket!!!! ILLETVE ÚJRA RENDELNI STB, MEGOLDANI!!!!!!!!!!!!!!!!!!
 
 - Megoldani a pagination bugot, ha kevesebb termék van mint amennyi perPage van beállítva akkor is lehet lépkedni MEGOLDVA! BÁR NEM A LEG SZEBBEN
+
+- A termékekhez kéne egy link????!!! Külön szedni a details lekérdezést az adatok oldalon

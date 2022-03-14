@@ -21,7 +21,7 @@ const DeleteSection: React.FC<{
             data: { commentIdToDelete: commentId, productId },
          })
          if (response.status === 200) {
-            const ratedAtFormattedToDate = formatRatedAtToDateType(response.data.foundCpuProduct.ratingValues)
+            const ratedAtFormattedToDate = formatRatedAtToDateType(response.data.foundProduct.ratingValues)
             setComments(ratedAtFormattedToDate)
             setCommentDeletedRequest(prevValue => !prevValue)
          }

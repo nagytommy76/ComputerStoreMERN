@@ -12,31 +12,32 @@ import { restoreUserDetails } from '../app/slices/Checkout/UserDetailsSlice'
 // Ha az sem érvényes kiléptetem és be kell újra lépnie
 
 const useAxiosSetup = () => {
-   const accessToken = useAppSelector((state) => state.auth.accessToken)
-   const refreshToken = useAppSelector((state) => state.auth.refreshToken)
+   const accessToken = useAppSelector(state => state.auth.accessToken)
+   const refreshToken = useAppSelector(state => state.auth.refreshToken)
 
    axios.defaults.baseURL = 'http://localhost:5050/api'
+   // axios.defaults.baseURL = 'https://compstorebackend.herokuapp.com/api'
    axios.defaults.headers.common['Content-Type'] = 'Application/json'
    axios.defaults.headers.common.Authorization = `Barer ${accessToken}`
    useEffect(() => {
       axios.interceptors.response.use(
-         (response) => {
+         response => {
             return response
          },
-         async (error) => {
+         async error => {
             if (error.config && error.response && !error.config._retry && error.response.status === 403) {
                // Ekkor kell egy új accessToken (Forbidden) / 403 error, tehát lejárt az accessToken
                if (error.response.data.errorMessage === 'accessToken token expired') {
                   return axios
                      .post('/auth/refresh-token', { refreshToken })
-                     .then((newAccessToken) => {
+                     .then(newAccessToken => {
                         if (newAccessToken.status === 200) {
                            store.dispatch(setAccessToken(newAccessToken.data))
                            error.config.headers.Authorization = `Barer ${newAccessToken.data}`
                            return axios.request(error.config)
                         }
                      })
-                     .catch((error) => {
+                     .catch(error => {
                         if (error.response.data.errorMessage === 'refresh token expired') {
                            globalHistory.push('/login', { isFailure: true, message: 'Kérlek, lépj be újra!' })
                            store.dispatch(restoreUserDetails())
