@@ -74,7 +74,32 @@ export const modifyHDDProductController = async (request: Request, response: Res
    }
 }
 
+// Delete HDD
+export const getAllHDDItemsForDeleteController = async (req: Request, res: Response) => {
+   try {
+      const allProducts = await AdminController.getAllToDeleteProducts()
+      return res.status(200).json({ allProducts })
+   } catch (error) {
+      return res.status(500).json(error)
+   }
+}
+
+export const deleteHDDProductByIdController = (req: RequestWithHDDID, res: Response) => {
+   try {
+      const result = AdminController.delete(req.body.productId)
+      res.status(200).json({ msg: 'sikeres törlés', deleted: true })
+   } catch (error) {
+      return res.status(500).json(error)
+   }
+}
+
 type InsertBodyType = BaseProductProperties & {
    _id: string
    details: HDDDetailsType
+}
+
+type RequestWithHDDID = Request & {
+   body: {
+      productID: string
+   }
 }
