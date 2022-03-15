@@ -89,7 +89,6 @@ export default class NodeMailer extends Handlebars {
          fs.writeFile('emailSent.html', renderedEmail, err => {
             if (err) console.log(err)
          })
-         console.log(renderedEmail)
          let emailInformation = await this.transporter.sendMail({
             from: this.senderAddress,
             to: userEmail,
