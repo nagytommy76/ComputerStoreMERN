@@ -1,109 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register email</title>
-</head>
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
-    :root {
-        --main-bg: #bfc0c0;
-        --box-color: #FFF;
-        --link-color: #fca311;
-        --footer-bg: #14213d;
-    }
-    body{
-        margin: 0;
-        font-family: 'Work Sans';
-    }
-    .linkToConfirm{
-        color: var(--link-color);
-        text-decoration: none;
-        padding: .45rem;
-        border: 1px  solid var(--link-color);
-        font-size: 1.35rem;
-        border-radius: 5px;
-    }
-    h1,h2,h3,h4,h5,h6{
-        margin: .75rem 0;
-    }
-    .container{
-        width: 100%;
-        min-height: 100vh;
-        background-color: var(--main-bg);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .main-title{
-        font-size: 2rem;
-        margin: .5rem 0 3rem 0;
-        text-align: justify;
-    }
-
-    .inner-box{
-        width: 35%;
-        height: 80%;
-        background-color: var(--box-color);
-        border-radius: 5px;
-        box-shadow: 2px 3px 12px 1px;
-
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;        
-    }
-
-    .content{
-        width: 90%;
-        overflow-wrap: break-word;        
-    }
-    .highlight{
-        color: #fca311;
-    }
-    footer{
-        width: 100%;
-        padding: 1.65rem 0;
-        background-color: var(--footer-bg);
-        color: #FFF;
-        text-align: center;
-    }
-    footer a{        
-        text-decoration: none;
-        color: #FFF;
-        font-size: 1.3rem;
-
-        transition: color .25s linear;
-    }
-    footer a:hover{
-        color: var(--link-color);
-    }
-
-    @media(max-width: 960px) {
-        .inner-box{
-            width: 90%;
-            min-height: 65vh;      
-        }
-        .linkToConfirm{
-            font-size: .8rem;
-        }
-        footer a{        
-            color: var(--link-color);
-        }
-    }
-</style>
-<body>
-    <section class="container">
-        <div class="inner-box">
-            {{{ body }}}
-            <footer>
-                <h2>ComputerStore Webáruház</h2>
-                <a href="https://www.linkedin.com/in/tam%C3%A1s-nagy-27355116b/" target="_blank">Készítette &copy; Nagy Tamás</a>
+<html lang='en'>
+   <head>
+      <meta charset='UTF-8' />
+      <meta http-equiv='X-UA-Compatible' content='chrome' />
+      <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+      <title>Register email</title>
+   </head>
+   <style>
+      @import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap'); :root { --main-bg:
+      #bfc0c0; --box-color: #FFF; --link-color: #fca311; --footer-bg: #14213d; } body{ margin: 0; font-family:
+      'Work Sans'; } .linkToConfirm{ color: var(--link-color); text-decoration: none; padding: .45rem; border:
+      1px solid var(--link-color); font-size: 1.35rem; border-radius: 5px; } h1,h2,h3,h4,h5,h6{ margin: .75rem
+      0; } .container{ width: 100%; min-height: 100vh; background-color: var(--main-bg); display: flex;
+      align-items: center; justify-content: center; } .main-title{ font-size: 2rem; margin: .5rem 0 3rem 0;
+      text-align: justify; } .inner-box{ width: 35%; height: 80%; background-color: var(--box-color);
+      border-radius: 5px; box-shadow: 2px 3px 12px 1px; display: flex; flex-direction: column; align-items:
+      center; justify-content: space-between; } .content{ width: 90%; overflow-wrap: break-word; } .highlight{
+      color: #fca311; } footer{ width: 100%; padding: 1.65rem 0; background-color: var(--footer-bg); color:
+      #FFF; text-align: center; } footer a{ text-decoration: none; color: #FFF; font-size: 1.3rem; transition:
+      color .25s linear; } footer a:hover{ color: var(--link-color); } @media(max-width: 960px) { .inner-box{
+      width: 90%; min-height: 65vh; } .linkToConfirm{ font-size: .8rem; } footer a{ color: var(--link-color);
+      } }
+   </style>
+   <body>
+      <section
+         style='width:100%;min-height:100vh;background-color:#bfc0c0;display:flex;align-items:center;justify-content:center;'
+         class='container'
+      >
+         <div
+            style='width:35%;height:80%;background-color:#FFF;border-radius:5px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;box-shadow: 2px 3px 12px 1px;'
+         >
+            {{{body}}}
+            <footer
+               style='width: 100%; padding:1.65rem 0;background-color:#14213d;color: #FFF;text-align: center;'
+            >
+               <h2>ComputerStore Webáruház</h2>
+               <a
+                  style='text-decoration: none; color: #FFF; font-size: 1.3rem; transition:
+                         color .25s linear;'
+                  href='https://www.linkedin.com/in/tam%C3%A1s-nagy-27355116b/'
+                  target='_blank'
+               >Készítette &copy; Nagy Tamás</a>
             </footer>
-        </div>
-    </section>
-</body>
+         </div>
+      </section>
+   </body>
 </html>

@@ -1,76 +1,51 @@
 <style>
-    .body-container{
-        width: 80%;
-        margin: auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    .main-title{
-        text-align: center;
-        margin: 1rem 0;
-        text-transform: uppercase;
-    }
-    .line-divider{
-        border: 1px solid #333;
-        width: 100%;
-    }
-    .top-info{
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        font-size: .85rem;
-    }
-    .products-list{
-        display: flex;
-        flex-direction: column;
-        margin: 0 auto;
-    }
-    .product{
-        width: 100%;
-        height: 180px;
-        display: flex;
-        align-items: center;
-    }
-    .left-image{
-        width: 35%;
-        height: 100%;
-        object-fit: contain;
-    }
-    .right-contnent{
-        width: 65%;
-        padding: 0 .65rem;
-    }
-    .price-footer{
-        width: 70%;
-    }
+   .body-container{ width: 80%; margin: auto; display: flex; flex-direction: column; align-items: center; }
+   .main-title{ text-align: center; margin: 1rem 0; text-transform: uppercase; } .line-divider{ border: 1px
+   solid #333; width: 100%; } .top-info{ width: 100%; display: flex; flex-direction: row; justify-content:
+   space-around; font-size: .85rem; } .products-list{ display: flex; flex-direction: column; margin: 0 auto; }
+   .product{ width: 100%; height: 180px; display: flex; align-items: center; } .left-image{ width: 35%;
+   height: 100%; object-fit: contain; } .right-contnent{ width: 65%; padding: 0 .65rem; } .price-footer{
+   width: 70%; }
 
 </style>
-<section class="inner-container">
-    <h1 class="main-title">Köszönjük a rendelésed!</h1>
-    <div class="line-divider"></div>
-    <div class="top-info">
-        <p>Vásárlási azonosító: <span class="highlight">{{ orderID }}</span></p>
-        <p>Dátum: <span class="highlight">{{orderDate}}</span></p>
-    </div>
-    <div class="body-container">
-        <h1>Termékek</h1>
-        <div class="products-list">
-            {{#each products}}
-            <div class="product">
-                <img class="left-image" src="{{this.displayImage}}" alt="" srcset="" />
-                <div class="right-contnent">
-                    <h4>{{this.displayName}}</h4>
-                    <p>Ár: <span class="highlight">{{this.price}}</span> Ft</p>
-                    <p>Rendelt mennyiség: <span class="highlight">{{this.quantity}} DB</span></p>
-                </div>
+<section class='inner-container'>
+   <h1 style='text-align: center;margin: 1rem 0;text-transform: uppercase;' class='main-title'>Köszönjük a
+      rendelésed!</h1>
+   <div style='border: 1px solid #333;width: 100%;' class='line-divider'></div>
+   <div
+      style='width: 100%;display: flex; flex-direction: row; justify-content:space-around; font-size: .85rem;'
+   >
+      <p>Vásárlási azonosító: <span style='color:#fca311;' class='highlight'>{{orderID}}</span></p>
+      <p>Dátum: <span style='color:#fca311;' class='highlight'>{{orderDate}}</span></p>
+   </div>
+   <div
+      style='width:80%;margin:auto;display:flex;flex-direction: column;align-items: center;'
+      class='body-container'
+   >
+      <h1>Termékek</h1>
+      <div style='display: flex; flex-direction: column; margin: 0 auto;' class='products-list'>
+         {{#each products}}
+            <div style='width: 100%; height: 180px; display: flex; align-items: center;' class='product'>
+               <img
+                  style='width: 35%;height: 100%; object-fit: contain;'
+                  class='left-image'
+                  src='{{this.displayImage}}'
+                  alt=''
+                  srcset=''
+               />
+               <div style='width: 65%; padding:0 .65rem;' class='right-contnent'>
+                  <h4>{{this.displayName}}</h4>
+                  <p>Ár: <span style='color:#fca311;' class='highlight'>{{this.price}}</span> Ft</p>
+                  <p>Rendelt mennyiség:
+                     <span style='color:#fca311;' class='highlight'>{{this.quantity}} DB</span></p>
+               </div>
             </div>
-            {{/each}}
-        </div>
-        <div class="price-footer">
-            <h3>Szállítási költség: <span class="highlight">{{deliveryPrice}} Ft</span></h3>
-            <h3>Fizetendő végösszeg: <span class="highlight">{{totalPrice}} Ft</span></h3>
-        </div>
-    </div>
+         {{/each}}
+      </div>
+      <div style='width: 70%;' class='price-footer'>
+         <h3>Szállítási költség:
+            <span style='color:#fca311;' class='highlight'>{{deliveryPrice}} Ft</span></h3>
+         <h3>Fizetendő végösszeg: <span style='color:#fca311;' class='highlight'>{{totalPrice}} Ft</span></h3>
+      </div>
+   </div>
 </section>

@@ -11,6 +11,7 @@ export default abstract class Handlebars {
          defaultLayout: 'main',
          layoutsDir: 'views/',
          extname: 'hbs',
+         compilerOptions: { strict: true },
       })
    }
 

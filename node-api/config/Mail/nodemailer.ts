@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer'
 import Handlebars from './handlebars'
-
+import fs from 'fs'
 import { CartItemsType } from '../../models/User/UserTypes'
 import { ObjectId } from 'mongoose'
 export default class NodeMailer extends Handlebars {
@@ -86,6 +86,10 @@ export default class NodeMailer extends Handlebars {
             deliveryPrice,
             orderID,
          })
+         fs.writeFile('emailSent.html', renderedEmail, err => {
+            if (err) console.log(err)
+         })
+         console.log(renderedEmail)
          let emailInformation = await this.transporter.sendMail({
             from: this.senderAddress,
             to: userEmail,

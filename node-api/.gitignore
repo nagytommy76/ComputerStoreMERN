@@ -1,6 +1,6 @@
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
-
+.gitignore
 # Dependency directories
 node_modules/
 jspm_packages/
@@ -12,3 +12,7 @@ typings/
 .env
 
 access.log
+
+build/
+Procfile
+emailSent.html
