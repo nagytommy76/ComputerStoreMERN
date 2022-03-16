@@ -27,7 +27,7 @@ const Navbar = () => {
       return () => window.removeEventListener('load', handleWindowSizeChange)
    }, [handleWindowSizeChange])
 
-   const isMobileSize = useAppSelector((state) => state.mobile.isMobile)
+   const isMobileSize = useAppSelector(state => state.mobile.isMobile)
    const [isShopDropOpen, setIsShopDropOpen] = useState(false)
    const [isUserDropOpen, setIsUserDropOpen] = useState(false)
    const [isNavbarOpen, setIsNavbarOpen] = useState(false)
@@ -49,8 +49,9 @@ const Navbar = () => {
             isUserDropOpen,
             setIsNavbarOpen,
             setIsShopDropOpen,
-            setIsUserDropOpen
-         }}>
+            setIsUserDropOpen,
+         }}
+      >
          <OpenButton />
          <CSSTransition
             appear
@@ -63,17 +64,23 @@ const Navbar = () => {
                enter: styles.NavEnter,
                enterActive: styles.NavEnterActive,
                exit: styles.NavExit,
-               exitActive: styles.NavExitActive
-            }}>
+               exitActive: styles.NavExitActive,
+            }}
+         >
             <NavStyle mobileSize={isMobileSize} ref={navbarRef} onMouseLeave={() => closeDrops()}>
-               <BrandStyle to='/'>ComputerStore</BrandStyle>
+               <BrandStyle onClick={() => setIsNavbarOpen(false)} to='/'>
+                  ComputerStore
+               </BrandStyle>
                <ListItem />
                <CartButton onClickEvent={() => setIsCartOpen(!isCartOpen)} />
                <CartSlide isSlideOpen={isCartOpen} setIsSlideOpen={setIsCartOpen} reference={CartRef} />
             </NavStyle>
          </CSSTransition>
          {!isMobileSize && (
-            <BaseDropBackground isDropOpen={isShopDropOpen || isUserDropOpen || isCartOpen} nodeRef={BackgroundRef}>
+            <BaseDropBackground
+               isDropOpen={isShopDropOpen || isUserDropOpen || isCartOpen}
+               nodeRef={BackgroundRef}
+            >
                <DropdownBackground onClick={() => setIsCartOpen(false)} ref={BackgroundRef} />
             </BaseDropBackground>
          )}
