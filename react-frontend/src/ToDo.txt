@@ -30,6 +30,10 @@
 - A korábbi rendeléseknél egy linket a termékekhez!!!
 - Megoldani, hogy a rating values a shop paage-en csak egy hosszként jelenjen meg, ne az egész rating values..
 
+HIBÁK/BUGOK:
+- Responsive design: Welcome pagen
+- A navbar amikor mobil nézetben vagyok és nincs bejelentkezett user, nem működik a shop menü dropdown
+
 
 MEGCSINÁLTAM:
 - Megformázni az emailt, handlebars-al? https://handlebarsjs.com/

@@ -57,11 +57,12 @@ const ProductDetails: React.FC = ({ children }) => {
          <BodySection isDarkTheme={isDarkTheme}>
             <DescriptionStyle>
                <TextField
+                  disabled
                   name='description'
                   fullWidth
                   multiline
-                  minRows={18}
-                  variant='outlined'
+                  minRows={10}
+                  variant='filled'
                   value={details.description}
                />
             </DescriptionStyle>

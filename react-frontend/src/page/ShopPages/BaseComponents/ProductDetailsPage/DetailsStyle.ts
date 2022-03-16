@@ -9,7 +9,7 @@ export const DetailsPage = styled.section`
    margin: calc(${navbarHeight} + 1.5rem) auto 0 auto;
    @media (max-width: ${mobileWindowSize}) {
       width: 95%;
-      margin: 3rem auto;
+      margin: 5rem auto;
    }
 `
 
