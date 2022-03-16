@@ -1,18 +1,20 @@
 import { styled } from '@mui/material'
 import { mobileWindowSize } from '../../Theme/GlobalStyles'
 
+import Typography from '@mui/material/Typography'
+
 export const WelcomeContainer = styled('section')({
-   minHeight: '100vh'
+   minHeight: '100vh',
 })
 
-export const StyledWelcomeImg = styled('section')<{ backgroundimage: string }>((props) => ({
+export const StyledWelcomeImg = styled('section')<{ backgroundimage: string }>(props => ({
    width: '100%',
    height: '60vh',
    background: `url(${props.backgroundimage}) no-repeat center`,
    backgroundSize: '100%',
    [`@media(max-width: ${mobileWindowSize})`]: {
-      backgroundSize: '150%'
-   }
+      backgroundSize: '150%',
+   },
 }))
 
 export const WelcomeMaintitleContainer = styled('div')({
@@ -20,5 +22,13 @@ export const WelcomeMaintitleContainer = styled('div')({
    display: 'flex',
    justifyContent: 'center',
    alignItems: 'center',
-   backgroundColor: 'rgba(1,1,1, .5)'
+   backgroundColor: 'rgba(1,1,1, .5)',
+})
+
+export const StyledHeading = styled(Typography)({
+   fontSize: '3.8rem',
+   color: 'white',
+   [`@media(max-width: ${mobileWindowSize})`]: {
+      fontSize: '2rem',
+   },
 })
