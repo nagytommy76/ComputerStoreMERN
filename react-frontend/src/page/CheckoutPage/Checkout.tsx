@@ -6,7 +6,7 @@ const Products = React.lazy(() => import('./Products/Products'))
 const LeftStepsContainer = React.lazy(() => import('./Steps/LeftStepsContainer'))
 
 const Checkout = () => {
-   const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
+   const isDarkTheme = useAppSelector(state => state.theme.isDarkTheme)
 
    return (
       <PageContainer isDarkTheme={isDarkTheme}>
@@ -15,7 +15,5 @@ const Checkout = () => {
       </PageContainer>
    )
 }
-
-// https://mui.com/components/steppers/#linear
 
 export default Checkout

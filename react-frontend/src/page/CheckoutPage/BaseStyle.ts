@@ -23,7 +23,7 @@ export const LeftPageContainer = styled.section`
    flex: 1;
 
    @media (max-width: ${mobileWindowSize}) {
-      min-height: 120vh;
-      margin-bottom: 3rem;
+      min-height: 90vh;
+      margin: 5rem 0 2rem 0;
    }
 `

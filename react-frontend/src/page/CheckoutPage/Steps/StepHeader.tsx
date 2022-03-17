@@ -11,9 +11,9 @@ import Box from '@mui/material/Box'
 
 const StepHeader: React.FC = () => {
    const dispatch = useAppDispatch()
-   const isUserDetailsFilled = useAppSelector((state) => state.userDetails.isDetailsFilled)
-   const activeStep = useAppSelector((state) => state.steps.currentStep)
-   const isNextBtnDisabled = useAppSelector((state) => state.steps.isNextBtnDisabled)
+   const isUserDetailsFilled = useAppSelector(state => state.userDetails.isDetailsFilled)
+   const activeStep = useAppSelector(state => state.steps.currentStep)
+   const isNextBtnDisabled = useAppSelector(state => state.steps.isNextBtnDisabled)
 
    const [isTooltipOpen, setIsTooltipOpen] = useState<boolean>(false)
 
@@ -52,7 +52,7 @@ const StepHeader: React.FC = () => {
                <StepLabel>Rendelés leadása</StepLabel>
             </Step>
          </Stepper>
-         <Box sx={{ display: 'flex', flexDirection: 'row', mr: 5, ml: 5, mt: 2 }}>
+         <Box sx={{ display: 'flex', flexDirection: 'row', mr: 5, ml: 5, mt: 2, mb: 4 }}>
             <Button color='inherit' disabled={activeStep === 0} onClick={handleBack}>
                Vissza
             </Button>
@@ -62,7 +62,8 @@ const StepHeader: React.FC = () => {
                onClose={handleTooltipClose}
                onOpen={handleTooltipOpen}
                title={<p>Kötelező kitölteni a személyes adatokat a tovább lépéshez!</p>}
-               arrow>
+               arrow
+            >
                <span>
                   <Button onClick={handleNext} disabled={isNextBtnDisabled}>
                      {activeStep === 3 ? 'Véglegesítés' : 'Következő'}
