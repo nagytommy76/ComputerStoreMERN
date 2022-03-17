@@ -29,18 +29,26 @@ const ProductCard: React.FC<ProductCardType> = ({
 
    useEffect(() => {
       if (!isMobile) setIsCardExpanded(false)
+      else setIsCardExpanded(true)
    }, [isMobile])
 
    const routeToDetailsPage = () => {
       navigate(`/${pathNameForDetailsURL}/${pathNameForDetailsURL}-details/${_id}`)
    }
 
+   const onMouseEnterEvent = () => {
+      if (!isMobile) setIsCardExpanded(true)
+   }
+   const onMouseLeaveEvent = () => {
+      if (!isMobile) setIsCardExpanded(false)
+   }
+
    return (
       <CustomCard
          raised={isCardExpanded}
          sx={{ maxWidth: 250, minHeight: 350 }}
-         onMouseEnter={() => setIsCardExpanded(true)}
-         onMouseLeave={() => setIsCardExpanded(false)}
+         onMouseEnter={onMouseEnterEvent}
+         onMouseLeave={onMouseLeaveEvent}
       >
          {ratingCount !== undefined && ratingCount > 0 && <RatingCount ratingCount={ratingCount} />}
          <CardMedia
