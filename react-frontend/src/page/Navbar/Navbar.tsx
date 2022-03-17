@@ -50,6 +50,8 @@ const Navbar = () => {
             setIsNavbarOpen,
             setIsShopDropOpen,
             setIsUserDropOpen,
+            isCartOpen,
+            setIsCartOpen,
          }}
       >
          <OpenButton />
@@ -72,8 +74,8 @@ const Navbar = () => {
                   ComputerStore
                </BrandStyle>
                <ListItem />
-               <CartButton onClickEvent={() => setIsCartOpen(!isCartOpen)} />
-               <CartSlide isSlideOpen={isCartOpen} setIsSlideOpen={setIsCartOpen} reference={CartRef} />
+               <CartButton />
+               <CartSlide reference={CartRef} />
             </NavStyle>
          </CSSTransition>
          {!isMobileSize && (
