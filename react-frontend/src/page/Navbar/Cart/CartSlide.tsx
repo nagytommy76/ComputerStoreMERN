@@ -1,20 +1,36 @@
-import React from 'react'
-import styles from './CartSlide.module.css'
-import { SlideStyle, CartTitle, FinalPriceStyle, FooterStyle, FooterButtonsStyle } from './CartSlideStyle'
+import React, { useContext } from 'react'
 import { useAppSelector } from '../../../app/hooks'
-import NumberFormat from 'react-number-format'
-import { CSSTransition } from 'react-transition-group'
-
-import CartItem from './CartItem/CartItem'
+import { NavbarContext } from '../NavbarContext'
 import { Link } from 'react-router-dom'
+import NumberFormat from 'react-number-format'
 
-const CartSlide: React.FC<Props> = ({ isSlideOpen, reference, setIsSlideOpen }) => {
-   const { totalPrice, cartItems } = useAppSelector((state) => state.cart)
-   const { userLoggedIn } = useAppSelector((state) => state.auth)
+import { CSSTransition } from 'react-transition-group'
+import { SlideStyle, CartTitle, FinalPriceStyle, FooterStyle, FooterButtonsStyle } from './CartSlideStyle'
+import styles from './CartSlide.module.css'
+import CartItem from './CartItem/CartItem'
+
+const CartSlide: React.FC<Props> = ({ reference }) => {
+   const mobileView = useAppSelector(state => state.mobile.isMobile)
+   const { totalPrice, cartItems } = useAppSelector(state => state.cart)
+   const { userLoggedIn } = useAppSelector(state => state.auth)
+   const { isCartOpen, setIsCartOpen, setIsNavbarOpen } = useContext(NavbarContext)
+
+   const OnClickCloseEvent = () => {
+      setIsCartOpen(false)
+   }
+
+   const OnClickCloseNavbarAndCartEvent = () => {
+      setIsCartOpen(false)
+      if (mobileView) {
+         setTimeout(() => {
+            setIsNavbarOpen(false)
+         }, 300)
+      }
+   }
 
    return (
       <CSSTransition
-         in={isSlideOpen}
+         in={isCartOpen}
          unmountOnExit
          mountOnEnter
          timeout={300}
@@ -22,12 +38,13 @@ const CartSlide: React.FC<Props> = ({ isSlideOpen, reference, setIsSlideOpen }) 
          classNames={{
             enter: styles.SlideEnter,
             enterActive: styles.SlideEnterActive,
-            exitActive: styles.SlideExitActive
-         }}>
+            exitActive: styles.SlideExitActive,
+         }}
+      >
          <SlideStyle ref={reference}>
             <CartTitle>Kosár</CartTitle>
             {cartItems.length > 0 ? (
-               cartItems.map((item) => (
+               cartItems.map(item => (
                   <CartItem
                      key={item.itemId}
                      id={item.itemId}
@@ -41,16 +58,18 @@ const CartSlide: React.FC<Props> = ({ isSlideOpen, reference, setIsSlideOpen }) 
                <h4>Nincs termék a kosárban!</h4>
             )}
             <FinalPriceStyle>
-               Összesen : <NumberFormat value={totalPrice} thousandSeparator=' ' suffix=' Ft' displayType='text' />
+               Összesen :{' '}
+               <NumberFormat value={totalPrice} thousandSeparator=' ' suffix=' Ft' displayType='text' />
             </FinalPriceStyle>
             {cartItems.length > 0 && (
                <FooterStyle>
                   {userLoggedIn ? (
-                     <Link to='checkout' onClick={() => setIsSlideOpen(false)}>
+                     <Link to='checkout' onClick={OnClickCloseEvent}>
                         <FooterButtonsStyle
-                           onClick={() => setIsSlideOpen(false)}
+                           onClick={OnClickCloseNavbarAndCartEvent}
                            isDisabled={!userLoggedIn}
-                           disabled={!userLoggedIn}>
+                           disabled={!userLoggedIn}
+                        >
                            Tovább a rendeléshez
                         </FooterButtonsStyle>
                      </Link>
@@ -58,18 +77,19 @@ const CartSlide: React.FC<Props> = ({ isSlideOpen, reference, setIsSlideOpen }) 
                      <FooterButtonsStyle
                         isDisabled={!userLoggedIn}
                         disabled={!userLoggedIn}
-                        onClick={() => setIsSlideOpen(false)}>
+                        onClick={OnClickCloseNavbarAndCartEvent}
+                     >
                         Tovább a rendeléshez
                      </FooterButtonsStyle>
                   )}
                   {!userLoggedIn && (
                      <Link to='login'>
-                        <FooterButtonsStyle onClick={() => setIsSlideOpen(false)}>Belépés</FooterButtonsStyle>
+                        <FooterButtonsStyle onClick={OnClickCloseEvent}>Belépés</FooterButtonsStyle>
                      </Link>
                   )}
                   {!userLoggedIn && (
                      <Link to='register'>
-                        <FooterButtonsStyle onClick={() => setIsSlideOpen(false)}>Regisztráció</FooterButtonsStyle>
+                        <FooterButtonsStyle onClick={OnClickCloseEvent}>Regisztráció</FooterButtonsStyle>
                      </Link>
                   )}
                </FooterStyle>
@@ -80,9 +100,7 @@ const CartSlide: React.FC<Props> = ({ isSlideOpen, reference, setIsSlideOpen }) 
 }
 
 type Props = {
-   isSlideOpen: boolean
    reference: React.MutableRefObject<null>
-   setIsSlideOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default CartSlide
