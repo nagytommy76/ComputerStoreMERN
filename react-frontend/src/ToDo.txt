@@ -19,7 +19,6 @@
 
 - Ha 24 termékre állítom az utolsó sorok összecsúsznak GRID min-height probléma???
 
-- Jobban belemenni a Unit/Integration tesztekbe.
 
 - A stílus nem működik Gmail/hotmail esetén... MEGOLDANI
 
@@ -33,6 +32,10 @@
 HIBÁK/BUGOK:
 - Responsive design: Welcome pagen
 - A navbar amikor mobil nézetben vagyok és nincs bejelentkezett user, nem működik a shop menü dropdown
+- A kártyás fizetés stílusa nem jó mobil esetén, kilóg
+
+- Jobban belemenni a Unit/Integration tesztekbe.
+
 
 
 MEGCSINÁLTAM:

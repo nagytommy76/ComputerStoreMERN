@@ -42,10 +42,11 @@ export const ProductCards = styled.div`
    justify-content: center;
 
    @media (max-width: ${mobileWindowSize}) {
-      width: 100%;
-      height: 100vh;
+      width: 70%;
+      height: 90vh;
       margin: 2rem 0;
       justify-content: unset;
+      overflow: scroll;
    }
 `
 
@@ -62,8 +63,8 @@ export const CustomCard = MUIStyled(Card)(({ theme }) => ({
    [theme.breakpoints.down('sm')]: {
       flexDirection: 'column',
       width: CardWidthInMobile,
-      minHeight: cardHeightInMobile
-   }
+      minHeight: cardHeightInMobile,
+   },
 }))
 
 export const CustomCardMedia = MUIStyled(CardMedia)(({ theme }) => ({
@@ -72,8 +73,8 @@ export const CustomCardMedia = MUIStyled(CardMedia)(({ theme }) => ({
    objectFit: 'cover',
    [theme.breakpoints.down('sm')]: {
       width: CardWidthInMobile,
-      height: '50%'
-   }
+      height: '50%',
+   },
 }))
 
 export const CustomCardContent = MUIStyled(CardContent)(({ theme }) => ({
@@ -82,12 +83,12 @@ export const CustomCardContent = MUIStyled(CardContent)(({ theme }) => ({
    flexDirection: 'column',
    justifyContent: 'space-around',
    '&.MuiCardContent-root': {
-      padding: '0 1.2rem'
+      padding: '0 1.2rem',
    },
    [theme.breakpoints.down('sm')]: {
       width: '85%',
-      height: '50%'
-   }
+      height: '50%',
+   },
 }))
 
 export const FooterSection = styled.footer`
@@ -104,6 +105,9 @@ export const PriceSection = MUIStyled(Typography)(({ theme }) => ({
    borderRadius: '5px',
    backgroundColor: 'rgba(0,0,0, .65)',
    margin: '.5rem 0',
-   letterSpacing: '2px'
+   letterSpacing: '2px',
    // fontSize: '2rem'
+   [theme.breakpoints.down('sm')]: {
+      fontSize: '1.4rem',
+   },
 }))

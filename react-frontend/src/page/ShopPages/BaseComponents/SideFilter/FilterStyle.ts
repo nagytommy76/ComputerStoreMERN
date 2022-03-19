@@ -14,7 +14,7 @@ export const StyledFilter = styled.aside<{ isDarkTheme: boolean }>`
    align-items: center;
 
    @media (max-width: ${mobileWindowSize}) {
-      width: 95%;
+      width: 80%;
       height: 100%;
       margin-bottom: 2.5rem;
    }

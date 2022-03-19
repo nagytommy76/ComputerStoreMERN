@@ -6,7 +6,6 @@ const BaseSocketSelect = React.lazy(() => import('../../BaseComponents/SideFilte
 
 const BySocket = () => {
    const { selectedSocket, allSocket } = useAppSelector(state => state.cpuFilter)
-
    return (
       <BaseSocketSelect
          setSelectedDispatchValue={setSelectedSocket}

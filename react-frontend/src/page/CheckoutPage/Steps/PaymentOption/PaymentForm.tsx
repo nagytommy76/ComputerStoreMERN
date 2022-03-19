@@ -26,10 +26,10 @@ const PaymentForm = () => {
    const { hasError, setHasError } = useError()
    const { counter, setStartCounter } = useCounter()
 
-   const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
-   const totalAmount = useAppSelector((state) => state.cart.totalPrice)
-   const selectedDeliveryTypePrice = useAppSelector((state) => state.deliveryPrice.deliveryPrice)
-   const cardPaymentWasSuccess = useAppSelector((state) => state.payment.isCardPaySuccess)
+   const isDarkTheme = useAppSelector(state => state.theme.isDarkTheme)
+   const totalAmount = useAppSelector(state => state.cart.totalPrice)
+   const selectedDeliveryTypePrice = useAppSelector(state => state.deliveryPrice.deliveryPrice)
+   const cardPaymentWasSuccess = useAppSelector(state => state.payment.isCardPaySuccess)
 
    const handleSubmit = async () => {
       if (!stripe || !elements) {
@@ -38,7 +38,7 @@ const PaymentForm = () => {
       setIsLoading(true)
       const { paymentMethod, error } = await stripe.createPaymentMethod({
          type: 'card',
-         card: elements.getElement(CardElement) as StripeCardElement
+         card: elements.getElement(CardElement) as StripeCardElement,
       })
       if (!error && paymentMethod) {
          dispatch(handleMakeOrderWithCardOrCash(setIsLoading, setHasError, setStartCounter, paymentMethod.id))
@@ -46,7 +46,7 @@ const PaymentForm = () => {
          setHasError({
             errorMsg: error?.message,
             isError: true,
-            serverity: 'error'
+            serverity: 'error',
          })
       }
    }
@@ -88,7 +88,8 @@ const PaymentForm = () => {
                loadingPosition='end'
                loading={isLoading}
                onClick={handleSubmit}
-               variant='contained'>
+               variant='contained'
+            >
                Fizetés és megrendelés
             </LoadingButton>
             <Fade in={hasError.isError}>
