@@ -16,6 +16,7 @@ const canReturnProducts = ({ productModel }: StateType) => ({
       const allProductsToDelete = (await productModel
          .find()
          .select(['manufacturer', 'price', 'type', 'inStockQuantity'])
+         .lean()
          .sort({ price: 'asc' })) as ({
          _id: string
          manufacturer: string

@@ -26,8 +26,6 @@ export default abstract class BaseProduct {
          })
          .sort({ price: orderBy })
          .lean()
-      // .skip((currentPage - 1) * perPage)
-      // .limit(perPage)
       const startIndex = (currentPage - 1) * perPage
       const endIndex = currentPage * perPage
       const pagedProducts = foundProduct.slice(startIndex, endIndex)

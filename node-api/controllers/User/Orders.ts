@@ -13,6 +13,7 @@ import { BaseProductType } from '../../models/Products/BaseTypes'
 import { CpuProduct } from '../../models/Products/Cpu/CpuSchema'
 import { VgaProduct } from '../../models/Products/Vga/VgaProduct'
 import { MemoryProduct } from '../../models/Products/Memory/Memory'
+import { HddProduct } from '../../models/Products/HDD/Hdd'
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY) as Stripe
 
@@ -127,6 +128,12 @@ export default class UserOrders extends NodeMailer {
                const foundMemoryItem = await MemoryProduct.findById(cart.itemId).select('inStockQuantity')
                if (foundMemoryItem) {
                   this.determineTheQuantity(foundMemoryItem, cart.quantity)
+               }
+               break
+            case 'hdd':
+               const foundHDDItem = await HddProduct.findById(cart.itemId).select('inStockQuantity')
+               if (foundHDDItem) {
+                  this.determineTheQuantity(foundHDDItem, cart.quantity)
                }
                break
          }
