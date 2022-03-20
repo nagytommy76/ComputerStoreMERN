@@ -12,7 +12,23 @@ export const footerHeight = '140px'
 
 export const transitionSetup = `all .15s linear`
 
-export const GlobalStyles = createGlobalStyle<{ theme: { body: string; text: string } }>`
+export const GlobalStyles = createGlobalStyle<{
+   theme: { body: string; text: string; scrollbarThumbColor: string }
+}>`
+::-webkit-scrollbar {
+  width: 7px;
+  transition: all .2s ease;
+}
+::-webkit-scrollbar-track {
+  background: ${({ theme }) => theme.body};
+}
+::-webkit-scrollbar-thumb {
+  background: ${({ theme }) => theme.scrollbarThumbColor};
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ff6f00;
+}
+
 body {
     font-family: 'Work Sans', sans-serif;
     -webkit-font-smoothing: antialiased;
