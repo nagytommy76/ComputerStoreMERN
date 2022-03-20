@@ -39,11 +39,12 @@ export default class NodeMailer extends Handlebars {
       })
    }
    async sendEmailWhenUserRegisters(to: string, subject: string, userName: string, confirmationCode: string) {
-      const renderedHtml = await this.renderAnyHbsToPlainHtmlWithMain('Auth/Register', {
-         confirmationCode,
-         userName,
-         EMAIL_TOKEN_EXPIRESIN: this.EMAIL_TOKEN_EXPIRESIN,
-      })
+      // const renderedHtml = await this.renderAnyHbsToPlainHtmlWithMain('Auth/Register', {
+      //    confirmationCode,
+      //    userName,
+      //    EMAIL_TOKEN_EXPIRESIN: this.EMAIL_TOKEN_EXPIRESIN,
+      // })
+      const renderedHtml = this.testFuntion(confirmationCode, userName, this.EMAIL_TOKEN_EXPIRESIN)
       let info = await this.transporter.sendMail({
          from: this.senderAddress,
          to,

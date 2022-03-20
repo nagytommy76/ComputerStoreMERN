@@ -14,40 +14,66 @@ export const registerUserController = async (req: Request, res: Response) => {
    const email = req.body.email
 
    const checkUserRegistered = await User.findOne({ email, userName })
-   if (checkUserRegistered != null) return res.status(404).json(ErrorResponse(true, 'Az email cím már regisztrálva lett'))
+   if (checkUserRegistered != null)
+      return res.status(404).json(ErrorResponse(true, 'Az email cím már regisztrálva lett'))
 
    const validationErrors = validationResult(req)
    if (!validationErrors.isEmpty()) return res.status(422).json({ errors: validationErrors.array() })
 
    try {
       const hashedPass = await bcrypt.hash(req.body.firstPassword, 10)
-      const emailToken = jwt.sign({ userName, email }, EMAIL_SECRET, { expiresIn: `${nodemailer.EMAIL_TOKEN_EXPIRESIN}min` })
-      await nodemailer.sendEmailWhenUserRegisters(email, 'Email cím regisztrálása', userName, emailToken)
-      await User.create({
-         userName,
-         password: hashedPass,
-         email
+      const emailToken = jwt.sign({ userName, email }, EMAIL_SECRET, {
+         expiresIn: `${nodemailer.EMAIL_TOKEN_EXPIRESIN}min`,
       })
+      await nodemailer.sendEmailWhenUserRegisters(email, 'Email cím regisztrálása', userName, emailToken)
+      // await User.create({
+      //    userName,
+      //    password: hashedPass,
+      //    email,
+      // })
       res.status(201).json({
-         message: 'A regisztráció sikeres volt - Az email címedre megküldtük a regisztráció megerősítéhez szükséges kódot!'
+         message:
+            'A regisztráció sikeres volt - Az email címedre megküldtük a regisztráció megerősítéhez szükséges kódot!',
       })
    } catch (error) {
-      res.status(500).json(error)
+      res.status(500).json({ error })
    }
 }
 
 export const loginUserController = async (req: Request, res: Response) => {
    const user = await User.findOne({ $or: [{ email: req.body.email }, { userName: req.body.email }] })
 
-   if (!user) return res.status(404).json(ErrorResponse(true, 'Nincs regisztrálva felhasználó ezzel az email címmel'))
+   if (!user)
+      return res.status(404).json(ErrorResponse(true, 'Nincs regisztrálva felhasználó ezzel az email címmel'))
 
    try {
       if (await bcrypt.compare(req.body.password, user.password)) {
          if (!user.isEmailConfirmed)
-            return res.status(403).json(ErrorResponse(true, 'Az email címed még nem lett regsiztrálva! Kérlek erősítsd meg!'))
-         const accessToken = generateTokens(user._id, user.userName, user.isAdmin, user.email, ACCESS_TOKEN_SECRET)
-         const refreshToken = generateTokens(user._id, user.userName, user.isAdmin, user.email, REFRESH_TOKEN_SECRET, '1day')
-         res.status(200).json({ accessToken, refreshToken, userId: user._id, userName: user.userName, isAdmin: user.isAdmin })
+            return res
+               .status(403)
+               .json(ErrorResponse(true, 'Az email címed még nem lett regsiztrálva! Kérlek erősítsd meg!'))
+         const accessToken = generateTokens(
+            user._id,
+            user.userName,
+            user.isAdmin,
+            user.email,
+            ACCESS_TOKEN_SECRET
+         )
+         const refreshToken = generateTokens(
+            user._id,
+            user.userName,
+            user.isAdmin,
+            user.email,
+            REFRESH_TOKEN_SECRET,
+            '1day'
+         )
+         res.status(200).json({
+            accessToken,
+            refreshToken,
+            userId: user._id,
+            userName: user.userName,
+            isAdmin: user.isAdmin,
+         })
       } else res.status(403).json(ErrorResponse(true, 'Helytelen jelszó', 'password'))
    } catch (error) {
       res.status(500).json(error)
@@ -60,7 +86,13 @@ export const checkTokensValidityController = (req: Request, res: Response) => {
    try {
       jwt.verify(refreshToken, REFRESH_TOKEN_SECRET, (err, decoded: any) => {
          if (err) return res.status(403).json({ errorMessage: 'refresh token expired' })
-         const newAccessToken = generateTokens(decoded._id, decoded.userName, decoded.isAdmin, decoded.email, ACCESS_TOKEN_SECRET)
+         const newAccessToken = generateTokens(
+            decoded._id,
+            decoded.userName,
+            decoded.isAdmin,
+            decoded.email,
+            ACCESS_TOKEN_SECRET
+         )
          res.status(200).json(newAccessToken)
       })
    } catch (error) {
@@ -91,6 +123,6 @@ export const ErrorResponse = (hasError: boolean, errorMessage: string = '', erro
    return {
       errorType,
       hasError,
-      errorMessage
+      errorMessage,
    }
 }
