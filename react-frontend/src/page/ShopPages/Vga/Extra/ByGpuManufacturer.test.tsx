@@ -1,4 +1,5 @@
 import { screen, render, waitForElementToBeRemoved } from '../../../../test-utils'
+import userEvent from '@testing-library/user-event'
 import ByGpuManufacturerSelect from './ByGpuManufacturer'
 
 test('should select the gpu manufacturer', async () => {
@@ -6,10 +7,15 @@ test('should select the gpu manufacturer', async () => {
    await waitForElementToBeRemoved(() => screen.getByRole('heading', { name: /Töltés.../i }), {
       timeout: 5000,
    })
-   const allSelect = screen.getAllByRole('combobox', { name: /GPU gyártó/i }) as HTMLSelectElement[]
-   //    console.log(allSelect[0])
+   const allOptions = screen.getAllByRole('option') as HTMLOptionElement[]
+   const select = screen.getByRole('combobox', { name: /GPU gyártó/i })
+   expect(allOptions[0].selected).toBeTruthy()
+   expect(allOptions[1].selected).toBeFalsy()
+   expect(allOptions[2].selected).toBeFalsy()
 
-   //    expect(allSelect[0].selected).toBeTruthy()
+   userEvent.selectOptions(select, allOptions[1])
 
-   screen.debug()
+   expect(allOptions[0].selected).toBeFalsy()
+   expect(allOptions[1].selected).toBeTruthy()
+   expect(allOptions[2].selected).toBeFalsy()
 })
