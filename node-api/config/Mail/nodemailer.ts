@@ -1,6 +1,8 @@
 import nodemailer from 'nodemailer'
 import Handlebars from './handlebars'
 import fs from 'fs'
+import { URL_PATH } from '../endpoints.config'
+
 import { CartItemsType } from '../../models/User/UserTypes'
 import { ObjectId } from 'mongoose'
 export default class NodeMailer extends Handlebars {
@@ -15,20 +17,10 @@ export default class NodeMailer extends Handlebars {
       super()
       this.senderAddress = '"Comuter Store 👻" <computer@store.hu>'
       this.EMAIL_TOKEN_EXPIRESIN = '15'
-      // this.mailUser = process.env.MAILTRAP_USER
-      // this.mailPass = process.env.MAILTRAP_PASS
       this.mailUser = process.env.MAIL_USERNAME
       this.mailPass = process.env.MAIL_PASSWORD
       this.host = process.env.MAIL_HOST
       this.port = process.env.MAIL_PORT as number | undefined
-      // this.transporter = nodemailer.createTransport({
-      //     host: 'smtp.mailtrap.io',
-      //     port: 2525,
-      //     auth: {
-      //         user: this.mailUser,
-      //         pass: this.mailPass,
-      //     },
-      // })
       this.transporter = nodemailer.createTransport({
          host: this.host,
          port: this.port,
@@ -39,12 +31,12 @@ export default class NodeMailer extends Handlebars {
       })
    }
    async sendEmailWhenUserRegisters(to: string, subject: string, userName: string, confirmationCode: string) {
-      // const renderedHtml = await this.renderAnyHbsToPlainHtmlWithMain('Auth/Register', {
-      //    confirmationCode,
-      //    userName,
-      //    EMAIL_TOKEN_EXPIRESIN: this.EMAIL_TOKEN_EXPIRESIN,
-      // })
-      const renderedHtml = this.testFuntion(confirmationCode, userName, this.EMAIL_TOKEN_EXPIRESIN)
+      const renderedHtml = this.renderAnyMjmlToPlainHtml('Auth/Register', {
+         userName,
+         EMAIL_TOKEN_EXPIRESIN: this.EMAIL_TOKEN_EXPIRESIN,
+         confirmationPath: `${URL_PATH}email-confirm/${confirmationCode}`,
+         URL_PATH,
+      })
       let info = await this.transporter.sendMail({
          from: this.senderAddress,
          to,
