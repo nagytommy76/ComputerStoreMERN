@@ -1,20 +1,25 @@
 <mjml>
    <mj-head>
       <mj-title>ComputerStore Email validáció</mj-title>
-      <mj-font name="Roboto" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500"></mj-font>
+      <mj-font
+         name="sans-serif"
+         href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap"
+      ></mj-font>
       <mj-attributes>
-         <mj-all font-family="Montserrat, Helvetica, Arial, sans-serif"></mj-all>
-         <mj-text font-weight="400" font-size="16px" color="#000000" line-height="24px"></mj-text>
+         <mj-all font-family="Work Sans, sans-serif"></mj-all>
+         <mj-text font-weight="400" font-size="15px" color="#000000" line-height="24px"></mj-text>
          <mj-section padding="0px"></mj-section>
       </mj-attributes>
    </mj-head>
    <mj-body background-color="#F2F2F2">
       <mj-section padding="20px 20px 0 20px" background-color="#FFFFFF">
-         <mj-column width="35%">
-            <mj-text align="left" font-size="20px" font-weight="500">ComputerStore</mj-text>
+         <mj-column width="40%">
+            <mj-text align="left" font-size="20px" font-weight="500"
+               ><a href="{{URL_PATH}}" target="_blank" color="#000">ComputerStore</a></mj-text
+            >
          </mj-column>
-         <mj-column width="65%"
-            ><mj-text align="right" font-size="20px" font-weight="500"
+         <mj-column width="60%">
+            <mj-text align="right" font-size="20px" font-weight="500"
                >Kedves: {{userName}}</mj-text
             ></mj-column
          >
@@ -27,7 +32,7 @@
                padding="30px 40px 10px 40px"
                font-size="32px"
                line-height="40px"
-               color="#5FA91D"
+               color="#ff8f00"
                >Kérlek aktiváld az email címed a megadott linken keresztül!</mj-text
             >
          </mj-column>
@@ -38,6 +43,7 @@
             <mj-text align="center"
                >Ha nem működik a gomb kérlek másold be a linket a böngésződ keresősávjába.</mj-text
             >
+            <mj-text align="center">A kód {{EMAIL_TOKEN_EXPIRESIN}} percig érvényes!</mj-text>
          </mj-column>
       </mj-section>
       <mj-section
@@ -54,13 +60,15 @@
                border="none"
                padding="0px"
             ></mj-image>
-            <mj-text align="center" padding="50px 40px 0 40px" font-weight="300">{{bodyText}}</mj-text>
+            <mj-text align="center" padding="50px 40px 0 40px" font-weight="300">
+               <a target="_blank" href="{{confirmationPath}}" style="color: #000">{{confirmationPath}}</a>
+            </mj-text>
             <mj-button
                align="center"
-               background-color="#5FA91D"
+               background-color="#ff8f00"
                color="#FFFFFF"
                border-radius="2px"
-               href="{{semmi}}"
+               href="{{confirmationPath}}"
                inner-padding="15px 30px"
                padding-bottom="100px"
                padding-top="20px"
@@ -68,17 +76,7 @@
             >
          </mj-column>
       </mj-section>
-      <mj-section padding="50px 0 0 0" background-color="#FFFFFF">
-         <mj-column>
-            <mj-image
-               src="http://nimus.de/share/tpl-card/bottom.png"
-               alt="bottom border"
-               align="center"
-               border="none"
-               padding="0px"
-            ></mj-image>
-         </mj-column>
-      </mj-section>
+      <mj-section padding="50px 0 0 0" background-color="#FFFFFF"> </mj-section>
       <mj-section padding="10px 0 20px 0">
          <mj-column>
             <mj-text align="center" color="#000" font-size="16px"
