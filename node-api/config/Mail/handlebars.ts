@@ -19,6 +19,16 @@ export default abstract class Handlebars {
       })
    }
 
+   renderAnyMjmlToPlainHtml(renderEmailFolderAndName: string, contextObject: any) {
+      const readMjmlAsString = fs.readFileSync(`./views/${renderEmailFolderAndName}.mjml`, 'utf8')
+
+      const renderedText = compile(readMjmlAsString, { strict: true })
+
+      const mjmlText = renderedText(contextObject)
+      const html = mjml(mjmlText)
+      return html.html
+   }
+
    async renderAnyHbsToPlainHtmlWithMain(
       moduleToRender: string,
       parametersObject?: UnknownObject | undefined
@@ -29,17 +39,6 @@ export default abstract class Handlebars {
       })
       return this.#renderMainHandlebarsModule(renderedModule)
    }
-
-   renderAnyMjmlToPlainHtml(renderEmailFolderAndName: string, contextObject: any) {
-      const readMjmlAsString = fs.readFileSync(`./views/${renderEmailFolderAndName}.mjml`, 'utf8')
-
-      const renderedText = compile(readMjmlAsString)
-
-      const mjmlText = renderedText(contextObject)
-      const html = mjml(mjmlText)
-      return html.html
-   }
-
    async #renderMainHandlebarsModule(renderedHbsString: string) {
       return await this.expressHbsInstance.render('./views/main.hbs', {
          body: renderedHbsString,

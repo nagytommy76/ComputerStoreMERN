@@ -30,7 +30,12 @@ export default class NodeMailer extends Handlebars {
          },
       })
    }
-   async sendEmailWhenUserRegisters(to: string, subject: string, userName: string, confirmationCode: string) {
+   async sendEmailUserRegistersAndResendEmail(
+      to: string,
+      subject: string,
+      userName: string,
+      confirmationCode: string
+   ) {
       const renderedHtml = this.renderAnyMjmlToPlainHtml('Auth/Register', {
          userName,
          EMAIL_TOKEN_EXPIRESIN: this.EMAIL_TOKEN_EXPIRESIN,
@@ -46,20 +51,6 @@ export default class NodeMailer extends Handlebars {
       return info
    }
 
-   async resendEmailWhenTokenExpiresOrInvalid(userEmail: string, newConfirmationCode: string) {
-      const renderedEmail = await this.renderAnyHbsToPlainHtmlWithMain('Auth/Resend', {
-         confirmationCode: newConfirmationCode,
-         EMAIL_TOKEN_EXPIRESIN: this.EMAIL_TOKEN_EXPIRESIN,
-      })
-      let emailInformation = await this.transporter.sendMail({
-         from: this.senderAddress,
-         to: userEmail,
-         subject: 'Megerősítő kód újraküldése',
-         html: renderedEmail,
-      })
-      return emailInformation
-   }
-
    async sendEmailAfterUserOrder(
       userEmail: string,
       products: CartItemsType[],
@@ -70,7 +61,7 @@ export default class NodeMailer extends Handlebars {
       orderID?: string | ObjectId
    ) {
       try {
-         const renderedEmail = await this.renderAnyHbsToPlainHtmlWithMain('Orders/Orders', {
+         const renderedEmail = await this.renderAnyMjmlToPlainHtml('Orders/Orders', {
             EMAIL_TOKEN_EXPIRESIN: this.EMAIL_TOKEN_EXPIRESIN,
             products,
             itemId,
@@ -93,4 +84,37 @@ export default class NodeMailer extends Handlebars {
          console.log(error)
       }
    }
+   // async sendEmailAfterUserOrder(
+   //    userEmail: string,
+   //    products: CartItemsType[],
+   //    itemId: string,
+   //    orderDate: string,
+   //    totalPrice: number,
+   //    deliveryPrice: number,
+   //    orderID?: string | ObjectId
+   // ) {
+   //    try {
+   //       const renderedEmail = await this.renderAnyHbsToPlainHtmlWithMain('Orders/Orders', {
+   //          EMAIL_TOKEN_EXPIRESIN: this.EMAIL_TOKEN_EXPIRESIN,
+   //          products,
+   //          itemId,
+   //          orderDate,
+   //          totalPrice,
+   //          deliveryPrice,
+   //          orderID,
+   //       })
+   //       fs.writeFile('emailSent.html', renderedEmail, err => {
+   //          if (err) console.log(err)
+   //       })
+   //       let emailInformation = await this.transporter.sendMail({
+   //          from: this.senderAddress,
+   //          to: userEmail,
+   //          subject: 'Rendelésed összegzése',
+   //          html: renderedEmail,
+   //       })
+   //       return emailInformation
+   //    } catch (error) {
+   //       console.log(error)
+   //    }
+   // }
 }
