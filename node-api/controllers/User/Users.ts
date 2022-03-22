@@ -25,7 +25,12 @@ export const registerUserController = async (req: Request, res: Response) => {
       const emailToken = jwt.sign({ userName, email }, EMAIL_SECRET, {
          expiresIn: `${nodemailer.EMAIL_TOKEN_EXPIRESIN}min`,
       })
-      await nodemailer.sendEmailWhenUserRegisters(email, 'Email cím regisztrálása', userName, emailToken)
+      await nodemailer.sendEmailUserRegistersAndResendEmail(
+         email,
+         'Email cím regisztrálása',
+         userName,
+         emailToken
+      )
       // await User.create({
       //    userName,
       //    password: hashedPass,
