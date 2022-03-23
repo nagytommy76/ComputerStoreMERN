@@ -58,10 +58,11 @@ export default class NodeMailer extends Handlebars {
       orderDate: string,
       totalPrice: number,
       deliveryPrice: number,
+      userName: string,
       orderID?: string | ObjectId
    ) {
       try {
-         const renderedEmail = await this.renderAnyMjmlToPlainHtml('Orders/Orders', {
+         const renderedEmail = this.renderAnyMjmlToPlainHtml('Orders/Orders', {
             EMAIL_TOKEN_EXPIRESIN: this.EMAIL_TOKEN_EXPIRESIN,
             products,
             itemId,
@@ -69,10 +70,12 @@ export default class NodeMailer extends Handlebars {
             totalPrice,
             deliveryPrice,
             orderID,
+            URL_PATH,
+            userName,
          })
-         fs.writeFile('emailSent.html', renderedEmail, err => {
-            if (err) console.log(err)
-         })
+         // fs.writeFile('emailSent.html', renderedEmail, err => {
+         //    if (err) console.log(err)
+         // })
          let emailInformation = await this.transporter.sendMail({
             from: this.senderAddress,
             to: userEmail,
@@ -84,37 +87,4 @@ export default class NodeMailer extends Handlebars {
          console.log(error)
       }
    }
-   // async sendEmailAfterUserOrder(
-   //    userEmail: string,
-   //    products: CartItemsType[],
-   //    itemId: string,
-   //    orderDate: string,
-   //    totalPrice: number,
-   //    deliveryPrice: number,
-   //    orderID?: string | ObjectId
-   // ) {
-   //    try {
-   //       const renderedEmail = await this.renderAnyHbsToPlainHtmlWithMain('Orders/Orders', {
-   //          EMAIL_TOKEN_EXPIRESIN: this.EMAIL_TOKEN_EXPIRESIN,
-   //          products,
-   //          itemId,
-   //          orderDate,
-   //          totalPrice,
-   //          deliveryPrice,
-   //          orderID,
-   //       })
-   //       fs.writeFile('emailSent.html', renderedEmail, err => {
-   //          if (err) console.log(err)
-   //       })
-   //       let emailInformation = await this.transporter.sendMail({
-   //          from: this.senderAddress,
-   //          to: userEmail,
-   //          subject: 'Rendelésed összegzése',
-   //          html: renderedEmail,
-   //       })
-   //       return emailInformation
-   //    } catch (error) {
-   //       console.log(error)
-   //    }
-   // }
 }

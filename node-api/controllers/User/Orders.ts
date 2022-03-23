@@ -73,6 +73,7 @@ export default class UserOrders extends NodeMailer {
                `${orderedAt.toLocaleDateString()} ${orderedAt.toLocaleTimeString()}`,
                amount + deliveryPrice,
                deliveryPrice,
+               foundUser.userName,
                foundLastOrderId
             )
             // Módosítom az összes kosárban lévő termék stockQty-jét
