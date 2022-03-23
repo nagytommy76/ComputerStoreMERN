@@ -16,3 +16,5 @@ access.log
 build/
 Procfile
 emailSent.html
+
+ordersImage.jpg

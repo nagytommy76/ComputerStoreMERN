@@ -31,11 +31,11 @@ export const registerUserController = async (req: Request, res: Response) => {
          userName,
          emailToken
       )
-      // await User.create({
-      //    userName,
-      //    password: hashedPass,
-      //    email,
-      // })
+      await User.create({
+         userName,
+         password: hashedPass,
+         email,
+      })
       res.status(201).json({
          message:
             'A regisztráció sikeres volt - Az email címedre megküldtük a regisztráció megerősítéhez szükséges kódot!',
