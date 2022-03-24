@@ -51,6 +51,7 @@
          vertical-align="middle"
          background-size="cover"
          background-repeat="no-repeat"
+         padding="0 0 30px 0"
       >
          <mj-column width="100%">
             <mj-image
@@ -64,7 +65,7 @@
 
          <mj-group width="65%">
             {{#each products}}
-            <mj-column width="100%" background-color="rgba(50,50,50,0.5)">
+            <mj-column width="100%" background-color="rgba(20,20,20,0.6)">
                <mj-image width="200px" height="190px" padding="0" src="{{this.displayImage}}" />
                <mj-text align="center" font-size="16px" color="#FFF">
                   <a
@@ -78,8 +79,21 @@
             </mj-column>
             {{/each}}
          </mj-group>
+         <mj-column width="100%">
+            <mj-text
+               align="center"
+               font-weight="100"
+               padding="10px 0"
+               font-size="16px"
+               line-height="15px"
+               color="#FFF"
+            >
+               <h3>Szállítási költség: <span style="color: #ff8f00">{{deliveryPrice}}</span> Ft</h3>
+               <h3>Fizetendő végösszeg: <span style="color: #ff8f00">{{totalPrice}}</span> Ft</h3>
+            </mj-text>
+         </mj-column>
       </mj-section>
-      <mj-section padding="50px 0 0 0" background-color="#FFFFFF"> </mj-section>
+
       <mj-section padding="10px 0 20px 0">
          <mj-column>
             <mj-social font-size="15px" icon-size="30px" mode="horizontal">

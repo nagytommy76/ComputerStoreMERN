@@ -40,7 +40,6 @@ export default class NodeMailer extends Handlebars {
          userName,
          EMAIL_TOKEN_EXPIRESIN: this.EMAIL_TOKEN_EXPIRESIN,
          confirmationPath: `${URL_PATH}email-confirm/${confirmationCode}`,
-         URL_PATH,
       })
       let info = await this.transporter.sendMail({
          from: this.senderAddress,
@@ -70,12 +69,9 @@ export default class NodeMailer extends Handlebars {
             totalPrice,
             deliveryPrice,
             orderID,
-            URL_PATH,
             userName,
          })
-         // fs.writeFile('emailSent.html', renderedEmail, err => {
-         //    if (err) console.log(err)
-         // })
+
          let emailInformation = await this.transporter.sendMail({
             from: this.senderAddress,
             to: userEmail,
