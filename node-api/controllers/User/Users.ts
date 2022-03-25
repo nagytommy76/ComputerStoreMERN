@@ -14,7 +14,7 @@ export const registerUserController = async (req: Request, res: Response) => {
    const email = req.body.email
 
    const checkUserRegistered = await User.findOne({ email, userName })
-   if (checkUserRegistered != null)
+   if (checkUserRegistered !== null)
       return res.status(404).json(ErrorResponse(true, 'Az email cím már regisztrálva lett'))
 
    const validationErrors = validationResult(req)
