@@ -28,8 +28,9 @@ const BaseDrop: React.FC<Props> = ({ isDropOpen, dropRef, setIsDropOpen, text, c
                enter: styles.DropEnter,
                enterActive: styles.DropEnterActive,
                exit: styles.DropExit,
-               exitActive: styles.DropExitActive
-            }}>
+               exitActive: styles.DropExitActive,
+            }}
+         >
             {children}
          </CSSTransition>
       </StyledListItems>

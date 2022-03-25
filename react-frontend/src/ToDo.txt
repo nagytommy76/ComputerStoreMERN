@@ -1,4 +1,3 @@
-- A scroll-nak valami design-t adni
 
 - Esetleg PDF generálás?!
 
@@ -23,7 +22,6 @@
 - A stílus nem működik Gmail/hotmail esetén... MEGOLDANI
 
 
-- ha vesznek valamiből a készlet változzon!!!
 - A termék bevitelénél ha nincs picURL kéne egy alert mert most nincs
 
 - A korábbi rendeléseknél egy linket a termékekhez!!!
@@ -36,9 +34,13 @@ HIBÁK/BUGOK:
 
 - Jobban belemenni a Unit/Integration tesztekbe.
 
+OS preferált theme
+https://medium.com/hypersphere-codes/detecting-system-theme-in-javascript-css-react-f6b961916d48
 
 
 MEGCSINÁLTAM:
+- ha vesznek valamiből a készlet változzon!!!
+- A scroll-nak valami design-t adni
 - Megformázni az emailt, handlebars-al? https://handlebarsjs.com/
 - A VGA-CPU-t még valahogy egyszerűsíteni kéne, sok az ismétlődés MEGOLDVA
 
