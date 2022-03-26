@@ -16,25 +16,39 @@ const NodeMailerInstance = new NodeMailer()
 
 export const forgotPasswordController = async (request: ForgotPasswordRequestType, response: Response) => {
    try {
-      const { email } = request.body
+      const { userEmailOrUsername } = request.body
 
-      const checkUserRegistered = await User.findOne({ email })
+      const checkUserRegistered = await User.findOne({
+         $or: [{ email: userEmailOrUsername }, { userName: userEmailOrUsername }],
+      }).lean()
+
       if (checkUserRegistered === null) {
          return response.status(404).json(ErrorResponse(true, 'Az email cím nincs még regisztrálva!'))
       }
 
-      const forgotPassToken = sign({ email, userId: checkUserRegistered._id }, PASSWORD_SECRET, {
-         expiresIn: '10m',
-      })
+      const forgotPassToken = sign(
+         { email: userEmailOrUsername, userId: checkUserRegistered._id },
+         PASSWORD_SECRET,
+         {
+            expiresIn: '10m',
+         }
+      )
       const validationLink = `${URL_PATH}forgot-password/${forgotPassToken}`
+      await NodeMailerInstance.sendResetPasswordLinkEmail(validationLink, checkUserRegistered.email)
+      response.status(200).json({
+         message: 'A jelszó emlékeztető email sikeresen elküldve a megadott email címre!',
+         validationLink,
+      })
    } catch (error) {
       response.status(500).json(error)
    }
 }
 
+export const resetPasswordController = async (request: Request, response: Response) => {}
+
 type ForgotPasswordRequestType = Request & {
    body: {
-      email: string
+      userEmailOrUsername: string
    }
 }
 

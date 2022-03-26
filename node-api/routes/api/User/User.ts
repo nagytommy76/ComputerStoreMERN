@@ -8,13 +8,21 @@ import { authenticateAccessToken } from '../../../middlewares/AuthenticateAccess
 import { checkErrors } from '../../../middlewares/CheckValidationErrors'
 import { checkUserIsFound } from '../../../middlewares/CheckUserIsFound'
 
-import { registerUserController, loginUserController, checkTokensValidityController } from '../../../controllers/User/Users'
-import { ResendEmailController, ValidateEmailRegistrationController } from '../../../controllers/User/EmailValidation'
+import {
+   registerUserController,
+   loginUserController,
+   checkTokensValidityController,
+} from '../../../controllers/User/Users'
+import {
+   ResendEmailController,
+   ValidateEmailRegistrationController,
+} from '../../../controllers/User/EmailValidation'
 import {
    insertUserDetailsController,
    getUserDetailsController,
-   updateUserDetailsController
+   updateUserDetailsController,
 } from '../../../controllers/User/UserDetails'
+import { forgotPasswordController } from '../../../controllers/User/ResetPassword'
 
 type RequestWithUser = Request & {
    user?: UserTypes | null
@@ -52,6 +60,9 @@ router.patch(
    checkUserIsFound,
    updateUserDetailsController
 )
+
+// Forgot password
+router.post('/forgot-password', forgotPasswordController)
 
 // https://www.freecodecamp.org/news/how-to-make-input-validation-simple-and-clean-in-your-express-js-app-ea9b5ff5a8a7/
 
