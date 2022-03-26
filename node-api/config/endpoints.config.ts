@@ -6,3 +6,5 @@ export const EMAIL_SECRET = process.env.EMAIL_SECRET ?? ''
 
 export const URL_PATH = process.env.URL_PATH_DEVELOPMENT ?? ''
 // export const URL_PATH = process.env.URL_PATH_RELEASE ?? ''
+
+export const PASSWORD_SECRET = process.env.RESET_PASSWORD_SECRET ?? ''

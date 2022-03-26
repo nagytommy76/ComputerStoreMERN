@@ -1,0 +1,94 @@
+<mjml>
+   <mj-head>
+      <mj-title>ComputerStore Email validáció</mj-title>
+      <mj-font
+         name="sans-serif"
+         href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap"
+      ></mj-font>
+      <mj-attributes>
+         <mj-all font-family="Work Sans, sans-serif"></mj-all>
+         <mj-text font-weight="400" font-size="15px" color="#000000" line-height="24px"></mj-text>
+         <mj-section padding="0px"></mj-section>
+      </mj-attributes>
+   </mj-head>
+   <mj-body background-color="#F2F2F2">
+      <mj-section padding="20px 20px 0 20px" background-color="#FFFFFF">
+         <mj-column width="100%">
+            <mj-text align="center" font-size="25px"
+               ><a href="{{URL_PATH}}" target="_blank" style="color: #000; text-decoration: none"
+                  >ComputerStore</a
+               ></mj-text
+            >
+         </mj-column>
+      </mj-section>
+      <mj-section padding="20px 20px 0 20px" background-color="#FFFFFF">
+         <mj-column>
+            <mj-text
+               align="center"
+               font-weight="300"
+               padding="30px 40px 10px 40px"
+               font-size="32px"
+               line-height="40px"
+               color="#ff8f00"
+               >Kérlek erősítsd meg az email címed a jelszó módosításához!</mj-text
+            >
+         </mj-column>
+      </mj-section>
+      <mj-section padding="10px 20px" background-color="#FFFFFF">
+         <mj-column>
+            <mj-divider width="300px" border-width="3px" border-color="#9B9B9B"></mj-divider>
+            <mj-text align="center"
+               >Ha nem működik a gomb kérlek másold be a linket a böngésződ keresősávjába.</mj-text
+            >
+         </mj-column>
+      </mj-section>
+      <mj-section
+         background-url="http://nimus.de/share/tpl-card/bg.jpg"
+         vertical-align="middle"
+         background-size="cover"
+         background-repeat="no-repeat"
+      >
+         <mj-column width="100%">
+            <mj-image
+               src="http://nimus.de/share/tpl-card/lineshadow.png"
+               alt=""
+               align="center"
+               border="none"
+               padding="0px"
+            ></mj-image>
+            <mj-text align="center" padding="50px 40px 0 40px" font-weight="300">
+               <a target="_blank" href="{{validationLink}}" style="color: #000">{{validationLink}}</a>
+            </mj-text>
+            <mj-button
+               align="center"
+               background-color="#ff8f00"
+               color="#FFFFFF"
+               border-radius="2px"
+               href="{{validationLink}}"
+               inner-padding="15px 30px"
+               padding-bottom="100px"
+               padding-top="20px"
+               >Aktiválás</mj-button
+            >
+         </mj-column>
+      </mj-section>
+      <mj-section padding="50px 0 0 0" background-color="#FFFFFF"> </mj-section>
+      <mj-section padding="10px 0 20px 0">
+         <mj-column>
+            <mj-social font-size="15px" icon-size="30px" mode="horizontal">
+               <mj-social-element
+                  name="linkedin"
+                  href="https://www.linkedin.com/in/tam%C3%A1s-nagy-27355116b/"
+               >
+                  LinkedIn
+               </mj-social-element>
+               <mj-social-element name="github" href="https://github.com/nagytommy76">
+                  GitHub
+               </mj-social-element>
+               <mj-social-element name="web" href="https://nagytamas93.hu/"> Honlapom </mj-social-element>
+            </mj-social>
+            <mj-text align="center" color="#000" font-size="16px">Készítette: Nagy Tamás </mj-text>
+         </mj-column>
+      </mj-section>
+   </mj-body>
+</mjml>
