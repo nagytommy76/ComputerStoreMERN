@@ -19,14 +19,20 @@ const Login: React.FC = () => {
       emailOrUsername,
       setEmailOrUsername,
       password,
-      setPassword
+      setPassword,
+      invalidPassAttempt,
    } = useLogin()
 
    return (
       <Suspense fallback={<LoginSuspense />}>
          <AuthContainer>
             <AuthFormStyle>
-               <LoginForm onSubmitEvent={loginUser} title='Belépés' buttonText='Belépés' isLoadingButton={isLoadingForResponse}>
+               <LoginForm
+                  onSubmitEvent={loginUser}
+                  title='Belépés'
+                  buttonText='Belépés'
+                  isLoadingButton={isLoadingForResponse}
+               >
                   <InputFields
                      emailOrUsername={emailOrUsername}
                      setEmailOrUsername={setEmailOrUsername}
@@ -34,6 +40,7 @@ const Login: React.FC = () => {
                      setPassword={setPassword}
                   />
                   <AlertMessages
+                     invalidPassAttempt={invalidPassAttempt}
                      emailOrUsername={emailOrUsername}
                      isInvalidatedEmail={isInvalidatedEmail}
                      validationError={validationError}

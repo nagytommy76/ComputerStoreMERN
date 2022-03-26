@@ -3,7 +3,14 @@ import axios, { AxiosError, AxiosResponse } from 'axios'
 import { useNavigate } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'
-import { setUserLoggedIn, setAccessToken, setUserId, setUserName, setRefreshToken, setAdmin } from '../../../app/slices/AuthSlice'
+import {
+   setUserLoggedIn,
+   setAccessToken,
+   setUserId,
+   setUserName,
+   setRefreshToken,
+   setAdmin,
+} from '../../../app/slices/AuthSlice'
 import { fillDBWithCartItemsAfterLogin } from '../../../app/slices/CartSlice'
 
 import useLocationState from './useLocationState'
@@ -14,13 +21,19 @@ const useLogin = () => {
    const dispatch = useAppDispatch()
    const navigate = useNavigate()
 
-   const cartItems = useAppSelector((state) => state.cart.cartItems)
+   const cartItems = useAppSelector(state => state.cart.cartItems)
    const [isLoadingForResponse, setIsLoadingForResponse] = useState<boolean>(false)
 
    const [isInvalidatedEmail, setIsinvalidatedEmail] = useState<boolean>(false)
-   const [emailOrUsername, setEmailOrUsername] = useState<InputTypes>({ value: '', hasError: false, errorMessage: '' })
+   const [emailOrUsername, setEmailOrUsername] = useState<InputTypes>({
+      value: '',
+      hasError: false,
+      errorMessage: '',
+   })
    const [password, setPassword] = useState<InputTypes>({ value: '', hasError: false, errorMessage: '' })
    const [validationError, setValidationError] = useState({ isSuccess: false, message: '' })
+   const [invalidPassAttempt, setInvalidPassAttempt] = useState<number>(0)
+
    useLocationState(setValidationError)
 
    const resetErrors = () => {
@@ -34,11 +47,12 @@ const useLogin = () => {
       resetErrors()
       if (emailOrUsername.value === '')
          return setEmailOrUsername({ value: '', hasError: true, errorMessage: 'Kérem az e-mail címet!' })
-      if (password.value === '') return setPassword({ value: '', hasError: true, errorMessage: 'Kérem a jelszót!' })
+      if (password.value === '')
+         return setPassword({ value: '', hasError: true, errorMessage: 'Kérem a jelszót!' })
       axios
          .post('/auth/login', {
             email: emailOrUsername.value,
-            password: password.value
+            password: password.value,
          })
          .then((response: AxiosResponse) => {
             if (response.status === 200) {
@@ -56,19 +70,20 @@ const useLogin = () => {
             setIsLoadingForResponse(false)
             if (err.response?.data.errorType === 'email') {
                if (err.response.status === 403) setIsinvalidatedEmail(true)
-               setEmailOrUsername((previousState) => {
+               setEmailOrUsername(previousState => {
                   return {
                      ...previousState,
                      hasError: err.response?.data.hasError,
-                     errorMessage: err.response?.data.errorMessage
+                     errorMessage: err.response?.data.errorMessage,
                   }
                })
             } else {
-               setPassword((previousState) => {
+               setInvalidPassAttempt(prevAttempt => (prevAttempt += 1))
+               setPassword(previousState => {
                   return {
                      ...previousState,
                      hasError: err.response?.data.hasError,
-                     errorMessage: err.response?.data.errorMessage
+                     errorMessage: err.response?.data.errorMessage,
                   }
                })
             }
@@ -82,7 +97,8 @@ const useLogin = () => {
       emailOrUsername,
       setEmailOrUsername,
       password,
-      setPassword
+      setPassword,
+      invalidPassAttempt,
    } as const
 }
 
