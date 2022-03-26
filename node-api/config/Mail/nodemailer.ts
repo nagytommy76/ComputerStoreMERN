@@ -83,4 +83,19 @@ export default class NodeMailer extends Handlebars {
          console.log(error)
       }
    }
+
+   async sendResetPasswordLinkEmail(validationLink: string, userEmail: string) {
+      try {
+         const renderedEmail = this.renderAnyMjmlToPlainHtml('Auth/ForgotPass', { validationLink })
+         let emailInfo = await this.transporter.sendMail({
+            from: this.senderAddress,
+            to: userEmail,
+            subject: 'Elfelejtett jelszó',
+            html: renderedEmail,
+         })
+         return emailInfo
+      } catch (error) {
+         console.log(error)
+      }
+   }
 }
