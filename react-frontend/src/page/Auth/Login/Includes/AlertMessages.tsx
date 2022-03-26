@@ -12,7 +12,8 @@ const AlertMessages: React.FC<{
    validationError: { isSuccess: boolean; message: string }
    isInvalidatedEmail: boolean
    emailOrUsername: InputTypes
-}> = ({ validationError, isInvalidatedEmail, emailOrUsername }) => {
+   invalidPassAttempt: number
+}> = ({ validationError, isInvalidatedEmail, emailOrUsername, invalidPassAttempt }) => {
    const { handleClose, isSnackOpen, setIsSnackOpen } = useSnackbar()
 
    return (
@@ -25,10 +26,30 @@ const AlertMessages: React.FC<{
          <Collapse unmountOnExit mountOnEnter in={isInvalidatedEmail}>
             <Alert variant='outlined' color='warning'>
                Nem kaptál még ilyen email? Kattints a gombra.
-               <ResendEmailButton confirmCode={null} userEmail={emailOrUsername.value} onSnackbarOpen={setIsSnackOpen} />
+               <ResendEmailButton
+                  confirmCode={null}
+                  userEmail={emailOrUsername.value}
+                  onSnackbarOpen={setIsSnackOpen}
+               />
             </Alert>
          </Collapse>
-         <Snackbar open={isSnackOpen.open} onClose={handleClose} message={isSnackOpen.message} />
+         <Collapse unmountOnExit mountOnEnter in={invalidPassAttempt >= 2}>
+            <Alert variant='standard' color='info'>
+               Elfelejtetted a jelszavad? Küldjünk egy jelszó emlékeztető emailt?
+               <ResendEmailButton
+                  path='forgot-password'
+                  confirmCode={null}
+                  userEmail={emailOrUsername.value}
+                  onSnackbarOpen={setIsSnackOpen}
+               />
+            </Alert>
+         </Collapse>
+         <Snackbar
+            autoHideDuration={6000}
+            open={isSnackOpen.open}
+            onClose={handleClose}
+            message={isSnackOpen.message}
+         />
       </>
    )
 }

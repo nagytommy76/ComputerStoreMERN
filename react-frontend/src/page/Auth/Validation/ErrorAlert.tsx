@@ -8,12 +8,12 @@ import Snackbar from '@mui/material/Snackbar'
 
 const ResendEmailButton = React.lazy(() => import('./ResendEmailButton'))
 
-const ErrorAlert: React.FC<{ hasError: boolean; errorMsgTitle: string; message?: string; validationCode: string }> = ({
-   hasError,
-   errorMsgTitle,
-   message,
-   validationCode
-}) => {
+const ErrorAlert: React.FC<{
+   hasError: boolean
+   errorMsgTitle: string
+   message?: string
+   validationCode: string
+}> = ({ hasError, errorMsgTitle, message, validationCode }) => {
    const { setIsSnackOpen, handleClose, isSnackOpen } = useSnackbar()
    return (
       <>
