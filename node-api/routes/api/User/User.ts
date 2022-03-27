@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express'
 import { UserTypes } from '../../../models/User/UserTypes'
 
-import { ValidateRegister } from './Validators/UserValidator'
+import { ValidateRegister, ValidatePasswordMatch } from './Validators/UserValidator'
 import { insertUserDetailsValidator } from './Validators/UserDetailsValidator'
 
 import { authenticateAccessToken } from '../../../middlewares/AuthenticateAccessOrRefreshTokens'
@@ -22,7 +22,7 @@ import {
    getUserDetailsController,
    updateUserDetailsController,
 } from '../../../controllers/User/UserDetails'
-import { forgotPasswordController } from '../../../controllers/User/ResetPassword'
+import { forgotPasswordController, resetPasswordController } from '../../../controllers/User/ResetPassword'
 
 type RequestWithUser = Request & {
    user?: UserTypes | null
@@ -63,6 +63,7 @@ router.patch(
 
 // Forgot password
 router.post('/forgot-password', forgotPasswordController)
+router.post('/reset-password', ValidatePasswordMatch, resetPasswordController)
 
 // https://www.freecodecamp.org/news/how-to-make-input-validation-simple-and-clean-in-your-express-js-app-ea9b5ff5a8a7/
 
