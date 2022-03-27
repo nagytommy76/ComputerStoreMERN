@@ -1,6 +1,9 @@
 import { Request, Response } from 'express'
 import { User } from '../../models/User/User'
-import { sign } from 'jsonwebtoken'
+import { validationResult } from 'express-validator'
+
+import { sign, verify, VerifyErrors, JwtPayload } from 'jsonwebtoken'
+import bcrypt from 'bcrypt'
 
 import { PASSWORD_SECRET, URL_PATH } from '../../config/endpoints.config'
 import { ErrorResponse } from './Users'
@@ -28,7 +31,7 @@ export const forgotPasswordController = async (request: ForgotPasswordRequestTyp
 
       const forgotPassToken = sign(
          { email: userEmailOrUsername, userId: checkUserRegistered._id },
-         PASSWORD_SECRET,
+         PASSWORD_SECRET + checkUserRegistered.password,
          {
             expiresIn: '10m',
          }
@@ -44,7 +47,42 @@ export const forgotPasswordController = async (request: ForgotPasswordRequestTyp
    }
 }
 
-export const resetPasswordController = async (request: Request, response: Response) => {}
+// A frontendről megkapom a 2 jelszót, meg az előzőleg elküldött tokent -> validálni kell
+export const resetPasswordController = async (request: ResetPassRequestType, response: Response) => {
+   const { passwordToken, firstPassword } = request.body
+
+   const validationErrors = validationResult(request)
+   if (!validationErrors.isEmpty()) return response.status(422).json({ errors: validationErrors.array() })
+
+   try {
+      const hashedNewPass = await bcrypt.hash(firstPassword, 10)
+      verify(
+         passwordToken,
+         PASSWORD_SECRET + firstPassword,
+         async (err: VerifyErrors | null, decoded: JwtPayload | undefined) => {
+            if (err) return response.status(403).json({ errorMessage: 'refresh token expired' })
+            if (decoded) {
+               const foundUser = await User.findOne({ email: decoded.email })
+               if (foundUser === null)
+                  return response.status(404).json(ErrorResponse(true, 'Felhasználó nem található!'))
+               foundUser.password = hashedNewPass
+               foundUser.save()
+               return response.status(200).json({ message: 'A jelszó módosítás sikeres volt!' })
+            }
+         }
+      )
+   } catch (error) {
+      response.status(500).json(error)
+   }
+}
+
+type ResetPassRequestType = Request & {
+   body: {
+      passwordToken: string
+      firstPassword: string
+      secondPassword: string
+   }
+}
 
 type ForgotPasswordRequestType = Request & {
    body: {
