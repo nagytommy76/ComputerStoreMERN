@@ -70,9 +70,9 @@ const Routes = () => {
             <Route
                path='/forgot-password/:forgotPassToken'
                element={
-                  <AuthProtectedRoute>
+                  <GuestsRoute>
                      <ForgotPassword />
-                  </AuthProtectedRoute>
+                  </GuestsRoute>
                }
             />
             <Route
