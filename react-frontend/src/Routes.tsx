@@ -8,6 +8,7 @@ const Register = lazy(() => import(/*webpackChunkName: "RegisterPage"*/ './page/
 const EmailValidation = lazy(
    () => import(/*webpackChunkName: "EmailValidation"*/ './page/Auth/Validation/EmailValidation')
 )
+const ForgotPassword = lazy(() => import('./page/Auth/ForgotPassword/ForgotPassword'))
 const UserOrders = lazy(() => import('./page/Orders/Orders'))
 
 const Welcome = lazy(() => import(/*webpackChunkName: "WelcomePage"*/ './page/Welcome/Welcome'))
@@ -58,7 +59,22 @@ const Routes = () => {
                   </GuestsRoute>
                }
             />
-            <Route path='/email-confirm/:confirmCode' element={<EmailValidation />} />
+            <Route
+               path='/email-confirm/:confirmCode'
+               element={
+                  <AuthProtectedRoute>
+                     <EmailValidation />
+                  </AuthProtectedRoute>
+               }
+            />
+            <Route
+               path='/forgot-password/:forgotPassToken'
+               element={
+                  <AuthProtectedRoute>
+                     <ForgotPassword />
+                  </AuthProtectedRoute>
+               }
+            />
             <Route
                path='/checkout'
                element={
