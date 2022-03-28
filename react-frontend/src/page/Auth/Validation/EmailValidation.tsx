@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import useErrorsState from '../Hooks/useErrorsState'
 import axios from 'axios'
 import { useParams, useNavigate } from 'react-router-dom'
 
@@ -16,17 +17,7 @@ const EmailValidation = () => {
 
    const [code, setCode] = useState<string>('')
    const [isPending, setIsPending] = useState<boolean>(false)
-   const [errors, setErrors] = useState<{
-      hasError: boolean
-      messageTitle: string
-      message?: string
-      errorType?: 'jwt expired' | 'invalid signature'
-   }>({
-      hasError: false,
-      messageTitle: '',
-      message: '',
-      errorType: 'jwt expired',
-   })
+   const { errors, setErrors } = useErrorsState()
 
    useEffect(() => {
       if (params) setCode(params.confirmCode)
@@ -48,20 +39,18 @@ const EmailValidation = () => {
       } catch (error) {
          if (axios.isAxiosError(error)) {
             if (error.response?.status === 403) {
-               error.response.data.errorMsg === /jwt expired/i &&
+               error.response.data.param === /jwt expired/i &&
                   setErrors({
                      hasError: true,
-                     messageTitle: 'Eltelt 15 perc! Lejárt a kód!',
+                     messageTitle: error.response.data.msg,
                      message: 'Kérlek kérj egy új emailt a lenti gombbal.',
                      errorType: 'jwt expired',
                   })
-               error.response.data.errorMsg === /invalid signature/i ||
-                  ('invalid token' &&
-                     setErrors({
-                        hasError: true,
-                        messageTitle: 'Helytelen megerősítő kód! Kérlek ellenőrizd, vagy kérj egy újat!',
-                        errorType: 'invalid signature',
-                     }))
+               error.response.data.param === /firstPassword/i &&
+                  setErrors({
+                     hasError: true,
+                     messageTitle: error.response.data.msg,
+                  })
             } else {
                setErrors({
                   hasError: true,
@@ -70,6 +59,7 @@ const EmailValidation = () => {
                   errorType: 'invalid signature',
                })
             }
+
             setIsPending(false)
          } else console.log(error)
       }
