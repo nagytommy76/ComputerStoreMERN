@@ -36,7 +36,7 @@ export const forgotPasswordController = async (request: ForgotPasswordRequestTyp
             expiresIn: '10m',
          }
       )
-      const validationLink = `${URL_PATH}forgot-password/${forgotPassToken}`
+      const validationLink = `${URL_PATH}forgot-password/${checkUserRegistered._id}/${forgotPassToken}`
       await NodeMailerInstance.sendResetPasswordLinkEmail(validationLink, checkUserRegistered.email)
       response.status(200).json({
          message: 'A jelszó emlékeztető email sikeresen elküldve a megadott email címre!',
@@ -49,24 +49,24 @@ export const forgotPasswordController = async (request: ForgotPasswordRequestTyp
 
 // A frontendről megkapom a 2 jelszót, meg az előzőleg elküldött tokent -> validálni kell
 export const resetPasswordController = async (request: ResetPassRequestType, response: Response) => {
-   const { passwordToken, firstPassword } = request.body
+   const { passwordToken, firstPassword, userId } = request.body
 
    const validationErrors = validationResult(request)
    if (!validationErrors.isEmpty()) return response.status(422).json({ errors: validationErrors.array() })
+
+   const foundUser = await User.findOne({ _id: userId })
+   if (foundUser === null) return response.status(404).json(ErrorResponse(true, 'Felhasználó nem található!'))
 
    try {
       const hashedNewPass = await bcrypt.hash(firstPassword, 10)
       verify(
          passwordToken,
-         PASSWORD_SECRET + firstPassword,
+         PASSWORD_SECRET + foundUser.password,
          async (err: VerifyErrors | null, decoded: JwtPayload | undefined) => {
             if (err) return response.status(403).json({ errorMessage: 'refresh token expired' })
             if (decoded) {
-               const foundUser = await User.findOne({ email: decoded.email })
-               if (foundUser === null)
-                  return response.status(404).json(ErrorResponse(true, 'Felhasználó nem található!'))
                foundUser.password = hashedNewPass
-               foundUser.save()
+               // foundUser.save()
                return response.status(200).json({ message: 'A jelszó módosítás sikeres volt!' })
             }
          }
@@ -78,6 +78,7 @@ export const resetPasswordController = async (request: ResetPassRequestType, res
 
 type ResetPassRequestType = Request & {
    body: {
+      userId: string
       passwordToken: string
       firstPassword: string
       secondPassword: string
