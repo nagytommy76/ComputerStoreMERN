@@ -6,6 +6,10 @@ import useErrorsState from '../Hooks/useErrorsState'
 import { AuthContainer, AuthFormStyle, ImageStyle } from '../BaseForm/BaseStyle'
 import ValidationImage from '../Validation/Validation.jpg'
 
+import Alert from '@mui/material/Alert'
+import AlertTitle from '@mui/material/AlertTitle'
+import Fade from '@mui/material/Fade'
+
 const ForgotPassForm = React.lazy(() => import('../BaseForm/Form'))
 const InputFields = React.lazy(() => import('./Includes/InputFields'))
 
@@ -31,41 +35,18 @@ const ForgotPassword = () => {
          setIsLoading(false)
       } catch (error) {
          if (axios.isAxiosError(error)) {
-            // console.log(error.response)
-            // if (error.response?.status === 403) {
-            //    error.response.data.errorMsg === /jwt expired/i &&
-            //       setErrors({
-            //          hasError: true,
-            //          messageTitle: 'Eltelt 15 perc! Lejárt a kód!',
-            //          message: 'Kérlek kérj egy új emailt a lenti gombbal.',
-            //          errorType: 'jwt expired',
-            //       })
-            //    error.response.data.errorMsg === /invalid signature/i ||
-            //       ('invalid token' &&
-            //          setErrors({
-            //             hasError: true,
-            //             messageTitle: 'Helytelen megerősítő kód! Kérlek ellenőrizd, vagy kérj egy újat!',
-            //             errorType: 'invalid signature',
-            //          }))
-            // } else {
-            //    setErrors({
-            //       hasError: true,
-            //       messageTitle: 'Egyéb hiba!',
-            //       message: error.response?.data.message || 'Egyéb hiba',
-            //       errorType: 'invalid signature',
-            //    })
-            // }
             switch (error.response?.status) {
                case 403:
-                  setErrors({
-                     hasError: true,
-                     messageTitle: error.response.data.errors[0].msg,
-                     message: 'Kérlek kérj egy új emailt a lenti gombbal.',
-                     errorType: 'jwt expired',
-                  })
+                  if (error.response.data.errorMessage === 'password token expired') {
+                     setErrors({
+                        hasError: true,
+                        messageTitle: 'A validációs link lejárt!',
+                        message: 'Kérlek kérj egy új emailt a lenti gombbal.',
+                        errorType: 'jwt expired',
+                     })
+                  }
                   break
                case 422:
-                  console.log('HAHHHÓÓÓÓ')
                   setErrors({
                      hasError: true,
                      messageTitle: error.response.data.errors[0].msg,
@@ -86,12 +67,19 @@ const ForgotPassword = () => {
                onSubmitEvent={handlePasswordReset}
             >
                <InputFields
-                  error={errors}
                   firstPassword={firstPassword}
                   secondPassword={secondPassword}
                   setFirstPassword={setFirstPassword}
                   setSecondPassword={setSecondPassword}
                />
+               <Fade in={errors.hasError}>
+                  <span style={{ width: '100%', marginTop: '1rem' }}>
+                     <Alert variant='standard' color='error'>
+                        <AlertTitle>{errors.messageTitle}</AlertTitle>
+                        {errors.message}
+                     </Alert>
+                  </span>
+               </Fade>
             </ForgotPassForm>
          </AuthFormStyle>
          <ImageStyle image={ValidationImage} />
