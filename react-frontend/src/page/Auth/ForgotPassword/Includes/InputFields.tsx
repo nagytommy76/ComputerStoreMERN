@@ -1,15 +1,13 @@
 import React from 'react'
 
 import TextField from '@mui/material/TextField'
-import { ErrorType } from '../../Hooks/useErrorsState'
 
 const InputFields: React.FC<{
-   error: ErrorType
    firstPassword: string
    setFirstPassword: React.Dispatch<React.SetStateAction<string>>
    secondPassword: string
    setSecondPassword: React.Dispatch<React.SetStateAction<string>>
-}> = ({ firstPassword, secondPassword, setFirstPassword, setSecondPassword, error }) => {
+}> = ({ firstPassword, secondPassword, setFirstPassword, setSecondPassword }) => {
    const changeFirstPass = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
       setFirstPassword(event.target.value)
    }
@@ -23,8 +21,6 @@ const InputFields: React.FC<{
             autoFocus
             id='firstPassword'
             type='password'
-            error={error.hasError}
-            helperText={error.messageTitle}
             variant='filled'
             fullWidth
             required
@@ -37,8 +33,6 @@ const InputFields: React.FC<{
             autoFocus
             id='secondPassword'
             type='password'
-            error={error.hasError}
-            helperText={error.messageTitle}
             variant='filled'
             fullWidth
             required

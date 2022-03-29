@@ -37,7 +37,7 @@ const ResendEmailButton: React.FC<{
          variant='outlined'
          color='info'
       >
-         Email újraküldése
+         Email küldése
       </LoadingButton>
    )
 }
