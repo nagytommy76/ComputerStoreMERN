@@ -68,7 +68,7 @@ const Routes = () => {
                }
             />
             <Route
-               path='/forgot-password/:userId/:forgotPassToken'
+               path='/forgot-password/:userEmail/:forgotPassToken'
                element={
                   <GuestsRoute>
                      <ForgotPassword />
