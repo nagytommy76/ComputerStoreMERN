@@ -6,11 +6,10 @@ import loginImage from './login.jpg'
 import { ImageStyle, AuthContainer, AuthFormStyle } from '../BaseForm/BaseStyle'
 import LoginSuspense from '../../../SuspenseComponents/Auth/Login'
 
-import Button from '@mui/material/Button'
-
 const LoginForm = React.lazy(() => import('../BaseForm/Form'))
 const InputFields = React.lazy(() => import('./Includes/InputFields'))
 const AlertMessages = React.lazy(() => import('./Includes/AlertMessages'))
+const ForgotButton = React.lazy(() => import('./Includes/ForgotButton'))
 
 const Login: React.FC = () => {
    const {
@@ -25,11 +24,6 @@ const Login: React.FC = () => {
       invalidPassAttempt,
       setInvalidPassAttempt,
    } = useLogin()
-
-   const handleForgotPasswordButton = () => {
-      if (emailOrUsername.value.length >= 3) setInvalidPassAttempt(2)
-      else console.log('Kérlek írj be egy felhasználónevet vagy emailt!')
-   }
 
    return (
       <Suspense fallback={<LoginSuspense />}>
@@ -47,11 +41,10 @@ const Login: React.FC = () => {
                      password={password}
                      setPassword={setPassword}
                   />
-                  <div style={{ width: '100%' }}>
-                     <Button onClick={handleForgotPasswordButton} size='small' variant='text'>
-                        elfelejtett jelszó?
-                     </Button>
-                  </div>
+                  <ForgotButton
+                     emailOrUsername={emailOrUsername}
+                     setInvalidPassAttempt={setInvalidPassAttempt}
+                  />
                   <AlertMessages
                      invalidPassAttempt={invalidPassAttempt}
                      emailOrUsername={emailOrUsername}
