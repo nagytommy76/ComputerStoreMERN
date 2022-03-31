@@ -2,7 +2,7 @@ import React, { Suspense } from 'react'
 
 import useLogin from '../Hooks/useLogin'
 import loginImage from './login.jpg'
-
+import Alerts from '../../../SuspenseComponents/Auth/Alerts'
 import { ImageStyle, AuthContainer, AuthFormStyle } from '../BaseForm/BaseStyle'
 import LoginSuspense from '../../../SuspenseComponents/Auth/Login'
 
@@ -45,12 +45,14 @@ const Login: React.FC = () => {
                      emailOrUsername={emailOrUsername}
                      setInvalidPassAttempt={setInvalidPassAttempt}
                   />
-                  <AlertMessages
-                     invalidPassAttempt={invalidPassAttempt}
-                     emailOrUsername={emailOrUsername}
-                     isInvalidatedEmail={isInvalidatedEmail}
-                     validationError={validationError}
-                  />
+                  <Suspense fallback={<Alerts />}>
+                     <AlertMessages
+                        invalidPassAttempt={invalidPassAttempt}
+                        emailOrUsername={emailOrUsername}
+                        isInvalidatedEmail={isInvalidatedEmail}
+                        validationError={validationError}
+                     />
+                  </Suspense>
                </LoginForm>
             </AuthFormStyle>
             <ImageStyle image={loginImage} />
