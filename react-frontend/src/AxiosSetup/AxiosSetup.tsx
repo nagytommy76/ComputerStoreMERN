@@ -15,9 +15,14 @@ const useAxiosSetup = () => {
    const accessToken = useAppSelector(state => state.auth.accessToken)
    const refreshToken = useAppSelector(state => state.auth.refreshToken)
 
+   // const DEPLOY_URL = 'https://computerstorebackend.firebaseapp.com/'
+   const PRODUCTION_URL = 'http://localhost:3000'
+
    axios.defaults.baseURL = 'http://localhost:5050/api'
    // axios.defaults.baseURL = 'https://compstorebackend.herokuapp.com/api'
    axios.defaults.headers.common['Content-Type'] = 'Application/json'
+   axios.defaults.headers.common['Access-Control-Allow-Origin'] = PRODUCTION_URL
+   axios.defaults.headers.common['Access-Control-Allow-Credentials'] = 'true'
    axios.defaults.headers.common.Authorization = `Barer ${accessToken}`
    useEffect(() => {
       axios.interceptors.response.use(

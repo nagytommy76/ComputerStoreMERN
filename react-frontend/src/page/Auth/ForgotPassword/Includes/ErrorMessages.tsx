@@ -43,7 +43,12 @@ const ErrorMessages: React.FC<{
                </Alert>
             </span>
          </Fade>
-         <Snackbar open={isSnackOpen.open} onClose={handleClose} message={isSnackOpen.message} />
+         <Snackbar
+            autoHideDuration={6000}
+            open={isSnackOpen.open}
+            onClose={handleClose}
+            message={isSnackOpen.message}
+         />
       </>
    )
 }

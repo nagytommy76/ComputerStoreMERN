@@ -2,9 +2,7 @@
 - Esetleg PDF generálás?!
 
 
-- Az összes fallback-et (Suspense) vizualizálni, mert most csak a Töltés... van FOLYAMATBAN
 
-- Elfelejtett jelszó funkcionalitás
 
 - Ha a felhasználó regsiztrálta az email címét, inaktiválni kell az EmailTokent!!???!?!?!?!?
 
@@ -37,8 +35,11 @@ HIBÁK/BUGOK:
 OS preferált theme
 https://medium.com/hypersphere-codes/detecting-system-theme-in-javascript-css-react-f6b961916d48
 
+- Az összes fallback-et (Suspense) vizualizálni, mert most csak a Töltés... van FOLYAMATBAN
+  Pl a login alert boxokat is!!!
 
 MEGCSINÁLTAM:
+- Elfelejtett jelszó funkcionalitás
 - ha vesznek valamiből a készlet változzon!!!
 - A scroll-nak valami design-t adni
 - Megformázni az emailt, handlebars-al? https://handlebarsjs.com/

@@ -30,7 +30,10 @@ const useFilter = (productType: string, extraFilterDispatches?: (params: any) =>
             extraFilterDispatches && extraFilterDispatches(filterData.data)
          }
       } catch (error) {
-         console.log(error)
+         if (axios.isAxiosError(error)) {
+            console.log(error.message)
+            console.log(error.code)
+         }
       }
    }
 
