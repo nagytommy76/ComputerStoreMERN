@@ -5,7 +5,7 @@ import connectDB from './config/db'
 import morgan from 'morgan'
 import path from 'path'
 const bodyParser = require('body-parser')
-const cors = require('cors')
+import cors from 'cors'
 
 const app: Application = express()
 const PORT = process.env.PORT || 5050
@@ -18,7 +18,15 @@ connectDB().then(() => {
 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
 
-app.use(cors({ origin: 'http://localhost:3000', methods: 'GET,HEAD,PUT,PATCH,POST,DELETE' }))
+app.use(
+   cors({
+      origin: [
+         'http://localhost:3000',
+         'https://computerstorebackend.firebaseapp.com',
+         'https://computerstorebackend.web.app/',
+      ],
+   })
+)
 app.use(morgan('combined', { stream: accessLogStream }))
 app.use(bodyParser.json())
 
