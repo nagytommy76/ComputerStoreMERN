@@ -66,7 +66,7 @@ export const resetPasswordController = async (request: ResetPassRequestType, res
             if (err) return response.status(403).json({ errorMessage: 'password token expired' })
             if (decoded) {
                foundUser.password = hashedNewPass
-               // foundUser.save()
+               foundUser.save()
                return response.status(200).json({ message: 'A jelszó módosítás sikeres volt!' })
             }
          }
