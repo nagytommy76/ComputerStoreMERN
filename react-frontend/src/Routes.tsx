@@ -62,9 +62,9 @@ const Routes = () => {
             <Route
                path='/email-confirm/:confirmCode'
                element={
-                  <AuthProtectedRoute>
+                  <GuestsRoute>
                      <EmailValidation />
-                  </AuthProtectedRoute>
+                  </GuestsRoute>
                }
             />
             <Route
