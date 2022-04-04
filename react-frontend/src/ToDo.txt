@@ -1,23 +1,14 @@
 
 - Esetleg PDF generálás?!
 
-
-
-
 - Ha a felhasználó regsiztrálta az email címét, inaktiválni kell az EmailTokent!!???!?!?!?!?
-
 
 - Esetleg a csak mongoose query-knél lean-t használni, hogy csökkentsem a lekérdezési időt és méretet, OPTIMALIZÁLÁS
   https://mongoosejs.com/docs/tutorials/lean.html
 
 
-
 - Új termékeket hozzáadni pl Alaplap HDD/SSD, valamint a meglévőket bővíteni
 
-- Ha 24 termékre állítom az utolsó sorok összecsúsznak GRID min-height probléma???
-
-
-- A stílus nem működik Gmail/hotmail esetén... MEGOLDANI
 
 
 - A termék bevitelénél ha nincs picURL kéne egy alert mert most nincs
@@ -45,6 +36,8 @@ MEGCSINÁLTAM:
 - Megformázni az emailt, handlebars-al? https://handlebarsjs.com/
 - A VGA-CPU-t még valahogy egyszerűsíteni kéne, sok az ismétlődés MEGOLDVA
 
+- Ha 24 termékre állítom az utolsó sorok összecsúsznak GRID min-height probléma???
+- A stílus nem működik Gmail/hotmail esetén... MEGOLDANI
 - A shop menünél kéne egy felugró ablak ha belement a kosárba! Snackbar pl
 
 - Kéne egy oldal ahol vissza lehet nézni a korábbi vásárlásokat, de úgy, hogy az email-ben kapott Vásárlási azonosító egy link legyen ami 

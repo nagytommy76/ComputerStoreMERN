@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import { mobileWindowSize, footerHeight } from '../../Theme/GlobalStyles'
 import { navbarHeight } from '../Navbar/NavbarStyles'
-import { CardWidth } from './BaseComponents/ProductCard/CardStyle'
 
 export const PageContainer = styled.section`
    width: 100%;
@@ -38,8 +37,8 @@ export const CardGridContainer = styled.section`
    grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
 
    @media (max-width: ${mobileWindowSize}) {
-      width: 100%;
-      min-height: 100%;
+      /* width: 100%; */
+      /* min-height: 100%; */
    }
 `
 // https://dev.to/srinivasankk/creating-dynamic-rows-columns-with-css-grid-55md
