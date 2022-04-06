@@ -11,9 +11,9 @@ const mockResponseRejectedEmailData = {
          errorMessage: 'Az email cím már regisztrálva lett',
          errorType: 'email',
          hasError: true,
-         message: ''
-      }
-   }
+         message: '',
+      },
+   },
 }
 const mockResponseRejectedPasswordData = {
    response: {
@@ -23,11 +23,11 @@ const mockResponseRejectedPasswordData = {
                location: 'body',
                msg: 'A két jelszó nem egyezik!',
                param: 'firstPassword',
-               value: 'password55'
-            }
-         ]
-      }
-   }
+               value: 'password55',
+            },
+         ],
+      },
+   },
 }
 
 describe('Register', () => {

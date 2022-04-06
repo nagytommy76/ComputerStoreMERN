@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom/client'
 
 import { Router } from 'react-router'
 import { createBrowserHistory } from 'history'
@@ -12,9 +12,15 @@ import { PersistGate } from 'redux-persist/integration/react'
 import App from './App'
 require('./fontAwesome/fontAwesome')
 
-export const globalHistory = createBrowserHistory<{ isFailure?: boolean; isSuccess?: boolean; message?: string }>()
+export const globalHistory = createBrowserHistory<{
+   isFailure?: boolean
+   isSuccess?: boolean
+   message?: string
+}>()
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById('root') || document.createElement('div')) // A teszteléshez kell
+
+root.render(
    <React.StrictMode>
       <Provider store={store}>
          <PersistGate loading={null} persistor={presistor}>
@@ -23,6 +29,5 @@ ReactDOM.render(
             </Router>
          </PersistGate>
       </Provider>
-   </React.StrictMode>,
-   document.getElementById('root') || document.createElement('div') // A teszteléshez kell
+   </React.StrictMode>
 )
