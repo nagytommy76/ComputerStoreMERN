@@ -2,19 +2,20 @@ import React from 'react'
 
 import { globalHistory } from '../../..'
 
-import Alert from '@mui/material/Alert'
-import Fade from '@mui/material/Fade'
+// import Alert from '@mui/material/Alert'
+// import Fade from '@mui/material/Fade'
 
 const AlertSection = () => {
+   console.log(globalHistory.location)
    return (
       <>
-         {globalHistory.location.state && (
+         {/* {globalHistory.location.state && (
             <Fade in={globalHistory.location.state.isFailure}>
                <Alert sx={{ width: '90%' }} severity='error'>
                   {globalHistory.location.state.message}
                </Alert>
             </Fade>
-         )}
+         )} */}
       </>
    )
 }

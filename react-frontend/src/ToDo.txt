@@ -29,6 +29,8 @@ https://medium.com/hypersphere-codes/detecting-system-theme-in-javascript-css-re
 - Az összes fallback-et (Suspense) vizualizálni, mert most csak a Töltés... van FOLYAMATBAN
   Pl a login alert boxokat is!!!
 
+- újra előjött a 2* get-filter/product bug.........................................................
+
 MEGCSINÁLTAM:
 - Elfelejtett jelszó funkcionalitás
 - ha vesznek valamiből a készlet változzon!!!

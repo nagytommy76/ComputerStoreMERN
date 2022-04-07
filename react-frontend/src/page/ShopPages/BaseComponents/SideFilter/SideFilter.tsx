@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 import { useAppSelector } from '../../../../app/hooks'
 import useFilter from '../../Hooks/UseFilter'
 import useGetProducts from '../../Hooks/useGetProducts'
@@ -33,4 +33,9 @@ type Props = {
    extraDispatches?: (params: any) => void
 }
 
-export default SideFilter
+export default React.memo<PropsWithChildren<Props>>(
+   SideFilter,
+   (prevProps: Readonly<PropsWithChildren<Props>>, nextProps: Readonly<PropsWithChildren<Props>>) => {
+      return prevProps.productType === nextProps.productType
+   }
+)

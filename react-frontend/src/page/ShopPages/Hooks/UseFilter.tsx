@@ -40,11 +40,17 @@ const useFilter = (productType: string, extraFilterDispatches?: (params: any) =>
    useEffect(() => {
       if (filterOptions.productType !== productType) {
          console.log('Miért futok le 2szer??')
+         console.log(filterOptions.productType)
+         console.log(productType)
          getFilterData()
-         dispatch(setProductType(productType))
       }
+      dispatch(setProductType(productType))
       // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [dispatch, productType, isPriceRangeSet])
+   }, [productType])
+
+   useEffect(() => {
+      console.log('Miért futok le TESZT USEFFECT??')
+   }, [productType])
 
    // useEffect(() => {
    //    if (filterOptions.productType !== productType) {
