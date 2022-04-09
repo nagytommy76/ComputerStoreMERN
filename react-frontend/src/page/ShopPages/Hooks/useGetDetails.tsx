@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import axios from 'axios'
 
 const useGetDetails = (productType: string, productId: string) => {
@@ -11,15 +11,17 @@ const useGetDetails = (productType: string, productId: string) => {
       type: '',
       typeCode: '',
    })
-   const handleRequest = async (productId: string) => {
-      const foundProductDetails = await axios.get(`${productType}/details?productId=${productId}`)
-      setFoundDetails(foundProductDetails.data.productDetails)
-   }
+   const handleRequest = useCallback(
+      async (productId: string) => {
+         const foundProductDetails = await axios.get(`${productType}/details?productId=${productId}`)
+         setFoundDetails(foundProductDetails.data.productDetails)
+      },
+      [productType]
+   )
 
    useEffect(() => {
       handleRequest(productId)
-      // eslint-disable-next-line
-   }, [productId])
+   }, [productId, handleRequest])
 
    return foundDetails
 }

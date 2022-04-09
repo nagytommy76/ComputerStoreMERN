@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import axios, { AxiosResponse } from 'axios'
 
 import { setTotalPages } from '../../../app/slices/PaginateSlice'
@@ -13,7 +13,7 @@ const useGetProducts = (productTypeForURL: string, extraQueryParameters: string 
    const isPriceRangeSet = useAppSelector(state => state.filter.isPriceRangeSet)
    const filterOptions = useAppSelector(state => state.filter.filterData)
 
-   const getProductsByQueries = async () => {
+   const getProductsByQueries = useCallback(async () => {
       try {
          const product: AxiosResponse<{ allProducts: any[]; totalPages: number }, any[]> = await axios.get(
             `/${productTypeForURL}?currentPage=${currentPage}&perPage=${perPage}&orderBy=${filterOptions.orderBy}&byManufacturer=${filterOptions.selectedManufacturer}&priceRange=${filterOptions.priceRange}${extraQueryParameters}`,
@@ -33,21 +33,13 @@ const useGetProducts = (productTypeForURL: string, extraQueryParameters: string 
       } catch (error) {
          console.log(error)
       }
-   }
+   }, [dispatch, currentPage, perPage, filterOptions, productTypeForURL, extraQueryParameters])
 
    useEffect(() => {
       if (isPriceRangeSet) {
          getProductsByQueries()
       }
-      // eslint-disable-next-line
-   }, [
-      currentPage,
-      perPage,
-      isPriceRangeSet,
-      filterOptions.selectedManufacturer,
-      filterOptions.priceRange,
-      filterOptions.orderBy,
-   ])
+   }, [currentPage, perPage, isPriceRangeSet, filterOptions, extraQueryParameters, getProductsByQueries])
 }
 
 export default useGetProducts
