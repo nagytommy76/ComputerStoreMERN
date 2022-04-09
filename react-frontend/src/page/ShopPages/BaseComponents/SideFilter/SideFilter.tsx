@@ -14,7 +14,6 @@ const SideFilter: React.FC<Props> = ({ productType, extraQueryParameters, extraD
 
    useFilter(productType, extraDispatches)
    useGetProducts(productType, extraQueryParameters)
-
    return (
       <StyledFilter isDarkTheme={isDarkTheme}>
          <MainTitle>Szűrés</MainTitle>
@@ -33,9 +32,4 @@ type Props = {
    extraDispatches?: (params: any) => void
 }
 
-export default React.memo<PropsWithChildren<Props>>(
-   SideFilter,
-   (prevProps: Readonly<PropsWithChildren<Props>>, nextProps: Readonly<PropsWithChildren<Props>>) => {
-      return prevProps.productType === nextProps.productType
-   }
-)
+export default SideFilter
