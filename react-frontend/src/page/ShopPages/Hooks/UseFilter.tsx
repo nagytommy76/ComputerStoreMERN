@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useCallback } from 'react'
 import axios from 'axios'
 import { useAppSelector, useAppDispatch } from '../../../app/hooks'
 import {
@@ -16,7 +16,7 @@ const useFilter = (productType: string, extraFilterDispatches?: (params: any) =>
    const filterOptions = useAppSelector(state => state.filter.filterData)
    const isPriceRangeSet = useAppSelector(state => state.filter.isPriceRangeSet)
 
-   const getFilterData = async () => {
+   const getFilterData = useCallback(async () => {
       try {
          const filterData = await axios.get(`${productType}/filter-data`)
          if (filterData.status === 200) {
@@ -33,35 +33,25 @@ const useFilter = (productType: string, extraFilterDispatches?: (params: any) =>
          if (axios.isAxiosError(error)) {
             console.log(error.message)
             console.log(error.code)
+         } else {
+            console.log(error)
          }
       }
-   }
+   }, [dispatch, productType, extraFilterDispatches])
 
    useEffect(() => {
       if (filterOptions.productType !== productType) {
-         console.log('Miért futok le 2szer??')
-         console.log(filterOptions.productType)
-         console.log(productType)
          getFilterData()
       }
       dispatch(setProductType(productType))
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [productType])
-
-   useEffect(() => {
-      console.log('Miért futok le TESZT USEFFECT??')
-   }, [productType])
-
-   // useEffect(() => {
-   //    if (filterOptions.productType !== productType) {
-   //       getFilterData()
-   //    }
-   //    dispatch(setProductType(productType))
-   //    // eslint-disable-next-line
-   // }, [dispatch, productType, isPriceRangeSet])
+      return () => {}
+   }, [dispatch, productType, isPriceRangeSet, filterOptions.productType, getFilterData])
 }
 
 export default useFilter
+
+// https://coderpad.io/blog/development/why-react-18-broke-your-app/
+// https://github.com/reactwg/react-18/discussions/18
 
 // https://www.youtube.com/watch?v=Hy5xPk6A1bw&ab_channel=CodingAfterThirty
 // https://dev.to/trunghieu99tt/you-don-t-know-useeffect-4j9h
