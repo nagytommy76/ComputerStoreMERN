@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react'
+import React from 'react'
 import { useAppSelector } from '../../../../app/hooks'
 import useFilter from '../../Hooks/UseFilter'
 import useGetProducts from '../../Hooks/useGetProducts'

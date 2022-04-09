@@ -13,20 +13,21 @@ export const footerHeight = '140px'
 export const transitionSetup = `all .15s linear`
 
 export const GlobalStyles = createGlobalStyle<{
-   theme: { body: string; text: string; scrollbarThumbColor: string }
+   theme: { body: string; text: string; scrollbarThumbColor: string; scrollbarThumbColorHover: string }
 }>`
 ::-webkit-scrollbar {
-  width: 7px;
+  width: 9px;
   transition: all .2s ease;
 }
 ::-webkit-scrollbar-track {
   background: ${({ theme }) => theme.body};
 }
 ::-webkit-scrollbar-thumb {
+  border-radius: 5px;
   background: ${({ theme }) => theme.scrollbarThumbColor};
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #ff6f00;
+  background: ${({ theme }) => theme.scrollbarThumbColorHover};
 }
 
 body {

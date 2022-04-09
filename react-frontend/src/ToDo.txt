@@ -30,6 +30,7 @@ https://medium.com/hypersphere-codes/detecting-system-theme-in-javascript-css-re
   Pl a login alert boxokat is!!!
 
 - újra előjött a 2* get-filter/product bug.........................................................
+  Elvileg a React.StrictMode (index.ts) okozza, és production módban nem jön elő (tesztelve....)
 
 MEGCSINÁLTAM:
 - Elfelejtett jelszó funkcionalitás
