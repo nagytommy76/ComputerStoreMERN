@@ -23,6 +23,6 @@ const MemorySchema = new Schema<MemoryProductType>({
    inStockQuantity: { type: Number, default: 0 },
    isHighlighted: { type: Boolean, default: false },
    ratingValues: ProductRatingValuesSchema,
-}).add({ chartData: ChartData })
+}).add({ details: { chartData: ChartData } })
 
 export const MemoryProduct = model<MemoryProductType>('MemoryProduct', MemorySchema)

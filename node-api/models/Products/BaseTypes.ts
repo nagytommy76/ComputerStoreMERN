@@ -37,3 +37,8 @@ export type ResponsesType = {
    userId?: string
    isLike: boolean
 }
+
+export type ChartDataType = {
+   price: number
+   timestamp: number
+}

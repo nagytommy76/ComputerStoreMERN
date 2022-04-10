@@ -1,4 +1,4 @@
-import { BaseProductType } from '../BaseTypes'
+import { BaseProductType, ChartDataType } from '../BaseTypes'
 export type CpuProductType = BaseProductType & {
    details: CpuDetailsType
 }
@@ -20,4 +20,5 @@ export type CpuDetailsType = {
    cpuCodeName?: string
    stockCooler?: boolean
    stockCoolerName?: string
+   chartData: ChartDataType[]
 }

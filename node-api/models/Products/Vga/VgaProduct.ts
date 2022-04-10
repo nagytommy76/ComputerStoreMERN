@@ -34,7 +34,7 @@ const VgaSchema = new Schema<VgaType>({
    inStockQuantity: { type: Number, required: true, default: 0 },
    isHighlighted: { type: Boolean, required: false, default: false },
    ratingValues: ProductRatingValuesSchema,
-   chartData: ChartData,
+   details: { chartData: ChartData },
 })
 
 export const VgaProduct = model<VgaType>('VgaProduct', VgaSchema)

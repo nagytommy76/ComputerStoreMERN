@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose'
-import { BaseProductType } from '../BaseTypes'
+import { BaseProductType, ChartDataType } from '../BaseTypes'
 import { BaseSchemaPropertiesAndTypes, ChartData } from '../Helper'
 
 const HDDSchema = new Schema<HDDSchemaType>({
@@ -14,7 +14,7 @@ const HDDSchema = new Schema<HDDSchemaType>({
       description: String,
       manufacturerPageUrl: String,
    },
-}).add({ chartData: ChartData })
+}).add({ details: { chartData: ChartData } })
 
 export const HddProduct = model<HDDSchemaType>('HddProduct', HDDSchema)
 
@@ -27,6 +27,7 @@ export type HDDDetailsType = {
    warranity: number
    description?: string
    manufacturerPageUrl?: string
+   chartData: ChartDataType[]
 }
 
 type HDDSchemaType = BaseProductType & {

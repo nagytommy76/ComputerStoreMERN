@@ -1,4 +1,4 @@
-import { BaseProductType } from '../BaseTypes'
+import { BaseProductType, ChartDataType } from '../BaseTypes'
 export type VgaType = BaseProductType & {
    details: VgaDetailsType
 }
@@ -23,4 +23,5 @@ type VgaDetailsType = {
    manufacturerPageUrl?: string
    vramSpeed: number
    streamProcessors: number
+   chartData: ChartDataType[]
 }

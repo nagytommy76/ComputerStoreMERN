@@ -31,7 +31,7 @@ const CpuSchema = new Schema<CpuProductType>({
    inStockQuantity: { type: Number, required: true, default: 0 },
    isHighlighted: { type: Boolean, required: false, default: false },
    ratingValues: ProductRatingValuesSchema,
-   chartData: ChartData,
+   details: { chartData: ChartData },
 })
 
 export const CpuProduct = model<CpuProductType>('CpuProduct', CpuSchema)

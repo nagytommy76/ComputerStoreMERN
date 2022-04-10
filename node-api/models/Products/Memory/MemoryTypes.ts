@@ -1,4 +1,4 @@
-import { BaseProductType } from '../BaseTypes'
+import { BaseProductType, ChartDataType } from '../BaseTypes'
 
 export type MemoryProductType = BaseProductType & {
    details: MemoryDetails
@@ -14,4 +14,5 @@ export type MemoryDetails = {
    latency: number
    voltage: number | string
    moduleNumber?: number
+   chartData: ChartDataType[]
 }
