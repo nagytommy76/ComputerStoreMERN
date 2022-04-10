@@ -110,6 +110,12 @@ export const DescriptionStyle = styled.section`
    text-align: justify;
 `
 
+// CHARTS
+export const ChartSection = styled('section')({
+   width: '100%',
+   minHeight: '300px',
+})
+
 // FOOTER
 export const BottomStyle = styled.section`
    display: flex;

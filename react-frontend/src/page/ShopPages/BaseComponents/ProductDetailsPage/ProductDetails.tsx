@@ -12,6 +12,7 @@ import {
    DescriptionStyle,
    ManufacturerUrlPage,
    BottomStyle,
+   ChartSection,
 } from './DetailsStyle'
 import { useAppSelector } from '../../../../app/hooks'
 
@@ -23,6 +24,7 @@ const ImageSlider = React.lazy(() => import('./ImageSlider/ImageSlider'))
 const TopNavigation = React.lazy(() => import('./TopNavigation/TopNavigation'))
 const Rating = React.lazy(() => import('../../BaseComponents/ProductDetailsPage/Ratings/AddNew/Rating'))
 const CartSnackbar = React.lazy(() => import('../CartSnackbar/CartSnackbar'))
+const Chart = React.lazy(() => import('./Charts/Chart'))
 
 const ProductDetails: React.FC = ({ children }) => {
    const isDarkTheme = useAppSelector(state => state.theme.isDarkTheme)
@@ -68,6 +70,9 @@ const ProductDetails: React.FC = ({ children }) => {
             </DescriptionStyle>
             {children}
          </BodySection>
+         <ChartSection>
+            <Chart />
+         </ChartSection>
          <BottomStyle>
             <Rating />
          </BottomStyle>
