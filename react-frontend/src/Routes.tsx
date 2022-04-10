@@ -1,4 +1,6 @@
 import React, { lazy } from 'react'
+import useAxiosSetup from './AxiosSetup/AxiosSetup'
+
 import { AdminRoute, AuthProtectedRoute, GuestsRoute } from './Routes/ProtectedRoute'
 import { Routes as RoutesDOM, Route } from 'react-router-dom'
 import ScrollToTop from './Routes/ScrollToTop'
@@ -8,28 +10,41 @@ const Register = lazy(() => import(/*webpackChunkName: "RegisterPage"*/ './page/
 const EmailValidation = lazy(
    () => import(/*webpackChunkName: "EmailValidation"*/ './page/Auth/Validation/EmailValidation')
 )
-const ForgotPassword = lazy(() => import('./page/Auth/ForgotPassword/ForgotPassword'))
-const UserOrders = lazy(() => import('./page/Orders/Orders'))
+const ForgotPassword = lazy(
+   () => import(/*webpackChunkName: "ForgotPassword"*/ './page/Auth/ForgotPassword/ForgotPassword')
+)
+const UserOrders = lazy(() => import(/*webpackChunkName: "UserOrders"*/ './page/Orders/Orders'))
 
 const Welcome = lazy(() => import(/*webpackChunkName: "WelcomePage"*/ './page/Welcome/Welcome'))
 const Page404 = lazy(() => import(/*webpackChunkName: "404Page"*/ './page/404/Page404'))
 const Checkout = lazy(() => import(/*webpackChunkName: "Checkout"*/ './page/CheckoutPage/Checkout'))
 
-const Admin = lazy(() => import('./page/Admin/Admin'))
+const Admin = lazy(() => import(/*webpackChunkName: "Admin"*/ './page/Admin/Admin'))
 
-const VgaProducts = lazy(() => import('./page/ShopPages/Vga/VgaShop'))
-const VgaDetails = lazy(() => import('./page/ShopPages/Vga/VgaDetails/VgaDetails'))
+const VgaProducts = lazy(() => import(/*webpackChunkName: "VgaProducts"*/ './page/ShopPages/Vga/VgaShop'))
+const VgaDetails = lazy(
+   () => import(/*webpackChunkName: "VgaDetails"*/ './page/ShopPages/Vga/VgaDetails/VgaDetails')
+)
 
-const CpuProducts = lazy(() => import('./page/ShopPages/Cpu/CpuShop'))
-const CpuDetails = lazy(() => import('./page/ShopPages/Cpu/CpuDetails/CpuDetails'))
+const CpuProducts = lazy(() => import(/*webpackChunkName: "CpuProducts"*/ './page/ShopPages/Cpu/CpuShop'))
+const CpuDetails = lazy(
+   () => import(/*webpackChunkName: "CpuDetails"*/ './page/ShopPages/Cpu/CpuDetails/CpuDetails')
+)
 
-const MemoryProducts = lazy(() => import('./page/ShopPages/Memory/MemoryShop'))
-const MemoryDetails = lazy(() => import('./page/ShopPages/Memory/MemoryDetails/MemoryDetails'))
+const MemoryProducts = lazy(
+   () => import(/*webpackChunkName: "MemoryProducts"*/ './page/ShopPages/Memory/MemoryShop')
+)
+const MemoryDetails = lazy(
+   () => import(/*webpackChunkName: "MemoryDetails"*/ './page/ShopPages/Memory/MemoryDetails/MemoryDetails')
+)
 
-const HDDProducts = lazy(() => import('./page/ShopPages/HDD/HDDShop'))
-const HDDDetails = lazy(() => import('./page/ShopPages/HDD/HDDDetails/HDDDetails'))
+const HDDProducts = lazy(() => import(/*webpackChunkName: "HDDProducts"*/ './page/ShopPages/HDD/HDDShop'))
+const HDDDetails = lazy(
+   () => import(/*webpackChunkName: "HDDDetails"*/ './page/ShopPages/HDD/HDDDetails/HDDDetails')
+)
 
 const Routes = () => {
+   useAxiosSetup()
    return (
       <ScrollToTop>
          <RoutesDOM>

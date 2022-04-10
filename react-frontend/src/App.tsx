@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, Suspense } from 'react'
-import useAxiosSetup from './AxiosSetup/AxiosSetup'
 import { BrowserRouter } from 'react-router-dom'
 
 import { ThemeProvider } from 'styled-components'
@@ -11,7 +10,7 @@ import { lightTheme, darkTheme } from './Theme/Themes'
 import { useAppDispatch, useAppSelector } from './app/hooks'
 import { fetchCartItemsFromDB } from './app/slices/CartSlice'
 
-import Navbar from /*webpackChunkName: "Navbar"*/ './page/Navbar/Navbar'
+import Navbar from './page/Navbar/Navbar'
 import Footer from './page/Footer/Footer'
 import PageSuspense from './SuspenseComponents/Page/PageSuspense'
 import Routes from './Routes'
@@ -31,12 +30,9 @@ const App = () => {
       if (userIsLoggedIn && isCartEmpty && accessToken !== null) dispatch(fetchCartItemsFromDB())
    }, [userIsLoggedIn, dispatch, isCartEmpty, accessToken])
 
-   useAxiosSetup()
-
    useEffect(() => {
       initUserCartItems()
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [accessToken])
+   }, [accessToken, initUserCartItems])
 
    return (
       <MUIThemeProvider theme={customMUITheme}>
