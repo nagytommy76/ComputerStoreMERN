@@ -1,21 +1,20 @@
 import React from 'react'
+import { useLocation } from 'react-router-dom'
 
-import { globalHistory } from '../../..'
-
-// import Alert from '@mui/material/Alert'
-// import Fade from '@mui/material/Fade'
+import Alert from '@mui/material/Alert'
+import Fade from '@mui/material/Fade'
 
 const AlertSection = () => {
-   console.log(globalHistory.location)
+   const location = useLocation() as { state: { isFailure: boolean; message: string } | null }
    return (
       <>
-         {/* {globalHistory.location.state && (
-            <Fade in={globalHistory.location.state.isFailure}>
+         {location.state && (
+            <Fade in={location.state.isFailure}>
                <Alert sx={{ width: '90%' }} severity='error'>
-                  {globalHistory.location.state.message}
+                  {location.state.message}
                </Alert>
             </Fade>
-         )} */}
+         )}
       </>
    )
 }

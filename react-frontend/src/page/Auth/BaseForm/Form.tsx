@@ -15,12 +15,13 @@ type Props = {
 const AxiosAlertSection = React.lazy(() => import('./AlertSection'))
 
 const Form: React.FC<Props> = ({ title, onSubmitEvent, buttonText, children, isLoadingButton }) => {
-   const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
+   const isDarkTheme = useAppSelector(state => state.theme.isDarkTheme)
    return (
       <StyledForm isDark={isDarkTheme} onSubmit={onSubmitEvent}>
          <FormTitle>{title}</FormTitle>
          <FormConrolStyle>
             {children}
+            <AxiosAlertSection />
             <LoadingButton
                id='loginButton'
                endIcon={<SendIcon />}
@@ -30,10 +31,10 @@ const Form: React.FC<Props> = ({ title, onSubmitEvent, buttonText, children, isL
                sx={{ margin: '1.5rem 0' }}
                variant='contained'
                color='primary'
-               size='large'>
+               size='large'
+            >
                {buttonText}
             </LoadingButton>
-            <AxiosAlertSection />
          </FormConrolStyle>
       </StyledForm>
    )
