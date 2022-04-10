@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose'
 import { CpuProductType } from './CpuTypes'
-import { ProductRatingValuesSchema } from '../Helper'
+import { ChartData, ProductRatingValuesSchema } from '../Helper'
 
 const CpuSchema = new Schema<CpuProductType>({
    itemNumber: { type: String },
@@ -25,12 +25,13 @@ const CpuSchema = new Schema<CpuProductType>({
       cpuCodeName: { type: String },
       stockCooler: { type: Boolean },
       stockCoolerName: { type: String },
-      warranity: Number
-   }
+      warranity: Number,
+   },
 }).add({
    inStockQuantity: { type: Number, required: true, default: 0 },
    isHighlighted: { type: Boolean, required: false, default: false },
-   ratingValues: ProductRatingValuesSchema
+   ratingValues: ProductRatingValuesSchema,
+   chartData: ChartData,
 })
 
 export const CpuProduct = model<CpuProductType>('CpuProduct', CpuSchema)

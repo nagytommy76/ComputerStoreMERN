@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose'
-import { ProductRatingValuesSchema } from '../Helper'
+import { ChartData, ProductRatingValuesSchema } from '../Helper'
 import { MemoryProductType } from './MemoryTypes'
 
 const MemorySchema = new Schema<MemoryProductType>({
@@ -23,6 +23,6 @@ const MemorySchema = new Schema<MemoryProductType>({
    inStockQuantity: { type: Number, default: 0 },
    isHighlighted: { type: Boolean, default: false },
    ratingValues: ProductRatingValuesSchema,
-})
+}).add({ chartData: ChartData })
 
 export const MemoryProduct = model<MemoryProductType>('MemoryProduct', MemorySchema)

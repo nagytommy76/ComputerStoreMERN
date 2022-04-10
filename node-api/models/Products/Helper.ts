@@ -34,6 +34,15 @@ export const ProductRatingValuesSchema = {
    required: false,
 }
 
+export const ChartData = {
+   type: [
+      {
+         price: Number,
+         timestamp: Number,
+      },
+   ],
+}
+
 export const BaseSchemaPropertiesAndTypes = {
    itemNumber: { type: String },
    type: { type: String, required: true },
@@ -44,4 +53,5 @@ export const BaseSchemaPropertiesAndTypes = {
    inStockQuantity: { type: Number, default: 0 },
    isHighlighted: { type: Boolean, default: false },
    ratingValues: ProductRatingValuesSchema,
+   chartData: ChartData,
 }
