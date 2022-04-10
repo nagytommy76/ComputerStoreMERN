@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import axios from 'axios'
-import { globalHistory } from '..'
+import { useNavigate } from 'react-router'
 
 import { useAppSelector } from '../app/hooks'
 import { store } from '../app/store'
@@ -12,6 +12,7 @@ import { restoreUserDetails } from '../app/slices/Checkout/UserDetailsSlice'
 // Ha az sem érvényes kiléptetem és be kell újra lépnie
 
 const useAxiosSetup = () => {
+   const navigate = useNavigate()
    const accessToken = useAppSelector(state => state.auth.accessToken)
    const refreshToken = useAppSelector(state => state.auth.refreshToken)
 
@@ -44,21 +45,25 @@ const useAxiosSetup = () => {
                      })
                      .catch(error => {
                         if (error.response.data.errorMessage === 'refresh token expired') {
-                           globalHistory.push('/login', { isFailure: true, message: 'Kérlek, lépj be újra!' })
+                           navigate('/login', {
+                              state: { isFailure: true, message: 'Kérlek, lépj be újra!' },
+                           })
                            store.dispatch(restoreUserDetails())
                            store.dispatch(logoutUser())
                         }
                      })
                } else if (error.response.data.errorMessage === 'user is not admin') {
                   // Ha valaki ide keveredne és nem admin...
-                  globalHistory.push('/login', { isFailure: true, message: 'Nem vagy jó helyen! :)' })
+                  navigate('/login', {
+                     state: { isFailure: true, message: 'Nem vagy jó helyen! :)' },
+                  })
                   store.dispatch(restoreUserDetails())
                   store.dispatch(logoutUser())
                }
             }
             if (error.response?.status === 401) {
                // Itt pedig be kell lépni mert a refres token se jó
-               globalHistory.push('/login', { isFailure: true, message: 'Kérlek, lépj be újra!' })
+               navigate('/login', { state: { isFailure: true, message: 'Kérlek, lépj be újra!' } })
                store.dispatch(restoreUserDetails())
                store.dispatch(logoutUser())
             }
