@@ -31,7 +31,7 @@ HIBÁK/BUGOK:
 Új ötlet:
 - Amikor egy terméknél megváltoztatom az árat, elmenteni az előzőt, a frontenden pedig megjeleníteni grafikonon
   mikor mennyibe került a termék. PL.: ipon
-
+- Axios-nál valami nem jó
 
 MEGCSINÁLTAM:
 - újra előjött a 2* get-filter/product bug.........................................................

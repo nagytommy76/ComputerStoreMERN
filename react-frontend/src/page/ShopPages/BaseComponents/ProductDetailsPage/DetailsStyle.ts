@@ -111,9 +111,14 @@ export const DescriptionStyle = styled.section`
 `
 
 // CHARTS
+// export const ChartSection = styled('section')<{ isDarkTheme: boolean }>({
 export const ChartSection = styled('section')({
-   width: '100%',
-   minHeight: '300px',
+   display: 'flex',
+   alignItems: 'center',
+   backgroundColor: `transparent`,
+   maxWidth: '100%',
+   minHeight: '320px',
+   margin: '1rem auto',
 })
 
 // FOOTER

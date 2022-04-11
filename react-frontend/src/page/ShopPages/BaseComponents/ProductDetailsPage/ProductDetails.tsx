@@ -12,7 +12,6 @@ import {
    DescriptionStyle,
    ManufacturerUrlPage,
    BottomStyle,
-   ChartSection,
 } from './DetailsStyle'
 import { useAppSelector } from '../../../../app/hooks'
 
@@ -70,9 +69,7 @@ const ProductDetails: React.FC = ({ children }) => {
             </DescriptionStyle>
             {children}
          </BodySection>
-         <ChartSection>
-            <Chart />
-         </ChartSection>
+         <Chart />
          <BottomStyle>
             <Rating />
          </BottomStyle>
