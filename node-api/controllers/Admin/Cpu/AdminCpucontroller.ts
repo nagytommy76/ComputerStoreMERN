@@ -61,13 +61,20 @@ export const modifyCpuProductController = async (req: Request, res: Response) =>
    try {
       const toModifyCpuProduct = await AdminController.getProductToModify(req.body._id)
       if (toModifyCpuProduct) {
-         const cpuDetails = req.body.details as CpuDetailsType
-         toModifyCpuProduct.details = {
-            ...(cpuDetails as CpuDetailsType),
-            chartData: {
+         toModifyCpuProduct.details = req.body.details
+
+         if (toModifyCpuProduct.details.chartData === undefined) {
+            toModifyCpuProduct.details.chartData = [
+               {
+                  price: req.body.price,
+                  timestamp: Date.now(),
+               },
+            ]
+         } else {
+            toModifyCpuProduct.details.chartData.push({
                price: req.body.price,
                timestamp: Date.now(),
-            },
+            })
          }
          toModifyCpuProduct.itemNumber = req.body.itemNumber
          toModifyCpuProduct.type = req.body.type
