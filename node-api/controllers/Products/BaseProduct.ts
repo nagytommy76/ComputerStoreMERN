@@ -68,6 +68,7 @@ export default abstract class BaseProduct {
       const foundProductDetails = await this.productModel
          .findById(productId)
          .select('type typeCode pictureUrls price manufacturer details')
+         .sort({ 'details.chartData.timpestamp': 1 })
          .lean()
       return foundProductDetails
    }
