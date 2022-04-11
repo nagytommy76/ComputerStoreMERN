@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useContext, useEffect, useState } from 'react'
+import React, { ChangeEvent, useCallback, useContext, useEffect, useState } from 'react'
 import { AdminContext } from '../../../Context/AdminContext'
 import axios, { AxiosResponse, AxiosError } from 'axios'
 
@@ -11,18 +11,19 @@ const ProductSelector: React.FC<Props> = ({ productType, productProperties }) =>
    const [selectedVgaProduct, setSelectedVgaProduct] = useState<VgaType>()
    const { setProductInputs, setSelectedProductPictureUrls } = useContext(AdminContext)
 
-   const fetchAllProduct = async () => {
-      await axios
+   const fetchAllProduct = useCallback(async () => {
+      axios
          .get(`admin/${productType}/get-all`)
          .then((response: AxiosResponse) => {
-            setAllProducts(response.data.allProducts)
+            response.data && setAllProducts(response.data.allProducts)
          })
-         .catch((error: AxiosError) => console.log(error))
-   }
+         .catch((error: AxiosError) => console.log(error.message))
+   }, [productType])
+
    useEffect(() => {
       fetchAllProduct()
-      // eslint-disable-next-line
-   }, [productType])
+   }, [productType, fetchAllProduct])
+
    const handleSelect = (event: ChangeEvent<HTMLSelectElement>) => {
       event.preventDefault()
       if (event.target.value === 'none') {
