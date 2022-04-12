@@ -1,5 +1,4 @@
 import React, { lazy } from 'react'
-import useAxiosSetup from './AxiosSetup/AxiosSetup'
 
 import { AdminRoute, AuthProtectedRoute, GuestsRoute } from './Routes/ProtectedRoute'
 import { Routes as RoutesDOM, Route } from 'react-router-dom'
@@ -44,7 +43,6 @@ const HDDDetails = lazy(
 )
 
 const Routes = () => {
-   useAxiosSetup()
    return (
       <ScrollToTop>
          <RoutesDOM>
