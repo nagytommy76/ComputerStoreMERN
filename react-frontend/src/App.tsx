@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, Suspense } from 'react'
-import { BrowserRouter } from 'react-router-dom'
 
 import { ThemeProvider } from 'styled-components'
 import { ThemeProvider as MUIThemeProvider } from '@mui/material/styles'
@@ -14,9 +13,11 @@ import Navbar from './page/Navbar/Navbar'
 import Footer from './page/Footer/Footer'
 import PageSuspense from './SuspenseComponents/Page/PageSuspense'
 import Routes from './Routes'
+import useAxiosSetup from './AxiosSetup/AxiosSetup'
 
 // https://lewiskori.com/blog/how-to-auto-refresh-jwts-using-axios-interceptors/
 const App = () => {
+   useAxiosSetup()
    const dispatch = useAppDispatch()
 
    const accessToken = useAppSelector(state => state.auth.accessToken)
@@ -37,14 +38,12 @@ const App = () => {
    return (
       <MUIThemeProvider theme={customMUITheme}>
          <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
-            <BrowserRouter>
-               <GlobalStyles />
-               <Navbar />
-               <Suspense fallback={<PageSuspense />}>
-                  <Routes />
-               </Suspense>
-               <Footer />
-            </BrowserRouter>
+            <GlobalStyles />
+            <Navbar />
+            <Suspense fallback={<PageSuspense />}>
+               <Routes />
+            </Suspense>
+            <Footer />
          </ThemeProvider>
       </MUIThemeProvider>
    )

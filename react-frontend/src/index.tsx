@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom'
 
 import './index.css'
 import { store, presistor } from './app/store'
@@ -15,7 +16,9 @@ root.render(
    <React.StrictMode>
       <Provider store={store}>
          <PersistGate loading={null} persistor={presistor}>
-            <App />
+            <BrowserRouter>
+               <App />
+            </BrowserRouter>
          </PersistGate>
       </Provider>
    </React.StrictMode>
