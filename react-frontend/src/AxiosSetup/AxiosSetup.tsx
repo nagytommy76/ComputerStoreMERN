@@ -35,7 +35,6 @@ const useAxiosSetup = () => {
             if (error.config && error.response && !error.config._retry && error.response.status === 403) {
                // Ekkor kell egy új accessToken (Forbidden) / 403 error, tehát lejárt az accessToken
                if (error.response.data.errorMessage === 'accessToken token expired') {
-                  console.log(refreshToken)
                   return axios
                      .post('/auth/refresh-token', { refreshToken })
                      .then(newAccessToken => {
@@ -54,7 +53,6 @@ const useAxiosSetup = () => {
                               },
                            })
                            dispatch(restoreUserDetails())
-                           console.log('Meghívom a logoutot a refreshToken lejártakor')
                            dispatch(logoutUser())
                         }
                      })
@@ -73,7 +71,6 @@ const useAxiosSetup = () => {
                   state: { isFailure: true, message: 'Kérlek, lépj be újra! Nincs refreshToken!' },
                })
                dispatch(restoreUserDetails())
-               console.log('Meghívom a logoutot a 401 errornál')
                dispatch(logoutUser())
             }
             return await Promise.reject(error)

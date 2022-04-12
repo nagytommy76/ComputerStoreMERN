@@ -35,14 +35,12 @@ export const AuthSlice = createSlice({
          state.accessToken = action.payload
       },
       setRefreshToken: (state, action: PayloadAction<string>) => {
-         console.log(action.payload)
          state.refreshToken = action.payload
       },
       setAdmin: (state, action: PayloadAction<boolean>) => {
          state.isAdmin = action.payload
       },
       logoutUser: state => {
-         console.log('logoutUser')
          state.userId = ''
          state.isAdmin = false
          state.accessToken = null

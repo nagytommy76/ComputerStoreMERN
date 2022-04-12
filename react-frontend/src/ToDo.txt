@@ -31,9 +31,15 @@ HIBÁK/BUGOK:
 Új ötlet:
 - Amikor egy terméknél megváltoztatom az árat, elmenteni az előzőt, a frontenden pedig megjeleníteni grafikonon
   mikor mennyibe került a termék. PL.: ipon
-- Axios-nál valami nem jó
+
+
 
 MEGCSINÁLTAM:
+
+- Axios-nál valami nem jó
+  A hiba: Áttettem a BrowserRouter az App.tsx ből az index.tsx-be, így tudom használni a useNavigate hook-ot
+  A Rotes-ból pedig visszaraktam a useAxiosSetup hook-ot az App.tsx-be, hogy a Navbar/Footer/Cart is ugyan azt az axios instance-t használja ami a useAxiosSetup-ban van.
+
 - újra előjött a 2* get-filter/product bug.........................................................
   Elvileg a React.StrictMode (index.ts) okozza, és production módban nem jön elő (tesztelve....)
   Részlegesen megoldva.....
