@@ -5,6 +5,8 @@ import { ChartSection } from '../DetailsStyle'
 import { Area, AreaChart, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import { useAppSelector } from '../../../../../app/hooks'
 
+const CustomTooltip = React.lazy(() => import('./CustomTooltip'))
+
 const Chart = () => {
    const {
       details: { chartData },
@@ -26,12 +28,12 @@ const Chart = () => {
                         dataKey='price'
                         domain={['dataMin', 'dataMax']}
                      />
-                     <Tooltip />
+                     <Tooltip content={<CustomTooltip />} />
                      <Area
                         type='monotone'
                         dataKey='price'
                         stroke={`${isDarkTheme ? '#FFF' : '#000'}`}
-                        fill='#62da00'
+                        fill='#ff8f00'
                      />
                   </AreaChart>
                </ResponsiveContainer>

@@ -49,7 +49,7 @@ const useAxiosSetup = () => {
                            navigate('/login', {
                               state: {
                                  isFailure: true,
-                                 message: 'Kérlek, lépj be újra! Lejárt a refreshToken!',
+                                 message: 'Kérlek, jelentkezz be újra!',
                               },
                            })
                            dispatch(restoreUserDetails())
@@ -59,7 +59,7 @@ const useAxiosSetup = () => {
                } else if (error.response.data.errorMessage === 'user is not admin') {
                   // Ha valaki ide keveredne és nem admin...
                   navigate('/login', {
-                     state: { isFailure: true, message: 'Nem vagy jó helyen! :)' },
+                     state: { isFailure: true, message: 'Nem vagy jó helyen!!! :)' },
                   })
                   dispatch(restoreUserDetails())
                   dispatch(logoutUser())
@@ -68,7 +68,7 @@ const useAxiosSetup = () => {
             if (error.response?.status === 401) {
                // Itt pedig be kell lépni mert a refres token se jó
                navigate('/login', {
-                  state: { isFailure: true, message: 'Kérlek, lépj be újra! Nincs refreshToken!' },
+                  state: { isFailure: true, message: 'Kérlek, jelentkezz be újra!' },
                })
                dispatch(restoreUserDetails())
                dispatch(logoutUser())
