@@ -1,5 +1,5 @@
 import { Model, Document } from 'mongoose'
-import { BaseProductType } from '../../models/Products/BaseTypes'
+import { BaseProductType, ChartDataType } from '../../models/Products/BaseTypes'
 
 const canReturnProducts = ({ productModel }: StateType) => ({
    getAllProduct: async () => {
@@ -32,9 +32,18 @@ const canReturnProducts = ({ productModel }: StateType) => ({
 
 const canInsertDeleteModifyProduct = ({ productModel }: StateType) => ({
    insert: async (productDetails: any, productBase: BaseProductProperties) => {
+      const newProductDetails = {
+         ...productDetails,
+         chartData: [
+            {
+               price: productBase.price,
+               timestamp: new Date(),
+            },
+         ],
+      }
       const createdProductToInser = new productModel({
          ...productBase,
-         details: productDetails,
+         details: newProductDetails,
       }) as BaseProductType & {
          details: any
       } & Document<any, any>
@@ -42,6 +51,21 @@ const canInsertDeleteModifyProduct = ({ productModel }: StateType) => ({
    },
    delete: async (productID: string) => {
       return productModel.findByIdAndRemove(productID)
+   },
+   modifyChartData: (details: any | undefined, price: number) => {
+      if (details.chartData === undefined) {
+         details.chartData = [
+            {
+               price,
+               timestamp: Date.now(),
+            },
+         ]
+      } else {
+         details.chartData.push({
+            price,
+            timestamp: Date.now(),
+         })
+      }
    },
 })
 
