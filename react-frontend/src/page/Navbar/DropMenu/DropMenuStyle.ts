@@ -50,4 +50,10 @@ export const DropLinkItem = styled(Link)`
       font-weight: 900;
       border-left: 8px solid yellow;
    }
+   @media (max-width: ${mobileWindowSize}) {
+      letter-spacing: 3px;
+      font-weight: 800;
+      font-size: 25px;
+      padding: 1rem 1rem 1rem 0;
+   }
 `

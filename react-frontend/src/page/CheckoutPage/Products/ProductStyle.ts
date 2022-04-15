@@ -46,7 +46,7 @@ export const ProductCards = styled.div`
       height: 90vh;
       margin: 2rem 0;
       justify-content: unset;
-      overflow: scroll;
+      overflow: auto;
    }
 `
 
