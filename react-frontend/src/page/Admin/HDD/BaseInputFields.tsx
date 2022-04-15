@@ -59,7 +59,7 @@ const BaseInputFeilds: React.FC = () => {
             onChangeEvent={event =>
                setProductInputs({
                   ...productInputs,
-                  details: { ...productInputs.details, sizeInCol: parseInt(event.target.value) },
+                  details: { ...productInputs.details, sizeInCol: parseFloat(event.target.value) },
                })
             }
             value={productInputs.details.sizeInCol || 3.5}

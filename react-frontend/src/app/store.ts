@@ -34,16 +34,16 @@ export const store = configureStore({
       auth: persistReducer({ key: 'AuthUser', storage }, authSlice),
       theme: persistReducer({ key: 'Theme', storage }, ThemeSlice),
       cart: persistReducer({ key: 'Cart', storage }, CartSlice),
-      products: persistReducer({ key: 'Products', storage }, ProductSlice),
       paginate: persistReducer({ key: 'Paginate', storage }, PaginateSlice),
       userDetails: persistReducer({ key: 'userDetails', storage }, UserDetailsSlice),
       deliveryPrice: persistReducer({ key: 'deliveryPrice', storage }, DeliveryPriceSlice),
       payment: persistReducer({ key: 'payment', storage }, PaymentSlice),
-      filter: persistReducer({ key: 'FilterData', storage }, FilterDataSlice),
-      memoryFilter: persistReducer({ key: 'memoryFilter', storage }, MemoryFilterSlice),
-      cpuFilter: persistReducer({ key: 'cpuFilter', storage }, CpuFilterSlice),
-      vgaFilter: persistReducer({ key: 'vgaFilter', storage }, VgaFilterSlice),
-      hddFilter: persistReducer({ key: 'hddFilter', storage }, HddFilterSlice),
+      products: ProductSlice,
+      filter: FilterDataSlice,
+      memoryFilter: MemoryFilterSlice,
+      cpuFilter: CpuFilterSlice,
+      vgaFilter: VgaFilterSlice,
+      hddFilter: HddFilterSlice,
       steps: StepsSlice,
       validationError: ValidationErrorSlice,
       mobile: MobileSlice,
@@ -59,3 +59,10 @@ export const presistor = persistStore(store)
 export type AppDispatch = typeof store.dispatch
 export type RootState = ReturnType<typeof store.getState>
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>
+
+// products: persistReducer({ key: 'Products', storage }, ProductSlice),
+// filter: persistReducer({ key: 'FilterData', storage }, FilterDataSlice),
+// memoryFilter: persistReducer({ key: 'memoryFilter', storage }, MemoryFilterSlice),
+// cpuFilter: persistReducer({ key: 'cpuFilter', storage }, CpuFilterSlice),
+// vgaFilter: persistReducer({ key: 'vgaFilter', storage }, VgaFilterSlice),
+// hddFilter: persistReducer({ key: 'hddFilter', storage }, HddFilterSlice),
