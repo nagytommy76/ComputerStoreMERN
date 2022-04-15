@@ -1,7 +1,6 @@
 import { Request, Response } from 'express'
-import { ChartDataType } from '../../../models/Products/BaseTypes'
 import { CpuProduct } from '../../../models/Products/Cpu/CpuSchema'
-import { CpuDetailsType, CpuProductType } from '../../../models/Products/Cpu/CpuTypes'
+import { CpuProductType } from '../../../models/Products/Cpu/CpuTypes'
 import baseAdminController from '../BaseController'
 
 type RequestWithBodyType = Request & {
@@ -62,20 +61,7 @@ export const modifyCpuProductController = async (req: Request, res: Response) =>
       const toModifyCpuProduct = await AdminController.getProductToModify(req.body._id)
       if (toModifyCpuProduct) {
          toModifyCpuProduct.details = req.body.details
-
-         if (toModifyCpuProduct.details.chartData === undefined) {
-            toModifyCpuProduct.details.chartData = [
-               {
-                  price: req.body.price,
-                  timestamp: Date.now(),
-               },
-            ]
-         } else {
-            toModifyCpuProduct.details.chartData.push({
-               price: req.body.price,
-               timestamp: Date.now(),
-            })
-         }
+         AdminController.modifyChartData(toModifyCpuProduct.details, req.body.price)
          toModifyCpuProduct.itemNumber = req.body.itemNumber
          toModifyCpuProduct.type = req.body.type
          toModifyCpuProduct.typeCode = req.body.typeCode

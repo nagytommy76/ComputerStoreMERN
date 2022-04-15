@@ -32,6 +32,7 @@ export const modifyVgaProductController = async (req: Request, res: Response) =>
          .then(vga => {
             if (vga) {
                vga.details = req.body.details
+               BaseAdmin.modifyChartData(vga.details, req.body.price)
                vga.itemNumber = req.body.itemNumber
                vga.type = req.body.type
                vga.typeCode = req.body.typeCode

@@ -62,6 +62,7 @@ export const modifyMemoryProductController = async (request: Request, response: 
       const foundMemoryProduct = await AdminController.getProductToModify(_id)
       if (foundMemoryProduct) {
          foundMemoryProduct.details = details
+         AdminController.modifyChartData(foundMemoryProduct.details, price)
          foundMemoryProduct.inStockQuantity = inStockQuantity
          foundMemoryProduct.manufacturer = manufacturer
          foundMemoryProduct.pictureUrls = pictureUrls
