@@ -10,6 +10,7 @@
    },
    "scripts": {
       "start": "nodemon server.ts",
+      "dev": "nodemon -L server.ts",
       "build": "tsc -p ."
    },
    "dependencies": {
