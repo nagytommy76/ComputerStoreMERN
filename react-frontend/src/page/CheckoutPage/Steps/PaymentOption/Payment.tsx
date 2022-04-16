@@ -8,10 +8,11 @@ import RadioGroup from '@mui/material/RadioGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import FormControl from '@mui/material/FormControl'
 import FormLabel from '@mui/material/FormLabel'
+import Tooltip from '@mui/material/Tooltip'
 
 const Payment = () => {
    const dispatch = useAppDispatch()
-   const selectedPaymentMethod = useAppSelector((state) => state.payment.selectedPaymentMethod)
+   const selectedPaymentMethod = useAppSelector(state => state.payment.selectedPaymentMethod)
    // https://stripe.com/docs/stripe-js/react
 
    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,13 +30,25 @@ const Payment = () => {
                defaultValue='cashOnDelivery'
                name='paymentRadioGroup'
                value={selectedPaymentMethod}
-               onChange={handleChange}>
+               onChange={handleChange}
+            >
                <StyledPaper>
-                  <FormControlLabel value='cashOnDelivery' control={<Radio />} label='Fizetés utánvéttel (390 Ft)' />
+                  <FormControlLabel
+                     value='cashOnDelivery'
+                     control={<Radio />}
+                     label='Fizetés utánvéttel (390 Ft)'
+                  />
                </StyledPaper>
-               <StyledPaper>
-                  <FormControlLabel value='stripeCard' control={<Radio />} label='Fizetés bankkártyával (ingyenes)' />
-               </StyledPaper>
+               <Tooltip title='Átmenetileg nem elérhető a kártyáas vásárlás! Dolgozom az ügyön :)'>
+                  <StyledPaper>
+                     <FormControlLabel
+                        disabled
+                        value='stripeCard'
+                        control={<Radio />}
+                        label='Fizetés bankkártyával (ingyenes)'
+                     />
+                  </StyledPaper>
+               </Tooltip>
             </RadioGroup>
          </FormControl>
       </StyledFormControl>
