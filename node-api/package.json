@@ -6,7 +6,7 @@
    "license": "ISC",
    "author": "Thomas Nagy",
    "engines": {
-      "node": "16.13.2"
+      "node": "16.14.2"
    },
    "scripts": {
       "start": "nodemon server.ts",
