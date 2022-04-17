@@ -1,0 +1,10 @@
+version: '3.9'
+services:
+   node-api:
+      build: ./node-api
+      container_name: node-api_container
+      ports:
+         - '5040:5050'
+      volumes:
+         - ./node-api:/app
+         - ./app/node_modules
