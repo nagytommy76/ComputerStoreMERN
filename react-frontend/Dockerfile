@@ -4,9 +4,10 @@ RUN npm install -g typescript
 
 WORKDIR /app
 
-COPY package.json .
+COPY package*.json .
 
 RUN npm install --save --legacy-peer-deps
+# RUN npm install --save
 
 COPY . .
 
