@@ -13,8 +13,8 @@ services:
       container_name: react-frontend_container
       ports:
          - '3001:3001'
-      # volumes:
-      #    - ./react-frontend:/app
-      #    - ./app/node_modules
+      volumes:
+         - ./react-frontend:/app
+         - ./app/node_modules
       stdin_open: true
       tty: true
