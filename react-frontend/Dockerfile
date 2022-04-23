@@ -2,12 +2,13 @@ FROM node:16.14.2-alpine
 
 RUN npm install -g typescript
 
-WORKDIR /app
+WORKDIR /react-frontend
 
-COPY package*.json .
+COPY package.json .
 
-RUN npm install --save --legacy-peer-deps
-# RUN npm install --save
+# RUN npm install --save --legacy-peer-deps
+# RUN npm install --save --force
+RUN npm install
 
 COPY . .
 
