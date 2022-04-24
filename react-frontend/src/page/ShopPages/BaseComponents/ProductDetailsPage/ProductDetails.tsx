@@ -41,7 +41,7 @@ const ProductDetails: React.FC<{ children: ReactNode }> = ({ children }) => {
                <PriceAndCartStyle>
                   <AddToCart />
                   <StyledNumberFormat
-                     renderText={(value: number, props: any) => <h1 {...props}>{value}</h1>}
+                     // renderText={(value: number, props: any) => <h1 {...props}>{value}</h1>}
                      value={price}
                      thousandSeparator=' '
                      suffix=' Ft'
