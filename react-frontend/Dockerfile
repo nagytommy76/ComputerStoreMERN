@@ -5,6 +5,7 @@ RUN npm install -g typescript
 WORKDIR /react-frontend
 
 COPY package.json .
+COPY tsconfig.json .
 
 # RUN npm install --save --legacy-peer-deps
 # RUN npm install --save --force
@@ -12,6 +13,6 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 3001
+EXPOSE 8080
 
 CMD ["npm", "start"]

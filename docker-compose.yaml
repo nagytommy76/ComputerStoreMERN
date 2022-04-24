@@ -12,7 +12,7 @@ services:
       build: ./react-frontend
       container_name: react-frontend_container
       ports:
-         - '3001:3001'
+         - '8080:8080'
       volumes:
          - ./react-frontend:/app
          - ./app/node_modules
