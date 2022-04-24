@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { setIsPriceRangeSet } from '../../../../../app/slices/Filter/BaseFilterDataSlice'
 import { useAppDispatch } from '../../../../../app/hooks'
 
@@ -57,4 +57,5 @@ type Props = {
    selectedOption: string | number
    setSelectedDispatchValue: ActionCreatorWithPayload<string, string>
    postFix?: string
+   children?: ReactNode
 }

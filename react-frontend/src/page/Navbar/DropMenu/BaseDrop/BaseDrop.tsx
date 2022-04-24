@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { StyledListItems } from '../../LinkItems/LinkItemStyles'
 import { CSSTransition } from 'react-transition-group'
 import styles from './Drop.module.css'
 
 type Props = {
+   children: ReactNode
    isDropOpen: boolean
    text: string
    dropRef: React.MutableRefObject<null>

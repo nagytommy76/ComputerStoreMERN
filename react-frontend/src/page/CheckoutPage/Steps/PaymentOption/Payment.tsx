@@ -39,7 +39,7 @@ const Payment = () => {
                      label='Fizetés utánvéttel (390 Ft)'
                   />
                </StyledPaper>
-               <Tooltip title='Átmenetileg nem elérhető a kártyáas vásárlás! Dolgozom az ügyön :)'>
+               <Tooltip title='Átmenetileg nem elérhető a kártyás vásárlás!'>
                   <StyledPaper>
                      <FormControlLabel
                         disabled

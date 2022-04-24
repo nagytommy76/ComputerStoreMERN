@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import NumberFormat from 'react-number-format'
 import { ProductToDeleteType } from './Types'
 
 import TableRow from '@mui/material/TableRow'
 import TableCell from '@mui/material/TableCell'
 
-const SingleTableRow: React.FC<{ product: ProductToDeleteType }> = ({ product, children }) => {
+const SingleTableRow: React.FC<{ product: ProductToDeleteType; children: ReactNode }> = ({
+   product,
+   children,
+}) => {
    return (
       <TableRow hover key={product._id}>
          <TableCell component='th'>{product._id}</TableCell>

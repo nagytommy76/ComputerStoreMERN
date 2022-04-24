@@ -1,4 +1,4 @@
-import React, { lazy, useContext } from 'react'
+import React, { lazy, useContext, ReactNode } from 'react'
 import { AdminContext } from '../../Context/AdminContext'
 
 const DescriptionTextArea = lazy(() => import('../InputFields/TextArea/DescriptionTextArea'))
@@ -10,6 +10,7 @@ const BaseInsert: React.FC<{
    title: string
    productType: string
    productProperties: any
+   children: ReactNode
 }> = ({ children, title, productType, productProperties }) => {
    const { validationErrors, productInputs, setProductInputs } = useContext(AdminContext)
    return (

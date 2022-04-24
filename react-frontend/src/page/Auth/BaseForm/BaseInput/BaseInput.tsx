@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent, ReactNode } from 'react'
 import { StyledFormControl, StyledLabel, StyledInput, ErrorSpanStyle } from './InputStyle'
 
 type Props = {
@@ -10,6 +10,7 @@ type Props = {
    pattern?: string
    min?: string | number
    max?: string | number
+   children: ReactNode
 }
 
 const BaseInput: React.FC<Props> = ({
@@ -21,7 +22,7 @@ const BaseInput: React.FC<Props> = ({
    pattern,
    min,
    max,
-   children
+   children,
 }) => {
    return (
       <StyledFormControl>

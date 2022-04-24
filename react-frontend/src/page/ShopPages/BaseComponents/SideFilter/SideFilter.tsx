@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { useAppSelector } from '../../../../app/hooks'
 import useFilter from '../../Hooks/UseFilter'
 import useGetProducts from '../../Hooks/useGetProducts'
@@ -30,6 +30,7 @@ type Props = {
    productType: string
    extraQueryParameters?: string
    extraDispatches?: (params: any) => void
+   children?: ReactNode
 }
 
 export default SideFilter

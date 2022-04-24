@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, ReactNode } from 'react'
 import axios from 'axios'
 import { AdminContext } from '../../Context/AdminContext'
 
@@ -13,6 +13,7 @@ const BaseInsertForm: React.FC<{
    productType: string
    productBaseProperties: any
    submitButtonText: string
+   children: ReactNode
 }> = ({ mainTitle, productType, productBaseProperties, submitButtonText, children }) => {
    const [inputSuccess, setInputSuccess] = useState<boolean>(false)
    const {

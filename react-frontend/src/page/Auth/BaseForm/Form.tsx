@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { useAppSelector } from '../../../app/hooks'
 import { StyledForm, FormConrolStyle, FormTitle } from './FormStyle'
 
@@ -10,6 +10,7 @@ type Props = {
    buttonText: string
    onSubmitEvent: (event: React.FormEvent) => void
    isLoadingButton: boolean
+   children: ReactNode
 }
 
 const AxiosAlertSection = React.lazy(() => import('./AlertSection'))

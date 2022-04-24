@@ -31,7 +31,7 @@ HIBÁK/BUGOK:
 Új ötlet:
 - Amikor egy terméknél megváltoztatom az árat, elmenteni az előzőt, a frontenden pedig megjeleníteni grafikonon
   mikor mennyibe került a termék. PL.: ipon
-
+- Egy kereső sávot létrehozni, keresés a termékek között...
 
 
 MEGCSINÁLTAM:

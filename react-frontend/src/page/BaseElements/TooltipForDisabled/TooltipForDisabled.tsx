@@ -1,12 +1,12 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 
 import Tooltip from '@mui/material/Tooltip'
 
-const TooltipForDisabled: React.FC<{ tooltipText: string; isComponentDisabled?: boolean }> = ({
-   children,
-   tooltipText,
-   isComponentDisabled = false
-}) => {
+const TooltipForDisabled: React.FC<{
+   tooltipText: string
+   isComponentDisabled?: boolean
+   children: ReactNode
+}> = ({ children, tooltipText, isComponentDisabled = false }) => {
    return (
       <>
          {isComponentDisabled ? (

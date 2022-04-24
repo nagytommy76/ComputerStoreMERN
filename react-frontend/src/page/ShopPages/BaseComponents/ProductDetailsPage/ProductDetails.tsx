@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, ReactNode } from 'react'
 import {
    DetailsPage,
    HeadSection,
@@ -25,7 +25,7 @@ const Rating = React.lazy(() => import('../../BaseComponents/ProductDetailsPage/
 const CartSnackbar = React.lazy(() => import('../CartSnackbar/CartSnackbar'))
 const Chart = React.lazy(() => import('./Charts/Chart'))
 
-const ProductDetails: React.FC = ({ children }) => {
+const ProductDetails: React.FC<{ children: ReactNode }> = ({ children }) => {
    const isDarkTheme = useAppSelector(state => state.theme.isDarkTheme)
    const { manufacturer, type, typeCode, details, price } = useContext(DetailsContext)
    return (

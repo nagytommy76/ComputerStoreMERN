@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import useError from '../Hooks/useError'
 import { ValidationError } from '../../../AdminTypes'
 
@@ -14,6 +14,7 @@ const SelectField: React.FC<{
    id?: string
    validationErrors: ValidationError[]
    validationErrorLocation: string
+   children: ReactNode
 }> = ({ onChangeEvent, value, text, id, validationErrorLocation, validationErrors, children }) => {
    const error = useError(validationErrors, validationErrorLocation)
    return (

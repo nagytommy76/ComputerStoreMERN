@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from 'react'
+import React, { FC, ReactElement, ReactNode } from 'react'
 import { render, RenderOptions } from '@testing-library/react'
 
 import { ThemeProvider } from 'styled-components'
@@ -8,7 +8,7 @@ import { Provider } from 'react-redux'
 import { store } from './app/store'
 import { BrowserRouter } from 'react-router-dom'
 
-const AllTheProviders: FC = ({ children }) => {
+const AllTheProviders: FC<{ children: ReactNode }> = ({ children }) => {
    return (
       <Provider store={store}>
          <ThemeProvider theme={darkTheme}>

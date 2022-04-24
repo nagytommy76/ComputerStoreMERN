@@ -3,16 +3,16 @@ import { styled } from '@mui/material'
 import Card from '@mui/material/Card'
 import { mobileWindowSize } from '../../../../Theme/GlobalStyles'
 
-export const SummaryContainer = styled('section')(() => ({
+export const SummaryContainer = styled('section')({
    width: '100%',
    height: '75%',
    display: 'flex',
    flexDirection: 'column',
    alignItems: 'center',
    justifyContent: 'space-between',
-}))
+})
 
-export const CardContainer = styled('section')(() => ({
+export const CardContainer = styled('section')({
    margin: '1.4rem 0',
    width: '85%',
    display: 'flex',
@@ -23,8 +23,8 @@ export const CardContainer = styled('section')(() => ({
       alignItems: 'center',
       height: '310px',
    },
-}))
+})
 
-export const StyledCard = styled(Card)(() => ({
+export const StyledCard = styled(Card)({
    width: '300px',
-}))
+})

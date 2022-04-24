@@ -1,12 +1,12 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { CSSTransition } from 'react-transition-group'
 import styles from './Drop.module.css'
 
-const BaseDropBackground: React.FC<{ isDropOpen: boolean; nodeRef: React.MutableRefObject<null> }> = ({
-   isDropOpen,
-   nodeRef,
-   children
-}) => {
+const BaseDropBackground: React.FC<{
+   isDropOpen: boolean
+   nodeRef: React.MutableRefObject<null>
+   children: ReactNode
+}> = ({ isDropOpen, nodeRef, children }) => {
    return (
       <CSSTransition
          in={isDropOpen}
@@ -18,8 +18,9 @@ const BaseDropBackground: React.FC<{ isDropOpen: boolean; nodeRef: React.Mutable
             enter: styles.BackgroundEnter,
             enterActive: styles.BackgroundEnterActive,
             exit: styles.BackgroundExit,
-            exitActive: styles.BackgroundExitActive
-         }}>
+            exitActive: styles.BackgroundExitActive,
+         }}
+      >
          {children}
       </CSSTransition>
    )

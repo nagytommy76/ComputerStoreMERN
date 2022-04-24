@@ -10,12 +10,11 @@
       "@fortawesome/free-regular-svg-icons": "^5.15.3",
       "@fortawesome/free-solid-svg-icons": "^5.15.3",
       "@fortawesome/react-fontawesome": "^0.1.14",
-      "@mui/icons-material": "^5.0.0",
-      "@mui/lab": "^5.0.0-alpha.54",
-      "@mui/material": "^5.6.0",
-      "@mui/styled-engine": "npm:@mui/styled-engine-sc@latest",
-      "@mui/styled-engine-sc": "^5.5.2",
-      "@mui/x-data-grid": "^5.0.1",
+      "@mui/icons-material": "^5.6.2",
+      "@mui/lab": "^5.0.0-alpha.78",
+      "@mui/material": "^5.6.2",
+      "@mui/styled-engine": "5.6.1",
+      "@mui/styled-engine-sc": "^5.6.1",
       "@reduxjs/toolkit": "^1.8.1",
       "@stripe/react-stripe-js": "^1.6.0",
       "@stripe/stripe-js": "^1.27.0",
@@ -33,8 +32,7 @@
       "react-transition-group": "^4.4.2",
       "recharts": "^2.1.9",
       "redux-persist": "^6.0.0",
-      "styled-components": "^5.3.5",
-      "typescript": "^4.6.3"
+      "styled-components": "^5.3.5"
    },
    "scripts": {
       "start": "react-scripts start",
@@ -59,15 +57,14 @@
    },
    "devDependencies": {
       "@types/jest": "^26.0.24",
-      "@types/node": "^12.20.15",
-      "@types/react": "^17.0.43",
-      "@types/react-dom": "^17.0.14",
+      "@types/node": "^17.0.25",
+      "@types/react": "^18.0.6",
+      "@types/react-dom": "^18.0.2",
       "@types/react-redux": "^7.1.23",
-      "@types/react-router-dom": "^5.1.7",
+      "@types/react-router-dom": "^5.3.3",
       "@types/react-transition-group": "^4.4.1",
       "@types/recharts": "^1.8.23",
-      "@types/styled-components": "^5.1.10",
-      "@types/testing-library__react": "^10.2.0"
+      "@types/styled-components": "^5.1.25"
    },
    "resolutions": {
       "@mui/styled-engine": "npm:@mui/styled-engine-sc@latest"

@@ -1,4 +1,4 @@
-import React, { lazy } from 'react'
+import React, { lazy, ReactNode } from 'react'
 import { useAppSelector } from '../../../../app/hooks'
 
 import Container from '../../../../SuspenseComponents/ProductCard/Container'
@@ -8,7 +8,7 @@ const ProductCard = lazy(() => import('../ProductCard/ProductCard'))
 const Pagination = lazy(() => import('../Pagination/Pagination'))
 const CartSnackBar = lazy(() => import('../CartSnackbar/CartSnackbar'))
 
-const BaseShop: React.FC<{ productType: string }> = ({ productType, children }) => {
+const BaseShop: React.FC<{ productType: string; children?: ReactNode }> = ({ productType, children }) => {
    const products = useAppSelector(state => state.products.products)
 
    return (

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { FormCard } from '../../Components/Form/FormStyle'
 
 import CardContent from '@mui/material/CardContent'
@@ -12,12 +12,13 @@ const BaseForm: React.FC<{
    inputSuccess: boolean
    setInputSuccess: React.Dispatch<React.SetStateAction<boolean>>
    alertTextAndServerity?: { serverity: 'error' | 'success' | 'warning' | 'info'; text: string }
+   children: ReactNode
 }> = ({
    children,
    mainTitle,
    inputSuccess,
    setInputSuccess,
-   alertTextAndServerity: alertTextAnsServerity = { serverity: 'success', text: 'Sikeres bevitel!' }
+   alertTextAndServerity: alertTextAnsServerity = { serverity: 'success', text: 'Sikeres bevitel!' },
 }) => {
    return (
       <FormCard>

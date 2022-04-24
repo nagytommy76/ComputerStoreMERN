@@ -1,4 +1,4 @@
-import React, { useState, lazy } from 'react'
+import React, { useState, lazy, ReactNode } from 'react'
 import { AdminContext } from '../../Context/AdminContext'
 import axios from 'axios'
 import { ValidationErrorWithAxiosError } from '../../Vga/Types'
@@ -18,6 +18,7 @@ const BaseModifyForm: React.FC<{
    productType: string
    submitButtonText: string
    productProperties: any
+   children: ReactNode
 }> = ({ mainTitle, productType, submitButtonText, productProperties, children }) => {
    const states = useAdminStates(productProperties)
    const [inputSuccess, setInputSuccess] = useState<boolean>(false)
