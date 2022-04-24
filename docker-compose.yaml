@@ -6,15 +6,15 @@ services:
       ports:
          - '5040:5050'
       volumes:
-         - ./node-api:/app
-         - ./app/node_modules
+         - ./node-api:/node-api
+         - ./node-api/node_modules
    react-frontend:
       build: ./react-frontend
       container_name: react-frontend_container
       ports:
-         - '8080:8080'
+         - '8080:3000'
       volumes:
-         - ./react-frontend:/app
-         - ./app/node_modules
+         - ./react-frontend:/react-frontend
+         - ./react-frontend/node_modules
       stdin_open: true
       tty: true

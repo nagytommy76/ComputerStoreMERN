@@ -9,7 +9,7 @@ COPY tsconfig.json .
 
 # RUN npm install --save --legacy-peer-deps
 # RUN npm install --save --force
-RUN npm install
+RUN npm install --force
 
 COPY . .
 
