@@ -22,6 +22,7 @@ app.use(
    cors({
       origin: [
          'http://localhost:3000',
+         'http://localhost:8080',
          'https://computerstorebackend.firebaseapp.com',
          'https://computerstorebackend.web.app/',
       ],
