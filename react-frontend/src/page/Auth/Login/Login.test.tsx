@@ -6,14 +6,15 @@ jest.mock('axios')
 const mockedAxios = axios as jest.Mocked<typeof axios>
 
 const mockResponseRejectedPasswordData = {
+   status: 403,
    response: {
       data: {
          errorMessage: 'Helytelen jelszó',
          errorType: 'password',
          hasError: true,
-         message: ''
-      }
-   }
+         message: '',
+      },
+   },
 }
 
 const mockResponseRejectedEmailData = {
@@ -22,9 +23,9 @@ const mockResponseRejectedEmailData = {
          errorMessage: 'Nincs regszitrálva ilyen felhasználó',
          errorType: 'email',
          hasError: true,
-         message: ''
-      }
-   }
+         message: '',
+      },
+   },
 }
 
 describe('Login', () => {
@@ -77,5 +78,24 @@ describe('Login', () => {
       userEvent.click(loginButton)
 
       await screen.findByText(/Nincs regszitrálva ilyen felhasználó/i)
+   })
+
+   test('should display an alert section when the user enters a wrong pass after 2 times', async () => {
+      const emailInput = screen.getByRole('textbox', { name: /Email cím/i })
+      const passwordInput = screen.getByLabelText(/Jelszó/i)
+
+      userEvent.type(emailInput, 'senki123321')
+      userEvent.type(passwordInput, 'semmisem')
+
+      mockedAxios.post.mockRejectedValue(mockResponseRejectedPasswordData)
+
+      const loginButton = await screen.findByRole('button', { name: /Belépés/i })
+
+      userEvent.click(loginButton)
+      // userEvent.click(loginButton)
+      expect(
+         screen.queryByText(/Elfelejtetted a jelszavad? Küldjünk egy jelszó emlékeztető emailt?/i)
+      ).not.toBeInTheDocument()
+      screen.debug()
    })
 })
