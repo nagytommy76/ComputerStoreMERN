@@ -1,4 +1,4 @@
-import { render, screen, waitForElementToBeRemoved } from '../../../test-utils'
+import { render, screen, waitForElementToBeRemoved, waitFor } from '../../../test-utils'
 import userEvent from '@testing-library/user-event'
 import Login from './Login'
 import axios from 'axios'
@@ -28,74 +28,67 @@ const mockResponseRejectedEmailData = {
    },
 }
 
-describe('Login', () => {
-   beforeEach(() => {
-      render(<Login />)
+test('should display an error message when the password is incorrect', async () => {
+   render(<Login />)
+   await waitForElementToBeRemoved(() => screen.getByTestId('loadingSuspense'))
+   const emailInput = await screen.findByRole('textbox', { name: /Email cím/i })
+   const passwordInput = await screen.findByLabelText(/Jelszó/i)
+
+   userEvent.type(emailInput, 'senki123')
+   userEvent.type(passwordInput, 'semmi')
+
+   mockedAxios.post.mockRejectedValue(mockResponseRejectedPasswordData)
+
+   const loginButton = await screen.findByRole('button', { name: /Belépés/i })
+
+   userEvent.click(loginButton)
+
+   await waitFor(() => {
+      expect(screen.getByText(/Helytelen jelszó/i)).toBeInTheDocument()
    })
-   test('renders the login form with 2 input fields', async () => {
-      await waitForElementToBeRemoved(() => screen.queryByTestId('loadingSuspense'))
-      await screen.findByRole('button', { name: /Belépés/i })
-      await screen.findByText(/Email cím/)
-      await screen.findByText(/Jelszó/)
+})
+
+test('Should display an error message when the user name/email is incorrect', async () => {
+   render(<Login />)
+   const emailInput = screen.getByRole('textbox', { name: /Email cím/i })
+   const passwordInput = screen.getByLabelText(/Jelszó/i)
+
+   userEvent.type(emailInput, 'senki123321')
+   userEvent.type(passwordInput, 'semmisem')
+
+   mockedAxios.post.mockRejectedValue(mockResponseRejectedEmailData)
+
+   const loginButton = await screen.findByRole('button', { name: /Belépés/i })
+
+   userEvent.click(loginButton)
+
+   await waitFor(() => {
+      screen.getByText(/Nincs regszitrálva ilyen felhasználó/i)
+   })
+})
+
+test('should display an alert section when the user enters a wrong pass after 2 times', async () => {
+   render(<Login />)
+   const emailInput = await screen.findByRole('textbox', { name: /Email cím/i })
+   const passwordInput = await screen.findByLabelText(/Jelszó/i)
+
+   userEvent.type(emailInput, 'senki123321')
+   userEvent.type(passwordInput, 'semmisem')
+
+   mockedAxios.post.mockRejectedValue(mockResponseRejectedPasswordData)
+
+   const loginButton = await screen.findByRole('button', { name: /Belépés/i })
+
+   userEvent.click(loginButton, undefined, { clickCount: 1 })
+
+   await waitFor(() => {
+      expect(screen.getByText(/Helytelen jelszó/i)).toBeInTheDocument()
+   })
+   userEvent.click(loginButton, undefined, { clickCount: 1 })
+
+   await waitFor(async () => {
+      expect(await screen.findByRole('button', { name: /Email küldése/i })).toBeInTheDocument()
    })
 
-   test('should display an error message when the email input is empty', async () => {
-      const loginButton = await screen.findByRole('button')
-      expect(loginButton)
-
-      userEvent.click(loginButton)
-
-      expect(await screen.findByText(/Kérem az e-mail címet/))
-   })
-
-   test('should display an error message when the password is incorrect', async () => {
-      const emailInput = screen.getByRole('textbox', { name: /Email cím/i })
-      const passwordInput = screen.getByLabelText(/Jelszó/i)
-
-      userEvent.type(emailInput, 'senki123')
-      userEvent.type(passwordInput, 'semmi')
-
-      mockedAxios.post.mockRejectedValue(mockResponseRejectedPasswordData)
-
-      const loginButton = await screen.findByRole('button', { name: /Belépés/i })
-
-      userEvent.click(loginButton)
-
-      await screen.findByText(/Helytelen jelszó/i)
-   })
-
-   test('Should display an error message when the user name/email is incorrect', async () => {
-      const emailInput = screen.getByRole('textbox', { name: /Email cím/i })
-      const passwordInput = screen.getByLabelText(/Jelszó/i)
-
-      userEvent.type(emailInput, 'senki123321')
-      userEvent.type(passwordInput, 'semmisem')
-
-      mockedAxios.post.mockRejectedValue(mockResponseRejectedEmailData)
-
-      const loginButton = await screen.findByRole('button', { name: /Belépés/i })
-
-      userEvent.click(loginButton)
-
-      await screen.findByText(/Nincs regszitrálva ilyen felhasználó/i)
-   })
-
-   test('should display an alert section when the user enters a wrong pass after 2 times', async () => {
-      const emailInput = screen.getByRole('textbox', { name: /Email cím/i })
-      const passwordInput = screen.getByLabelText(/Jelszó/i)
-
-      userEvent.type(emailInput, 'senki123321')
-      userEvent.type(passwordInput, 'semmisem')
-
-      mockedAxios.post.mockRejectedValue(mockResponseRejectedPasswordData)
-
-      const loginButton = await screen.findByRole('button', { name: /Belépés/i })
-
-      userEvent.click(loginButton)
-      // userEvent.click(loginButton)
-      expect(
-         screen.queryByText(/Elfelejtetted a jelszavad? Küldjünk egy jelszó emlékeztető emailt?/i)
-      ).not.toBeInTheDocument()
-      screen.debug()
-   })
+   // screen.debug()
 })
