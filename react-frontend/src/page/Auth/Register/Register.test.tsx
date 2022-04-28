@@ -1,4 +1,4 @@
-import { render, screen } from '../../../test-utils'
+import { render, screen, waitForElementToBeRemoved } from '../../../test-utils'
 import userEvent from '@testing-library/user-event'
 import Register from './Register'
 import axios from 'axios'
@@ -31,24 +31,16 @@ const mockResponseRejectedPasswordData = {
 }
 
 describe('Register', () => {
-   beforeEach(() => {
+   test('should display error message: email alredy exists', async () => {
       render(<Register />)
-   })
-   test('should display every input and button properly', async () => {
-      await screen.findByRole('heading', { name: /Regisztráció/i })
-      await screen.findByRole('textbox', { name: 'Felhasználónév' })
-      await screen.findByRole('textbox', { name: /Email cím\/Felhasználónév/i })
-      screen.getByLabelText('Jelszó *')
-      screen.getByLabelText(/Jelszó még egyszer/i)
-   })
-   beforeEach(async () => {
+      await waitForElementToBeRemoved(() => screen.getByTestId('register-suspense'))
+
       const userName = await screen.findByRole('textbox', { name: 'Felhasználónév' })
       const email = await screen.findByRole('textbox', { name: /Email cím\/Felhasználónév/i })
 
       userEvent.type(userName, 'testUser123')
       userEvent.type(email, 'testUser123@gmail.com')
-   })
-   test('should display error message: email alredy exists', async () => {
+
       const pass = screen.getByLabelText('Jelszó *')
       const pass2 = screen.getByLabelText(/Jelszó még egyszer/i)
       userEvent.type(pass, 'semmi')
@@ -62,6 +54,13 @@ describe('Register', () => {
    })
 
    test('should display error message: 2 password not equal', async () => {
+      render(<Register />)
+      const userName = await screen.findByRole('textbox', { name: 'Felhasználónév' })
+      const email = await screen.findByRole('textbox', { name: /Email cím\/Felhasználónév/i })
+
+      userEvent.type(userName, 'testUser123')
+      userEvent.type(email, 'testUser123@gmail.com')
+
       const pass = screen.getByLabelText('Jelszó *')
       const pass2 = screen.getByLabelText(/Jelszó még egyszer/i)
 
