@@ -33,6 +33,19 @@ const mockWrongPasswordResponse = {
       },
    },
 }
+const mockInvalidPasswordResponse = {
+   response: {
+      status: 403,
+      data: {
+         errorMessage: 'password token expired',
+      },
+   },
+}
+
+const mockSuccessResponse = {
+   status: 200,
+   data: { message: 'A jelszó módosítás sikeres volt!' },
+}
 
 describe('Testing forgot pass controller', () => {
    it('should render the forgot pass page', async () => {
@@ -54,6 +67,38 @@ describe('Testing forgot pass controller', () => {
       mockedAxios.post.mockRejectedValueOnce(mockWrongPasswordResponse)
       userEvent.click(await screen.findByRole('button', { name: /Jelszó módosítása/i }))
       expect(await screen.findByText(/A két jelszó nem egyezik!/i)).toBeInTheDocument()
-      screen.debug()
+   })
+
+   it('should check the token validity', async () => {
+      render(<ForgotPassword />)
+      const firstPassword = '12345678'
+      const secondPassword = '12345678'
+
+      const firstPasswordInput = await screen.findByLabelText(/Jelszó előszőr/i)
+      const secondPasswordInput = await screen.findByLabelText(/Jelszó másodszor/i)
+
+      userEvent.type(firstPasswordInput, firstPassword)
+      userEvent.type(secondPasswordInput, secondPassword)
+      mockedAxios.post.mockRejectedValueOnce(mockInvalidPasswordResponse)
+      userEvent.click(await screen.findByRole('button', { name: /Jelszó módosítása/i }))
+      expect(await screen.findByText(/A validációs link lejárt, vagy hibás!/i)).toBeInTheDocument()
+   })
+
+   it('should change the password', async () => {
+      render(<ForgotPassword />)
+      const firstPassword = '12345678'
+      const secondPassword = '12345678'
+
+      const firstPasswordInput = await screen.findByLabelText(/Jelszó előszőr/i)
+      const secondPasswordInput = await screen.findByLabelText(/Jelszó másodszor/i)
+
+      userEvent.type(firstPasswordInput, firstPassword)
+      userEvent.type(secondPasswordInput, secondPassword)
+
+      mockedAxios.post.mockResolvedValueOnce(mockSuccessResponse)
+      userEvent.click(await screen.findByRole('button', { name: /Jelszó módosítása/i }))
+      expect(
+         await screen.findByText(/Sikeresen módosítottad a jelszavad! Most már bejelentkezhetsz!/i)
+      ).toBeInTheDocument()
    })
 })
