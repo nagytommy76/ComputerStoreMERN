@@ -1,36 +1,38 @@
 // import { render as rtlRender } from '@testing-library/react'
 // import { Provider } from 'react-redux'
-// import AuthSlice from '../../../../../app/slices/AuthSlice'
-// import { configureStore } from '@reduxjs/toolkit'
+// import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { render, screen } from '../../../../../test-utils'
+import { render as authRender } from '../../../../../test-utils-auth'
 import Rating from './AddNew/Rating'
 import axios from 'axios'
 import { waitForElementToBeRemoved } from '@testing-library/dom'
 import userEvent from '@testing-library/user-event'
 
-jest.setTimeout(20000)
+// jest.setTimeout(20000)
 jest.mock('axios')
 const mockedAxios = axios as jest.Mocked<typeof axios>
 
-// const formatDate = (date: string) => {
-//    const formattedDate = new Date(date)
-//    return formattedDate.toLocaleDateString('hu-HU', {
-//       year: 'numeric',
-//       month: '2-digit',
-//       day: 'numeric',
-//       hour: '2-digit',
-//       minute: '2-digit',
-//       second: '2-digit',
-//    })
+// const mockInitialState = {
+//    userLoggedIn: false,
 // }
+// const AuthSlice = createSlice({
+//    name: 'auth',
+//    initialState: mockInitialState,
+//    reducers: {
+//       setUserLoggedIn: (state, action: PayloadAction<boolean>) => {
+//          state.userLoggedIn = action.payload
+//       },
+//    },
+// })
 
-// const renderComponent = (loggedIn: boolean) =>
+// const renderComponent = (isUserLoggedIn: boolean = false) =>{
 //    rtlRender(
-//     <Provider store={configureStore({ reducer: { auth: AuthSlice }, enhancers: { userLoggedIn: loggedIn, } })}>
-//       <Rating />
-//     </Provider>
-//   );
+//       <Provider store={configureStore({ reducer: { auth: AuthSlice.reducer } })}>
+//          <Rating />
+//       </Provider>
+//    )
+// }
 
 const mockAvgRating = {
    status: 200,
@@ -166,8 +168,9 @@ describe('Testing the ratings', () => {
       expect(await screen.findByRole('heading', { name: /Nem érkezett még értékelés/i })).toBeInTheDocument()
       expect(await screen.findByRole('button', { name: /Értékelés leadása/i })).toBeInTheDocument()
    })
-   test('should display an error message when the user in not logged in', async () => {
-      render(<Rating />)
+
+   test('should display an error message when the user in not logged in (new comment)', async () => {
+      authRender(<Rating />)
       const rateBtn = await screen.findByRole('button', { name: /Értékelés leadása/i })
       const inputField = await screen.findByRole('textbox', { name: /Hozzászólás/i })
       const selectStars = await screen.findAllByRole('radio')
@@ -178,6 +181,20 @@ describe('Testing the ratings', () => {
 
       expect(await screen.findByText(/Az értékeléshez kérlek jelentkezz be!/i)).toBeInTheDocument()
    })
+
+   test('should add a new comment when the user logged in', async () => {
+      authRender(<Rating />, true)
+      const rateBtn = await screen.findByRole('button', { name: /Értékelés leadása/i })
+      const inputField = await screen.findByRole('textbox', { name: /Hozzászólás/i })
+      const selectStars = await screen.findAllByRole('radio')
+      mockedAxios.post.mockResolvedValue(mockWithNewComment)
+      userEvent.type(inputField, 'Teszi a dolgát, nekem nagyon bejött')
+      userEvent.click(selectStars[9])
+      userEvent.click(rateBtn)
+
+      expect(await screen.findByText(/Teszi a dolgát, nekem nagyon bejött/i)).toBeInTheDocument()
+   })
+
    // test('should add a new comment', async () => {
    // expect(
    //    screen.getByRole('heading', { name: formatDate(mockGetComments.data[0].ratedAt) })
