@@ -11,12 +11,30 @@ import Card from '@mui/material/Card'
 const CommentSuspense = () => {
    return (
       <CommentsStyle>
-         <Card>
+         <Card data-testid='commentSuspense'>
             <CardContentStyle>
                <LeftContent>
-                  <Skeleton sx={{ marginBottom: 0 }} height={40} width={150} variant='text' animation='wave' />
-                  <Skeleton sx={{ marginBottom: 0 }} height={30} width={170} variant='rectangular' animation='wave' />
-                  <Skeleton sx={{ marginBottom: 1 }} height={30} width={150} variant='text' animation='wave' />
+                  <Skeleton
+                     sx={{ marginBottom: 0 }}
+                     height={40}
+                     width={150}
+                     variant='text'
+                     animation='wave'
+                  />
+                  <Skeleton
+                     sx={{ marginBottom: 0 }}
+                     height={30}
+                     width={170}
+                     variant='rectangular'
+                     animation='wave'
+                  />
+                  <Skeleton
+                     sx={{ marginBottom: 1 }}
+                     height={30}
+                     width={150}
+                     variant='text'
+                     animation='wave'
+                  />
                </LeftContent>
                <LikeDislikeSuspense />
             </CardContentStyle>
@@ -29,7 +47,7 @@ const CommentsStyle = styled('section')({
    width: '100%',
    display: 'flex',
    flexDirection: 'column',
-   margin: '1.5rem auto'
+   margin: '1.5rem auto',
 })
 
 const LeftContent = styled('section')({
@@ -37,8 +55,8 @@ const LeftContent = styled('section')({
    paddingRight: '.9rem',
    [`@media(max-width: ${mobileWindowSize})`]: {
       width: '100%',
-      paddingRight: 0
-   }
+      paddingRight: 0,
+   },
 })
 
 export default CommentSuspense
