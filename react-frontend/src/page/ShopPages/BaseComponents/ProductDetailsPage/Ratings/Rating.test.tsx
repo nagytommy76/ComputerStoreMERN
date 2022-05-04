@@ -20,18 +20,6 @@ jest.mock('react-router-dom', () => ({
    }),
 }))
 
-const formatDate = (date: string) => {
-   const formattedDate = new Date(date)
-   return formattedDate.toLocaleDateString('hu-HU', {
-      year: 'numeric',
-      month: '2-digit',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-   })
-}
-
 const mockAvgRating = {
    status: 200,
    data: {
@@ -230,6 +218,7 @@ describe('Testing the ratings', () => {
       await waitForElementToBeRemoved(() =>
          screen.getByRole('heading', { name: /Nem érkezett még értékelés/i })
       )
+      // expect(await screen.findByRole('heading', { name: /Összesen 3 értékelés/i })).toBeInTheDocument()
       // Több comment rész van azért getAllBy*
       await waitForElementToBeRemoved(() => screen.getAllByTestId('commentSuspense'))
 
@@ -259,5 +248,29 @@ describe('Testing the ratings', () => {
 
       expect(await screen.findByText(/A Válaszodat fogadtuk!/i)).toBeInTheDocument()
       expect(await screen.findByText(/Teszt üzenetet küldök!!!/i)).toBeInTheDocument()
+   })
+
+   test('should delete an answer', async () => {
+      mockedAxios.get.mockResolvedValue(mockGetComments).mockResolvedValueOnce(mockAvgRating)
+      authRender(
+         <DetailsContext.Provider
+            value={{
+               details: {},
+               manufacturer: '',
+               pictureUrls: [''],
+               price: 0,
+               productId: '6111500be834831dd445052b',
+               productType: 'vga',
+               type: '',
+               typeCode: '',
+            }}
+         >
+            <Rating />,
+         </DetailsContext.Provider>,
+         true,
+         'nagytommy76',
+         '60f3f0b9c7f8211424864a2c'
+      )
+      await waitForElementToBeRemoved(() => screen.getAllByTestId('commentSuspense'))
    })
 })
