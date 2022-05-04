@@ -20,30 +20,47 @@ const AuthSlice = createSlice({
       setUserLoggedIn: (state, action: PayloadAction<boolean>) => {
          state.userLoggedIn = action.payload
       },
+      setUserName: (state, action: PayloadAction<string>) => {
+         state.userName = action.payload
+      },
+      setUserId: (state, action: PayloadAction<string>) => {
+         state.userId = action.payload
+      },
    },
 })
 
-const { setUserLoggedIn } = AuthSlice.actions
+const { setUserLoggedIn, setUserName, setUserId } = AuthSlice.actions
 
-const RenderComponent: React.FC<{ children: ReactNode; isUserLoggedIn: boolean }> = ({
-   children,
-   isUserLoggedIn,
-}) => {
+const RenderComponent: React.FC<{
+   children: ReactNode
+   isUserLoggedIn: boolean
+   userName: string
+   userId: string
+}> = ({ children, isUserLoggedIn, userName, userId }) => {
    const dispatch = useAppDispatch()
    useEffect(() => {
       if (isUserLoggedIn) {
+         dispatch(setUserId(userId))
+         dispatch(setUserName(userName))
          dispatch(setUserLoggedIn(isUserLoggedIn))
       }
    }, [isUserLoggedIn, dispatch])
    return <>{children}</>
 }
 
-const customRender = (children: ReactNode, isUserLoggedIn: boolean = false) => {
+const customRender = (
+   children: ReactNode,
+   isUserLoggedIn: boolean = false,
+   userName: string = '',
+   userId: string = ''
+) => {
    rtlRender(
       <Provider store={configureStore({ reducer: { auth: AuthSlice.reducer } })}>
          <BrowserRouter>
             <React.Suspense fallback={<h1>Töltés...</h1>}>
-               <RenderComponent isUserLoggedIn={isUserLoggedIn}>{children}</RenderComponent>
+               <RenderComponent isUserLoggedIn={isUserLoggedIn} userName={userName} userId={userId}>
+                  {children}
+               </RenderComponent>
             </React.Suspense>
          </BrowserRouter>
       </Provider>
