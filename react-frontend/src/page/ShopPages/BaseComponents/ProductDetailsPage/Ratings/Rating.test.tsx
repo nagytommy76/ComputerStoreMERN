@@ -1,6 +1,5 @@
 import { render, screen } from '../../../../../test-utils'
-import { render as authRender } from '../../../../../test-utils-auth'
-import { waitForElementToBeRemoved } from '@testing-library/dom'
+import { render as authRender, waitFor, waitForElementToBeRemoved } from '../../../../../test-utils-auth'
 import userEvent from '@testing-library/user-event'
 import {
    mockAvgRating,
@@ -85,14 +84,14 @@ describe('Testing the ratings', () => {
          'nagytommy76',
          '60f3f0b9c7f8211424864a2c'
       )
+      // await waitForElementToBeRemoved(() => screen.getByTestId('ratingSuspense'))
       // await waitForElementToBeRemoved(
-      //    () => screen.getByRole('heading', { name: /Nem érkezett még értékelés/i })
+      // async () => await screen.findByRole('heading', { name: /Nem érkezett még értékelés/i })
       // )
       expect(await screen.findByRole('heading', { name: /Összesen 3 értékelés/i })).toBeInTheDocument()
-      // Több comment rész van azért getAllBy*
-      await waitForElementToBeRemoved(() => screen.getAllByTestId('commentSuspense'))
 
-      expect(await screen.findByText(/Összesen 3 értékelés/i)).toBeInTheDocument()
+      // Több comment rész van azért getAllBy*
+      // await waitForElementToBeRemoved(() => screen.getAllByTestId('commentSuspense'))
       expect(await screen.findByText(/Az árához képest so-so/i)).toBeInTheDocument()
       expect(await screen.findByText(/Az egy jó kártya volt a maga idejében/i)).toBeInTheDocument()
       expect(
