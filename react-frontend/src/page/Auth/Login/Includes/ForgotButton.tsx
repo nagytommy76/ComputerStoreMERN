@@ -9,7 +9,8 @@ const ForgotButton: React.FC<{
    setInvalidPassAttempt: React.Dispatch<React.SetStateAction<number>>
 }> = ({ emailOrUsername, setInvalidPassAttempt }) => {
    const handleForgotPasswordButton = () => {
-      setInvalidPassAttempt(2)
+      console.log('Forgot password button clicked')
+      // setInvalidPassAttempt(prevAttempt => (prevAttempt += 1))
    }
 
    return (

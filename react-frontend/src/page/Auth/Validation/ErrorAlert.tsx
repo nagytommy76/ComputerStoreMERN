@@ -18,7 +18,7 @@ const ErrorAlert: React.FC<{
    return (
       <>
          <Fade in={hasError}>
-            <span style={{ width: '100%', marginTop: '1rem' }}>
+            <span data-testid='jwtAlert' style={{ width: '100%', marginTop: '1rem' }}>
                <Alert variant='standard' color='error'>
                   <AlertTitle>{errorMsgTitle}</AlertTitle>
                   {message}

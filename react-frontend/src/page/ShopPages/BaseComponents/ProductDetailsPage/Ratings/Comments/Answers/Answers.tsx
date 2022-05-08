@@ -13,7 +13,7 @@ const Answers: React.FC<{ commentId: string }> = ({ commentId }) => {
    const { commentAnswers } = useContext(AnswerContext)
    return (
       <TransitionGroup component={null}>
-         {commentAnswers.map((answers) => (
+         {commentAnswers.map(answers => (
             <Collapse key={answers._id} timeout={150}>
                <SingleAnswerStyle>
                   <LeftAnswerStyle>
@@ -23,7 +23,11 @@ const Answers: React.FC<{ commentId: string }> = ({ commentId }) => {
                   <RightAnswerStyle>
                      <Typography variant='body1'>{answers.answer}</Typography>
                   </RightAnswerStyle>
-                  <DeleteAnswer commentId={commentId} answerId={answers._id} answerUserName={answers.userName} />
+                  <DeleteAnswer
+                     commentId={commentId}
+                     answerId={answers._id}
+                     answerUserName={answers.userName}
+                  />
                </SingleAnswerStyle>
             </Collapse>
          ))}

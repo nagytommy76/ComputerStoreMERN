@@ -22,7 +22,9 @@ const useAxiosSetup = () => {
    // Docker port
    // const DOCKER_FRONTEND_URL = 'http://localhost:8080'
    // const DOCKER_BACKEND_URL = 'http://localhost:5040/api'
-   axios.defaults.baseURL = 'http://localhost:5050/api'
+
+   axios.defaults.baseURL = 'http://localhost:5040/api'
+   // axios.defaults.baseURL = 'http://localhost:5050/api'
    // axios.defaults.baseURL = DOCKER_BACKEND_URL
    // axios.defaults.baseURL = 'https://compstorebackend.herokuapp.com/api'
 

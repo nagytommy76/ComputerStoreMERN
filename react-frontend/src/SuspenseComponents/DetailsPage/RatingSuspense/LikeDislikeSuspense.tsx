@@ -21,8 +21,8 @@ const RightContent = styled('section')({
    paddingLeft: '.9rem',
    [`@media(max-width: ${mobileWindowSize})`]: {
       width: '100%',
-      paddingLeft: 0
-   }
+      paddingLeft: 0,
+   },
 })
 
 export default LikeDislikeSuspense

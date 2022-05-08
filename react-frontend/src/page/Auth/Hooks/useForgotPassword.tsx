@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 
 import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
@@ -34,25 +34,24 @@ const useForgotPassword = (firstPassword: string, secondPassword: string) => {
          }, 6000)
          setIsLoading(false)
       } catch (error) {
-         if (axios.isAxiosError(error)) {
-            switch (error.response?.status) {
-               case 403:
-                  if (error.response.data.errorMessage === 'password token expired') {
-                     setErrors({
-                        hasError: true,
-                        messageTitle: 'A validációs link lejárt, vagy hibás!',
-                        message: 'Kérlek kérj egy új emailt a lenti gombbal.',
-                        errorType: 'jwt expired',
-                     })
-                  }
-                  break
-               case 422:
+         const axiosError = error as AxiosError
+         switch (axiosError.response?.status) {
+            case 403:
+               if (axiosError.response.data.errorMessage === 'password token expired') {
                   setErrors({
                      hasError: true,
-                     messageTitle: error.response.data.errors[0].msg,
+                     messageTitle: 'A validációs link lejárt, vagy hibás!',
+                     message: 'Kérlek kérj egy új emailt a lenti gombbal.',
+                     errorType: 'jwt expired',
                   })
-                  break
-            }
+               }
+               break
+            case 422:
+               setErrors({
+                  hasError: true,
+                  messageTitle: axiosError.response.data.errors[0].msg,
+               })
+               break
          }
          setIsLoading(false)
       }

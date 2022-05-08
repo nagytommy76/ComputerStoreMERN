@@ -24,7 +24,7 @@ const ProductSelector: React.FC<Props> = ({ productType, productProperties }) =>
       fetchAllProduct()
    }, [productType, fetchAllProduct])
 
-   const handleSelect = (event: ChangeEvent<HTMLSelectElement>) => {
+   const handleSelect = (event: ChangeEvent<HTMLTextAreaElement>) => {
       event.preventDefault()
       if (event.target.value === 'none') {
          setProductInputs(productProperties)
@@ -57,7 +57,7 @@ const ProductSelector: React.FC<Props> = ({ productType, productProperties }) =>
             select
             label='Termék választó'
             value={selectedVgaProduct?._id || 'none'}
-            onChange={(event: any) => handleSelect(event)}
+            onChange={handleSelect}
             SelectProps={{
                native: true,
             }}

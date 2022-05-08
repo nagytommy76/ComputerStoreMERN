@@ -2,7 +2,7 @@ import React, { ChangeEvent } from 'react'
 
 import TextField from '@mui/material/TextField'
 
-const DescriptionTextArea: React.FC<Props> = ({ labelText, value, onChangeEvent }) => {
+const DescriptionTextArea: React.FC<Props> = ({ labelText, value = '', onChangeEvent }) => {
    return (
       <TextField
          id='description'
