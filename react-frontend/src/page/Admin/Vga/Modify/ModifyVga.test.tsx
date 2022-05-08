@@ -3,7 +3,7 @@ import axios from 'axios'
 import userEvent from '@testing-library/user-event'
 import { render, screen, waitForElementToBeRemoved } from '../../../../test-utils'
 import ModifyVga from './ModifyVga'
-import { waitFor } from '@testing-library/dom'
+
 jest.mock('axios')
 const mockedAxios = axios as jest.Mocked<typeof axios>
 
@@ -87,59 +87,52 @@ const mockRejectedValidationErrorResponse = {
    },
 }
 
-describe('Modify vga (admin)', () => {
-   beforeEach(async () => {
-      mockedAxios.get.mockResolvedValueOnce(allVgaProductResponseToModify)
-      render(<ModifyVga />)
-      await waitForElementToBeRemoved(() => screen.getByText(/Töltés/i), { timeout: 9000 })
+test('should render the select field with the vgas and display the data from the API after user selects something', async () => {
+   mockedAxios.get.mockResolvedValueOnce(allVgaProductResponseToModify)
+   render(<ModifyVga />)
+   await waitForElementToBeRemoved(() => screen.getByText(/Töltés/i), { timeout: 9000 })
 
-      const options = await screen.findByRole('combobox', { name: /Termék választó/i })
-      const selectOption = await screen.findByRole('option', { name: /ROG-STRIX-RTX3070TI-O8G-GAMING/i })
-      expect(selectOption).toBeInTheDocument()
-      userEvent.selectOptions(options, [selectOption])
-   })
+   const options = await screen.findByRole('combobox', { name: /Termék választó/i })
+   const selectOption = await screen.findByRole('option', { name: /ROG-STRIX-RTX3070TI-O8G-GAMING/i })
+   expect(selectOption).toBeInTheDocument()
+   userEvent.selectOptions(options, [selectOption])
+   expect(selectOption).toBeTruthy()
+   // screen.getByRole('')
+   expect(await screen.findByRole('textbox', { name: 'Ár' })).toHaveValue(
+      allVgaProductResponseToModify.data.allProducts[0].price.toString()
+   )
+   expect(await screen.findByRole('textbox', { name: /Termék szám/i })).toHaveValue(
+      allVgaProductResponseToModify.data.allProducts[0].itemNumber
+   )
+   expect(await screen.findByRole('textbox', { name: /Vram sávszélesség/i })).toHaveValue(
+      allVgaProductResponseToModify.data.allProducts[0].details.vramBandwidth.toString()
+   )
+   // should display the images related to a product
+   const links = await screen.findAllByRole('link', { name: /Ugrás a képhez/i })
+   expect(links[0]).toHaveAttribute('href', allVgaProductResponseToModify.data.allProducts[0].pictureUrls[0])
+})
 
-   test('should render the select field with the vgas', async () => {
-      expect(await screen.findByRole('option', { name: /ROG-STRIX-RTX3070TI-O8G-GAMING/i })).toBeTruthy()
-   })
+test('should add a new link element when the add new link button clikced, and it disapears after user deletes it', async () => {
+   mockedAxios.get.mockResolvedValueOnce(allVgaProductResponseToModify)
+   render(<ModifyVga />)
+   // await waitForElementToBeRemoved(() => screen.getByText(/Töltés/i), { timeout: 9000 })
+   const options = await screen.findByRole('combobox', { name: /Termék választó/i })
+   const selectOption = await screen.findByRole('option', { name: /ROG-STRIX-RTX3070TI-O8G-GAMING/i })
+   expect(selectOption).toBeInTheDocument()
+   userEvent.selectOptions(options, [selectOption])
+   expect(selectOption).toBeTruthy()
 
-   // test('should display the data from the API after user selects something', async () => {
-   //    expect(mockedAxios.get).toHaveBeenCalled()
-   //    expect(await screen.findByRole('spinbutton', { name: 'Ár *' })).toHaveValue(
-   //       allVgaProductResponseToModify.data.allProducts[0].price
-   //    )
-   //    expect(await screen.findByRole('textbox', { name: /Termék szám/i })).toHaveValue(
-   //       allVgaProductResponseToModify.data.allProducts[0].itemNumber
-   //    )
-   //    expect(await screen.findByRole('spinbutton', { name: /Vram sávszélesség/i })).toHaveValue(
-   //       allVgaProductResponseToModify.data.allProducts[0].details.vramBandwidth
-   //    )
-   // })
+   // screen.getByRole('')
+   const newLinkButton = await screen.findByRole('button', { name: /Új link/i })
+   userEvent.click(newLinkButton)
 
-   // test('should display the images related to a product', async () => {
-   //    const links = await screen.findAllByRole('link')
-   //    expect(
-   //       await screen.findByDisplayValue(allVgaProductResponseToModify.data.allProducts[0].pictureUrls[0])
-   //    ).toBeInTheDocument()
-   //    expect(links[0]).toHaveAttribute('href', allVgaProductResponseToModify.data.allProducts[0].pictureUrls[0])
-   // })
+   // const picUrlInputsByRemoveBtn = await screen.findAllByRole('button', { name: /Törlés/i })
 
-   // test('should add a new link element when the add new link button clikced, and it disapears after user deletes it', async () => {
-   //    expect(await screen.findAllByRole('link')).toHaveLength(
-   //       allVgaProductResponseToModify.data.allProducts[0].pictureUrls.length
-   //    )
-   //    const newLinkButton = await screen.findByRole('button', { name: /Új link/i })
-   //    userEvent.click(newLinkButton)
-   //    expect(await screen.findAllByRole('link')).toHaveLength(
-   //       allVgaProductResponseToModify.data.allProducts[0].pictureUrls.length + 1
-   //    )
+   // expect(links).toHaveLength(allVgaProductResponseToModify.data.allProducts[0].pictureUrls.length + 1)
 
-   //    const allDeleteButtons = await screen.findAllByRole('button', { name: 'X' })
-   //    userEvent.click(allDeleteButtons[allDeleteButtons.length - 1])
-   //    expect(await screen.findAllByRole('link')).toHaveLength(
-   //       allVgaProductResponseToModify.data.allProducts[0].pictureUrls.length
-   //    )
-   // })
+   // const allDeleteButtons = await screen.findAllByRole('button', { name: 'X' })
+   // userEvent.click(allDeleteButtons[allDeleteButtons.length - 1])
+   // expect(links).toHaveLength(allVgaProductResponseToModify.data.allProducts[0].pictureUrls.length)
 })
 
 // describe('Test', () => {
