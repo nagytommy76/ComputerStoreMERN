@@ -1,8 +1,11 @@
+import ReactDOM from 'react-dom'
 import { render, screen, waitForElementToBeRemoved } from '../../../../test-utils'
 import CpuDetails from './CpuDetails'
+
 import axios from 'axios'
 jest.mock('axios')
 const mockedAxios = axios as jest.Mocked<typeof axios>
+jest.setTimeout(7500)
 
 const stateObject = {
    _id: '6145d79d432f8737d0db1ab1',
@@ -10,7 +13,9 @@ const stateObject = {
    price: 31200,
    type: 'Ryzen 3 1200',
    typeCode: 'YD1200BBAEBOX',
-   pictureUrls: ['https://media.icdn.hu/product/GalleryMod/2018-04/464322/resp/979059_amd_ryzen_3_2200g_350ghz_am4_box.webp'],
+   pictureUrls: [
+      'https://media.icdn.hu/product/GalleryMod/2018-04/464322/resp/979059_amd_ryzen_3_2200g_350ghz_am4_box.webp',
+   ],
    details: {
       TDP: 65,
       architecture: '14 nm',
@@ -28,16 +33,16 @@ const stateObject = {
       stockCooler: false,
       stockCoolerName: 'Wraith Stealth',
       threadCount: 4,
-      warranity: 36
-   }
+      warranity: 36,
+   },
 }
 
 const mockResolvedCpuRatings = {
    status: 200,
    data: {
       avgRating: 4.1666666666667,
-      rateCount: 3
-   }
+      rateCount: 3,
+   },
 }
 const mockResolvedCpuComments = {
    status: 200,
@@ -49,33 +54,36 @@ const mockResolvedCpuComments = {
          rating: 2.5,
          responses: [
             { _id: '61535adc634bea29b4542ab1', isLike: false, userId: '6134ac45824b6c129cd0859b' },
-            { _id: '6159bb7d95d8e103842d13af', isLike: true, userId: '60f3f0b9c7f8211424864a2c' }
+            { _id: '6159bb7d95d8e103842d13af', isLike: true, userId: '60f3f0b9c7f8211424864a2c' },
          ],
          userId: '614f39ce51587c3450377112',
          userName: 'senki321',
-         _id: '61534c48f49a34129c48c0fc'
-      }
-   ]
+         _id: '61534c48f49a34129c48c0fc',
+      },
+   ],
 }
 
-jest.mock('react-router-dom', () => ({
-   ...jest.requireActual('react-router-dom'),
-   useLocation: () => ({
-      pathname: '/cpu/cpu-details',
-      search: '',
-      hash: '',
-      state: stateObject,
-      key: '5nvxpbdafa'
-   })
-}))
+const mockCpuDetails = {
+   status: 200,
+   data: {
+      productDetails: stateObject,
+   },
+}
 
 describe('Cpu details page testing', () => {
    beforeEach(() => {
-      mockedAxios.get.mockResolvedValue(mockResolvedCpuComments).mockResolvedValue(mockResolvedCpuRatings)
-      render(<CpuDetails />)
+      ReactDOM.createPortal = jest.fn((element, node) => {
+         return element
+      }) as any
    })
    test('should display the CPU details without any error', async () => {
-      await waitForElementToBeRemoved(() => screen.queryByTestId('detailsSuspense'))
+      mockedAxios.get
+         .mockResolvedValueOnce(mockCpuDetails)
+         .mockResolvedValue(mockResolvedCpuRatings)
+         .mockResolvedValue(mockResolvedCpuComments)
+      render(<CpuDetails />)
+      // screen.debug()
+      await waitForElementToBeRemoved(() => screen.getByTestId('detailsSuspense'), { timeout: 15000 })
       await screen.findByRole('heading', { name: /AMD Ryzen 3 1200 YD1200BBAEBOX/i })
       await screen.findByText(`${stateObject.details.warranity} hónap gyári garanciával`)
       // Table
