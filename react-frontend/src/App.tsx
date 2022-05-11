@@ -7,7 +7,7 @@ import { GlobalStyles } from './Theme/GlobalStyles'
 import { lightTheme, darkTheme } from './Theme/Themes'
 
 import { useAppDispatch, useAppSelector } from './app/hooks'
-import { fetchCartItemsFromDB } from './app/slices/CartSlice'
+import { fetchCartItemsFromDB, fillDBWithCartItemsAfterLogin } from './app/slices/CartSlice'
 
 import Navbar from './page/Navbar/Navbar'
 import Footer from './page/Footer/Footer'
@@ -34,6 +34,10 @@ const App = () => {
    useEffect(() => {
       initUserCartItems()
    }, [accessToken, initUserCartItems])
+
+   useEffect(() => {
+      if (userIsLoggedIn && !isCartEmpty) dispatch(fillDBWithCartItemsAfterLogin())
+   }, [userIsLoggedIn, dispatch])
 
    return (
       <MUIThemeProvider theme={customMUITheme}>
