@@ -15,8 +15,8 @@ const userDetailsropoerties = {
       street: '',
       houseNumber: '',
       floor: '',
-      door: ''
-   }
+      door: '',
+   },
 }
 
 type InitialStateType = {
@@ -30,7 +30,7 @@ const initialState: InitialStateType = {
    isDetailsFilled: false,
    userDetails: userDetailsropoerties,
    isInsertSuccess: false,
-   isModifySuccess: false
+   isModifySuccess: false,
 }
 
 export const fetchUsersDetails = createAsyncThunk('checkout/userDetails/fetchUsersDetails', async () => {
@@ -50,7 +50,7 @@ export const UserDetailsSlice = createSlice({
       setDetailsFilled: (state, action: PayloadAction<boolean>) => {
          state.isDetailsFilled = action.payload
       },
-      restoreUserDetails: (state) => {
+      restoreUserDetails: state => {
          state.isDetailsFilled = false
          state.userDetails = userDetailsropoerties
       },
@@ -59,26 +59,34 @@ export const UserDetailsSlice = createSlice({
       },
       setIsModifySuccess: (state, action: PayloadAction<boolean>) => {
          state.isModifySuccess = action.payload
-      }
+      },
    },
-   extraReducers: (builder) => {
+   extraReducers: builder => {
       builder.addCase(fetchUsersDetails.fulfilled, (state, { payload }) => {
          state.userDetails = payload.userDetails
          state.isDetailsFilled = payload.isDetailsFilled
       })
-   }
+   },
 })
 
-export const { setUserDetails, setDetailsFilled, restoreUserDetails, setIsInsertSuccess, setIsModifySuccess } =
-   UserDetailsSlice.actions
+export const {
+   setUserDetails,
+   setDetailsFilled,
+   restoreUserDetails,
+   setIsInsertSuccess,
+   setIsModifySuccess,
+} = UserDetailsSlice.actions
 
 export default UserDetailsSlice.reducer
 
 export const insertUserDetails =
-   (setIsSubmitBtnDisabled: React.Dispatch<React.SetStateAction<boolean>>) => async (dispatch: Dispatch, getState: any) => {
+   (setIsSubmitBtnDisabled: React.Dispatch<React.SetStateAction<boolean>>) =>
+   async (dispatch: Dispatch, getState: any) => {
       try {
          const state = getState() as RootState
-         const insertResponse = await axios.post('/auth/insert-details', { userDetails: state.userDetails.userDetails })
+         const insertResponse = await axios.post('/auth/insert-details', {
+            userDetails: state.userDetails.userDetails,
+         })
          if (insertResponse.status === 201) {
             dispatch(setDetailsFilled(true))
             dispatch(setIsInsertSuccess(true))

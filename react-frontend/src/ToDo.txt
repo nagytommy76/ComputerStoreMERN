@@ -19,6 +19,7 @@
 HIBÁK/BUGOK:
 - A kártyás fizetés stílusa nem jó mobil esetén, kilóg
 - Hiba az elfelejtett jelszó alert ablak felugrásánál
+- Hiba van ha ki vagy jelentkezve és beraksz terméket a kosárba, majd így próbálsz belépni
 
 - Jobban belemenni a Unit/Integration tesztekbe.
   CPUdetails oldal tesztelés nem jó
