@@ -11,7 +11,7 @@ import {
    setRefreshToken,
    setAdmin,
 } from '../../../app/slices/AuthSlice'
-import { fillDBWithCartItemsAfterLogin } from '../../../app/slices/CartSlice'
+// import { fillDBWithCartItemsAfterLogin } from '../../../app/slices/CartSlice'
 
 import useLocationState from './useLocationState'
 
@@ -62,7 +62,11 @@ const useLogin = () => {
                dispatch(setRefreshToken(response.data.refreshToken))
                dispatch(setUserName(response.data.userName))
                if (response.data.isAdmin) dispatch(setAdmin(true))
-               if (cartItems.length > 0) dispatch(fillDBWithCartItemsAfterLogin())
+               // setTimeout(() => {
+               //    if (cartItems.length > 0) dispatch(fillDBWithCartItemsAfterLogin())
+               //    console.log('SETTIMEOUT LEFUTOTTAM')
+               // }, 500)
+               // if (cartItems.length > 0) dispatch(fillDBWithCartItemsAfterLogin())
                navigate('/')
             }
          })
