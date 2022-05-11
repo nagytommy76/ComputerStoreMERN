@@ -16,9 +16,6 @@ export const fillDBWithCartItemsAfterLoginController = async (req: GetUserAuthIn
       if (foundUser.cartItems.length === 0) {
          foundUser.cartItems = req.body.cartItems
          foundUser.save()
-      } else {
-         foundUser.cartItems = req.body.cartItems
-         foundUser.save()
       }
       return res.status(200).json({ message: 'Sikeres bevitel az adatbázisba!' })
    } catch (error) {
@@ -36,7 +33,7 @@ export const addCartItemsToUserController = async (req: GetUserAuthInfoRequest, 
          productType: req.body.productType,
          displayImage: req.body.displayImage,
          displayName: req.body.displayName,
-         price: req.body.price
+         price: req.body.price,
       }
       // Van ilyen indexes elem a kosarában
       const itemFoundIndex = findUsersCartItemIndex(foundUser.cartItems, productId)
