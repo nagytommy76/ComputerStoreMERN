@@ -13,10 +13,8 @@ export const fetchUserCartItemsController = async (req: GetUserAuthInfoRequest, 
 export const fillDBWithCartItemsAfterLoginController = async (req: GetUserAuthInfoRequest, res: Response) => {
    try {
       const { foundUser } = req
-      if (foundUser.cartItems.length === 0) {
-         foundUser.cartItems = req.body.cartItems
-         foundUser.save()
-      }
+      foundUser.cartItems = req.body.cartItems
+      foundUser.save()
       return res.status(200).json({ message: 'Sikeres bevitel az adatbázisba!' })
    } catch (error) {
       res.status(500).json(error)
