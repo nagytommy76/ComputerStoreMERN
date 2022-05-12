@@ -11,7 +11,7 @@ import {
    setRefreshToken,
    setAdmin,
 } from '../../../app/slices/AuthSlice'
-// import { fillDBWithCartItemsAfterLogin } from '../../../app/slices/CartSlice'
+import { fillDBWithCartItemsAfterLogin } from '../../../app/slices/CartSlice'
 
 import useLocationState from './useLocationState'
 
@@ -21,6 +21,7 @@ const useLogin = () => {
    const dispatch = useAppDispatch()
    const navigate = useNavigate()
 
+   const accesToken = useAppSelector(state => state.auth.accessToken)
    const cartItems = useAppSelector(state => state.cart.cartItems)
    const [isLoadingForResponse, setIsLoadingForResponse] = useState<boolean>(false)
 
@@ -66,8 +67,9 @@ const useLogin = () => {
                //    if (cartItems.length > 0) dispatch(fillDBWithCartItemsAfterLogin())
                //    console.log('SETTIMEOUT LEFUTOTTAM')
                // }, 500)
-               // if (cartItems.length > 0) dispatch(fillDBWithCartItemsAfterLogin())
-               navigate('/')
+               console.log(accesToken)
+               if (cartItems.length > 0 && accesToken) dispatch(fillDBWithCartItemsAfterLogin())
+               navigate('/', { state: { testing: true } })
             }
          })
          .catch((err: AxiosError) => {

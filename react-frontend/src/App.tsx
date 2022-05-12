@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, Suspense } from 'react'
+import { useLocation } from 'react-router-dom'
 
 import { ThemeProvider } from 'styled-components'
 import { ThemeProvider as MUIThemeProvider } from '@mui/material/styles'
@@ -17,6 +18,7 @@ import useAxiosSetup from './AxiosSetup/AxiosSetup'
 
 // https://lewiskori.com/blog/how-to-auto-refresh-jwts-using-axios-interceptors/
 const App = () => {
+   const { state } = useLocation() as any
    useAxiosSetup()
    const dispatch = useAppDispatch()
 
@@ -35,9 +37,12 @@ const App = () => {
       initUserCartItems()
    }, [accessToken, initUserCartItems])
 
-   useEffect(() => {
-      if (userIsLoggedIn && !isCartEmpty) dispatch(fillDBWithCartItemsAfterLogin())
-   }, [userIsLoggedIn, dispatch])
+   // useEffect(() => {
+   //    console.log(isCartEmpty)
+   //    if (userIsLoggedIn && state && state.testing) {
+   //       dispatch(fillDBWithCartItemsAfterLogin())
+   //    }
+   // }, [userIsLoggedIn, dispatch, isCartEmpty])
 
    return (
       <MUIThemeProvider theme={customMUITheme}>
