@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import axios, { AxiosError, AxiosResponse } from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { axiosInstance as axios, AxiosError, AxiosResponse } from '../../../AxiosSetup/AxiosInstance'
 
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'
 import {
@@ -21,7 +21,6 @@ const useLogin = () => {
    const dispatch = useAppDispatch()
    const navigate = useNavigate()
 
-   const accesToken = useAppSelector(state => state.auth.accessToken)
    const cartItems = useAppSelector(state => state.cart.cartItems)
    const [isLoadingForResponse, setIsLoadingForResponse] = useState<boolean>(false)
 
@@ -63,13 +62,10 @@ const useLogin = () => {
                dispatch(setRefreshToken(response.data.refreshToken))
                dispatch(setUserName(response.data.userName))
                if (response.data.isAdmin) dispatch(setAdmin(true))
-               // setTimeout(() => {
-               //    if (cartItems.length > 0) dispatch(fillDBWithCartItemsAfterLogin())
-               //    console.log('SETTIMEOUT LEFUTOTTAM')
-               // }, 500)
-               console.log(accesToken)
-               if (cartItems.length > 0 && accesToken) dispatch(fillDBWithCartItemsAfterLogin())
-               navigate('/', { state: { testing: true } })
+
+               axios.defaults.headers.common.Authorization = `Barer ${response.data.accessToken}`
+               if (cartItems.length > 0) dispatch(fillDBWithCartItemsAfterLogin())
+               navigate('/')
             }
          })
          .catch((err: AxiosError) => {

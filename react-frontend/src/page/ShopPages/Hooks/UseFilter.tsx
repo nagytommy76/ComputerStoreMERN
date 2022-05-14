@@ -1,5 +1,5 @@
 import { useEffect, useCallback } from 'react'
-import axios from 'axios'
+import { axiosInstance as axios } from '../../../AxiosSetup/AxiosInstance'
 import { useAppSelector, useAppDispatch } from '../../../app/hooks'
 import {
    setAllManufacturer,
@@ -30,12 +30,7 @@ const useFilter = (productType: string, extraFilterDispatches?: (params: any) =>
             extraFilterDispatches && extraFilterDispatches(filterData.data)
          }
       } catch (error) {
-         if (axios.isAxiosError(error)) {
-            console.log(error.message)
-            console.log(error.code)
-         } else {
-            console.log(error)
-         }
+         console.log(error)
       }
    }, [dispatch, productType, extraFilterDispatches])
 

@@ -1,6 +1,6 @@
 import React, { useState, lazy, ReactNode } from 'react'
 import { AdminContext } from '../../Context/AdminContext'
-import axios from 'axios'
+import { axiosInstance as axios } from '../../../../AxiosSetup/AxiosInstance'
 import { ValidationErrorWithAxiosError } from '../../Vga/Types'
 import { StyledForm } from '../../Components/Form/FormStyle'
 

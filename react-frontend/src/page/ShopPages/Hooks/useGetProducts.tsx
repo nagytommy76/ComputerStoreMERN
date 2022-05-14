@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react'
-import axios, { AxiosResponse } from 'axios'
+import { axiosInstance as axios, AxiosResponse } from '../../../AxiosSetup/AxiosInstance'
 
 import { setTotalPages } from '../../../app/slices/PaginateSlice'
 import { useAppSelector, useAppDispatch } from '../../../app/hooks'

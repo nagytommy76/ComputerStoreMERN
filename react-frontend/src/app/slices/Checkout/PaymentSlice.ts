@@ -1,5 +1,5 @@
 import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit'
-import axios from 'axios'
+import { axiosInstance as axios, isAxiosError } from '../../../AxiosSetup/AxiosInstance'
 
 import { AlertErrorTypes } from '../../../page/CheckoutPage/Steps/Hooks/Error'
 import { RootState } from '../../store'
@@ -34,7 +34,7 @@ const PaymentSlice = createSlice({
       setSelectedPaymentMethod: (state, { payload }: PayloadAction<string>) => {
          state.selectedPaymentMethod = payload
       },
-      setDefaultPaymentOptions: (state) => {
+      setDefaultPaymentOptions: state => {
          state.selectedPaymentMethod = 'cashOnDelivery'
          state.isPaymentModalOpen = false
          state.isCashPaySuccess = false
@@ -43,8 +43,13 @@ const PaymentSlice = createSlice({
    },
 })
 
-export const { setPaymentModalOpen, setSelectedPaymentMethod, setDefaultPaymentOptions, setIsCashPaySuccess, setIsCardPaySuccess } =
-   PaymentSlice.actions
+export const {
+   setPaymentModalOpen,
+   setSelectedPaymentMethod,
+   setDefaultPaymentOptions,
+   setIsCashPaySuccess,
+   setIsCardPaySuccess,
+} = PaymentSlice.actions
 
 export default PaymentSlice.reducer
 
@@ -74,7 +79,9 @@ export const handleMakeOrderWithCardOrCash =
 
          if (response.status === 200) {
             setIsLoading(false)
-            paymentMethodId === 'cash' ? dispatch(setIsCashPaySuccess(true)) : dispatch(setIsCardPaySuccess(true))
+            paymentMethodId === 'cash'
+               ? dispatch(setIsCashPaySuccess(true))
+               : dispatch(setIsCardPaySuccess(true))
             setStartCounter(true)
             setHasError({
                errorMsg: 'A Termékek sikeresen megrendelésre kerültek! Hamarosan átirányítunk a főoldalra!',
@@ -83,7 +90,7 @@ export const handleMakeOrderWithCardOrCash =
             })
          }
       } catch (error) {
-         if (axios.isAxiosError(error)) {
+         if (isAxiosError(error)) {
             setHasError({
                errorMsg: error.message,
                isError: true,

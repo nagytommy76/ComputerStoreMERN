@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import axios from 'axios'
+import { axiosInstance as axios } from '../../../AxiosSetup/AxiosInstance'
 
 const useGetDetails = (productType: string, productId: string) => {
    const [foundDetails, setFoundDetails] = useState({

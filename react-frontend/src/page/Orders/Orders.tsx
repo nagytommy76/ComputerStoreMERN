@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import axios, { AxiosResponse } from 'axios'
+
+import { axiosInstance as axios, AxiosResponse } from '../../AxiosSetup/AxiosInstance'
 import { UserOrders } from './OrderTypes'
 
 import { OrdersPageContainer } from './Styles'

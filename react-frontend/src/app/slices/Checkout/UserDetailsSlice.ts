@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction, createAsyncThunk, Dispatch } from '@reduxjs/toolkit'
-import { UserDetails } from '../../../page/CheckoutPage/CheckoutTypes'
-import axios from 'axios'
 import { RootState } from '../../store'
 import { setValidationErrors } from '../ValidationErrorSlice'
+import { UserDetails } from '../../../page/CheckoutPage/CheckoutTypes'
 import { ValidationError } from '../../../page/Admin/AdminTypes'
+
+import { axiosInstance as axios } from '../../../AxiosSetup/AxiosInstance'
 
 const userDetailsropoerties = {
    firstName: '',

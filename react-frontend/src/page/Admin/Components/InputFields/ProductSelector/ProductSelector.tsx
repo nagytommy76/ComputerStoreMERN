@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useCallback, useContext, useEffect, useState } from 'react'
 import { AdminContext } from '../../../Context/AdminContext'
-import axios, { AxiosResponse, AxiosError } from 'axios'
+import { axiosInstance as axios, AxiosResponse, AxiosError } from '../../../../../AxiosSetup/AxiosInstance'
 
 import { VgaType } from '../../../../ShopPages/Vga/VgaTypes'
 

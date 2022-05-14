@@ -1,6 +1,6 @@
 import { createSlice, Dispatch, PayloadAction } from '@reduxjs/toolkit'
-import axios, { AxiosResponse } from 'axios'
 import { RootState } from '../store'
+import { axiosInstance as axios, AxiosResponse } from '../../AxiosSetup/AxiosInstance'
 
 import {
    checkProductExistsInTheCart,
@@ -122,9 +122,7 @@ export const fillDBWithCartItemsAfterLogin = () => async (dispatch: Dispatch, ge
    try {
       await axios.post('/cart/fill-items', { cartItems })
    } catch (error) {
-      if (axios.isAxiosError(error)) {
-         console.log(error.message)
-      }
+      console.log(error)
    }
 }
 

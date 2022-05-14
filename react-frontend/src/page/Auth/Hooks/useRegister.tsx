@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios, { AxiosError, AxiosResponse } from 'axios'
+import { axiosInstance as axios, AxiosError, AxiosResponse } from '../../../AxiosSetup/AxiosInstance'
 
 import { defaultInputProperties, InputTypes } from '../DefaultProperties'
 

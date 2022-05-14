@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import axios from 'axios'
+import { axiosInstance as axios } from '../../../AxiosSetup/AxiosInstance'
 import { useNavigate } from 'react-router-dom'
 import useErrorsState from './useErrorsState'
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useAppSelector, useAppDispatch } from '../../../../app/hooks'
 import { AdressFormStyle, StyledHeading } from './AdressStyle'
 
-import axios from 'axios'
+import { axiosInstance as axios } from '../../../../AxiosSetup/AxiosInstance'
 import { fetchUsersDetails, insertUserDetails } from '../../../../app/slices/Checkout/UserDetailsSlice'
 
 const Buttons = React.lazy(() => import('./Includes/Buttons'))
@@ -11,9 +11,9 @@ const Alerts = React.lazy(() => import('./Includes/Alerts'))
 
 const Adress = () => {
    const dispatch = useAppDispatch()
-   const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
-   const userDetails = useAppSelector((state) => state.userDetails.userDetails)
-   const isUserDetailsFilled = useAppSelector((state) => state.userDetails.isDetailsFilled)
+   const isDarkTheme = useAppSelector(state => state.theme.isDarkTheme)
+   const userDetails = useAppSelector(state => state.userDetails.userDetails)
+   const isUserDetailsFilled = useAppSelector(state => state.userDetails.isDetailsFilled)
 
    const [isSubmitBtnDisabled, setIsSubmitBtnDisabled] = useState<boolean>(false)
    const [isModified, setIsModified] = useState<boolean>(false)
