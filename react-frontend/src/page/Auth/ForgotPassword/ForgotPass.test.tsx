@@ -2,9 +2,9 @@ import { render, screen, waitForElementToBeRemoved } from '../../../test-utils'
 import userEvent from '@testing-library/user-event'
 import ForgotPassword from './ForgotPassword'
 
-import axios from 'axios'
+import { axiosInstance as axios } from '../../../AxiosSetup/AxiosInstance'
 const mockedAxios = axios as jest.Mocked<typeof axios>
-jest.mock('axios')
+jest.mock('../../../AxiosSetup/AxiosInstance')
 
 jest.mock('react-router-dom', () => ({
    ...jest.requireActual('react-router-dom'), // use actual for all non-hook parts

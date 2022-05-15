@@ -1,8 +1,9 @@
 import { render, screen, waitForElementToBeRemoved, waitFor } from '../../../test-utils'
 import userEvent from '@testing-library/user-event'
 import Login from './Login'
-import axios from 'axios'
-jest.mock('axios')
+
+import { axiosInstance as axios } from '../../../AxiosSetup/AxiosInstance'
+jest.mock('../../../AxiosSetup/AxiosInstance')
 const mockedAxios = axios as jest.Mocked<typeof axios>
 
 const mockResponseRejectedPasswordData = {

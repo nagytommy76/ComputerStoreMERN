@@ -2,8 +2,8 @@ import ReactDOM from 'react-dom'
 import { render, screen, waitForElementToBeRemoved } from '../../../../test-utils'
 import CpuDetails from './CpuDetails'
 
-import axios from 'axios'
-jest.mock('axios')
+import { axiosInstance as axios } from '../../../../AxiosSetup/AxiosInstance'
+jest.mock('../../../../AxiosSetup/AxiosInstance')
 const mockedAxios = axios as jest.Mocked<typeof axios>
 jest.setTimeout(7500)
 

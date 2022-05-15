@@ -2,8 +2,8 @@ import { screen, render, waitForElementToBeRemoved } from '../../../../test-util
 import userEvent from '@testing-library/user-event'
 import MemoryInsert from './MemoryInsert'
 
-import axios from 'axios'
-jest.mock('axios')
+import { axiosInstance as axios } from '../../../../AxiosSetup/AxiosInstance'
+jest.mock('../../../../AxiosSetup/AxiosInstance')
 const mockedAxios = axios as jest.Mocked<typeof axios>
 // jest.setTimeout(10000)
 

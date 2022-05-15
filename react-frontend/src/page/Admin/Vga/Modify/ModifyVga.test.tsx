@@ -1,10 +1,9 @@
-import React from 'react'
-import axios from 'axios'
-import userEvent from '@testing-library/user-event'
+import { axiosInstance as axios } from '../../../../AxiosSetup/AxiosInstance'
 import { render, screen, waitForElementToBeRemoved } from '../../../../test-utils'
+import userEvent from '@testing-library/user-event'
 import ModifyVga from './ModifyVga'
 
-jest.mock('axios')
+jest.mock('../../../../AxiosSetup/AxiosInstance')
 const mockedAxios = axios as jest.Mocked<typeof axios>
 
 const allVgaProductResponseToModify = {

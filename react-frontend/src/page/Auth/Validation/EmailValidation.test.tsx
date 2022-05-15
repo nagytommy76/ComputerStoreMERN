@@ -2,8 +2,9 @@ import EmailValidation from './EmailValidation'
 import { render, screen } from '../../../test-utils'
 import userEvent from '@testing-library/user-event'
 
-import axios from 'axios'
-jest.mock('axios')
+import { axiosInstance as axios } from '../../../AxiosSetup/AxiosInstance'
+jest.mock('../../../AxiosSetup/AxiosInstance')
+
 const mockedAxios = axios as jest.Mocked<typeof axios>
 
 const mockResponseRejectedJWTExpired = {
