@@ -5,7 +5,7 @@ import Skeleton from '@mui/material/Skeleton'
 
 const AddressFormSuspense = () => {
    return (
-      <AdressFormStyle darkTheme={false}>
+      <AdressFormStyle darkTheme={false} data-testid='AddressFormSuspense'>
          <Skeleton sx={{ margin: '2.5rem 0' }} variant='text' width={350} height={75} animation='wave' />
          <FormControlRow>
             <Skeleton variant='text' width={345} height={100} animation='wave' />

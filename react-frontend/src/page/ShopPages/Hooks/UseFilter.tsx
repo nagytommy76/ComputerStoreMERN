@@ -19,6 +19,7 @@ const useFilter = (productType: string, extraFilterDispatches?: (params: any) =>
    const getFilterData = useCallback(async () => {
       try {
          const filterData = await axios.get(`${productType}/filter-data`)
+         console.log(filterData.data)
          if (filterData.status === 200) {
             dispatch(setAllManufacturer(filterData.data.allManufacturers))
             dispatch(setMinPrice(filterData.data.minPrice))

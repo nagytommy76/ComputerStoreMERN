@@ -23,7 +23,6 @@ const useAxiosSetup = () => {
             return response
          },
          async error => {
-            console.log('ERROR VAN AXIOS: ', axios.defaults.headers.common.Authorization)
             if (error.config && error.response && !error.config._retry && error.response.status === 403) {
                // Ekkor kell egy új accessToken (Forbidden) / 403 error, tehát lejárt az accessToken
                if (error.response.data.errorMessage === 'accessToken token expired') {

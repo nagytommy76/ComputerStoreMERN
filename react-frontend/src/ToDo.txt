@@ -18,11 +18,16 @@
 
 HIBÁK/BUGOK:
 - A kártyás fizetés stílusa nem jó mobil esetén, kilóg
-- Hiba az elfelejtett jelszó alert ablak felugrásánál
-- Hiba van ha ki vagy jelentkezve és beraksz terméket a kosárba, majd így próbálsz belépni
 
 - Jobban belemenni a Unit/Integration tesztekbe.
-  CPUdetails oldal tesztelés nem jó
+  CPUdetails oldal tesztelés nem jó, FOLYTANI KELL
+  ModifyVga-t folytatni!!!!!!!!!
+  ForgottPaass nál nem jó vmi
+  Nem jó tesztek:
+  - VgaShop, baseShop CreatePortal error
+  - AddressPage/checkout
+  - 
+
 
 
 - Az összes fallback-et (Suspense) vizualizálni, mert most csak a Töltés... van FOLYAMATBAN
@@ -36,6 +41,9 @@ HIBÁK/BUGOK:
 
 
 MEGCSINÁLTAM:
+- Hiba az elfelejtett jelszó alert ablak felugrásánál: Egy suspense kellett a resend button-hoz
+
+- Hiba van ha ki vagy jelentkezve és beraksz terméket a kosárba, majd így próbálsz belépni
 
 - Axios-nál valami nem jó
   A hiba: Áttettem a BrowserRouter az App.tsx ből az index.tsx-be, így tudom használni a useNavigate hook-ot
