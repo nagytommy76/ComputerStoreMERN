@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import axios from 'axios'
+import { axiosInstance as axios, isAxiosError } from '../../../AxiosSetup/AxiosInstance'
 
 import LoadingButton from '@mui/lab/LoadingButton'
 import EmailIcon from '@mui/icons-material/Email'
@@ -22,7 +22,7 @@ const ResendEmailButton: React.FC<{
             onSnackbarOpen({ open: true, message: emailResendResponse.data.message })
          setIsPending(false)
       } catch (error) {
-         if (axios.isAxiosError(error)) {
+         if (isAxiosError(error)) {
             console.log(error)
             setIsPending(false)
          }
@@ -31,6 +31,7 @@ const ResendEmailButton: React.FC<{
 
    return (
       <LoadingButton
+         sx={{ marginTop: 1 }}
          loading={isPending}
          onClick={handleResendEmail}
          endIcon={<EmailIcon />}
