@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import { axiosInstance as axios } from '../../../AxiosSetup/AxiosInstance'
 
 import { ProductToDeleteType } from '../Components/DeleteComponents/Types'
 
@@ -9,10 +9,10 @@ const useDeleteProduct = (productType: string) => {
    useEffect(() => {
       axios
          .get(`admin/${productType}/get-to-delete`)
-         .then((allProduct) => {
+         .then(allProduct => {
             if (allProduct.status === 200) setAllDetailedProduct(allProduct.data.allProducts)
          })
-         .catch((error) => console.log(error))
+         .catch(error => console.log(error))
    }, [productType])
 
    return { setAllDetailedProduct, allDetailedProduct }

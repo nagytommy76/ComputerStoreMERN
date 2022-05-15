@@ -18,13 +18,12 @@ const useForgotPassword = (firstPassword: string, secondPassword: string) => {
       event.preventDefault()
       setIsLoading(true)
       try {
-         const resetResponse = await axios.post('/auth/reset-password', {
+         await axios.post('/auth/reset-password', {
             passwordToken: forgotPassToken,
             userEmail,
             firstPassword,
             secondPassword,
          })
-         console.table(resetResponse.data)
          setIsSnackOpen({
             message: 'Sikeresen módosítottad a jelszavad! Most már bejelentkezhetsz!',
             open: true,

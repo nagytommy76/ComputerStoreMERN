@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { createPortal } from 'react-dom'
-import axios from 'axios'
+import { axiosInstance as axios } from '../../../../AxiosSetup/AxiosInstance'
 import { ProductToDeleteType, SnackbarStateTypes } from './Types'
 
 import IconButton from '@mui/material/IconButton'
@@ -15,7 +15,14 @@ const DeleteButton: React.FC<{
    allProducts: ProductToDeleteType[]
    productNameForSnackbar: string
    setIsSnackOpen: React.Dispatch<React.SetStateAction<SnackbarStateTypes>>
-}> = ({ productID, productTypeForURL, setAllProducts, allProducts, setIsSnackOpen, productNameForSnackbar }) => {
+}> = ({
+   productID,
+   productTypeForURL,
+   setAllProducts,
+   allProducts,
+   setIsSnackOpen,
+   productNameForSnackbar,
+}) => {
    const [isDialogOpen, setIsDialogOpen] = useState(false)
 
    const handleDialogClickOpen = async () => setIsDialogOpen(true)
@@ -24,10 +31,12 @@ const DeleteButton: React.FC<{
 
    const handleConfirmButtonClick = async () => {
       try {
-         const deleteSuccessResponse = await axios.delete(`admin/${productTypeForURL}/delete`, { data: { productID } })
+         const deleteSuccessResponse = await axios.delete(`admin/${productTypeForURL}/delete`, {
+            data: { productID },
+         })
          if (deleteSuccessResponse.status === 200 && deleteSuccessResponse.data.deleted) {
-            const productsWithoutDeletedItem = allProducts.filter((product) => productID !== product._id)
-            setIsSnackOpen((prevValues) => {
+            const productsWithoutDeletedItem = allProducts.filter(product => productID !== product._id)
+            setIsSnackOpen(prevValues => {
                return { ...prevValues, isOpen: true, deletedProductName: productNameForSnackbar }
             })
             setIsDialogOpen(false)

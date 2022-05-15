@@ -1,5 +1,5 @@
 import React, { useContext, useState, ReactNode } from 'react'
-import axios from 'axios'
+import { axiosInstance as axios } from '../../../../AxiosSetup/AxiosInstance'
 import { AdminContext } from '../../Context/AdminContext'
 
 import { StyledForm } from '../../Components/Form/FormStyle'
