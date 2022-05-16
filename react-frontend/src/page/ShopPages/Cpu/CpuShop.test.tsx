@@ -1,11 +1,12 @@
 import ReactDOM from 'react-dom'
-import { render, screen, waitForElementToBeRemoved } from '../../../test-utils'
+import { render, screen, waitForElementToBeRemoved, act } from '../../../test-utils'
 import userEvent from '@testing-library/user-event'
 import CpuShop from './CpuShop'
 
 import { axiosInstance as axios } from '../../../AxiosSetup/AxiosInstance'
 jest.mock('../../../AxiosSetup/AxiosInstance')
 const mockedAxios = axios as jest.Mocked<typeof axios>
+jest.setTimeout(9000)
 
 const mockResolvedFilterData = {
    status: 200,
@@ -35,12 +36,10 @@ const mockResolvedCpuProducts = {
    data: {
       allProducts: [
          {
-            details: {},
-            inStockQuantity: 0,
-            isHighlighted: false,
-            itemNumber: '',
             manufacturer: 'AMD',
-            pictureUrls: [],
+            pictureUrls: [
+               'https://media.icdn.hu/product/GalleryMod/2018-04/464322/resp/979059_amd_ryzen_3_2200g_350ghz_am4_box.webp',
+            ],
             price: 31200,
             ratingValues: [],
             type: 'Ryzen 3 1200',
@@ -48,12 +47,10 @@ const mockResolvedCpuProducts = {
             _id: '6145d79d432f8737d0db1ab1',
          },
          {
-            details: {},
-            inStockQuantity: 0,
-            isHighlighted: false,
-            itemNumber: '',
             manufacturer: 'AMD',
-            pictureUrls: [],
+            pictureUrls: [
+               'https://media.icdn.hu/product/GalleryMod/2018-04/464322/resp/979059_amd_ryzen_3_2200g_350ghz_am4_box.webp',
+            ],
             price: 99690,
             ratingValues: [],
             type: 'Ryzen 5 5600X',
@@ -61,12 +58,10 @@ const mockResolvedCpuProducts = {
             _id: '613e0a06f232a608d0d308cb',
          },
          {
-            details: {},
-            inStockQuantity: 0,
-            isHighlighted: false,
-            itemNumber: '',
             manufacturer: 'INTEL',
-            pictureUrls: [],
+            pictureUrls: [
+               'https://media.icdn.hu/product/GalleryMod/2018-04/464322/resp/979059_amd_ryzen_3_2200g_350ghz_am4_box.webp',
+            ],
             price: 135500,
             ratingValues: [],
             type: 'Core i9-11900F',
@@ -124,20 +119,28 @@ describe('Testing user interacting', () => {
    })
 
    test('should display the selected manufacturer products', async () => {
-      mockedAxios.get.mockResolvedValue(mockResolvedFilterData).mockResolvedValueOnce(mockResolvedCpuProducts)
+      mockedAxios.get.mockResolvedValue(mockResolvedCpuProducts).mockResolvedValueOnce(mockResolvedFilterData)
+
       render(<CpuShop />)
       await waitForElementToBeRemoved(() => screen.getByText(/Töltés/i), { timeout: 7500 })
       await waitForElementToBeRemoved(() => screen.getByTestId(/suspense-cards/i), { timeout: 7500 })
+
       // screen.debug()
       expect(await screen.findByRole('heading', { name: /Szűrés/i })).toBeInTheDocument()
       expect(await screen.findByRole('option', { name: /Legolcsóbb elől/i })).toBeInTheDocument()
-      expect(await screen.findByRole('slider', { name: /Price range/i }))
+      expect(await screen.findByRole('heading', { name: /Ryzen 3 1200/i })).toBeInTheDocument()
+      expect(await screen.findByRole('heading', { name: /Ryzen 5 5600X/i })).toBeInTheDocument()
+      expect(await screen.findByRole('heading', { name: /Core i9-11900F/i })).toBeInTheDocument()
+      // expect(await screen.findByRole('slider', { name: /Price range/i }))
+      // expect(await screen.findByLabelText(/Magok száma/i)).toBeInTheDocument()
+      const option = await screen.findByRole('combobox', { name: /Foglalatok/i }, { timeout: 9500 })
+      expect(option).toBeInTheDocument()
+      expect(option).toHaveValue('all')
+      // screen.debug(option)
       // screen.getByRole('')
+
       // const foglalatok = await screen.findAllByRole('combobox', { name: /Foglalatok/i })
       // screen.debug(foglalatok)
-      // expect(await screen.findByRole('heading', { name: /Ryzen 3 1200/i })).toBeInTheDocument()
-      // expect(await screen.findByRole('heading', { name: /Ryzen 5 5600X/i })).toBeInTheDocument()
-      // expect(await screen.findByRole('heading', { name: /Core i9-11900F/i })).toBeInTheDocument()
 
       // const selectManufacturer = await screen.findByRole('combobox', { name: /Gyártó/i })
       // mockedAxios.get.mockResolvedValue(mockResolvedFilteredCpuProducts)
