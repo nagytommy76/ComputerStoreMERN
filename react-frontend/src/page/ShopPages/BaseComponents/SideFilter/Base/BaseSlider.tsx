@@ -43,7 +43,7 @@ const BaseSlider: React.FC<Props> = ({
                </span>
             </FormLabel>
             <Slider
-               getAriaLabel={() => 'Range'}
+               getAriaLabel={() => `${text}-Range`}
                min={range[0]}
                max={range[1]}
                value={value as number[]}
