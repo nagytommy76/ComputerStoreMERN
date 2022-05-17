@@ -6,7 +6,7 @@ import CpuShop from './CpuShop'
 import { axiosInstance as axios } from '../../../AxiosSetup/AxiosInstance'
 jest.mock('../../../AxiosSetup/AxiosInstance')
 const mockedAxios = axios as jest.Mocked<typeof axios>
-jest.setTimeout(9000)
+jest.setTimeout(15000)
 
 const mockResolvedFilterData = {
    status: 200,
@@ -123,9 +123,8 @@ describe('Testing user interacting', () => {
 
       render(<CpuShop />)
       await waitForElementToBeRemoved(() => screen.getByText(/Töltés/i), { timeout: 7500 })
-      await waitForElementToBeRemoved(() => screen.getByTestId(/suspense-cards/i), { timeout: 7500 })
+      await waitForElementToBeRemoved(() => screen.queryByTestId(/suspense-cards/i))
 
-      // screen.debug()
       expect(await screen.findByRole('heading', { name: /Szűrés/i })).toBeInTheDocument()
       expect(await screen.findByRole('option', { name: /Legolcsóbb elől/i })).toBeInTheDocument()
       expect(await screen.findByRole('heading', { name: /Ryzen 3 1200/i })).toBeInTheDocument()
@@ -136,22 +135,19 @@ describe('Testing user interacting', () => {
       const option = await screen.findByRole('combobox', { name: /Foglalatok/i }, { timeout: 9500 })
       expect(option).toBeInTheDocument()
       expect(option).toHaveValue('all')
-      // screen.debug(option)
+
+      // screen.debug()
       // screen.getByRole('')
+      const selectManufacturer = await screen.findByRole('combobox', { name: /Gyártó/i })
+      mockedAxios.get.mockResolvedValue(mockResolvedFilteredCpuProducts)
+      userEvent.selectOptions(selectManufacturer, 'AMD')
 
-      // const foglalatok = await screen.findAllByRole('combobox', { name: /Foglalatok/i })
-      // screen.debug(foglalatok)
+      await waitForElementToBeRemoved(() => screen.getByRole('heading', { name: /Core i9-11900F/i }))
 
-      // const selectManufacturer = await screen.findByRole('combobox', { name: /Gyártó/i })
-      // mockedAxios.get.mockResolvedValue(mockResolvedFilteredCpuProducts)
-      // userEvent.selectOptions(selectManufacturer, 'AMD')
+      expect(await screen.findByRole('heading', { name: /Ryzen 3 1200/i })).toBeInTheDocument()
+      expect(await screen.findByRole('heading', { name: /Ryzen 5 5600X/i })).toBeInTheDocument()
 
-      // await waitForElementToBeRemoved(() => screen.getByRole('heading', { name: /Core i9-11900F/i }))
-
-      // expect(await screen.findByRole('heading', { name: /Ryzen 3 1200/i })).toBeInTheDocument()
-      // expect(await screen.findByRole('heading', { name: /Ryzen 5 5600X/i })).toBeInTheDocument()
-
-      // expect(screen.queryByRole('heading', { name: /Core i9-11900F/i })).not.toBeInTheDocument()
+      expect(screen.queryByRole('heading', { name: /Core i9-11900F/i })).not.toBeInTheDocument()
       // screen.debug()
    })
 })
