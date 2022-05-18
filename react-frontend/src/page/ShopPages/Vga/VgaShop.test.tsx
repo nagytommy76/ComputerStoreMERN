@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom'
-import { render, screen, waitForElementToBeRemoved } from '../../../test-utils'
+import { render, screen, waitForElementToBeRemoved, within } from '../../../test-utils'
 import userEvent from '@testing-library/user-event'
 import VgaShop from './VgaShop'
 
@@ -110,56 +110,69 @@ const mockResolvedFilteredVgaProducts = {
 }
 
 describe('Test Vga shop page', () => {
-   // beforeAll(() => {
-   //    ReactDOM.createPortal = jest.fn((element, node) => {
-   //       return element
-   //    }) as any
-   // })
+   beforeAll(() => {
+      ReactDOM.createPortal = jest.fn((element, node) => {
+         return element
+      }) as any
+   })
    test('should display the vga product cards properly', async () => {
       mockedAxios.get.mockResolvedValue(mockResolvedVgaProducts).mockResolvedValueOnce(mockResolvedFilterData)
       render(<VgaShop />)
+      // setup()
       await waitForElementToBeRemoved(() => screen.getByText(/Töltés/i), { timeout: 7500 })
-      // await waitForElementToBeRemoved(() => screen.getByTestId('suspense-cards'), { timeout: 7500 })
+      await waitForElementToBeRemoved(() => screen.getByTestId('suspense-cards'), { timeout: 7500 })
 
       // Várni kell a komponens updatere mert különben act warning lesz... async state update-eknél...
       // Ez esetben amíg lefutnak az async call-ok ( useFilter/useGetProducts hook-ok )
-
       expect(await screen.findByRole('heading', { name: /Szűrés/ })).toBeInTheDocument()
-      screen.debug()
-      // expect(await screen.findByRole('option', { name: /Legolcsóbb elől/ })).toBeInTheDocument()
-
-      // await screen.findByRole('heading', {
-      //    name: /PALIT RTX 3060 Ti 8GB GDDR6 Dual OC/i,
-      // })
-      // await screen.findByRole('heading', {
-      //    name: /ASUS RX 6700 XT TUF Gaming 12GB/i,
-      // })
-      // await screen.findByRole('heading', {
-      //    name: /RX 6900 XT 16GB GDDR6/i,
-      // })
+      expect(await screen.findByRole('option', { name: /Legolcsóbb elől/ })).toBeInTheDocument()
+      expect(
+         await screen.findByRole('heading', {
+            name: /PALIT RTX 3060 Ti 8GB GDDR6 Dual OC/i,
+         })
+      ).toBeInTheDocument()
+      expect(
+         await screen.findByRole('heading', {
+            name: /ASUS RX 6700 XT TUF Gaming 12GB/i,
+         })
+      ).toBeInTheDocument()
+      expect(
+         await screen.findByRole('heading', {
+            name: /RX 6900 XT 16GB GDDR6/i,
+         })
+      ).toBeInTheDocument()
       // https://jestjs.io/docs/mock-function-api#mockfnmockreturnvaluevalue
       // https://medium.com/@moshfiqrony/how-to-write-multiple-axios-mock-implementations-in-testing-78d3b5c6a8b5
       // https://davidwcai.medium.com/react-testing-library-and-the-not-wrapped-in-act-errors-491a5629193b
    })
+
+   test('should display only the selected manufacturer vgas', async () => {
+      mockedAxios.get.mockResolvedValue(mockResolvedVgaProducts).mockResolvedValueOnce(mockResolvedFilterData)
+      render(<VgaShop />)
+
+      expect(await screen.findByRole('option', { name: /ASUS/ })).toBeInTheDocument()
+      expect(await screen.findByRole('option', { name: /PALIT/ })).toBeInTheDocument()
+      const manSelect = await screen.findByRole('combobox', { name: 'Gyártó' })
+      mockedAxios.get.mockResolvedValue(mockResolvedFilteredVgaProducts)
+      userEvent.selectOptions(manSelect, 'PALIT')
+      // screen.getByRole('')
+      expect(
+         await screen.findByRole('heading', {
+            name: /PALIT RTX 3060 Ti 8GB GDDR6 Dual OC/i,
+         })
+      ).toBeInTheDocument()
+
+      await waitForElementToBeRemoved(
+         () =>
+            screen.getByRole('heading', {
+               name: /ASUS RX 6700 XT/i,
+            }),
+         { timeout: 7500 }
+      )
+      // expect(
+      //    await screen.findByRole('heading', {
+      //       name: /ASUS RX 6700 XT/i,
+      //    })
+      // ).not.toBeInTheDocument()
+   })
 })
-// describe('Vga shop filter functionality', () => {
-//    test('should display only the selected manufacturer vgas', async () => {
-//       mockedAxios.get.mockResolvedValue(mockResolvedVgaProducts).mockResolvedValue(mockResolvedFilterData)
-//       render(<VgaShop />)
-
-//       expect(await screen.findByRole('option', { name: /ASUS/ })).toBeInTheDocument()
-//       expect(await screen.findByRole('option', { name: /PALIT/ })).toBeInTheDocument()
-//       const manSelect = await screen.findAllByRole('combobox')
-//       mockedAxios.get.mockResolvedValueOnce(mockResolvedFilteredVgaProducts)
-//       userEvent.selectOptions(manSelect[2], [mockResolvedFilterData.data.allManufacturers[0]])
-
-//       await screen.findByRole('heading', {
-//          name: /PALIT RTX 3060 Ti 8GB GDDR6 Dual OC/i,
-//       })
-//       expect(
-//          screen.queryByRole('heading', {
-//             name: /ASUS RX 6700 XT/i,
-//          })
-//       ).not.toBeInTheDocument()
-//    })
-// })
