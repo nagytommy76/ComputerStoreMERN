@@ -10,10 +10,10 @@ export const StyledFormControl = styled('div')({
    height: '100%',
    display: 'flex',
    justifyContent: 'center',
-   alignItems: 'center'
+   alignItems: 'center',
 })
 
 export const StyledPaper = styled(Paper)({
    margin: '.6rem 0',
-   padding: '.4rem 1rem'
+   padding: '.4rem 1rem',
 })

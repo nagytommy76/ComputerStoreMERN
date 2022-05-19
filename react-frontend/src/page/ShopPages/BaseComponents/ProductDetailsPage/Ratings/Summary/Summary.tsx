@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
-import axios from 'axios'
+import { axiosInstance as axios } from '../../../../../../AxiosSetup/AxiosInstance'
 
 import DetailsContext from '../../../../Context/DetailsContext'
 import { RatingContext } from '../RatingContext'

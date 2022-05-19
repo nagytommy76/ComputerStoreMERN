@@ -42,7 +42,6 @@ const Payment = () => {
                <Tooltip title='Átmenetileg nem elérhető a kártyás vásárlás!'>
                   <StyledPaper>
                      <FormControlLabel
-                        disabled
                         value='stripeCard'
                         control={<Radio />}
                         label='Fizetés bankkártyával (ingyenes)'
