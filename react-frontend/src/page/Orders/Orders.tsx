@@ -25,9 +25,6 @@ const Orders = () => {
 
    return (
       <OrdersPageContainer>
-         <Typography align='center' variant='h1' color='gray' m={2}>
-            Korábbi rendelések
-         </Typography>
          {orders.length > 0 ? (
             orders.map((currentOrder, index) => (
                <AccordionBody

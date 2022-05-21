@@ -14,7 +14,6 @@
 - A termék bevitelénél ha nincs picURL kéne egy alert mert most nincs
 
 - A korábbi rendeléseknél egy linket a termékekhez!!!
-- Megoldani, hogy a rating values a shop paage-en csak egy hosszként jelenjen meg, ne az egész rating values..
 
 HIBÁK/BUGOK:
 - A kártyás fizetés stílusa nem jó mobil esetén, kilóg
@@ -41,6 +40,8 @@ HIBÁK/BUGOK:
 
 
 MEGCSINÁLTAM:
+- Megoldani, hogy a rating values a shop paage-en csak egy hosszként jelenjen meg, ne az egész rating values..
+
 - Hiba az elfelejtett jelszó alert ablak felugrásánál: Egy suspense kellett a resend button-hoz
 
 - Hiba van ha ki vagy jelentkezve és beraksz terméket a kosárba, majd így próbálsz belépni

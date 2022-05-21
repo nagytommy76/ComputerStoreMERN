@@ -15,5 +15,6 @@ export type Products = {
    productName: string
    productQty: number
    productPrice: number
+   productType: string
    _id: string
 }
