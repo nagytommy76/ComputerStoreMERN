@@ -33,6 +33,7 @@ const UserSchema = new Schema<UserTypes>({
                   productImage: String,
                   productQty: Number,
                   productPrice: Number,
+                  productType: String,
                },
             ],
          },
