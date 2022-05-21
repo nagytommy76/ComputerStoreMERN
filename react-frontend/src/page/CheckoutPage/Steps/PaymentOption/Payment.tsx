@@ -8,7 +8,6 @@ import RadioGroup from '@mui/material/RadioGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import FormControl from '@mui/material/FormControl'
 import FormLabel from '@mui/material/FormLabel'
-import Tooltip from '@mui/material/Tooltip'
 
 const Payment = () => {
    const dispatch = useAppDispatch()
@@ -39,15 +38,13 @@ const Payment = () => {
                      label='Fizetés utánvéttel (390 Ft)'
                   />
                </StyledPaper>
-               <Tooltip title='Átmenetileg nem elérhető a kártyás vásárlás!'>
-                  <StyledPaper>
-                     <FormControlLabel
-                        value='stripeCard'
-                        control={<Radio />}
-                        label='Fizetés bankkártyával (ingyenes)'
-                     />
-                  </StyledPaper>
-               </Tooltip>
+               <StyledPaper>
+                  <FormControlLabel
+                     value='stripeCard'
+                     control={<Radio />}
+                     label='Fizetés bankkártyával (ingyenes)'
+                  />
+               </StyledPaper>
             </RadioGroup>
          </FormControl>
       </StyledFormControl>
