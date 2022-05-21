@@ -52,7 +52,7 @@ export default abstract class BaseProduct {
             price: { $gte: priceRange[0], $lte: priceRange[1] },
             ...extraFilerParameters,
          })
-         .select('price manufacturer type typeCode pictureUrls ratingValues')
+         .select('price manufacturer type typeCode pictureUrls ratingValues._id')
          .sort({ price: orderBy })
          .lean()
 
