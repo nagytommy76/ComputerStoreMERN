@@ -2,12 +2,24 @@ import { Schema, model } from 'mongoose'
 import { BaseProductType, ChartDataType } from '../BaseTypes'
 import { BaseSchemaPropertiesAndTypes, ChartData } from '../Helper'
 
-const SsdSchema = new Schema<SSDSchemaType>({
+const SSDSchema = new Schema<SSDSchemaType>({
    ...BaseSchemaPropertiesAndTypes,
-   details: {} as SSDDetailsType,
+   details: {
+      capacity: { type: Number, required: true },
+      connection: { type: String, required: true },
+      format: { type: String, required: true },
+      readingSpeed: { type: Number, required: true },
+      writingSpeed: { type: Number, required: true },
+      nandTechnology: { type: String, required: true },
+      tbw: { type: Number, required: true },
+      warranity: { type: Number, required: false },
+      description: { type: String, required: false },
+      manufacturerPageUrl: { type: String, required: false },
+      chartData: ChartData,
+   },
 })
 
-export const SsdProduct = model<SSDSchemaType>('SsdProduct', SsdSchema)
+export const SSDProduct = model<SSDSchemaType>('SsdProduct', SSDSchema)
 
 export type SSDDetailsType = {
    connection: string
@@ -16,6 +28,7 @@ export type SSDDetailsType = {
    readingSpeed: number
    writingSpeed: number
    nandTechnology: string
+   tbw: number
    warranity: number
    description?: string
    manufacturerPageUrl?: string
