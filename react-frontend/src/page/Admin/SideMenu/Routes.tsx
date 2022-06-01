@@ -1,11 +1,13 @@
 import React, { useState, lazy } from 'react'
 import { AccordionContainer } from './RoutesStyles'
 
+const BaseAccordionPanel = React.lazy(() => import('./BaseAccordionPanel'))
+
 const VgaLink = lazy(() => import('./Links/VgaLinks'))
 const CpuLink = lazy(() => import('./Links/CpuLinks'))
 const MemoryLink = lazy(() => import('./Links/MemoryLinks'))
 const HDDLink = lazy(() => import('./Links/HddLinks'))
-const BaseAccordionPanel = React.lazy(() => import('./BaseAccordionPanel'))
+const SSDLink = lazy(() => import('./Links/SsdLinks'))
 
 const Routes: React.FC<{ setSideBarOpen: React.Dispatch<React.SetStateAction<boolean>> }> = ({
    setSideBarOpen,
@@ -48,6 +50,14 @@ const Routes: React.FC<{ setSideBarOpen: React.Dispatch<React.SetStateAction<boo
             productType='hdd'
          >
             <HDDLink setSideBarOpen={setSideBarOpen} />
+         </BaseAccordionPanel>
+         <BaseAccordionPanel
+            expanded={expanded}
+            handleExpanded={handleExpanded}
+            panelNumber='panel5'
+            productType='ssd'
+         >
+            <SSDLink setSideBarOpen={setSideBarOpen} />
          </BaseAccordionPanel>
       </AccordionContainer>
    )

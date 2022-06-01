@@ -19,6 +19,8 @@ const HDDInsert = lazy(() => import('./HDD/Insert/InsertHdd'))
 const HDDModify = lazy(() => import('./HDD/Modify/ModifyHDD'))
 const HDDDelete = lazy(() => import('./HDD/Delete/DeleteHDD'))
 
+const SSDInsert = lazy(() => import('./SSD/Insert/InsertSsd'))
+
 const Admin = () => {
    return (
       <AdminPageContainer>
@@ -44,6 +46,11 @@ const Admin = () => {
                   <Route path='insert' element={<HDDInsert />} />
                   <Route path='modify' element={<HDDModify />} />
                   <Route path='delete' element={<HDDDelete />} />
+               </Route>
+               <Route path='ssd/*'>
+                  <Route path='insert' element={<SSDInsert />} />
+                  {/* <Route path='modify' element={<SSDModify />} />
+                  <Route path='delete' element={<SSDDelete />} /> */}
                </Route>
             </Routes>
          </RightContentStyle>

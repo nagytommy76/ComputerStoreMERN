@@ -9,11 +9,8 @@
 
 - Új termékeket hozzáadni pl Alaplap HDD/SSD, valamint a meglévőket bővíteni
 
-
-
 - A termék bevitelénél ha nincs picURL kéne egy alert mert most nincs
 
-- A korábbi rendeléseknél egy linket a termékekhez!!!
 
 HIBÁK/BUGOK:
 - A kártyás fizetés stílusa nem jó mobil esetén, kilóg
@@ -28,7 +25,6 @@ HIBÁK/BUGOK:
   - 
 
 
-
 - Az összes fallback-et (Suspense) vizualizálni, mert most csak a Töltés... van FOLYAMATBAN
   Pl a login alert boxokat is!!!
 
@@ -40,6 +36,7 @@ HIBÁK/BUGOK:
 
 
 MEGCSINÁLTAM:
+- A korábbi rendeléseknél egy linket a termékekhez!!!
 - Megoldani, hogy a rating values a shop paage-en csak egy hosszként jelenjen meg, ne az egész rating values..
 
 - Hiba az elfelejtett jelszó alert ablak felugrásánál: Egy suspense kellett a resend button-hoz
