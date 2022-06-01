@@ -53,5 +53,4 @@ export const BaseSchemaPropertiesAndTypes = {
    inStockQuantity: { type: Number, default: 0 },
    isHighlighted: { type: Boolean, default: false },
    ratingValues: ProductRatingValuesSchema,
-   chartData: ChartData,
 }
