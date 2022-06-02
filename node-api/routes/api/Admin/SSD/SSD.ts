@@ -4,6 +4,10 @@ import { insertSSDProductController } from '../../../../controllers/Admin/SSD/SS
 import { checkUserIsAdmin } from '../../../../middlewares/AuthenticateAccessOrRefreshTokens'
 import { checkErrors } from '../../../../middlewares/CheckValidationErrors'
 
+import { insertSSDValidator } from './Validator/SsdValidator'
+
 const router = Router()
 
-router.post('/insert', checkUserIsAdmin, checkErrors, insertSSDProductController)
+router.post('/insert', insertSSDValidator, checkUserIsAdmin, checkErrors, insertSSDProductController)
+
+module.exports = router
