@@ -46,3 +46,5 @@ app.use('/api/memory', require('./routes/api/Memory/Memory'))
 
 app.use('/api/admin/hdd', require('./routes/api/Admin/HDD/HDD'))
 app.use('/api/hdd', require('./routes/api/HDD/HDD'))
+
+app.use('/api/admin/ssd', require('./routes/api/Admin/SSD/SSD'))

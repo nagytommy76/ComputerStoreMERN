@@ -7,7 +7,7 @@ const SSDSchema = new Schema<SSDSchemaType>({
    details: {
       capacity: { type: Number, required: true },
       connection: { type: String, required: true },
-      format: { type: String, required: true },
+      size: { type: String, required: true },
       readingSpeed: { type: Number, required: true },
       writingSpeed: { type: Number, required: true },
       nandTechnology: { type: String, required: true },
@@ -22,12 +22,12 @@ const SSDSchema = new Schema<SSDSchemaType>({
 export const SSDProduct = model<SSDSchemaType>('SsdProduct', SSDSchema)
 
 export type SSDDetailsType = {
+   size: string
    connection: string
-   format: string
+   nandTechnology: string
    capacity: number
    readingSpeed: number
    writingSpeed: number
-   nandTechnology: string
    tbw: number
    warranity: number
    description?: string
