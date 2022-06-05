@@ -1,15 +1,16 @@
 import { body, CustomValidator } from 'express-validator'
 
 export const pictureUrlsLengthGreaterOne: CustomValidator = (value: string[]) => {
-   if (value.length >= 1 && findAnyEmptyPicUrlString(value)) return true
-   throw new Error('Legalább egy kép URL szükséges, illetve nem lehet üres mező!')
+   if (value.length < 1) throw new Error('Legalább egy kép URL megadása szükséges')
+
+   findAnyEmptyPicUrlString(value)
+   return true
 }
 
 const findAnyEmptyPicUrlString = (picUrlArray: string[]) => {
-   picUrlArray.forEach(picUrl => {
-      if (picUrl !== '') return true
+   picUrlArray.map(picUrl => {
+      if (picUrl == '') throw new Error('Nem lehet üres mező!')
    })
-   return false
 }
 
 export const notEmptyFieldWithMessage = (fieldName: string, messageBody: string) =>
