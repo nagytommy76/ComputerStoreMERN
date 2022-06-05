@@ -1,10 +1,9 @@
-import { body, CustomValidator } from 'express-validator'
-import { notEmptyFieldWithMessage, notZeroValueWithMessage } from '../../Validators/BaseValidators'
-
-const pictureUrlsLengthGreaterOne: CustomValidator = (value: string[]) => {
-   if (value.length >= 1) return true
-   throw new Error('Legalább egy kép URL szükséges')
-}
+import { body } from 'express-validator'
+import {
+   notEmptyFieldWithMessage,
+   notZeroValueWithMessage,
+   pictureUrlsLengthGreaterOne,
+} from '../../Validators/BaseValidators'
 
 export const insertMemoryValidator = [
    body('pictureUrls').custom(pictureUrlsLengthGreaterOne),

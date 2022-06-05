@@ -13,7 +13,7 @@ export const insertSSDValidator = [
    notZeroValueWithMessage('details.warranity', 'Garancia'),
    notZeroValueWithMessage('details.capacity', 'Kapacitás'),
    notZeroValueWithMessage('details.size', 'Méret'),
-   notZeroValueWithMessage('details.connection', 'Catoló'),
+   notZeroValueWithMessage('details.connection', 'Csatoló'),
    notZeroValueWithMessage('details.nandTechnology', 'Nand Technológia'),
    notZeroValueWithMessage('details.readingSpeed', 'Olvasási sebesség'),
    notZeroValueWithMessage('details.writingSpeed', 'Írási sebesség'),

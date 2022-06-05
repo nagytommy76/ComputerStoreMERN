@@ -1,6 +1,12 @@
-import { notEmptyFieldWithMessage, notZeroValueWithMessage } from '../../Validators/BaseValidators'
+import { body } from 'express-validator'
+import {
+   notEmptyFieldWithMessage,
+   notZeroValueWithMessage,
+   pictureUrlsLengthGreaterOne,
+} from '../../Validators/BaseValidators'
 
 export const insertVgaValidator = [
+   body('pictureUrls').custom(pictureUrlsLengthGreaterOne),
    notEmptyFieldWithMessage('itemNumber', 'típus szám'),
    notEmptyFieldWithMessage('type', 'típus név'),
    notEmptyFieldWithMessage('manufacturer', 'Vga gyártó'),
@@ -15,10 +21,11 @@ export const insertVgaValidator = [
    notZeroValueWithMessage('details.vramSpeed', 'Vram sebesség'),
    notZeroValueWithMessage('details.powerConsuption', 'Fogyasztás'),
    notZeroValueWithMessage('details.warranity', 'Garancia'),
-   notZeroValueWithMessage('details.streamProcessors', 'Stream processzorok')
+   notZeroValueWithMessage('details.streamProcessors', 'Stream processzorok'),
 ]
 
 export const modifyVgaValidator = [
+   body('pictureUrls').custom(pictureUrlsLengthGreaterOne),
    notEmptyFieldWithMessage('itemNumber', 'típus szám'),
    notEmptyFieldWithMessage('_id', 'ObjectId'),
    notEmptyFieldWithMessage('type', 'típus név'),
@@ -34,5 +41,5 @@ export const modifyVgaValidator = [
    notZeroValueWithMessage('details.vramSpeed', 'Vram sebesség'),
    notZeroValueWithMessage('details.powerConsuption', 'Fogyasztás'),
    notZeroValueWithMessage('details.warranity', 'Garancia'),
-   notZeroValueWithMessage('details.streamProcessors', 'Stream processzorok')
+   notZeroValueWithMessage('details.streamProcessors', 'Stream processzorok'),
 ]
