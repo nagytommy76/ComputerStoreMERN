@@ -36,10 +36,13 @@ const DropMenu: React.FC<Prop> = ({ reference }) => {
             Processzor
          </DropLinkItem>
          <DropLinkItem to='/memory' onClick={closeNavbar}>
-            Memóriák
+            Memória
          </DropLinkItem>
          <DropLinkItem to='/hdd' onClick={closeNavbar}>
-            Merevlemezek
+            Merevlemez
+         </DropLinkItem>
+         <DropLinkItem to='/ssd' onClick={closeNavbar}>
+            SSD
          </DropLinkItem>
       </DropStyle>
    )

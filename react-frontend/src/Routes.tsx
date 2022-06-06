@@ -42,6 +42,8 @@ const HDDDetails = lazy(
    () => import(/*webpackChunkName: "HDDDetails"*/ './page/ShopPages/HDD/HDDDetails/HDDDetails')
 )
 
+const SSDProducts = lazy(() => import(/*webpackChunkName: "SSDProducts"*/ './page/ShopPages/SSD/SSDShop'))
+
 const Routes = () => {
    return (
       <ScrollToTop>
@@ -55,6 +57,7 @@ const Routes = () => {
             <Route path='/cpu' element={<CpuProducts />} />
             <Route path='/memory' element={<MemoryProducts />} />
             <Route path='/hdd' element={<HDDProducts />} />
+            <Route path='/ssd' element={<SSDProducts />} />
             <Route path='/orders' element={<UserOrders />} />
             <Route
                path='/register'
