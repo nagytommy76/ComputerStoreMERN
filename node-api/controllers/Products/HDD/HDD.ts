@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { Response } from 'express'
 import BaseProduct from '../BaseProduct'
 import { HddProduct as HDDModel } from '../../../models/Products/HDD/Hdd'
 import { DetailsQueryRequestType, QueryRequest } from '../Helper'

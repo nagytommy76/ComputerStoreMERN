@@ -48,3 +48,4 @@ app.use('/api/admin/hdd', require('./routes/api/Admin/HDD/HDD'))
 app.use('/api/hdd', require('./routes/api/HDD/HDD'))
 
 app.use('/api/admin/ssd', require('./routes/api/Admin/SSD/SSD'))
+app.use('/api/ssd', require('./routes/api/SSD/SSD'))
