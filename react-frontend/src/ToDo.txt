@@ -34,6 +34,8 @@ HIBÁK/BUGOK:
   mikor mennyibe került a termék. PL.: ipon
 - Egy kereső sávot létrehozni, keresés a termékek között...
 
+- GARANCIA szerint szűrni, ezt megcsinálni egy base elemként, mint pl az árat...
+
 
 MEGCSINÁLTAM:
 - A korábbi rendeléseknél egy linket a termékekhez!!!
