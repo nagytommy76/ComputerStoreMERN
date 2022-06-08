@@ -1,25 +1,25 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 const initialState: StateType = {
-   allConnection: [],
-   selectedConnection: '',
+   allConnection: [''],
+   selectedConnection: 'all',
 
-   allSizes: [],
+   allSizes: [''],
    selectedSize: '',
 
-   capacityRange: [],
-   selectedCapacityRange: [],
+   capacityRange: [60, 2000],
+   selectedCapacityRange: [60, 2000],
 
-   readSpeedRange: [],
-   selectedReadSpeedRange: [],
-   writingSpeedRange: [],
-   selectedWritingSpeedRange: [],
+   readSpeedRange: [400, 6000],
+   selectedReadSpeedRange: [400, 6000],
+   writingSpeedRange: [400, 6000],
+   selectedWritingSpeedRange: [400, 6000],
 
-   allNand: [],
-   selectedNand: '',
+   allNand: [''],
+   selectedNand: 'all',
 
-   allTBW: [],
-   selectedTBW: [],
+   allTBW: [0],
+   selectedTBW: [0],
 }
 
 const SsdFilterSlice = createSlice({
@@ -29,7 +29,7 @@ const SsdFilterSlice = createSlice({
       setAllConnections: (state, action: PayloadAction<string[]>) => {
          state.allConnection = action.payload
       },
-      setSelectedAllConnections: (state, action: PayloadAction<string>) => {
+      setSelectedConnections: (state, action: PayloadAction<string>) => {
          state.selectedConnection = action.payload
       },
       setAllSizes: (state, action: PayloadAction<string[]>) => {
@@ -73,7 +73,7 @@ const SsdFilterSlice = createSlice({
 
 export const {
    setAllConnections,
-   setSelectedAllConnections,
+   setSelectedConnections,
    setAllSizes,
    setSelectedSize,
    setAllNand,
