@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 const initialState: StateType = {
-   allConnection: [''],
+   allConnection: ['M.2 PCIe 3.0 x 4'],
    selectedConnection: 'all',
 
-   allSizes: [''],
-   selectedSize: '',
+   allSizes: ['M.2 2280', 'M.2 22110'],
+   selectedSize: 'all',
 
    capacityRange: [60, 2000],
    selectedCapacityRange: [60, 2000],

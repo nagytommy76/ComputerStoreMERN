@@ -5,7 +5,10 @@ import useExtraQuery from './Hooks/useExtraQuery'
 const BaseShop = lazy(() => import('../BaseComponents/BaseShopPage/BaseShop'))
 const SideFilter = lazy(() => import('../BaseComponents/SideFilter/SideFilter'))
 
-const Connection = lazy(() => import('./Extra/ByConnection'))
+const ByConnection = lazy(() => import('./Extra/ByConnection'))
+const ByCapacity = lazy(() => import('./Extra/ByCapacity'))
+const ByNandTecnology = lazy(() => import('./Extra/ByNandTecnology'))
+const BySize = lazy(() => import('./Extra/BySize'))
 
 const SSDShop = () => {
    const extraDispatches = useExtraDispatch()
@@ -17,7 +20,10 @@ const SSDShop = () => {
             extraDispatches={extraDispatches}
             extraQueryParameters={extraQueryParameters}
          >
-            <Connection />
+            <ByConnection />
+            <ByCapacity />
+            <ByNandTecnology />
+            <BySize />
          </SideFilter>
       </BaseShop>
    )
