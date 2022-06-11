@@ -19,11 +19,15 @@ export default class SSDProduct extends BaseProduct {
          const writeSpeedRange = this.splitStringAndConvertToArray(writingSpeedRange)
          const tbwRange = this.splitStringAndConvertToArray(tbw)
 
+         const connectionType = connection === 'all' ? '' : connection
+         const nandType = nand === 'all' ? '' : nand
+         const sizeType = size === 'all' ? '' : size
+
          const extraFilterParams = {
             'details.capacity': { $gte: capacity[0], $lte: capacity[1] },
-            'details.connection': connection === 'all' ? '' : new RegExp(connection, 'i'),
-            'details.nandTechnology': nand === 'all' ? '' : new RegExp(nand, 'i'),
-            'details.size': new RegExp(size, 'i'),
+            'details.connection': new RegExp(connectionType, 'i'),
+            'details.nandTechnology': new RegExp(nandType, 'i'),
+            'details.size': new RegExp(sizeType, 'i'),
             'details.readingSpeed': { $gte: readingSpeedRange[0], $lte: readingSpeedRange[1] },
             'details.writingSpeed': { $gte: writeSpeedRange[0], $lte: writeSpeedRange[1] },
             'details.tbw': { $gte: tbwRange[0], $lte: tbwRange[1] },
