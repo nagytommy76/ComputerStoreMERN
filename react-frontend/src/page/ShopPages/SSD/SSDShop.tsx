@@ -9,6 +9,9 @@ const ByConnection = lazy(() => import('./Extra/ByConnection'))
 const ByCapacity = lazy(() => import('./Extra/ByCapacity'))
 const ByNandTecnology = lazy(() => import('./Extra/ByNandTecnology'))
 const BySize = lazy(() => import('./Extra/BySize'))
+const ByReadSpeed = lazy(() => import('./Extra/ByReadSpeed'))
+const ByWriteSpeed = lazy(() => import('./Extra/ByWriteSpeed'))
+const ByTBW = lazy(() => import('./Extra/ByTBW'))
 
 const SSDShop = () => {
    const extraDispatches = useExtraDispatch()
@@ -20,8 +23,11 @@ const SSDShop = () => {
             extraDispatches={extraDispatches}
             extraQueryParameters={extraQueryParameters}
          >
-            <ByConnection />
             <ByCapacity />
+            <ByReadSpeed />
+            <ByWriteSpeed />
+            <ByTBW />
+            <ByConnection />
             <ByNandTecnology />
             <BySize />
          </SideFilter>
