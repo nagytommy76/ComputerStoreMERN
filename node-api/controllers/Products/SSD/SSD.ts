@@ -1,4 +1,4 @@
-import { Response } from 'express'
+import { Request, Response } from 'express'
 import BaseProduct from '../BaseProduct'
 import { DetailsQueryRequestType, QueryRequest } from '../Helper'
 
@@ -43,7 +43,7 @@ export default class SSDProduct extends BaseProduct {
       }
    }
 
-   getSSDFilterDataController = async (request: DetailsQueryRequestType, response: Response) => {
+   getSSDFilterDataController = async (_: Request, response: Response) => {
       try {
          const extraGroup = {
             allConnection: { $addToSet: '$details.connection' },
@@ -63,6 +63,15 @@ export default class SSDProduct extends BaseProduct {
 
          const foundParams = await this.baseFilterData(extraGroup)
          response.status(200).json(foundParams[0])
+      } catch (error) {
+         response.status(500).json({ errorMessage: error })
+      }
+   }
+
+   getSSDDetailsController = async (request: DetailsQueryRequestType, response: Response) => {
+      try {
+         const foundSSDProducts = await this.returnProductDetails(request.query.productId)
+         response.status(200).json({ productDetails: foundSSDProducts })
       } catch (error) {
          response.status(500).json({ errorMessage: error })
       }
