@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import axios from 'axios'
+import { axiosInstance } from '../../../../../../../AxiosSetup/AxiosInstance'
 
 import { AnswerContext } from '../Context/AnswerContext'
 import DetailsContext from '../../../../../Context/DetailsContext'
@@ -17,7 +17,7 @@ const AnswerDelete: React.FC<{ answerUserName: string; answerId: string; comment
 
    const handleAnswerDelete = async () => {
       try {
-         const response = await axios.delete(`/${productType}/${productType}-answer-remove`, {
+         const response = await axiosInstance.delete(`/${productType}/${productType}-answer-remove`, {
             data: { productId, answerId, commentId },
          })
          if (response.status === 200) {

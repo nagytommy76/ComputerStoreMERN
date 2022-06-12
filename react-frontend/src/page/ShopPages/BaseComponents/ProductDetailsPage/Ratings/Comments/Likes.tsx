@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import axios, { AxiosError } from 'axios'
+import { axiosInstance, AxiosError } from '../../../../../../AxiosSetup/AxiosInstance'
 import { useAppSelector } from '../../../../../../app/hooks'
 
 import DetailsContext from '../../../../Context/DetailsContext'
@@ -55,7 +55,7 @@ const Likes: React.FC<{
          setIsOpen(true)
          setTooltipText('Kérlek jelentkezz be a likeoláshoz!')
       } else {
-         axios
+         axiosInstance
             .post(`/${productType}/${productType}-comment-like`, { isLike, productId, commentId })
             .then(result => {
                if (result.status === 201) {

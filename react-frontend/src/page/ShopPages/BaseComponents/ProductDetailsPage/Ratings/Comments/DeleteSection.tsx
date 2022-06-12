@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import axios from 'axios'
+import { axiosInstance } from '../../../../../../AxiosSetup/AxiosInstance'
 
 import { RatingContext } from '../RatingContext'
 import DetailsContext from '../../../../Context/DetailsContext'
@@ -17,7 +17,7 @@ const DeleteSection: React.FC<{
 
    const handleCommentDelete = async () => {
       try {
-         const response = await axios.delete(`/${productType}/${productType}-comment-remove`, {
+         const response = await axiosInstance.delete(`/${productType}/${productType}-comment-remove`, {
             data: { commentIdToDelete: commentId, productId },
          })
          if (response.status === 200) {

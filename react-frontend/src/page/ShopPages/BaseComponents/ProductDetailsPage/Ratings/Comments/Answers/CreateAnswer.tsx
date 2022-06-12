@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import axios from 'axios'
+import { axiosInstance } from '../../../../../../../AxiosSetup/AxiosInstance'
 
 import { AnswerContext } from '../Context/AnswerContext'
 import DetailsContext from '../../../../../Context/DetailsContext'
@@ -47,7 +47,7 @@ const CreateAnswer: React.FC<{
             setIsAlert({ isAlertActive: true, message: 'Kérlek írj kommentet!', severity: 'error' })
             setIsLoading(false)
          } else {
-            const response = await axios.post(`/${productType}/save-${productType}-answer`, {
+            const response = await axiosInstance.post(`/${productType}/save-${productType}-answer`, {
                answer: answerText,
                productId,
                commentId,

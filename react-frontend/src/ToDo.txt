@@ -36,6 +36,8 @@ HIBÁK/BUGOK:
 
 - GARANCIA szerint szűrni, ezt megcsinálni egy base elemként, mint pl az árat...
 
+- Komment törlésnél csinálni egy popup ablakoz, hogy biztos törölni akarod? (visszajelzés kezelés miatt)
+
 
 MEGCSINÁLTAM:
 - A korábbi rendeléseknél egy linket a termékekhez!!!

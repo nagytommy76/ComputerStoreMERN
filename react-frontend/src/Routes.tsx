@@ -43,6 +43,9 @@ const HDDDetails = lazy(
 )
 
 const SSDProducts = lazy(() => import(/*webpackChunkName: "SSDProducts"*/ './page/ShopPages/SSD/SSDShop'))
+const SSDDetails = lazy(
+   () => import(/*webpackChunkName: "SSDDetails"*/ './page/ShopPages/SSD/SSDDetails/SSDDetails')
+)
 
 const Routes = () => {
    return (
@@ -53,6 +56,7 @@ const Routes = () => {
             <Route path='/cpu/cpu-details/:productId' element={<CpuDetails />} />
             <Route path='/memory/memory-details/:productId' element={<MemoryDetails />} />
             <Route path='/hdd/hdd-details/:productId' element={<HDDDetails />} />
+            <Route path='/ssd/ssd-details/:productId' element={<SSDDetails />} />
             <Route path='/vga' element={<VgaProducts />} />
             <Route path='/cpu' element={<CpuProducts />} />
             <Route path='/memory' element={<MemoryProducts />} />

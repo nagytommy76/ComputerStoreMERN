@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import axios, { AxiosError } from 'axios'
+import { axiosInstance, AxiosError } from '../../../../../../AxiosSetup/AxiosInstance'
 
 import { useAppSelector } from '../../../../../../app/hooks'
 import { RatingContext } from '../RatingContext'
@@ -36,7 +36,7 @@ const Rating: React.FC = () => {
       if (!isUserLoggedIn) setHasError({ isError: true, message: 'Az értékeléshez kérlek jelentkezz be!' })
       else if (rating === null) setHasError({ isError: true, message: 'Kötelező értékelést adni!' })
       else {
-         axios
+         axiosInstance
             .post(`/${productType}/rate-${productType}`, {
                productId,
                rating,
