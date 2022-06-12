@@ -27,7 +27,7 @@ const HDDDetails = () => {
             }}
          >
             <ProductDetails>
-               <HDDDetailsTable details={hddDetails.details} />
+               <HDDDetailsTable />
             </ProductDetails>
          </DetailsContext.Provider>
       </React.Suspense>

@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import DetailsContext from '../../Context/DetailsContext'
 import { TableStyle } from '../../BaseComponents/ProductDetailsPage/DetailTable/TableStyle'
+import { MemoryDetailsType } from '../MemoryTypes'
 
 const TableRow = React.lazy(() => import('../../BaseComponents/ProductDetailsPage/DetailTable/TableRow'))
 
-const MemoryDetailsTable: React.FC<{ details: any }> = ({ details }) => {
+const MemoryDetailsTable = () => {
+   const { details }: { details: MemoryDetailsType } = useContext(DetailsContext)
    return (
       <TableStyle>
          <tbody>

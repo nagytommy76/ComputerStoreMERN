@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import DetailsContext from '../../Context/DetailsContext'
+import { HDDDetailsType } from '../HDDTypes'
 import { TableStyle } from '../../BaseComponents/ProductDetailsPage/DetailTable/TableStyle'
 
 const TableRow = React.lazy(() => import('../../BaseComponents/ProductDetailsPage/DetailTable/TableRow'))
 
-const HDDTable: React.FC<{ details: any }> = ({ details }) => {
+const HDDTable = () => {
+   const { details }: { details: HDDDetailsType } = useContext(DetailsContext)
    return (
       <TableStyle>
          <tbody>

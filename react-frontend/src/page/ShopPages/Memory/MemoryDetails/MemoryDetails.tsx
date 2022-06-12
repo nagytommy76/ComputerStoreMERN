@@ -26,7 +26,7 @@ const MemoryDetails = () => {
             }}
          >
             <ProductDetails>
-               <MemoryTable details={memoryDetails.details} />
+               <MemoryTable />
             </ProductDetails>
          </DetailsContext.Provider>
       </React.Suspense>

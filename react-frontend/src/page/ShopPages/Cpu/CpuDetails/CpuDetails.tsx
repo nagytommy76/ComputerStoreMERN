@@ -27,7 +27,7 @@ const CpuDetails = () => {
             }}
          >
             <ProductDetails>
-               <DetailsTable details={cpuDetails.details} />
+               <DetailsTable />
             </ProductDetails>
          </DetailsContext.Provider>
       </React.Suspense>

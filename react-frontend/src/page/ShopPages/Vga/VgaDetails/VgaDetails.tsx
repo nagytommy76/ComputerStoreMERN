@@ -26,7 +26,7 @@ const VgaDetails = () => {
             }}
          >
             <ProductDetails>
-               <VgaDetailTable details={vgaDetails.details} />
+               <VgaDetailTable />
             </ProductDetails>
          </DetailsContext.Provider>
       </React.Suspense>

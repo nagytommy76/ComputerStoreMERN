@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import DetailsContext from '../../Context/DetailsContext'
+import { VgaDetailType } from '../VgaTypes'
 import { TableStyle } from '../../BaseComponents/ProductDetailsPage/DetailTable/TableStyle'
 
 const TableRow = React.lazy(() => import('../../BaseComponents/ProductDetailsPage/DetailTable/TableRow'))
 
-const VgaDetailTable: React.FC<{ details: any }> = ({ details }) => {
+const VgaDetailTable = () => {
+   const { details }: { details: VgaDetailType } = useContext(DetailsContext)
    return (
       <TableStyle>
          <tbody>
