@@ -1,32 +1,26 @@
 import express from 'express'
 import CpuProduct from '../../../controllers/Products/Cpu/Cpus'
-import {
-   rateCpuProductController,
-   getCpuRatingSummaryController,
-   getAllComments,
-   likeDislikeCpuCommentController,
-   removeUsersRatingInCpu,
-   saveCpuAnswerController,
-   removeSingleCpuCommentAnswer,
-} from '../../../controllers/Products/Cpu/CpuRating'
+import BaseRatingController from '../../../controllers/Products/Ratings/BaseRatingController'
+import { CpuProduct as CpuModel } from '../../../models/Products/Cpu/CpuSchema'
 import { authenticateAccessToken } from '../../../middlewares/AuthenticateAccessOrRefreshTokens'
 
 const router = express.Router()
 const cpuProduct = new CpuProduct()
+const BaseRating = new BaseRatingController(CpuModel)
 
 router.get('/', cpuProduct.getAllCpuItemController)
 router.get('/filter-data', cpuProduct.getCpuFilterData)
 router.get('/details', cpuProduct.getCpuDetailsController)
 
 // Ratings
-router.get('/get-cpu-rates', getCpuRatingSummaryController)
-router.get('/get-cpu-comments', getAllComments)
-router.post('/rate-cpu', authenticateAccessToken, rateCpuProductController)
-router.post('/cpu-comment-like', authenticateAccessToken, likeDislikeCpuCommentController)
-router.delete('/cpu-comment-remove', authenticateAccessToken, removeUsersRatingInCpu)
+router.get('/get-cpu-rates', BaseRating.getRatingSummaryController)
+router.get('/get-cpu-comments', BaseRating.getAllComments)
+router.post('/rate-cpu', authenticateAccessToken, BaseRating.rateProductController)
+router.post('/cpu-comment-like', authenticateAccessToken, BaseRating.likeDislikeCommentController)
+router.delete('/cpu-comment-remove', authenticateAccessToken, BaseRating.removeUsersRatingController)
 
 // Rating Answers
-router.post('/save-cpu-answer', authenticateAccessToken, saveCpuAnswerController)
-router.delete('/cpu-answer-remove', authenticateAccessToken, removeSingleCpuCommentAnswer)
+router.post('/save-cpu-answer', authenticateAccessToken, BaseRating.saveAnswerController)
+router.delete('/cpu-answer-remove', authenticateAccessToken, BaseRating.removeSingleCommentAnswer)
 
 module.exports = router
