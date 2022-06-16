@@ -8,6 +8,7 @@ export type QueryRequest = Request & {
       byManufacturer: string
       minPrice: number
       priceRange: string
+      selectedWarranty: string
    }
 }
 

@@ -40,7 +40,8 @@ export default abstract class BaseProduct {
       const currentPage = parseInt(request.query.currentPage) || 1
       const perPage = parseInt(request.query.perPage) || 12
       const orderBy = request.query.orderBy || 'asc'
-      const byManufacturer = request.query.byManufacturer == 'all' ? '' : request.query.byManufacturer
+      const byManufacturer = request.query.byManufacturer === 'all' ? '' : request.query.byManufacturer
+      const byWarranty = request.query.selectedWarranty === 'all' ? '' : request.query.selectedWarranty
       const priceRange = this.splitStringAndConvertToArray(request.query.priceRange)
       let totalPages: number
 
@@ -49,6 +50,7 @@ export default abstract class BaseProduct {
       } & Document<any, any>)[] = await this.productModel
          .find({
             manufacturer: new RegExp(byManufacturer, 'i'),
+            'details.warranity': new RegExp(byWarranty, 'i'),
             price: { $gte: priceRange[0], $lte: priceRange[1] },
             ...extraFilerParameters,
          })
@@ -79,6 +81,7 @@ export default abstract class BaseProduct {
          maxPrice: { $max: '$price' },
          minPrice: { $min: '$price' },
          allManufacturers: { $addToSet: '$manufacturer' },
+         allWarranties: { $addToSet: '$details.warranity' },
          ...extraGroupParameters,
       })
       filterDataGroup[0].allManufacturers.sort()
