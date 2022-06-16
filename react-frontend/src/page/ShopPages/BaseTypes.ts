@@ -19,6 +19,8 @@ export type FilterTypes = {
    allManufacturer: string[]
    selectedManufacturer: string
    productType: string
+   allWarranties: string[]
+   selectedWarranty: string
 }
 
 // export type LocationType = {

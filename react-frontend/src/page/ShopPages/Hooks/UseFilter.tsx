@@ -8,6 +8,7 @@ import {
    setProductType,
    setPriceRange,
    setIsPriceRangeSet,
+   setAllWarranties,
 } from '../../../app/slices/Filter/BaseFilterDataSlice'
 import { setToDefault } from '../../../app/slices/PaginateSlice'
 
@@ -24,6 +25,7 @@ const useFilter = (productType: string, extraFilterDispatches?: (params: any) =>
             dispatch(setMinPrice(filterData.data.minPrice))
             dispatch(setMaxPrice(filterData.data.maxPrice))
             dispatch(setPriceRange([filterData.data.minPrice, filterData.data.maxPrice]))
+            dispatch(setAllWarranties(filterData.data.allWarranties))
             dispatch(setIsPriceRangeSet(true))
             dispatch(setToDefault())
             // Parameterként át kéne adni az egész filterData-t, majd kiszedni az adatokat a shop-ban!?
