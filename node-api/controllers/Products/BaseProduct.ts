@@ -8,31 +8,6 @@ export default abstract class BaseProduct {
       this.productModel = productModel
    }
 
-   returnProductModelWithPaginateInfo = async (request: QueryRequest, extraFilerParameters: any = {}) => {
-      const currentPage = parseInt(request.query.currentPage) || 1
-      const perPage = parseInt(request.query.perPage) || 12
-      const orderBy = request.query.orderBy || 'asc'
-      const byManufacturer = request.query.byManufacturer == 'all' ? '' : request.query.byManufacturer
-      const priceRange = this.splitStringAndConvertToArray(request.query.priceRange)
-      let totalPages: number
-
-      const foundProduct: (BaseProductType & {
-         details: any
-      } & Document<any, any>)[] = await this.productModel
-         .find({
-            manufacturer: new RegExp(byManufacturer, 'i'),
-            price: { $gte: priceRange[0], $lte: priceRange[1] },
-            ...extraFilerParameters,
-         })
-         .sort({ price: orderBy })
-         .lean()
-      const startIndex = (currentPage - 1) * perPage
-      const endIndex = currentPage * perPage
-      const pagedProducts = foundProduct.slice(startIndex, endIndex)
-
-      totalPages = Math.ceil(foundProduct.length / perPage)
-      return { foundProduct: pagedProducts, totalPages }
-   }
    returnProductModelWithPaginateInfoWithoutDetails = async (
       request: QueryRequest,
       extraFilerParameters: any = {}
@@ -41,7 +16,8 @@ export default abstract class BaseProduct {
       const perPage = parseInt(request.query.perPage) || 12
       const orderBy = request.query.orderBy || 'asc'
       const byManufacturer = request.query.byManufacturer === 'all' ? '' : request.query.byManufacturer
-      const byWarranty = request.query.selectedWarranty === 'all' ? '' : request.query.selectedWarranty
+      const warranty = request.query.selectedWarranty.trim()
+      const byWarranty = warranty === 'all' ? null : { 'details.warranity': warranty }
       const priceRange = this.splitStringAndConvertToArray(request.query.priceRange)
       let totalPages: number
 
@@ -50,7 +26,7 @@ export default abstract class BaseProduct {
       } & Document<any, any>)[] = await this.productModel
          .find({
             manufacturer: new RegExp(byManufacturer, 'i'),
-            'details.warranity': new RegExp(byWarranty, 'i'),
+            ...byWarranty,
             price: { $gte: priceRange[0], $lte: priceRange[1] },
             ...extraFilerParameters,
          })
