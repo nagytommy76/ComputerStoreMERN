@@ -9,10 +9,10 @@ import { useAppSelector } from '../../../../../../../app/hooks'
 const DeleteIcon: React.FC<{ incomingUserName: string; handleDelete: () => void; deleteText?: string }> = ({
    incomingUserName,
    handleDelete,
-   deleteText = 'Válasz'
+   deleteText = 'Válasz',
 }) => {
-   const isUserLoggedIn = useAppSelector((state) => state.auth.userLoggedIn)
-   const userName = useAppSelector((state) => state.auth.userName)
+   const isUserLoggedIn = useAppSelector(state => state.auth.userLoggedIn)
+   const userName = useAppSelector(state => state.auth.userName)
    return (
       <>
          {isUserLoggedIn && userName === incomingUserName && (

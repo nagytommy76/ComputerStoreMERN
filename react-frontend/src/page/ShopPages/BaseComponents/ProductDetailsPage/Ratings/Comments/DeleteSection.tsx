@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { axiosInstance } from '../../../../../../AxiosSetup/AxiosInstance'
 
 import { RatingContext } from '../RatingContext'
@@ -15,8 +15,11 @@ const DeleteSection: React.FC<{
    const { productType, productId } = useContext(DetailsContext)
    const { setCommentDeletedRequest } = useContext(RatingContext)
 
-   const handleCommentDelete = async () => {
-      try {
+   const [dialogAnswer, setDialogAnswer] = useState<boolean>(false)
+   const [openDialog, setOpenDialog] = useState<boolean>(false)
+
+   const handleDeleteCommentRequest = async () => {
+      if (dialogAnswer) {
          const response = await axiosInstance.delete(`/${productType}/${productType}-comment-remove`, {
             data: { commentIdToDelete: commentId, productId },
          })
@@ -25,13 +28,21 @@ const DeleteSection: React.FC<{
             setComments(ratedAtFormattedToDate)
             setCommentDeletedRequest(prevValue => !prevValue)
          }
-      } catch (error) {
-         console.log(error)
       }
    }
 
+   const handleOpenDialog = () => {
+      setOpenDialog(true)
+   }
+
+   useEffect(() => {
+      handleDeleteCommentRequest()
+   }, [dialogAnswer])
+
    return (
-      <Delete deleteText='Komment' handleDelete={handleCommentDelete} incomingUserName={commentsUserName} />
+      <>
+         <Delete deleteText='Komment' handleDelete={handleOpenDialog} incomingUserName={commentsUserName} />
+      </>
    )
 }
 

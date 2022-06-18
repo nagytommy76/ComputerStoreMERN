@@ -16,7 +16,7 @@ const useGetProducts = (productTypeForURL: string, extraQueryParameters: string 
    const getProductsByQueries = useCallback(async () => {
       try {
          const product: AxiosResponse<{ allProducts: any[]; totalPages: number }, any[]> = await axios.get(
-            `/${productTypeForURL}?currentPage=${currentPage}&perPage=${perPage}&orderBy=${filterOptions.orderBy}&byManufacturer=${filterOptions.selectedManufacturer}&priceRange=${filterOptions.priceRange}${extraQueryParameters}`,
+            `/${productTypeForURL}?currentPage=${currentPage}&perPage=${perPage}&orderBy=${filterOptions.orderBy}&byManufacturer=${filterOptions.selectedManufacturer}&priceRange=${filterOptions.priceRange}&selectedWarranty=${filterOptions.selectedWarranty}${extraQueryParameters}`,
             {
                data: {
                   currentPage,
