@@ -11,7 +11,8 @@ const DeleteDialog: React.FC<{
    setDialogAnswer: React.Dispatch<React.SetStateAction<boolean>>
    setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>
    openDialog: boolean
-}> = ({ setOpenDialog, setDialogAnswer, openDialog }) => {
+   toDeleteText?: string
+}> = ({ setOpenDialog, setDialogAnswer, openDialog, toDeleteText = 'kommentet' }) => {
    const handleClose = () => {
       setOpenDialog(false)
    }
@@ -29,7 +30,7 @@ const DeleteDialog: React.FC<{
       <Dialog open={openDialog} onClose={handleClose}>
          <DialogTitle>Komment törlése</DialogTitle>
          <DialogContent>
-            <DialogContentText>Biztos vagy benne, hogy törölni szeretnéd a kommentet?</DialogContentText>
+            <DialogContentText>Biztos vagy benne, hogy törölni szeretnéd a {toDeleteText}?</DialogContentText>
          </DialogContent>
          <DialogActions>
             <Button variant='outlined' color='error' onClick={handleDialogAnswerFalse}>

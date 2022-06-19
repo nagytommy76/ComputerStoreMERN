@@ -12,14 +12,14 @@ import { CommentCard, RightSide, LeftSide } from '../CommentStyle'
 import { formatDate, RateState, CommentAnswerType } from '../Helpers'
 
 const LikeDislike = React.lazy(() => import('../Likes'))
-const DeleteIcon = React.lazy(() => import('../DeleteSection'))
+const DeleteSection = React.lazy(() => import('../DeleteSection'))
 const CreateAnswer = React.lazy(() => import('../Answers/CreateAnswer'))
 const Answers = React.lazy(() => import('../Answers/Answers'))
 
-const SingleComment: React.FC<{ comment: RateState; setAllComments: React.Dispatch<React.SetStateAction<RateState[]>> }> = ({
-   comment,
-   setAllComments
-}) => {
+const SingleComment: React.FC<{
+   comment: RateState
+   setAllComments: React.Dispatch<React.SetStateAction<RateState[]>>
+}> = ({ comment, setAllComments }) => {
    const [isAnswerOpen, setIsAnswerOpen] = useState<boolean>(false)
    const [commentAnswers, setCommentAnswers] = useState<CommentAnswerType[]>([])
 
@@ -44,13 +44,18 @@ const SingleComment: React.FC<{ comment: RateState; setAllComments: React.Dispat
                   responses={comment.responses}
                />
             </RightSide>
-            <DeleteIcon setComments={setAllComments} commentId={comment._id} commentsUserName={comment.userName} />
+            <DeleteSection
+               setComments={setAllComments}
+               commentId={comment._id}
+               commentsUserName={comment.userName}
+            />
          </CommentCard>
          <AnswerContext.Provider
             value={{
                commentAnswers,
-               setCommentAnswer: setCommentAnswers
-            }}>
+               setCommentAnswer: setCommentAnswers,
+            }}
+         >
             <CardContent>
                <Answers commentId={comment._id} />
             </CardContent>
