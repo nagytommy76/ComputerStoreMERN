@@ -11,7 +11,7 @@
 
 - A termék bevitelénél ha nincs picURL kéne egy alert mert most nincs
 
-
+ 
 HIBÁK/BUGOK:
 - A kártyás fizetés stílusa nem jó mobil esetén, kilóg
 
@@ -34,11 +34,11 @@ HIBÁK/BUGOK:
   mikor mennyibe került a termék. PL.: ipon
 - Egy kereső sávot létrehozni, keresés a termékek között...
 
-
-- Komment törlésnél csinálni egy popup ablakoz, hogy biztos törölni akarod? (visszajelzés kezelés miatt)
+Egy hiba: Ha rossz a termék id a details-nél akkor is megjelenik az oldal.... nem kéne
 
 
 MEGCSINÁLTAM:
+- Komment törlésnél csinálni egy popup ablakoz, hogy biztos törölni akarod? (visszajelzés kezelés miatt)
 - GARANCIA szerint szűrni, ezt megcsinálni egy base elemként, mint pl az árat...
 
 - A korábbi rendeléseknél egy linket a termékekhez!!!

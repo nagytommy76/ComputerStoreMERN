@@ -40,13 +40,7 @@ const ProductDetails: React.FC<{ children: ReactNode }> = ({ children }) => {
                <HorizontalLineStyle />
                <PriceAndCartStyle>
                   <AddToCart />
-                  <StyledNumberFormat
-                     // renderText={(value: number, props: any) => <h1 {...props}>{value}</h1>}
-                     value={price}
-                     thousandSeparator=' '
-                     suffix=' Ft'
-                     displayType='text'
-                  />
+                  <StyledNumberFormat value={price} thousandSeparator=' ' suffix=' Ft' displayType='text' />
                </PriceAndCartStyle>
                <HorizontalLineStyle />
                <WarranityStyle>{details.warranity} hónap gyári garanciával</WarranityStyle>
