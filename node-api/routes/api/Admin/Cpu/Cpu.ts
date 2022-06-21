@@ -6,7 +6,7 @@ import {
    getAllCpuItemsController,
    getAllCpuItemsForDeleteController,
    deleteCpuProductByIdController,
-} from '../../../../controllers/Admin/Cpu/AdminCpucontroller'
+} from '../../../../controllers/Admin/Cpu/AdminCpuController'
 import { insertCpuValidator } from './Validator/CpuValidator'
 import { checkErrors } from '../../../../middlewares/CheckValidationErrors'
 const router = express.Router()
