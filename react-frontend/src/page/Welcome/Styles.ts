@@ -9,8 +9,8 @@ export const WelcomeContainer = styled('section')({
 
 export const StyledWelcomeImg = styled('section')<{ backgroundimage: string }>(props => ({
    width: '100%',
-   height: '60vh',
-   background: `url(${props.backgroundimage}) no-repeat center`,
+   height: '70vh',
+   background: `url(${props.backgroundimage}) no-repeat left top`,
    backgroundSize: '100%',
    [`@media(max-width: ${mobileWindowSize})`]: {
       backgroundSize: '150%',
@@ -22,7 +22,7 @@ export const WelcomeMaintitleContainer = styled('div')({
    display: 'flex',
    justifyContent: 'center',
    alignItems: 'center',
-   backgroundColor: 'rgba(1,1,1, .5)',
+   backgroundColor: 'rgba(1,1,1, .3)',
 })
 
 export const StyledHeading = styled(Typography)({
