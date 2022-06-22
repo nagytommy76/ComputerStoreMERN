@@ -1,6 +1,6 @@
 import React from 'react'
 import { WelcomeContainer, StyledWelcomeImg, WelcomeMaintitleContainer, StyledHeading } from './Styles'
-import WelcomeImg from './Images/Welcome.jpg'
+import WelcomeImg from './Images/Welcome2.jpg'
 
 const Welcome = () => {
    return (
