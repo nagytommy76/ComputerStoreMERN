@@ -36,6 +36,8 @@ HIBÁK/BUGOK:
 
 Egy hiba: Ha rossz a termék id a details-nél akkor is megjelenik az oldal.... nem kéne
 
+A főoldalt egy kicsit rendbe rakni, kiemelt termékek, style stb
+
 
 MEGCSINÁLTAM:
 - Komment törlésnél csinálni egy popup ablakoz, hogy biztos törölni akarod? (visszajelzés kezelés miatt)
