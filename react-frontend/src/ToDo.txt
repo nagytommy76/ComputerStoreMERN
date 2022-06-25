@@ -37,6 +37,7 @@ HIBÁK/BUGOK:
 Egy hiba: Ha rossz a termék id a details-nél akkor is megjelenik az oldal.... nem kéne
 
 A főoldalt egy kicsit rendbe rakni, kiemelt termékek, style stb
+https://stackoverflow.com/questions/6502541/mongodb-query-multiple-collections-at-once
 
 
 MEGCSINÁLTAM:
