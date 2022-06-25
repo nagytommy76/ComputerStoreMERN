@@ -4,31 +4,41 @@ import { mobileWindowSize } from '../../Theme/GlobalStyles'
 import Typography from '@mui/material/Typography'
 
 export const WelcomeContainer = styled('section')({
-   minHeight: '100vh',
+   height: '100vh',
 })
 
 export const StyledWelcomeImg = styled('section')<{ backgroundimage: string }>(props => ({
    width: '100%',
-   height: '70vh',
-   background: `url(${props.backgroundimage}) no-repeat left top`,
-   backgroundSize: '100%',
+   height: '100vh',
+   backgroundImage: `url(${props.backgroundimage})`,
+   backgroundPosition: 'center',
+   backgroundRepeat: 'no-repeat',
+   backgroundSize: 'cover',
    [`@media(max-width: ${mobileWindowSize})`]: {
-      backgroundSize: '150%',
+      // backgroundSize: '150%',
    },
 }))
 
 export const WelcomeMaintitleContainer = styled('div')({
    height: '100%',
    display: 'flex',
-   justifyContent: 'center',
+   flexDirection: 'column',
+   justifyContent: 'space-evenly',
    alignItems: 'center',
    backgroundColor: 'rgba(1,1,1, .3)',
 })
 
 export const StyledHeading = styled(Typography)({
-   fontSize: '3.8rem',
+   fontFamily: 'Rubik Moonrocks, cursive',
+   textAlign: 'center',
+   textTransform: 'uppercase',
+   fontSize: '110px',
    color: 'white',
    [`@media(max-width: ${mobileWindowSize})`]: {
-      fontSize: '2rem',
+      fontSize: '40px',
    },
+})
+
+export const HighlightLetterStyle = styled('span')({
+   color: '#ff8f00',
 })
