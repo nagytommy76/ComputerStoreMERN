@@ -49,3 +49,5 @@ app.use('/api/hdd', require('./routes/api/HDD/HDD'))
 
 app.use('/api/admin/ssd', require('./routes/api/Admin/SSD/SSD'))
 app.use('/api/ssd', require('./routes/api/SSD/SSD'))
+
+app.use('/api/highlight', require('./routes/api/Highlight/Highlight'))

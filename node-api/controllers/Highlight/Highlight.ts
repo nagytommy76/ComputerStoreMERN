@@ -11,6 +11,7 @@ const BaseGetHighlights = async (ProductModel: Model<any>) => {
    return await ProductModel.find({ isHighlighted: true })
       .select('price manufacturer type typeCode pictureUrls ratingValues._id')
       .sort({ price: 1 })
+      .lean()
 }
 
 export const HighlightController = async (req: Request, res: Response) => {
