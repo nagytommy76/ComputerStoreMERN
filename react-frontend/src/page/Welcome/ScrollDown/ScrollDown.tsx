@@ -1,18 +1,22 @@
 import React from 'react'
 
+import Tooltip from '@mui/material/Tooltip'
+
 import { DownArrowStyle, ScrolldownButton, ScrollContainer } from './Styles'
 
 const ScrollDown = () => {
    return (
-      <ScrollContainer>
-         <ScrolldownButton href='#highlights'>
-            <DownArrowStyle />
-            <DownArrowStyle />
-            <DownArrowStyle />
-            <DownArrowStyle />
-            <DownArrowStyle />
-         </ScrolldownButton>
-      </ScrollContainer>
+      <Tooltip title='Fedezd fel kínálatunkat' arrow placement='top'>
+         <ScrollContainer>
+            <ScrolldownButton href='#highlights'>
+               <DownArrowStyle />
+               <DownArrowStyle />
+               <DownArrowStyle />
+               <DownArrowStyle />
+               <DownArrowStyle />
+            </ScrolldownButton>
+         </ScrollContainer>
+      </Tooltip>
    )
 }
 

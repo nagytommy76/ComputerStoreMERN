@@ -1,7 +1,7 @@
 import { styled } from '@mui/material'
 
 export const ScrollContainer = styled('div')({
-   height: '140px',
+   height: '90px',
    display: 'flex',
    flexDirection: 'column',
    alignItems: 'center',
