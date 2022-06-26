@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react'
-import { axiosInstance } from '../../AxiosSetup/AxiosInstance'
+import React from 'react'
 import {
    WelcomeContainer,
    StyledWelcomeImg,
@@ -13,13 +12,6 @@ const ScrollDown = React.lazy(() => import('./ScrollDown/ScrollDown'))
 const HighlightSection = React.lazy(() => import('./Highlight/HighlightSection'))
 
 const Welcome = () => {
-   const getHighlights = async () => {
-      const response = await axiosInstance.get('/highlight/get-highlight')
-      console.log(response.data)
-   }
-   useEffect(() => {
-      getHighlights()
-   }, [])
    return (
       <>
          <WelcomeContainer>

@@ -30,6 +30,10 @@ export const GlobalStyles = createGlobalStyle<{
   background: ${({ theme }) => theme.scrollbarThumbColorHover};
 }
 
+html {
+   scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Work Sans', sans-serif;
     -webkit-font-smoothing: antialiased;
