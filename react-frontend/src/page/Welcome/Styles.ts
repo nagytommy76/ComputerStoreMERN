@@ -32,7 +32,7 @@ export const StyledHeading = styled(Typography)({
    fontFamily: 'Rubik Moonrocks, cursive',
    textAlign: 'center',
    textTransform: 'uppercase',
-   fontSize: '110px',
+   fontSize: '120px',
    color: 'white',
    [`@media(max-width: ${mobileWindowSize})`]: {
       fontSize: '40px',
