@@ -8,6 +8,6 @@ export const ContainerStyle = styled('section')({
    margin: '2rem 0',
    // width: '70%',
 
-   display: 'flex',
-   flexDirection: 'column',
+   // display: 'flex',
+   // flexWrap: 'wrap',
 })
