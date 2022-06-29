@@ -1,7 +1,7 @@
 import { styled } from '@mui/material'
 
 export const CardContainerStyle = styled('div')<{ bordercolor?: string }>(({ bordercolor = '#F5B310' }) => ({
-   height: '400px',
+   height: '380px',
    width: '850px',
    backgroundColor: '#f9f9f9',
    padding: '1rem',
