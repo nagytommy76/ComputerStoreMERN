@@ -2,7 +2,6 @@ import React, { lazy } from 'react'
 import { HighlightDataType } from '../HighlightSection'
 
 import { CardContainerStyle } from './Style'
-// import Typography from '@mui/material/Typography'
 
 const ProductCard = lazy(() => import('../../../ShopPages/BaseComponents/ProductCard/ProductCard'))
 
@@ -13,9 +12,6 @@ const BaseHighlight: React.FC<{
 }> = ({ highlightData, productType, borderColor }) => {
    return (
       <CardContainerStyle bordercolor={borderColor}>
-         {/* <Typography variant='h5' textAlign='center'>
-            Kiemelt {productType.toUpperCase()} termékeink
-         </Typography> */}
          {highlightData.map(highlight => (
             <ProductCard
                pathNameForDetailsURL={productType}
