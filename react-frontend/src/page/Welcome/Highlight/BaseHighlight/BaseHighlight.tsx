@@ -10,7 +10,7 @@ const BaseHighlight: React.FC<{
    productType: string
    borderColor?: string
 }> = ({ highlightData, productType, borderColor }) => {
-   return (
+   return highlightData.length > 0 ? (
       <CardContainerStyle bordercolor={borderColor}>
          {highlightData.map(highlight => (
             <ProductCard
@@ -26,6 +26,8 @@ const BaseHighlight: React.FC<{
             />
          ))}
       </CardContainerStyle>
+   ) : (
+      <></>
    )
 }
 

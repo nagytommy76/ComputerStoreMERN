@@ -2,7 +2,7 @@ import { styled } from '@mui/material'
 
 export const CardContainerStyle = styled('div')<{ bordercolor?: string }>(({ bordercolor = '#F5B310' }) => ({
    height: '380px',
-   width: '850px',
+   width: '790px',
    backgroundColor: '#f9f9f9',
    padding: '1rem',
 
@@ -15,7 +15,7 @@ export const CardContainerStyle = styled('div')<{ bordercolor?: string }>(({ bor
    gridTemplateColumns: 'repeat(3, 250px)',
    gridAutoRows: '380px',
    justifyContent: 'center',
-   columnGap: '1.7rem',
+   columnGap: '1rem',
    rowGap: '2rem',
 }))
 
