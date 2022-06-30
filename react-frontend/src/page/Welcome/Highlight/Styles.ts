@@ -15,7 +15,7 @@ export const ContainerStyle = styled('section')({
    columnGap: '1.7rem',
    rowGap: '1rem',
 
-   [`@media (max-width: 1920px`]: {
-      gridTemplateRows: '800px',
+   [`@media(max-width: 1919px)`]: {
+      gridTemplateColumns: 'repeat(1, auto)',
    },
 })

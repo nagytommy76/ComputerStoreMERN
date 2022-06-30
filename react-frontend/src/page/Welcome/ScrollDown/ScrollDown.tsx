@@ -6,7 +6,7 @@ import { DownArrowStyle, ScrolldownButton, ScrollContainer } from './Styles'
 
 const ScrollDown = () => {
    return (
-      <Tooltip title='Fedezd fel kínálatunkat' arrow placement='top'>
+      <Tooltip title='Fedezd fel kiemelt kínálatunkat' arrow placement='top'>
          <ScrollContainer>
             <ScrolldownButton href='#highlights'>
                <DownArrowStyle />

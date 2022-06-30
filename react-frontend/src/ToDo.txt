@@ -33,14 +33,20 @@ HIBÁK/BUGOK:
 - Amikor egy terméknél megváltoztatom az árat, elmenteni az előzőt, a frontenden pedig megjeleníteni grafikonon
   mikor mennyibe került a termék. PL.: ipon
 - Egy kereső sávot létrehozni, keresés a termékek között...
+- Az admin tudjon felhasználókat kezelni, pl: törölni(kommentet is)
 
-Egy hiba: Ha rossz a termék id a details-nél akkor is megjelenik az oldal.... nem kéne
+- ADMIN oldalon SSD törlése/módosítása hiányzik!
+
+
 
 A főoldalt egy kicsit rendbe rakni, kiemelt termékek, style stb
 https://stackoverflow.com/questions/6502541/mongodb-query-multiple-collections-at-once
 
 
 MEGCSINÁLTAM:
+- Egy hiba: Ha rossz a termék id a details-nél akkor is megjelenik az oldal.... nem kéne
+
+
 - Komment törlésnél csinálni egy popup ablakoz, hogy biztos törölni akarod? (visszajelzés kezelés miatt)
 - GARANCIA szerint szűrni, ezt megcsinálni egy base elemként, mint pl az árat...
 
