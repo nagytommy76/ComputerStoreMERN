@@ -30,12 +30,8 @@ HIBÁK/BUGOK:
 
 
 Új ötlet:
-- Amikor egy terméknél megváltoztatom az árat, elmenteni az előzőt, a frontenden pedig megjeleníteni grafikonon
-  mikor mennyibe került a termék. PL.: ipon
 - Egy kereső sávot létrehozni, keresés a termékek között...
 - Az admin tudjon felhasználókat kezelni, pl: törölni(kommentet is)
-
-
 
 - ADMIN oldalon SSD törlése/módosítása hiányzik!
 - Mobilnál (meg desktop-on is) egy lap tetejére gombot elhelyezni!!!
@@ -48,6 +44,9 @@ https://stackoverflow.com/questions/6502541/mongodb-query-multiple-collections-a
 
 
 MEGCSINÁLTAM:
+- Amikor egy terméknél megváltoztatom az árat, elmenteni az előzőt, a frontenden pedig megjeleníteni grafikonon
+  mikor mennyibe került a termék. PL.: ipon
+  
 - Egy hiba: Ha rossz a termék id a details-nél akkor is megjelenik az oldal.... nem kéne
 
 

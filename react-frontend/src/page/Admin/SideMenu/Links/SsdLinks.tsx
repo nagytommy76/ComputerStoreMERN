@@ -13,6 +13,12 @@ const SsdLinks: React.FC<{ setSideBarOpen: React.Dispatch<React.SetStateAction<b
          <Link to='ssd/insert' onClick={() => setSideBarOpen(false)}>
             <BaseListItem displayText='SSD bevitele' />
          </Link>
+         <Link to='ssd/modify' onClick={() => setSideBarOpen(false)}>
+            <BaseListItem displayText='SSD módosítása' />
+         </Link>
+         <Link to='ssd/delete' onClick={() => setSideBarOpen(false)}>
+            <BaseListItem displayText='SSD törlése' />
+         </Link>
       </List>
    )
 }
