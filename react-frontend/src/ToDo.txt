@@ -35,7 +35,11 @@ HIBÁK/BUGOK:
 - Egy kereső sávot létrehozni, keresés a termékek között...
 - Az admin tudjon felhasználókat kezelni, pl: törölni(kommentet is)
 
+
+
 - ADMIN oldalon SSD törlése/módosítása hiányzik!
+- Mobilnál (meg desktop-on is) egy lap tetejére gombot elhelyezni!!!
+
 
 
 

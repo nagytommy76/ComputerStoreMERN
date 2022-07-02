@@ -1,5 +1,5 @@
 import { styled } from '@mui/material'
-// import { mobileWindowSize } from '../../../Theme/GlobalStyles'
+import { mobileWindowSize } from '../../../Theme/GlobalStyles'
 
 import { navbarHeight } from '../../Navbar/NavbarStyles'
 
@@ -17,5 +17,12 @@ export const ContainerStyle = styled('section')({
 
    [`@media(max-width: 1919px)`]: {
       gridTemplateColumns: 'repeat(1, auto)',
+   },
+   [`@media(max-width: ${mobileWindowSize})`]: {
+      gridTemplateColumns: '80%',
+      margin: '3rem 0',
+      paddingTop: '0rem',
+      columnGap: '0',
+      rowGap: '2.5rem',
    },
 })
