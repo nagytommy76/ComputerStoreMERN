@@ -37,6 +37,7 @@ app.use('/api/admin/vga', require('./routes/api/Admin/Vga/Vga'))
 app.use('/api/auth', require('./routes/api/User/User'))
 app.use('/api/cart', require('./routes/api/User/Cart'))
 app.use('/api/order', require('./routes/api/User/Order'))
+app.use('/api/admin/users', require('./routes/api/Admin/Users/Users'))
 
 app.use('/api/admin/cpu', require('./routes/api/Admin/Cpu/Cpu'))
 app.use('/api/cpu', require('./routes/api/Cpu/Cpu'))
