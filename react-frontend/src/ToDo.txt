@@ -35,7 +35,7 @@ HIBÁK/BUGOK:
 
 - ADMIN oldalon SSD törlése/módosítása hiányzik!
 - Mobilnál (meg desktop-on is) egy lap tetejére gombot elhelyezni!!!
-
+- ADMIn oldalon biztos jó a kéretlen felhsználók kezelése??? (ha nem admin vagy nem láthatod.)
 
 
 

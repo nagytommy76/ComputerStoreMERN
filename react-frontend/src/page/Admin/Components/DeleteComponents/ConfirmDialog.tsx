@@ -18,7 +18,7 @@ const ConfirmDialog: React.FC<{
          <DialogTitle id='alert-dialog-title'>Biztosan törlöd?</DialogTitle>
          <DialogContent>
             <DialogContentText id='alert-dialog-description'>
-               Biztosan törölni szeretnéd a(z) {productNameForSnackbar} terméket véglegesen az adatbázisból?
+               Biztosan törölni szeretnéd a(z) {productNameForSnackbar} elemet véglegesen az adatbázisból?
             </DialogContentText>
          </DialogContent>
          <DialogActions>
