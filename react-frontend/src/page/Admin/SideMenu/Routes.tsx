@@ -1,7 +1,8 @@
 import React, { useState, lazy } from 'react'
 import { AccordionContainer } from './RoutesStyles'
 
-const BaseAccordionPanel = React.lazy(() => import('./BaseAccordionPanel'))
+const BaseAccordionPanel = lazy(() => import('./BaseAccordionPanel'))
+const UsersLink = lazy(() => import('./Links/UsersLinks'))
 
 const VgaLink = lazy(() => import('./Links/VgaLinks'))
 const CpuLink = lazy(() => import('./Links/CpuLinks'))
@@ -19,6 +20,14 @@ const Routes: React.FC<{ setSideBarOpen: React.Dispatch<React.SetStateAction<boo
 
    return (
       <AccordionContainer>
+         <BaseAccordionPanel
+            expanded={expanded}
+            handleExpanded={handleExpanded}
+            panelNumber='panel0'
+            productType='user'
+         >
+            <UsersLink setSideBarOpen={setSideBarOpen} />
+         </BaseAccordionPanel>
          <BaseAccordionPanel
             expanded={expanded}
             handleExpanded={handleExpanded}

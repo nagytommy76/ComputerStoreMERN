@@ -3,6 +3,8 @@ import { AdminPageContainer, RightContentStyle } from './AdminStyle'
 import { Routes, Route } from 'react-router-dom'
 import SideMenu from './SideMenu/SideMenu'
 
+const Users = lazy(() => import('./Users/Users'))
+
 const VgaInsert = lazy(() => import('./Vga/Insert/VgaInsert'))
 const VgaModify = lazy(() => import('./Vga/Modify/ModifyVga'))
 const DeleteVga = lazy(() => import('./Vga/Delete/DeleteVga'))
@@ -53,6 +55,9 @@ const Admin = () => {
                   <Route path='insert' element={<SSDInsert />} />
                   <Route path='modify' element={<SSDModify />} />
                   <Route path='delete' element={<SSDDelete />} />
+               </Route>
+               <Route path='user/*'>
+                  <Route path='user' element={<Users />} />
                </Route>
             </Routes>
          </RightContentStyle>
