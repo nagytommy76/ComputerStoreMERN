@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, Suspense } from 'react'
+import useAxiosSetup from './AxiosSetup/AxiosSetup'
 
 import { ThemeProvider } from 'styled-components'
 import { ThemeProvider as MUIThemeProvider } from '@mui/material/styles'
@@ -13,7 +14,7 @@ import Navbar from './page/Navbar/Navbar'
 import Footer from './page/Footer/Footer'
 import PageSuspense from './SuspenseComponents/Page/PageSuspense'
 import Routes from './Routes'
-import useAxiosSetup from './AxiosSetup/AxiosSetup'
+import ScrollToTop from './Routes/ScrollToTop'
 
 // https://lewiskori.com/blog/how-to-auto-refresh-jwts-using-axios-interceptors/
 const App = () => {
@@ -44,6 +45,7 @@ const App = () => {
                <Routes />
             </Suspense>
             <Footer />
+            <ScrollToTop />
          </ThemeProvider>
       </MUIThemeProvider>
    )
