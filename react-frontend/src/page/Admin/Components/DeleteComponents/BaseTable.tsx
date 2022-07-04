@@ -44,12 +44,12 @@ const BaseTable: React.FC<{
                   ).map(product => (
                      <SingleTableRow product={product} key={product._id}>
                         <DeleteButton
-                           productNameForSnackbar={product.type}
+                           nameForSnackbar={product.type}
                            setIsSnackOpen={setIsSnackOpen}
-                           allProducts={allDetailedProduct}
-                           setAllProducts={setAllDetailedProduct}
+                           allToDelete={allDetailedProduct}
+                           setAllToDelete={setAllDetailedProduct}
                            productTypeForURL={productType}
-                           productID={product._id}
+                           toDeleteID={product._id}
                         />
                      </SingleTableRow>
                   ))}

@@ -1,62 +1,43 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { createPortal } from 'react-dom'
-import { axiosInstance as axios } from '../../../../AxiosSetup/AxiosInstance'
-import { ProductToDeleteType, SnackbarStateTypes } from './Types'
+import { SnackbarStateTypes } from './Types'
+
+import useDeleteButtonHook from '../../Hooks/DeleteButtonHook'
 
 import IconButton from '@mui/material/IconButton'
-import DeleteIcon from '@mui/icons-material/Delete'
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 
 const ConfirmDialog = React.lazy(() => import('./ConfirmDialog'))
 
 const DeleteButton: React.FC<{
-   productID: string
+   toDeleteID: string
    productTypeForURL: string
-   setAllProducts: React.Dispatch<React.SetStateAction<ProductToDeleteType[]>>
-   allProducts: ProductToDeleteType[]
-   productNameForSnackbar: string
+   setAllToDelete: React.Dispatch<React.SetStateAction<any[]>>
+   allToDelete: any[]
+   nameForSnackbar: string
    setIsSnackOpen: React.Dispatch<React.SetStateAction<SnackbarStateTypes>>
-}> = ({
-   productID,
-   productTypeForURL,
-   setAllProducts,
-   allProducts,
-   setIsSnackOpen,
-   productNameForSnackbar,
-}) => {
-   const [isDialogOpen, setIsDialogOpen] = useState(false)
+}> = ({ toDeleteID, productTypeForURL, setAllToDelete, allToDelete, setIsSnackOpen, nameForSnackbar }) => {
+   const { handleCancelButtonClick, handleConfirmButtonClick, handleDialogClickOpen, isDialogOpen } =
+      useDeleteButtonHook(
+         productTypeForURL,
+         toDeleteID,
+         allToDelete,
+         setAllToDelete,
+         setIsSnackOpen,
+         nameForSnackbar
+      )
 
-   const handleDialogClickOpen = async () => setIsDialogOpen(true)
-
-   const handleCancelButtonClick = () => setIsDialogOpen(false)
-
-   const handleConfirmButtonClick = async () => {
-      try {
-         const deleteSuccessResponse = await axios.delete(`admin/${productTypeForURL}/delete`, {
-            data: { productID },
-         })
-         if (deleteSuccessResponse.status === 200 && deleteSuccessResponse.data.deleted) {
-            const productsWithoutDeletedItem = allProducts.filter(product => productID !== product._id)
-            setIsSnackOpen(prevValues => {
-               return { ...prevValues, isOpen: true, deletedProductName: productNameForSnackbar }
-            })
-            setIsDialogOpen(false)
-            setAllProducts(productsWithoutDeletedItem)
-         }
-      } catch (error) {
-         console.log(error)
-      }
-   }
    return (
       <>
          <IconButton color='error' onClick={handleDialogClickOpen}>
-            <DeleteIcon />
+            <DeleteForeverIcon />
          </IconButton>
          {createPortal(
             <ConfirmDialog
                isDialogOpen={isDialogOpen}
                handleCancelButtonClick={handleCancelButtonClick}
                handleConfirmButtonClick={handleConfirmButtonClick}
-               productNameForSnackbar={productNameForSnackbar}
+               productNameForSnackbar={nameForSnackbar}
             />,
             document.getElementById('delete-dialog') as HTMLElement
          )}
