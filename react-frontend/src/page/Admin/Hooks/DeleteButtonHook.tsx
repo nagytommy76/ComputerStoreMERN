@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { axiosInstance } from '../../../AxiosSetup/AxiosInstance'
 import { SnackbarStateTypes } from '../Components/DeleteComponents/Types'
 
-const DeleteButtonHook = (
+const useDeleteButtonHook = (
    productTypeForURL: string,
    toDeleteID: string,
    allToDelete: any[],
@@ -41,4 +41,4 @@ const DeleteButtonHook = (
    }
 }
 
-export default DeleteButtonHook
+export default useDeleteButtonHook
