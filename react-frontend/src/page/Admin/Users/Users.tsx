@@ -16,13 +16,21 @@ const TableHeader = lazy(() => import('./Components/TableHead'))
 const Footer = lazy(() => import('./Components/Footer'))
 const DeleteButton = lazy(() => import('../Components/DeleteComponents/DeleteButton'))
 const SnackBar = lazy(() => import('../Components/DeleteComponents/SnackBar'))
+const CommentModal = lazy(() => import('./Components/CommentsModal'))
 
 const Users = () => {
    const [users, setUsers] = useState<UserTypes[]>([])
+   const [selectedUserId, setSelectedUserId] = useState<string | null>(null)
+   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
    const [isSnackOpen, setIsSnackOpen] = useState<SnackbarStateTypes>({
       isOpen: false,
       deletedProductName: '',
    })
+
+   const toggleModal = (userID: string) => {
+      setIsModalOpen(!isModalOpen)
+      setSelectedUserId(userID)
+   }
 
    useEffect(() => {
       const fetchUserData = async () => {
@@ -41,15 +49,20 @@ const Users = () => {
                <TableHeader />
                <TableBody>
                   {users.map((user: UserTypes) => (
-                     <TableRow key={user._id}>
+                     <TableRow
+                        sx={{ cursor: 'pointer' }}
+                        onClick={() => toggleModal(user._id)}
+                        hover
+                        key={user._id}
+                     >
                         <TableCell scope='row' component='th'>
                            {user.email}
                         </TableCell>
                         <TableCell align='right'>{user.userName}</TableCell>
                         <TableCell align='right'>{user.isEmailConfirmed ? 'Igen' : 'Nem'}</TableCell>
                         <TableCell align='right'>{user.isAdmin ? 'Igen' : 'Nem'}</TableCell>
-                        {!user.isAdmin && (
-                           <TableCell align='right'>
+                        <TableCell align='right'>
+                           {!user.isAdmin && (
                               <DeleteButton
                                  productTypeForURL='users'
                                  setIsSnackOpen={setIsSnackOpen}
@@ -58,8 +71,8 @@ const Users = () => {
                                  setAllToDelete={setUsers}
                                  toDeleteID={user._id}
                               />
-                           </TableCell>
-                        )}
+                           )}
+                        </TableCell>
                      </TableRow>
                   ))}
                </TableBody>
@@ -70,6 +83,7 @@ const Users = () => {
             <SnackBar isSnackOpen={isSnackOpen} setIsSnackOpen={setIsSnackOpen} />,
             document.getElementById('delete-snackbar') as HTMLElement
          )}
+         <CommentModal userID={selectedUserId} isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
       </>
    )
 }
