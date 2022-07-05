@@ -47,7 +47,7 @@ const ScrollToTop = () => {
    })
 
    return (
-      <Fade in={isVisible} mountOnEnter unmountOnExit>
+      <Fade in={isVisible}>
          <StyledIconButton size='large' color='primary' onClick={scrollToTop}>
             <StyledIcon />
          </StyledIconButton>

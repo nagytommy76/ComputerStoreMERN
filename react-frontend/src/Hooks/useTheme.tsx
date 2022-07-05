@@ -35,6 +35,7 @@ const useMaterialTheme = () => {
             primary: {
                main: amber[800],
                contrastText: '#000',
+               dark: '#ebebeb',
             },
             secondary: {
                main: '#444',
@@ -67,6 +68,7 @@ const useMaterialTheme = () => {
                // main: '#ffc300',
                main: amber[800],
                contrastText: '#FFF',
+               dark: '#333',
             },
             secondary: {
                main: '#FFF',
