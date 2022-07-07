@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { axiosInstance } from '../../../../AxiosSetup/AxiosInstance'
 
 import Typography from '@mui/material/Typography'
 import Backdrop from '@mui/material/Backdrop'
@@ -24,6 +25,22 @@ const CommentsModal: React.FC<{
    isOpen: boolean
    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }> = ({ userID, isOpen, setIsOpen }) => {
+   useEffect(() => {
+      const fetchUserComments = async () => {
+         try {
+            const response = await axiosInstance.get(`/admin/users/get-all-rating`, {
+               params: {
+                  userID,
+               },
+            })
+            console.log(response.data)
+         } catch (error) {
+            console.log(error)
+         }
+      }
+      userID && fetchUserComments()
+   }, [userID])
+
    return (
       <Modal
          aria-labelledby='transition-modal-title'
