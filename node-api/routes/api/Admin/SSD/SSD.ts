@@ -14,8 +14,8 @@ import { insertSSDValidator } from './Validator/SsdValidator'
 
 const router = Router()
 
-router.get('get-all', checkUserIsAdmin, getAllSSDController)
-router.get('get-to-delete', checkUserIsAdmin, getAllSSDItemsForDeleteController)
+router.get('/get-all', checkUserIsAdmin, getAllSSDController)
+router.get('/get-to-delete', checkUserIsAdmin, getAllSSDItemsForDeleteController)
 
 router.post('/insert', insertSSDValidator, checkUserIsAdmin, checkErrors, insertSSDProductController)
 router.post('/modify', insertSSDValidator, checkUserIsAdmin, checkErrors, modifySSDProductController)
