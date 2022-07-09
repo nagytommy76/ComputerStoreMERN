@@ -7,6 +7,7 @@ import { CpuProduct } from '../../../models/Products/Cpu/CpuSchema'
  * Felhasználók kezelése
  * - Felhasználók listázása,
  * - Rendelések listázása, státusz megváltoztatása pl (feldolgozás alatt, feldolgozva, elküldve stb)
+ * - Vissza kéne úgy küldeni a ratingValuest, hogy a key a termék ID legyen (vagy benne legyen a termék ID)
  */
 
 export const getAllUsers = async (request: Request, response: Response) => {
@@ -20,7 +21,7 @@ export const getAllUsers = async (request: Request, response: Response) => {
 
 export const removeSingleUser = async (request: DeleteRequest, response: Response) => {
    try {
-      // const user = await User.findByIdAndDelete(request.body.userID)
+      const user = await User.findByIdAndDelete(request.body.userID)
       response.status(200).json({ msg: 'sikeres törlés', deleted: true })
    } catch (error) {
       response.status(500).json(error)
@@ -33,9 +34,9 @@ export const getAllRatingValuesByUserID = async (request: Request, response: Res
       const allFoundUserRatingsInCpu = await CpuProduct.find(
          { 'ratingValues.userId': userId },
          { ratingValues: { $elemMatch: { userId } } }
-      )
+      ).lean()
 
-      response.status(200).json(allFoundUserRatingsInCpu)
+      response.status(200).json({ cpu: allFoundUserRatingsInCpu })
    } catch (error) {
       response.status(500).json(error)
    }
