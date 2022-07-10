@@ -33,7 +33,7 @@ export const getAllRatingValuesByUserID = async (request: Request, response: Res
       const userId = request.query.userID
       const allFoundUserRatingsInCpu = await CpuProduct.find(
          { 'ratingValues.userId': userId },
-         { ratingValues: { $elemMatch: { userId } } }
+         { ratingValues: { $elemMatch: { userId } }, type: 1, manufacturer: 1 }
       ).lean()
 
       response.status(200).json({ cpu: allFoundUserRatingsInCpu })
