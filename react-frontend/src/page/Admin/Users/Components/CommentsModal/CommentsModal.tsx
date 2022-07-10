@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { axiosInstance } from '../../../../../AxiosSetup/AxiosInstance'
 
 import Typography from '@mui/material/Typography'
@@ -7,27 +7,31 @@ import Modal from '@mui/material/Modal'
 import Fade from '@mui/material/Fade'
 
 import { StyledBox } from './Styles'
+import { RateState } from '../../../../ShopPages/BaseComponents/ProductDetailsPage/Ratings/Comments/Helpers'
 
 const CommentsModal: React.FC<{
-   userID: string | null
+   userInfo: { userID: string | null; userName: string }
    isOpen: boolean
    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
-}> = ({ userID, isOpen, setIsOpen }) => {
+}> = ({ userInfo, isOpen, setIsOpen }) => {
+   const [cpuComments, setCpuComments] = useState<IncomingCommentType[]>([])
+
    useEffect(() => {
       const fetchUserComments = async () => {
          try {
             const response = await axiosInstance.get(`/admin/users/get-all-rating`, {
                params: {
-                  userID,
+                  userID: userInfo.userID,
                },
             })
             console.log(response.data)
+            setCpuComments(response.data.cpu)
          } catch (error) {
             console.log(error)
          }
       }
-      userID && fetchUserComments()
-   }, [userID])
+      userInfo.userID && fetchUserComments()
+   }, [userInfo.userID])
 
    return (
       <Modal
@@ -44,14 +48,15 @@ const CommentsModal: React.FC<{
          <Fade in={isOpen}>
             <StyledBox>
                <Typography id='transition-modal-title' variant='h6' component='h2'>
-                  Text in a modal
+                  {userInfo.userName} felhasználó kommentjei termékeknként
                </Typography>
-               {/*<Typography id="transition-modal-description" sx={{ mt: 2 }}>
-                    Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                    </Typography> */}
-               <Typography variant='body1'>
-                  Ide jönnek az adott felhasználó kommentjei USERID: {userID}
-               </Typography>
+               <section>
+                  {cpuComments.map((comment: IncomingCommentType) => (
+                     <div key={comment._id}>
+                        {comment.manufacturer} {comment.type}
+                     </div>
+                  ))}
+               </section>
             </StyledBox>
          </Fade>
       </Modal>
@@ -59,3 +64,10 @@ const CommentsModal: React.FC<{
 }
 
 export default CommentsModal
+
+type IncomingCommentType = {
+   manufacturer: string
+   _id: string
+   type: string
+   ratingValues: RateState
+}
