@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
+import { CommentContext } from '../../Context/CommentContext'
 import { axiosInstance } from '../../../../../AxiosSetup/AxiosInstance'
 
 import Typography from '@mui/material/Typography'
@@ -9,11 +10,8 @@ import Fade from '@mui/material/Fade'
 import { StyledBox } from './Styles'
 import { RateState } from '../../../../ShopPages/BaseComponents/ProductDetailsPage/Ratings/Comments/Helpers'
 
-const CommentsModal: React.FC<{
-   userInfo: { userID: string | null; userName: string }
-   isOpen: boolean
-   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
-}> = ({ userInfo, isOpen, setIsOpen }) => {
+const CommentsModal: React.FC = () => {
+   const { selectedUserIdAndName, isModalOpen, setIsModalOpen } = useContext(CommentContext)
    const [cpuComments, setCpuComments] = useState<IncomingCommentType[]>([])
 
    useEffect(() => {
@@ -21,7 +19,7 @@ const CommentsModal: React.FC<{
          try {
             const response = await axiosInstance.get(`/admin/users/get-all-rating`, {
                params: {
-                  userID: userInfo.userID,
+                  userID: selectedUserIdAndName.userID,
                },
             })
             console.log(response.data)
@@ -30,25 +28,25 @@ const CommentsModal: React.FC<{
             console.log(error)
          }
       }
-      userInfo.userID && fetchUserComments()
-   }, [userInfo.userID])
+      selectedUserIdAndName.userID && fetchUserComments()
+   }, [selectedUserIdAndName.userID])
 
    return (
       <Modal
          aria-labelledby='transition-modal-title'
          aria-describedby='transition-modal-description'
-         open={isOpen}
-         onClose={() => setIsOpen(false)}
+         open={isModalOpen}
+         onClose={() => setIsModalOpen(false)}
          closeAfterTransition
          BackdropComponent={Backdrop}
          BackdropProps={{
             timeout: 500,
          }}
       >
-         <Fade in={isOpen}>
+         <Fade in={isModalOpen}>
             <StyledBox>
                <Typography id='transition-modal-title' variant='h6' component='h2'>
-                  {userInfo.userName} felhasználó kommentjei termékeknként
+                  {selectedUserIdAndName.userName} felhasználó kommentjei termékeknként
                </Typography>
                <section>
                   {cpuComments.map((comment: IncomingCommentType) => (
