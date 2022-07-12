@@ -7,8 +7,10 @@ import Backdrop from '@mui/material/Backdrop'
 import Modal from '@mui/material/Modal'
 import Fade from '@mui/material/Fade'
 
-import { StyledBox } from './Styles'
+import { StyledBox, StyledCommentSection, StyledCommentCard } from './Styles'
 import { RateState } from '../../../../ShopPages/BaseComponents/ProductDetailsPage/Ratings/Comments/Helpers'
+
+const SingleCommentCard = React.lazy(() => import('./Includes/SingleCommentCard'))
 
 const CommentsModal: React.FC = () => {
    const { selectedUserIdAndName, isModalOpen, setIsModalOpen } = useContext(CommentContext)
@@ -45,16 +47,19 @@ const CommentsModal: React.FC = () => {
       >
          <Fade in={isModalOpen}>
             <StyledBox>
-               <Typography id='transition-modal-title' variant='h6' component='h2'>
-                  {selectedUserIdAndName.userName} felhasználó kommentjei termékeknként
+               <Typography align='center' m={2} id='transition-modal-title' variant='h4' component='h2'>
+                  {selectedUserIdAndName.userName}
                </Typography>
-               <section>
+               <StyledCommentSection>
                   {cpuComments.map((comment: IncomingCommentType) => (
-                     <div key={comment._id}>
-                        {comment.manufacturer} {comment.type}
-                     </div>
+                     <>
+                        <Typography variant='body1' key={comment._id}>
+                           {comment.manufacturer} {comment.type}
+                        </Typography>
+                        <SingleCommentCard comments={comment.ratingValues} />
+                     </>
                   ))}
-               </section>
+               </StyledCommentSection>
             </StyledBox>
          </Fade>
       </Modal>
@@ -67,5 +72,5 @@ type IncomingCommentType = {
    manufacturer: string
    _id: string
    type: string
-   ratingValues: RateState
+   ratingValues: RateState[]
 }
