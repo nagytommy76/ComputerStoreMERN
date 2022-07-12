@@ -1,5 +1,4 @@
 
-- Esetleg PDF generálás?!
 
 - Ha a felhasználó regsiztrálta az email címét, inaktiválni kell az EmailTokent!!???!?!?!?!?
 
@@ -36,6 +35,7 @@ Kommenteket szeretnék törölni, felhasználónak az összes kommentjét lássa
 
 - ADMIN oldalon SSD törlése/módosítása hiányzik!
 - ADMIn oldalon biztos jó a kéretlen felhsználók kezelése??? (ha nem admin vagy nem láthatod.)
+- Esetleg PDF generálás?!
 
 
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useCallback } from 'react'
+import React, { useEffect, useContext, useCallback } from 'react'
 import { axiosInstance } from '../../../../AxiosSetup/AxiosInstance'
 
 import { CommentContext } from '../Context/CommentContext'
