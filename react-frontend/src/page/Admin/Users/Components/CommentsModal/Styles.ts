@@ -8,8 +8,8 @@ export const StyledBox = styled('section')(({ theme }) => ({
    top: '50%',
    left: '50%',
    transform: 'translate(-50%, -50%)',
-   // boxSizing: 'border-box',
 
+   outline: 'none',
    padding: '1rem',
    width: '60%',
    minHeight: '60%',
