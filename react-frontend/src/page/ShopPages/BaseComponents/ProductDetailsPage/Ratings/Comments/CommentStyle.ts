@@ -13,10 +13,6 @@ export const CommentCard = MUIStyled(CardContent)({
    },
 })
 
-export const LeftSide = styled.div`
-   flex: 1;
-`
-
 export const RightSide = styled.div`
    flex: 2;
    display: flex;
