@@ -35,8 +35,6 @@ const CommentsModal: React.FC = () => {
 
    return (
       <Modal
-         aria-labelledby='transition-modal-title'
-         aria-describedby='transition-modal-description'
          open={isModalOpen}
          onClose={() => setIsModalOpen(false)}
          closeAfterTransition
@@ -47,17 +45,23 @@ const CommentsModal: React.FC = () => {
       >
          <Fade in={isModalOpen}>
             <StyledBox>
-               <Typography align='center' m={2} id='transition-modal-title' variant='h4' component='h2'>
-                  {selectedUserIdAndName.userName}
+               <Typography
+                  align='center'
+                  pt={1}
+                  pb={3}
+                  id='transition-modal-title'
+                  variant='h4'
+                  component='h2'
+               >
+                  Kommentek {selectedUserIdAndName.userName} felhasználótól
                </Typography>
                <StyledCommentSection>
                   {cpuComments.map((comment: IncomingCommentType) => (
-                     <>
-                        <Typography variant='body1' key={comment._id}>
-                           {comment.manufacturer} {comment.type}
-                        </Typography>
-                        <SingleCommentCard comments={comment.ratingValues} />
-                     </>
+                     <SingleCommentCard
+                        key={comment._id}
+                        leftTitle={comment.type}
+                        comments={comment.ratingValues}
+                     />
                   ))}
                </StyledCommentSection>
             </StyledBox>
