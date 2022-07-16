@@ -9,9 +9,11 @@ import {
 } from '../../../../../ShopPages/BaseComponents/ProductDetailsPage/Ratings/Comments/Answers/AnswerStyle'
 import { TransitionGroup } from 'react-transition-group'
 
+import Button from '@mui/material/Button'
 import Collapse from '@mui/material/Collapse'
-import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
+import CardContent from '@mui/material/CardContent'
+import GppBadIcon from '@mui/icons-material/GppBad'
 
 const CommentAnswers: React.FC<{ commentAnswers: CommentAnswerType[] }> = ({ commentAnswers }) => {
    return (
@@ -26,7 +28,14 @@ const CommentAnswers: React.FC<{ commentAnswers: CommentAnswerType[] }> = ({ com
                      </LeftAnswerStyle>
                      <RightAnswerStyle>
                         <Typography variant='body1'>{answers.answer}</Typography>
-                        <p>Törlés gomb</p>
+                        <Button
+                           sx={{ marginTop: 2 }}
+                           variant='outlined'
+                           startIcon={<GppBadIcon />}
+                           color='error'
+                        >
+                           Válasz törlése
+                        </Button>
                      </RightAnswerStyle>
                   </SingleAnswerStyle>
                </Collapse>
