@@ -7,10 +7,11 @@ import Backdrop from '@mui/material/Backdrop'
 import Modal from '@mui/material/Modal'
 import Fade from '@mui/material/Fade'
 
-import { StyledBox, StyledCommentSection, StyledCommentCard } from './Styles'
+import { StyledBox, StyledCommentSection } from './Styles'
 import { RateState } from '../../../../ShopPages/BaseComponents/ProductDetailsPage/Ratings/Comments/Helpers'
 
 const SingleCommentCard = React.lazy(() => import('./Includes/SingleCommentCard'))
+const BottomNavigation = React.lazy(() => import('./Includes/Navigation/Navigation'))
 
 const CommentsModal: React.FC = () => {
    const { selectedUserIdAndName, isModalOpen, setIsModalOpen } = useContext(CommentContext)
@@ -64,6 +65,7 @@ const CommentsModal: React.FC = () => {
                      />
                   ))}
                </StyledCommentSection>
+               <BottomNavigation />
             </StyledBox>
          </Fade>
       </Modal>
