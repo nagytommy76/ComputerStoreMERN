@@ -3,12 +3,17 @@ import { RateState } from '../../../../../ShopPages/BaseComponents/ProductDetail
 
 import { StyledCommentCard } from '../Styles'
 import { RightSide } from '../../../../../ShopPages/BaseComponents/ProductDetailsPage/Ratings/Comments/CommentStyle'
+
 import Card from '@mui/material/Card'
+
 import Typography from '@mui/material/Typography'
+import Button from '@mui/material/Button'
+import CancelPresentationIcon from '@mui/icons-material/CancelPresentation'
 
 const CardContentLeftSide = React.lazy(
    () => import('../../../../../Components/RatingComponents/RatingCardLeftContent')
 )
+const CommentAnswers = React.lazy(() => import('./CommentAnswers'))
 
 const SingleCommentCard: React.FC<{ comments: RateState[]; leftTitle: string }> = ({
    comments,
@@ -26,9 +31,14 @@ const SingleCommentCard: React.FC<{ comments: RateState[]; leftTitle: string }> 
                   />
                   <RightSide>
                      <Typography variant='body1'>{comment.comment}</Typography>
-                     <p>ide művelet gombok jönnek</p>
+                     <span>
+                        <Button color='error' variant='outlined' startIcon={<CancelPresentationIcon />}>
+                           Komment törlése
+                        </Button>
+                     </span>
                   </RightSide>
                </StyledCommentCard>
+               <CommentAnswers commentAnswers={comment.commentAnswers} />
             </Card>
          ))}
       </>
