@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 
+import { StyledBottomNavigation } from './Include/Style'
+
 import BaseIcon from './Assets/BaseIcon'
 import { ReactComponent as HDDIcon } from './Assets/hdd.svg'
 import { ReactComponent as SSDIcon } from './Assets/ssd.svg'
@@ -8,14 +10,13 @@ import { ReactComponent as MemoryIcon } from './Assets/ram.svg'
 import { ReactComponent as ProcessorIcon } from './Assets/processor.svg'
 
 import BottomNavigationAction from '@mui/material/BottomNavigationAction'
-import BottomNavigation from '@mui/material/BottomNavigation'
 
 enum NavLabels {
-   Processor = 'Processzor',
-   Vga = 'Vga',
-   Memory = 'Memória',
-   HDD = 'HDD',
-   SSD = 'SSD',
+   Processor = 'cpu',
+   Vga = 'vga',
+   Memory = 'ram',
+   HDD = 'hdd',
+   SSD = 'ssd',
 }
 
 const Navigation = () => {
@@ -26,7 +27,7 @@ const Navigation = () => {
    }
 
    return (
-      <BottomNavigation sx={{ height: 90 }} value={value} onChange={handleChange}>
+      <StyledBottomNavigation value={value} onChange={handleChange}>
          <BottomNavigationAction
             // style={{ color: '#fff' }}
             value={NavLabels.Processor}
@@ -73,7 +74,7 @@ const Navigation = () => {
                </BaseIcon>
             }
          />
-      </BottomNavigation>
+      </StyledBottomNavigation>
    )
 }
 // https://mui.com/material-ui/icons/#svgicon
