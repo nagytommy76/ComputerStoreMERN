@@ -1,7 +1,6 @@
 import { Request, Response } from 'express'
 import { User } from '../../../models/User/User'
-
-import { CpuProduct } from '../../../models/Products/Cpu/CpuSchema'
+import { returnAllUserRatingsByProductType } from './Helper/RatingsHelper'
 
 /**
  * Felhasználók kezelése
@@ -30,17 +29,19 @@ export const removeSingleUser = async (request: DeleteRequest, response: Respons
 
 export const getAllRatingValuesByUserID = async (request: Request, response: Response) => {
    try {
-      const userId = request.query.userID
-      const allFoundUserRatingsInCpu = await CpuProduct.find(
-         { 'ratingValues.userId': userId },
-         { ratingValues: { $elemMatch: { userId } }, type: 1, manufacturer: 1 }
-      ).lean()
+      const userId = request.query.userID as string | undefined
+      if (!userId) {
+         return response.status(404).json({ msg: 'Nincs userID' })
+      }
 
-      response.status(200).json({ cpu: allFoundUserRatingsInCpu })
+      const allUserRatings = await returnAllUserRatingsByProductType(userId)
+      response.status(200).json(allUserRatings)
    } catch (error) {
       response.status(500).json(error)
    }
 }
+
+// Megcsinálni a többi termékhez is ezt a lekérést
 
 type DeleteRequest = Request & {
    body: {
