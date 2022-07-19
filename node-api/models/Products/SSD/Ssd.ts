@@ -2,7 +2,7 @@ import { Schema, model } from 'mongoose'
 import { BaseProductType, ChartDataType } from '../BaseTypes'
 import { BaseSchemaPropertiesAndTypes, ChartData } from '../Helper'
 
-const SSDSchema = new Schema<SSDSchemaType>({
+const SSDSchema = new Schema<SSDProductType>({
    ...BaseSchemaPropertiesAndTypes,
    details: {
       capacity: { type: Number, required: true },
@@ -19,7 +19,7 @@ const SSDSchema = new Schema<SSDSchemaType>({
    },
 })
 
-export const SSDProduct = model<SSDSchemaType>('SsdProduct', SSDSchema)
+export const SSDProduct = model<SSDProductType>('SsdProduct', SSDSchema)
 
 export type SSDDetailsType = {
    size: string
@@ -35,6 +35,6 @@ export type SSDDetailsType = {
    chartData: ChartDataType[]
 }
 
-type SSDSchemaType = BaseProductType & {
+export type SSDProductType = BaseProductType & {
    details: SSDDetailsType
 }

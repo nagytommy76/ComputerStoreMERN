@@ -2,7 +2,7 @@ import { Schema, model } from 'mongoose'
 import { BaseProductType, ChartDataType } from '../BaseTypes'
 import { BaseSchemaPropertiesAndTypes, ChartData } from '../Helper'
 
-const HDDSchema = new Schema<HDDSchemaType>({
+const HDDSchema = new Schema<HDDProductType>({
    ...BaseSchemaPropertiesAndTypes,
    details: {
       sataType: { type: Number, required: true },
@@ -16,7 +16,7 @@ const HDDSchema = new Schema<HDDSchemaType>({
    },
 }).add({ details: { chartData: ChartData } })
 
-export const HddProduct = model<HDDSchemaType>('HddProduct', HDDSchema)
+export const HddProduct = model<HDDProductType>('HddProduct', HDDSchema)
 
 export type HDDDetailsType = {
    sataType: number
@@ -30,6 +30,6 @@ export type HDDDetailsType = {
    chartData: ChartDataType[]
 }
 
-type HDDSchemaType = BaseProductType & {
+export type HDDProductType = BaseProductType & {
    details: HDDDetailsType
 }
