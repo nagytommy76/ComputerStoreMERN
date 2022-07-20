@@ -60,7 +60,7 @@ const CommentsModal: React.FC = () => {
                   {cpuComments.map((comment: IncomingCommentType) => (
                      <SingleCommentCard
                         key={comment._id}
-                        leftTitle={comment.type}
+                        leftTitle={`${comment.manufacturer} ${comment.type}`}
                         comments={comment.ratingValues}
                      />
                   ))}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { StyledBottomNavigation } from './Include/Style'
+import { StyledBottomNavigation } from './Style'
 
 import BaseIcon from './Assets/BaseIcon'
 import { ReactComponent as HDDIcon } from './Assets/hdd.svg'
@@ -29,7 +29,6 @@ const Navigation = () => {
    return (
       <StyledBottomNavigation value={value} onChange={handleChange}>
          <BottomNavigationAction
-            // style={{ color: '#fff' }}
             value={NavLabels.Processor}
             label='Processzor'
             icon={
