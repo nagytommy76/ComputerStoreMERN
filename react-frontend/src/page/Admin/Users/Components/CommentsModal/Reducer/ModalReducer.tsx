@@ -26,11 +26,11 @@ export enum ProductActionTypes {
 
 interface IBaseListAction {
    type: ProductActionTypes
-   errorMessage?: string
-   payload?: IncomingCommentType[]
+   payload: IncomingCommentType[]
 }
 
 export const initialState: InitialState = {
+   //https://stackoverflow.com/questions/54771003/usereducers-initialstate-is-typed-as-never
    cpu: [],
    vga: [],
    memory: [],
@@ -38,7 +38,7 @@ export const initialState: InitialState = {
    ssd: [],
 }
 
-export function commentsReducer(state: InitialState, action: IBaseListAction): any {
+export function commentsReducer(state: InitialState, action: IBaseListAction): InitialState {
    switch (action.type) {
       case ProductActionTypes.CPU:
          return {
