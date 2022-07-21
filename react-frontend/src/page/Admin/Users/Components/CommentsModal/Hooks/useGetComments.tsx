@@ -14,15 +14,37 @@ const useGetComments = (userID: string | null) => {
                   userID: userID,
                },
             })
+            dispatch({
+               type: ProductActionTypes.CPU,
+               payload: response.data.cpu,
+            })
+            dispatch({
+               type: ProductActionTypes.VGA,
+               payload: response.data.vga,
+            })
+            dispatch({
+               type: ProductActionTypes.MEMORY,
+               payload: response.data.memory,
+            })
+            dispatch({
+               type: ProductActionTypes.SSD,
+               payload: response.data.ssd,
+            })
+            dispatch({
+               type: ProductActionTypes.HDD,
+               payload: response.data.hdd,
+            })
             console.log(response.data)
-            //   setCpuComments(response.data.cpu)
+            console.log(state.cpu)
          } catch (error) {
             console.log(error)
          }
       }
       userID && fetchUserComments()
    }, [userID])
-   return {}
+   return {
+      commentsState: state,
+   }
 }
 
 export default useGetComments
