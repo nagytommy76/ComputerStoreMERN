@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 
+import { NavLabels } from '../../CommentsModal'
 import { StyledBottomNavigation } from './Style'
 
 import BaseIcon from './Assets/BaseIcon'
@@ -11,17 +12,10 @@ import { ReactComponent as ProcessorIcon } from './Assets/processor.svg'
 
 import BottomNavigationAction from '@mui/material/BottomNavigationAction'
 
-enum NavLabels {
-   Processor = 'cpu',
-   Vga = 'vga',
-   Memory = 'ram',
-   HDD = 'hdd',
-   SSD = 'ssd',
-}
-
-const Navigation = () => {
-   const [value, setValue] = useState<NavLabels>(NavLabels.Processor)
-
+const Navigation: React.FC<{
+   value: NavLabels
+   setValue: React.Dispatch<React.SetStateAction<NavLabels>>
+}> = ({ setValue, value }) => {
    const handleChange = (event: React.SyntheticEvent, newValue: NavLabels) => {
       setValue(newValue)
    }
