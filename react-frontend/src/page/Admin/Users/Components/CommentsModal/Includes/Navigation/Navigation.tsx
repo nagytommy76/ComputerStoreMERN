@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { NavLabels } from '../../CommentsModal'
 import { StyledBottomNavigation } from './Style'

@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from 'react'
+import { useReducer, useEffect } from 'react'
 import { axiosInstance } from '../../../../../../AxiosSetup/AxiosInstance'
 
 import { commentsReducer, ProductActionTypes, initialState } from '../Reducer/ModalReducer'
@@ -34,8 +34,6 @@ const useGetComments = (userID: string | null) => {
                type: ProductActionTypes.HDD,
                payload: response.data.hdd,
             })
-            console.log(response.data)
-            console.log(state.cpu)
          } catch (error) {
             console.log(error)
          }

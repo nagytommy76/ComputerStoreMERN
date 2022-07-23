@@ -8,9 +8,6 @@ import Backdrop from '@mui/material/Backdrop'
 import Modal from '@mui/material/Modal'
 import Fade from '@mui/material/Fade'
 
-import { TransitionGroup } from 'react-transition-group'
-import Slide from '@mui/material/Slide'
-
 import { StyledBox, StyledCommentSection } from './Styles'
 
 const SingleCommentCard = React.lazy(() => import('./Includes/SingleCommentCard'))
@@ -52,17 +49,19 @@ const CommentsModal: React.FC = () => {
                   Kommentek {selectedUserIdAndName.userName} felhasználótól
                </Typography>
                <StyledCommentSection>
-                  <TransitionGroup>
-                     {commentsState[navLabelsValue].map((comment: IncomingCommentType) => (
-                        <Fade>
-                           <SingleCommentCard
-                              key={comment._id}
-                              leftTitle={`${comment.manufacturer} ${comment.type}`}
-                              comments={comment.ratingValues}
-                           />
-                        </Fade>
-                     ))}
-                  </TransitionGroup>
+                  {commentsState[navLabelsValue].length > 0 ? (
+                     commentsState[navLabelsValue].map((comment: IncomingCommentType) => (
+                        <SingleCommentCard
+                           key={comment._id}
+                           leftTitle={`${comment.manufacturer} ${comment.type}`}
+                           comments={comment.ratingValues}
+                        />
+                     ))
+                  ) : (
+                     <Typography align='center' variant='h4' component='h2'>
+                        Nincsenek kommentek
+                     </Typography>
+                  )}
                </StyledCommentSection>
                <BottomNavigation setValue={setNavLabelsValue} value={navLabelsValue} />
             </StyledBox>
