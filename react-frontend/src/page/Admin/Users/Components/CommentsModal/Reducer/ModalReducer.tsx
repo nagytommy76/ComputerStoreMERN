@@ -1,4 +1,3 @@
-import React from 'react'
 import { RateState } from '../../../../../ShopPages/BaseComponents/ProductDetailsPage/Ratings/Comments/Helpers'
 
 export interface IncomingCommentType {

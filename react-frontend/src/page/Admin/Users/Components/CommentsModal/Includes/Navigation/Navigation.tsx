@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
-import { NavLabels } from '../../CommentsModal'
+import { CommentContext, NavLabels } from '../../../../Context/CommentContext'
 import { StyledBottomNavigation } from './Style'
 
 import BaseIcon from './Assets/BaseIcon'
@@ -12,16 +12,14 @@ import { ReactComponent as ProcessorIcon } from './Assets/processor.svg'
 
 import BottomNavigationAction from '@mui/material/BottomNavigationAction'
 
-const Navigation: React.FC<{
-   value: NavLabels
-   setValue: React.Dispatch<React.SetStateAction<NavLabels>>
-}> = ({ setValue, value }) => {
+const Navigation: React.FC = () => {
+   const { navLabelsValue, setNavLabelsValue } = useContext(CommentContext)
    const handleChange = (event: React.SyntheticEvent, newValue: NavLabels) => {
-      setValue(newValue)
+      setNavLabelsValue(newValue)
    }
 
    return (
-      <StyledBottomNavigation value={value} onChange={handleChange}>
+      <StyledBottomNavigation value={navLabelsValue} onChange={handleChange}>
          <BottomNavigationAction
             value={NavLabels.Processor}
             label='Processzor'

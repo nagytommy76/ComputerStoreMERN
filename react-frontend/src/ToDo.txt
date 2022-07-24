@@ -43,6 +43,8 @@ A főoldalt egy kicsit rendbe rakni, kiemelt termékek, style stb
 https://stackoverflow.com/questions/6502541/mongodb-query-multiple-collections-at-once
 
 
+
+https://help.heroku.com/FZDDCBLB/how-can-i-download-my-code-from-heroku
 MEGCSINÁLTAM:
 - Mobilnál (meg desktop-on is) egy lap tetejére gombot elhelyezni!!!
 
