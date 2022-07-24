@@ -1,4 +1,10 @@
-import { createContext, ReactNode, useState } from 'react'
+import { createContext, ReactNode, useReducer, useState } from 'react'
+import {
+   commentsReducer,
+   initialState,
+   IBaseListAction,
+   InitialState,
+} from '../Components/CommentsModal/Reducer/ModalReducer'
 
 import { SnackbarStateTypes } from '../../Components/DeleteComponents/Types'
 import { UserTypes } from '../UserTypes'
@@ -12,6 +18,8 @@ export enum NavLabels {
 }
 
 export const CommentContext = createContext<CommentsContextType>({
+   commentDispatch: () => {},
+   commentsState: initialState,
    users: [],
    usersLength: 0,
    setUsers: () => {},
@@ -26,6 +34,7 @@ export const CommentContext = createContext<CommentsContextType>({
 })
 
 export const CommentContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+   const [commentsState, commentDispatch] = useReducer(commentsReducer, initialState)
    const [navLabelsValue, setNavLabelsValue] = useState<NavLabels>(NavLabels.Processor)
    const [users, setUsers] = useState<UserTypes[]>([])
    const [selectedUserIdAndName, setSelectedUserIdAndName] = useState<{
@@ -41,6 +50,8 @@ export const CommentContextProvider: React.FC<{ children: ReactNode }> = ({ chil
    return (
       <CommentContext.Provider
          value={{
+            commentDispatch,
+            commentsState,
             users,
             usersLength: users.length,
             setUsers,
@@ -60,6 +71,8 @@ export const CommentContextProvider: React.FC<{ children: ReactNode }> = ({ chil
 }
 
 export type CommentsContextType = {
+   commentDispatch: React.Dispatch<IBaseListAction>
+   commentsState: InitialState
    users: UserTypes[]
    usersLength: number
    setUsers: React.Dispatch<React.SetStateAction<UserTypes[]>>

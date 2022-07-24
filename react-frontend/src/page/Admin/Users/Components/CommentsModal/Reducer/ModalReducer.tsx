@@ -7,7 +7,7 @@ export interface IncomingCommentType {
    ratingValues: RateState[]
 }
 
-interface InitialState {
+export interface InitialState {
    cpu: IncomingCommentType[]
    vga: IncomingCommentType[]
    memory: IncomingCommentType[]
@@ -23,7 +23,7 @@ export enum ProductActionTypes {
    SSD = 'SET_SSD_COMMENTS',
 }
 
-interface IBaseListAction {
+export interface IBaseListAction {
    type: ProductActionTypes
    payload: IncomingCommentType[]
 }

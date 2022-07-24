@@ -1,36 +1,37 @@
-import { useReducer, useEffect } from 'react'
+import { useEffect, useContext } from 'react'
 import { axiosInstance } from '../../../../../../AxiosSetup/AxiosInstance'
+import { CommentContext } from '../../../Context/CommentContext'
 
-import { commentsReducer, ProductActionTypes, initialState } from '../Reducer/ModalReducer'
+import { ProductActionTypes } from '../Reducer/ModalReducer'
 
-const useGetComments = (userID: string | null) => {
-   const [state, dispatch] = useReducer(commentsReducer, initialState)
+const useGetComments = () => {
+   const { commentDispatch, selectedUserIdAndName } = useContext(CommentContext)
 
    useEffect(() => {
       const fetchUserComments = async () => {
          try {
             const response = await axiosInstance.get(`/admin/users/get-all-rating`, {
                params: {
-                  userID: userID,
+                  userID: selectedUserIdAndName.userID,
                },
             })
-            dispatch({
+            commentDispatch({
                type: ProductActionTypes.CPU,
                payload: response.data.cpu,
             })
-            dispatch({
+            commentDispatch({
                type: ProductActionTypes.VGA,
                payload: response.data.vga,
             })
-            dispatch({
+            commentDispatch({
                type: ProductActionTypes.MEMORY,
                payload: response.data.memory,
             })
-            dispatch({
+            commentDispatch({
                type: ProductActionTypes.SSD,
                payload: response.data.ssd,
             })
-            dispatch({
+            commentDispatch({
                type: ProductActionTypes.HDD,
                payload: response.data.hdd,
             })
@@ -38,11 +39,9 @@ const useGetComments = (userID: string | null) => {
             console.log(error)
          }
       }
-      userID && fetchUserComments()
-   }, [userID])
-   return {
-      commentsState: state,
-   }
+      selectedUserIdAndName.userID && fetchUserComments()
+   }, [selectedUserIdAndName.userID, commentDispatch])
+   return null
 }
 
 export default useGetComments
