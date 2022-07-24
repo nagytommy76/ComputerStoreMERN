@@ -37,7 +37,6 @@ const CommentsModal: React.FC = () => {
                   Kommentek {selectedUserIdAndName.userName} felhasználótól
                </Typography>
                <CommentSection />
-
                <BottomNavigation />
             </StyledBox>
          </Fade>

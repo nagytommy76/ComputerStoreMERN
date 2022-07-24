@@ -1,11 +1,31 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { CommentContext } from '../../../../Context/CommentContext'
+import { axiosInstance } from '../../../../../../../AxiosSetup/AxiosInstance'
 
 import Button from '@mui/material/Button'
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation'
 
-const RemoveCommentBtn: React.FC<{ commentToDeletId: string }> = ({ commentToDeletId }) => {
-   const handleSingleCommentDelete = () => {
+const RemoveCommentBtn: React.FC<{ commentToDeletId: string; productID: string }> = ({
+   commentToDeletId,
+   productID,
+}) => {
+   const { navLabelsValue } = useContext(CommentContext)
+
+   const handleSingleCommentDelete = async () => {
       console.log('Egy komment törlése, és az ID: ', commentToDeletId)
+      try {
+         const removeCommentResponse = await axiosInstance.delete(`/admin/users/delete-comment`, {
+            data: {
+               commentID: commentToDeletId,
+               productID,
+               productType: navLabelsValue,
+            },
+         })
+         console.log(navLabelsValue)
+         console.log(removeCommentResponse.data)
+      } catch (error) {
+         console.log(error)
+      }
    }
 
    return (

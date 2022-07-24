@@ -10,8 +10,8 @@ import Typography from '@mui/material/Typography'
 const SingleCommentCard = React.lazy(() => import('../SingleComment/SingleCommentCard'))
 
 const CommentSection: React.FC = () => {
-   const { selectedUserIdAndName, navLabelsValue } = useContext(CommentContext)
-   const { commentsState } = useGetComments(selectedUserIdAndName?.userID)
+   const { navLabelsValue, commentsState } = useContext(CommentContext)
+   useGetComments()
 
    return (
       <StyledCommentSection>
@@ -21,6 +21,7 @@ const CommentSection: React.FC = () => {
                   key={comment._id}
                   leftTitle={`${comment.manufacturer} ${comment.type}`}
                   comments={comment.ratingValues}
+                  productID={comment._id}
                />
             ))
          ) : (
