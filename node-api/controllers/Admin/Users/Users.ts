@@ -41,7 +41,33 @@ export const getAllRatingValuesByUserID = async (request: Request, response: Res
    }
 }
 
-// Megcsinálni a többi termékhez is ezt a lekérést
+export const removeUserSingleCommentFromProduct = async (
+   request: DeleteUserCommentRequest,
+   response: Response
+) => {
+   try {
+      /**
+       * Kell egy product típus, (cpu/vga/...) hogy el tudjam dönteni hol a komment
+       * Illetve egy ProductID, ami alapján keresem a terméket
+       * Kell egy kommentID, hogy tudjam törölni a terméken belül
+       * UserID elvileg nem kell!?
+       */
+      // console.log(request.body.commentID)
+      // console.log(request.body.productID)
+      // console.log(request.body.productType)
+      response.status(200).json({ msg: 'sikeres törlés' })
+   } catch (error) {
+      response.status(500).json(error)
+   }
+}
+
+interface DeleteUserCommentRequest extends Request {
+   body: {
+      productID: string
+      commentID: string
+      productType: string
+   }
+}
 
 type DeleteRequest = Request & {
    body: {
