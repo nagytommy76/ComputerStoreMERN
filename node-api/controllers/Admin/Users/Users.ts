@@ -2,6 +2,8 @@ import { Request, Response } from 'express'
 import { User } from '../../../models/User/User'
 import { returnAllUserRatingsByProductType } from './Helper/RatingsHelper'
 
+import { MemoryProduct } from '../../../models/Products/Memory/Memory'
+
 /**
  * Felhasználók kezelése
  * - Felhasználók listázása,
@@ -41,21 +43,26 @@ export const getAllRatingValuesByUserID = async (request: Request, response: Res
    }
 }
 
+/**
+ * Kell egy product típus, (cpu/vga/...) hogy el tudjam dönteni hol a komment
+ * Illetve egy ProductID, ami alapján keresem a terméket
+ * Kell egy kommentID, hogy tudjam törölni a terméken belül
+ * UserID elvileg nem kell!?
+ */
 export const removeUserSingleCommentFromProduct = async (
    request: DeleteUserCommentRequest,
    response: Response
 ) => {
    try {
-      /**
-       * Kell egy product típus, (cpu/vga/...) hogy el tudjam dönteni hol a komment
-       * Illetve egy ProductID, ami alapján keresem a terméket
-       * Kell egy kommentID, hogy tudjam törölni a terméken belül
-       * UserID elvileg nem kell!?
-       */
-      // console.log(request.body.commentID)
-      // console.log(request.body.productID)
-      // console.log(request.body.productType)
-      response.status(200).json({ msg: 'sikeres törlés' })
+      switch (request.body.productType) {
+         case 'memory':
+            const memory = await MemoryProduct.findOne(
+               { _id: request.body.productID },
+               { ratingValues: { $elemMatch: { _id: request.body.commentID } } }
+            )
+            // console.log(memory)
+            return response.status(200).json({ msg: 'sikeres törlés', ratingValues: memory?.ratingValues })
+      }
    } catch (error) {
       response.status(500).json(error)
    }
