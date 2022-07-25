@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongoose'
 
 export type BaseProductType = {
-   _id: ObjectId
+   _id: ObjectId | string
    itemNumber?: string
    type: string
    typeCode?: string
