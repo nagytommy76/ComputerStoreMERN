@@ -1,6 +1,6 @@
-import { ObjectId } from 'mongoose'
+import { ObjectId, Document } from 'mongoose'
 
-export type BaseProductType = {
+export interface BaseProductType extends Document {
    _id: ObjectId | string
    itemNumber?: string
    type: string

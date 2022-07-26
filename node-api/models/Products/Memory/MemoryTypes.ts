@@ -1,6 +1,6 @@
 import { BaseProductType, ChartDataType } from '../BaseTypes'
 
-export type MemoryProductType = BaseProductType & {
+export interface MemoryProductType extends BaseProductType {
    details: MemoryDetails
 }
 

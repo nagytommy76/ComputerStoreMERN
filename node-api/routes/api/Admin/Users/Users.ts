@@ -1,12 +1,12 @@
 import { Router } from 'express'
 import { checkUserIsAdmin } from '../../../../middlewares/AuthenticateAccessOrRefreshTokens'
 
+import { getAllUsers, getAllRatingValuesByUserID } from '../../../../controllers/Admin/Users/Users'
+
 import {
-   getAllUsers,
    removeSingleUser,
-   getAllRatingValuesByUserID,
    removeUserSingleCommentFromProduct,
-} from '../../../../controllers/Admin/Users/Users'
+} from '../../../../controllers/Admin/Users/RemoveController'
 
 const router = Router()
 

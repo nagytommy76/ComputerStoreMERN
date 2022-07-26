@@ -2,8 +2,6 @@ import { Request, Response } from 'express'
 import { User } from '../../../models/User/User'
 import { returnAllUserRatingsByProductType } from './Helper/RatingsHelper'
 
-import { MemoryProduct } from '../../../models/Products/Memory/Memory'
-
 /**
  * Felhasználók kezelése
  * - Felhasználók listázása,
@@ -15,15 +13,6 @@ export const getAllUsers = async (request: Request, response: Response) => {
    try {
       const allUsers = await User.find().select({ userName: 1, email: 1, isAdmin: 1, isEmailConfirmed: 1 })
       response.status(200).json(allUsers)
-   } catch (error) {
-      response.status(500).json(error)
-   }
-}
-
-export const removeSingleUser = async (request: DeleteRequest, response: Response) => {
-   try {
-      const user = await User.findByIdAndDelete(request.body.userID)
-      response.status(200).json({ msg: 'sikeres törlés', deleted: true })
    } catch (error) {
       response.status(500).json(error)
    }
@@ -42,45 +31,5 @@ export const getAllRatingValuesByUserID = async (request: Request, response: Res
       response.status(500).json(error)
    }
 }
-
-/**
- * Kell egy product típus, (cpu/vga/...) hogy el tudjam dönteni hol a komment
- * Illetve egy ProductID, ami alapján keresem a terméket
- * Kell egy kommentID, hogy tudjam törölni a terméken belül
- * UserID elvileg nem kell!?
- */
-export const removeUserSingleCommentFromProduct = async (
-   request: DeleteUserCommentRequest,
-   response: Response
-) => {
-   try {
-      switch (request.body.productType) {
-         case 'memory':
-            const memory = await MemoryProduct.findOne(
-               { _id: request.body.productID },
-               { ratingValues: { $elemMatch: { _id: request.body.commentID } } }
-            )
-            // console.log(memory)
-            return response.status(200).json({ msg: 'sikeres törlés', ratingValues: memory?.ratingValues })
-      }
-   } catch (error) {
-      response.status(500).json(error)
-   }
-}
-
-interface DeleteUserCommentRequest extends Request {
-   body: {
-      productID: string
-      commentID: string
-      productType: string
-   }
-}
-
-type DeleteRequest = Request & {
-   body: {
-      userID: string
-   }
-}
-
 // https://www.mongodb.com/docs/manual/reference/operator/query/elemMatch/
 // https://stackoverflow.com/questions/3985214/retrieve-only-the-queried-element-in-an-object-array-in-mongodb-collection
