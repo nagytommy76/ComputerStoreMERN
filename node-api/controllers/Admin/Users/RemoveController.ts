@@ -36,9 +36,13 @@ export const removeUserSingleCommentFromProduct = async (
    try {
       switch (request.body.productType) {
          case 'memory':
-         // const memory = await removeSingleCommentFromRatingValues(MemoryProduct, request.body.productID, request.body.commentID)
-         // memory.save()
-         // response.status(200).json({ msg: 'sikeres törlés', ratingValues: memory.ratingValues })
+            const memory = await removeSingleCommentFromRatingValues(
+               MemoryProduct,
+               request.body.productID,
+               request.body.commentID
+            )
+            // memory.save()
+            response.status(200).json({ msg: 'sikeres törlés', ratingValues: memory.ratingValues })
       }
    } catch (error) {
       response.status(500).json(error)
