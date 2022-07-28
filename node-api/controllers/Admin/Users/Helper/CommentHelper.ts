@@ -16,7 +16,7 @@ export const removeSingleCommentFromRatingValues = async (
       product.ratingValues = product.ratingValues.filter((rating: RatingValues) => {
          return rating._id != commentID
       })
-      product.save()
+      // product.save()
       return { msg: 'sikeres törlés', ratingValues: product.ratingValues as RatingValues[] }
    } catch (error) {
       throw new Error('Valami gond van a komment törlésekor')

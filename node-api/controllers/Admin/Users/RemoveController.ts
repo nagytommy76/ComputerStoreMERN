@@ -42,7 +42,7 @@ export const removeUserSingleCommentFromProduct = async (
                request.body.commentID
             )
             // memory.save()
-            response.status(200).json({ msg: 'sikeres törlés', ratingValues: memory.ratingValues })
+            return response.status(200).json({ msg: 'sikeres törlés', ratingValues: memory?.ratingValues })
       }
    } catch (error) {
       response.status(500).json(error)
