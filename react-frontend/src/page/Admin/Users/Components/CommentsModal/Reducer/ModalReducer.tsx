@@ -21,49 +21,65 @@ export enum ProductActionTypes {
    MEMORY = 'SET_MEMORY_COMMENTS',
    HDD = 'SET_HDD_COMMENTS',
    SSD = 'SET_SSD_COMMENTS',
+   SET_MEMORY_COMMENTS = 'SET_MEMORY_COMMENTS',
 }
 
 export interface IBaseListAction {
    type: ProductActionTypes
-   payload: IncomingCommentType[]
+   // payload: IncomingCommentType[]
+   payload: {
+      incomingData: IncomingCommentType[]
+   }
 }
+/**
+ * Pl át kéne adni a commentID-t meg a product id-t a deleteCommentBTN ből (dispatch)
+ * majd array filter (vagy hasonló) functionnel törölni a commentet
+ */
 
 export const initialState: InitialState = {
    //https://stackoverflow.com/questions/54771003/usereducers-initialstate-is-typed-as-never
-   cpu: [],
-   vga: [],
-   memory: [],
-   hdd: [],
-   ssd: [],
+   cpu: [{ manufacturer: '', _id: '', type: '', ratingValues: [] }],
+   vga: [{ manufacturer: '', _id: '', type: '', ratingValues: [] }],
+   memory: [{ manufacturer: '', _id: '', type: '', ratingValues: [] }],
+   hdd: [{ manufacturer: '', _id: '', type: '', ratingValues: [] }],
+   ssd: [{ manufacturer: '', _id: '', type: '', ratingValues: [] }],
 }
 
-export function commentsReducer(state: InitialState, action: IBaseListAction): InitialState {
-   switch (action.type) {
+export function commentsReducer(
+   state: InitialState,
+   { payload: { incomingData }, type }: IBaseListAction
+): InitialState {
+   switch (type) {
       case ProductActionTypes.CPU:
          return {
             ...state,
-            cpu: action.payload,
+            cpu: incomingData,
          }
       case ProductActionTypes.VGA:
          return {
             ...state,
-            vga: action.payload,
+            vga: incomingData,
          }
       case ProductActionTypes.MEMORY:
          return {
             ...state,
-            memory: action.payload,
+            memory: incomingData,
          }
       case ProductActionTypes.HDD:
          return {
             ...state,
-            hdd: action.payload,
+            hdd: incomingData,
          }
       case ProductActionTypes.SSD:
          return {
             ...state,
-            ssd: action.payload,
+            ssd: incomingData,
          }
+      // case ProductActionTypes.SET_MEMORY_COMMENTS:
+      //    return {
+      //       ...state,
+      //       memory: {} as IncomingCommentType[],
+      //    }
       default:
          return state
    }
