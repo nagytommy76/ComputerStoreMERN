@@ -17,23 +17,31 @@ const useGetComments = () => {
             })
             commentDispatch({
                type: ProductActionTypes.CPU,
-               payload: response.data.cpu,
+               payload: {
+                  incomingData: response.data.cpu,
+               },
             })
             commentDispatch({
                type: ProductActionTypes.VGA,
-               payload: response.data.vga,
+               payload: {
+                  incomingData: response.data.vga,
+               },
             })
             commentDispatch({
                type: ProductActionTypes.MEMORY,
-               payload: response.data.memory,
+               payload: {
+                  incomingData: response.data.memory,
+               },
             })
             commentDispatch({
                type: ProductActionTypes.SSD,
-               payload: response.data.ssd,
+               payload: {
+                  incomingData: response.data.ssd,
+               },
             })
             commentDispatch({
                type: ProductActionTypes.HDD,
-               payload: response.data.hdd,
+               payload: { incomingData: response.data.hdd },
             })
          } catch (error) {
             console.log(error)

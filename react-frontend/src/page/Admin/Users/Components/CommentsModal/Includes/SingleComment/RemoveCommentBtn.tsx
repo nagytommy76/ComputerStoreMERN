@@ -12,7 +12,6 @@ const RemoveCommentBtn: React.FC<{ commentToDeletId: string; productID: string }
    const { navLabelsValue } = useContext(CommentContext)
 
    const handleSingleCommentDelete = async () => {
-      console.log('Egy komment törlése, és az ID: ', commentToDeletId)
       try {
          const removeCommentResponse = await axiosInstance.delete(`/admin/users/delete-comment`, {
             data: {
@@ -21,7 +20,6 @@ const RemoveCommentBtn: React.FC<{ commentToDeletId: string; productID: string }
                productType: navLabelsValue,
             },
          })
-         console.log(navLabelsValue)
          console.log(removeCommentResponse.data)
       } catch (error) {
          console.log(error)
