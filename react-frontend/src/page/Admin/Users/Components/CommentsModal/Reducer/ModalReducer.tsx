@@ -29,11 +29,14 @@ export interface IBaseListAction {
    // payload: IncomingCommentType[]
    payload: {
       incomingData: IncomingCommentType[]
+      commentID?: string
+      productID?: string
    }
 }
 /**
  * Pl át kéne adni a commentID-t meg a product id-t a deleteCommentBTN ből (dispatch)
  * majd array filter (vagy hasonló) functionnel törölni a commentet
+ * https://medium.com/swlh/react-context-with-usereducer-and-typescript-1b7bd9a1c15
  */
 
 export const initialState: InitialState = {
@@ -47,7 +50,7 @@ export const initialState: InitialState = {
 
 export function commentsReducer(
    state: InitialState,
-   { payload: { incomingData }, type }: IBaseListAction
+   { payload: { incomingData, commentID, productID }, type }: IBaseListAction
 ): InitialState {
    switch (type) {
       case ProductActionTypes.CPU:
@@ -75,12 +78,21 @@ export function commentsReducer(
             ...state,
             ssd: incomingData,
          }
-      // case ProductActionTypes.SET_MEMORY_COMMENTS:
-      //    return {
-      //       ...state,
-      //       memory: {} as IncomingCommentType[],
-      //    }
+      case ProductActionTypes.SET_MEMORY_COMMENTS:
+         return state
+      //       memory: [
+      //          ...state.memory.map(product => {
+      //             return product.ratingValues
+      //          }),
+      // ]
+
       default:
          return state
    }
+}
+
+function filterComments(product: IncomingCommentType[], commentID?: string, productID?: string) {
+   const test = product.find(product => product._id === productID)
+   console.log(test)
+   return product
 }
