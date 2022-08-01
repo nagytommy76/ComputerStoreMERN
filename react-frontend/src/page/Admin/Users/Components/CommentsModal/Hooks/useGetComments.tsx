@@ -5,7 +5,7 @@ import { CommentContext } from '../../../Context/CommentContext'
 import { ProductActionTypes } from '../Reducer/ModalReducer'
 
 const useGetComments = () => {
-   const { commentDispatch, selectedUserIdAndName } = useContext(CommentContext)
+   const { commentDispatch, selectedUserIdAndName, isReducerChanged } = useContext(CommentContext)
 
    useEffect(() => {
       const fetchUserComments = async () => {
@@ -48,7 +48,7 @@ const useGetComments = () => {
          }
       }
       selectedUserIdAndName.userID && fetchUserComments()
-   }, [selectedUserIdAndName.userID, commentDispatch])
+   }, [selectedUserIdAndName.userID, commentDispatch, isReducerChanged])
    return null
 }
 

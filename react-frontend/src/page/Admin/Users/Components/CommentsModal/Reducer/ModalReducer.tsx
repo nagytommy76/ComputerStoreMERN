@@ -21,7 +21,6 @@ export enum ProductActionTypes {
    MEMORY = 'SET_MEMORY_COMMENTS',
    HDD = 'SET_HDD_COMMENTS',
    SSD = 'SET_SSD_COMMENTS',
-   SET_MEMORY_COMMENTS = 'SET_MEMORY_COMMENTS',
 }
 
 export interface IBaseListAction {
@@ -78,21 +77,7 @@ export function commentsReducer(
             ...state,
             ssd: incomingData,
          }
-      case ProductActionTypes.SET_MEMORY_COMMENTS:
-         return state
-      //       memory: [
-      //          ...state.memory.map(product => {
-      //             return product.ratingValues
-      //          }),
-      // ]
-
       default:
          return state
    }
-}
-
-function filterComments(product: IncomingCommentType[], commentID?: string, productID?: string) {
-   const test = product.find(product => product._id === productID)
-   console.log(test)
-   return product
 }

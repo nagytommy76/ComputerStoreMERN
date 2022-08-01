@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import { CommentContext } from '../../../../Context/CommentContext'
 import { axiosInstance } from '../../../../../../../AxiosSetup/AxiosInstance'
-import { ProductActionTypes } from '../../Reducer/ModalReducer'
 
 import Button from '@mui/material/Button'
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation'
@@ -10,7 +9,7 @@ const RemoveCommentBtn: React.FC<{ commentToDeletId: string; productID: string }
    commentToDeletId,
    productID,
 }) => {
-   const { navLabelsValue, commentDispatch } = useContext(CommentContext)
+   const { navLabelsValue, setIsReducerChanged } = useContext(CommentContext)
 
    const handleSingleCommentDelete = async () => {
       try {
@@ -21,15 +20,8 @@ const RemoveCommentBtn: React.FC<{ commentToDeletId: string; productID: string }
                productType: navLabelsValue,
             },
          })
-         console.log(removeCommentResponse.data)
-         commentDispatch({
-            type: ProductActionTypes.SET_MEMORY_COMMENTS,
-            payload: {
-               commentID: commentToDeletId,
-               productID,
-               incomingData: [],
-            },
-         })
+         // Ellenőrizni a hibakódokat!!!!!
+         setIsReducerChanged(prevValue => !prevValue)
       } catch (error) {
          console.log(error)
       }
