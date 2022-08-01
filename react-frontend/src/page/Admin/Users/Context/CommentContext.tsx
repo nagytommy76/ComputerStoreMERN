@@ -31,9 +31,13 @@ export const CommentContext = createContext<CommentsContextType>({
    setIsSnackOpen: () => {},
    navLabelsValue: NavLabels.Processor,
    setNavLabelsValue: () => {},
+   isReducerChanged: false,
+   setIsReducerChanged: () => {},
 })
 
 export const CommentContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+   const [isReducerChanged, setIsReducerChanged] = useState<boolean>(false)
+
    const [commentsState, commentDispatch] = useReducer(commentsReducer, initialState)
    const [navLabelsValue, setNavLabelsValue] = useState<NavLabels>(NavLabels.Processor)
    const [users, setUsers] = useState<UserTypes[]>([])
@@ -63,6 +67,8 @@ export const CommentContextProvider: React.FC<{ children: ReactNode }> = ({ chil
             setIsSnackOpen,
             navLabelsValue,
             setNavLabelsValue,
+            isReducerChanged,
+            setIsReducerChanged,
          }}
       >
          {children}
@@ -92,6 +98,9 @@ export type CommentsContextType = {
    setIsSnackOpen: React.Dispatch<React.SetStateAction<SnackbarStateTypes>>
    navLabelsValue: NavLabels
    setNavLabelsValue: React.Dispatch<React.SetStateAction<NavLabels>>
+
+   isReducerChanged: boolean
+   setIsReducerChanged: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 // https://www.youtube.com/watch?v=NKsVV7wJcDM&t=178s&ab_channel=TheNetNinja
