@@ -33,16 +33,21 @@ export const removeUserSingleCommentFromProduct = async (
    request: DeleteUserCommentRequest,
    response: Response
 ) => {
+   const { commentID, productID, productType } = request.body
+   if (productID === undefined || productType === undefined || commentID === undefined) {
+      return response.status(404).json({ msg: 'Hiányzik a commentID vagy a productID vagy a productType' })
+   }
    try {
-      switch (request.body.productType) {
+      switch (productType) {
          case 'memory':
-            const memory = await removeSingleCommentFromRatingValues(
+            const { statusCode, msg } = await removeSingleCommentFromRatingValues(
                MemoryProduct,
-               request.body.productID,
-               request.body.commentID
+               productID,
+               commentID
             )
-            // memory.save()
-            return response.status(200).json({ msg: 'sikeres törlés', ratingValues: memory?.ratingValues })
+            return response.status(statusCode).json({
+               msg,
+            })
       }
    } catch (error) {
       response.status(500).json(error)
@@ -51,8 +56,8 @@ export const removeUserSingleCommentFromProduct = async (
 
 interface DeleteUserCommentRequest extends Request {
    body: {
-      productID: string
-      commentID: string | ObjectId
-      productType: string
+      productID: string | undefined
+      commentID: string | ObjectId | undefined
+      productType: string | undefined
    }
 }
