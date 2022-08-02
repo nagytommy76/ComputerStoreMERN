@@ -1,9 +1,10 @@
 import { Request, Response } from 'express'
 import { ObjectId } from 'mongoose'
+import { removeSingleCommentFromRatingValues } from './Helper/CommentHelper'
+
 import { User } from '../../../models/User/User'
 import { MemoryProduct } from '../../../models/Products/Memory/Memory'
-
-import { removeSingleCommentFromRatingValues } from './Helper/CommentHelper'
+import { CpuProduct } from '../../../models/Products/Cpu/CpuSchema'
 
 type DeleteRequest = Request & {
    body: {
@@ -40,14 +41,9 @@ export const removeUserSingleCommentFromProduct = async (
    try {
       switch (productType) {
          case 'memory':
-            const { statusCode, msg } = await removeSingleCommentFromRatingValues(
-               MemoryProduct,
-               productID,
-               commentID
-            )
-            return response.status(statusCode).json({
-               msg,
-            })
+            await removeSingleCommentFromRatingValues(response, MemoryProduct, productID, commentID)
+         case 'cpu':
+            await removeSingleCommentFromRatingValues(response, CpuProduct, productID, commentID)
       }
    } catch (error) {
       response.status(500).json(error)
