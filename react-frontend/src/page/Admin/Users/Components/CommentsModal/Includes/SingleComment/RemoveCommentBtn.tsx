@@ -21,7 +21,9 @@ const RemoveCommentBtn: React.FC<{ commentToDeletId: string; productID: string }
             },
          })
          // Ellenőrizni a hibakódokat!!!!!
-         setIsReducerChanged(prevValue => !prevValue)
+         if (removeCommentResponse.status === 200) {
+            setIsReducerChanged(prevValue => !prevValue)
+         }
       } catch (error) {
          console.log(error)
       }
