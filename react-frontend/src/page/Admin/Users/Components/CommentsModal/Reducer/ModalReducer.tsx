@@ -28,8 +28,6 @@ export interface IBaseListAction {
    // payload: IncomingCommentType[]
    payload: {
       incomingData: IncomingCommentType[]
-      commentID?: string
-      productID?: string
    }
 }
 /**
@@ -49,7 +47,7 @@ export const initialState: InitialState = {
 
 export function commentsReducer(
    state: InitialState,
-   { payload: { incomingData, commentID, productID }, type }: IBaseListAction
+   { payload: { incomingData }, type }: IBaseListAction
 ): InitialState {
    switch (type) {
       case ProductActionTypes.CPU:
