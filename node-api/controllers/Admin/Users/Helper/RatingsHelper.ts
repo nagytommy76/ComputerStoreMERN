@@ -4,13 +4,13 @@ import { CpuProductType } from '../../../../models/Products/Cpu/CpuTypes'
 import { VgaType } from '../../../../models/Products/Vga/VgaTypes'
 import { MemoryProductType } from '../../../../models/Products/Memory/MemoryTypes'
 import { SSDProductType } from '../../../../models/Products/SSD/SSD'
-import { HDDProductType } from '../../../../models/Products/HDD/Hdd'
+import { HDDProductType } from '../../../../models/Products/HDD/HDD'
 
 import { CpuProduct } from '../../../../models/Products/Cpu/CpuSchema'
 import { VgaProduct } from '../../../../models/Products/Vga/VgaProduct'
 import { MemoryProduct } from '../../../../models/Products/Memory/Memory'
 import { SSDProduct } from '../../../../models/Products/SSD/SSD'
-import { HddProduct } from '../../../../models/Products/HDD/Hdd'
+import { HddProduct } from '../../../../models/Products/HDD/HDD'
 
 // Nem túl jó megoldás, utánanézni mi a hiba han nincs any
 const getFoundUserRatingsInAnyProduct = async (

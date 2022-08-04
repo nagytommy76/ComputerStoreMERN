@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { HDDDetailsType, HddProduct } from '../../../models/Products/HDD/Hdd'
+import { HDDDetailsType, HddProduct } from '../../../models/Products/HDD/HDD'
 import baseAdminController, { BaseProductProperties } from '../BaseController'
 
 const AdminController = baseAdminController(HddProduct)

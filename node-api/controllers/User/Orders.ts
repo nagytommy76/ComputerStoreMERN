@@ -13,7 +13,7 @@ import { BaseProductType } from '../../models/Products/BaseTypes'
 import { CpuProduct } from '../../models/Products/Cpu/CpuSchema'
 import { VgaProduct } from '../../models/Products/Vga/VgaProduct'
 import { MemoryProduct } from '../../models/Products/Memory/Memory'
-import { HddProduct } from '../../models/Products/HDD/Hdd'
+import { HddProduct } from '../../models/Products/HDD/HDD'
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY) as Stripe
 

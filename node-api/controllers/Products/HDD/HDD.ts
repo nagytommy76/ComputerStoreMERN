@@ -1,6 +1,6 @@
 import { Response } from 'express'
 import BaseProduct from '../BaseProduct'
-import { HddProduct as HDDModel } from '../../../models/Products/HDD/Hdd'
+import { HddProduct as HDDModel } from '../../../models/Products/HDD/HDD'
 import { DetailsQueryRequestType, QueryRequest } from '../Helper'
 
 export default class HDDProduct extends BaseProduct {

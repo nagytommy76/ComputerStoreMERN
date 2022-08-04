@@ -3,7 +3,7 @@ import { Model } from 'mongoose'
 
 import { CpuProduct } from '../../models/Products/Cpu/CpuSchema'
 import { VgaProduct } from '../../models/Products/Vga/VgaProduct'
-import { HddProduct } from '../../models/Products/HDD/Hdd'
+import { HddProduct } from '../../models/Products/HDD/HDD'
 import { MemoryProduct } from '../../models/Products/Memory/Memory'
 import { SSDProduct } from '../../models/Products/SSD/SSD'
 

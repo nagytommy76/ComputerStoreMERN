@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { authenticateAccessToken } from '../../../middlewares/AuthenticateAccessOrRefreshTokens'
 import HDDProduct from '../../../controllers/Products/HDD/HDD'
-import { HddProduct as HDDModel } from '../../../models/Products/HDD/Hdd'
+import { HddProduct as HDDModel } from '../../../models/Products/HDD/HDD'
 import BaseRatingController from '../../../controllers/Products/Ratings/BaseRatingController'
 
 const hddProduct = new HDDProduct()
