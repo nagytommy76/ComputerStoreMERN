@@ -5,6 +5,9 @@ import { removeSingleCommentFromRatingValues } from './Helper/CommentHelper'
 import { User } from '../../../models/User/User'
 import { MemoryProduct } from '../../../models/Products/Memory/Memory'
 import { CpuProduct } from '../../../models/Products/Cpu/CpuSchema'
+import { VgaProduct } from '../../../models/Products/Vga/VgaProduct'
+import { SSDProduct } from '../../../models/Products/SSD/SSD'
+import { HddProduct } from '../../../models/Products/HDD/HDD'
 
 type DeleteRequest = Request & {
    body: {
@@ -38,15 +41,17 @@ export const removeUserSingleCommentFromProduct = async (
    if (productID === undefined || productType === undefined || commentID === undefined) {
       return response.status(404).json({ msg: 'Hiányzik a commentID vagy a productID vagy a productType' })
    }
-   try {
-      switch (productType) {
-         case 'memory':
-            await removeSingleCommentFromRatingValues(response, MemoryProduct, productID, commentID)
-         case 'cpu':
-            await removeSingleCommentFromRatingValues(response, CpuProduct, productID, commentID)
-      }
-   } catch (error) {
-      response.status(500).json(error)
+   switch (productType) {
+      case 'memory':
+         removeSingleCommentFromRatingValues(response, MemoryProduct, productID, commentID)
+      case 'cpu':
+         removeSingleCommentFromRatingValues(response, CpuProduct, productID, commentID)
+      case 'vga':
+         removeSingleCommentFromRatingValues(response, VgaProduct, productID, commentID)
+      case 'ssd':
+         removeSingleCommentFromRatingValues(response, SSDProduct, productID, commentID)
+      case 'hdd':
+         removeSingleCommentFromRatingValues(response, HddProduct, productID, commentID)
    }
 }
 
