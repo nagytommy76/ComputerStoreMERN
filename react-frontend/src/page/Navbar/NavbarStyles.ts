@@ -38,7 +38,7 @@ export const OpenNavbarButton = styled.div`
 
 export const NavStyle = styled.nav<{ mobileSize: boolean }>`
    z-index: 10;
-   position: fixed;
+   position: sticky;
    top: 0;
    width: 100%;
    color: white;
@@ -54,6 +54,7 @@ export const NavStyle = styled.nav<{ mobileSize: boolean }>`
    }
 
    @media (max-width: ${mobileWindowSize}) {
+      position: fixed;
       flex-direction: column;
       justify-content: unset;
       height: 100%;
