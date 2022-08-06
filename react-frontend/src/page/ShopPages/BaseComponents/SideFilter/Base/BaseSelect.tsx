@@ -1,10 +1,15 @@
 import React, { ReactNode } from 'react'
+import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import { setIsPriceRangeSet } from '../../../../../app/slices/Filter/BaseFilterDataSlice'
 import { useAppDispatch } from '../../../../../app/hooks'
 
 import { InputContainer } from '../../../BaseComponents/SideFilter/FilterStyle'
-import TextField from '@mui/material/TextField'
-import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
+
+import MenuItem from '@mui/material/MenuItem'
+import InputLabel from '@mui/material/InputLabel'
+import FormControl from '@mui/material/FormControl'
+import FormHelperText from '@mui/material/FormHelperText'
+import Select, { SelectChangeEvent } from '@mui/material/Select'
 
 const BySelect: React.FC<Props> = ({
    labelText,
@@ -16,34 +21,32 @@ const BySelect: React.FC<Props> = ({
    children,
 }) => {
    const dispatch = useAppDispatch()
-   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      dispatch(setSelectedDispatchValue(event.target.value))
+   const handleChange = (event: SelectChangeEvent) => {
+      dispatch(setSelectedDispatchValue(event.target.value as string))
       dispatch(setIsPriceRangeSet(true))
    }
    return (
       <InputContainer>
-         <TextField
-            fullWidth
-            select
-            aria-multiselectable
-            label={labelText}
-            helperText={helperText}
-            variant='filled'
-            color='primary'
-            onChange={handleChange}
-            value={selectedOption}
-            SelectProps={{
-               native: true,
-            }}
-         >
-            {children}
-            {allOption.map((option, index) => (
-               <option key={index} value={option}>
-                  {option.toString().toUpperCase()}
-                  {postFix}
-               </option>
-            ))}
-         </TextField>
+         <FormControl variant='filled' fullWidth>
+            <InputLabel id='select-label'>{labelText}</InputLabel>
+            <Select
+               labelId='select-label'
+               id='select'
+               value={selectedOption as string}
+               label='Age'
+               onChange={handleChange}
+            >
+               {children ? children : <MenuItem value='all'>Összes</MenuItem>}
+
+               {allOption.map((option, index) => (
+                  <MenuItem key={index} value={option}>
+                     {option.toString().toUpperCase()}
+                     {postFix}
+                  </MenuItem>
+               ))}
+            </Select>
+            <FormHelperText>{helperText}</FormHelperText>
+         </FormControl>
       </InputContainer>
    )
 }
