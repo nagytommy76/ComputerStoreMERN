@@ -15,9 +15,7 @@ const ByWarranity = () => {
          labelText='Garancia'
          setSelectedDispatchValue={setSelectedWarranty}
          postFix=' hónap'
-      >
-         <option value='all'>Összes</option>
-      </BaseSelect>
+      ></BaseSelect>
    )
 }
 

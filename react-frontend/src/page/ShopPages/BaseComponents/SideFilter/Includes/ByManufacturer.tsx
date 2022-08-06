@@ -14,9 +14,7 @@ const ByManufacturer: React.FC = () => {
          helperText='Szűrés gyártók szerint'
          labelText='Gyártó'
          setSelectedDispatchValue={setSelectedManufacturer}
-      >
-         <option value='all'>Összes</option>
-      </BaseSelect>
+      ></BaseSelect>
    )
 }
 
