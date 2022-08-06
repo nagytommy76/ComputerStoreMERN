@@ -14,9 +14,7 @@ const ByPciEType = () => {
          selectedOption={selectedPcie}
          helperText='PCI-E típusa'
          labelText='PCI-E típusa'
-      >
-         <option value='all'>Összes</option>
-      </BasePciEType>
+      ></BasePciEType>
    )
 }
 

@@ -13,9 +13,7 @@ const BySocket = () => {
          selectedOption={selectedSocket}
          helperText='Foglalat'
          labelText='Foglalatok'
-      >
-         <option value='all'>Összes</option>
-      </BaseSocketSelect>
+      ></BaseSocketSelect>
    )
 }
 

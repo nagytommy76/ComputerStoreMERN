@@ -13,9 +13,7 @@ const ByConnection = () => {
          selectedOption={selectedConnection}
          setSelectedDispatchValue={setSelectedConnections}
          labelText='Csatlakozás'
-      >
-         <option value='all'>Összes</option>
-      </BaseConnectionSelect>
+      ></BaseConnectionSelect>
    )
 }
 

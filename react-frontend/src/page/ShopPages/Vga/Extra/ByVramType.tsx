@@ -14,9 +14,7 @@ const ByVramType = () => {
          selectedOption={selectedVramType}
          helperText='Vram típusa'
          labelText='Vram típusa'
-      >
-         <option value='all'>Összes</option>
-      </BaseVramtype>
+      ></BaseVramtype>
    )
 }
 

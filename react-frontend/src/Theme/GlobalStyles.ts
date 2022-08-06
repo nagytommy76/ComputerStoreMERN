@@ -10,7 +10,7 @@ export const backgroundColor = `#272c33`
 
 export const footerHeight = '140px'
 
-export const transitionSetup = `all .15s linear`
+export const transitionSetup = `all .05s linear`
 
 export const GlobalStyles = createGlobalStyle<{
    theme: { body: string; text: string; scrollbarThumbColor: string; scrollbarThumbColorHover: string }
@@ -31,16 +31,18 @@ export const GlobalStyles = createGlobalStyle<{
 }
 
 html {
-   scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 body {
-    font-family: 'Work Sans', sans-serif;
-    -webkit-font-smoothing: antialiased;
-   -moz-osx-font-smoothing: grayscale;
-    margin: 0;
-    background: ${({ theme }) => theme.body};
-    transition: ${transitionSetup};
+  width: '100%';
+  font-family: 'Work Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  background: ${({ theme }) => theme.body};
+  scrollbar-gutter: 'stable both-edges';
+  /* padding-right: '9px'; */
 }
 
 

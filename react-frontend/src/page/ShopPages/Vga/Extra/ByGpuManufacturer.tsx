@@ -14,9 +14,7 @@ const ByGpuManufacturerSelect = () => {
          selectedOption={selectedGpuMan}
          helperText='GPU gyártó'
          labelText='GPU gyártó'
-      >
-         <option value='all'>Összes</option>
-      </BaseGpuManufacturerSelect>
+      ></BaseGpuManufacturerSelect>
    )
 }
 

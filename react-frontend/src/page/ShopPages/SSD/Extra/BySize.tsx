@@ -13,9 +13,7 @@ const BySize = () => {
          setSelectedDispatchValue={setSelectedSize}
          labelText='Méret'
          helperText='Szűrés méret szerint'
-      >
-         <option value='all'>Összes</option>
-      </BaseSelect>
+      ></BaseSelect>
    )
 }
 

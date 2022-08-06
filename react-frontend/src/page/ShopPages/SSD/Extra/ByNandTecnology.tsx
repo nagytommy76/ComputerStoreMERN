@@ -13,9 +13,7 @@ const ByNandTecnology = () => {
          setSelectedDispatchValue={setSelectedNand}
          labelText='Nand technológia'
          helperText='Szűrés NAND szerint'
-      >
-         <option value='all'>Összes</option>
-      </BaseNandSelect>
+      ></BaseNandSelect>
    )
 }
 

@@ -37,7 +37,7 @@ Kommenteket szeretnék törölni, felhasználónak az összes kommentjét lássa
 - ADMIn oldalon biztos jó a kéretlen felhsználók kezelése??? (ha nem admin vagy nem láthatod.)
 - Esetleg PDF generálás?!
 
-
+a szüréshez hozzáadni egy név szerint keresést?! pl gombnyomásra keres (3070ti stb)
 
 A főoldalt egy kicsit rendbe rakni, kiemelt termékek, style stb
 https://stackoverflow.com/questions/6502541/mongodb-query-multiple-collections-at-once

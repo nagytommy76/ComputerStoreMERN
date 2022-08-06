@@ -16,9 +16,7 @@ const ByMemoryType = () => {
          selectedOption={memoryType}
          helperText='Memória típusa'
          labelText='Memória típusa'
-      >
-         <option value='all'>Összes</option>
-      </BaseTypeSelect>
+      ></BaseTypeSelect>
    )
 }
 
