@@ -1,10 +1,15 @@
 import { styled } from '@mui/material'
 import { mobileWindowSize } from '../../Theme/GlobalStyles'
+import { navbarHeight } from '../Navbar/NavbarStyles'
 
 import Typography from '@mui/material/Typography'
 
 export const WelcomeContainer = styled('section')({
    height: '100vh',
+   marginTop: `-${navbarHeight}`,
+   [`@media(max-width: ${mobileWindowSize})`]: {
+      marginTop: 0,
+   },
 })
 
 export const StyledWelcomeImg = styled('section')<{ backgroundimage: string }>(props => ({
@@ -14,9 +19,6 @@ export const StyledWelcomeImg = styled('section')<{ backgroundimage: string }>(p
    backgroundPosition: 'center',
    backgroundRepeat: 'no-repeat',
    backgroundSize: 'cover',
-   [`@media(max-width: ${mobileWindowSize})`]: {
-      // backgroundSize: '150%',
-   },
 }))
 
 export const WelcomeMaintitleContainer = styled('div')({

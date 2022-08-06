@@ -32,6 +32,7 @@ export const GlobalStyles = createGlobalStyle<{
 
 html {
   scroll-behavior: smooth;
+  overflow-y: scroll;
 }
 
 body {
@@ -41,8 +42,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   margin: 0;
   background: ${({ theme }) => theme.body};
-  scrollbar-gutter: 'stable both-edges';
-  /* padding-right: '9px'; */
+  scrollbar-gutter: 'stable';
 }
 
 

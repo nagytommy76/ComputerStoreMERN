@@ -6,7 +6,7 @@ import { mobileWindowSize, transitionSetup } from '../../../../Theme/GlobalStyle
 export const DetailsPage = styled.section`
    min-height: 100vh;
    width: 50%;
-   margin: calc(${navbarHeight} + 1.5rem) auto 0 auto;
+   margin: 1.5rem auto 0 auto;
    @media (max-width: ${mobileWindowSize}) {
       width: 95%;
       margin: 5rem auto;

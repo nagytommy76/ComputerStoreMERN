@@ -5,8 +5,7 @@ import { navbarHeight } from '../Navbar/NavbarStyles'
 export const PageContainer = styled.section`
    width: 100%;
    min-height: calc(100vh - ${footerHeight} - ${navbarHeight} - 1.5rem);
-   /* min-height: 100vh; */
-   margin-top: calc(${navbarHeight} + 1.5rem);
+   margin-top: 1.5rem;
    display: flex;
    flex-direction: row;
    justify-content: space-between;

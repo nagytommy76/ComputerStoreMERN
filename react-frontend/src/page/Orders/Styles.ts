@@ -5,7 +5,7 @@ import { navbarHeight } from '../Navbar/NavbarStyles'
 export const OrdersPageContainer = styled('section')`
    width: 60%;
    min-height: calc(100vh - ${footerHeight} - ${navbarHeight} - 1.5rem);
-   margin: calc(${navbarHeight} + 3.5rem) auto 2.5rem auto;
+   margin: calc(${navbarHeight} + 1.5rem) auto 2.5rem auto;
 `
 
 export const StyledProduct = styled('div')({

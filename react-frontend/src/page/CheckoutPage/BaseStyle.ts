@@ -1,8 +1,9 @@
 import styled from 'styled-components'
 import { mobileWindowSize } from '../../Theme/GlobalStyles'
+import { navbarHeight } from '../Navbar/NavbarStyles'
 
 export const PageContainer = styled.section<{ isDarkTheme: boolean }>`
-   margin: 0 auto;
+   margin: -${navbarHeight} auto 0 auto;
    min-height: 100vh;
    color: ${({ isDarkTheme }) => (isDarkTheme ? '#FFF' : '#000')};
    transition: color 0.25s;
@@ -12,6 +13,7 @@ export const PageContainer = styled.section<{ isDarkTheme: boolean }>`
 
    @media (max-width: ${mobileWindowSize}) {
       flex-direction: column;
+      margin: 0 auto;
    }
 `
 

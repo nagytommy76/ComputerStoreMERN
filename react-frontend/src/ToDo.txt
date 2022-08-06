@@ -41,6 +41,8 @@ a szüréshez hozzáadni egy név szerint keresést?! pl gombnyomásra keres (30
 
 A főoldalt egy kicsit rendbe rakni, kiemelt termékek, style stb
 https://stackoverflow.com/questions/6502541/mongodb-query-multiple-collections-at-once
+- a rendelések oldalt mobilbaráttá tenni!!!! 
+
 
 
 
