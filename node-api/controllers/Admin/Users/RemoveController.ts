@@ -43,15 +43,20 @@ export const removeUserSingleCommentFromProduct = async (
    }
    switch (productType) {
       case 'memory':
-         removeSingleCommentFromRatingValues(response, MemoryProduct, productID, commentID)
+         await removeSingleCommentFromRatingValues(response, MemoryProduct, productID, commentID)
+         break
       case 'cpu':
-         removeSingleCommentFromRatingValues(response, CpuProduct, productID, commentID)
+         await removeSingleCommentFromRatingValues(response, CpuProduct, productID, commentID)
+         break
       case 'vga':
-         removeSingleCommentFromRatingValues(response, VgaProduct, productID, commentID)
+         await removeSingleCommentFromRatingValues(response, VgaProduct, productID, commentID)
+         break
       case 'ssd':
-         removeSingleCommentFromRatingValues(response, SSDProduct, productID, commentID)
+         await removeSingleCommentFromRatingValues(response, SSDProduct, productID, commentID)
+         break
       case 'hdd':
-         removeSingleCommentFromRatingValues(response, HddProduct, productID, commentID)
+         await removeSingleCommentFromRatingValues(response, HddProduct, productID, commentID)
+         break
    }
 }
 

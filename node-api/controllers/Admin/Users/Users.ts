@@ -24,9 +24,9 @@ export const getAllRatingValuesByUserID = async (request: Request, response: Res
       if (!userId) {
          return response.status(404).json({ msg: 'Nincs userID' })
       }
-
       const allUserRatings = await returnAllUserRatingsByProductType(userId)
-      response.status(200).json(allUserRatings)
+
+      return response.status(200).json(allUserRatings)
    } catch (error) {
       response.status(500).json(error)
    }
