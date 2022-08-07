@@ -1,4 +1,4 @@
-import React, { lazy } from 'react'
+import { lazy } from 'react'
 
 import { AdminRoute, AuthProtectedRoute, GuestsRoute } from './Routes/ProtectedRoute'
 import { Routes as RoutesDOM, Route } from 'react-router-dom'

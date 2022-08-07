@@ -1,58 +1,15 @@
-import React, { useState } from 'react'
-import { styled } from '@mui/material'
-import { mobileWindowSize } from '../Theme/GlobalStyles'
+import React, { useLayoutEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 
-import Fade from '@mui/material/Fade'
-import IconButton from '@mui/material/IconButton'
-import DoubleArrowIcon from '@mui/icons-material/DoubleArrow'
-
-const ScrollToTop = () => {
-   const [isVisible, setIsVisible] = useState<boolean>(false)
-
-   const toggleVisible = () => {
-      const scrolled = document.documentElement.scrollTop
-      if (scrolled > 150) {
-         setIsVisible(true)
-      } else if (scrolled <= 150) {
-         setIsVisible(false)
-      }
-   }
-
-   const scrollToTop = () => {
+const ScrollToTopWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+   const { pathname } = useLocation()
+   useLayoutEffect(() => {
       window.scrollTo({
          top: 0,
          behavior: 'smooth',
       })
-   }
-
-   window.addEventListener('scroll', toggleVisible)
-
-   const StyledIconButton = styled(IconButton)({
-      position: 'fixed',
-      right: '50px',
-      bottom: '50px',
-      fontSize: '160px',
-
-      [`@media (max-width: ${mobileWindowSize})`]: {
-         right: '5px',
-      },
-   })
-
-   const StyledIcon = styled(DoubleArrowIcon)({
-      transform: 'rotate(-90deg)',
-      fontSize: '50px',
-      [`@media (max-width: ${mobileWindowSize})`]: {
-         fontSize: '40px',
-      },
-   })
-
-   return (
-      <Fade in={isVisible}>
-         <StyledIconButton size='large' color='primary' onClick={scrollToTop}>
-            <StyledIcon />
-         </StyledIconButton>
-      </Fade>
-   )
+   }, [pathname])
+   return <>{children}</>
 }
 
-export default ScrollToTop
+export default ScrollToTopWrapper

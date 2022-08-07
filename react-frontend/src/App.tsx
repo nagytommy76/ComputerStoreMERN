@@ -14,7 +14,8 @@ import Navbar from './page/Navbar/Navbar'
 import Footer from './page/Footer/Footer'
 import PageSuspense from './SuspenseComponents/Page/PageSuspense'
 import Routes from './Routes'
-import ScrollToTop from './Routes/ScrollToTop'
+import ScrollToTopButton from './Routes/ScrollToTopButton'
+import ScrollToTopWrapper from './Routes/ScrollToTop'
 
 // https://lewiskori.com/blog/how-to-auto-refresh-jwts-using-axios-interceptors/
 const App = () => {
@@ -39,13 +40,15 @@ const App = () => {
    return (
       <MUIThemeProvider theme={customMUITheme}>
          <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
-            <GlobalStyles />
-            <Navbar />
-            <Suspense fallback={<PageSuspense />}>
-               <Routes />
-            </Suspense>
-            <Footer />
-            <ScrollToTop />
+            <ScrollToTopWrapper>
+               <GlobalStyles />
+               <Navbar />
+               <Suspense fallback={<PageSuspense />}>
+                  <Routes />
+               </Suspense>
+               <Footer />
+               <ScrollToTopButton />
+            </ScrollToTopWrapper>
          </ThemeProvider>
       </MUIThemeProvider>
    )
