@@ -4,9 +4,8 @@ import { navbarHeight } from '../Navbar/NavbarStyles'
 
 export const AdminPageContainer = styled.section`
    position: relative;
-   min-height: calc(100vh - ${navbarHeight});
+   min-height: 100vh;
    width: 100%;
-   margin-top: ${navbarHeight};
    margin-bottom: 2rem;
    display: flex;
    align-items: center;

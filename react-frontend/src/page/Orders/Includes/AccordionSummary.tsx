@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
+import { AccordionSummaryTypography } from '../Styles'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import Typography from '@mui/material/Typography'
@@ -24,7 +25,7 @@ const AccordionSummaryComponent: React.FC<{ index: number; orderedAt: string; to
          aria-controls={`panel${index}bh-content`}
          id={`panel${index}bh-header`}
       >
-         <Typography sx={{ width: '30%' }}>{formattedDate}</Typography>
+         <AccordionSummaryTypography>{formattedDate}</AccordionSummaryTypography>
          <Typography>
             <NumberFormat value={totalPrice} thousandSeparator=' ' suffix=' Ft' displayType='text' />
          </Typography>

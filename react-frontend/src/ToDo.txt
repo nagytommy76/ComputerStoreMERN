@@ -5,11 +5,6 @@
 - Esetleg a csak mongoose query-knél lean-t használni, hogy csökkentsem a lekérdezési időt és méretet, OPTIMALIZÁLÁS
   https://mongoosejs.com/docs/tutorials/lean.html
 
-
-- Új termékeket hozzáadni pl Alaplap HDD/SSD, valamint a meglévőket bővíteni
-
-- A termék bevitelénél ha nincs picURL kéne egy alert mert most nincs
-
  
 HIBÁK/BUGOK:
 - A kártyás fizetés stílusa nem jó mobil esetén, kilóg
@@ -43,13 +38,21 @@ A főoldalt egy kicsit rendbe rakni, kiemelt termékek, style stb
 https://stackoverflow.com/questions/6502541/mongodb-query-multiple-collections-at-once
 - a rendelések oldalt mobilbaráttá tenni!!!! 
 
+- megoldani: a user által preferált theme jó, de ha refresheled az oldalt és esetleg ő átváltotta közben, visszmegy a
+ preferáltra. Vagyis localStorage/Redux-ban tárolni ha már egyszer beállította magának, hogy eltérő legyen az os default-tól
+
+
+
 
 
 
 https://help.heroku.com/FZDDCBLB/how-can-i-download-my-code-from-heroku
 MEGCSINÁLTAM:
-- Mobilnál (meg desktop-on is) egy lap tetejére gombot elhelyezni!!!
+- A termék bevitelénél ha nincs picURL kéne egy alert mert most nincs
 
+- Új termékeket hozzáadni pl Alaplap HDD/SSD, valamint a meglévőket bővíteni
+
+- Mobilnál (meg desktop-on is) egy lap tetejére gombot elhelyezni!!!
 
 - Amikor egy terméknél megváltoztatom az árat, elmenteni az előzőt, a frontenden pedig megjeleníteni grafikonon
   mikor mennyibe került a termék. PL.: ipon

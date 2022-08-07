@@ -36,7 +36,7 @@ const Orders = () => {
                />
             ))
          ) : (
-            <Typography align='center' variant='h1' color='gray' m={2}>
+            <Typography align='center' variant='h2' color='gray' m={2}>
                Nem rendeltél még tőlünk :(
             </Typography>
          )}
