@@ -1,21 +1,24 @@
-import React, { ReactElement } from 'react'
-import { Navigate } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom'
 import { useAppSelector } from '../app/hooks'
 
 // Only guests can visit these pages (login/register)
-export const GuestsRoute: React.FC<{ children: ReactElement }> = ({ children }) => {
-   const isUserLoggedIn = useAppSelector((state) => state.auth.userLoggedIn)
-   return isUserLoggedIn ? <Navigate to='/' /> : children
+export const GuestsRoute = () => {
+   const isUserLoggedIn = useAppSelector(state => state.auth.userLoggedIn)
+   const accessToken = useAppSelector(state => state.auth.accessToken)
+   return isUserLoggedIn && accessToken !== null ? <Navigate to='/' /> : <Outlet />
 }
 
 // Only loggedIn users can visit
-export const AuthProtectedRoute: React.FC<{ children: ReactElement }> = ({ children }) => {
-   const isUserLoggedIn = useAppSelector((state) => state.auth.userLoggedIn)
-   return !isUserLoggedIn ? <Navigate to='/login' /> : children
+export const AuthProtectedRoute = () => {
+   const isUserLoggedIn = useAppSelector(state => state.auth.userLoggedIn)
+   const accessToken = useAppSelector(state => state.auth.accessToken)
+   return !isUserLoggedIn && accessToken === null ? <Navigate to='/login' /> : <Outlet />
 }
 
 // Admin Routes
-export const AdminRoute: React.FC<{ children: ReactElement }> = ({ children }) => {
-   const userIsAdmin = useAppSelector((state) => state.auth.isAdmin)
-   return userIsAdmin ? children : <Navigate to='/login' />
+export const AdminRoute = () => {
+   const isUserLoggedIn = useAppSelector(state => state.auth.userLoggedIn)
+   const accessToken = useAppSelector(state => state.auth.accessToken)
+   const userIsAdmin = useAppSelector(state => state.auth.isAdmin)
+   return isUserLoggedIn && accessToken !== null && userIsAdmin ? <Outlet /> : <Navigate to='/' />
 }

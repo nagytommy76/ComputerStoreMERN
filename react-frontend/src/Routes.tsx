@@ -61,54 +61,18 @@ const Routes = () => {
          <Route path='/hdd' element={<HDDProducts />} />
          <Route path='/ssd' element={<SSDProducts />} />
          <Route path='/orders' element={<UserOrders />} />
-         <Route
-            path='/register'
-            element={
-               <GuestsRoute>
-                  <Register />
-               </GuestsRoute>
-            }
-         />
-         <Route
-            path='/login'
-            element={
-               <GuestsRoute>
-                  <Login />
-               </GuestsRoute>
-            }
-         />
-         <Route
-            path='/email-confirm/:confirmCode'
-            element={
-               <GuestsRoute>
-                  <EmailValidation />
-               </GuestsRoute>
-            }
-         />
-         <Route
-            path='/forgot-password/:userEmail/:forgotPassToken'
-            element={
-               <GuestsRoute>
-                  <ForgotPassword />
-               </GuestsRoute>
-            }
-         />
-         <Route
-            path='/checkout'
-            element={
-               <AuthProtectedRoute>
-                  <Checkout />
-               </AuthProtectedRoute>
-            }
-         />
-         <Route
-            path='/admin/*'
-            element={
-               <AdminRoute>
-                  <Admin />
-               </AdminRoute>
-            }
-         />
+         <Route element={<GuestsRoute />}>
+            <Route path='/register' element={<Register />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/email-confirm/:confirmCode' element={<EmailValidation />} />
+            <Route path='/forgot-password/:userEmail/:forgotPassToken' element={<ForgotPassword />} />
+         </Route>
+         <Route element={<AuthProtectedRoute />}>
+            <Route path='/checkout' element={<Checkout />} />
+         </Route>
+         <Route element={<AdminRoute />}>
+            <Route path='/admin/*' element={<Admin />} />
+         </Route>
          <Route path='*' element={<Page404 />} />
       </RoutesDOM>
    )

@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import { mobileWindowSize } from '../../Theme/GlobalStyles'
-import { navbarHeight } from '../Navbar/NavbarStyles'
 
 export const AdminPageContainer = styled.section`
    position: relative;
