@@ -72,6 +72,9 @@ const useAxiosSetup = () => {
 
 export default useAxiosSetup
 
+// https://medium.com/@ryanchenkie_40935/react-authentication-how-to-store-jwt-in-a-cookie-346519310e81
+// https://hasura.io/blog/best-practices-of-using-jwt-with-graphql/#introduction-what-is-a-jwt
+
 // https://bilot.group/articles/using-react-router-inside-axios-interceptors/
 
 // https://github.com/axios/axios/issues/934

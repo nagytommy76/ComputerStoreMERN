@@ -16,7 +16,7 @@ const DropMenu: React.FC<Prop> = ({ reference }) => {
    const dispatch = useAppDispatch()
    const isAdmin = useAppSelector(state => state.auth.isAdmin)
    const isMobileSize = useAppSelector(state => state.mobile.isMobile)
-   const { setIsUserDropOpen } = useContext(NavbarContext)
+   const { setIsUserDropOpen, setIsNavbarOpen } = useContext(NavbarContext)
 
    const logout = () => {
       dispatch(restoreUserDetails())
@@ -27,6 +27,7 @@ const DropMenu: React.FC<Prop> = ({ reference }) => {
    const clickEvent = (event: React.MouseEvent) => {
       event.stopPropagation()
       setIsUserDropOpen(false)
+      setIsNavbarOpen(false)
    }
    return (
       <DropStyle ref={reference}>
@@ -35,11 +36,17 @@ const DropMenu: React.FC<Prop> = ({ reference }) => {
                <FontAwesomeIcon icon={['fas', 'times']} size='2x' />
             </CloseDropdownMenu>
          )}
-         <DropLinkItem to='/orders'>Korábbi rendelések</DropLinkItem>
+         <DropLinkItem onClick={clickEvent} to='/orders'>
+            Korábbi rendelések
+         </DropLinkItem>
          <DropLinkItem onClick={logout} to=''>
             Kijelentkezés
          </DropLinkItem>
-         {isAdmin && <DropLinkItem to='/admin'>Admin Felület</DropLinkItem>}
+         {isAdmin && (
+            <DropLinkItem onClick={clickEvent} to='/admin'>
+               Admin Felület
+            </DropLinkItem>
+         )}
       </DropStyle>
    )
 }
