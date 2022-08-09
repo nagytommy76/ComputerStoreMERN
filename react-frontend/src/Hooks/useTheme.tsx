@@ -21,7 +21,7 @@ const useMaterialTheme = () => {
       } catch (error) {
          console.log(error)
       }
-   }, [dispatch])
+   }, [dispatch, isPreferredThemeSetByUser])
 
    const lightTheme = createTheme(
       {

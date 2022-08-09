@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import OrderSuspense from '../../SuspenseComponents/OrdersPage/OrdersSuspense'
 
 import { axiosInstance as axios, AxiosResponse } from '../../AxiosSetup/AxiosInstance'
 import { UserOrders } from './OrderTypes'
@@ -24,23 +25,26 @@ const Orders = () => {
    }
 
    return (
-      <OrdersPageContainer>
-         {orders.length > 0 ? (
-            orders.map((currentOrder, index) => (
-               <AccordionBody
-                  key={currentOrder._id}
-                  expanded={expanded}
-                  handleAccordionOpen={handleChange}
-                  index={index}
-                  userOrders={currentOrder}
-               />
-            ))
-         ) : (
-            <Typography align='center' variant='h2' color='gray' m={2}>
-               Nem rendeltél még tőlünk :(
-            </Typography>
-         )}
-      </OrdersPageContainer>
+      // <OrderSuspense />
+      <React.Suspense fallback={<OrderSuspense />}>
+         <OrdersPageContainer>
+            {orders ? (
+               orders.map((currentOrder, index) => (
+                  <AccordionBody
+                     key={currentOrder._id}
+                     expanded={expanded}
+                     handleAccordionOpen={handleChange}
+                     index={index}
+                     userOrders={currentOrder}
+                  />
+               ))
+            ) : (
+               <Typography align='center' variant='h2' color='gray' m={2}>
+                  Nem rendeltél még tőlünk :(
+               </Typography>
+            )}
+         </OrdersPageContainer>
+      </React.Suspense>
    )
 }
 

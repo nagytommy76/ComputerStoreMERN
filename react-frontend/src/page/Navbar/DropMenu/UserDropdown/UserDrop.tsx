@@ -27,7 +27,7 @@ const DropMenu: React.FC<Prop> = ({ reference }) => {
    const clickEvent = (event: React.MouseEvent) => {
       event.stopPropagation()
       setIsUserDropOpen(false)
-      setIsNavbarOpen(false)
+      isMobileSize && setIsNavbarOpen(false)
    }
    return (
       <DropStyle ref={reference}>
