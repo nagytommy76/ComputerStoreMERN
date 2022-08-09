@@ -8,20 +8,16 @@ import { huHU } from '@mui/material/locale'
 
 const useMaterialTheme = () => {
    const dispatch = useAppDispatch()
-   const isDarkTheme = useAppSelector(state => state.theme.isDarkTheme)
+   const { isDarkTheme, isPreferredThemeSetByUser } = useAppSelector(state => state.theme)
 
    const transitions = { create: () => 'all .15s linear' }
 
    useEffect(() => {
       try {
          const darkThemeMq = window.matchMedia('(prefers-color-scheme: dark)')
-         if (darkThemeMq.matches) {
-            // Theme set to dark.
-            dispatch(setTheme(true))
-         } else {
-            // Theme set to light.
-            dispatch(setTheme(false))
-         }
+         !isPreferredThemeSetByUser && darkThemeMq.matches
+            ? dispatch(setTheme(true))
+            : dispatch(setTheme(false))
       } catch (error) {
          console.log(error)
       }
