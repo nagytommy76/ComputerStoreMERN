@@ -25,7 +25,6 @@ const Orders = () => {
    }
 
    return (
-      // <OrderSuspense />
       <React.Suspense fallback={<OrderSuspense />}>
          <OrdersPageContainer>
             {orders ? (
