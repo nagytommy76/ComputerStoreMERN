@@ -18,13 +18,6 @@ export const StyledFormPaper = MUIStyled(Paper)`
 
 // FORM
 
-export const InputSection = styled.section`
-   display: flex;
-   width: 100%;
-   flex-direction: column;
-   align-items: center;
-`
-
 export const AuthFormStyle = styled.section`
    display: flex;
    justify-content: center;

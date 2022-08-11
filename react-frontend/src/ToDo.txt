@@ -37,7 +37,6 @@ a szüréshez hozzáadni egy név szerint keresést?! pl gombnyomásra keres (30
 A főoldalt egy kicsit rendbe rakni, kiemelt termékek, style stb
 https://stackoverflow.com/questions/6502541/mongodb-query-multiple-collections-at-once
 
-- Rendelések oldalra Suspense-t tenni!!!
 
 
 
@@ -45,6 +44,8 @@ https://stackoverflow.com/questions/6502541/mongodb-query-multiple-collections-a
 
 https://help.heroku.com/FZDDCBLB/how-can-i-download-my-code-from-heroku
 MEGCSINÁLTAM:
+
+- Rendelések oldalra Suspense-t tenni!!!
 
 - megoldani: a user által preferált theme jó, de ha refresheled az oldalt és esetleg ő átváltotta közben, visszmegy a
  preferáltra. Vagyis localStorage/Redux-ban tárolni ha már egyszer beállította magának, hogy eltérő legyen az os default-tól

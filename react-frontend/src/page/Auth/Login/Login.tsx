@@ -26,38 +26,39 @@ const Login: React.FC = () => {
    } = useLogin()
 
    return (
-      <Suspense fallback={<LoginSuspense />}>
-         <AuthContainer>
-            <AuthFormStyle>
-               <LoginForm
-                  onSubmitEvent={loginUser}
-                  title='Belépés'
-                  buttonText='Belépés'
-                  isLoadingButton={isLoadingForResponse}
-               >
-                  <InputFields
-                     emailOrUsername={emailOrUsername}
-                     setEmailOrUsername={setEmailOrUsername}
-                     password={password}
-                     setPassword={setPassword}
-                  />
-                  <ForgotButton
-                     emailOrUsername={emailOrUsername}
-                     setInvalidPassAttempt={setInvalidPassAttempt}
-                  />
-                  <Suspense fallback={<Alerts />}>
-                     <AlertMessages
-                        invalidPassAttempt={invalidPassAttempt}
-                        emailOrUsername={emailOrUsername}
-                        isInvalidatedEmail={isInvalidatedEmail}
-                        validationError={validationError}
-                     />
-                  </Suspense>
-               </LoginForm>
-            </AuthFormStyle>
-            <ImageStyle image={loginImage} />
-         </AuthContainer>
-      </Suspense>
+      <LoginSuspense />
+      // <Suspense fallback={<LoginSuspense />}>
+      //    <AuthContainer>
+      //       <AuthFormStyle>
+      //          <LoginForm
+      //             onSubmitEvent={loginUser}
+      //             title='Belépés'
+      //             buttonText='Belépés'
+      //             isLoadingButton={isLoadingForResponse}
+      //          >
+      //             <InputFields
+      //                emailOrUsername={emailOrUsername}
+      //                setEmailOrUsername={setEmailOrUsername}
+      //                password={password}
+      //                setPassword={setPassword}
+      //             />
+      //             <ForgotButton
+      //                emailOrUsername={emailOrUsername}
+      //                setInvalidPassAttempt={setInvalidPassAttempt}
+      //             />
+      //             <Suspense fallback={<Alerts />}>
+      //                <AlertMessages
+      //                   invalidPassAttempt={invalidPassAttempt}
+      //                   emailOrUsername={emailOrUsername}
+      //                   isInvalidatedEmail={isInvalidatedEmail}
+      //                   validationError={validationError}
+      //                />
+      //             </Suspense>
+      //          </LoginForm>
+      //       </AuthFormStyle>
+      //       <ImageStyle image={loginImage} />
+      //    </AuthContainer>
+      // </Suspense>
    )
 }
 

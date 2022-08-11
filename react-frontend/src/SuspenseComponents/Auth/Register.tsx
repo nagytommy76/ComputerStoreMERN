@@ -1,4 +1,4 @@
-import { AuthContainer, AuthFormStyle, ImageStyle, InputSection, StyledFormPaper } from './BaseStyle'
+import { AuthContainer, AuthFormStyle, ImageStyle, StyledFormPaper } from './BaseStyle'
 import Skeleton from '@mui/material/Skeleton'
 
 const Register = () => {

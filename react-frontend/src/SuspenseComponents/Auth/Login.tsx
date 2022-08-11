@@ -1,4 +1,4 @@
-import { AuthContainer, AuthFormStyle, ImageStyle, InputSection, StyledFormPaper } from './BaseStyle'
+import { AuthContainer, AuthFormStyle, ImageStyle, StyledFormPaper } from './BaseStyle'
 import Skeleton from '@mui/material/Skeleton'
 
 const Login = () => {
@@ -6,14 +6,10 @@ const Login = () => {
       <AuthContainer>
          <AuthFormStyle>
             <StyledFormPaper data-testid='loadingSuspense'>
-               <Skeleton height={75} width={220} sx={{ alignSelf: 'center', marginTop: 3 }} />
-               <InputSection>
-                  <Skeleton height={100} width='93%' />
-               </InputSection>
-               <InputSection>
-                  <Skeleton height={100} width='93%' />
-               </InputSection>
-               <Skeleton height={80} width={160} sx={{ alignSelf: 'center' }} />
+               <Skeleton height={70} width={140} variant='text' sx={{ alignSelf: 'center', marginTop: 3 }} />
+               <Skeleton height={87} width='100%' />
+               <Skeleton height={87} sx={{ margin: 0 }} width='100%' />
+               <Skeleton height={80} width={140} sx={{ alignSelf: 'center', marginTop: 3 }} />
             </StyledFormPaper>
          </AuthFormStyle>
          <ImageStyle />
