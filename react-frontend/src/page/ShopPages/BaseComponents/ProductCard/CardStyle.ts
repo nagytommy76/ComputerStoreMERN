@@ -30,4 +30,5 @@ export const SubTitleStyle = styled.h5`
 // Footer
 export const CardFooterStyle = styled.footer`
    height: ${FooterHeight};
+   padding-left: 0.5rem;
 `
