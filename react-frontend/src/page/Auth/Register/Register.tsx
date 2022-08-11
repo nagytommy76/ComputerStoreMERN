@@ -19,7 +19,7 @@ const Register = () => {
       firstPassword,
       setFirstPassword,
       secondPassword,
-      setSecondPassword
+      setSecondPassword,
    } = useRegister()
 
    return (
@@ -31,7 +31,8 @@ const Register = () => {
                   isLoadingButton={isLoadingForResponse}
                   onSubmitEvent={registerUser}
                   title='Regisztráció'
-                  buttonText='Regisztráció'>
+                  buttonText='Regisztráció'
+               >
                   <InputFields
                      email={email}
                      setEmail={setEmail}

@@ -8,19 +8,11 @@ const Register = () => {
          <AuthFormStyle>
             <StyledFormPaper>
                <Skeleton height={75} width={220} sx={{ alignSelf: 'center', marginTop: 2 }} />
-               <InputSection>
-                  <Skeleton height={100} width='93%' />
-               </InputSection>
-               <InputSection>
-                  <Skeleton height={100} width='93%' />
-               </InputSection>
-               <InputSection>
-                  <Skeleton height={100} width='93%' />
-               </InputSection>
-               <InputSection>
-                  <Skeleton height={100} width='93%' />
-               </InputSection>
-               <Skeleton height={80} width={160} sx={{ alignSelf: 'center' }} />
+               <Skeleton height={86} width='100%' />
+               <Skeleton height={86} width='100%' />
+               <Skeleton height={86} width='100%' />
+               <Skeleton height={86} width='100%' />
+               <Skeleton height={70} width={180} sx={{ alignSelf: 'center' }} />
             </StyledFormPaper>
          </AuthFormStyle>
       </AuthContainer>
