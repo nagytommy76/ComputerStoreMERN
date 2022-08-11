@@ -4,11 +4,15 @@ import { useAppSelector } from '../../../../app/hooks'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { NavbarContext } from '../../NavbarContext'
 
+import { useAppDispatch } from '../../../../app/hooks'
+import { setProducts } from '../../../../app/slices/ProductsSlice'
+
 type Prop = {
    reference: React.MutableRefObject<null>
 }
 
 const DropMenu: React.FC<Prop> = ({ reference }) => {
+   const dispatch = useAppDispatch()
    const isMobileSize = useAppSelector(state => state.mobile.isMobile)
    const { setIsShopDropOpen, setIsNavbarOpen } = useContext(NavbarContext)
    const clickEvent = (event: React.MouseEvent) => {
@@ -21,6 +25,8 @@ const DropMenu: React.FC<Prop> = ({ reference }) => {
          setIsShopDropOpen(false)
          setIsNavbarOpen(false)
       }
+      // A products oldal suspense miatt kell
+      dispatch(setProducts([]))
    }
    return (
       <DropStyle ref={reference}>
