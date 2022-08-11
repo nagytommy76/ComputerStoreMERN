@@ -2,7 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { BaseProductType } from '../../page/ShopPages/BaseTypes'
 
 const initialState: InitialState = {
-   products: []
+   products: [],
+   isFetching: false,
 }
 
 const ProductsSlice = createSlice({
@@ -11,16 +12,20 @@ const ProductsSlice = createSlice({
    reducers: {
       setProducts: (state, action: PayloadAction<any>) => {
          state.products = action.payload
-      }
-   }
+      },
+      setIsFetching: (state, action: PayloadAction<any>) => {
+         state.isFetching = action.payload
+      },
+   },
 })
 
-export const { setProducts } = ProductsSlice.actions
+export const { setProducts, setIsFetching } = ProductsSlice.actions
 
 export default ProductsSlice.reducer
 
 type InitialState = {
    products: ProductsType[]
+   isFetching: boolean
 }
 
 type ProductsType = BaseProductType & {
