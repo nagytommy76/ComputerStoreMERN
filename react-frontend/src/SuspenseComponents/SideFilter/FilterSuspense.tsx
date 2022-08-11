@@ -11,7 +11,7 @@ const Style = { margin: '2rem auto' }
 const FilterSuspense = () => {
    return (
       <StyledFilterCard>
-         <Skeleton height={30} width='50%' sx={Style} animation='wave' variant='rectangular' />
+         <Skeleton height={35} width='50%' sx={Style} animation='wave' variant='rectangular' />
          <Skeleton height={60} width='85%' sx={Style} animation='wave' variant='rectangular' />
          <Skeleton height={60} width='85%' sx={Style} animation='wave' variant='rectangular' />
          <Skeleton height={60} width='85%' sx={Style} animation='wave' variant='rectangular' />
@@ -32,9 +32,10 @@ const StyledFilterCard = styled(Paper)`
    margin-top: -1.5rem;
 
    @media (max-width: ${mobileWindowSize}) {
-      width: 95%;
+      width: 80%;
       height: 100%;
-      margin-top: 1rem;
+      margin-top: 0;
+      margin-bottom: 2.5rem;
    }
 `
 
