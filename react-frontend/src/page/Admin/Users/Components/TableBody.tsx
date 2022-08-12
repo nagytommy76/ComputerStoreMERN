@@ -36,18 +36,19 @@ const TableBodyComponent = () => {
    return (
       <TableBody>
          {users.map((user: UserTypes) => (
-            <TableRow
-               sx={{ cursor: 'pointer' }}
-               onClick={() => toggleModal(user._id, user.userName)}
-               hover
-               key={user._id}
-            >
-               <TableCell scope='row' component='th'>
+            <TableRow sx={{ cursor: 'pointer' }} hover key={user._id}>
+               <TableCell onClick={() => toggleModal(user._id, user.userName)} scope='row' component='th'>
                   {user.email}
                </TableCell>
-               <TableCell align='right'>{user.userName}</TableCell>
-               <TableCell align='right'>{user.isEmailConfirmed ? 'Igen' : 'Nem'}</TableCell>
-               <TableCell align='right'>{user.isAdmin ? 'Igen' : 'Nem'}</TableCell>
+               <TableCell onClick={() => toggleModal(user._id, user.userName)} align='right'>
+                  {user.userName}
+               </TableCell>
+               <TableCell onClick={() => toggleModal(user._id, user.userName)} align='right'>
+                  {user.isEmailConfirmed ? 'Igen' : 'Nem'}
+               </TableCell>
+               <TableCell onClick={() => toggleModal(user._id, user.userName)} align='right'>
+                  {user.isAdmin ? 'Igen' : 'Nem'}
+               </TableCell>
                <TableCell align='right'>
                   {!user.isAdmin && (
                      <DeleteButton
