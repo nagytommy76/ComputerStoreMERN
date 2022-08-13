@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose'
-import { UserTypes } from './UserTypes'
+import { UserTypes, UserModel } from './UserTypes'
 
-const UserSchema = new Schema<UserTypes>({
+const UserSchema = new Schema<UserTypes, UserModel>({
    userName: { type: String, required: true, unique: true },
    password: {
       type: String,
@@ -64,4 +64,20 @@ const UserSchema = new Schema<UserTypes>({
    ],
 })
 
-export const User = model<UserTypes>('User', UserSchema)
+UserSchema.statics.register = async function (email: string, userName: string, firstPassword: string) {
+   if (!email || !userName || !firstPassword)
+      throw Error('Adj meg egy email címet, felhasználónevet és jelszót!')
+
+   const checkUserRegisteredWithEmail = await this.findOne({ $or: [{ userName }, { email }] })
+   if (checkUserRegisteredWithEmail !== null)
+      throw Error('Az email cím vagy felhasználónév már regisztrálva lett')
+}
+
+UserSchema.statics.login = async function (userNameOrEmail: string) {
+   const user = await this.findOne({ $or: [{ email: userNameOrEmail }, { userName: userNameOrEmail }] })
+   if (!user) throw Error('Nincs regisztrálva felhasználó ezzel az email címmel')
+
+   return user
+}
+
+export const User = model<UserTypes, UserModel>('User', UserSchema)

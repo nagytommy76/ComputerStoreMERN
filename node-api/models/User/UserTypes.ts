@@ -1,4 +1,4 @@
-import { ObjectId } from 'mongoose'
+import { Model, ObjectId, Document } from 'mongoose'
 
 export type UserTypes = {
    userName: string
@@ -53,4 +53,9 @@ export type CartItemsType = {
    displayImage: string
    displayName: string
    price: number
+}
+
+export interface UserModel extends Model<UserTypes> {
+   register(email: string, userName: string, firstPassword: string): Promise<void>
+   login(userNameOrEmail: string): Promise<UserTypes & Document<any, any>>
 }
