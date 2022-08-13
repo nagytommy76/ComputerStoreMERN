@@ -12,18 +12,25 @@ const nodemailer = new NodeMailer()
 export const registerUserController = async (req: Request, res: Response) => {
    const userName = req.body.userName
    const email = req.body.email
-
-   const checkUserRegistered = await User.findOne({ email, userName })
-   if (checkUserRegistered !== null)
-      return res.status(404).json(ErrorResponse(true, 'Az email cím már regisztrálva lett'))
+   const firstPass = req.body.firstPassword
+   try {
+      await User.register(email, userName, firstPass)
+   } catch (error: any) {
+      return res.status(404).json(ErrorResponse(true, error.message))
+   }
 
    const validationErrors = validationResult(req)
    if (!validationErrors.isEmpty()) return res.status(422).json({ errors: validationErrors.array() })
 
    try {
-      const hashedPass = await bcrypt.hash(req.body.firstPassword, 10)
+      const hashedPass = await bcrypt.hash(firstPass, 10)
       const emailToken = jwt.sign({ userName, email }, EMAIL_SECRET, {
          expiresIn: `${nodemailer.EMAIL_TOKEN_EXPIRESIN}min`,
+      })
+      await User.create({
+         userName,
+         password: hashedPass,
+         email,
       })
       await nodemailer.sendEmailUserRegistersAndResendEmail(
          email,
@@ -31,11 +38,6 @@ export const registerUserController = async (req: Request, res: Response) => {
          userName,
          emailToken
       )
-      await User.create({
-         userName,
-         password: hashedPass,
-         email,
-      })
       res.status(201).json({
          message:
             'A regisztráció sikeres volt - Az email címedre megküldtük a regisztráció megerősítéhez szükséges kódot!',
@@ -46,12 +48,9 @@ export const registerUserController = async (req: Request, res: Response) => {
 }
 
 export const loginUserController = async (req: Request, res: Response) => {
-   const user = await User.findOne({ $or: [{ email: req.body.email }, { userName: req.body.email }] })
-
-   if (!user)
-      return res.status(404).json(ErrorResponse(true, 'Nincs regisztrálva felhasználó ezzel az email címmel'))
-
+   const userName = req.body.email
    try {
+      const user = await User.login(userName)
       if (await bcrypt.compare(req.body.password, user.password)) {
          if (!user.isEmailConfirmed)
             return res
@@ -80,8 +79,8 @@ export const loginUserController = async (req: Request, res: Response) => {
             isAdmin: user.isAdmin,
          })
       } else res.status(403).json(ErrorResponse(true, 'Helytelen jelszó', 'password'))
-   } catch (error) {
-      res.status(500).json(error)
+   } catch (error: any) {
+      res.status(404).json(ErrorResponse(true, error.message))
    }
 }
 
