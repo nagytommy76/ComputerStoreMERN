@@ -12,6 +12,7 @@ const axiosInstance = axios.create({
    headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': DEVELOPMENT_URL,
+      // 'Access-Control-Allow-Origin': PRODUCTION_URL,
       'Access-Control-Allow-Credentials': 'true',
    },
 })
