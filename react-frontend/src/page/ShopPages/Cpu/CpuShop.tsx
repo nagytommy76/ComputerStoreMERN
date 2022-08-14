@@ -17,7 +17,7 @@ const CpuShop = () => {
    const extraDispatches = useExtraDispatch()
    const extraQueryParams = useExtraQuery()
    return (
-      <BaseShop productType='cpu'>
+      <BaseShop productName='Processzor' productType='cpu'>
          <SideFilter
             productType='cpu'
             extraQueryParameters={extraQueryParams}

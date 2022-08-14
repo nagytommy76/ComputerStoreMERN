@@ -17,7 +17,7 @@ const SSDShop = () => {
    const extraDispatches = useExtraDispatch()
    const extraQueryParameters = useExtraQuery()
    return (
-      <BaseShop productType='ssd'>
+      <BaseShop productName='SSD' productType='ssd'>
          <SideFilter
             productType='ssd'
             extraDispatches={extraDispatches}

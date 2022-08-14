@@ -3,7 +3,7 @@ import { axiosInstance as axios, AxiosResponse } from '../../../AxiosSetup/Axios
 
 import { setTotalPages } from '../../../app/slices/PaginateSlice'
 import { useAppSelector, useAppDispatch } from '../../../app/hooks'
-import { setProducts, setIsFetching } from '../../../app/slices/ProductsSlice'
+import { setProducts, setIsFetching, setTotalProductCount } from '../../../app/slices/ProductsSlice'
 import { setIsPriceRangeSet } from '../../../app/slices/Filter/BaseFilterDataSlice'
 
 const useGetProducts = (productTypeForURL: string, extraQueryParameters: string = '') => {
@@ -16,7 +16,10 @@ const useGetProducts = (productTypeForURL: string, extraQueryParameters: string 
    const getProductsByQueries = useCallback(async () => {
       dispatch(setIsFetching(true))
       try {
-         const product: AxiosResponse<{ allProducts: any[]; totalPages: number }, any[]> = await axios.get(
+         const product: AxiosResponse<
+            { allProducts: any[]; totalPages: number; totalProductCount: number },
+            any[]
+         > = await axios.get(
             `/${productTypeForURL}?currentPage=${currentPage}&perPage=${perPage}&orderBy=${filterOptions.orderBy}&byManufacturer=${filterOptions.selectedManufacturer}&priceRange=${filterOptions.priceRange}&selectedWarranty=${filterOptions.selectedWarranty}${extraQueryParameters}`,
             {
                data: {
@@ -29,6 +32,7 @@ const useGetProducts = (productTypeForURL: string, extraQueryParameters: string 
          if (product.status === 200) {
             dispatch(setProducts(product.data.allProducts))
             dispatch(setTotalPages(product.data.totalPages))
+            dispatch(setTotalProductCount(product.data.totalProductCount))
             dispatch(setIsPriceRangeSet(false))
             dispatch(setIsFetching(false))
          }

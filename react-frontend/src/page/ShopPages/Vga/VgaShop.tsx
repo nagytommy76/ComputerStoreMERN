@@ -19,7 +19,7 @@ const VgaShop = () => {
    const extraDispatches = useExtraDispatch()
    const extraQueryParameters = useExtraQuery()
    return (
-      <BaseVgaShop productType='vga'>
+      <BaseVgaShop productName='Videókártya' productType='vga'>
          <VgaSideFilter
             productType='vga'
             extraDispatches={extraDispatches}

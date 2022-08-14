@@ -13,7 +13,7 @@ const HDDShop = () => {
    const extraDispatches = useExtraDispatch()
    const extraQueryParams = useExtraQuery()
    return (
-      <BaseShop productType='hdd'>
+      <BaseShop productName='HDD' productType='hdd'>
          <SideFilter
             productType='hdd'
             extraDispatches={extraDispatches}

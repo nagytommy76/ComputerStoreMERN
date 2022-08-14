@@ -14,7 +14,7 @@ const MemoryShop = () => {
    const extraDispatches = useExtraDispatch()
    const extraQueryParams = useExtraQuery()
    return (
-      <BaseShop productType='memory'>
+      <BaseShop productName='Memória' productType='memory'>
          <SideFilter
             productType='memory'
             extraQueryParameters={extraQueryParams}
