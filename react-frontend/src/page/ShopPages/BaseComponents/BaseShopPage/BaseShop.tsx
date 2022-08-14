@@ -8,14 +8,20 @@ import { PageContainer, CardGridContainer, RightFlexContainer } from '../../Base
 const ProductCard = lazy(() => import('../ProductCard/ProductCard'))
 const Pagination = lazy(() => import('../Pagination/Pagination'))
 const CartSnackBar = lazy(() => import('../CartSnackbar/CartSnackbar'))
+const ShopHeader = lazy(() => import('./Includes/ShopHeader'))
 
-const BaseShop: React.FC<{ productType: string; children?: ReactNode }> = ({ productType, children }) => {
+const BaseShop: React.FC<{ productName?: string; productType: string; children?: ReactNode }> = ({
+   productName = '',
+   productType,
+   children,
+}) => {
    const { isFetching, products } = useAppSelector(state => state.products)
 
    return (
       <PageContainer>
          <React.Suspense fallback={<FilterSuspense />}>{children}</React.Suspense>
          <RightFlexContainer>
+            <ShopHeader productName={productName} />
             <CardGridContainer>
                {!isFetching ? (
                   products.map(product => (
