@@ -39,7 +39,7 @@ export default abstract class BaseProduct {
       const pagedProducts = foundProduct.slice(startIndex, endIndex)
 
       totalPages = Math.ceil(foundProduct.length / perPage)
-      return { foundProduct: pagedProducts, totalPages }
+      return { foundProduct: pagedProducts, totalPages, totalProductCount: foundProduct.length }
    }
 
    returnProductDetails = async (productId: string) => {

@@ -18,13 +18,12 @@ export default class HDDProduct extends BaseProduct {
             'details.capacity': { $gte: capacityRange[0], $lte: capacityRange[1] },
             'details.rpm': { $gte: rpmRange[0], $lte: rpmRange[1] },
          }
-         const { foundProduct, totalPages } = await this.returnProductModelWithPaginateInfoWithoutDetails(
-            request,
-            extraFilterParams
-         )
+         const { foundProduct, totalPages, totalProductCount } =
+            await this.returnProductModelWithPaginateInfoWithoutDetails(request, extraFilterParams)
          response.status(200).json({
             allProducts: foundProduct,
             totalPages,
+            totalProductCount,
          })
       } catch (error) {
          response.status(500).json({ errorMessage: error })

@@ -33,11 +33,9 @@ export default class SSDProduct extends BaseProduct {
             'details.tbw': { $gte: tbwRange[0], $lte: tbwRange[1] },
          }
 
-         const { foundProduct, totalPages } = await this.returnProductModelWithPaginateInfoWithoutDetails(
-            request,
-            extraFilterParams
-         )
-         response.status(200).json({ allProducts: foundProduct, totalPages })
+         const { foundProduct, totalPages, totalProductCount } =
+            await this.returnProductModelWithPaginateInfoWithoutDetails(request, extraFilterParams)
+         response.status(200).json({ allProducts: foundProduct, totalPages, totalProductCount })
       } catch (error) {
          response.status(500).json({ errorMessage: error })
       }
