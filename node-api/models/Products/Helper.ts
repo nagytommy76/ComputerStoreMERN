@@ -1,3 +1,5 @@
+import { Schema } from 'mongoose'
+
 const responses = {
    type: [
       {
@@ -11,7 +13,7 @@ const responses = {
 export const ProductRatingValuesSchema = {
    type: [
       {
-         userId: { type: String, required: true },
+         userId: { type: Schema.Types.ObjectId, required: true },
          userName: { type: String, required: true },
          rating: { type: Number, required: true },
          ratedAt: { type: Date, required: true },

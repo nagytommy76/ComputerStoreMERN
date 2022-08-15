@@ -9,6 +9,7 @@ export type QueryRequest = Request & {
       minPrice: number
       priceRange: string
       selectedWarranty: string
+      productName: string
    }
 }
 
