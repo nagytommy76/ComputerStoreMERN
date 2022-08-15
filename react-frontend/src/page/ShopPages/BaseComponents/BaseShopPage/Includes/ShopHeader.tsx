@@ -1,12 +1,11 @@
 import React from 'react'
 import { styled } from '@mui/material'
 import { mobileWindowSize } from '../../../../../Theme/GlobalStyles'
-import SearchField from './SearchField'
 import { useAppSelector } from '../../../../../app/hooks'
 
 import Typography from '@mui/material/Typography'
 
-const ShopHeader: React.FC<{ productName: string }> = ({ productName }) => {
+const ShopHeader: React.FC<{ productName: string; productType: string }> = ({ productName, productType }) => {
    const productLength = useAppSelector(state => state.products.totalProductCount)
    return (
       <StyledShopHeader>
@@ -16,7 +15,6 @@ const ShopHeader: React.FC<{ productName: string }> = ({ productName }) => {
          <Typography color='action.disabled' variant='subtitle1'>
             ({productLength} termék)
          </Typography>
-         <SearchField />
       </StyledShopHeader>
    )
 }
@@ -24,7 +22,7 @@ const ShopHeader: React.FC<{ productName: string }> = ({ productName }) => {
 export default ShopHeader
 
 const StyledShopHeader = styled('header')({
-   width: '50%',
+   width: '385px',
    display: 'flex',
    flexDirection: 'row',
    alignItems: 'center',

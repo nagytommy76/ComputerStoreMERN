@@ -21,7 +21,7 @@ const BaseShop: React.FC<{ productName?: string; productType: string; children?:
       <PageContainer>
          <React.Suspense fallback={<FilterSuspense />}>{children}</React.Suspense>
          <RightFlexContainer>
-            <ShopHeader productName={productName} />
+            <ShopHeader productType={productType} productName={productName} />
             <CardGridContainer>
                {!isFetching ? (
                   products.map(product => (
