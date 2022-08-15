@@ -4,6 +4,7 @@ import useFilter from '../../Hooks/UseFilter'
 import useGetProducts from '../../Hooks/useGetProducts'
 import { StyledFilter, MainTitle } from './FilterStyle'
 
+const SearchField = React.lazy(() => import('./Includes/SearchField'))
 const OrderByPrice = React.lazy(() => import('./Includes/OrderByPrice'))
 const ByManufacturer = React.lazy(() => import('./Includes/ByManufacturer'))
 const PriceRange = React.lazy(() => import('./Includes/PriceRange'))
@@ -18,6 +19,7 @@ const SideFilter: React.FC<Props> = ({ productType, extraQueryParameters, extraD
    return (
       <StyledFilter isDarkTheme={isDarkTheme}>
          <MainTitle>Szűrés</MainTitle>
+         <SearchField extraQueryParams={extraQueryParameters} productType={productType} />
          <PerPage />
          <OrderByPrice />
          <ByManufacturer />
