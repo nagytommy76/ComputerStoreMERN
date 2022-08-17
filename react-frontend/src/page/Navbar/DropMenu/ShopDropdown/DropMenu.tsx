@@ -6,6 +6,7 @@ import { NavbarContext } from '../../NavbarContext'
 
 import { useAppDispatch } from '../../../../app/hooks'
 import { setProducts } from '../../../../app/slices/ProductsSlice'
+import { setProductName } from '../../../../app/slices/Filter/BaseFilterDataSlice'
 
 type Prop = {
    reference: React.MutableRefObject<null>
@@ -27,6 +28,7 @@ const DropMenu: React.FC<Prop> = ({ reference }) => {
       }
       // A products oldal suspense miatt kell
       dispatch(setProducts([]))
+      dispatch(setProductName(''))
    }
    return (
       <DropStyle ref={reference}>
