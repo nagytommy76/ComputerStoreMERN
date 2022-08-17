@@ -19,7 +19,13 @@ const useGetProductsByQueries = (productTypeForURL: string, extraQueryParameters
             { allProducts: any[]; totalPages: number; totalProductCount: number },
             any[]
          > = await axios.get(
-            `/${productTypeForURL}?currentPage=${currentPage}&perPage=${perPage}&orderBy=${filterOptions.orderBy}&byManufacturer=${filterOptions.selectedManufacturer}&priceRange=${filterOptions.priceRange}&selectedWarranty=${filterOptions.selectedWarranty}&productName=${filterOptions.productName}${extraQueryParameters}`,
+            `/${productTypeForURL}?currentPage=${currentPage}&perPage=${perPage}&orderBy=${
+               filterOptions.orderBy
+            }&byManufacturer=${filterOptions.selectedManufacturer}&priceRange=${
+               filterOptions.priceRange
+            }&selectedWarranty=${
+               filterOptions.selectedWarranty
+            }&productName=${filterOptions.productName.trim()}${extraQueryParameters}`,
             {
                data: {
                   currentPage,

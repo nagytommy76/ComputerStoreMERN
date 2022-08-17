@@ -16,9 +16,12 @@ const FilterSuspense = () => {
          <Skeleton height={60} width='85%' sx={Style} animation='wave' variant='rectangular' />
          <Skeleton height={60} width='85%' sx={Style} animation='wave' variant='rectangular' />
          <Skeleton height={60} width='85%' sx={Style} animation='wave' variant='rectangular' />
+         <Skeleton height={60} width='85%' sx={Style} animation='wave' variant='rectangular' />
          <Skeleton height={20} width='85%' sx={Style} animation='wave' variant='text' />
          <Skeleton height={60} width='85%' sx={Style} animation='wave' variant='rectangular' />
          <Skeleton height={60} width='85%' sx={Style} animation='wave' variant='rectangular' />
+         <Skeleton height={20} width='85%' sx={Style} animation='wave' variant='text' />
+         <Skeleton height={20} width='85%' sx={Style} animation='wave' variant='text' />
          <Skeleton height={20} width='85%' sx={Style} animation='wave' variant='text' />
          <Skeleton height={20} width='85%' sx={Style} animation='wave' variant='text' />
          <Skeleton height={20} width='85%' sx={Style} animation='wave' variant='text' />
