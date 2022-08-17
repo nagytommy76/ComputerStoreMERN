@@ -15,6 +15,7 @@ export default abstract class BaseProduct {
       const currentPage = parseInt(request.query.currentPage) || 1
       const perPage = parseInt(request.query.perPage) || 12
       const productName = request.query.productName.trim() || ''
+      const productNameRegexString = new RegExp(productName, 'i')
       const orderBy = request.query.orderBy || 'asc'
       const byManufacturer = request.query.byManufacturer === 'all' ? '' : request.query.byManufacturer
       const warranty = request.query.selectedWarranty.trim()
@@ -27,7 +28,11 @@ export default abstract class BaseProduct {
       } & Document<any, any>)[] = await this.productModel
          .find({
             manufacturer: new RegExp(byManufacturer, 'i'),
-            type: new RegExp(productName, 'i'),
+            $or: [
+               { type: productNameRegexString },
+               { typeCode: productNameRegexString },
+               { itemNumber: productNameRegexString },
+            ],
             ...byWarranty,
             price: { $gte: priceRange[0], $lte: priceRange[1] },
             ...extraFilerParameters,
