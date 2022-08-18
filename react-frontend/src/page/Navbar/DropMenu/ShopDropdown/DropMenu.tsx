@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { NavbarContext } from '../../NavbarContext'
 
 import { useAppDispatch } from '../../../../app/hooks'
-import { setProducts } from '../../../../app/slices/ProductsSlice'
+import { setProducts, setIsFetching } from '../../../../app/slices/ProductsSlice'
 import { setProductName } from '../../../../app/slices/Filter/BaseFilterDataSlice'
 
 type Prop = {
@@ -27,6 +27,7 @@ const DropMenu: React.FC<Prop> = ({ reference }) => {
          setIsNavbarOpen(false)
       }
       // A products oldal suspense miatt kell
+      dispatch(setIsFetching('INIT'))
       dispatch(setProducts([]))
       dispatch(setProductName(''))
    }

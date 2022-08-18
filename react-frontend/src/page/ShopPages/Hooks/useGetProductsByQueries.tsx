@@ -13,7 +13,7 @@ const useGetProductsByQueries = (productTypeForURL: string, extraQueryParameters
    const filterOptions = useAppSelector(state => state.filter.filterData)
 
    const getProductsByQueries = useCallback(async () => {
-      dispatch(setIsFetching(true))
+      dispatch(setIsFetching('PENDING'))
       try {
          const product: AxiosResponse<
             { allProducts: any[]; totalPages: number; totalProductCount: number },
@@ -39,11 +39,11 @@ const useGetProductsByQueries = (productTypeForURL: string, extraQueryParameters
             dispatch(setTotalPages(product.data.totalPages))
             dispatch(setTotalProductCount(product.data.totalProductCount))
             dispatch(setIsPriceRangeSet(false))
-            dispatch(setIsFetching(false))
+            dispatch(setIsFetching('FULFILLED'))
          }
       } catch (error) {
          console.log(error)
-         dispatch(setIsFetching(false))
+         dispatch(setIsFetching('REJECTED'))
       }
    }, [dispatch, currentPage, perPage, filterOptions, productTypeForURL, extraQueryParameters])
 
