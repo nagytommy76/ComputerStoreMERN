@@ -2,8 +2,11 @@ import React, { useContext } from 'react'
 import { AdminContext } from '../Context/AdminContext'
 import { FormContainerStyle } from '../Components/Form/FormStyle'
 
+import { SSD_SIZES, SSD_CONNECTIONS, NAND_TECHNOLOGY } from './SSDProperties'
+
 const BaseFields = React.lazy(() => import('../Components/BaseInputs'))
 const TextOrNumberInput = React.lazy(() => import('../Components/InputFields/TextOrNumberInput'))
+const BasseMUISelect = React.lazy(() => import('../Components/InputFields/Select/MUISelectFeild'))
 
 const BaseInputFields = () => {
    const { productInputs, setProductInputs, validationErrors } = useContext(AdminContext)
@@ -55,7 +58,8 @@ const BaseInputFields = () => {
             validationErrorLocation='details.manufacturerPageUrl'
             validationErrors={validationErrors}
          />
-         <TextOrNumberInput
+         <BasseMUISelect
+            selectableItems={SSD_SIZES}
             id='size'
             labelText='Méret'
             onChangeEvent={event =>
@@ -68,7 +72,8 @@ const BaseInputFields = () => {
             validationErrorLocation='details.size'
             validationErrors={validationErrors}
          />
-         <TextOrNumberInput
+         <BasseMUISelect
+            selectableItems={SSD_CONNECTIONS}
             id='connection'
             labelText='Csatoló felület'
             onChangeEvent={event =>
@@ -81,7 +86,8 @@ const BaseInputFields = () => {
             validationErrorLocation='details.connection'
             validationErrors={validationErrors}
          />
-         <TextOrNumberInput
+         <BasseMUISelect
+            selectableItems={NAND_TECHNOLOGY}
             id='nandTechnology'
             labelText='NAND Technológia '
             onChangeEvent={event =>

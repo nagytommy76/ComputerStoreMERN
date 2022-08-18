@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import NumberFormat from 'react-number-format'
-import { navbarHeight } from '../../../Navbar/NavbarStyles'
 import { mobileWindowSize, transitionSetup } from '../../../../Theme/GlobalStyles'
 
 export const DetailsPage = styled.section`
