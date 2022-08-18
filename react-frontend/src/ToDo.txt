@@ -34,6 +34,8 @@ Kommenteket szeretnék törölni, felhasználónak az összes kommentjét lássa
   TextareaAutosize limits the number of renders to prevent an infinite loop.
   HIBÁT MEGOLDANI!!!!!!!!!! CPU/VGA-nál van, elvileg a többinél nincs
 
+- ADMIN oldalon befejezni a MUISelect field-re átállást
+
 - Esetleg PDF generálás?!
 
 a szüréshez hozzáadni egy név szerint keresést?! pl gombnyomásra keres (3070ti stb)

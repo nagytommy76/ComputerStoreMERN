@@ -15,7 +15,7 @@ const SearchField: React.FC<{ productType: string; extraQueryParams: string | un
 }) => {
    const dispatch = useAppDispatch()
    const getProducts = useGetProductsByQueries(productType, extraQueryParams)
-   const isLoading = useAppSelector(state => state.products.isFetching)
+   const isLoading = useAppSelector(state => state.products.isFetchingStatus)
 
    const handleEnterAction = (event: React.ChangeEvent<HTMLInputElement>) => {
       dispatch(setProductName(event.target.value))
@@ -33,7 +33,8 @@ const SearchField: React.FC<{ productType: string; extraQueryParams: string | un
    return (
       <InputContainer>
          <TextField
-            disabled={isLoading}
+            fullWidth
+            disabled={isLoading === 'PENDING'}
             onChange={handleEnterAction}
             onKeyUp={handleFetchProductsOnKeyUp}
             InputProps={{
