@@ -43,7 +43,7 @@ const DropMenu: React.FC<Prop> = ({ reference }) => {
             Kijelentkezés
          </DropLinkItem>
          {isAdmin && (
-            <DropLinkItem onClick={clickEvent} to='/admin'>
+            <DropLinkItem onClick={clickEvent} to={`/${process.env.REACT_APP_PROTECTED_ADMIN_ROUTE}`}>
                Admin Felület
             </DropLinkItem>
          )}
