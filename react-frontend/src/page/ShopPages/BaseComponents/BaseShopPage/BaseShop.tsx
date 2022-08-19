@@ -6,7 +6,7 @@ import FilterSuspense from '../../../../SuspenseComponents/SideFilter/FilterSusp
 import { PageContainer, CardGridContainer, RightFlexContainer } from '../../BaseStyleForShopPage'
 
 import ProductNotFound from './Includes/ProductNotFound'
-const ProductCard = lazy(() => import('../ProductCard/ProductCard'))
+import ProductCard from '../ProductCard/ProductCard'
 const Pagination = lazy(() => import('../Pagination/Pagination'))
 const CartSnackBar = lazy(() => import('../CartSnackbar/CartSnackbar'))
 const ShopHeader = lazy(() => import('./Includes/ShopHeader'))
@@ -30,18 +30,17 @@ const BaseShop: React.FC<{ productName?: string; productType: string; children?:
                   <ProductNotFound />
                ) : (
                   products.map(product => (
-                     <React.Suspense key={product._id} fallback={<CardContainer />}>
-                        <ProductCard
-                           pathNameForDetailsURL={productType}
-                           _id={product._id}
-                           manufacturer={product.manufacturer}
-                           pictureUrls={product.pictureUrls}
-                           price={product.price}
-                           type={product.type}
-                           typeCode={product.typeCode}
-                           ratingCount={product.ratingValues?.length}
-                        />
-                     </React.Suspense>
+                     <ProductCard
+                        key={product._id}
+                        pathNameForDetailsURL={productType}
+                        _id={product._id}
+                        manufacturer={product.manufacturer}
+                        pictureUrls={product.pictureUrls}
+                        price={product.price}
+                        type={product.type}
+                        typeCode={product.typeCode}
+                        ratingCount={product.ratingValues?.length}
+                     />
                   ))
                )}
             </CardGridContainer>

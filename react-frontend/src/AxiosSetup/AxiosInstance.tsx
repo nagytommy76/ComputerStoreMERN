@@ -2,7 +2,6 @@ import axios from 'axios'
 
 const DEVELOPMENT_URL = 'http://localhost:3000'
 // const PRODUCTION_URL = 'https://computerstorebackend.firebaseapp.com'
-const PRODUCTION_URL = 'https://computerstoreproject.firebaseapp.com'
 
 const isAxiosError = axios.isAxiosError
 const axiosInstance = axios.create({

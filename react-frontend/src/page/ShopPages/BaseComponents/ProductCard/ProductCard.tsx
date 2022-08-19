@@ -10,8 +10,8 @@ import CardMedia from '@mui/material/CardMedia'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 
-const RatingCount = React.lazy(() => import('./Ratings/RatingCount'))
-const CardFooter = React.lazy(() => import('./CardFooter'))
+import RatingCount from './Ratings/RatingCount'
+import CardFooter from './CardFooter'
 
 const ProductCard: React.FC<ProductCardType> = ({
    _id,
