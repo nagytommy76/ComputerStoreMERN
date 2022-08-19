@@ -48,6 +48,11 @@ FONTOS!!!:
  - Az accessToken/refreshToken-be csak a user id-t illetve iat/exp dátumot beletenni, nem pedig a sensitive adatokat
  - valamint nem localStorage-ben tárolni, hanem cookie-ban?!
 
+Ha regisztrál valaki és megpróbál loginelni hibát dob:
+Error: Minified React error #185;
+Uncaught Error: Minified React error #185; 
+https://reactjs.org/docs/error-decoder.html/?invariant=185
+
 
 
 

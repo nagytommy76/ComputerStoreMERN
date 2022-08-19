@@ -24,8 +24,9 @@ const BaseShop: React.FC<{ productName?: string; productType: string; children?:
          <RightFlexContainer>
             <ShopHeader productType={productType} productName={productName} />
             <CardGridContainer>
-               {isFetchingStatus === 'PENDING' && <CardContainer />}
-               {isFetchingStatus === 'FULFILLED' && products.length < 1 ? (
+               {isFetchingStatus === 'PENDING' || isFetchingStatus === 'INIT' ? (
+                  <CardContainer />
+               ) : isFetchingStatus === 'FULFILLED' && products.length < 1 ? (
                   <ProductNotFound />
                ) : (
                   products.map(product => (
