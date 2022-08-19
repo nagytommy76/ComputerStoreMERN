@@ -28,10 +28,15 @@ const StyledProductNotFound = styled('div')({
 const StyledTypography = styled(Tpyography)({
    [`@media(max-width: ${mobileWindowSize})`]: {
       textAlign: 'center',
-      fontSize: '1.5rem',
+      fontSize: '2rem',
    },
 })
 
 const StyledImage = styled('img')({
    width: '25%',
+
+   [`@media(max-width: ${mobileWindowSize})`]: {
+      width: '55%',
+      marginBottom: '1rem',
+   },
 })
