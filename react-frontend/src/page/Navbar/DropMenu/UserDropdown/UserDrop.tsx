@@ -29,10 +29,15 @@ const DropMenu: React.FC<Prop> = ({ reference }) => {
       setIsUserDropOpen(false)
       isMobileSize && setIsNavbarOpen(false)
    }
+
+   const closeDropMenu = (event: React.MouseEvent) => {
+      event.stopPropagation()
+      setIsUserDropOpen(false)
+   }
    return (
       <DropStyle ref={reference}>
          {isMobileSize && (
-            <CloseDropdownMenu onClick={clickEvent}>
+            <CloseDropdownMenu onClick={closeDropMenu}>
                <FontAwesomeIcon icon={['fas', 'times']} size='2x' />
             </CloseDropdownMenu>
          )}
