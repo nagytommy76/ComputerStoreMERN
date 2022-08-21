@@ -18,7 +18,17 @@ const DropMenu: React.FC<Prop> = ({ reference }) => {
    const dispatch = useAppDispatch()
    const isMobileSize = useAppSelector(state => state.mobile.isMobile)
    const { setIsShopDropOpen, setIsNavbarOpen } = useContext(NavbarContext)
-   const locationPathArray = ['/vga', '/cpu', '/memory', '/hdd', '/ssd']
+   const locationPathArray = [
+      '/vga',
+      '/cpu',
+      '/memory',
+      '/hdd',
+      '/ssd',
+      '/',
+      '/orders',
+      '/login',
+      '/register',
+   ]
 
    const closeDropMenu = (event: React.MouseEvent) => {
       event.stopPropagation()
@@ -31,6 +41,7 @@ const DropMenu: React.FC<Prop> = ({ reference }) => {
          setIsShopDropOpen(false)
          setIsNavbarOpen(false)
       }
+      console.log(location.pathname)
       // A products oldal suspense miatt kell
       if (locationPathArray.includes(location.pathname) && location.pathname !== linkTo) {
          dispatch(setIsFetching('INIT'))
