@@ -1,8 +1,9 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react'
+import React, { useRef, useState } from 'react'
+import useWindowSize from '../../Hooks/useWindowSize'
+
 import styles from './navbar.module.css'
-import { useAppDispatch, useAppSelector } from '../../app/hooks'
+import { useAppSelector } from '../../app/hooks'
 import { NavbarContext } from './NavbarContext'
-import { setIsMobileSize } from '../../app/slices/MobileSlice'
 import { CSSTransition } from 'react-transition-group'
 
 import BaseDropBackground from './DropMenu/BaseDrop/BaseDropBackground'
@@ -14,25 +15,12 @@ import OpenButton from './OpenButton/OpenButton'
 import { NavStyle, BrandStyle, DropdownBackground } from './NavbarStyles'
 
 const Navbar = () => {
-   const dispatch = useAppDispatch()
-   const handleWindowSizeChange = useCallback(() => {
-      if (window.innerWidth <= 950) {
-         dispatch(setIsMobileSize(true))
-      } else {
-         setIsNavbarOpen(true)
-         dispatch(setIsMobileSize(false))
-      }
-   }, [dispatch])
-   useEffect(() => {
-      window.addEventListener('load', handleWindowSizeChange)
-      return () => window.removeEventListener('load', handleWindowSizeChange)
-   }, [handleWindowSizeChange])
-
    const isMobileSize = useAppSelector(state => state.mobile.isMobile)
    const [isShopDropOpen, setIsShopDropOpen] = useState(false)
    const [isUserDropOpen, setIsUserDropOpen] = useState(false)
    const [isNavbarOpen, setIsNavbarOpen] = useState(false)
    const [isCartOpen, setIsCartOpen] = useState(false)
+   useWindowSize(setIsNavbarOpen)
 
    const navbarRef = useRef(null)
    const BackgroundRef = useRef(null)
