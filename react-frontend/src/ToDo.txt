@@ -28,7 +28,6 @@ HIBÁK/BUGOK:
 - Az admin tudjon felhasználókat kezelni, pl: törölni(kommentet is)
 Kommenteket szeretnék törölni, felhasználónak az összes kommentjét lássam (termék kategóriánként?!)
 
-- ADMIn oldalon biztos jó a kéretlen felhsználók kezelése??? (ha nem admin vagy nem láthatod.)
 
 - ADMIN oldalon: MUI:Too many re-renders. The layout is unstable.
   TextareaAutosize limits the number of renders to prevent an infinite loop.
@@ -38,7 +37,6 @@ Kommenteket szeretnék törölni, felhasználónak az összes kommentjét lássa
 
 - Esetleg PDF generálás?!
 
-a szüréshez hozzáadni egy név szerint keresést?! pl gombnyomásra keres (3070ti stb)
 
 A főoldalt egy kicsit rendbe rakni, kiemelt termékek, style stb
 https://stackoverflow.com/questions/6502541/mongodb-query-multiple-collections-at-once
@@ -58,6 +56,10 @@ https://reactjs.org/docs/error-decoder.html/?invariant=185
 
 https://help.heroku.com/FZDDCBLB/how-can-i-download-my-code-from-heroku
 MEGCSINÁLTAM:
+- ADMIn oldalon biztos jó a kéretlen felhsználók kezelése??? (ha nem admin vagy nem láthatod.)
+
+a szüréshez hozzáadni egy név szerint keresést?! pl gombnyomásra keres (3070ti stb)
+
 - ADMIN oldalon SSD törlése/módosítása hiányzik!
 
 - Rendelések oldalra Suspense-t tenni!!!

@@ -41,7 +41,6 @@ const DropMenu: React.FC<Prop> = ({ reference }) => {
          setIsShopDropOpen(false)
          setIsNavbarOpen(false)
       }
-      console.log(location.pathname)
       // A products oldal suspense miatt kell
       if (locationPathArray.includes(location.pathname) && location.pathname !== linkTo) {
          dispatch(setIsFetching('INIT'))

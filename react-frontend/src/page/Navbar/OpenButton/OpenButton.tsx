@@ -5,7 +5,7 @@ import { useAppSelector } from '../../../app/hooks'
 import { NavbarContext } from '../NavbarContext'
 
 const OpenButton: React.FC = () => {
-   const isMobileSize = useAppSelector((state) => state.mobile.isMobile)
+   const isMobileSize = useAppSelector(state => state.mobile.isMobile)
    const { isNavbarOpen, setIsNavbarOpen } = useContext(NavbarContext)
 
    if (isMobileSize) {
