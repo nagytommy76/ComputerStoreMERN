@@ -15,12 +15,12 @@ import OpenButton from './OpenButton/OpenButton'
 import { NavStyle, BrandStyle, DropdownBackground } from './NavbarStyles'
 
 const Navbar = () => {
+   const [isNavbarOpen, setIsNavbarOpen] = useState(false)
+   useWindowSize(setIsNavbarOpen)
    const isMobileSize = useAppSelector(state => state.mobile.isMobile)
    const [isShopDropOpen, setIsShopDropOpen] = useState(false)
    const [isUserDropOpen, setIsUserDropOpen] = useState(false)
-   const [isNavbarOpen, setIsNavbarOpen] = useState(false)
    const [isCartOpen, setIsCartOpen] = useState(false)
-   useWindowSize(setIsNavbarOpen)
 
    const navbarRef = useRef(null)
    const BackgroundRef = useRef(null)

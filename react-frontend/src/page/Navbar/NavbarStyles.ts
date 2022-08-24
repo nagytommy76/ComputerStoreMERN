@@ -21,20 +21,24 @@ export const BaseStylingForUnderline = `
 `
 export const navbarHeight = '6.4rem'
 
-export const OpenNavbarButton = styled.div`
-   width: 40px;
-   height: 40px;
-   border-radius: 5px;
-   position: fixed;
-   top: 10px;
-   left: 10px;
-   background: hsl(54, 100%, 46%);
-   color: hsl(0, 0%, 21%);
-   z-index: 11;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-`
+export const OpenNavbarButton = styled('div')<{ mobileSize: boolean }>(({ mobileSize }) => ({
+   display: 'none',
+
+   [`@media(max-width: ${mobileWindowSize})`]: {
+      display: 'flex',
+      width: '40px',
+      height: '40px',
+      borderRadius: '5px',
+      position: 'fixed',
+      top: '10px',
+      left: '10px',
+      background: 'hsl(54, 100%, 46%)',
+      color: 'hsl(0, 0%, 21%)',
+      zIndex: '11',
+      justifyContent: 'center',
+      alignItems: 'center',
+   },
+}))
 
 export const NavStyle = styled.nav<{ mobileSize: boolean }>`
    z-index: 10;
