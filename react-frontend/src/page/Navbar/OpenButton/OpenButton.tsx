@@ -8,13 +8,15 @@ const OpenButton: React.FC = () => {
    const isMobileSize = useAppSelector(state => state.mobile.isMobile)
    const { isNavbarOpen, setIsNavbarOpen } = useContext(NavbarContext)
 
-   if (isMobileSize) {
-      return (
-         <OpenNavbarButton role='button' onClick={() => setIsNavbarOpen(!isNavbarOpen)}>
-            <FontAwesomeIcon icon={['fas', 'bars']} size='2x' />
-         </OpenNavbarButton>
-      )
-   } else return null
+   return (
+      <OpenNavbarButton
+         mobileSize={isMobileSize}
+         role='button'
+         onClick={() => setIsNavbarOpen(!isNavbarOpen)}
+      >
+         <FontAwesomeIcon icon={['fas', 'bars']} size='2x' />
+      </OpenNavbarButton>
+   )
 }
 
 export default OpenButton
