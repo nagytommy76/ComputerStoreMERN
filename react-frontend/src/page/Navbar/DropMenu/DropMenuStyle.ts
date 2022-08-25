@@ -28,6 +28,9 @@ export const DropStyle = styled.div`
 `
 
 export const CloseDropdownMenu = styled.div`
+   display: none;
+   align-items: center;
+   justify-content: center;
    width: 40px;
    height: 40px;
    border-radius: 5px;
@@ -35,9 +38,10 @@ export const CloseDropdownMenu = styled.div`
    position: absolute;
    top: 10px;
    right: 10px;
-   display: flex;
-   align-items: center;
-   justify-content: center;
+
+   @media (max-width: ${mobileWindowSize}) {
+      display: flex;
+   }
 `
 
 export const DropLinkItem = styled(Link)`

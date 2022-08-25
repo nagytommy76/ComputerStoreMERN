@@ -50,11 +50,9 @@ const DropMenu: React.FC<Prop> = ({ reference }) => {
    }
    return (
       <DropStyle ref={reference}>
-         {isMobileSize && (
-            <CloseDropdownMenu onClick={closeDropMenu}>
-               <FontAwesomeIcon icon={['fas', 'times']} size='2x' />
-            </CloseDropdownMenu>
-         )}
+         <CloseDropdownMenu onClick={closeDropMenu}>
+            <FontAwesomeIcon icon={['fas', 'times']} size='2x' />
+         </CloseDropdownMenu>
          <DropLinkItem to='/vga' onClick={e => closeNavbar(e, '/vga')}>
             Videókártya
          </DropLinkItem>
