@@ -53,7 +53,7 @@ const Navbar = () => {
             in={isNavbarOpen}
             unmountOnExit
             mountOnEnter
-            timeout={500}
+            timeout={350}
             nodeRef={navbarRef}
             classNames={{
                enter: styles.NavEnter,

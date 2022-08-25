@@ -51,7 +51,7 @@ export const NavStyle = styled.nav<{ mobileSize: boolean }>`
    align-items: center;
    justify-content: space-evenly;
    background-color: rgba(11, 11, 11, 0.8);
-   ${({ mobileSize }) => (mobileSize ? '' : 'transition: box-shadow 0.2s ease, background-color 0.2s ease;')}
+   ${({ mobileSize }) => (mobileSize ? '' : 'transition: box-shadow 0.1s, background-color 0.1s;')}
    &:hover {
       background-color: rgba(11, 11, 11, 0.95);
       box-shadow: 0px 0px 15px #111;

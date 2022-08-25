@@ -6,7 +6,7 @@
 .NavEnterActive {
    opacity: 1;
    transform: translateX(0%);
-   transition: all 0.5s ease;
+   transition: all 0.35s ease;
 }
 
 .NavExit {
@@ -16,5 +16,5 @@
 .NavExitActive {
    opacity: 0.5;
    transform: translateX(-100%);
-   transition: all 0.5s ease;
+   transition: all 0.35s ease;
 }
