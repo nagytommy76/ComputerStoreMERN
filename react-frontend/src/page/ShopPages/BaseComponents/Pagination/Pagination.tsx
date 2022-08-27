@@ -15,6 +15,10 @@ const Pagination: React.FC = () => {
       if (currentPage !== value) {
          dispatch(setCurrentPage(value))
          dispatch(setIsPriceRangeSet(true))
+         window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+         })
       }
    }
    return (

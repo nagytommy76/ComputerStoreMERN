@@ -13,7 +13,6 @@ const ScrollDown = () => {
                <DownArrowStyle />
                <DownArrowStyle />
                <DownArrowStyle />
-               <DownArrowStyle />
             </ScrolldownButton>
          </ScrollContainer>
       </Tooltip>
