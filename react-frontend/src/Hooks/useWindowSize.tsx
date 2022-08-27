@@ -4,6 +4,7 @@ import { setIsMobileSize } from '../app/slices/MobileSlice'
 
 const useWindowSize = (setIsNavbarOpen: React.Dispatch<React.SetStateAction<boolean>>) => {
    const dispatch = useAppDispatch()
+
    const handleWindowSizeChange = useCallback(() => {
       if (window.innerWidth <= 950) {
          dispatch(setIsMobileSize(true))
@@ -12,7 +13,9 @@ const useWindowSize = (setIsNavbarOpen: React.Dispatch<React.SetStateAction<bool
          dispatch(setIsMobileSize(false))
       }
    }, [dispatch, setIsNavbarOpen])
+
    useEffect(() => {
+      handleWindowSizeChange()
       window.addEventListener('resize', handleWindowSizeChange)
       window.addEventListener('load', handleWindowSizeChange)
       return () => {
