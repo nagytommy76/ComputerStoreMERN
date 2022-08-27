@@ -2,8 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 const initialState: State = {
    currentPage: 1,
-   perPage: 12,
-   totalPages: 1
+   perPage: 15,
+   totalPages: 1,
 }
 
 export const PaginateSlice = createSlice({
@@ -19,7 +19,7 @@ export const PaginateSlice = createSlice({
       setTotalPages: (state, action: PayloadAction<number>) => {
          state.totalPages = action.payload
       },
-      setToDefault: (state) => {
+      setToDefault: state => {
          state.currentPage = 1
       },
    },

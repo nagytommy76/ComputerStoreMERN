@@ -23,7 +23,7 @@ const PerPage: React.FC = () => {
          <FormControl variant='filled' fullWidth>
             <InputLabel id='select-label'>Termékek száma</InputLabel>
             <Select labelId='select-label' id='select' value={perPage} label='Age' onChange={handleChange}>
-               <MenuItem value='12'>12</MenuItem>
+               <MenuItem value='15'>15</MenuItem>
                <MenuItem value='24'>24</MenuItem>
                <MenuItem value='36'>36</MenuItem>
             </Select>
