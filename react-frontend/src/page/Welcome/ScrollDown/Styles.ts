@@ -1,4 +1,5 @@
 import { styled } from '@mui/material'
+import { mobileWindowSize } from '../../../Theme/GlobalStyles'
 
 export const ScrollContainer = styled('div')({
    height: '90px',
@@ -14,6 +15,11 @@ export const ScrolldownButton = styled('a')({
    width: '50px',
    height: '50px',
    transform: 'rotate(45deg)',
+
+   [`@media(max-width: ${mobileWindowSize})`]: {
+      height: '35px',
+      width: '35px',
+   },
 })
 
 export const DownArrowStyle = styled('span')({
