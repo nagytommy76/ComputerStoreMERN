@@ -1,4 +1,5 @@
 import React, { useContext, useRef, useState } from 'react'
+import useImgHandle from './Hook/useImgHandle'
 
 import Slide from '@mui/material/Slide'
 import { StyledSlideSection, StyledImageContainer, StyledImage } from './SliderStyle'
@@ -6,36 +7,16 @@ import DetailsContext from '../../../Context/DetailsContext'
 
 const RightArrow = React.lazy(() => import('./RightArrow'))
 const LeftArrow = React.lazy(() => import('./LeftArrow'))
+const ImageModal = React.lazy(() => import('./ImgModal/ImageModal'))
 
 const ImageSlider: React.FC = () => {
    const { pictureUrls } = useContext(DetailsContext)
-   const [currentPic, setCurrentPic] = useState<number>(0)
-   const [direction, setDirection] = useState<'left' | 'up' | 'down' | 'right'>('right')
-   const [isSlide, setIsSlide] = useState<boolean>(true)
+   const { currentPic, direction, isSlide, nextImage, previousImage } = useImgHandle(pictureUrls)
+   const [isImgModalOpen, setIsImgModalOpen] = useState<boolean>(false)
    const NodeRef = useRef(null)
 
-   const nextImage = () => {
-      if (pictureUrls.length > 1) {
-         setDirection('right')
-         setIsSlide(false)
-         setTimeout(() => {
-            setCurrentPic(currentPic === pictureUrls.length - 1 ? 0 : currentPic + 1)
-            setDirection('left')
-            setIsSlide(true)
-         }, 500)
-      }
-   }
-
-   const previousImage = () => {
-      if (pictureUrls.length > 1) {
-         setDirection('left')
-         setIsSlide(false)
-         setTimeout(() => {
-            setCurrentPic(currentPic === 0 ? pictureUrls.length - 1 : currentPic - 1)
-            setDirection('right')
-            setIsSlide(true)
-         }, 500)
-      }
+   const handleModalOpen = () => {
+      setIsImgModalOpen(prevValue => !prevValue)
    }
 
    return (
@@ -53,9 +34,14 @@ const ImageSlider: React.FC = () => {
             />
             <Slide direction={direction} in={isSlide} container={NodeRef.current}>
                <div>
-                  <a href={pictureUrls[currentPic]} target='_blank' rel='noreferrer'>
-                     <StyledImage src={pictureUrls[currentPic]} alt='' />
-                  </a>
+                  {/* <a href={pictureUrls[currentPic]} target='_blank' rel='noreferrer'> */}
+                  <StyledImage onClick={handleModalOpen} src={pictureUrls[currentPic]} alt='' />
+                  {/* </a> */}
+                  <ImageModal
+                     handleCloseModal={handleModalOpen}
+                     isImgModalOpen={isImgModalOpen}
+                     imagesURL={pictureUrls}
+                  />
                </div>
             </Slide>
          </StyledImageContainer>
