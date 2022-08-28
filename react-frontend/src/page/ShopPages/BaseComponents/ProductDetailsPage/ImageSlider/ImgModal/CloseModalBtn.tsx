@@ -2,10 +2,10 @@ import React from 'react'
 import { StyledIconBtn } from './Styles'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 
-const CloseModalBtn = () => {
+const CloseModalBtn: React.FC<{ handleCloseModal: () => void }> = ({ handleCloseModal }) => {
    return (
-      <StyledIconBtn size='large'>
-         <HighlightOffIcon fontSize='large' />
+      <StyledIconBtn onClick={handleCloseModal} size='large'>
+         <HighlightOffIcon fontSize='inherit' />
       </StyledIconBtn>
    )
 }

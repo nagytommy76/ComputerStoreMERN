@@ -1,12 +1,11 @@
 import React from 'react'
 import useImgHandle from '../Hook/useImgHandle'
 
-import Backdrop from '@mui/material/Backdrop'
 import Modal from '@mui/material/Modal'
 import Fade from '@mui/material/Fade'
 
-import { StyledImage, StyledModal } from './Styles'
-import CloseModalBtn from './CloseModalBtn'
+import { StyledImage, StyledModal, ImageContainer } from './Styles'
+import ImgModalHeader from './ImgModalHeader'
 import LeftArrow from '../LeftArrow'
 import RightArrow from '../RightArrow'
 
@@ -24,14 +23,10 @@ const ImageModal: React.FC<{
          open={isImgModalOpen}
          onClose={handleCloseModal}
          closeAfterTransition
-         BackdropComponent={Backdrop}
-         BackdropProps={{
-            timeout: 500,
-         }}
       >
          <Fade in={isImgModalOpen}>
             <StyledModal>
-               <CloseModalBtn />
+               <ImgModalHeader handleCloseModal={handleCloseModal} />
                <RightArrow
                   currentPic={currentPic}
                   nextImage={nextImage}
@@ -43,7 +38,9 @@ const ImageModal: React.FC<{
                   pictureUrlsLength={imagesURL.length}
                />
                <Fade in={isSlide}>
-                  <StyledImage src={imagesURL[currentPic]} alt='' />
+                  <ImageContainer>
+                     <StyledImage src={imagesURL[currentPic]} alt='' />
+                  </ImageContainer>
                </Fade>
             </StyledModal>
          </Fade>
