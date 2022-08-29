@@ -6,7 +6,12 @@ const useImgHandle = (pictureUrls: string[]) => {
    const [isSlide, setIsSlide] = useState<boolean>(true)
 
    const setCurrentPictureToAnyIndex = (indexToSet: number) => {
-      setCurrentPic(indexToSet)
+      setIsSlide(false)
+      console.log(indexToSet)
+      setTimeout(() => {
+         setCurrentPic(indexToSet)
+         setIsSlide(true)
+      }, 300)
    }
 
    const nextImage = () => {
@@ -17,7 +22,7 @@ const useImgHandle = (pictureUrls: string[]) => {
             setCurrentPic(currentPic === pictureUrls.length - 1 ? 0 : currentPic + 1)
             setDirection('left')
             setIsSlide(true)
-         }, 500)
+         }, 300)
       }
    }
 
@@ -29,7 +34,7 @@ const useImgHandle = (pictureUrls: string[]) => {
             setCurrentPic(currentPic === 0 ? pictureUrls.length - 1 : currentPic - 1)
             setDirection('right')
             setIsSlide(true)
-         }, 500)
+         }, 300)
       }
    }
    return {
