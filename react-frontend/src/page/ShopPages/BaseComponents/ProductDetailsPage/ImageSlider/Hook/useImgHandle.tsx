@@ -5,6 +5,10 @@ const useImgHandle = (pictureUrls: string[]) => {
    const [direction, setDirection] = useState<'left' | 'up' | 'down' | 'right'>('right')
    const [isSlide, setIsSlide] = useState<boolean>(true)
 
+   const setCurrentPictureToAnyIndex = (indexToSet: number) => {
+      setCurrentPic(indexToSet)
+   }
+
    const nextImage = () => {
       if (pictureUrls.length > 1) {
          setDirection('right')
@@ -34,6 +38,7 @@ const useImgHandle = (pictureUrls: string[]) => {
       currentPic,
       direction,
       isSlide,
+      setCurrentPictureToAnyIndex,
    }
 }
 
