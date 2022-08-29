@@ -1,6 +1,7 @@
 import { styled } from '@mui/material'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
+import { mobileWindowSize } from '../../../../../../Theme/GlobalStyles'
 
 export const StyledModal = styled('div')({
    outline: 'none',
@@ -14,13 +15,13 @@ export const StyledModal = styled('div')({
 
    display: 'flex',
    flexDirection: 'column',
-   justifyContent: 'center',
+   justifyContent: 'space-between',
+   alignItems: 'center',
 })
 
 export const StyledModalHeader = styled('div')({
-   position: 'absolute',
    width: '100%',
-   top: '20px',
+   marginTop: '20px',
 
    display: 'flex',
    justifyContent: 'space-between',
@@ -31,6 +32,11 @@ export const StyledTypography = styled(Typography)({
    color: '#FFF',
    fontSize: '1.8rem',
    paddingLeft: '2rem',
+
+   [`@media(max-width: ${mobileWindowSize})`]: {
+      fontSize: '.9rem',
+      paddingLeft: '1rem',
+   },
 })
 
 // IMAGE
@@ -50,4 +56,9 @@ export const StyledIconBtn = styled(IconButton)({
    marginRight: '2rem',
    fontSize: '55px',
    color: '#EC1102',
+
+   [`@media(max-width: ${mobileWindowSize})`]: {
+      fontSize: '40px',
+      marginRight: '.5rem',
+   },
 })

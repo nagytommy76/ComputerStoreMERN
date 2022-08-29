@@ -33,15 +33,9 @@ const ImageSlider: React.FC = () => {
                currentPic={currentPic}
             />
             <Slide direction={direction} in={isSlide} container={NodeRef.current}>
-               <div>
-                  {/* <a href={pictureUrls[currentPic]} target='_blank' rel='noreferrer'> */}
+               <div style={{ cursor: 'pointer' }}>
                   <StyledImage onClick={handleModalOpen} src={pictureUrls[currentPic]} alt='' />
-                  {/* </a> */}
-                  <ImageModal
-                     handleCloseModal={handleModalOpen}
-                     isImgModalOpen={isImgModalOpen}
-                     imagesURL={pictureUrls}
-                  />
+                  <ImageModal handleCloseModal={handleModalOpen} isImgModalOpen={isImgModalOpen} />
                </div>
             </Slide>
          </StyledImageContainer>

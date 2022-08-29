@@ -9,17 +9,15 @@ const ImagePreview: React.FC<{
 }> = ({ currentPic, setCurrentPictureToAnyIndex }) => {
    const { pictureUrls } = useContext(DetailsContext)
 
-   const handleChangeOnClick = (event: React.MouseEvent<HTMLElement>, index: number) => {
-      console.log(index)
+   const handleChangeOnClick = (event: React.MouseEvent<HTMLElement>, index: number) =>
       setCurrentPictureToAnyIndex(index)
-   }
 
    return (
       <StyledContainer>
          {pictureUrls.map((image, index) => (
             <StyledImage
                onClick={event => handleChangeOnClick(event, index)}
-               isActive={index == currentPic}
+               isActive={index === currentPic}
                key={index}
                src={image}
                alt=''
