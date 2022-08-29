@@ -1,20 +1,23 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import DetailsContext from '../../../../Context/DetailsContext'
 import useImgHandle from '../Hook/useImgHandle'
 
 import Modal from '@mui/material/Modal'
 import Fade from '@mui/material/Fade'
 
 import { StyledImage, StyledModal, ImageContainer } from './Styles'
+import ImagePreview from './ImagePreview/ImagePreview'
 import ImgModalHeader from './ImgModalHeader'
 import LeftArrow from '../LeftArrow'
 import RightArrow from '../RightArrow'
 
 const ImageModal: React.FC<{
-   imagesURL: string[]
    isImgModalOpen: boolean
    handleCloseModal: () => void
-}> = ({ imagesURL, isImgModalOpen, handleCloseModal }) => {
-   const { currentPic, isSlide, nextImage, previousImage } = useImgHandle(imagesURL)
+}> = ({ isImgModalOpen, handleCloseModal }) => {
+   const { pictureUrls } = useContext(DetailsContext)
+   const { currentPic, isSlide, nextImage, previousImage, setCurrentPictureToAnyIndex } =
+      useImgHandle(pictureUrls)
 
    return (
       <Modal
@@ -30,18 +33,22 @@ const ImageModal: React.FC<{
                <RightArrow
                   currentPic={currentPic}
                   nextImage={nextImage}
-                  pictureUrlsLength={imagesURL.length}
+                  pictureUrlsLength={pictureUrls.length}
                />
                <LeftArrow
                   currentPic={currentPic}
                   previousImage={previousImage}
-                  pictureUrlsLength={imagesURL.length}
+                  pictureUrlsLength={pictureUrls.length}
                />
                <Fade in={isSlide}>
                   <ImageContainer>
-                     <StyledImage src={imagesURL[currentPic]} alt='' />
+                     <StyledImage src={pictureUrls[currentPic]} alt='' />
                   </ImageContainer>
                </Fade>
+               <ImagePreview
+                  setCurrentPictureToAnyIndex={setCurrentPictureToAnyIndex}
+                  currentPic={currentPic}
+               />
             </StyledModal>
          </Fade>
       </Modal>
