@@ -8,7 +8,6 @@ const ImagePreview: React.FC<{
    setCurrentPictureToAnyIndex: (indexToSet: number) => void
 }> = ({ currentPic, setCurrentPictureToAnyIndex }) => {
    const { pictureUrls } = useContext(DetailsContext)
-
    const handleChangeOnClick = (event: React.MouseEvent<HTMLElement>, index: number) =>
       setCurrentPictureToAnyIndex(index)
 

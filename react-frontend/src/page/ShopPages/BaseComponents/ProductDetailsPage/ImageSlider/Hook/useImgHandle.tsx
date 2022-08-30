@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 const useImgHandle = (pictureUrls: string[]) => {
    const [currentPic, setCurrentPic] = useState<number>(0)
@@ -7,7 +7,6 @@ const useImgHandle = (pictureUrls: string[]) => {
 
    const setCurrentPictureToAnyIndex = (indexToSet: number) => {
       setIsSlide(false)
-      console.log(indexToSet)
       setTimeout(() => {
          setCurrentPic(indexToSet)
          setIsSlide(true)
