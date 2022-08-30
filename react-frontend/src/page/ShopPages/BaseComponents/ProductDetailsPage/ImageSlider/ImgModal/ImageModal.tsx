@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import DetailsContext from '../../../../Context/DetailsContext'
 import useImgHandle from '../Hook/useImgHandle'
 
@@ -8,16 +8,22 @@ import Fade from '@mui/material/Fade'
 import { StyledImage, StyledModal, ImageContainer } from './Styles'
 import ImagePreview from './ImagePreview/ImagePreview'
 import ImgModalHeader from './ImgModalHeader'
-import LeftArrow from '../LeftArrow'
 import RightArrow from '../RightArrow'
+import LeftArrow from '../LeftArrow'
 
 const ImageModal: React.FC<{
    isImgModalOpen: boolean
    handleCloseModal: () => void
-}> = ({ isImgModalOpen, handleCloseModal }) => {
+   actualCurrentPic: number
+}> = ({ isImgModalOpen, handleCloseModal, actualCurrentPic }) => {
    const { pictureUrls } = useContext(DetailsContext)
-   const { currentPic, isSlide, nextImage, previousImage, setCurrentPictureToAnyIndex } =
+   const { currentPic, nextImage, previousImage, setCurrentPictureToAnyIndex, isSlide } =
       useImgHandle(pictureUrls)
+
+   useEffect(() => {
+      setCurrentPictureToAnyIndex(actualCurrentPic)
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [actualCurrentPic])
 
    return (
       <Modal
@@ -27,7 +33,7 @@ const ImageModal: React.FC<{
          onClose={handleCloseModal}
          closeAfterTransition
       >
-         <Fade in={isImgModalOpen}>
+         <Fade in={isImgModalOpen} unmountOnExit mountOnEnter>
             <StyledModal>
                <ImgModalHeader handleCloseModal={handleCloseModal} />
                <RightArrow

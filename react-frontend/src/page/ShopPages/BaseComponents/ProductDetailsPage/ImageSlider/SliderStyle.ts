@@ -10,14 +10,16 @@ export const StyledSlideSection = styled.section`
 `
 
 export const StyledImageContainer = styled.div`
+   margin-top: 1rem;
    display: flex;
    flex-direction: column;
    align-items: center;
    justify-content: center;
    width: 100%;
-   height: 100%;
+   height: 95%;
    overflow: hidden;
    position: relative;
+   background-color: #fff;
 `
 
 export const StyledImage = styled.img`

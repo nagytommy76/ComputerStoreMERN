@@ -35,7 +35,11 @@ const ImageSlider: React.FC = () => {
             <Slide direction={direction} in={isSlide} container={NodeRef.current}>
                <div style={{ cursor: 'pointer' }}>
                   <StyledImage onClick={handleModalOpen} src={pictureUrls[currentPic]} alt='' />
-                  <ImageModal handleCloseModal={handleModalOpen} isImgModalOpen={isImgModalOpen} />
+                  <ImageModal
+                     actualCurrentPic={currentPic}
+                     handleCloseModal={handleModalOpen}
+                     isImgModalOpen={isImgModalOpen}
+                  />
                </div>
             </Slide>
          </StyledImageContainer>
