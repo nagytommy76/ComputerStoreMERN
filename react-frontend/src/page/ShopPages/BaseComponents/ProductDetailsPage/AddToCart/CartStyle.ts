@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+import TextField from '@mui/material/TextField'
+
 export const StyledCartSection = styled.section`
    flex: 1;
    display: flex;
@@ -31,6 +33,18 @@ export const CartQuantityStyle = styled.input`
       outline: none;
    }
 `
+
+export const StyledNumberInput = styled(TextField)({
+   ['::-webkit-outer-spin-button']: {
+      backgroundColor: 'red',
+      webkitAppearance: 'none',
+      margin: 0,
+   },
+   ['::-webkit-inner-spin-button']: {
+      webkitAppearance: 'none',
+      margin: 0,
+   },
+})
 
 export const StyledLabel = styled.label`
    color: hsl(115, 0%, 62%);

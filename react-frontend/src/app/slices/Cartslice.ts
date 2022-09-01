@@ -97,6 +97,7 @@ export const sendCartItemToSaveInDB = (payload: IncomingTypes) => (dispatch: Dis
       })
    )
    dispatch(addToCart(payload))
+
    const {
       auth: { userLoggedIn },
       cart: { cartItems },
