@@ -1,70 +1,60 @@
 import React, { useContext, useState } from 'react'
+import DetailsContext from '../../../Context/DetailsContext'
 import { sendCartItemToSaveInDB } from '../../../../../app/slices/CartSlice'
 import { useAppDispatch } from '../../../../../app/hooks'
 
-import TextField from '@mui/material/TextField'
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
+import IconButton from '@mui/material/IconButton'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-   CartQuantityStyle,
-   StyledCartSection,
-   AddToCartButton,
-   InputAndLabelContainer,
-   StyledLabel,
-   StyledNumberInput,
-} from './CartStyle'
-import DetailsContext from '../../../Context/DetailsContext'
+import { StyledCartSection, InputAndLabelContainer, StyledNumberInput } from './CartStyle'
 
 const AddToCart: React.FC = () => {
    const dispatch = useAppDispatch()
    const { productId, manufacturer, pictureUrls, price, productType, type, typeCode } =
       useContext(DetailsContext)
    const [quantity, setQuantity] = useState<string>('1')
+   const [isValidError, setIsValidError] = useState<boolean>(false)
 
    const handleQuantityOnchange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      event.target.value === '' || event.target.value === '0'
-         ? setQuantity('1')
-         : setQuantity(event.target.value)
+      setIsValidError(false)
+      const finalValue = event.target.value.replace(/\D/g, '')
+      finalValue === '' && setIsValidError(true)
+      event.target.value === '0' ? setQuantity('1') : setQuantity(finalValue)
    }
 
    const addItemToCart = () => {
-      dispatch(
-         sendCartItemToSaveInDB({
-            _id: productId,
-            productType,
-            displayName: `${manufacturer} ${type} ${typeCode}`,
-            displayImage: pictureUrls[0],
-            price,
-            itemQuantity: parseInt(quantity),
-         })
-      )
+      if (quantity !== '') {
+         dispatch(
+            sendCartItemToSaveInDB({
+               _id: productId,
+               productType,
+               displayName: `${manufacturer} ${type} ${typeCode}`,
+               displayImage: pictureUrls[0],
+               price,
+               itemQuantity: Number(quantity),
+            })
+         )
+      }
       setQuantity('1')
+      setIsValidError(false)
    }
 
    return (
       <StyledCartSection>
          <InputAndLabelContainer>
-            {/* <CartQuantityStyle
-               id='cart'
-               type='number'
-               max='30'
-               min='1'
-               value={quantity}
-               onChange={(event: React.ChangeEvent<HTMLInputElement>) => setQuantity(event.target.value)}
-            /> */}
             <StyledNumberInput
-               type='number'
+               error={isValidError}
+               type='text'
                id='qty'
                variant='filled'
                label='Darab'
                value={quantity}
                onChange={handleQuantityOnchange}
             />
-            {/* <StyledLabel htmlFor='cart'>Darab</StyledLabel> */}
          </InputAndLabelContainer>
-         <AddToCartButton onClick={addItemToCart}>
-            <FontAwesomeIcon icon={['fas', 'cart-plus']} size='3x' />
-         </AddToCartButton>
+         <IconButton size='large' onClick={addItemToCart} color='primary' aria-label='add to shopping cart'>
+            <AddShoppingCartIcon fontSize='large' />
+         </IconButton>
       </StyledCartSection>
    )
 }
