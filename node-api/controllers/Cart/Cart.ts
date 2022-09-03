@@ -25,9 +25,12 @@ export const addCartItemsToUserController = async (req: GetUserAuthInfoRequest, 
    try {
       const { foundUser } = req
       const productId: string = req.body._id
+      const ItemQuantity = req.body.quantity
+      if (ItemQuantity === null) return res.status(404).json({ message: 'A terméknek nincs mennyisége' })
+
       let toSaveOrModifyObject = {
          itemId: productId,
-         quantity: req.body.quantity,
+         quantity: ItemQuantity,
          productType: req.body.productType,
          displayImage: req.body.displayImage,
          displayName: req.body.displayName,
