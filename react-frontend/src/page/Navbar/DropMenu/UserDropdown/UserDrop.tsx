@@ -8,11 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
 import { removeCartItemsAfterLogout } from '../../../../app/slices/CartSlice'
 import { restoreUserDetails } from '../../../../app/slices/Checkout/UserDetailsSlice'
 
-type Prop = {
-   reference: React.MutableRefObject<null>
-}
-
-const DropMenu: React.FC<Prop> = ({ reference }) => {
+const DropMenu: React.FC = () => {
    const dispatch = useAppDispatch()
    const isAdmin = useAppSelector(state => state.auth.isAdmin)
    const isMobileSize = useAppSelector(state => state.mobile.isMobile)
@@ -35,7 +31,7 @@ const DropMenu: React.FC<Prop> = ({ reference }) => {
       setIsUserDropOpen(false)
    }
    return (
-      <DropStyle ref={reference}>
+      <DropStyle>
          {isMobileSize && (
             <CloseDropdownMenu onClick={closeDropMenu}>
                <FontAwesomeIcon icon={['fas', 'times']} size='2x' />

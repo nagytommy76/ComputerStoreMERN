@@ -9,11 +9,7 @@ import { useAppDispatch } from '../../../../app/hooks'
 import { setProducts, setIsFetching } from '../../../../app/slices/ProductsSlice'
 import { setProductName } from '../../../../app/slices/Filter/BaseFilterDataSlice'
 
-type Prop = {
-   reference: React.MutableRefObject<null>
-}
-
-const DropMenu: React.FC<Prop> = ({ reference }) => {
+const DropMenu: React.FC = () => {
    const location = useLocation()
    const dispatch = useAppDispatch()
    const isMobileSize = useAppSelector(state => state.mobile.isMobile)
@@ -49,7 +45,7 @@ const DropMenu: React.FC<Prop> = ({ reference }) => {
       }
    }
    return (
-      <DropStyle ref={reference}>
+      <DropStyle>
          <CloseDropdownMenu onClick={closeDropMenu}>
             <FontAwesomeIcon icon={['fas', 'times']} size='2x' />
          </CloseDropdownMenu>

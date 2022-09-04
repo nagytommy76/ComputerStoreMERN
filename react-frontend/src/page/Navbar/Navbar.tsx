@@ -23,7 +23,6 @@ const Navbar = () => {
    const [isCartOpen, setIsCartOpen] = useState(false)
 
    const navbarRef = useRef(null)
-   const BackgroundRef = useRef(null)
    const CartRef = useRef(null)
 
    const closeDrops = () => {
@@ -72,11 +71,8 @@ const Navbar = () => {
             </NavStyle>
          </CSSTransition>
          {!isMobileSize && (
-            <BaseDropBackground
-               isDropOpen={isShopDropOpen || isUserDropOpen || isCartOpen}
-               nodeRef={BackgroundRef}
-            >
-               <DropdownBackground onClick={() => setIsCartOpen(false)} ref={BackgroundRef} />
+            <BaseDropBackground isDropOpen={isShopDropOpen || isUserDropOpen || isCartOpen}>
+               <DropdownBackground onClick={() => setIsCartOpen(false)} />
             </BaseDropBackground>
          )}
       </NavbarContext.Provider>
