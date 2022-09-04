@@ -6,7 +6,7 @@ import { useAppDispatch } from '../../../../../app/hooks'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import IconButton from '@mui/material/IconButton'
 
-import { StyledCartSection, InputAndLabelContainer, StyledNumberInput } from './CartStyle'
+import { StyledCartSection, StyledNumberInput } from './CartStyle'
 
 const AddToCart: React.FC = () => {
    const dispatch = useAppDispatch()
@@ -41,17 +41,16 @@ const AddToCart: React.FC = () => {
 
    return (
       <StyledCartSection>
-         <InputAndLabelContainer>
-            <StyledNumberInput
-               error={isValidError}
-               type='text'
-               id='qty'
-               variant='filled'
-               label='Darab'
-               value={quantity}
-               onChange={handleQuantityOnchange}
-            />
-         </InputAndLabelContainer>
+         <StyledNumberInput
+            fullWidth
+            error={isValidError}
+            type='text'
+            id='qty'
+            variant='filled'
+            label='Darab'
+            value={quantity}
+            onChange={handleQuantityOnchange}
+         />
          <IconButton size='large' onClick={addItemToCart} color='primary' aria-label='add to shopping cart'>
             <AddShoppingCartIcon fontSize='large' />
          </IconButton>

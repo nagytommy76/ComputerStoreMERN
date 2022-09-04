@@ -3,16 +3,10 @@ import styled from 'styled-components'
 import TextField from '@mui/material/TextField'
 
 export const StyledCartSection = styled.section`
+   width: 100%;
    flex: 1;
    display: flex;
    align-items: center;
-`
-// Input Field Container
-
-export const InputAndLabelContainer = styled.div`
-   display: flex;
-   flex-direction: column;
-   text-align: center;
 `
 
 export const StyledNumberInput = styled(TextField)({
