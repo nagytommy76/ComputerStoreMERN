@@ -1,28 +1,14 @@
 import React, { ReactNode } from 'react'
-import { CSSTransition } from 'react-transition-group'
-import styles from './Drop.module.css'
+import Backdrop from '@mui/material/Backdrop'
 
 const BaseDropBackground: React.FC<{
    isDropOpen: boolean
-   nodeRef: React.MutableRefObject<null>
    children: ReactNode
-}> = ({ isDropOpen, nodeRef, children }) => {
+}> = ({ isDropOpen, children }) => {
    return (
-      <CSSTransition
-         in={isDropOpen}
-         unmountOnExit
-         mountOnEnter
-         timeout={300}
-         nodeRef={nodeRef}
-         classNames={{
-            enter: styles.BackgroundEnter,
-            enterActive: styles.BackgroundEnterActive,
-            exit: styles.BackgroundExit,
-            exitActive: styles.BackgroundExitActive,
-         }}
-      >
+      <Backdrop sx={{ zIndex: 5 }} open={isDropOpen}>
          {children}
-      </CSSTransition>
+      </Backdrop>
    )
 }
 

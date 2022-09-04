@@ -1,17 +1,16 @@
 import React, { ReactNode } from 'react'
+
 import { StyledListItems } from '../../LinkItems/LinkItemStyles'
-import { CSSTransition } from 'react-transition-group'
-import styles from './Drop.module.css'
+import Fade from '@mui/material/Fade'
 
 type Props = {
    children: ReactNode
    isDropOpen: boolean
    text: string
-   dropRef: React.MutableRefObject<null>
    setIsDropOpen: (value: boolean) => void
 }
 
-const BaseDrop: React.FC<Props> = ({ isDropOpen, dropRef, setIsDropOpen, text, children }) => {
+const BaseDrop: React.FC<Props> = ({ isDropOpen, setIsDropOpen, text, children }) => {
    const openDrop = () => {
       setIsDropOpen(true)
    }
@@ -19,21 +18,9 @@ const BaseDrop: React.FC<Props> = ({ isDropOpen, dropRef, setIsDropOpen, text, c
    return (
       <StyledListItems onMouseEnter={openDrop} onClick={openDrop}>
          {text}
-         <CSSTransition
-            in={isDropOpen}
-            unmountOnExit
-            mountOnEnter
-            timeout={300}
-            nodeRef={dropRef}
-            classNames={{
-               enter: styles.DropEnter,
-               enterActive: styles.DropEnterActive,
-               exit: styles.DropExit,
-               exitActive: styles.DropExitActive,
-            }}
-         >
-            {children}
-         </CSSTransition>
+         <Fade mountOnEnter unmountOnExit timeout={300} in={isDropOpen}>
+            <div>{children}</div>
+         </Fade>
       </StyledListItems>
    )
 }
