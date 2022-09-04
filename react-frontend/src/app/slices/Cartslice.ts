@@ -96,6 +96,14 @@ export const sendCartItemToSaveInDB = (payload: IncomingTypes) => (dispatch: Dis
          text: `A(z) ${payload.displayName} termék sikeresen hozááadva a kosárhoz!`,
       })
    )
+   setTimeout(() => {
+      dispatch(
+         handleSnackbarOpen({
+            isOpen: false,
+            text: ``,
+         })
+      )
+   }, 5000)
    dispatch(addToCart(payload))
 
    const {
