@@ -56,6 +56,9 @@ https://reactjs.org/docs/error-decoder.html/?invariant=185
 
 - HIBA: a details oldalon ha nincs szám a kosár melletti boxban NaN error lesz
 
+
+
+
 https://help.heroku.com/FZDDCBLB/how-can-i-download-my-code-from-heroku
 MEGCSINÁLTAM:
 - ADMIn oldalon biztos jó a kéretlen felhsználók kezelése??? (ha nem admin vagy nem láthatod.)

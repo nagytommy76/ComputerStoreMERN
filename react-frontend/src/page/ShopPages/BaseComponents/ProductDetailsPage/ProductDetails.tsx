@@ -15,6 +15,7 @@ import {
 } from './DetailsStyle'
 import { useAppSelector } from '../../../../app/hooks'
 
+import NumberFormat from 'react-number-format'
 import TextField from '@mui/material/TextField'
 import DetailsContext from '../../Context/DetailsContext'
 
@@ -40,7 +41,15 @@ const ProductDetails: React.FC<{ children: ReactNode }> = ({ children }) => {
                <HorizontalLineStyle />
                <PriceAndCartStyle>
                   <AddToCart />
-                  <StyledNumberFormat value={price} thousandSeparator=' ' suffix=' Ft' displayType='text' />
+                  <NumberFormat
+                     value={price}
+                     thousandSeparator=' '
+                     suffix=' Ft'
+                     displayType='text'
+                     renderText={(value: string) => (
+                        <StyledNumberFormat variant='inherit'>{value}</StyledNumberFormat>
+                     )}
+                  />
                </PriceAndCartStyle>
                <HorizontalLineStyle />
                <WarranityStyle>{details.warranity} hónap gyári garanciával</WarranityStyle>

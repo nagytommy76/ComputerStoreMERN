@@ -1,6 +1,7 @@
 import styled from 'styled-components'
-import NumberFormat from 'react-number-format'
 import { mobileWindowSize, transitionSetup } from '../../../../Theme/GlobalStyles'
+
+import Typography from '@mui/material/Typography'
 
 export const DetailsPage = styled.section`
    min-height: 100vh;
@@ -64,15 +65,12 @@ export const PriceAndCartStyle = styled.div`
    padding: 1.2rem 0 1.2rem 0;
 `
 
-export const StyledNumberFormat = styled(NumberFormat)`
-   font-size: 2.8rem;
-   margin: 1.3rem 0 1.3rem 0;
-   font-weight: 700;
+export const StyledNumberFormat = styled(Typography)`
+   font-size: 2.4rem;
    text-align: right;
    flex: 1;
    @media (max-width: ${mobileWindowSize}) {
       font-size: 1.7rem;
-      font-weight: 500;
    }
 `
 
