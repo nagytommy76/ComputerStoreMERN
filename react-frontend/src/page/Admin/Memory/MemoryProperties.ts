@@ -15,3 +15,5 @@ export const memoryProperties: MemoryProductType = {
       moduleNumber: 0,
    },
 }
+
+export const MEMORY_TYPES = ['DDR', 'DDR2', 'DDR3', 'DDR4', 'DDR5']
