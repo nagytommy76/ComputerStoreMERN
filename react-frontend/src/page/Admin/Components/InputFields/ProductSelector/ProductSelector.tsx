@@ -1,14 +1,17 @@
-import React, { ChangeEvent, useCallback, useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { AdminContext } from '../../../Context/AdminContext'
 import { axiosInstance as axios, AxiosResponse, AxiosError } from '../../../../../AxiosSetup/AxiosInstance'
 
-import { VgaType } from '../../../../ShopPages/Vga/VgaTypes'
-
-import TextField from '@mui/material/TextField'
+import FormHelperText from '@mui/material/FormHelperText'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
+import Select, { SelectChangeEvent } from '@mui/material/Select'
+import { BaseProductType } from '../../../../ShopPages/BaseTypes'
 
 const ProductSelector: React.FC<Props> = ({ productType, productProperties }) => {
-   const [allProducts, setAllProducts] = useState<VgaType[]>([])
-   const [selectedVgaProduct, setSelectedVgaProduct] = useState<VgaType>()
+   const [allProducts, setAllProducts] = useState<BaseProductType[]>([])
+   const [selectedVgaProduct, setSelectedVgaProduct] = useState<BaseProductType>()
    const { setProductInputs, setSelectedProductPictureUrls } = useContext(AdminContext)
 
    const fetchAllProduct = useCallback(async () => {
@@ -24,15 +27,15 @@ const ProductSelector: React.FC<Props> = ({ productType, productProperties }) =>
       fetchAllProduct()
    }, [productType, fetchAllProduct])
 
-   const handleSelect = (event: ChangeEvent<HTMLTextAreaElement>) => {
+   const handleSelect = (event: SelectChangeEvent) => {
       event.preventDefault()
       if (event.target.value === 'none') {
          setProductInputs(productProperties)
          setSelectedVgaProduct(productProperties)
       }
       if (setSelectedProductPictureUrls && event.target.value === 'none') setSelectedProductPictureUrls([])
-      const foundElement: VgaType | undefined = allProducts.find(
-         (element: VgaType) => element._id === event.target.value
+      const foundElement: BaseProductType | undefined = allProducts.find(
+         (element: BaseProductType) => element._id === event.target.value
       )
       if (foundElement !== undefined) {
          setProductInputs(foundElement)
@@ -49,28 +52,24 @@ const ProductSelector: React.FC<Props> = ({ productType, productProperties }) =>
       }
    }
    return (
-      <>
-         <TextField
-            margin='normal'
-            variant='filled'
+      <FormControl variant='filled' margin='normal' fullWidth>
+         <InputLabel id='demo-simple-select-label'>Termék választó</InputLabel>
+         <Select
+            labelId='demo-simple-select-label'
             id='productPicker'
-            select
-            label='Termék választó'
             value={selectedVgaProduct?._id || 'none'}
+            label='Termék választó'
             onChange={handleSelect}
-            SelectProps={{
-               native: true,
-            }}
-            helperText='Válaszd ki a módosítani kívánt terméket'
          >
-            <option value='none'>-- Nincs kiválasztva termék! --</option>
+            <MenuItem value='none'>-- Nincs kiválasztva termék! --</MenuItem>
             {allProducts.map(item => (
-               <option value={item._id} key={item._id}>
+               <MenuItem value={item._id} key={item._id}>
                   {item.manufacturer} {item.type} {item.typeCode} {item.price} Ft
-               </option>
+               </MenuItem>
             ))}
-         </TextField>
-      </>
+         </Select>
+         <FormHelperText>Válaszd ki a módosítani kívánt terméket</FormHelperText>
+      </FormControl>
    )
 }
 

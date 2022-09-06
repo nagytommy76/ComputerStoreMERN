@@ -18,4 +18,5 @@ export const baseProperties: BaseProductType = {
          comment: '',
       },
    ],
+   details: {},
 }

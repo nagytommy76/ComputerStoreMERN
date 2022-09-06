@@ -9,6 +9,7 @@ export type BaseProductType = {
    inStockQuantity: number
    isHighlighted: boolean
    ratingValues?: [{ rating: number; comment?: string; ratedAt: Date; userName: string }]
+   details: any
 }
 
 export type FilterTypes = {
