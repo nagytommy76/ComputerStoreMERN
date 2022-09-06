@@ -27,7 +27,7 @@ const MUISelectFeild: React.FC<Props> = ({
             labelId='demo-simple-select-label'
             id={id}
             value={value}
-            label='Age'
+            label={labelText}
             onChange={onChangeEvent}
          >
             {selectableItems.map((item, index) => (

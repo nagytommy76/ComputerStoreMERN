@@ -6,7 +6,7 @@ import { SSD_SIZES, SSD_CONNECTIONS, NAND_TECHNOLOGY } from './SSDProperties'
 
 const BaseFields = React.lazy(() => import('../Components/BaseInputs'))
 const TextOrNumberInput = React.lazy(() => import('../Components/InputFields/TextOrNumberInput'))
-const BasseMUISelect = React.lazy(() => import('../Components/InputFields/Select/MUISelectFeild'))
+const BaseMUISelect = React.lazy(() => import('../Components/InputFields/Select/MUISelectFeild'))
 
 const BaseInputFields = () => {
    const { productInputs, setProductInputs, validationErrors } = useContext(AdminContext)
@@ -58,7 +58,7 @@ const BaseInputFields = () => {
             validationErrorLocation='details.manufacturerPageUrl'
             validationErrors={validationErrors}
          />
-         <BasseMUISelect
+         <BaseMUISelect
             selectableItems={SSD_SIZES}
             id='size'
             labelText='Méret'
@@ -72,7 +72,7 @@ const BaseInputFields = () => {
             validationErrorLocation='details.size'
             validationErrors={validationErrors}
          />
-         <BasseMUISelect
+         <BaseMUISelect
             selectableItems={SSD_CONNECTIONS}
             id='connection'
             labelText='Csatoló felület'
@@ -86,7 +86,7 @@ const BaseInputFields = () => {
             validationErrorLocation='details.connection'
             validationErrors={validationErrors}
          />
-         <BasseMUISelect
+         <BaseMUISelect
             selectableItems={NAND_TECHNOLOGY}
             id='nandTechnology'
             labelText='NAND Technológia '

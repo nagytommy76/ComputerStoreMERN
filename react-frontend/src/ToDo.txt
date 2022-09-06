@@ -23,11 +23,6 @@ HIBÁK/BUGOK:
   Pl a login alert boxokat is!!!
 
 
-Új ötlet:
-- Egy kereső sávot létrehozni, keresés a termékek között...
-- Az admin tudjon felhasználókat kezelni, pl: törölni(kommentet is)
-Kommenteket szeretnék törölni, felhasználónak az összes kommentjét lássam (termék kategóriánként?!)
-
 
 - ADMIN oldalon: MUI:Too many re-renders. The layout is unstable.
   TextareaAutosize limits the number of renders to prevent an infinite loop.
@@ -38,8 +33,6 @@ Kommenteket szeretnék törölni, felhasználónak az összes kommentjét lássa
 - Esetleg PDF generálás?!
 
 
-A főoldalt egy kicsit rendbe rakni, kiemelt termékek, style stb
-https://stackoverflow.com/questions/6502541/mongodb-query-multiple-collections-at-once
 
 
 FONTOS!!!:
@@ -53,10 +46,27 @@ https://reactjs.org/docs/error-decoder.html/?invariant=185
 
 
 
+MUI: You have provided an out-of-range value `12` for the select component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `15`, `24`, `36`
+
+
+
+
 
 
 https://help.heroku.com/FZDDCBLB/how-can-i-download-my-code-from-heroku
 MEGCSINÁLTAM:
+
+Új ötlet:
+- Egy kereső sávot létrehozni, keresés a termékek között...
+- Az admin tudjon felhasználókat kezelni, pl: törölni(kommentet is)
+Kommenteket szeretnék törölni, felhasználónak az összes kommentjét lássam (termék kategóriánként?!)
+
+
+A főoldalt egy kicsit rendbe rakni, kiemelt termékek, style stb
+https://stackoverflow.com/questions/6502541/mongodb-query-multiple-collections-at-once
+
 - Ha rámegyek eg képre, ne új oldalon nyíljon meg hanem egy képnézegetőben (like portfolio oldalon)!
 
 - HIBA: a details oldalon ha nincs szám a kosár melletti boxban NaN error lesz
