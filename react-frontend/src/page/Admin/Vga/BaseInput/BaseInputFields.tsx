@@ -2,9 +2,10 @@ import React, { useContext } from 'react'
 import BaseInputs from '../../Components/BaseInputs'
 import { AdminContext } from '../../Context/AdminContext'
 import { FormContainerStyle } from '../../Components/Form/FormStyle'
+import { GPU_MANUFACTURERS, PCIE_TYPE, POWER_PINS, VRAM_TYPES } from '../VgaProperties'
 
 const TextOrNumberInput = React.lazy(() => import('../../Components/InputFields/TextOrNumberInput'))
-const SelectField = React.lazy(() => import('../../Components/InputFields/Select/SelectField'))
+const BaseMUISelect = React.lazy(() => import('../../Components/InputFields/Select/MUISelectFeild'))
 
 const BaseInputFields: React.FC = () => {
    const { productInputs, setProductInputs, validationErrors } = useContext(AdminContext)
@@ -15,10 +16,10 @@ const BaseInputFields: React.FC = () => {
             setProduct={setProductInputs}
             validationErrors={validationErrors}
          />
-         {/* Details */}
-         <SelectField
+         <BaseMUISelect
             id='gpuMan'
-            text='Gpu gyártó'
+            labelText='Gpu gyártó'
+            selectableItems={GPU_MANUFACTURERS}
             value={productInputs.details.gpuManufacturer}
             onChangeEvent={event =>
                setProductInputs({
@@ -28,13 +29,11 @@ const BaseInputFields: React.FC = () => {
             }
             validationErrors={validationErrors}
             validationErrorLocation='details.gpuManufacturer'
-         >
-            <option value='AMD'>AMD</option>
-            <option value='NVIDIA'>NVIDIA</option>
-         </SelectField>
-         <SelectField
+         />
+         <BaseMUISelect
             id='pciType'
-            text='PCI-E típus'
+            labelText='PCI-E típus'
+            selectableItems={PCIE_TYPE}
             value={productInputs.details.pcieType}
             onChangeEvent={event =>
                setProductInputs({
@@ -44,11 +43,8 @@ const BaseInputFields: React.FC = () => {
             }
             validationErrors={validationErrors}
             validationErrorLocation='details.pcieType'
-         >
-            <option value='PCI-E 16x 4.0'>PCI-E 16x 4.0</option>
-            <option value='PCI-E 16x 3.0'>PCI-E 16x 3.0</option>
-            <option value='PCI-E 16x 2.0'>PCI-E 16x 2.0</option>
-         </SelectField>
+         />
+
          <TextOrNumberInput
             id='gpuBaseClock'
             labelText='GPU alap órajel'
@@ -88,9 +84,10 @@ const BaseInputFields: React.FC = () => {
             validationErrorLocation='details.vramCapacity'
             validationErrors={validationErrors}
          />
-         <SelectField
+         <BaseMUISelect
             id='vramType'
-            text='Vram típusa'
+            labelText='Vram típusa'
+            selectableItems={VRAM_TYPES}
             value={productInputs.details.vramType}
             onChangeEvent={event =>
                setProductInputs({
@@ -100,13 +97,7 @@ const BaseInputFields: React.FC = () => {
             }
             validationErrors={validationErrors}
             validationErrorLocation='details.vramType'
-         >
-            <option value='GDDR6'>GDDR6</option>
-            <option value='GDDR6X'>GDDR6X</option>
-            <option value='GDDR5'>GDDR5</option>
-            <option value='DDR4'>DDR4</option>
-            <option value='HBM2'>HBM2</option>
-         </SelectField>
+         />
          <TextOrNumberInput
             id='vramBandwidth'
             labelText='Vram sávszélesség (bit)'
@@ -146,9 +137,10 @@ const BaseInputFields: React.FC = () => {
             validationErrorLocation='details.powerConsuption'
             validationErrors={validationErrors}
          />
-         <SelectField
+         <BaseMUISelect
             id='powerPin'
-            text='Táp csatlakozók'
+            labelText='Táp csatlakozók'
+            selectableItems={POWER_PINS}
             value={productInputs.details.powerPin}
             onChangeEvent={event =>
                setProductInputs({
@@ -158,14 +150,7 @@ const BaseInputFields: React.FC = () => {
             }
             validationErrors={validationErrors}
             validationErrorLocation='details.powerPin'
-         >
-            <option value='1 * 6pin'>1 * 6pin</option>
-            <option value='1 * 6pin + 1 * 8pin'>1 * 6pin + 1 * 8pin</option>
-            <option value='1 * 6pin + 2 * 8pin'>1 * 6pin + 2 * 8pin</option>
-            <option value='1 * 8pin'>1 * 8pin</option>
-            <option value='2 * 8pin'>2 * 8pin</option>
-            <option value='3 * 8pin'>3 * 8pin</option>
-         </SelectField>
+         />
          <TextOrNumberInput
             id='warranity'
             labelText='Garancia'
