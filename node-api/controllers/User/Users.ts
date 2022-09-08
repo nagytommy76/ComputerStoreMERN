@@ -118,9 +118,9 @@ const generateTokens = (
    isAdmin: boolean,
    email: string,
    TOKEN_SECRET: string,
-   expiresIn: string = '20min'
+   expiresIn: string = '30s'
 ) => {
-   return jwt.sign({ _id: userId, userName, isAdmin, email }, TOKEN_SECRET, { expiresIn })
+   return jwt.sign({ _id: userId }, TOKEN_SECRET, { expiresIn })
 }
 
 export const ErrorResponse = (hasError: boolean, errorMessage: string = '', errorType: string = 'email') => {
