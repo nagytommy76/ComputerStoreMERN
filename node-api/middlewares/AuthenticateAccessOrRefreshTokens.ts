@@ -31,10 +31,13 @@ export const checkUserIsAdmin = (req: GetUserAuthInfoRequest, res: Response, nex
    const token = getTokenFromAuthorizationHeader(req.headers.authorization)
    if (!token) return res.sendStatus(401)
 
-   jwt.verify(token, ACCESS_TOKEN_SECRET, (err, user) => {
+   jwt.verify(token, ACCESS_TOKEN_SECRET, async (err, user) => {
       if (err) return res.status(403).json({ errorMessage: 'accessToken token expired' })
-      if (user?.isAdmin && user) {
-         req.user = user
+      if (!user) return res.status(404).json({ errorMessage: 'user not found' })
+      const foundAdmin = await User.findById(user._id)
+      if (!foundAdmin) return res.status(404).json({ errorMessage: 'user not found' })
+      if (foundAdmin.isAdmin) {
+         req.user = foundAdmin
          next()
       } else {
          return res.status(403).json({ errorMessage: 'user is not admin' })
