@@ -15,6 +15,7 @@ const getTokenFromAuthorizationHeader = (authHeader?: string) => {
 export const authenticateAccessToken = (req: GetUserAuthInfoRequest, res: Response, next: NextFunction) => {
    const token = getTokenFromAuthorizationHeader(req.headers.authorization)
    if (!token) return res.sendStatus(401)
+   // console.log(req.headers.cookie)
    jwt.verify(token, ACCESS_TOKEN_SECRET, (err, user) => {
       if (err) return res.status(403).json({ errorMessage: 'accessToken token expired' })
       if (!user) return res.status(404).json({ errorMessage: 'user not found' })
@@ -40,3 +41,5 @@ export const checkUserIsAdmin = (req: GetUserAuthInfoRequest, res: Response, nex
       }
    })
 }
+// https://dev.to/nilanth/how-to-secure-jwt-in-a-single-page-application-cko
+// https://www.youtube.com/watch?v=27KeYk-5vJw&ab_channel=DaveGray
