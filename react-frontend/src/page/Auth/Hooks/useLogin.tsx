@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { axiosInstance as axios, AxiosError, AxiosResponse } from '../../../AxiosSetup/AxiosInstance'
+import { useCookies } from 'react-cookie'
 
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'
 import {
@@ -20,7 +21,8 @@ import { InputTypes } from '../DefaultProperties'
 const useLogin = () => {
    const dispatch = useAppDispatch()
    const navigate = useNavigate()
-
+   const [cookies, setCookie] = useCookies(['jwt_tokens'])
+   console.log(cookies)
    const cartItems = useAppSelector(state => state.cart.cartItems)
    const [isLoadingForResponse, setIsLoadingForResponse] = useState<boolean>(false)
 
@@ -58,12 +60,17 @@ const useLogin = () => {
             if (response.status === 200) {
                dispatch(setUserLoggedIn(true))
                dispatch(setUserId(response.data.userId))
-               dispatch(setAccessToken(response.data.accessToken))
-               dispatch(setRefreshToken(response.data.refreshToken))
+               // dispatch(setAccessToken(response.data.accessToken))
+               // dispatch(setRefreshToken(response.data.refreshToken))
                dispatch(setUserName(response.data.userName))
                if (response.data.isAdmin) dispatch(setAdmin(true))
 
-               axios.defaults.headers.common.Authorization = `Barer ${response.data.accessToken}`
+               setCookie('jwt_tokens', {
+                  accessToken: response.data.accessToken,
+                  refreshToken: response.data.refreshToken,
+               })
+
+               // axios.defaults.headers.common.Authorization = `Barer ${response.data.accessToken}`
                if (cartItems.length > 0) dispatch(fillDBWithCartItemsAfterLogin())
                navigate('/')
             }

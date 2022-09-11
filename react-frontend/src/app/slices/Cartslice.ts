@@ -200,7 +200,6 @@ export const increaseOrDecreaseByOne =
                },
             })
             .then(result => {
-               console.log(result)
                if (result.status === 200)
                   isIncrease ? dispatch(increaseItemQty(_id)) : dispatch(decreaseItemQty(_id))
             })

@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { axiosInstance as axios } from './AxiosInstance'
+import { useCookies } from 'react-cookie'
 
 import { logoutUser, setAccessToken } from '../app/slices/AuthSlice'
 import { restoreUserDetails } from '../app/slices/Checkout/UserDetailsSlice'
@@ -13,8 +14,13 @@ import { useAppDispatch, useAppSelector } from '../app/hooks'
 const useAxiosSetup = () => {
    const dispatch = useAppDispatch()
    const navigate = useNavigate()
-   const accessToken = useAppSelector(state => state.auth.accessToken)
-   const refreshToken = useAppSelector(state => state.auth.refreshToken)
+   // const accessToken = useAppSelector(state => state.auth.accessToken)
+   // const refreshToken = useAppSelector(state => state.auth.refreshToken)
+
+   const [cookies, setCookies] = useCookies(['jwt_tokens'])
+   console.log(cookies.jwt_tokens)
+   const refreshToken = cookies.jwt_tokens?.refreshToken
+   const accessToken = cookies.jwt_tokens?.accessToken
 
    axios.defaults.headers.common.Authorization = `Barer ${accessToken}`
    useEffect(() => {
@@ -27,7 +33,7 @@ const useAxiosSetup = () => {
                // Ekkor kell egy új accessToken (Forbidden) / 403 error, tehát lejárt az accessToken
                if (error.response.data.errorMessage === 'accessToken token expired') {
                   return axios
-                     .post('/auth/refresh-token', { refreshToken })
+                     .post('/auth/refresh-token')
                      .then(newAccessToken => {
                         if (newAccessToken.status === 200) {
                            dispatch(setAccessToken(newAccessToken.data))
