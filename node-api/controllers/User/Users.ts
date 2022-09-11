@@ -71,13 +71,20 @@ export const loginUserController = async (req: Request, res: Response) => {
             REFRESH_TOKEN_SECRET,
             '1day'
          )
-         res.status(200).json({
-            accessToken,
-            refreshToken,
-            userId: user._id,
-            userName: user.userName,
-            isAdmin: user.isAdmin,
+         res.cookie('refreshToken', refreshToken, {
+            httpOnly: true, // only by web server
+            secure: true, //https
+            sameSite: 'strict', // majd strict-re állítani: ugyan azon oldalra érvényes csak
+            maxAge: 1 * 24 * 60 * 60 * 1000, // 1 nap * 24 óra * 1óra * 1 perc
          })
+            .status(200)
+            .json({
+               accessToken,
+               refreshToken,
+               userId: user._id,
+               userName: user.userName,
+               isAdmin: user.isAdmin,
+            })
       } else res.status(403).json(ErrorResponse(true, 'Helytelen jelszó', 'password'))
    } catch (error: any) {
       res.status(404).json(ErrorResponse(true, error.message))
@@ -85,6 +92,13 @@ export const loginUserController = async (req: Request, res: Response) => {
 }
 
 export const checkTokensValidityController = (req: Request, res: Response) => {
+   // console.log(req.headers.cookie)
+   // let test = req.headers.cookie?.split(';')
+   // let cookie = req.headers.cookie || ''
+
+   // console.log(encodeURI(cookie))
+   // console.log(JSON.stringify(req.headers.cookie?.split(';')))
+
    const refreshToken: string = req.body.refreshToken
    if (!refreshToken) return res.sendStatus(401)
    try {
@@ -97,7 +111,14 @@ export const checkTokensValidityController = (req: Request, res: Response) => {
             decoded.email,
             ACCESS_TOKEN_SECRET
          )
-         res.status(200).json(newAccessToken)
+         res.cookie('accessToken', newAccessToken, {
+            httpOnly: true, // only by web server
+            secure: true, //https
+            sameSite: 'strict', // majd strict-re állítani: ugyan azon oldalra érvényes csak
+            maxAge: 1 * 24 * 60 * 60 * 1000, // 1 nap * 24 óra * 1óra * 1 perc
+         })
+            .status(200)
+            .json(newAccessToken)
       })
    } catch (error) {
       res.status(500).json(error)
@@ -118,7 +139,7 @@ const generateTokens = (
    isAdmin: boolean,
    email: string,
    TOKEN_SECRET: string,
-   expiresIn: string = '30s'
+   expiresIn: string = '15s'
 ) => {
    return jwt.sign({ _id: userId, userName, isAdmin, email }, TOKEN_SECRET, { expiresIn })
 }
