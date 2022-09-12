@@ -17,12 +17,12 @@ const useAxiosSetup = () => {
    // const accessToken = useAppSelector(state => state.auth.accessToken)
    // const refreshToken = useAppSelector(state => state.auth.refreshToken)
 
-   const [cookies, setCookies] = useCookies(['jwt_tokens'])
-   console.log(cookies.jwt_tokens)
-   const refreshToken = cookies.jwt_tokens?.refreshToken
-   const accessToken = cookies.jwt_tokens?.accessToken
+   const [cookies, setCookies] = useCookies(['accessToken'])
+   // console.log(cookies)
+   const refreshToken = cookies.accessToken?.refreshToken
+   const accessToken = cookies.accessToken?.accessToken
 
-   axios.defaults.headers.common.Authorization = `Barer ${accessToken}`
+   axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`
    useEffect(() => {
       axios.interceptors.response.use(
          response => {
@@ -37,7 +37,7 @@ const useAxiosSetup = () => {
                      .then(newAccessToken => {
                         if (newAccessToken.status === 200) {
                            dispatch(setAccessToken(newAccessToken.data))
-                           error.config.headers.Authorization = `Barer ${newAccessToken.data}`
+                           error.config.headers.Authorization = `Bearer ${newAccessToken.data}`
                            return axios.request(error.config)
                         }
                      })

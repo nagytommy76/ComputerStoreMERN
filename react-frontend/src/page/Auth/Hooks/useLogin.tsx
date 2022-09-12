@@ -21,8 +21,8 @@ import { InputTypes } from '../DefaultProperties'
 const useLogin = () => {
    const dispatch = useAppDispatch()
    const navigate = useNavigate()
-   const [cookies, setCookie] = useCookies(['jwt_tokens'])
-   console.log(cookies)
+   const [cookies, setCookie] = useCookies(['token'])
+   // console.log(cookies)
    const cartItems = useAppSelector(state => state.cart.cartItems)
    const [isLoadingForResponse, setIsLoadingForResponse] = useState<boolean>(false)
 
@@ -64,11 +64,18 @@ const useLogin = () => {
                // dispatch(setRefreshToken(response.data.refreshToken))
                dispatch(setUserName(response.data.userName))
                if (response.data.isAdmin) dispatch(setAdmin(true))
-
-               setCookie('jwt_tokens', {
-                  accessToken: response.data.accessToken,
-                  refreshToken: response.data.refreshToken,
-               })
+               console.log(response.data.accessToken)
+               // axios.defaults.headers.common.Authorization = `Bearer ${response.data.accessToken}`
+               // console.log(axios.defaults.headers.common.Authorization)
+               // axios.headers.Authorization = `Barer ${response.data.accessToken}`
+               // setCookie(
+               //    'token',
+               //    {
+               //       accessToken: response.data.accessToken,
+               //       refreshToken: response.data.refreshToken,
+               //    },
+               //    { httpOnly: true, sameSite: 'strict', secure: true }
+               // )
 
                // axios.defaults.headers.common.Authorization = `Barer ${response.data.accessToken}`
                if (cartItems.length > 0) dispatch(fillDBWithCartItemsAfterLogin())
