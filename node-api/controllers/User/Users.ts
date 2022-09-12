@@ -71,12 +71,19 @@ export const loginUserController = async (req: Request, res: Response) => {
             REFRESH_TOKEN_SECRET,
             '1day'
          )
-         res.cookie('refreshToken', refreshToken, {
+         // Itt a lejárati időnek ugyan annyinak kéne lennie mint a tokenenknek
+         res.cookie('accessToken', accessToken, {
             httpOnly: true, // only by web server
             secure: true, //https
             sameSite: 'strict', // majd strict-re állítani: ugyan azon oldalra érvényes csak
             maxAge: 1 * 24 * 60 * 60 * 1000, // 1 nap * 24 óra * 1óra * 1 perc
          })
+            .cookie('refreshToken', refreshToken, {
+               httpOnly: true, // only by web server
+               secure: true, //https
+               sameSite: 'strict', // majd strict-re állítani: ugyan azon oldalra érvényes csak
+               maxAge: 1 * 24 * 60 * 60 * 1000, // 1 nap * 24 óra * 1óra * 1 perc
+            })
             .status(200)
             .json({
                accessToken,
@@ -92,15 +99,20 @@ export const loginUserController = async (req: Request, res: Response) => {
 }
 
 export const checkTokensValidityController = (req: Request, res: Response) => {
+   // Ide a refresh token kell
    // console.log(req.headers.cookie)
+   let cookie = req.headers.cookie?.split('=')[1]
+   if (!cookie) return res.sendStatus(401)
    // let test = req.headers.cookie?.split(';')
    // let cookie = req.headers.cookie || ''
 
    // console.log(encodeURI(cookie))
    // console.log(JSON.stringify(req.headers.cookie?.split(';')))
 
-   const refreshToken: string = req.body.refreshToken
-   if (!refreshToken) return res.sendStatus(401)
+   // console.log(cookie)
+   // const refreshToken: string = req.body.refreshToken
+   const refreshToken: string = cookie
+   // if (!refreshToken) return res.sendStatus(401)
    try {
       jwt.verify(refreshToken, REFRESH_TOKEN_SECRET, (err, decoded: any) => {
          if (err) return res.status(403).json({ errorMessage: 'refresh token expired' })
@@ -111,7 +123,7 @@ export const checkTokensValidityController = (req: Request, res: Response) => {
             decoded.email,
             ACCESS_TOKEN_SECRET
          )
-         res.cookie('accessToken', newAccessToken, {
+         res.cookie('newAccessToken', newAccessToken, {
             httpOnly: true, // only by web server
             secure: true, //https
             sameSite: 'strict', // majd strict-re állítani: ugyan azon oldalra érvényes csak
