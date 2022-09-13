@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { axiosInstance as axios } from './AxiosInstance'
-import { useCookies } from 'react-cookie'
 
 import { logoutUser, setAccessToken } from '../app/slices/AuthSlice'
 import { restoreUserDetails } from '../app/slices/Checkout/UserDetailsSlice'
@@ -14,13 +13,7 @@ import { useAppDispatch, useAppSelector } from '../app/hooks'
 const useAxiosSetup = () => {
    const dispatch = useAppDispatch()
    const navigate = useNavigate()
-   // const accessToken = useAppSelector(state => state.auth.accessToken)
-   // const refreshToken = useAppSelector(state => state.auth.refreshToken)
-
-   const [cookies, setCookies] = useCookies(['accessToken'])
-   // console.log(cookies)
-   const refreshToken = cookies.accessToken?.refreshToken
-   const accessToken = cookies.accessToken?.accessToken
+   const accessToken = useAppSelector(state => state.auth.accessToken)
 
    axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`
    useEffect(() => {
@@ -73,7 +66,7 @@ const useAxiosSetup = () => {
             return await Promise.reject(error)
          }
       )
-   }, [navigate, refreshToken, dispatch])
+   }, [navigate, dispatch])
 }
 
 export default useAxiosSetup
