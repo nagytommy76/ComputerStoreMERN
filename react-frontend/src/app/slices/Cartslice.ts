@@ -159,17 +159,17 @@ export const fetchCartItemsFromDB = () => (dispatch: Dispatch) => {
       .then(
          (
             cartItems: AxiosResponse<
-               {
-                  quantity: number
-                  productType: string
-                  displayImage: string
-                  itemId: string
-                  price: number
-                  displayName: string
-               }[]
+               | {
+                    quantity: number
+                    productType: string
+                    displayImage: string
+                    itemId: string
+                    price: number
+                    displayName: string
+                 }[]
             >
          ) => {
-            if (cartItems.data.length > 0) {
+            if (cartItems?.data.length > 0) {
                cartItems.data.forEach(items => {
                   dispatch(
                      addToCart({
