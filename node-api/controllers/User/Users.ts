@@ -69,25 +69,18 @@ export const loginUserController = async (req: Request, res: Response) => {
             user.isAdmin,
             user.email,
             REFRESH_TOKEN_SECRET,
-            '1day'
+            '2day'
          )
          // Itt a lejárati időnek ugyan annyinak kéne lennie mint a tokenenknek
-         res.cookie('accessToken', accessToken, {
+         res.cookie('refreshToken', refreshToken, {
             httpOnly: true, // only by web server
             secure: true, //https
-            sameSite: 'strict', // majd strict-re állítani: ugyan azon oldalra érvényes csak
+            sameSite: 'none', // majd none-re állítani: ugyan azon oldalra érvényes csak
             maxAge: 1 * 24 * 60 * 60 * 1000, // 1 nap * 24 óra * 1óra * 1 perc
          })
-            .cookie('refreshToken', refreshToken, {
-               httpOnly: true, // only by web server
-               secure: true, //https
-               sameSite: 'strict', // majd strict-re állítani: ugyan azon oldalra érvényes csak
-               maxAge: 1 * 24 * 60 * 60 * 1000, // 1 nap * 24 óra * 1óra * 1 perc
-            })
             .status(200)
             .json({
                accessToken,
-               refreshToken,
                userId: user._id,
                userName: user.userName,
                isAdmin: user.isAdmin,
@@ -100,19 +93,8 @@ export const loginUserController = async (req: Request, res: Response) => {
 
 export const checkTokensValidityController = (req: Request, res: Response) => {
    // Ide a refresh token kell
-   // console.log(req.headers.cookie)
-   let cookie = req.headers.cookie?.split('=')[1]
-   if (!cookie) return res.sendStatus(401)
-   // let test = req.headers.cookie?.split(';')
-   // let cookie = req.headers.cookie || ''
-
-   // console.log(encodeURI(cookie))
-   // console.log(JSON.stringify(req.headers.cookie?.split(';')))
-
-   // console.log(cookie)
-   // const refreshToken: string = req.body.refreshToken
-   const refreshToken: string = cookie
-   // if (!refreshToken) return res.sendStatus(401)
+   const refreshToken = req.headers.cookie?.split('=')[1]
+   if (!refreshToken) return res.sendStatus(401)
    try {
       jwt.verify(refreshToken, REFRESH_TOKEN_SECRET, (err, decoded: any) => {
          if (err) return res.status(403).json({ errorMessage: 'refresh token expired' })
@@ -123,14 +105,7 @@ export const checkTokensValidityController = (req: Request, res: Response) => {
             decoded.email,
             ACCESS_TOKEN_SECRET
          )
-         res.cookie('newAccessToken', newAccessToken, {
-            httpOnly: true, // only by web server
-            secure: true, //https
-            sameSite: 'strict', // majd strict-re állítani: ugyan azon oldalra érvényes csak
-            maxAge: 1 * 24 * 60 * 60 * 1000, // 1 nap * 24 óra * 1óra * 1 perc
-         })
-            .status(200)
-            .json(newAccessToken)
+         res.status(200).json(newAccessToken)
       })
    } catch (error) {
       res.status(500).json(error)
