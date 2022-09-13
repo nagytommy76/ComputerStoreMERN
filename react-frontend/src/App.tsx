@@ -22,7 +22,6 @@ const App = () => {
    useAxiosSetup()
    const dispatch = useAppDispatch()
 
-   const accessToken = useAppSelector(state => state.auth.accessToken)
    const userIsLoggedIn = useAppSelector(state => state.auth.userLoggedIn)
    const isCartEmpty = useAppSelector(state => state.cart.cartItems.length === 0)
    const isDarkTheme = useAppSelector(state => state.theme.isDarkTheme)
@@ -30,12 +29,12 @@ const App = () => {
    const customMUITheme = useMaterialTheme()
 
    const initUserCartItems = useCallback(() => {
-      if (userIsLoggedIn && isCartEmpty && accessToken !== null) dispatch(fetchCartItemsFromDB())
-   }, [userIsLoggedIn, dispatch, isCartEmpty, accessToken])
+      if (userIsLoggedIn && isCartEmpty) dispatch(fetchCartItemsFromDB())
+   }, [userIsLoggedIn, dispatch, isCartEmpty])
 
    useEffect(() => {
       initUserCartItems()
-   }, [accessToken, initUserCartItems])
+   }, [initUserCartItems])
 
    return (
       <MUIThemeProvider theme={customMUITheme}>
