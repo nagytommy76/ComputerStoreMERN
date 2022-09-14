@@ -6,6 +6,7 @@ import morgan from 'morgan'
 import path from 'path'
 const bodyParser = require('body-parser')
 import cors from 'cors'
+import cookieParser from 'cookie-parser'
 
 const app: Application = express()
 const PORT = process.env.PORT || 5050
@@ -29,6 +30,7 @@ app.use(
       ],
    })
 )
+app.use(cookieParser())
 app.use(morgan('combined', { stream: accessLogStream }))
 app.use(bodyParser.json())
 
