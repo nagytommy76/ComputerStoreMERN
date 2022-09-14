@@ -76,7 +76,7 @@ export const loginUserController = async (req: Request, res: Response) => {
             httpOnly: true, // only by web server
             secure: true, //https
             sameSite: 'none', // majd none-re állítani: ugyan azon oldalra érvényes csak
-            maxAge: 1 * 24 * 60 * 60 * 1000, // 1 nap * 24 óra * 1óra * 1 perc
+            maxAge: 2 * 24 * 60 * 60 * 1000, // 1 nap * 24 óra * 1óra * 1 perc
          })
             .status(200)
             .json({
@@ -93,7 +93,8 @@ export const loginUserController = async (req: Request, res: Response) => {
 
 export const checkTokensValidityController = (req: Request, res: Response) => {
    // Ide a refresh token kell
-   const refreshToken = req.headers.cookie?.split('=')[1]
+   const refreshToken = req.cookies?.refreshToken as string | undefined
+   console.log(req.cookies)
    if (!refreshToken) return res.sendStatus(401)
    try {
       jwt.verify(refreshToken, REFRESH_TOKEN_SECRET, (err, decoded: any) => {
