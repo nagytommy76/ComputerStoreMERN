@@ -1,24 +1,16 @@
 import React, { useContext } from 'react'
+import useLogout from './Hook/useLogout'
 import { DropStyle, DropLinkItem, CloseDropdownMenu } from '../DropMenuStyle'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { NavbarContext } from '../../NavbarContext'
 
-import { logoutUser } from '../../../../app/slices/AuthSlice'
-import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
-import { removeCartItemsAfterLogout } from '../../../../app/slices/CartSlice'
-import { restoreUserDetails } from '../../../../app/slices/Checkout/UserDetailsSlice'
+import { useAppSelector } from '../../../../app/hooks'
 
 const DropMenu: React.FC = () => {
-   const dispatch = useAppDispatch()
+   const logout = useLogout()
    const isAdmin = useAppSelector(state => state.auth.isAdmin)
    const isMobileSize = useAppSelector(state => state.mobile.isMobile)
    const { setIsUserDropOpen, setIsNavbarOpen } = useContext(NavbarContext)
-
-   const logout = () => {
-      dispatch(restoreUserDetails())
-      dispatch(removeCartItemsAfterLogout())
-      dispatch(logoutUser())
-   }
 
    const clickEvent = (event: React.MouseEvent) => {
       event.stopPropagation()
@@ -40,7 +32,7 @@ const DropMenu: React.FC = () => {
          <DropLinkItem onClick={clickEvent} to='/orders'>
             Korábbi rendelések
          </DropLinkItem>
-         <DropLinkItem onClick={logout} to=''>
+         <DropLinkItem onClick={logout} to='#'>
             Kijelentkezés
          </DropLinkItem>
          {isAdmin && (
