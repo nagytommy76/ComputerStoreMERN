@@ -76,7 +76,7 @@ export const loginUserController = async (req: Request, res: Response) => {
             httpOnly: true, // only by web server
             secure: true, //https
             sameSite: 'none', // majd none-re állítani: ugyan azon oldalra érvényes csak
-            maxAge: 2 * 24 * 60 * 60 * 1000, // 1 nap * 24 óra * 1óra * 1 perc
+            maxAge: 2 * 24 * 60 * 60 * 1000, // 2 nap * 24 óra * 1óra * 1 perc
          })
             .status(200)
             .json({
@@ -91,10 +91,16 @@ export const loginUserController = async (req: Request, res: Response) => {
    }
 }
 
+export const logoutController = async (req: Request, res: Response) => {
+   const cookies = req.cookies
+   if (!cookies?.refreshToken) return res.sendStatus(204)
+   res.clearCookie('refreshToken', { httpOnly: true, sameSite: 'none', secure: true })
+   res.json({ message: 'Sikeres kijelentkezés' })
+}
+
 export const checkTokensValidityController = (req: Request, res: Response) => {
    // Ide a refresh token kell
    const refreshToken = req.cookies?.refreshToken as string | undefined
-   console.log(req.cookies)
    if (!refreshToken) return res.sendStatus(401)
    try {
       jwt.verify(refreshToken, REFRESH_TOKEN_SECRET, (err, decoded: any) => {
@@ -127,7 +133,7 @@ const generateTokens = (
    isAdmin: boolean,
    email: string,
    TOKEN_SECRET: string,
-   expiresIn: string = '15s'
+   expiresIn: string = '15min'
 ) => {
    return jwt.sign({ _id: userId, userName, isAdmin, email }, TOKEN_SECRET, { expiresIn })
 }
