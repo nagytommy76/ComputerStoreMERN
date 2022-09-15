@@ -6,7 +6,6 @@ export type LoginType = {
    userLoggedIn: boolean
    userName: string
    accessToken: string | null
-   refreshToken: string | null
 }
 
 const initialState: LoginType = {
@@ -15,7 +14,6 @@ const initialState: LoginType = {
    userLoggedIn: false,
    userName: '',
    accessToken: null,
-   refreshToken: null,
 }
 
 export const AuthSlice = createSlice({
@@ -34,9 +32,6 @@ export const AuthSlice = createSlice({
       setAccessToken: (state, action: PayloadAction<string>) => {
          state.accessToken = action.payload
       },
-      setRefreshToken: (state, action: PayloadAction<string>) => {
-         state.refreshToken = action.payload
-      },
       setAdmin: (state, action: PayloadAction<boolean>) => {
          state.isAdmin = action.payload
       },
@@ -44,20 +39,12 @@ export const AuthSlice = createSlice({
          state.userId = ''
          state.isAdmin = false
          state.accessToken = null
-         state.refreshToken = null
          state.userLoggedIn = false
          state.userName = ''
       },
    },
 })
 
-export const {
-   setAccessToken,
-   setUserLoggedIn,
-   setUserId,
-   setUserName,
-   logoutUser,
-   setRefreshToken,
-   setAdmin,
-} = AuthSlice.actions
+export const { setAccessToken, setUserLoggedIn, setUserId, setUserName, logoutUser, setAdmin } =
+   AuthSlice.actions
 export default AuthSlice.reducer

@@ -71,6 +71,8 @@ const useAxiosSetup = () => {
 
 export default useAxiosSetup
 
+// https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/JSON_Web_Token_for_Java_Cheat_Sheet.md
+
 // https://medium.com/@ryanchenkie_40935/react-authentication-how-to-store-jwt-in-a-cookie-346519310e81
 // https://hasura.io/blog/best-practices-of-using-jwt-with-graphql/#introduction-what-is-a-jwt
 
