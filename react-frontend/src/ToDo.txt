@@ -39,6 +39,9 @@ FONTOS!!!:
  - Az accessToken/refreshToken-be csak a user id-t illetve iat/exp dátumot beletenni, nem pedig a sensitive adatokat
  - valamint nem localStorage-ben tárolni, hanem cookie-ban?!
 
+- az admin felületnél egy useEffect: ellenőrizni, hogy admin-e az illető
+- Esetleg áttenni Context-be redux helyett?, ne legyen a localStorage-ben!
+
 Ha regisztrál valaki és megpróbál loginelni hibát dob:
 Error: Minified React error #185;
 Uncaught Error: Minified React error #185; 
@@ -46,17 +49,13 @@ https://reactjs.org/docs/error-decoder.html/?invariant=185
 
 
 
-MUI: You have provided an out-of-range value `12` for the select component.
-Consider providing a value that matches one of the available options or ''.
-The available values are `15`, `24`, `36`
-
-
-
-
-
 
 https://help.heroku.com/FZDDCBLB/how-can-i-download-my-code-from-heroku
 MEGCSINÁLTAM:
+
+MUI: You have provided an out-of-range value `12` for the select component.
+Consider providing a value that matches one of the available options or ''.
+The available values are `15`, `24`, `36`
 
 Új ötlet:
 - Egy kereső sávot létrehozni, keresés a termékek között...

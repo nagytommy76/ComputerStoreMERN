@@ -61,10 +61,3 @@ export const presistor = persistStore(store)
 export type AppDispatch = typeof store.dispatch
 export type RootState = ReturnType<typeof store.getState>
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>
-
-// products: persistReducer({ key: 'Products', storage }, ProductSlice),
-// filter: persistReducer({ key: 'FilterData', storage }, FilterDataSlice),
-// memoryFilter: persistReducer({ key: 'memoryFilter', storage }, MemoryFilterSlice),
-// cpuFilter: persistReducer({ key: 'cpuFilter', storage }, CpuFilterSlice),
-// vgaFilter: persistReducer({ key: 'vgaFilter', storage }, VgaFilterSlice),
-// hddFilter: persistReducer({ key: 'hddFilter', storage }, HddFilterSlice),
