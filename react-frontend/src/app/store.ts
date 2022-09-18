@@ -11,7 +11,7 @@ import {
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
-import authSlice from './slices/AuthSlice'
+import AuthSlice from './slices/AuthSlice'
 import ThemeSlice from './slices/ThemeSlice'
 import CartSlice from './slices/CartSlice'
 import MobileSlice from './slices/MobileSlice'
@@ -29,16 +29,18 @@ import CpuFilterSlice from './slices/Filter/CpuFilterSlice'
 import VgaFilterSlice from './slices/Filter/VgaFilterSlice'
 import HddFilterSlice from './slices/Filter/HddFilterSlice'
 import SsdFilterSlice from './slices/Filter/SsdFilterSlice'
+import TokenSlice from './slices/TokenSlice'
 
 export const store = configureStore({
    reducer: {
-      auth: persistReducer({ key: 'AuthUser', storage }, authSlice),
+      auth: persistReducer({ key: 'AuthUser', storage }, AuthSlice),
       theme: persistReducer({ key: 'Theme', storage }, ThemeSlice),
       cart: persistReducer({ key: 'Cart', storage }, CartSlice),
       paginate: persistReducer({ key: 'Paginate', storage }, PaginateSlice),
       userDetails: persistReducer({ key: 'userDetails', storage }, UserDetailsSlice),
       deliveryPrice: persistReducer({ key: 'deliveryPrice', storage }, DeliveryPriceSlice),
       payment: persistReducer({ key: 'payment', storage }, PaymentSlice),
+      token: TokenSlice,
       products: ProductSlice,
       filter: FilterDataSlice,
       memoryFilter: MemoryFilterSlice,

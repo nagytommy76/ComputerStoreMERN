@@ -39,6 +39,8 @@ FONTOS!!!:
  - Az accessToken/refreshToken-be csak a user id-t illetve iat/exp dátumot beletenni, nem pedig a sensitive adatokat
  - valamint nem localStorage-ben tárolni, hanem cookie-ban?!
 
+- A NAVBART kicsit kipofozni: a lenyíló menük eléggé bugosak
+
 - az admin felületnél egy useEffect: ellenőrizni, hogy admin-e az illető
 - Esetleg áttenni Context-be redux helyett?, ne legyen a localStorage-ben!
 

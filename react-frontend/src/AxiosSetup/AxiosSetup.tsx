@@ -1,8 +1,9 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router'
-import { axiosInstance as axios } from './AxiosInstance'
+import useLogout from '../Hooks/useLogout'
+import { axiosInstance as axios, isAxiosError } from './AxiosInstance'
 
-import { logoutUser, setAccessToken } from '../app/slices/AuthSlice'
+import { setAccessToken } from '../app/slices/TokenSlice'
 import { restoreUserDetails } from '../app/slices/Checkout/UserDetailsSlice'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
 
@@ -11,12 +12,41 @@ import { useAppDispatch, useAppSelector } from '../app/hooks'
 // Ha az sem érvényes kiléptetem és be kell újra lépnie
 
 const useAxiosSetup = () => {
+   const logoutUser = useLogout()
    const dispatch = useAppDispatch()
    const navigate = useNavigate()
-   const accessToken = useAppSelector(state => state.auth.accessToken)
+   const accessToken = useAppSelector(state => state.token.accessToken)
+   // const userIsLoggedIn = useAppSelector(state => state.auth.userLoggedIn)
 
    axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`
+
    useEffect(() => {
+      // const getNewAccessToken = async () => {
+      //    try {
+      //       const response = await axios.post('/auth/refresh-token')
+      //       if (response.status === 200) {
+      //          dispatch(setAccessToken(response.data))
+      //          axios.defaults.headers.common.Authorization = `Bearer ${response.data}`
+      //       }
+      //    } catch (error) {
+      //       if (isAxiosError(error)) {
+      //          if (error.response?.data?.errorMessage === 'refresh token expired') {
+      //             navigate('/login', {
+      //                state: {
+      //                   isFailure: true,
+      //                   message: 'Kérlek, jelentkezz be újra!',
+      //                },
+      //             })
+      //             dispatch(restoreUserDetails())
+      //             logoutUser()
+      //          }
+      //          console.dir(error)
+      //       }
+      //    }
+      // }
+      // if (accessToken === null) {
+      //    userIsLoggedIn && getNewAccessToken()
+      // } else {
       axios.interceptors.response.use(
          response => {
             return response
@@ -28,6 +58,7 @@ const useAxiosSetup = () => {
                   return axios
                      .post('/auth/refresh-token')
                      .then(newAccessToken => {
+                        console.log('CSÁÁSÉD')
                         if (newAccessToken.status === 200) {
                            dispatch(setAccessToken(newAccessToken.data))
                            error.config.headers.Authorization = `Bearer ${newAccessToken.data}`
@@ -43,7 +74,7 @@ const useAxiosSetup = () => {
                               },
                            })
                            dispatch(restoreUserDetails())
-                           dispatch(logoutUser())
+                           logoutUser()
                         }
                      })
                } else if (error.response.data.errorMessage === 'user is not admin') {
@@ -52,7 +83,7 @@ const useAxiosSetup = () => {
                      state: { isFailure: true, message: 'Nem vagy jó helyen!!! :)' },
                   })
                   dispatch(restoreUserDetails())
-                  dispatch(logoutUser())
+                  logoutUser()
                }
             }
             if (error.response?.status === 401) {
@@ -61,12 +92,12 @@ const useAxiosSetup = () => {
                   state: { isFailure: true, message: 'Kérlek, jelentkezz be újra!' },
                })
                dispatch(restoreUserDetails())
-               dispatch(logoutUser())
+               logoutUser()
             }
             return await Promise.reject(error)
          }
       )
-   }, [navigate, dispatch])
+   }, [navigate, dispatch, logoutUser])
 }
 
 export default useAxiosSetup
