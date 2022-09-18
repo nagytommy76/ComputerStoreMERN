@@ -3,13 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { axiosInstance as axios, AxiosError, AxiosResponse } from '../../../AxiosSetup/AxiosInstance'
 
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'
-import {
-   setUserLoggedIn,
-   setAccessToken,
-   setUserId,
-   setUserName,
-   setAdmin,
-} from '../../../app/slices/AuthSlice'
+import { setUserLoggedIn, setUserId, setUserName, setAdmin } from '../../../app/slices/AuthSlice'
+import { setAccessToken } from '../../../app/slices/TokenSlice'
 import { fillDBWithCartItemsAfterLogin } from '../../../app/slices/CartSlice'
 
 import useLocationState from './useLocationState'
