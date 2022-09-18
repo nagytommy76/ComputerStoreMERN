@@ -1,11 +1,10 @@
-import React from 'react'
-import { axiosInstance as axios } from '../../../../../AxiosSetup/AxiosInstance'
+import { axiosInstance as axios } from '../AxiosSetup/AxiosInstance'
 import { useNavigate } from 'react-router-dom'
 
-import { useAppDispatch } from '../../../../../app/hooks'
-import { logoutUser } from '../../../../../app/slices/AuthSlice'
-import { removeCartItemsAfterLogout } from '../../../../../app/slices/CartSlice'
-import { restoreUserDetails } from '../../../../../app/slices/Checkout/UserDetailsSlice'
+import { useAppDispatch } from '../app/hooks'
+import { logoutUser } from '../app/slices/AuthSlice'
+import { removeCartItemsAfterLogout } from '../app/slices/CartSlice'
+import { restoreUserDetails } from '../app/slices/Checkout/UserDetailsSlice'
 
 const useLogout = () => {
    const dispatch = useAppDispatch()
