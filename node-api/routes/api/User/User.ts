@@ -33,7 +33,7 @@ const router = express.Router()
 
 router.post('/register', ValidateRegister, registerUserController)
 router.post('/login', loginUserController)
-router.post('/logout', authenticateAccessToken, logoutController)
+router.post('/logout', logoutController)
 router.post('/confirm-email', ValidateEmailRegistrationController)
 router.post('/resend-email', ResendEmailController)
 
