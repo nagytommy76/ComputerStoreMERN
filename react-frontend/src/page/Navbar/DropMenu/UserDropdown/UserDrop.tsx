@@ -22,6 +22,9 @@ const DropMenu: React.FC = () => {
       event.stopPropagation()
       setIsUserDropOpen(false)
    }
+
+   const logoutHandler = () => logout()
+
    return (
       <DropStyle>
          {isMobileSize && (
@@ -32,7 +35,7 @@ const DropMenu: React.FC = () => {
          <DropLinkItem onClick={clickEvent} to='/orders'>
             Korábbi rendelések
          </DropLinkItem>
-         <DropLinkItem onClick={logout} to='#'>
+         <DropLinkItem onClick={logoutHandler} to='#'>
             Kijelentkezés
          </DropLinkItem>
          {isAdmin && (
