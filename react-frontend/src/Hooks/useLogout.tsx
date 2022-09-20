@@ -9,17 +9,22 @@ import { restoreUserDetails } from '../app/slices/Checkout/UserDetailsSlice'
 const useLogout = () => {
    const dispatch = useAppDispatch()
    const navigate = useNavigate()
-   const logout = async () => {
+
+   const logoutLogic = (redirectPath: string | undefined = '/', state: any | undefined = {}) => {
+      dispatch(restoreUserDetails())
+      dispatch(removeCartItemsAfterLogout())
+      dispatch(logoutUser())
+      navigate(redirectPath, { state })
+   }
+
+   const logout = async (redirectPath: string | undefined = '/', state: any | undefined = {}) => {
       try {
          const response = await axios.post('/auth/logout')
-         if (response.status === 200) {
-            dispatch(restoreUserDetails())
-            dispatch(removeCartItemsAfterLogout())
-            dispatch(logoutUser())
-            navigate('/')
-         }
+         if (response.status === 200) logoutLogic(redirectPath, { state })
       } catch (error) {
          console.log(error)
+      } finally {
+         logoutLogic(redirectPath, { state })
       }
    }
    return logout
