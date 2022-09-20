@@ -1,10 +1,9 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import useLogout from '../Hooks/useLogout'
-import { axiosInstance as axios, isAxiosError } from './AxiosInstance'
+import { axiosInstance as axios } from './AxiosInstance'
 
 import { setAccessToken } from '../app/slices/TokenSlice'
-import { restoreUserDetails } from '../app/slices/Checkout/UserDetailsSlice'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
 
 // Az app megnyitásakor, ha a user ba van jelentkezve megvizsgálom, hogy érvényes-e az accessToken-je
@@ -21,32 +20,6 @@ const useAxiosSetup = () => {
    axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`
 
    useEffect(() => {
-      // const getNewAccessToken = async () => {
-      //    try {
-      //       const response = await axios.post('/auth/refresh-token')
-      //       if (response.status === 200) {
-      //          dispatch(setAccessToken(response.data))
-      //          axios.defaults.headers.common.Authorization = `Bearer ${response.data}`
-      //       }
-      //    } catch (error) {
-      //       if (isAxiosError(error)) {
-      //          if (error.response?.data?.errorMessage === 'refresh token expired') {
-      //             navigate('/login', {
-      //                state: {
-      //                   isFailure: true,
-      //                   message: 'Kérlek, jelentkezz be újra!',
-      //                },
-      //             })
-      //             dispatch(restoreUserDetails())
-      //             logoutUser()
-      //          }
-      //          console.dir(error)
-      //       }
-      //    }
-      // }
-      // if (accessToken === null) {
-      //    userIsLoggedIn && getNewAccessToken()
-      // } else {
       axios.interceptors.response.use(
          response => {
             return response
@@ -58,7 +31,6 @@ const useAxiosSetup = () => {
                   return axios
                      .post('/auth/refresh-token')
                      .then(newAccessToken => {
-                        console.log('CSÁÁSÉD')
                         if (newAccessToken.status === 200) {
                            dispatch(setAccessToken(newAccessToken.data))
                            error.config.headers.Authorization = `Bearer ${newAccessToken.data}`
@@ -67,32 +39,20 @@ const useAxiosSetup = () => {
                      })
                      .catch(error => {
                         if (error.response.data.errorMessage === 'refresh token expired') {
-                           navigate('/login', {
-                              state: {
-                                 isFailure: true,
-                                 message: 'Kérlek, jelentkezz be újra!',
-                              },
+                           logoutUser('/login', {
+                              isFailure: true,
+                              message: 'Kérlek, jelentkezz be újra!',
                            })
-                           dispatch(restoreUserDetails())
-                           logoutUser()
                         }
                      })
                } else if (error.response.data.errorMessage === 'user is not admin') {
                   // Ha valaki ide keveredne és nem admin...
-                  navigate('/login', {
-                     state: { isFailure: true, message: 'Nem vagy jó helyen!!! :)' },
-                  })
-                  dispatch(restoreUserDetails())
-                  logoutUser()
+                  logoutUser('/login', { isFailure: true, message: 'Nem vagy jó helyen!!! :)' })
                }
             }
             if (error.response?.status === 401) {
                // Itt pedig be kell lépni mert a refres token se jó
-               navigate('/login', {
-                  state: { isFailure: true, message: 'Kérlek, jelentkezz be újra!' },
-               })
-               dispatch(restoreUserDetails())
-               logoutUser()
+               logoutUser('/login', { isFailure: true, message: 'Kérlek, jelentkezz be újra!' })
             }
             return await Promise.reject(error)
          }
