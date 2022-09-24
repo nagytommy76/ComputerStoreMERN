@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { mobileWindowSize } from '../../../Theme/GlobalStyles'
 
+import MenuItem from '@mui/material/MenuItem'
+
 export const DropStyle = styled.div`
    position: fixed;
    top: 6.6rem;
@@ -45,10 +47,12 @@ export const CloseDropdownMenu = styled.div`
 `
 
 export const DropLinkItem = styled(Link)`
-   max-width: 100%;
-   text-align: right;
-   padding: 0.5rem 1rem 0.5rem 0;
-   border-left: 4px solid transparent;
+   width: 100%;
+   height: 100%;
+   text-align: left;
+   font-size: 17px;
+   padding: 0.5rem;
+   border-left: 5px solid transparent;
    transition: all 0.1s linear;
    &:hover {
       font-weight: 900;
@@ -57,7 +61,15 @@ export const DropLinkItem = styled(Link)`
    @media (max-width: ${mobileWindowSize}) {
       letter-spacing: 3px;
       font-weight: 800;
-      font-size: 25px;
+      font-size: 17px;
       padding: 1rem 1rem 1rem 0;
    }
 `
+
+export const StyledMenuItem = styled(MenuItem)({
+   transition: 'all 0.15s linear',
+   width: 180,
+   [`@media (max-width: ${mobileWindowSize})`]: {
+      width: 280,
+   },
+})
