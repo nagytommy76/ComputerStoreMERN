@@ -1,7 +1,7 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useContext } from 'react'
+import { NavbarContext } from '../../NavbarContext'
 
 import { StyledListItems } from '../../LinkItems/LinkItemStyles'
-import Fade from '@mui/material/Fade'
 
 type Props = {
    children: ReactNode
@@ -11,16 +11,16 @@ type Props = {
 }
 
 const BaseDrop: React.FC<Props> = ({ isDropOpen, setIsDropOpen, text, children }) => {
-   const openDrop = () => {
+   const { setAnchorEl } = useContext(NavbarContext)
+   const openDrop = (event: React.MouseEvent<HTMLElement>) => {
+      setAnchorEl(event.currentTarget)
       setIsDropOpen(true)
    }
 
    return (
       <StyledListItems onMouseEnter={openDrop} onClick={openDrop}>
          {text}
-         <Fade mountOnEnter unmountOnExit timeout={300} in={isDropOpen}>
-            <div>{children}</div>
-         </Fade>
+         {children}
       </StyledListItems>
    )
 }
