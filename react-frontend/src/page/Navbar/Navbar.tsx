@@ -21,6 +21,7 @@ const Navbar = () => {
    const [isShopDropOpen, setIsShopDropOpen] = useState(false)
    const [isUserDropOpen, setIsUserDropOpen] = useState(false)
    const [isCartOpen, setIsCartOpen] = useState(false)
+   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
    const navbarRef = useRef(null)
    const CartRef = useRef(null)
@@ -36,6 +37,8 @@ const Navbar = () => {
    return (
       <NavbarContext.Provider
          value={{
+            anchorEl,
+            setAnchorEl,
             isNavbarOpen,
             isShopDropOpen,
             isUserDropOpen,
