@@ -1,18 +1,19 @@
 import React, { useEffect, useCallback } from 'react'
 import { useAppDispatch } from '../app/hooks'
 import { setIsMobileSize } from '../app/slices/MobileSlice'
+import { Action, NavbarActionTypes } from '../page/Navbar/Reducer/NavbarReducer'
 
-const useWindowSize = (setIsNavbarOpen: React.Dispatch<React.SetStateAction<boolean>>) => {
+const useWindowSize = (setIsNavbarOpenDispatch: React.Dispatch<Action>) => {
    const dispatch = useAppDispatch()
 
    const handleWindowSizeChange = useCallback(() => {
       if (window.innerWidth <= 950) {
          dispatch(setIsMobileSize(true))
       } else {
-         setIsNavbarOpen(true)
+         setIsNavbarOpenDispatch({ type: NavbarActionTypes.SET_IS_NAVBAR_OPEN, payload: true })
          dispatch(setIsMobileSize(false))
       }
-   }, [dispatch, setIsNavbarOpen])
+   }, [dispatch, setIsNavbarOpenDispatch])
 
    useEffect(() => {
       handleWindowSizeChange()
