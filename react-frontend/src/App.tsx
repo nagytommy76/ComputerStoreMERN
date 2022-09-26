@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, Suspense } from 'react'
 import useAxiosSetup from './AxiosSetup/AxiosSetup'
+import NavbarContextProvider from './page/Navbar/NavbarContext'
 
 import { ThemeProvider } from 'styled-components'
 import { ThemeProvider as MUIThemeProvider } from '@mui/material/styles'
@@ -41,7 +42,9 @@ const App = () => {
          <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
             <ScrollToTopWrapper>
                <GlobalStyles />
-               <Navbar />
+               <NavbarContextProvider>
+                  <Navbar />
+               </NavbarContextProvider>
                <Suspense fallback={<PageSuspense />}>
                   <Routes />
                </Suspense>
