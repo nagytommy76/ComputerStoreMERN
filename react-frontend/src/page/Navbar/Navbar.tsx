@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useContext } from 'react'
 import useWindowSize from '../../Hooks/useWindowSize'
 
 import styles from './navbar.module.css'
@@ -13,42 +13,29 @@ import CartSlide from './Cart/CartSlide'
 import OpenButton from './OpenButton/OpenButton'
 
 import { NavStyle, BrandStyle, DropdownBackground } from './NavbarStyles'
+import { NavbarActionTypes } from './Reducer/NavbarReducer'
 
 const Navbar = () => {
-   const [isNavbarOpen, setIsNavbarOpen] = useState(false)
-   useWindowSize(setIsNavbarOpen)
+   const {
+      dispatch,
+      state: { isNavbarOpen },
+   } = useContext(NavbarContext)
+   useWindowSize(dispatch)
    const isMobileSize = useAppSelector(state => state.mobile.isMobile)
-   const [isShopDropOpen, setIsShopDropOpen] = useState(false)
-   const [isUserDropOpen, setIsUserDropOpen] = useState(false)
-   const [isCartOpen, setIsCartOpen] = useState(false)
-   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
    const navbarRef = useRef(null)
    const CartRef = useRef(null)
 
    const closeDrops = () => {
-      setIsShopDropOpen(false)
-      setIsUserDropOpen(false)
+      dispatch({ type: NavbarActionTypes.SET_IS_SHOP_DROP_OPEN, payload: false })
+      dispatch({ type: NavbarActionTypes.SET_IS_USER_DROP_OPEN, payload: false })
    }
    const closeNavbarOnMobile = () => {
-      if (isMobileSize) setIsNavbarOpen(false)
+      if (isMobileSize) dispatch({ type: NavbarActionTypes.SET_IS_NAVBAR_OPEN, payload: false })
    }
 
    return (
-      <NavbarContext.Provider
-         value={{
-            anchorEl,
-            setAnchorEl,
-            isNavbarOpen,
-            isShopDropOpen,
-            isUserDropOpen,
-            setIsNavbarOpen,
-            setIsShopDropOpen,
-            setIsUserDropOpen,
-            isCartOpen,
-            setIsCartOpen,
-         }}
-      >
+      <>
          <OpenButton />
          <CSSTransition
             appear
@@ -74,11 +61,13 @@ const Navbar = () => {
             </NavStyle>
          </CSSTransition>
          {!isMobileSize && (
-            <BaseDropBackground isDropOpen={isShopDropOpen || isUserDropOpen || isCartOpen}>
-               <DropdownBackground onClick={() => setIsCartOpen(false)} />
+            <BaseDropBackground>
+               <DropdownBackground
+                  onClick={() => dispatch({ type: NavbarActionTypes.SET_IS_CART_OPEN, payload: false })}
+               />
             </BaseDropBackground>
          )}
-      </NavbarContext.Provider>
+      </>
    )
 }
 
