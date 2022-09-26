@@ -1,14 +1,19 @@
 import React, { useEffect, useRef, useState, useContext } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { NavbarCartButtonStyle, ItemsInCartStyle } from './CartButtonStyle'
 import { useAppSelector } from '../../../../app/hooks'
-import { CSSTransition } from 'react-transition-group'
-import styles from './Qty.module.css'
 import { NavbarContext } from '../../NavbarContext'
+import { NavbarActionTypes } from '../../Reducer/NavbarReducer'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import styles from './Qty.module.css'
+import { NavbarCartButtonStyle, ItemsInCartStyle } from './CartButtonStyle'
+import { CSSTransition } from 'react-transition-group'
 
 const CartButton: React.FC = () => {
    const { totalQuantity, cartItems } = useAppSelector(state => state.cart)
-   const { setIsCartOpen } = useContext(NavbarContext)
+   const {
+      dispatch,
+      state: { isCartOpen },
+   } = useContext(NavbarContext)
    const [showQty, setShowQty] = useState<boolean>(false)
    const qtyRef = useRef(null)
 
@@ -17,7 +22,7 @@ const CartButton: React.FC = () => {
    }, [cartItems.length])
 
    const onClickEvent = () => {
-      setIsCartOpen(prev => !prev)
+      dispatch({ type: NavbarActionTypes.SET_IS_CART_OPEN, payload: !isCartOpen })
    }
 
    return (

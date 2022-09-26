@@ -3,6 +3,7 @@ import { useAppSelector } from '../../../app/hooks'
 import { NavbarContext } from '../NavbarContext'
 import { Link } from 'react-router-dom'
 import NumberFormat from 'react-number-format'
+import { NavbarActionTypes } from '../Reducer/NavbarReducer'
 
 import { CSSTransition } from 'react-transition-group'
 import { SlideStyle, CartTitle, FinalPriceStyle, FooterStyle, FooterButtonsStyle } from './CartSlideStyle'
@@ -13,17 +14,20 @@ const CartSlide: React.FC<Props> = ({ reference }) => {
    const mobileView = useAppSelector(state => state.mobile.isMobile)
    const { totalPrice, cartItems } = useAppSelector(state => state.cart)
    const { userLoggedIn } = useAppSelector(state => state.auth)
-   const { isCartOpen, setIsCartOpen, setIsNavbarOpen } = useContext(NavbarContext)
+   const {
+      dispatch,
+      state: { isCartOpen },
+   } = useContext(NavbarContext)
 
    const OnClickCloseEvent = () => {
-      setIsCartOpen(false)
+      dispatch({ type: NavbarActionTypes.SET_IS_CART_OPEN, payload: false })
    }
 
    const OnClickCloseNavbarAndCartEvent = () => {
-      setIsCartOpen(false)
+      dispatch({ type: NavbarActionTypes.SET_IS_CART_OPEN, payload: false })
       if (mobileView) {
          setTimeout(() => {
-            setIsNavbarOpen(false)
+            dispatch({ type: NavbarActionTypes.SET_IS_NAVBAR_OPEN, payload: false })
          }, 300)
       }
    }
