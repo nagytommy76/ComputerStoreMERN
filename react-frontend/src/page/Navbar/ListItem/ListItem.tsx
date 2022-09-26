@@ -1,12 +1,12 @@
-import React, { useContext, useRef } from 'react'
+import React, { useContext } from 'react'
 import LinkItem from '../LinkItems/LinkItem'
-import BaseDrop from '../DropMenu/BaseDrop/BaseDrop'
 import ShopDropMenu from '../DropMenu/ShopDropdown/DropMenu'
 import UserDrop from '../DropMenu/UserDropdown/UserDrop'
 import Toggler from '../ThemeToggler/Toggle'
 import { NavbarContext } from '../NavbarContext'
+import { NavbarActionTypes } from '../Reducer/NavbarReducer'
 
-import { TogglerCartListItems } from '../LinkItems/LinkItemStyles'
+import { TogglerCartListItems, StyledListItems } from '../LinkItems/LinkItemStyles'
 import { StyledUnorderedList } from '../NavbarStyles'
 import { useAppSelector } from '../../../app/hooks'
 
@@ -14,8 +14,17 @@ const ListItem: React.FC = () => {
    const userLoggedIn = useAppSelector(state => state.auth.userLoggedIn)
    const userName = useAppSelector(state => state.auth.userName)
    const isMobileSize = useAppSelector(state => state.mobile.isMobile)
-   const { isShopDropOpen, isUserDropOpen, setIsNavbarOpen, setIsShopDropOpen, setIsUserDropOpen } =
-      useContext(NavbarContext)
+   const { dispatch } = useContext(NavbarContext)
+
+   const openUserDrop = (event: React.MouseEvent<HTMLElement>) => {
+      dispatch({ type: NavbarActionTypes.SET_IS_USER_DROP_OPEN, payload: true })
+      dispatch({ type: NavbarActionTypes.SET_USER_ANCHOR_EL, payload: event.currentTarget })
+   }
+
+   const openShopDrop = (event: React.MouseEvent<HTMLElement>) => {
+      dispatch({ type: NavbarActionTypes.SET_IS_SHOP_DROP_OPEN, payload: true })
+      dispatch({ type: NavbarActionTypes.SET_SHOP_ANCHOR_EL, payload: event.currentTarget })
+   }
 
    return (
       <StyledUnorderedList>
@@ -23,24 +32,30 @@ const ListItem: React.FC = () => {
             <LinkItem
                to='/login'
                linkText='Belépés'
-               ClickEvent={() => isMobileSize && setIsNavbarOpen(false)}
+               ClickEvent={() =>
+                  isMobileSize && dispatch({ type: NavbarActionTypes.SET_IS_NAVBAR_OPEN, payload: false })
+               }
             />
          )}
          {!userLoggedIn && (
             <LinkItem
                to='/register'
                linkText='Regisztráció'
-               ClickEvent={() => isMobileSize && setIsNavbarOpen(false)}
+               ClickEvent={() =>
+                  isMobileSize && dispatch({ type: NavbarActionTypes.SET_IS_NAVBAR_OPEN, payload: false })
+               }
             />
          )}
          {userLoggedIn && (
-            <BaseDrop text={userName} isDropOpen={isUserDropOpen} setIsDropOpen={setIsUserDropOpen}>
+            <StyledListItems onMouseEnter={openUserDrop} onClick={openUserDrop}>
+               {userName}
                <UserDrop />
-            </BaseDrop>
+            </StyledListItems>
          )}
-         <BaseDrop text='Shop Menü' isDropOpen={isShopDropOpen} setIsDropOpen={setIsShopDropOpen}>
+         <StyledListItems onMouseEnter={openShopDrop} onClick={openShopDrop}>
+            Shop Menü
             <ShopDropMenu />
-         </BaseDrop>
+         </StyledListItems>
          <TogglerCartListItems>
             <Toggler />
          </TogglerCartListItems>

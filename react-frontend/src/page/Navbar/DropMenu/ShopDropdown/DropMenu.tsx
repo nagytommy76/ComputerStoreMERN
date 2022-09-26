@@ -3,6 +3,7 @@ import { DropLinkItem } from '../DropMenuStyle'
 import { useAppSelector } from '../../../../app/hooks'
 import { NavbarContext } from '../../NavbarContext'
 import { useLocation } from 'react-router-dom'
+import { NavbarActionTypes } from '../../Reducer/NavbarReducer'
 
 import { useAppDispatch } from '../../../../app/hooks'
 import { setProducts, setIsFetching } from '../../../../app/slices/ProductsSlice'
@@ -12,13 +13,14 @@ import { StyledMenuItem } from '../DropMenuStyle'
 import Menu from '@mui/material/Menu'
 
 const DropMenu: React.FC = () => {
-   // const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
-
    const location = useLocation()
-   const dispatch = useAppDispatch()
+   const ReducDispatch = useAppDispatch()
    const isMobileSize = useAppSelector(state => state.mobile.isMobile)
-   const { setIsShopDropOpen, setIsNavbarOpen, anchorEl, setAnchorEl } = useContext(NavbarContext)
-   const open = Boolean(anchorEl)
+   const {
+      state: { shopAnchorEl },
+      dispatch,
+   } = useContext(NavbarContext)
+   const open = Boolean(shopAnchorEl)
    const locationPathArray = [
       '/vga',
       '/cpu',
@@ -33,28 +35,28 @@ const DropMenu: React.FC = () => {
 
    const closeDropMenu = (event: React.MouseEvent) => {
       event.stopPropagation()
-      setIsShopDropOpen(false)
-      setAnchorEl(null)
+      dispatch({ type: NavbarActionTypes.SET_IS_SHOP_DROP_OPEN, payload: false })
+      dispatch({ type: NavbarActionTypes.SET_SHOP_ANCHOR_EL, payload: null })
    }
 
    const closeNavbar = (event: React.MouseEvent<HTMLAnchorElement>, linkTo: string) => {
-      setAnchorEl(null)
       if (isMobileSize) {
          event.stopPropagation()
-         setIsShopDropOpen(false)
-         setIsNavbarOpen(false)
+         dispatch({ type: NavbarActionTypes.SET_IS_SHOP_DROP_OPEN, payload: false })
+         dispatch({ type: NavbarActionTypes.SET_IS_NAVBAR_OPEN, payload: false })
       }
       // A products oldal suspense miatt kell
       if (locationPathArray.includes(location.pathname) && location.pathname !== linkTo) {
-         dispatch(setIsFetching('INIT'))
-         dispatch(setProducts([]))
-         dispatch(setProductName(''))
+         ReducDispatch(setIsFetching('INIT'))
+         ReducDispatch(setProducts([]))
+         ReducDispatch(setProductName(''))
       }
+      dispatch({ type: NavbarActionTypes.SET_SHOP_ANCHOR_EL, payload: null })
    }
    return (
       <Menu
-         anchorEl={anchorEl}
-         id='account-menu'
+         anchorEl={shopAnchorEl}
+         id='shop-menu'
          open={open}
          onClose={closeDropMenu}
          onClick={closeDropMenu}
@@ -70,7 +72,7 @@ const DropMenu: React.FC = () => {
          transformOrigin={{ horizontal: 'center', vertical: 'top' }}
          anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
       >
-         <StyledMenuItem sx={{ paddingLeft: 0 }}>
+         <StyledMenuItem sx={{ padding: 0 }}>
             <DropLinkItem onClick={e => closeNavbar(e, '/vga')} to='/vga'>
                Videókártya
             </DropLinkItem>
