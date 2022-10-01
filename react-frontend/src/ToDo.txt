@@ -19,10 +19,6 @@ HIBÁK/BUGOK:
   - 
 
 
-- Az összes fallback-et (Suspense) vizualizálni, mert most csak a Töltés... van FOLYAMATBAN
-  Pl a login alert boxokat is!!!
-
-
 
 - ADMIN oldalon: MUI:Too many re-renders. The layout is unstable.
   TextareaAutosize limits the number of renders to prevent an infinite loop.
@@ -36,8 +32,6 @@ HIBÁK/BUGOK:
 
 
 FONTOS!!!:
- - Az accessToken/refreshToken-be csak a user id-t illetve iat/exp dátumot beletenni, nem pedig a sensitive adatokat
- - valamint nem localStorage-ben tárolni, hanem cookie-ban?!
 
 - A NAVBART kicsit kipofozni: a lenyíló menük eléggé bugosak
 
@@ -54,6 +48,13 @@ https://reactjs.org/docs/error-decoder.html/?invariant=185
 
 https://help.heroku.com/FZDDCBLB/how-can-i-download-my-code-from-heroku
 MEGCSINÁLTAM:
+- Az összes fallback-et (Suspense) vizualizálni, mert most csak a Töltés... van FOLYAMATBAN
+  Pl a login alert boxokat is!!!
+
+
+ - Az accessToken/refreshToken-be csak a user id-t illetve iat/exp dátumot beletenni, nem pedig a sensitive adatokat
+ - valamint nem localStorage-ben tárolni, hanem cookie-ban?!
+
 
 MUI: You have provided an out-of-range value `12` for the select component.
 Consider providing a value that matches one of the available options or ''.
