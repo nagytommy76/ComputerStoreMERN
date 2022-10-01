@@ -47,6 +47,8 @@ export const CloseDropdownMenu = styled.div`
 `
 
 export const DropLinkItem = styled(Link)`
+   display: flex;
+   align-items: center;
    width: 100%;
    height: 100%;
    text-align: left;
@@ -68,7 +70,7 @@ export const DropLinkItem = styled(Link)`
 
 export const StyledMenuItem = styled(MenuItem)({
    transition: 'all 0.15s linear',
-   width: 180,
+   width: 220,
    [`@media (max-width: ${mobileWindowSize})`]: {
       width: 280,
    },
