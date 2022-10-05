@@ -2,6 +2,7 @@ import { lazy } from 'react'
 import { AdminPageContainer, RightContentStyle } from './AdminStyle'
 import { Routes, Route } from 'react-router-dom'
 import SideMenu from './SideMenu/SideMenu'
+import useIsAdmin from './Hooks/useIsAdmin'
 
 const Users = lazy(() => import('./Users/Users'))
 
@@ -26,6 +27,7 @@ const SSDModify = lazy(() => import('./SSD/Modify/ModifySSD'))
 const SSDDelete = lazy(() => import('./SSD/Delete/DeleteSSD'))
 
 const Admin = () => {
+   useIsAdmin()
    return (
       <AdminPageContainer>
          <SideMenu />

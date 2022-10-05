@@ -44,9 +44,13 @@ Uncaught Error: Minified React error #185;
 https://reactjs.org/docs/error-decoder.html/?invariant=185
 
 
+A komment válasz résznél: végtelen komment thread-et. (kommentre komment stb...)
+
 
 
 https://help.heroku.com/FZDDCBLB/how-can-i-download-my-code-from-heroku
+
+
 MEGCSINÁLTAM:
 - Az összes fallback-et (Suspense) vizualizálni, mert most csak a Töltés... van FOLYAMATBAN
   Pl a login alert boxokat is!!!
