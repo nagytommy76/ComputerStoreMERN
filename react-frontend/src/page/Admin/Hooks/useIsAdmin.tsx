@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { axiosInstance as axios } from '../../../AxiosSetup/AxiosInstance'
 import { useNavigate } from 'react-router-dom'
 
@@ -14,7 +14,7 @@ const useIsAdmin = () => {
          }
       }
       checkUserIsAdmin()
-   }, [])
+   }, [navigate])
    return null
 }
 
