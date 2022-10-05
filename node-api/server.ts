@@ -34,6 +34,7 @@ app.use(cookieParser())
 app.use(morgan('combined', { stream: accessLogStream }))
 app.use(bodyParser.json())
 
+app.use('/api/admin', require('./routes/api/Admin/Admin'))
 app.use('/api/vga', require('./routes/api/Vga/Vga'))
 app.use('/api/admin/vga', require('./routes/api/Admin/Vga/Vga'))
 
