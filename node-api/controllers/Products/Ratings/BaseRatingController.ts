@@ -1,6 +1,6 @@
 import { Response } from 'express'
 import { Model } from 'mongoose'
-import BaseRatingController from '../Ratings/BaseRating'
+import BaseRatingController from './BaseRating'
 
 import { RequestWithQueryId } from '../../Types'
 import {
