@@ -6,7 +6,8 @@ import DetailsContext from '../../../../Context/DetailsContext'
 
 import { ThumbsContainer, CustomThumbDown, CustomThumbUp, ThumbIconsContainer } from './CommentStyle'
 import { Tooltip, ClickAwayListener } from '@mui/material'
-import Button from '@mui/material/Button'
+
+import OpenAnswerTextField from './Includes/OpenAnswerTextField'
 
 const Likes: React.FC<{
    commentId: string
@@ -71,8 +72,6 @@ const Likes: React.FC<{
       }
    }
 
-   const handleAnswerOpen = () => setIsAnswerOpen(prevValue => !prevValue)
-
    const isUsersComment = () => isUserLoggedIn && commentUserId !== userId
 
    return (
@@ -100,11 +99,7 @@ const Likes: React.FC<{
                   />
                   {countedLikes.dislike}
                </ThumbIconsContainer>
-               {isUsersComment() && (
-                  <Button onClick={handleAnswerOpen} color='success' variant='outlined'>
-                     Válasz
-                  </Button>
-               )}
+               <OpenAnswerTextField commentUserId={commentUserId} setIsAnswerOpen={setIsAnswerOpen} />
             </ThumbsContainer>
          </Tooltip>
       </ClickAwayListener>
