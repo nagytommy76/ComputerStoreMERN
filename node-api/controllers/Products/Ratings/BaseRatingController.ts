@@ -83,6 +83,8 @@ export default class BaseRating {
          const { foundProduct, newCommentAnswers } = await this.BaseRatingHelper.saveProductAnswerController(
             req.body.productId,
             req.body.commentId,
+            req.body.commentDepth,
+            req.body.parentCommentId,
             req.body.answer,
             req.user
          )

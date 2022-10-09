@@ -8,6 +8,8 @@ export const canSaveProductAnswer = (getRatingValuesByProductId: (productId: Obj
    saveProductAnswerController: async (
       productId: ObjectId,
       commentId: ObjectId,
+      commentDepth: number,
+      parentCommentId: ObjectId,
       answer: string,
       user: UserTypes | undefined
    ) => {
@@ -19,6 +21,8 @@ export const canSaveProductAnswer = (getRatingValuesByProductId: (productId: Obj
       if (foundComment && user) {
          foundComment.commentAnswers.push({
             answer: answer,
+            commentDepth,
+            parentCommentId,
             answeredAt: new Date(),
             userId: user._id,
             userName: user.userName,
