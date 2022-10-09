@@ -51,6 +51,8 @@ const CreateAnswer: React.FC<{
                answer: answerText,
                productId,
                commentId,
+               commentDepth: 1,
+               parentCommentId: 'tretertreter',
             })
             if (response.status === 201) {
                setIsLoading(false)
