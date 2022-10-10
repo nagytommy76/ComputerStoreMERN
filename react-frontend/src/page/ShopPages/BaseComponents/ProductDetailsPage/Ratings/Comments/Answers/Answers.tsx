@@ -8,6 +8,7 @@ import { SingleAnswerStyle, LeftAnswerStyle, RightAnswerStyle } from './AnswerSt
 import { AnswerContext } from '../Context/AnswerContext'
 
 const DeleteAnswer = React.lazy(() => import('./AnswerDelete'))
+const CreateAnswer = React.lazy(() => import('./CreateAnswer'))
 
 const Answers: React.FC<{ commentId: string }> = ({ commentId }) => {
    const { commentAnswers } = useContext(AnswerContext)
@@ -29,6 +30,12 @@ const Answers: React.FC<{ commentId: string }> = ({ commentId }) => {
                      answerUserName={answers.userName}
                   />
                </SingleAnswerStyle>
+               <CreateAnswer
+                  userName={answers.userName}
+                  commentId={commentId}
+                  parentCommentId={answers._id}
+                  commentDepth={answers.commentDepth + 1}
+               />
             </Collapse>
          ))}
       </TransitionGroup>
