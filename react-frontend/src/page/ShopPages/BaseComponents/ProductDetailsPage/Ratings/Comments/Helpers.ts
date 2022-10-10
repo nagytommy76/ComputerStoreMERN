@@ -15,6 +15,8 @@ export type CommentAnswerType = {
    userName: string
    answer: string
    answeredAt: Date
+   commentDepth: number
+   parentCommentId: string
    responses?: ResponsesType[]
 }
 
