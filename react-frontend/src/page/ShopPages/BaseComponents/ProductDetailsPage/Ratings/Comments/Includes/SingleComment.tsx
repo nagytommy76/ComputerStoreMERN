@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { AnswerContext } from '../Context/AnswerContext'
+import React, { useState } from 'react'
+import { CommentAnswerProvider } from '../Context/AnswerContext'
 
 import Collapse from '@mui/material/Collapse'
 import Card from '@mui/material/Card'
@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography'
 
 import { CommentCard, RightSide } from '../CommentStyle'
 
-import { RateState, CommentAnswerType } from '../Helpers'
+import { RateState } from '../Helpers'
 
 const CardContentLeftSide = React.lazy(
    () => import('../../../../../../Components/RatingComponents/RatingCardLeftContent')
@@ -23,11 +23,6 @@ const SingleComment: React.FC<{
    setAllComments: React.Dispatch<React.SetStateAction<RateState[]>>
 }> = ({ comment, setAllComments }) => {
    const [isAnswerOpen, setIsAnswerOpen] = useState<boolean>(false)
-   const [commentAnswers, setCommentAnswers] = useState<CommentAnswerType[]>([])
-
-   useEffect(() => {
-      setCommentAnswers(comment.commentAnswers)
-   }, [comment.commentAnswers])
 
    return (
       <Card sx={{ marginBottom: '1.2rem', marginTop: '1.2rem' }}>
@@ -52,21 +47,18 @@ const SingleComment: React.FC<{
                commentsUserName={comment.userName}
             />
          </CommentCard>
-         <AnswerContext.Provider
-            value={{
-               commentAnswers,
-               setCommentAnswer: setCommentAnswers,
-            }}
-         >
-            <CardContent>
-               <Answers commentId={comment._id} />
-            </CardContent>
-            <Collapse in={isAnswerOpen} timeout={150}>
+         <CommentAnswerProvider commentAnswersProp={comment.commentAnswers}>
+            <>
                <CardContent>
-                  <CreateAnswer commentId={comment._id} userName={comment.userName} />
+                  <Answers commentId={comment._id} />
                </CardContent>
-            </Collapse>
-         </AnswerContext.Provider>
+               <Collapse in={isAnswerOpen} timeout={150}>
+                  <CardContent>
+                     <CreateAnswer commentId={comment._id} userName={comment.userName} />
+                  </CardContent>
+               </Collapse>
+            </>
+         </CommentAnswerProvider>
       </Card>
    )
 }
