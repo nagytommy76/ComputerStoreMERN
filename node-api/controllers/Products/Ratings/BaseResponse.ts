@@ -9,7 +9,7 @@ export const canSaveProductAnswer = (getRatingValuesByProductId: (productId: Obj
       productId: ObjectId,
       commentId: ObjectId,
       commentDepth: number,
-      parentCommentId: ObjectId | null,
+      parentCommentId: ObjectId,
       answer: string,
       user: UserTypes | undefined
    ) => {
