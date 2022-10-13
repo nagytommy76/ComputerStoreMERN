@@ -16,7 +16,7 @@ export type CommentAnswerType = {
    answer: string
    answeredAt: Date
    commentDepth: number
-   parentCommentId: string | null
+   parentCommentId: string
    responses?: ResponsesType[]
 }
 

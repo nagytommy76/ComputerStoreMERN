@@ -16,8 +16,8 @@ const CreateAnswer: React.FC<{
    userName: string
    commentId: string
    commentDepth?: number
-   parentCommentId?: string
-}> = ({ userName, commentId, commentDepth = 1, parentCommentId = null }) => {
+   parentCommentId: string
+}> = ({ userName, commentId, commentDepth = 1, parentCommentId }) => {
    const { productId, productType } = useContext(DetailsContext)
 
    const { setCommentAnswer } = useContext(AnswerContext)
