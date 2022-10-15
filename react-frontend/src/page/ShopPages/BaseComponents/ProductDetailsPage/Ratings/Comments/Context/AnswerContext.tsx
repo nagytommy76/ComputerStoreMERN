@@ -4,10 +4,13 @@ import { CommentAnswerType } from '../Helpers'
 export const AnswerContext = createContext<{
    commentAnswers: CommentAnswerType[]
    setCommentAnswer: Dispatch<SetStateAction<CommentAnswerType[]>>
-   // CommentId-t hozzáadni
+   rootAnswers: CommentAnswerType[]
+   getReplies: (parentId: string) => CommentAnswerType[]
 }>({
    commentAnswers: [],
    setCommentAnswer: () => {},
+   rootAnswers: [],
+   getReplies: () => [],
 })
 
 export const CommentAnswerProvider: React.FC<{
@@ -15,29 +18,31 @@ export const CommentAnswerProvider: React.FC<{
    commentAnswersProp: CommentAnswerType[]
 }> = ({ children, commentAnswersProp }) => {
    const [commentAnswers, setCommentAnswers] = useState<CommentAnswerType[]>([])
-   useEffect(() => {
-      setCommentAnswers(commentAnswersProp)
-   }, [commentAnswersProp])
 
    const commentsByParentId = useMemo(() => {
       const group: any = {}
       commentAnswersProp.forEach(answer => {
-         if (answer.parentCommentId !== null) {
-            group[answer.parentCommentId] ||= []
-            group[answer.parentCommentId].push(answer)
-         }
+         group[answer.parentCommentId] ||= []
+         group[answer.parentCommentId].push(answer)
       })
       return group
    }, [commentAnswersProp])
-   // useEffect(() => {
-   //    console.log(commentsByParentId)
-   // }, [commentsByParentId])
+
+   function getReplies(parentId: string) {
+      return commentsByParentId[parentId]
+   }
+
+   useEffect(() => {
+      setCommentAnswers(commentAnswersProp)
+   }, [commentsByParentId, commentAnswersProp])
 
    return (
       <AnswerContext.Provider
          value={{
             commentAnswers,
             setCommentAnswer: setCommentAnswers,
+            rootAnswers: commentsByParentId['null'],
+            getReplies,
          }}
       >
          {children}
@@ -49,4 +54,6 @@ export const CommentAnswerProvider: React.FC<{
  *  - A group-nak valami type-ot csinálni
  *  - a commentAnswers majd a commentsByParentId function visszatérési értéke lesz (group)
  *  - a useState nem fog kelleni: [commentAnswers, setCommentAnswers]
+ * rootComments kéne
+ * majd replies
  */
