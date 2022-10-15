@@ -54,11 +54,7 @@ const SingleComment: React.FC<{
                </CardContent>
                <Collapse in={isAnswerOpen} timeout={150}>
                   <CardContent>
-                     <CreateAnswer
-                        parentCommentId={comment._id}
-                        commentId={comment._id}
-                        userName={comment.userName}
-                     />
+                     <CreateAnswer commentId={comment._id} userName={comment.userName} />
                   </CardContent>
                </Collapse>
             </>
