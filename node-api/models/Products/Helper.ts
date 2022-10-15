@@ -26,7 +26,7 @@ export const ProductRatingValuesSchema = {
                   userName: { type: String, required: true },
                   answer: { type: String, required: true },
                   answeredAt: { type: Date, required: true },
-                  parentCommentId: { type: String, required: false },
+                  parentCommentId: { type: String, required: false, default: null },
                   commentDepth: { type: Number, required: true, default: 1 },
                   responses,
                },
