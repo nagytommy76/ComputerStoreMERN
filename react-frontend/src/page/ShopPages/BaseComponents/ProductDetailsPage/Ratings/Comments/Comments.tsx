@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { axiosInstance as axios, AxiosResponse } from '../../../../../../AxiosSetup/AxiosInstance'
 
+import { CommentAnswerProvider } from './Context/AnswerContext'
 import { RatingContext } from '../RatingContext'
 import DetailsContext from '../../../../Context/DetailsContext'
 import { formatRatedAtToDateType, RateState } from './Helpers'
@@ -33,7 +34,9 @@ const Comments: React.FC = () => {
          {allComments.map(comment => (
             <Collapse key={comment._id}>
                <React.Suspense fallback={<CommentSuspense />}>
-                  <SingleComment comment={comment} setAllComments={setAllComments} />
+                  <CommentAnswerProvider commentAnswersProp={comment.commentAnswers}>
+                     <SingleComment comment={comment} setAllComments={setAllComments} />
+                  </CommentAnswerProvider>
                </React.Suspense>
             </Collapse>
          ))}

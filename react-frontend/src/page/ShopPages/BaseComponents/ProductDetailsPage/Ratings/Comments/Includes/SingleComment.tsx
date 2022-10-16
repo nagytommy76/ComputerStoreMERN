@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { CommentAnswerProvider } from '../Context/AnswerContext'
+import React, { useContext, useState } from 'react'
+import { AnswerContext } from '../Context/AnswerContext'
 
 import Collapse from '@mui/material/Collapse'
 import Card from '@mui/material/Card'
@@ -10,6 +10,7 @@ import { CommentCard, RightSide } from '../CommentStyle'
 
 import { RateState } from '../Helpers'
 
+import AnswerList from '../Answers/AnswerList'
 const CardContentLeftSide = React.lazy(
    () => import('../../../../../../Components/RatingComponents/RatingCardLeftContent')
 )
@@ -23,7 +24,7 @@ const SingleComment: React.FC<{
    setAllComments: React.Dispatch<React.SetStateAction<RateState[]>>
 }> = ({ comment, setAllComments }) => {
    const [isAnswerOpen, setIsAnswerOpen] = useState<boolean>(false)
-
+   const { rootAnswers } = useContext(AnswerContext)
    return (
       <Card sx={{ marginBottom: '1.2rem', marginTop: '1.2rem' }}>
          <CommentCard>
@@ -47,18 +48,14 @@ const SingleComment: React.FC<{
                commentsUserName={comment.userName}
             />
          </CommentCard>
-         <CommentAnswerProvider commentAnswersProp={comment.commentAnswers}>
-            <>
-               <CardContent>
-                  <Answers commentId={comment._id} />
-               </CardContent>
-               <Collapse in={isAnswerOpen} timeout={150}>
-                  <CardContent>
-                     <CreateAnswer commentId={comment._id} userName={comment.userName} />
-                  </CardContent>
-               </Collapse>
-            </>
-         </CommentAnswerProvider>
+         <CardContent>
+            <AnswerList answers={rootAnswers} commentId={comment._id} />
+         </CardContent>
+         <Collapse in={isAnswerOpen} timeout={150}>
+            <CardContent>
+               <CreateAnswer commentId={comment._id} userName={comment.userName} />
+            </CardContent>
+         </Collapse>
       </Card>
    )
 }
