@@ -17,7 +17,6 @@ const CardContentLeftSide = React.lazy(
 const LikeDislike = React.lazy(() => import('../Likes'))
 const DeleteSection = React.lazy(() => import('../DeleteSection'))
 const CreateAnswer = React.lazy(() => import('../Answers/CreateAnswer'))
-const Answers = React.lazy(() => import('../Answers/Answers'))
 
 const SingleComment: React.FC<{
    comment: RateState
