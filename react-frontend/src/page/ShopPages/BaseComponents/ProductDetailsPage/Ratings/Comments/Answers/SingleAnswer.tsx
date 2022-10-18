@@ -10,8 +10,8 @@ import { AnswerContext } from '../Context/AnswerContext'
 const DeleteAnswer = React.lazy(() => import('./AnswerDelete'))
 const CreateAnswer = React.lazy(() => import('./CreateAnswer'))
 
-const SingleAnswer: React.FC<{ answer: CommentAnswerType; commentId: string }> = ({ answer, commentId }) => {
-   const { getReplies } = useContext(AnswerContext)
+const SingleAnswer: React.FC<{ answer: CommentAnswerType }> = ({ answer }) => {
+   const { getReplies, commentId } = useContext(AnswerContext)
    const [childReplies, setChildReplies] = useState<CommentAnswerType[]>([])
    useEffect(() => {
       const replies = getReplies(answer._id)
@@ -37,7 +37,7 @@ const SingleAnswer: React.FC<{ answer: CommentAnswerType; commentId: string }> =
             parentCommentId={answer._id}
             commentDepth={answer.commentDepth + 1}
          />
-         {childReplies && <AnswerList commentId={commentId} answers={childReplies} />}
+         {childReplies && <AnswerList answers={childReplies} />}
       </>
    )
 }

@@ -48,7 +48,7 @@ const SingleComment: React.FC<{
             />
          </CommentCard>
          <CardContent>
-            <AnswerList answers={rootAnswers} commentId={comment._id} />
+            <AnswerList answers={rootAnswers} />
          </CardContent>
          <Collapse in={isAnswerOpen} timeout={150}>
             <CardContent>

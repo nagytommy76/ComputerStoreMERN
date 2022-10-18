@@ -2,17 +2,20 @@ import React, { createContext, useMemo } from 'react'
 import { CommentAnswerType } from '../Helpers'
 
 export const AnswerContext = createContext<{
+   commentId: string
    rootAnswers: CommentAnswerType[]
    getReplies: (parentId: string) => CommentAnswerType[]
 }>({
+   commentId: '',
    rootAnswers: [],
    getReplies: () => [],
 })
 
 export const CommentAnswerProvider: React.FC<{
+   commentId: string
    children: React.ReactNode
    commentAnswersProp: CommentAnswerType[]
-}> = ({ children, commentAnswersProp }) => {
+}> = ({ commentId, children, commentAnswersProp }) => {
    const commentsByParentId = useMemo(() => {
       const group: any = {}
       commentAnswersProp.forEach(answer => {
@@ -29,6 +32,7 @@ export const CommentAnswerProvider: React.FC<{
    return (
       <AnswerContext.Provider
          value={{
+            commentId,
             rootAnswers: commentsByParentId['null'],
             getReplies,
          }}

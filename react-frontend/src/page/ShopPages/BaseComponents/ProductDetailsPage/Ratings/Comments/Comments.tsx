@@ -34,7 +34,7 @@ const Comments: React.FC = () => {
          {allComments.map(comment => (
             <Collapse key={comment._id}>
                <React.Suspense fallback={<CommentSuspense />}>
-                  <CommentAnswerProvider commentAnswersProp={comment.commentAnswers}>
+                  <CommentAnswerProvider commentId={comment._id} commentAnswersProp={comment.commentAnswers}>
                      <SingleComment comment={comment} setAllComments={setAllComments} />
                   </CommentAnswerProvider>
                </React.Suspense>
