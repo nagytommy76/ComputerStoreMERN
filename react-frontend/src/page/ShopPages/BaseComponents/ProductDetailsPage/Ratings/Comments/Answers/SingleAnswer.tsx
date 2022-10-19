@@ -16,8 +16,7 @@ const SingleAnswer: React.FC<{ answer: CommentAnswerType }> = ({ answer }) => {
    useEffect(() => {
       const replies = getReplies(answer._id)
       setChildReplies(replies)
-      console.log(replies)
-   }, [answer.parentCommentId, getReplies])
+   }, [answer.parentCommentId, getReplies, answer._id])
 
    return (
       <>
