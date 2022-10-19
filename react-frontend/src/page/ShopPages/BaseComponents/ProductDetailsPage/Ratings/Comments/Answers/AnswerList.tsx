@@ -9,11 +9,12 @@ const AnswerList: React.FC<{ answers: CommentAnswerType[] }> = ({ answers }) => 
    return (
       <>
          <TransitionGroup component={null}>
-            {answers.map(answer => (
-               <Collapse key={answer._id} timeout={150}>
-                  <SingleAnswer key={answer._id} answer={answer} />
-               </Collapse>
-            ))}
+            {answers &&
+               answers.map(answer => (
+                  <Collapse key={answer._id} timeout={150}>
+                     <SingleAnswer key={answer._id} answer={answer} />
+                  </Collapse>
+               ))}
          </TransitionGroup>
       </>
    )
