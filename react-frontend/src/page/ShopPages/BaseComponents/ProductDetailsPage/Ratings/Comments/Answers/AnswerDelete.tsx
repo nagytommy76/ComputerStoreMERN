@@ -13,7 +13,7 @@ const AnswerDelete: React.FC<{ answerUserName: string; answerId: string; comment
    commentId,
 }) => {
    const { productId, productType } = useContext(DetailsContext)
-   const { setCommentAnswer } = useContext(AnswerContext)
+   const { deleteAnswer } = useContext(AnswerContext)
 
    const [dialogAnswer, setDialogAnswer] = useState<boolean>(false)
    const [openDialog, setOpenDialog] = useState<boolean>(false)
@@ -25,13 +25,13 @@ const AnswerDelete: React.FC<{ answerUserName: string; answerId: string; comment
                data: { productId, answerId, commentId },
             })
             if (response.status === 200) {
-               setCommentAnswer(response.data)
+               deleteAnswer(answerId)
             }
          }
       } catch (error) {
          console.log(error)
       }
-   }, [dialogAnswer, productId, productType, answerId, commentId, setCommentAnswer])
+   }, [dialogAnswer, productId, productType, answerId, commentId])
 
    const handleOpenDialog = () => {
       setOpenDialog(true)
