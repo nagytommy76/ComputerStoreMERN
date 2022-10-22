@@ -31,7 +31,7 @@ const AnswerDelete: React.FC<{ answerUserName: string; answerId: string; comment
       } catch (error) {
          console.log(error)
       }
-   }, [dialogAnswer, productId, productType, answerId, commentId])
+   }, [dialogAnswer, productId, productType, answerId, commentId, deleteAnswer])
 
    const handleOpenDialog = () => {
       setOpenDialog(true)

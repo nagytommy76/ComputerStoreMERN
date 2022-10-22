@@ -25,7 +25,7 @@ const CreateAnswer: React.FC<{
    const [answerText, setAnswerText] = useState<string>('')
    const [isLoading, setIsLoading] = useState<boolean>(false)
    const [isAlert, setIsAlert] = useState<{
-      severity: 'success' | 'info' | 'warning' | 'error' | undefined
+      severity: Severity
       isAlertActive: boolean
       message: string
    }>({ isAlertActive: false, message: '', severity: 'success' })
@@ -42,11 +42,23 @@ const CreateAnswer: React.FC<{
       setAnswerText(event.target.value)
    }
 
+   const setAlertAndTimeout = (
+      isAlertActive: boolean,
+      message: string,
+      severity: Severity,
+      timeout: number | undefined = 6000
+   ) => {
+      setIsAlert({ isAlertActive, message, severity })
+      setTimeout(() => {
+         closeAlert()
+      }, timeout)
+   }
+
    const handleAnswerSend = async () => {
       try {
          setIsLoading(true)
          if (answerText === '') {
-            setIsAlert({ isAlertActive: true, message: 'Kérlek írj kommentet!', severity: 'error' })
+            setAlertAndTimeout(true, 'Kérlek írj kommentet!', 'error')
             setIsLoading(false)
          } else {
             const response = await axiosInstance.post(`/${productType}/save-${productType}-answer`, {
@@ -58,7 +70,7 @@ const CreateAnswer: React.FC<{
             })
             if (response.status === 201) {
                setIsLoading(false)
-               setIsAlert({ isAlertActive: true, message: 'A Válaszodat fogadtuk!', severity: 'success' })
+               setAlertAndTimeout(true, 'A Válaszodat fogadtuk!', 'success')
                createLocalAnswer(response.data)
                setAnswerText('')
             }
@@ -112,3 +124,4 @@ const CreateAnswer: React.FC<{
 }
 
 export default CreateAnswer
+type Severity = 'success' | 'info' | 'warning' | 'error' | undefined
