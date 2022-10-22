@@ -20,7 +20,7 @@ const CreateAnswer: React.FC<{
 }> = ({ userName, commentId, commentDepth = 1, parentCommentId = null }) => {
    const { productId, productType } = useContext(DetailsContext)
 
-   const { setCommentAnswer } = useContext(AnswerContext)
+   const { createLocalAnswer } = useContext(AnswerContext)
 
    const [answerText, setAnswerText] = useState<string>('')
    const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -59,7 +59,7 @@ const CreateAnswer: React.FC<{
             if (response.status === 201) {
                setIsLoading(false)
                setIsAlert({ isAlertActive: true, message: 'A Válaszodat fogadtuk!', severity: 'success' })
-               setCommentAnswer(response.data)
+               createLocalAnswer(response.data)
                setAnswerText('')
             }
          }
