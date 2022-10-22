@@ -1,14 +1,20 @@
-import React, { createContext, useMemo } from 'react'
+import React, { createContext, useEffect, useMemo, useState } from 'react'
 import { CommentAnswerType } from '../Helpers'
 
 export const AnswerContext = createContext<{
    commentId: string
    rootAnswers: CommentAnswerType[]
    getReplies: (parentId: string) => CommentAnswerType[]
+   setCommentAnswers: React.Dispatch<React.SetStateAction<CommentAnswerType[]>>
+   createLocalAnswer(newIncomingAnswers: CommentAnswerType[]): void
+   deleteAnswer: (id: string) => void
 }>({
    commentId: '',
    rootAnswers: [],
    getReplies: () => [],
+   setCommentAnswers: () => {},
+   deleteAnswer() {},
+   createLocalAnswer() {},
 })
 
 export const CommentAnswerProvider: React.FC<{
@@ -16,14 +22,30 @@ export const CommentAnswerProvider: React.FC<{
    children: React.ReactNode
    commentAnswersProp: CommentAnswerType[]
 }> = ({ commentId, children, commentAnswersProp }) => {
+   const [commentAnswers, setCommentAnswers] = useState<CommentAnswerType[]>([])
+
    const commentsByParentId = useMemo(() => {
       const group: any = {}
-      commentAnswersProp.forEach(answer => {
+      commentAnswers.forEach(answer => {
          group[answer.parentCommentId] ||= []
          group[answer.parentCommentId].push(answer)
       })
       return group
-   }, [commentAnswersProp])
+   }, [commentAnswers])
+
+   useEffect(() => {
+      setCommentAnswers(commentAnswersProp)
+   }, [setCommentAnswers, commentAnswersProp])
+
+   function createLocalAnswer(newIncomingAnswers: CommentAnswerType[]) {
+      setCommentAnswers(newIncomingAnswers)
+   }
+
+   function deleteAnswer(id: string) {
+      setCommentAnswers(prevAnswers => {
+         return prevAnswers.filter(answers => answers._id !== id)
+      })
+   }
 
    function getReplies(parentId: string) {
       return commentsByParentId[parentId]
@@ -35,6 +57,9 @@ export const CommentAnswerProvider: React.FC<{
             commentId,
             rootAnswers: commentsByParentId['null'],
             getReplies,
+            setCommentAnswers,
+            deleteAnswer,
+            createLocalAnswer,
          }}
       >
          {children}
