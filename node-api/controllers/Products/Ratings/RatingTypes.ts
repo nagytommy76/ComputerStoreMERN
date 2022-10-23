@@ -17,6 +17,7 @@ export type LikeQuery = Request & {
       isLike: boolean
       productId: ObjectId
       commentId: ObjectId
+      answerId?: ObjectId
    }
 }
 
