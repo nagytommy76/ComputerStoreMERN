@@ -31,3 +31,9 @@ export const LeftAnswerStyle = styled.section`
 export const RightAnswerStyle = styled.section`
    flex: 2;
 `
+
+export const StyledChildAnswers = styled('section')({
+   // marginLeft: '1rem',
+   paddingLeft: '3rem',
+   borderLeft: '2px solid red',
+})
