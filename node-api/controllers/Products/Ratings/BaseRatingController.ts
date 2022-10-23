@@ -9,6 +9,7 @@ import {
    RemoveRatingRequest,
    SaveRequesType,
    RemoveRequesType,
+   LikeDislikeResponseType,
 } from '../Ratings/RatingTypes'
 
 export default class BaseRating {
@@ -114,12 +115,24 @@ export default class BaseRating {
 
    likeDislikeCommentController = async (req: LikeQuery, res: Response) => {
       try {
-         const result = await this.BaseRatingHelper.likeDislikeComment(
-            req.body.productId,
-            req.body.commentId,
-            req.user?._id,
-            req.body.isLike
-         )
+         const { productId, commentId, isLike, answerId } = req.body
+         let result: LikeDislikeResponseType
+         if (answerId) {
+            result = await this.BaseRatingHelper.likeDislikeAnswers(
+               productId,
+               commentId,
+               req.user?._id,
+               isLike,
+               answerId
+            )
+         } else {
+            result = await this.BaseRatingHelper.likeDislikeComment(
+               productId,
+               commentId,
+               req.user?._id,
+               isLike
+            )
+         }
          switch (result.statusCode) {
             case 201:
                return res.status(result.statusCode).json({ responses: result.responses })

@@ -30,7 +30,7 @@ export type CommentAnswerType = {
    userName: string
    answer: string
    answeredAt: Date
-   responses?: ResponsesType[]
+   responses: ResponsesType[]
 }
 
 export type ResponsesType = {

@@ -1,7 +1,7 @@
 import { Model, ObjectId } from 'mongoose'
 import { canSaveProductAnswer, canRemoveProductAnswer } from './BaseResponse'
 
-import { RatingValues } from '../../../models/Products/BaseTypes'
+import { CommentAnswerType, RatingValues } from '../../../models/Products/BaseTypes'
 import { LikeDislikeResponseType } from './RatingTypes'
 
 type StateType = { productModel: Model<any, {}, {}> }
@@ -94,6 +94,7 @@ const canLikeDislike = (getRatingValuesByProductId: (productId: ObjectId) => Pro
          const foundComment = foundProduct.ratingValues.filter(
             (comment: RatingValues) => comment._id == commentId
          ) as RatingValues[]
+
          // A user a saját kommentjét ne tudja like/dislikeolni
          if (foundComment[0].userId == userId) {
             return {
@@ -122,6 +123,45 @@ const canLikeDislike = (getRatingValuesByProductId: (productId: ObjectId) => Pro
             statusCode: 201,
             responses: foundComment[0].responses,
          } as LikeDislikeResponseType
+      }
+      return { message: '', statusCode: 404 } as LikeDislikeResponseType
+   },
+   likeDislikeAnswers: async (
+      productId: ObjectId,
+      commentId: ObjectId,
+      userId: string | undefined,
+      isLike: boolean,
+      answerId: ObjectId
+   ) => {
+      const foundProduct = await getRatingValuesByProductId(productId)
+      if (foundProduct) {
+         const foundComment = foundProduct.ratingValues.filter(
+            (comment: RatingValues) => comment._id == commentId
+         ) as RatingValues[]
+
+         const foundCommentAnswer = foundComment[0].commentAnswers.find(answer => answer._id == answerId)
+         if (foundCommentAnswer) {
+            if (foundCommentAnswer?.userId === userId)
+               return {
+                  statusCode: 405,
+                  message: 'A saját válaszodat nem like-olhatod :)',
+               } as LikeDislikeResponseType
+
+            if (foundCommentAnswer.responses.length === 0)
+               foundCommentAnswer.responses.push({ isLike: isLike, userId })
+            else {
+               // Itt van már rajta like az adott user-től, eltávolítom
+               foundCommentAnswer.responses.filter(element => element.userId != userId)
+               console.log(foundCommentAnswer.responses)
+            }
+            foundProduct.save()
+            // console.log(answerId)
+            return {
+               message: 'Sikeresen mentve!',
+               statusCode: 201,
+               responses: foundCommentAnswer.responses,
+            } as LikeDislikeResponseType
+         }
       }
       return { message: '', statusCode: 404 } as LikeDislikeResponseType
    },
