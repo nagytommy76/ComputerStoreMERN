@@ -17,7 +17,7 @@ export type CommentAnswerType = {
    answeredAt: Date
    commentDepth: number
    parentCommentId: string
-   responses?: ResponsesType[]
+   responses: ResponsesType[]
 }
 
 export type ResponsesType = { _id?: string; isLike: boolean; userId: string }

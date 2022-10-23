@@ -14,7 +14,8 @@ const Likes: React.FC<{
    responses: ResponsesType[]
    setIsAnswerOpen: React.Dispatch<React.SetStateAction<boolean>>
    commentUserId: string
-}> = ({ commentUserId, commentId, responses, setIsAnswerOpen }) => {
+   answerId?: string
+}> = ({ commentUserId, commentId, responses, setIsAnswerOpen, answerId = undefined }) => {
    const { productType, productId } = useContext(DetailsContext)
 
    const isUserLoggedIn = useAppSelector(state => state.auth.userLoggedIn)
@@ -57,7 +58,7 @@ const Likes: React.FC<{
          setTooltipText('Kérlek jelentkezz be a likeoláshoz!')
       } else {
          axiosInstance
-            .post(`/${productType}/${productType}-comment-like`, { isLike, productId, commentId })
+            .post(`/${productType}/${productType}-comment-like`, { isLike, productId, commentId, answerId })
             .then(result => {
                if (result.status === 201) {
                   countLikesAndDislikes(result.data.responses)

@@ -47,14 +47,14 @@ const SingleComment: React.FC<{
                commentsUserName={comment.userName}
             />
          </CommentCard>
-         <CardContent>
-            <AnswerList answers={rootAnswers} />
-         </CardContent>
          <Collapse in={isAnswerOpen} timeout={150}>
             <CardContent>
                <CreateAnswer commentId={comment._id} userName={comment.userName} />
             </CardContent>
          </Collapse>
+         <CardContent>
+            <AnswerList answers={rootAnswers} />
+         </CardContent>
       </Card>
    )
 }
