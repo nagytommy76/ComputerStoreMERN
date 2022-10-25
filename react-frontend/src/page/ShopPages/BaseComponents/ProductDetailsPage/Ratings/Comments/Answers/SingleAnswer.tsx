@@ -4,11 +4,10 @@ import { formatDate } from '../../../../../../Helpers/FormatDate'
 
 import { SingleAnswerStyle, LeftAnswerStyle, RightAnswerStyle, StyledChildAnswers } from './AnswerStyle'
 import Typography from '@mui/material/Typography'
-import Collapse from '@mui/material/Collapse'
-import Button from '@mui/material/Button'
 
 import AnswerList from './AnswerList'
 import { AnswerContext } from '../Context/AnswerContext'
+import OpenAnswerTextField from '../Includes/OpenAnswerTextField'
 const LikeDislike = React.lazy(() => import('../Likes'))
 const DeleteAnswer = React.lazy(() => import('./AnswerDelete'))
 const CreateAnswer = React.lazy(() => import('./CreateAnswer'))
@@ -32,25 +31,28 @@ const SingleAnswer: React.FC<{ answer: CommentAnswerType }> = ({ answer }) => {
             </LeftAnswerStyle>
             <RightAnswerStyle>
                <Typography variant='body1'>{answer.answer}</Typography>
-               <LikeDislike
-                  commentUserId={answer.userId}
-                  responses={answer.responses}
-                  commentId={commentId}
-                  setIsAnswerOpen={setIsCreateAnswerOpen}
-                  answerId={answer._id}
-               />
+               <div style={{ display: 'flex' }}>
+                  <LikeDislike
+                     commentUserId={answer.userId}
+                     responses={answer.responses}
+                     commentId={commentId}
+                     answerId={answer._id}
+                  />
+                  <OpenAnswerTextField
+                     commentUserId={answer.userId}
+                     setIsAnswerOpen={setIsCreateAnswerOpen}
+                  />
+               </div>
             </RightAnswerStyle>
             <DeleteAnswer commentId={commentId} answerId={answer._id} answerUserName={answer.userName} />
-            {/* <Button onClick={handleOpenAnswer}>teszt</Button> */}
          </SingleAnswerStyle>
-         <Collapse timeout={150} in={isCreateAnswerOpen}>
-            <CreateAnswer
-               userName={answer.userName}
-               commentId={commentId}
-               parentCommentId={answer._id}
-               commentDepth={answer.commentDepth + 1}
-            />
-         </Collapse>
+         <CreateAnswer
+            isCreateAnswerOpen={isCreateAnswerOpen}
+            userName={answer.userName}
+            commentId={commentId}
+            parentCommentId={answer._id}
+            commentDepth={answer.commentDepth + 1}
+         />
          <StyledChildAnswers>{childReplies && <AnswerList answers={childReplies} />}</StyledChildAnswers>
       </>
    )
