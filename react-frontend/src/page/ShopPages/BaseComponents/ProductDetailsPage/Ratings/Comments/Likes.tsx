@@ -7,15 +7,12 @@ import DetailsContext from '../../../../Context/DetailsContext'
 import { ThumbsContainer, CustomThumbDown, CustomThumbUp, ThumbIconsContainer } from './CommentStyle'
 import { Tooltip, ClickAwayListener } from '@mui/material'
 
-import OpenAnswerTextField from './Includes/OpenAnswerTextField'
-
 const Likes: React.FC<{
    commentId: string
    responses: ResponsesType[]
-   setIsAnswerOpen: React.Dispatch<React.SetStateAction<boolean>>
    commentUserId: string
    answerId?: string
-}> = ({ commentUserId, commentId, responses, setIsAnswerOpen, answerId = undefined }) => {
+}> = ({ commentUserId, commentId, responses, answerId = undefined }) => {
    const { productType, productId } = useContext(DetailsContext)
 
    const isUserLoggedIn = useAppSelector(state => state.auth.userLoggedIn)
@@ -100,7 +97,6 @@ const Likes: React.FC<{
                   />
                   {countedLikes.dislike}
                </ThumbIconsContainer>
-               <OpenAnswerTextField commentUserId={commentUserId} setIsAnswerOpen={setIsAnswerOpen} />
             </ThumbsContainer>
          </Tooltip>
       </ClickAwayListener>
