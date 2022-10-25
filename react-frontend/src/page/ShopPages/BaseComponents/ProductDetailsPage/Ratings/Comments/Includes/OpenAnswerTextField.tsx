@@ -1,7 +1,9 @@
 import React from 'react'
 import { useAppSelector } from '../../../../../../../app/hooks'
 
-import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
+import ReplyIcon from '@mui/icons-material/Reply'
+import Tooltip from '@mui/material/Tooltip'
 
 const OpenAnswerTextField: React.FC<{
    setIsAnswerOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -14,9 +16,11 @@ const OpenAnswerTextField: React.FC<{
    return (
       <>
          {isUsersComment() && (
-            <Button onClick={handleAnswerOpen} color='success' variant='outlined'>
-               Válasz
-            </Button>
+            <Tooltip arrow title='Válasz küldése' placement='top'>
+               <IconButton onClick={handleAnswerOpen} aria-label='answer' color='success'>
+                  <ReplyIcon />
+               </IconButton>
+            </Tooltip>
          )}
       </>
    )
