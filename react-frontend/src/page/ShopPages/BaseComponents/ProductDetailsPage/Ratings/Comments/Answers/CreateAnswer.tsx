@@ -10,14 +10,16 @@ import LoadingButton from '@mui/lab/LoadingButton'
 import Button from '@mui/material/Button'
 import Alert from '@mui/material/Alert'
 import Slide from '@mui/material/Slide'
+import Collapse from '@mui/material/Collapse'
 import { AnswerContainer, ButtonAlertContainer } from './AnswerStyle'
 
 const CreateAnswer: React.FC<{
    userName: string
    commentId: string
+   isCreateAnswerOpen: boolean
    commentDepth?: number
    parentCommentId?: string
-}> = ({ userName, commentId, commentDepth = 1, parentCommentId = null }) => {
+}> = ({ userName, commentId, isCreateAnswerOpen, commentDepth = 1, parentCommentId = null }) => {
    const { productId, productType } = useContext(DetailsContext)
 
    const { createLocalAnswer } = useContext(AnswerContext)
@@ -81,45 +83,47 @@ const CreateAnswer: React.FC<{
    }
 
    return (
-      <AnswerContainer>
-         <TextField
-            autoFocus
-            id='answerField'
-            label={`Válasz üzenet ${userName} részére`}
-            placeholder={`Válasz üzenet ${userName} részére`}
-            fullWidth
-            multiline
-            maxRows={5}
-            value={answerText}
-            onChange={handleTextFieldChange}
-         />
-         <ButtonAlertContainer>
-            <LoadingButton
-               endIcon={<SendIcon />}
-               loading={isLoading}
-               loadingPosition='end'
-               sx={{ width: '190px' }}
-               onClick={handleAnswerSend}
-               color='warning'
-               variant='outlined'
-            >
-               Válasz küldése
-            </LoadingButton>
-            <Slide direction='left' in={isAlert.isAlertActive}>
-               <Alert
-                  action={
-                     <Button color='inherit' onClick={closeAlert}>
-                        Ok
-                     </Button>
-                  }
-                  severity={isAlert.severity}
-                  variant='standard'
+      <Collapse timeout={150} in={isCreateAnswerOpen}>
+         <AnswerContainer>
+            <TextField
+               autoFocus
+               id='answerField'
+               label={`Válasz üzenet ${userName} részére`}
+               placeholder={`Válasz üzenet ${userName} részére`}
+               fullWidth
+               multiline
+               maxRows={5}
+               value={answerText}
+               onChange={handleTextFieldChange}
+            />
+            <ButtonAlertContainer>
+               <LoadingButton
+                  endIcon={<SendIcon />}
+                  loading={isLoading}
+                  loadingPosition='end'
+                  sx={{ width: '190px' }}
+                  onClick={handleAnswerSend}
+                  color='warning'
+                  variant='outlined'
                >
-                  {isAlert.message}
-               </Alert>
-            </Slide>
-         </ButtonAlertContainer>
-      </AnswerContainer>
+                  Válasz küldése
+               </LoadingButton>
+               <Slide direction='left' in={isAlert.isAlertActive}>
+                  <Alert
+                     action={
+                        <Button color='inherit' onClick={closeAlert}>
+                           Ok
+                        </Button>
+                     }
+                     severity={isAlert.severity}
+                     variant='standard'
+                  >
+                     {isAlert.message}
+                  </Alert>
+               </Slide>
+            </ButtonAlertContainer>
+         </AnswerContainer>
+      </Collapse>
    )
 }
 
