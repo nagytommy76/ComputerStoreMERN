@@ -1,9 +1,8 @@
-// import styled from 'styled-components'
 import { styled } from '@mui/material'
 
 export const AnswerContainer = styled('section')`
    width: 100%;
-   min-height: 130px;
+   min-height: 100px;
    display: flex;
    flex-direction: column;
    justify-content: space-between;
@@ -34,7 +33,6 @@ export const RightAnswerStyle = styled('section')`
 `
 
 export const StyledChildAnswers = styled('section')(({ theme }) => ({
-   // marginLeft: '1rem',
    paddingLeft: '3rem',
    borderLeft: `2px solid ${theme.palette.primary.main}`,
 }))
