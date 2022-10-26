@@ -28,10 +28,10 @@ export const RightSide = styled.div`
 
 export const ThumbsContainer = styled.div<{ usersComment: boolean }>`
    display: flex;
+   flex-direction: row;
    align-items: center;
-   width: ${({ usersComment }) => (usersComment ? '200px' : '100px')};
-   justify-content: space-between;
-   margin-top: 1rem;
+
+   width: '150px';
    @media (max-width: ${mobileWindowSize}) {
       margin-top: 1.5rem;
    }
@@ -40,6 +40,7 @@ export const ThumbsContainer = styled.div<{ usersComment: boolean }>`
 export const ThumbIconsContainer = styled.span`
    display: flex;
    align-items: center;
+   margin-right: 0.75rem;
 `
 
 export const CustomThumbUp = MUIStyled(ThumbUp)`
@@ -50,3 +51,7 @@ export const CustomThumbDown = MUIStyled(ThumbDown)`
     margin-right: .4rem;
     cursor: pointer;
 `
+
+export const LikeAndReplyContainer = MUIStyled('section')({
+   display: 'flex',
+})
