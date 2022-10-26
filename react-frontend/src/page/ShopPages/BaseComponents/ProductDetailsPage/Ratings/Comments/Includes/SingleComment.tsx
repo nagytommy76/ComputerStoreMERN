@@ -1,16 +1,16 @@
 import React, { useContext, useState } from 'react'
 import { AnswerContext } from '../Context/AnswerContext'
+import { RateState } from '../Helpers'
 
-import Collapse from '@mui/material/Collapse'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 
-import { CommentCard, RightSide } from '../CommentStyle'
-
-import { RateState } from '../Helpers'
+import { CommentCard, RightSide, LikeAndReplyContainer } from '../CommentStyle'
 
 import AnswerList from '../Answers/AnswerList'
+
+import OpenAnswerTextField from '../Includes/OpenAnswerTextField'
 const CardContentLeftSide = React.lazy(
    () => import('../../../../../../Components/RatingComponents/RatingCardLeftContent')
 )
@@ -34,12 +34,14 @@ const SingleComment: React.FC<{
             />
             <RightSide>
                <Typography variant='body1'>{comment.comment}</Typography>
-               <LikeDislike
-                  commentUserId={comment.userId}
-                  setIsAnswerOpen={setIsAnswerOpen}
-                  commentId={comment._id}
-                  responses={comment.responses}
-               />
+               <LikeAndReplyContainer>
+                  <LikeDislike
+                     commentUserId={comment.userId}
+                     commentId={comment._id}
+                     responses={comment.responses}
+                  />
+                  <OpenAnswerTextField commentUserId={comment.userId} setIsAnswerOpen={setIsAnswerOpen} />
+               </LikeAndReplyContainer>
             </RightSide>
             <DeleteSection
                setComments={setAllComments}
@@ -47,11 +49,14 @@ const SingleComment: React.FC<{
                commentsUserName={comment.userName}
             />
          </CommentCard>
-         <Collapse in={isAnswerOpen} timeout={150}>
-            <CardContent>
-               <CreateAnswer commentId={comment._id} userName={comment.userName} />
-            </CardContent>
-         </Collapse>
+         <CardContent sx={{ padding: '1rem 1rem 0 1rem' }}>
+            <CreateAnswer
+               isCreateAnswerOpen={isAnswerOpen}
+               setIsCreateAnswerOpen={setIsAnswerOpen}
+               commentId={comment._id}
+               userName={comment.userName}
+            />
+         </CardContent>
          <CardContent>
             <AnswerList answers={rootAnswers} />
          </CardContent>

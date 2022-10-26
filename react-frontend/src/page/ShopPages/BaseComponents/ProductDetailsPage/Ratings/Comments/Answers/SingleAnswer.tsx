@@ -3,6 +3,7 @@ import { CommentAnswerType } from '../Helpers'
 import { formatDate } from '../../../../../../Helpers/FormatDate'
 
 import { SingleAnswerStyle, LeftAnswerStyle, RightAnswerStyle, StyledChildAnswers } from './AnswerStyle'
+import { LikeAndReplyContainer } from '../CommentStyle'
 import Typography from '@mui/material/Typography'
 
 import AnswerList from './AnswerList'
@@ -31,7 +32,7 @@ const SingleAnswer: React.FC<{ answer: CommentAnswerType }> = ({ answer }) => {
             </LeftAnswerStyle>
             <RightAnswerStyle>
                <Typography variant='body1'>{answer.answer}</Typography>
-               <div style={{ display: 'flex' }}>
+               <LikeAndReplyContainer>
                   <LikeDislike
                      commentUserId={answer.userId}
                      responses={answer.responses}
@@ -42,12 +43,13 @@ const SingleAnswer: React.FC<{ answer: CommentAnswerType }> = ({ answer }) => {
                      commentUserId={answer.userId}
                      setIsAnswerOpen={setIsCreateAnswerOpen}
                   />
-               </div>
+               </LikeAndReplyContainer>
             </RightAnswerStyle>
             <DeleteAnswer commentId={commentId} answerId={answer._id} answerUserName={answer.userName} />
          </SingleAnswerStyle>
          <CreateAnswer
             isCreateAnswerOpen={isCreateAnswerOpen}
+            setIsCreateAnswerOpen={setIsCreateAnswerOpen}
             userName={answer.userName}
             commentId={commentId}
             parentCommentId={answer._id}
