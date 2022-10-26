@@ -17,9 +17,17 @@ const CreateAnswer: React.FC<{
    userName: string
    commentId: string
    isCreateAnswerOpen: boolean
+   setIsCreateAnswerOpen: React.Dispatch<React.SetStateAction<boolean>>
    commentDepth?: number
    parentCommentId?: string
-}> = ({ userName, commentId, isCreateAnswerOpen, commentDepth = 1, parentCommentId = null }) => {
+}> = ({
+   userName,
+   commentId,
+   isCreateAnswerOpen,
+   setIsCreateAnswerOpen,
+   commentDepth = 1,
+   parentCommentId = null,
+}) => {
    const { productId, productType } = useContext(DetailsContext)
 
    const { createLocalAnswer } = useContext(AnswerContext)
@@ -53,6 +61,7 @@ const CreateAnswer: React.FC<{
       setIsAlert({ isAlertActive, message, severity })
       setTimeout(() => {
          closeAlert()
+         setIsCreateAnswerOpen(false)
       }, timeout)
    }
 
@@ -87,6 +96,7 @@ const CreateAnswer: React.FC<{
          <AnswerContainer>
             <TextField
                autoFocus
+               size='small'
                id='answerField'
                label={`Válasz üzenet ${userName} részére`}
                placeholder={`Válasz üzenet ${userName} részére`}
@@ -98,13 +108,13 @@ const CreateAnswer: React.FC<{
             />
             <ButtonAlertContainer>
                <LoadingButton
+                  size='small'
                   endIcon={<SendIcon />}
                   loading={isLoading}
                   loadingPosition='end'
-                  sx={{ width: '190px' }}
                   onClick={handleAnswerSend}
                   color='warning'
-                  variant='outlined'
+                  variant='text'
                >
                   Válasz küldése
                </LoadingButton>
