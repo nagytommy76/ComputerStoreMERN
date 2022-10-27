@@ -15,9 +15,17 @@ const useMaterialTheme = () => {
    useEffect(() => {
       try {
          const darkThemeMq = window.matchMedia('(prefers-color-scheme: dark)')
-         /*!isPreferredThemeSetByUser &&*/ darkThemeMq.matches
-            ? dispatch(setTheme(true))
-            : dispatch(setTheme(false))
+         console.log(isPreferredThemeSetByUser)
+         console.log(darkThemeMq.matches)
+         if (!isPreferredThemeSetByUser) {
+            if (darkThemeMq.matches) {
+               dispatch(setTheme(true))
+            } else {
+               dispatch(setTheme(false))
+            }
+         } else {
+            dispatch(setTheme(isDarkTheme))
+         }
       } catch (error) {
          console.log(error)
       }
