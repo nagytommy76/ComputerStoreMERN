@@ -57,7 +57,7 @@ const SingleComment: React.FC<{
                userName={comment.userName}
             />
          </CardContent>
-         <CardContent>
+         <CardContent sx={{ padding: '0 1rem 0 1rem' }}>
             <AnswerList answers={rootAnswers} />
          </CardContent>
       </Card>

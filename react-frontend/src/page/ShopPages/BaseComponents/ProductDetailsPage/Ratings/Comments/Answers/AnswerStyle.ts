@@ -33,6 +33,6 @@ export const RightAnswerStyle = styled('section')`
 `
 
 export const StyledChildAnswers = styled('section')(({ theme }) => ({
-   paddingLeft: '3rem',
+   paddingLeft: '2.5rem',
    borderLeft: `2px solid ${theme.palette.primary.main}`,
 }))

@@ -46,6 +46,8 @@ https://reactjs.org/docs/error-decoder.html/?invariant=185
 
 A komment válasz résznél: végtelen komment thread-et. (kommentre komment stb...)
 
+ÚJ ÖTLET: Porfilképet feltötleni. File kezelés miatt
+
 
 
 https://help.heroku.com/FZDDCBLB/how-can-i-download-my-code-from-heroku
