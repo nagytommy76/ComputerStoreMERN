@@ -1,23 +1,15 @@
 import React, { useContext } from 'react'
+import useClose from '../Hook/useClose'
 import { NavbarContext } from '../../NavbarContext'
-import { NavbarActionTypes } from '../../Reducer/NavbarReducer'
 
 import ShopMenuLinkItems from './ShopMenuLinkItems'
 import Menu from '@mui/material/Menu'
 
 const DropMenu: React.FC = () => {
-   const {
-      state: { shopAnchorEl },
-      dispatch,
-   } = useContext(NavbarContext)
+   const shopAnchorEl = useContext(NavbarContext).state.shopAnchorEl
    const open = Boolean(shopAnchorEl)
 
-   const closeDropMenu = (event: React.MouseEvent) => {
-      event.stopPropagation()
-      dispatch({ type: NavbarActionTypes.SET_IS_SHOP_DROP_OPEN, payload: false })
-      dispatch({ type: NavbarActionTypes.SET_SHOP_ANCHOR_EL, payload: null })
-   }
-
+   const closeDropMenu = useClose()
    return (
       <Menu
          anchorEl={shopAnchorEl}
