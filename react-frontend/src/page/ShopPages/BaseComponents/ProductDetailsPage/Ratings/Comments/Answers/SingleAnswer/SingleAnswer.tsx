@@ -12,11 +12,13 @@ import OpenAnswerTextField from './OpenAnswerTextField'
 const LikeDislike = React.lazy(() => import('../../Likes'))
 const DeleteAnswer = React.lazy(() => import('../AnswerDelete'))
 const CreateAnswer = React.lazy(() => import('../CreateEditAnswer/CreateAnswer'))
+const EditAnswer = React.lazy(() => import('../CreateEditAnswer/EditAnswer'))
 
 const SingleAnswer: React.FC<{ answer: CommentAnswerType }> = ({ answer }) => {
    const { getReplies, commentId } = useContext(AnswerContext)
    const [childReplies, setChildReplies] = useState<CommentAnswerType[]>([])
    const [isCreateAnswerOpen, setIsCreateAnswerOpen] = useState<boolean>(false)
+   const [isEditAnswerOpen, setIsEditAnswerOpen] = useState<boolean>(false)
 
    useEffect(() => {
       const replies = getReplies(answer._id)
@@ -40,6 +42,7 @@ const SingleAnswer: React.FC<{ answer: CommentAnswerType }> = ({ answer }) => {
                      answerId={answer._id}
                   />
                   <OpenAnswerTextField
+                     setIsEditAnswerOpen={setIsEditAnswerOpen}
                      commentUserId={answer.userId}
                      setIsAnswerOpen={setIsCreateAnswerOpen}
                   />
@@ -55,6 +58,7 @@ const SingleAnswer: React.FC<{ answer: CommentAnswerType }> = ({ answer }) => {
             parentCommentId={answer._id}
             commentDepth={answer.commentDepth + 1}
          />
+         <EditAnswer isEditAnswerOpen={isEditAnswerOpen} setIsEditAnswerOpen={setIsEditAnswerOpen} />
          <StyledChildAnswers>{childReplies && <AnswerList answers={childReplies} />}</StyledChildAnswers>
       </>
    )
