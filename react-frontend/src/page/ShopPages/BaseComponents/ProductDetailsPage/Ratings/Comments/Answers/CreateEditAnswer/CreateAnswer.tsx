@@ -1,17 +1,15 @@
 import React, { useState, useContext } from 'react'
-import { axiosInstance } from '../../../../../../../AxiosSetup/AxiosInstance'
+import { axiosInstance } from '../../../../../../../../AxiosSetup/AxiosInstance'
 
-import { AnswerContext } from '../Context/AnswerContext'
-import DetailsContext from '../../../../../Context/DetailsContext'
+import { AnswerContext } from '../../Context/AnswerContext'
+import DetailsContext from '../../../../../../Context/DetailsContext'
+import useSetAlert from './Hook/useSetAlert'
+
+import ButtonAndAlert from './includes/ButtonAndAlert'
 
 import TextField from '@mui/material/TextField'
-import SendIcon from '@mui/icons-material/Send'
-import LoadingButton from '@mui/lab/LoadingButton'
-import Button from '@mui/material/Button'
-import Alert from '@mui/material/Alert'
-import Slide from '@mui/material/Slide'
 import Collapse from '@mui/material/Collapse'
-import { AnswerContainer, ButtonAlertContainer } from './AnswerStyle'
+import { AnswerContainer } from '../AnswerStyle'
 
 const CreateAnswer: React.FC<{
    userName: string
@@ -34,35 +32,10 @@ const CreateAnswer: React.FC<{
 
    const [answerText, setAnswerText] = useState<string>('')
    const [isLoading, setIsLoading] = useState<boolean>(false)
-   const [isAlert, setIsAlert] = useState<{
-      severity: Severity
-      isAlertActive: boolean
-      message: string
-   }>({ isAlertActive: false, message: '', severity: 'success' })
-
-   const closeAlert = () => {
-      setIsAlert({
-         isAlertActive: false,
-         message: '',
-         severity: 'success',
-      })
-   }
+   const { isAlert, setAlertAndTimeout, closeAlert } = useSetAlert(setIsCreateAnswerOpen)
 
    const handleTextFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       setAnswerText(event.target.value)
-   }
-
-   const setAlertAndTimeout = (
-      isAlertActive: boolean,
-      message: string,
-      severity: Severity,
-      timeout: number | undefined = 6000
-   ) => {
-      setIsAlert({ isAlertActive, message, severity })
-      setTimeout(() => {
-         closeAlert()
-         setIsCreateAnswerOpen(false)
-      }, timeout)
    }
 
    const handleAnswerSend = async () => {
@@ -106,36 +79,15 @@ const CreateAnswer: React.FC<{
                value={answerText}
                onChange={handleTextFieldChange}
             />
-            <ButtonAlertContainer>
-               <LoadingButton
-                  size='small'
-                  endIcon={<SendIcon />}
-                  loading={isLoading}
-                  loadingPosition='end'
-                  onClick={handleAnswerSend}
-                  color='warning'
-                  variant='text'
-               >
-                  Válasz küldése
-               </LoadingButton>
-               <Slide direction='left' in={isAlert.isAlertActive}>
-                  <Alert
-                     action={
-                        <Button color='inherit' onClick={closeAlert}>
-                           Ok
-                        </Button>
-                     }
-                     severity={isAlert.severity}
-                     variant='standard'
-                  >
-                     {isAlert.message}
-                  </Alert>
-               </Slide>
-            </ButtonAlertContainer>
+            <ButtonAndAlert
+               closeAlert={closeAlert}
+               handleAnswerSend={handleAnswerSend}
+               isAlert={isAlert}
+               isLoading={isLoading}
+            />
          </AnswerContainer>
       </Collapse>
    )
 }
 
 export default CreateAnswer
-type Severity = 'success' | 'info' | 'warning' | 'error' | undefined
