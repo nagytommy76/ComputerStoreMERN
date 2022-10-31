@@ -23,12 +23,14 @@ const BaseTooltip: React.FC<{
 
 const OpenAnswerTextField: React.FC<{
    setIsAnswerOpen: React.Dispatch<React.SetStateAction<boolean>>
+   setIsEditAnswerOpen: React.Dispatch<React.SetStateAction<boolean>>
    commentUserId: string
-}> = ({ setIsAnswerOpen, commentUserId }) => {
+}> = ({ setIsAnswerOpen, setIsEditAnswerOpen, commentUserId }) => {
    const { userLoggedIn, userId } = useAppSelector(state => state.auth)
    const isUsersComment = userLoggedIn && commentUserId !== userId
    const isUsersAnswer = userLoggedIn && commentUserId === userId
    const handleAnswerOpen = () => setIsAnswerOpen(prevValue => !prevValue)
+   const handleEditOpen = () => setIsEditAnswerOpen(prevValue => !prevValue)
 
    return (
       <>
@@ -38,7 +40,7 @@ const OpenAnswerTextField: React.FC<{
             </BaseTooltip>
          )}
          {isUsersAnswer && (
-            <BaseTooltip color='info' title='Válasz módosítása' handleAnswerOpen={handleAnswerOpen}>
+            <BaseTooltip color='info' title='Válasz módosítása' handleAnswerOpen={handleEditOpen}>
                <EditIcon />
             </BaseTooltip>
          )}
