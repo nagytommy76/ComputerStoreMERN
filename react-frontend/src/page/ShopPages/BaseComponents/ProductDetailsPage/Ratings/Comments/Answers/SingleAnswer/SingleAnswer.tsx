@@ -1,17 +1,17 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { CommentAnswerType } from '../Helpers'
-import { formatDate } from '../../../../../../Helpers/FormatDate'
+import { CommentAnswerType } from '../../Helpers'
+import { formatDate } from '../../../../../../../Helpers/FormatDate'
 
-import { SingleAnswerStyle, LeftAnswerStyle, RightAnswerStyle, StyledChildAnswers } from './AnswerStyle'
-import { LikeAndReplyContainer } from '../CommentStyle'
+import { SingleAnswerStyle, LeftAnswerStyle, RightAnswerStyle, StyledChildAnswers } from '../AnswerStyle'
+import { LikeAndReplyContainer } from '../../CommentStyle'
 import Typography from '@mui/material/Typography'
 
-import AnswerList from './AnswerList'
-import { AnswerContext } from '../Context/AnswerContext'
-import OpenAnswerTextField from '../Includes/OpenAnswerTextField'
-const LikeDislike = React.lazy(() => import('../Likes'))
-const DeleteAnswer = React.lazy(() => import('./AnswerDelete'))
-const CreateAnswer = React.lazy(() => import('./CreateAnswer'))
+import AnswerList from '../AnswerList'
+import { AnswerContext } from '../../Context/AnswerContext'
+import OpenAnswerTextField from './OpenAnswerTextField'
+const LikeDislike = React.lazy(() => import('../../Likes'))
+const DeleteAnswer = React.lazy(() => import('../AnswerDelete'))
+const CreateAnswer = React.lazy(() => import('../CreateEditAnswer/CreateAnswer'))
 
 const SingleAnswer: React.FC<{ answer: CommentAnswerType }> = ({ answer }) => {
    const { getReplies, commentId } = useContext(AnswerContext)
