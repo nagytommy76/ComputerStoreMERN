@@ -62,3 +62,13 @@ export type RemoveRequesType = Request & {
       answerId: string
    }
 }
+
+export interface EditRequestType extends Request {
+   user?: UserTypes
+   body: {
+      answerEditText: string
+      productId: string
+      answerId: string
+      commentId: string
+   }
+}
