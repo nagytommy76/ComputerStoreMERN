@@ -24,6 +24,7 @@ router.delete('/vga-comment-remove', authenticateAccessToken, BaseRating.removeU
 
 // Rating Answers
 router.post('/save-vga-answer', authenticateAccessToken, BaseRating.saveAnswerController)
+router.patch('/edit-vga-answer', authenticateAccessToken, BaseRating.editAnswerController)
 router.delete('/vga-answer-remove', authenticateAccessToken, BaseRating.removeSingleCommentAnswer)
 
 module.exports = router
