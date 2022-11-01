@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import useSetAlert from './Hook/useSetAlert'
+import DetailsContext from '../../../../../../Context/DetailsContext'
+import { axiosInstance as axios } from '../../../../../../../../AxiosSetup/AxiosInstance'
 
 import ButtonAndAlert from './includes/ButtonAndAlert'
 import { AnswerContainer } from '../AnswerStyle'
@@ -7,19 +9,41 @@ import TextField from '@mui/material/TextField'
 import Collapse from '@mui/material/Collapse'
 
 const EditAnswer: React.FC<{
+   answerId: string
+   commentId: string
+   currentAnswerText: string
    isEditAnswerOpen: boolean
    setIsEditAnswerOpen: React.Dispatch<React.SetStateAction<boolean>>
-}> = ({ setIsEditAnswerOpen, isEditAnswerOpen }) => {
-   const [answerText, setAnswerText] = useState<string>('')
+}> = ({ answerId, commentId, currentAnswerText, setIsEditAnswerOpen, isEditAnswerOpen }) => {
+   const { productId, productType } = useContext(DetailsContext)
+   const [answerEditText, setAnswerEditText] = useState<string>('')
    const [isLoading, setIsLoading] = useState<boolean>(false)
    const { isAlert, setAlertAndTimeout, closeAlert } = useSetAlert(setIsEditAnswerOpen)
+
    const handleTextFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setAnswerText(event.target.value)
+      setAnswerEditText(event.target.value)
    }
 
    const handleAnswerEdit = async () => {
-      console.log('Módosítás sikeres!')
+      if (answerEditText === '') return
+      setIsLoading(true)
+      const result = await axios.patch(`/${productType}/edit-${productType}-answer`, {
+         answerEditText,
+         productId,
+         answerId,
+         commentId,
+      })
+      console.log(result)
+      setTimeout(() => {
+         console.log('Módosítás sikeres!')
+         setAlertAndTimeout(true, 'Sikeres volt a módosítás', 'info')
+         setIsLoading(false)
+      }, 750)
    }
+
+   useEffect(() => {
+      setAnswerEditText(currentAnswerText)
+   }, [currentAnswerText])
 
    return (
       <Collapse timeout={150} in={isEditAnswerOpen}>
@@ -33,7 +57,7 @@ const EditAnswer: React.FC<{
                fullWidth
                multiline
                maxRows={5}
-               value={answerText}
+               value={answerEditText}
                onChange={handleTextFieldChange}
             />
             <ButtonAndAlert
