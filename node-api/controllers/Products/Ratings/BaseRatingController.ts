@@ -10,6 +10,7 @@ import {
    SaveRequesType,
    RemoveRequesType,
    LikeDislikeResponseType,
+   EditRequestType,
 } from '../Ratings/RatingTypes'
 
 export default class BaseRating {
@@ -110,6 +111,22 @@ export default class BaseRating {
          return res.sendStatus(404)
       } catch (error) {
          return res.status(500).json(error)
+      }
+   }
+
+   editAnswerController = async (req: EditRequestType, res: Response) => {
+      try {
+         const { answerEditText, answerId, commentId, productId } = req.body
+         const { foundProduct, foundCommentAnswer } = await this.BaseRatingHelper.editProductAnswerController(
+            productId,
+            commentId,
+            answerId,
+            answerEditText
+         )
+
+         res.status(200).json({ foundCommentAnswer })
+      } catch (error) {
+         console.error(error)
       }
    }
 

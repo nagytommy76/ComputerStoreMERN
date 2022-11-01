@@ -16,7 +16,7 @@ const canReturnById = (state: StateType) => ({
    getLeanRatingValuesByProductId: async (productId: ObjectId) => {
       return await state.productModel.findById(productId, 'ratingValues').lean()
    },
-   getRatingValuesByProductId: async (productId: ObjectId): Promise<BaseProductType> => {
+   getRatingValuesByProductId: async (productId: ObjectId | string): Promise<BaseProductType> => {
       return await state.productModel.findById(productId, 'ratingValues')
    },
    getCommentsInFoundProduct: (Product: BaseProductType, commentId: ObjectId) => {
