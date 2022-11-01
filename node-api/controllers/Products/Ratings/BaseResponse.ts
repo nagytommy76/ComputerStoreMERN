@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongoose'
-import { RatingValues } from '../../../models/Products/BaseTypes'
+import { BaseProductType, RatingValues } from '../../../models/Products/BaseTypes'
 
 import { UserTypes } from '../../../models/User/UserTypes'
 import { CommentAnswerType } from '../../../models/Products/BaseTypes'
@@ -32,6 +32,25 @@ export const canSaveProductAnswer = (getRatingValuesByProductId: (productId: Obj
          newCommentAnswers: foundProduct.ratingValues[foundCommentIndex].commentAnswers,
          foundProduct,
       }
+   },
+})
+
+export const canEditProductAnswer = (
+   getRatingValuesByProductId: (productId: ObjectId) => Promise<BaseProductType>
+) => ({
+   editProductAnswerController: async (
+      productId: ObjectId,
+      commentId: ObjectId,
+      commentAnswerId: ObjectId,
+      editedAnswerText: string
+   ) => {
+      const foundProduct = await getRatingValuesByProductId(productId)
+      const foundComment = foundProduct.ratingValues.find((comment: RatingValues) => comment._id == commentId)
+      const foundCommentAnswer = foundComment?.commentAnswers.find(answer => answer._id === commentAnswerId)
+      if (foundCommentAnswer && foundComment) {
+         foundCommentAnswer.answer = editedAnswerText
+         return { foundCommentAnswer, foundProduct }
+      } else return { foundCommentAnswer: null, foundProduct }
    },
 })
 
