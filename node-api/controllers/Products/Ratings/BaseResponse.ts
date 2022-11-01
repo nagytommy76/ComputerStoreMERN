@@ -36,17 +36,18 @@ export const canSaveProductAnswer = (getRatingValuesByProductId: (productId: Obj
 })
 
 export const canEditProductAnswer = (
-   getRatingValuesByProductId: (productId: ObjectId) => Promise<BaseProductType>
+   getRatingValuesByProductId: (productId: ObjectId | string) => Promise<BaseProductType>
 ) => ({
    editProductAnswerController: async (
-      productId: ObjectId,
-      commentId: ObjectId,
-      commentAnswerId: ObjectId,
+      productId: ObjectId | string,
+      commentId: ObjectId | string,
+      commentAnswerId: ObjectId | string,
       editedAnswerText: string
    ) => {
       const foundProduct = await getRatingValuesByProductId(productId)
       const foundComment = foundProduct.ratingValues.find((comment: RatingValues) => comment._id == commentId)
-      const foundCommentAnswer = foundComment?.commentAnswers.find(answer => answer._id === commentAnswerId)
+      const foundCommentAnswer = foundComment?.commentAnswers.find(answer => answer._id == commentAnswerId)
+
       if (foundCommentAnswer && foundComment) {
          foundCommentAnswer.answer = editedAnswerText
          return { foundCommentAnswer, foundProduct }
