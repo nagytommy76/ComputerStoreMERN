@@ -1,6 +1,6 @@
 import React from 'react'
 import { CommentAnswerType } from '../Helpers'
-import SingleAnswer from './SingleAnswer'
+import SingleAnswer from './SingleAnswer/SingleAnswer'
 
 import Collapse from '@mui/material/Collapse'
 import { TransitionGroup } from 'react-transition-group'

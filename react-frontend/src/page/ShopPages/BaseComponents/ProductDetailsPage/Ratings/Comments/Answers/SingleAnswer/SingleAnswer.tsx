@@ -58,7 +58,13 @@ const SingleAnswer: React.FC<{ answer: CommentAnswerType }> = ({ answer }) => {
             parentCommentId={answer._id}
             commentDepth={answer.commentDepth + 1}
          />
-         <EditAnswer isEditAnswerOpen={isEditAnswerOpen} setIsEditAnswerOpen={setIsEditAnswerOpen} />
+         <EditAnswer
+            commentId={commentId}
+            answerId={answer._id}
+            currentAnswerText={answer.answer}
+            isEditAnswerOpen={isEditAnswerOpen}
+            setIsEditAnswerOpen={setIsEditAnswerOpen}
+         />
          <StyledChildAnswers>{childReplies && <AnswerList answers={childReplies} />}</StyledChildAnswers>
       </>
    )

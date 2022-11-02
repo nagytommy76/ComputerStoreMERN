@@ -10,13 +10,13 @@ import { CommentCard, RightSide, LikeAndReplyContainer } from '../CommentStyle'
 
 import AnswerList from '../Answers/AnswerList'
 
-import OpenAnswerTextField from '../Includes/OpenAnswerTextField'
+import OpenAnswerTextField from '../Answers/SingleAnswer/OpenAnswerTextField'
 const CardContentLeftSide = React.lazy(
    () => import('../../../../../../Components/RatingComponents/RatingCardLeftContent')
 )
 const LikeDislike = React.lazy(() => import('../Likes'))
 const DeleteSection = React.lazy(() => import('../DeleteSection'))
-const CreateAnswer = React.lazy(() => import('../Answers/CreateAnswer'))
+const CreateAnswer = React.lazy(() => import('../Answers/CreateEditAnswer/CreateAnswer'))
 
 const SingleComment: React.FC<{
    comment: RateState
@@ -40,7 +40,11 @@ const SingleComment: React.FC<{
                      commentId={comment._id}
                      responses={comment.responses}
                   />
-                  <OpenAnswerTextField commentUserId={comment.userId} setIsAnswerOpen={setIsAnswerOpen} />
+                  <OpenAnswerTextField
+                     setIsEditAnswerOpen={() => false}
+                     commentUserId={comment.userId}
+                     setIsAnswerOpen={setIsAnswerOpen}
+                  />
                </LikeAndReplyContainer>
             </RightSide>
             <DeleteSection

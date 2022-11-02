@@ -47,6 +47,8 @@ https://reactjs.org/docs/error-decoder.html/?invariant=185
 A komment válasz résznél: végtelen komment thread-et. (kommentre komment stb...)
 
 ÚJ ÖTLET: Porfilképet feltötleni. File kezelés miatt
+- az admin (illetve az összes) módosításnál patch/put-ot használni a post helyett!!!!!!! ROUTES-nál
+
 
 
 
