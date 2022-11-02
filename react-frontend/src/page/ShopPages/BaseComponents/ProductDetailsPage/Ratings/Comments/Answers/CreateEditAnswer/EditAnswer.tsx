@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import useSetAlert from './Hook/useSetAlert'
 import DetailsContext from '../../../../../../Context/DetailsContext'
-import { axiosInstance as axios } from '../../../../../../../../AxiosSetup/AxiosInstance'
+import { axiosInstance as axios, isAxiosError } from '../../../../../../../../AxiosSetup/AxiosInstance'
 
 import ButtonAndAlert from './includes/ButtonAndAlert'
 import { AnswerContainer } from '../AnswerStyle'
@@ -27,18 +27,22 @@ const EditAnswer: React.FC<{
    const handleAnswerEdit = async () => {
       if (answerEditText === '') return
       setIsLoading(true)
-      const result = await axios.patch(`/${productType}/edit-${productType}-answer`, {
-         answerEditText,
-         productId,
-         answerId,
-         commentId,
-      })
-      console.log(result)
-      setTimeout(() => {
-         console.log('Módosítás sikeres!')
+      try {
+         const result = await axios.patch(`/${productType}/edit-${productType}-answer`, {
+            answerEditText,
+            productId,
+            answerId,
+            commentId,
+         })
+         console.log(result.data.foundCommentAnswer.answer)
+         setAnswerEditText(result.data.foundCommentAnswer.answer)
          setAlertAndTimeout(true, 'Sikeres volt a módosítás', 'info')
          setIsLoading(false)
-      }, 750)
+      } catch (error) {
+         if (isAxiosError(error)) {
+            console.log(error)
+         }
+      }
    }
 
    useEffect(() => {
