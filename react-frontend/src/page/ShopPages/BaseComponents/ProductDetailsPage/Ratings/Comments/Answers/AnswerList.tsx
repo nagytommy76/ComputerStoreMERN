@@ -11,7 +11,7 @@ const AnswerList: React.FC<{ answers: CommentAnswerType[] }> = ({ answers }) => 
          {answers &&
             answers.map(answer => (
                <Collapse key={answer._id} timeout={150}>
-                  <SingleAnswer key={answer._id} answer={answer} />
+                  <SingleAnswer answer={answer} />
                </Collapse>
             ))}
       </TransitionGroup>

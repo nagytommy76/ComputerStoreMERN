@@ -16,57 +16,70 @@ const EditAnswer = React.lazy(() => import('../CreateEditAnswer/EditAnswer'))
 
 const SingleAnswer: React.FC<{ answer: CommentAnswerType }> = ({ answer }) => {
    const { getReplies, commentId } = useContext(AnswerContext)
+
+   const [localAnswer, setLocalAnswer] = useState<CommentAnswerType>()
    const [childReplies, setChildReplies] = useState<CommentAnswerType[]>([])
    const [isCreateAnswerOpen, setIsCreateAnswerOpen] = useState<boolean>(false)
    const [isEditAnswerOpen, setIsEditAnswerOpen] = useState<boolean>(false)
+
+   useEffect(() => {
+      setLocalAnswer(answer)
+   }, [answer])
 
    useEffect(() => {
       const replies = getReplies(answer._id)
       setChildReplies(replies)
    }, [answer.parentCommentId, getReplies, answer._id])
 
-   return (
+   return localAnswer ? (
       <>
          <SingleAnswerStyle>
             <LeftAnswerStyle>
-               <Typography variant='h5'>{answer.userName}</Typography>
-               <Typography variant='subtitle1'>{formatDate(answer.answeredAt)}</Typography>
+               <Typography variant='h5'>{localAnswer.userName}</Typography>
+               <Typography variant='subtitle1'>{formatDate(localAnswer.answeredAt)}</Typography>
             </LeftAnswerStyle>
             <RightAnswerStyle>
-               <Typography variant='body1'>{answer.answer}</Typography>
+               <Typography variant='body1'>{localAnswer.answer}</Typography>
                <LikeAndReplyContainer>
                   <LikeDislike
-                     commentUserId={answer.userId}
-                     responses={answer.responses}
+                     commentUserId={localAnswer.userId}
+                     responses={localAnswer.responses}
                      commentId={commentId}
-                     answerId={answer._id}
+                     answerId={localAnswer._id}
                   />
                   <OpenAnswerTextField
                      setIsEditAnswerOpen={setIsEditAnswerOpen}
-                     commentUserId={answer.userId}
+                     commentUserId={localAnswer.userId}
                      setIsAnswerOpen={setIsCreateAnswerOpen}
                   />
                </LikeAndReplyContainer>
             </RightAnswerStyle>
-            <DeleteAnswer commentId={commentId} answerId={answer._id} answerUserName={answer.userName} />
+            <DeleteAnswer
+               commentId={commentId}
+               answerId={localAnswer._id}
+               answerUserName={localAnswer.userName}
+            />
          </SingleAnswerStyle>
          <CreateAnswer
             isCreateAnswerOpen={isCreateAnswerOpen}
             setIsCreateAnswerOpen={setIsCreateAnswerOpen}
-            userName={answer.userName}
+            userName={localAnswer.userName}
             commentId={commentId}
-            parentCommentId={answer._id}
-            commentDepth={answer.commentDepth + 1}
+            parentCommentId={localAnswer._id}
+            commentDepth={localAnswer.commentDepth + 1}
          />
          <EditAnswer
             commentId={commentId}
-            answerId={answer._id}
-            currentAnswerText={answer.answer}
+            answerId={localAnswer._id}
+            currentAnswerText={localAnswer.answer}
+            setLocalAnswerText={setLocalAnswer}
             isEditAnswerOpen={isEditAnswerOpen}
             setIsEditAnswerOpen={setIsEditAnswerOpen}
          />
          <StyledChildAnswers>{childReplies && <AnswerList answers={childReplies} />}</StyledChildAnswers>
       </>
+   ) : (
+      <></>
    )
 }
 
