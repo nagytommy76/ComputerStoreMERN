@@ -7,6 +7,7 @@ import ButtonAndAlert from './includes/ButtonAndAlert'
 import { AnswerContainer } from '../AnswerStyle'
 import TextField from '@mui/material/TextField'
 import Collapse from '@mui/material/Collapse'
+import { CommentAnswerType } from '../../Helpers'
 
 const EditAnswer: React.FC<{
    answerId: string
@@ -14,7 +15,15 @@ const EditAnswer: React.FC<{
    currentAnswerText: string
    isEditAnswerOpen: boolean
    setIsEditAnswerOpen: React.Dispatch<React.SetStateAction<boolean>>
-}> = ({ answerId, commentId, currentAnswerText, setIsEditAnswerOpen, isEditAnswerOpen }) => {
+   setLocalAnswerText: React.Dispatch<React.SetStateAction<CommentAnswerType | undefined>>
+}> = ({
+   answerId,
+   commentId,
+   currentAnswerText,
+   setIsEditAnswerOpen,
+   setLocalAnswerText,
+   isEditAnswerOpen,
+}) => {
    const { productId, productType } = useContext(DetailsContext)
    const [answerEditText, setAnswerEditText] = useState<string>('')
    const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -34,8 +43,7 @@ const EditAnswer: React.FC<{
             answerId,
             commentId,
          })
-         console.log(result.data.foundCommentAnswer.answer)
-         setAnswerEditText(result.data.foundCommentAnswer.answer)
+         setLocalAnswerText(result.data.foundCommentAnswer)
          setAlertAndTimeout(true, 'Sikeres volt a módosítás', 'info')
          setIsLoading(false)
       } catch (error) {
