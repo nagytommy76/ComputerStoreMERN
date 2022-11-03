@@ -7,8 +7,8 @@ import {
    LikeQuery,
    RateQueryRequest,
    RemoveRatingRequest,
-   SaveRequesType,
-   RemoveRequesType,
+   SaveRequestType,
+   RemoveRequestType,
    LikeDislikeResponseType,
    EditRequestType,
 } from '../Ratings/RatingTypes'
@@ -80,7 +80,7 @@ export default class BaseRating {
    }
 
    // Rating answers
-   saveAnswerController = async (req: SaveRequesType, res: Response) => {
+   saveAnswerController = async (req: SaveRequestType, res: Response) => {
       try {
          const { foundProduct, newCommentAnswers } = await this.BaseRatingHelper.saveProductAnswerController(
             req.body.productId,
@@ -97,7 +97,7 @@ export default class BaseRating {
       }
    }
 
-   removeSingleCommentAnswer = async (req: RemoveRequesType, res: Response) => {
+   removeSingleCommentAnswer = async (req: RemoveRequestType, res: Response) => {
       try {
          const { foundComment, foundProduct } = await this.BaseRatingHelper.removeProductAnswerController(
             req.body.productId,
@@ -117,14 +117,14 @@ export default class BaseRating {
    editAnswerController = async (req: EditRequestType, res: Response) => {
       try {
          const { answerEditText, answerId, commentId, productId } = req.body
-         const { foundProduct, foundCommentAnswer } = await this.BaseRatingHelper.editProductAnswerController(
+         const { foundCommentAnswer } = await this.BaseRatingHelper.editProductAnswerController(
             productId,
             commentId,
             answerId,
             answerEditText
          )
-
-         res.status(200).json({ foundCommentAnswer })
+         if (foundCommentAnswer !== null) res.status(200).json({ foundCommentAnswer })
+         else res.sendStatus(404)
       } catch (error) {
          console.error(error)
       }
