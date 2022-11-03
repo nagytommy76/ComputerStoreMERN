@@ -3,7 +3,7 @@ import { ObjectId } from 'mongoose'
 import { UserTypes } from '../../../models/User/UserTypes'
 import { JWTUserType } from '../../Types'
 
-export type RemoveRatingRequest = Request & {
+export interface RemoveRatingRequest extends Request {
    user?: JWTUserType
    body: {
       commentIdToDelete: ObjectId
@@ -11,7 +11,7 @@ export type RemoveRatingRequest = Request & {
    }
 }
 
-export type LikeQuery = Request & {
+export interface LikeQuery extends Request {
    user?: JWTUserType
    body: {
       isLike: boolean
@@ -21,7 +21,7 @@ export type LikeQuery = Request & {
    }
 }
 
-export type RateQueryRequest = Request & {
+export interface RateQueryRequest extends Request {
    user?: JWTUserType
    body: {
       userName: string
@@ -38,33 +38,35 @@ export type RequestQuery = Request & {
    }
 }
 
-export type LikeDislikeResponseType = {
+export interface LikeDislikeResponseType {
    statusCode: number
    message: string
    responses?: any
 }
 
 // Responses type
-export type SaveRequesType = Request & {
+export interface SaveRequestType extends Request {
    user?: UserTypes
    body: {
-      productId: string
-      commentId: string
+      productId: ObjectId
+      commentId: ObjectId
       answer: string
+      commentDepth: number
+      parentCommentId: ObjectId
    }
 }
 
-export type RemoveRequesType = Request & {
+export interface RemoveRequestType extends Request {
    user?: UserTypes
    body: {
-      productId: string
-      commentId: string
-      answerId: string
+      productId: ObjectId
+      commentId: ObjectId
+      answerId: ObjectId
    }
 }
 
 export interface EditRequestType extends Request {
-   user?: UserTypes
+   user?: JWTUserType
    body: {
       answerEditText: string
       productId: string
