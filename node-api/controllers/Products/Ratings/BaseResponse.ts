@@ -50,6 +50,7 @@ export const canEditProductAnswer = (
 
       if (foundCommentAnswer && foundComment) {
          foundCommentAnswer.answer = editedAnswerText
+         foundProduct.save()
          return { foundCommentAnswer, foundProduct }
       } else return { foundCommentAnswer: null, foundProduct }
    },
