@@ -1,13 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react'
-import useSetAlert from './Hook/useSetAlert'
-import DetailsContext from '../../../../../../Context/DetailsContext'
-import { axiosInstance as axios, isAxiosError } from '../../../../../../../../AxiosSetup/AxiosInstance'
+import React from 'react'
+import useEdit from './Hook/useEdit'
+import { CommentAnswerType } from '../../Helpers'
 
-import ButtonAndAlert from './includes/ButtonAndAlert'
 import { AnswerContainer } from '../AnswerStyle'
+import ButtonAndAlert from './includes/ButtonAndAlert'
 import TextField from '@mui/material/TextField'
 import Collapse from '@mui/material/Collapse'
-import { CommentAnswerType } from '../../Helpers'
 
 const EditAnswer: React.FC<{
    answerId: string
@@ -24,38 +22,13 @@ const EditAnswer: React.FC<{
    setLocalAnswerText,
    isEditAnswerOpen,
 }) => {
-   const { productId, productType } = useContext(DetailsContext)
-   const [answerEditText, setAnswerEditText] = useState<string>('')
-   const [isLoading, setIsLoading] = useState<boolean>(false)
-   const { isAlert, setAlertAndTimeout, closeAlert } = useSetAlert(setIsEditAnswerOpen)
-
-   const handleTextFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setAnswerEditText(event.target.value)
-   }
-
-   const handleAnswerEdit = async () => {
-      if (answerEditText === '') return
-      setIsLoading(true)
-      try {
-         const result = await axios.patch(`/${productType}/edit-${productType}-answer`, {
-            answerEditText,
-            productId,
-            answerId,
-            commentId,
-         })
-         setLocalAnswerText(result.data.foundCommentAnswer)
-         setAlertAndTimeout(true, 'Sikeres volt a módosítás', 'info')
-         setIsLoading(false)
-      } catch (error) {
-         if (isAxiosError(error)) {
-            console.log(error)
-         }
-      }
-   }
-
-   useEffect(() => {
-      setAnswerEditText(currentAnswerText)
-   }, [currentAnswerText])
+   const { answerEditTextRef, closeAlert, handleAnswerEdit, isAlert, isLoading } = useEdit(
+      answerId,
+      commentId,
+      currentAnswerText,
+      setLocalAnswerText,
+      setIsEditAnswerOpen
+   )
 
    return (
       <Collapse timeout={150} in={isEditAnswerOpen}>
@@ -67,10 +40,7 @@ const EditAnswer: React.FC<{
                label='Válasz módisítása'
                placeholder='Válasz módisítása'
                fullWidth
-               multiline
-               maxRows={5}
-               value={answerEditText}
-               onChange={handleTextFieldChange}
+               inputRef={answerEditTextRef}
             />
             <ButtonAndAlert
                buttonText='Válasz módosítása'
