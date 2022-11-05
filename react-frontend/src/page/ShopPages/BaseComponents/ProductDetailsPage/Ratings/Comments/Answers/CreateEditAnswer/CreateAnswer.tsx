@@ -1,9 +1,5 @@
-import React, { useState, useContext } from 'react'
-import { axiosInstance } from '../../../../../../../../AxiosSetup/AxiosInstance'
-
-import { AnswerContext } from '../../Context/AnswerContext'
-import DetailsContext from '../../../../../../Context/DetailsContext'
-import useSetAlert from './Hook/useSetAlert'
+import React from 'react'
+import useCreateAnswer from './Hook/useCreateAnswer'
 
 import ButtonAndAlert from './includes/ButtonAndAlert'
 
@@ -26,43 +22,12 @@ const CreateAnswer: React.FC<{
    commentDepth = 1,
    parentCommentId = null,
 }) => {
-   const { productId, productType } = useContext(DetailsContext)
-
-   const { createLocalAnswer } = useContext(AnswerContext)
-
-   const [answerText, setAnswerText] = useState<string>('')
-   const [isLoading, setIsLoading] = useState<boolean>(false)
-   const { isAlert, setAlertAndTimeout, closeAlert } = useSetAlert(setIsCreateAnswerOpen)
-
-   const handleTextFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setAnswerText(event.target.value)
-   }
-
-   const handleAnswerSend = async () => {
-      try {
-         setIsLoading(true)
-         if (answerText === '') {
-            setAlertAndTimeout(true, 'Kérlek írj kommentet!', 'error')
-            setIsLoading(false)
-         } else {
-            const response = await axiosInstance.post(`/${productType}/save-${productType}-answer`, {
-               answer: answerText,
-               productId,
-               commentId,
-               commentDepth,
-               parentCommentId,
-            })
-            if (response.status === 201) {
-               setIsLoading(false)
-               setAlertAndTimeout(true, 'A Válaszodat fogadtuk!', 'success')
-               createLocalAnswer(response.data)
-               setAnswerText('')
-            }
-         }
-      } catch (error) {
-         console.log(error)
-      }
-   }
+   const { answerTextRef, closeAlert, handleAnswerSend, isAlert, isLoading } = useCreateAnswer(
+      commentId,
+      commentDepth,
+      parentCommentId,
+      setIsCreateAnswerOpen
+   )
 
    return (
       <Collapse timeout={150} in={isCreateAnswerOpen}>
@@ -76,8 +41,7 @@ const CreateAnswer: React.FC<{
                fullWidth
                multiline
                maxRows={5}
-               value={answerText}
-               onChange={handleTextFieldChange}
+               inputRef={answerTextRef}
             />
             <ButtonAndAlert
                closeAlert={closeAlert}
