@@ -41,18 +41,24 @@ export const canEditProductAnswer = (
    editProductAnswerController: async (
       productId: ObjectId | string,
       commentId: ObjectId | string,
-      commentAnswerId: ObjectId | string,
+      commentAnswerId: ObjectId | string | null,
       editedAnswerText: string
    ) => {
       const foundProduct = await getRatingValuesByProductId(productId)
       const foundComment = foundProduct.ratingValues.find((comment: RatingValues) => comment._id == commentId)
       const foundCommentAnswer = foundComment?.commentAnswers.find(answer => answer._id == commentAnswerId)
 
-      if (foundCommentAnswer && foundComment) {
+      if (!foundProduct || !foundComment) return { foundCommentAnswer: null, foundProduct }
+
+      if (foundCommentAnswer) {
          foundCommentAnswer.answer = editedAnswerText
          foundProduct.save()
          return { foundCommentAnswer, foundProduct }
-      } else return { foundCommentAnswer: null, foundProduct }
+      } else {
+         foundComment.comment = editedAnswerText
+         foundProduct.save()
+         return { foundCommentAnswer: foundComment, foundProduct }
+      }
    },
 })
 
