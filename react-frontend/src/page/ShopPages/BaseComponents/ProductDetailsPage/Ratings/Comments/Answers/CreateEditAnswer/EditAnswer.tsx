@@ -1,6 +1,6 @@
 import React from 'react'
 import useEdit from './Hook/useEdit'
-import { CommentAnswerType } from '../../Helpers'
+import { CommentAnswerType, RateState } from '../../Helpers'
 
 import { AnswerContainer } from '../AnswerStyle'
 import ButtonAndAlert from './includes/ButtonAndAlert'
@@ -8,25 +8,31 @@ import TextField from '@mui/material/TextField'
 import Collapse from '@mui/material/Collapse'
 
 const EditAnswer: React.FC<{
-   answerId: string
+   answerId: string | null
    commentId: string
    currentAnswerText: string
    isEditAnswerOpen: boolean
+   urlEndpoint?: string
    setIsEditAnswerOpen: React.Dispatch<React.SetStateAction<boolean>>
-   setLocalAnswerText: React.Dispatch<React.SetStateAction<CommentAnswerType | undefined>>
+   setLocalAnswerText?: React.Dispatch<React.SetStateAction<CommentAnswerType | undefined>>
+   setLocalComment?: React.Dispatch<React.SetStateAction<RateState | undefined>>
 }> = ({
    answerId,
    commentId,
    currentAnswerText,
+   urlEndpoint = 'answer',
    setIsEditAnswerOpen,
    setLocalAnswerText,
+   setLocalComment,
    isEditAnswerOpen,
 }) => {
    const { answerEditTextRef, closeAlert, handleAnswerEdit, isAlert, isLoading } = useEdit(
       answerId,
       commentId,
       currentAnswerText,
+      urlEndpoint,
       setLocalAnswerText,
+      setLocalComment,
       setIsEditAnswerOpen
    )
 
