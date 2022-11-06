@@ -130,6 +130,21 @@ export default class BaseRating {
       }
    }
 
+   editCommentController = async (req: EditRequestType, res: Response) => {
+      try {
+         const { answerEditText, answerId, commentId, productId } = req.body
+         const { foundCommentAnswer } = await this.BaseRatingHelper.editProductAnswerController(
+            productId,
+            commentId,
+            answerId,
+            answerEditText
+         )
+         res.status(200).json({ foundCommentAnswer })
+      } catch (error) {
+         console.error(error)
+      }
+   }
+
    likeDislikeCommentController = async (req: LikeQuery, res: Response) => {
       try {
          const { productId, commentId, isLike, answerId } = req.body
