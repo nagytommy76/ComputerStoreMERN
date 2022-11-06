@@ -70,7 +70,7 @@ export interface EditRequestType extends Request {
    body: {
       answerEditText: string
       productId: string
-      answerId: string
+      answerId: string | null
       commentId: string
    }
 }
