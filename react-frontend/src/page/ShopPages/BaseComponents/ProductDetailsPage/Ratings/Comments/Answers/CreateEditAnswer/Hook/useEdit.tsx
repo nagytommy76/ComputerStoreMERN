@@ -3,13 +3,15 @@ import { axiosInstance as axios, isAxiosError } from '../../../../../../../../..
 import DetailsContext from '../../../../../../../Context/DetailsContext'
 import useSetAlert from './useSetAlert'
 
-import { CommentAnswerType } from '../../../Helpers'
+import { CommentAnswerType, RateState } from '../../../Helpers'
 
 const useEdit = (
-   answerId: string,
+   answerId: string | null,
    commentId: string,
    currentAnswerText: string,
-   setLocalAnswerText: React.Dispatch<React.SetStateAction<CommentAnswerType | undefined>>,
+   urlEndpoint: string,
+   setLocalAnswerText: React.Dispatch<React.SetStateAction<CommentAnswerType | undefined>> | undefined,
+   setLocalComment: React.Dispatch<React.SetStateAction<RateState | undefined>> | undefined,
    setIsEditAnswerOpen: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
    const { productId, productType } = useContext(DetailsContext)
@@ -25,13 +27,14 @@ const useEdit = (
       if (!answerEditTextRef.current.value) return
       setIsLoading(true)
       try {
-         const result = await axios.patch(`/${productType}/edit-${productType}-answer`, {
+         const result = await axios.patch(`/${productType}/edit-${productType}-${urlEndpoint}`, {
             answerEditText: answerEditTextRef.current.value,
             productId,
             answerId,
             commentId,
          })
-         setLocalAnswerText(result.data.foundCommentAnswer)
+         if (setLocalAnswerText) setLocalAnswerText(result.data.foundCommentAnswer)
+         if (setLocalComment) setLocalComment(result.data.foundCommentAnswer)
          setAlertAndTimeout(true, 'Sikeres volt a módosítás', 'info')
       } catch (error) {
          if (isAxiosError(error)) {

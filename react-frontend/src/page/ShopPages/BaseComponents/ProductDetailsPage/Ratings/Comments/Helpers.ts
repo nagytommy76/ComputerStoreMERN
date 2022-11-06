@@ -1,7 +1,7 @@
 export type RateState = {
    _id: string
    rating: number
-   comment?: string
+   comment: string
    ratedAt: Date
    userName: string
    userId: string
