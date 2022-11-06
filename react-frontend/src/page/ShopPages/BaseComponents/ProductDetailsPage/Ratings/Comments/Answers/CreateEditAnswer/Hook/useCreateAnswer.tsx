@@ -13,7 +13,7 @@ const useCreateAnswer = (
    const { productId, productType } = useContext(DetailsContext)
    const { createLocalAnswer } = useContext(AnswerContext)
 
-   const answerTextRef = useRef<HTMLInputElement>(null!)
+   const answerTextRef = useRef<HTMLTextAreaElement>(null!)
    const [isLoading, setIsLoading] = useState<boolean>(false)
    const { isAlert, setAlertAndTimeout, closeAlert } = useSetAlert(setIsCreateAnswerOpen)
 
