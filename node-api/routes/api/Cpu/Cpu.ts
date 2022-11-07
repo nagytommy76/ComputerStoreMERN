@@ -22,6 +22,7 @@ router.delete('/cpu-comment-remove', authenticateAccessToken, BaseRating.removeU
 // Rating Answers
 router.post('/save-cpu-answer', authenticateAccessToken, BaseRating.saveAnswerController)
 router.patch('/edit-cpu-answer', authenticateAccessToken, BaseRating.editAnswerController)
+router.patch('/edit-cpu-comment', authenticateAccessToken, BaseRating.editCommentController)
 router.delete('/cpu-answer-remove', authenticateAccessToken, BaseRating.removeSingleCommentAnswer)
 
 module.exports = router

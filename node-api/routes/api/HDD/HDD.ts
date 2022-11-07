@@ -24,6 +24,7 @@ router.post('/hdd-comment-like', authenticateAccessToken, BaseRating.likeDislike
 // Rating answers
 router.post('/save-hdd-answer', authenticateAccessToken, BaseRating.saveAnswerController)
 router.patch('/edit-hdd-answer', authenticateAccessToken, BaseRating.editAnswerController)
+router.patch('/edit-hdd-comment', authenticateAccessToken, BaseRating.editCommentController)
 router.delete('/hdd-answer-remove', authenticateAccessToken, BaseRating.removeSingleCommentAnswer)
 
 module.exports = router

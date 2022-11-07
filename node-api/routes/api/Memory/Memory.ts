@@ -24,6 +24,7 @@ router.delete('/memory-comment-remove', authenticateAccessToken, BaseRating.remo
 // Rating Answers
 router.post('/save-memory-answer', authenticateAccessToken, BaseRating.saveAnswerController)
 router.patch('/edit-memory-answer', authenticateAccessToken, BaseRating.editAnswerController)
+router.patch('/edit-memory-comment', authenticateAccessToken, BaseRating.editCommentController)
 router.delete('/memory-answer-remove', authenticateAccessToken, BaseRating.removeSingleCommentAnswer)
 
 module.exports = router

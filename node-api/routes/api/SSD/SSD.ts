@@ -24,6 +24,7 @@ router.post('/ssd-comment-like', authenticateAccessToken, BaseRating.likeDislike
 // Rating answers
 router.post('/save-ssd-answer', authenticateAccessToken, BaseRating.saveAnswerController)
 router.patch('/edit-ssd-answer', authenticateAccessToken, BaseRating.editAnswerController)
+router.patch('/edit-ssd-comment', authenticateAccessToken, BaseRating.editCommentController)
 router.delete('/ssd-answer-remove', authenticateAccessToken, BaseRating.removeSingleCommentAnswer)
 
 module.exports = router
