@@ -1,6 +1,42 @@
-import { Model, ObjectId } from 'mongoose'
-import { BaseProductType } from '../../../models/Products/BaseTypes'
+import { ObjectId } from 'mongoose'
+import { BaseProductType, CommentAnswerType, RatingValues } from '../../../models/Products/BaseTypes'
 import { LikeDislikeResponseType } from './RatingTypes'
+
+const returnFoundComment = (foundProduct: BaseProductType, commentId: string | ObjectId) => {
+   return foundProduct.ratingValues.filter(comment => comment._id == commentId)
+}
+
+const returnFoundCommentAnswer = (foundComment: RatingValues[], answerId: string | ObjectId) => {
+   return foundComment[0].commentAnswers.find(answer => answer._id == answerId)
+}
+
+const checkFoundCommentOrAnswer = (
+   foundCommentOrAnswer: RatingValues | CommentAnswerType,
+   isLike: boolean,
+   userId: string | undefined,
+   message: string = 'kommented'
+) => {
+   // A user a saját kommentjét ne tudja like/dislikeolni
+   if (foundCommentOrAnswer.userId == userId) {
+      return {
+         statusCode: 405,
+         message: `A saját ${message} nem like-olhatod :)`,
+      }
+   }
+   if (foundCommentOrAnswer.responses.length == 0) {
+      // Ha még nincs like/dislike
+      foundCommentOrAnswer.responses.push({ isLike, userId })
+   } else {
+      // Ha van már like
+      // A user adott már like/dislike-ot?
+      const foundCommentIndex = foundCommentOrAnswer.responses.findIndex(comment => comment.userId == userId)
+
+      if (foundCommentIndex >= 0) foundCommentOrAnswer.responses.splice(foundCommentIndex, 1)
+      else foundCommentOrAnswer.responses.push({ isLike, userId })
+   }
+
+   return null
+}
 
 export const canLikeDislike = (
    getRatingValuesByProductId: (productId: ObjectId) => Promise<BaseProductType>
@@ -13,26 +49,11 @@ export const canLikeDislike = (
    ) => {
       const foundProduct = await getRatingValuesByProductId(productId)
       if (!foundProduct) return { message: '', statusCode: 404 } as LikeDislikeResponseType
-      const foundComment = foundProduct.ratingValues.filter(comment => comment._id == commentId)
+      const foundComment = returnFoundComment(foundProduct, commentId)
 
-      // A user a saját kommentjét ne tudja like/dislikeolni
-      if (foundComment[0].userId == userId) {
-         return {
-            statusCode: 405,
-            message: 'A saját kommented nem like-olhatod :)',
-         } as LikeDislikeResponseType
-      }
-      if (foundComment[0].responses.length == 0) {
-         // Ha még nincs like/dislike
-         foundComment[0].responses.push({ isLike, userId })
-      } else {
-         // Ha van már like
-         // A user adott már like/dislike-ot?
-         const foundCommentIndex = foundComment[0].responses.findIndex(comment => comment.userId == userId)
+      const returnValue = checkFoundCommentOrAnswer(foundComment[0], isLike, userId)
+      if (returnValue) return returnValue
 
-         if (foundCommentIndex >= 0) foundComment[0].responses.splice(foundCommentIndex, 1)
-         else foundComment[0].responses.push({ isLike, userId })
-      }
       foundProduct.save()
       return {
          message: 'Sikeresen mentve!',
@@ -49,24 +70,14 @@ export const canLikeDislike = (
    ) => {
       const foundProduct = await getRatingValuesByProductId(productId)
       if (!foundProduct) return { message: '', statusCode: 404 } as LikeDislikeResponseType
-      const foundComment = foundProduct.ratingValues.filter(comment => comment._id == commentId)
+      const foundComment = returnFoundComment(foundProduct, commentId)
 
-      const foundCommentAnswer = foundComment[0].commentAnswers.find(answer => answer._id == answerId)
+      const foundCommentAnswer = returnFoundCommentAnswer(foundComment, answerId)
       if (!foundCommentAnswer) return { message: 'A válasz nem találhatő', statusCode: 404 }
-      if (foundCommentAnswer.userId == userId)
-         return {
-            statusCode: 405,
-            message: 'A saját válaszodat nem like-olhatod :)',
-         } as LikeDislikeResponseType
 
-      if (foundCommentAnswer.responses.length === 0) foundCommentAnswer.responses.push({ isLike, userId })
-      else {
-         const foundCommentIndex = foundCommentAnswer.responses.findIndex(answer => answer.userId == userId)
+      const returnValue = checkFoundCommentOrAnswer(foundCommentAnswer, isLike, userId, 'válaszodat')
+      if (returnValue) return returnValue
 
-         // Itt van már rajta like az adott user-től, eltávolítom
-         if (foundCommentIndex >= 0) foundCommentAnswer.responses.splice(foundCommentIndex, 1)
-         else foundCommentAnswer.responses.push({ isLike, userId })
-      }
       foundProduct.save()
       return {
          message: 'Sikeresen mentve!',
