@@ -34,6 +34,7 @@ export type CommentAnswerType = {
 }
 
 export type ResponsesType = {
+   _id?: string | ObjectId
    userId?: string
    isLike: boolean
 }

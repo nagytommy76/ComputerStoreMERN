@@ -1,5 +1,6 @@
 import { Request } from 'express'
 import { ObjectId } from 'mongoose'
+import { ResponsesType } from '../../../models/Products/BaseTypes'
 import { UserTypes } from '../../../models/User/UserTypes'
 import { JWTUserType } from '../../Types'
 
@@ -41,7 +42,7 @@ export type RequestQuery = Request & {
 export interface LikeDislikeResponseType {
    statusCode: number
    message: string
-   responses?: any
+   responses?: ResponsesType[]
 }
 
 // Responses type

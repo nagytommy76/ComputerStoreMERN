@@ -63,17 +63,18 @@ export const canEditProductAnswer = (
 })
 
 export const canRemoveProductAnswer = (
-   getRatingValuesByProductId: (productId: ObjectId) => Promise<any>
+   getRatingValuesByProductId: (productId: ObjectId) => Promise<BaseProductType>
 ) => ({
    removeProductAnswerController: async (productId: ObjectId, commentId: ObjectId, answerId: ObjectId) => {
       const foundProduct = await getRatingValuesByProductId(productId)
-      const foundComment = foundProduct.ratingValues.find((comment: RatingValues) => comment._id == commentId)
+      const foundComment = foundProduct.ratingValues.find(comment => comment._id == commentId)
       if (foundComment) {
          const filteredAnswers = foundComment.commentAnswers.filter(
             (answer: CommentAnswerType) => answer._id != answerId
          )
          foundComment.commentAnswers = filteredAnswers
+         return { foundComment: foundComment.commentAnswers, foundProduct }
       }
-      return { foundComment: foundComment.commentAnswers, foundProduct }
+      return { foundComment: null, foundProduct }
    },
 })
