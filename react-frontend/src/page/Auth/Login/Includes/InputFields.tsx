@@ -18,11 +18,10 @@ const InputFields: React.FC<{
             helperText={emailOrUsername.errorMessage}
             variant='filled'
             fullWidth
-            required
             label='Email cím/Felhasználónév'
             margin='normal'
             value={emailOrUsername.value}
-            onChange={(e) => setEmailOrUsername({ ...emailOrUsername, value: e.target.value })}
+            onChange={e => setEmailOrUsername({ ...emailOrUsername, value: e.target.value })}
          />
          <TextField
             id='Password'
@@ -31,11 +30,10 @@ const InputFields: React.FC<{
             type='password'
             variant='filled'
             fullWidth
-            required
             label='Jelszó'
             margin='normal'
             value={password.value}
-            onChange={(e) => setPassword({ ...password, value: e.target.value })}
+            onChange={e => setPassword({ ...password, value: e.target.value })}
          />
       </>
    )
