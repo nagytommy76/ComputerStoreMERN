@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { axiosInstance as axios, AxiosError, AxiosResponse } from '../../../AxiosSetup/AxiosInstance'
+import { axiosInstance as axios, AxiosError, isAxiosError } from '../../../AxiosSetup/AxiosInstance'
 
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'
 import { setUserLoggedIn, setUserId, setUserName, setAdmin } from '../../../app/slices/AuthSlice'
@@ -28,6 +28,25 @@ const useLogin = () => {
    const [validationError, setValidationError] = useState({ isSuccess: false, message: '' })
    const [invalidPassAttempt, setInvalidPassAttempt] = useState<number>(0)
 
+   const handleSetPassword = (error: AxiosError) => {
+      setPassword(previousState => {
+         return {
+            ...previousState,
+            hasError: error.response?.data.hasError,
+            errorMessage: error.response?.data.errorMessage,
+         }
+      })
+   }
+   const handleSetEmailOrUsername = (error: AxiosError) => {
+      setEmailOrUsername(previousState => {
+         return {
+            ...previousState,
+            hasError: error.response?.data.hasError,
+            errorMessage: error.response?.data.errorMessage,
+         }
+      })
+   }
+
    useLocationState(setValidationError)
 
    const resetErrors = () => {
@@ -35,52 +54,43 @@ const useLogin = () => {
       setPassword({ ...password, errorMessage: '', hasError: false })
    }
 
-   const loginUser = (event: React.FormEvent) => {
+   const loginUser = async (event: React.FormEvent) => {
       event.preventDefault()
       setIsLoadingForResponse(true)
       resetErrors()
-      if (emailOrUsername.value === '')
-         return setEmailOrUsername({ value: '', hasError: true, errorMessage: 'Kérem az e-mail címet!' })
-      if (password.value === '')
-         return setPassword({ value: '', hasError: true, errorMessage: 'Kérem a jelszót!' })
-      axios
-         .post('/auth/login', {
+
+      try {
+         if (emailOrUsername.value === '') {
+            return setEmailOrUsername({ value: '', hasError: true, errorMessage: 'Kérem az e-mail címet!' })
+         }
+         if (password.value === '')
+            return setPassword({ value: '', hasError: true, errorMessage: 'Kérem a jelszót!' })
+         const result = await axios.post('/auth/login', {
             email: emailOrUsername.value,
             password: password.value,
          })
-         .then((response: AxiosResponse) => {
-            if (response.status === 200) {
-               dispatch(setUserLoggedIn(true))
-               dispatch(setUserId(response.data.userId))
-               dispatch(setAccessToken(response.data.accessToken))
-               dispatch(setUserName(response.data.userName))
-               if (response.data.isAdmin) dispatch(setAdmin(true))
-               if (cartItems.length > 0) dispatch(fillDBWithCartItemsAfterLogin())
-               navigate('/')
-            }
-         })
-         .catch((err: AxiosError) => {
-            setIsLoadingForResponse(false)
-            if (err.response?.data.errorType === 'email') {
-               if (err.response.status === 403) setIsinvalidatedEmail(true)
-               setEmailOrUsername(previousState => {
-                  return {
-                     ...previousState,
-                     hasError: err.response?.data.hasError,
-                     errorMessage: err.response?.data.errorMessage,
-                  }
-               })
+         if (result.status === 200) {
+            dispatch(setUserLoggedIn(true))
+            dispatch(setUserId(result.data.userId))
+            dispatch(setAccessToken(result.data.accessToken))
+            dispatch(setUserName(result.data.userName))
+            if (result.data.isAdmin) dispatch(setAdmin(true))
+            if (cartItems.length > 0) dispatch(fillDBWithCartItemsAfterLogin())
+            navigate('/')
+         }
+      } catch (error) {
+         if (isAxiosError(error)) {
+            if (error.response?.data.errorType === 'email') {
+               if (error.response.status === 403) setIsinvalidatedEmail(true)
+               handleSetEmailOrUsername(error)
             } else {
                setInvalidPassAttempt(prevAttempt => (prevAttempt += 1))
-               setPassword(previousState => {
-                  return {
-                     ...previousState,
-                     hasError: err.response?.data.hasError,
-                     errorMessage: err.response?.data.errorMessage,
-                  }
-               })
+               handleSetPassword(error)
             }
-         })
+         }
+      } finally {
+         setIsLoadingForResponse(false)
+      }
    }
    return {
       loginUser,
