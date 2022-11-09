@@ -52,6 +52,8 @@ A komment válasz résznél: végtelen komment thread-et. (kommentre komment stb
 - az admin (illetve az összes) módosításnál patch/put-ot használni a post helyett!!!!!!! ROUTES-nál
 
 
+- Átírni a text mező state-eket useRef-re a felesleges renderelés miatt
+
 
 
 https://help.heroku.com/FZDDCBLB/how-can-i-download-my-code-from-heroku

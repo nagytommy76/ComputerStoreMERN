@@ -1,7 +1,7 @@
 export const defaultInputProperties = {
    value: '',
    hasError: false,
-   errorMessage: ''
+   errorMessage: '',
 }
 
-export type InputTypes = { value: string; hasError?: boolean; errorMessage?: string }
+export type InputTypes = { value: string; hasError: boolean; errorMessage?: string }
