@@ -21,6 +21,7 @@ const BaseInputFeilds: React.FC = () => {
             product={productInputs}
             setProduct={setProductInputs}
             validationErrors={validationErrors}
+            selectableItemsArray={['AMD', 'INTEL']}
          />
          <TextOrNumberInput
             id='coreCount'

@@ -31,6 +31,7 @@ export const POWER_PINS = [
    '1 * 6pin + 1 * 8pin',
    '1 * 6pin + 2 * 8pin',
    '1 * 8pin',
+   '1 * 16pin',
    '2 * 8pin',
    '3 * 8pin',
 ]

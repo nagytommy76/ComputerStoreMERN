@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import BaseInputs from '../../Components/BaseInputs'
 import { AdminContext } from '../../Context/AdminContext'
 import { FormContainerStyle } from '../../Components/Form/FormStyle'
-import { GPU_MANUFACTURERS, PCIE_TYPE, POWER_PINS, VRAM_TYPES } from '../VgaProperties'
+import { GPU_MANUFACTURERS, PCIE_TYPE, POWER_PINS, VRAM_TYPES, VGA_MANUFACTURERS } from '../VgaProperties'
 
 const TextOrNumberInput = React.lazy(() => import('../../Components/InputFields/TextOrNumberInput'))
 const BaseMUISelect = React.lazy(() => import('../../Components/InputFields/Select/MUISelectFeild'))
@@ -15,6 +15,7 @@ const BaseInputFields: React.FC = () => {
             product={productInputs}
             setProduct={setProductInputs}
             validationErrors={validationErrors}
+            selectableItemsArray={VGA_MANUFACTURERS}
          />
          <BaseMUISelect
             id='gpuMan'
