@@ -9,4 +9,5 @@ export type BaseInputFieldProps = {
    product: any
    setProduct: React.Dispatch<React.SetStateAction<any>>
    validationErrors: ValidationError[]
+   selectableItemsArray?: string[]
 }

@@ -1,10 +1,16 @@
 import React from 'react'
 import { BaseInputFieldProps } from '../AdminTypes'
 
+const BaseMUISelect = React.lazy(() => import('./InputFields/Select/MUISelectFeild'))
 const TextOrNumberInput = React.lazy(() => import('./InputFields/TextOrNumberInput'))
 const CheckBox = React.lazy(() => import('./InputFields/CheckBox/CheckBox'))
 
-const BaseInputs: React.FC<BaseInputFieldProps> = ({ product, setProduct, validationErrors }) => {
+const BaseInputs: React.FC<BaseInputFieldProps> = ({
+   product,
+   setProduct,
+   validationErrors,
+   selectableItemsArray = [],
+}) => {
    return (
       <>
          <CheckBox
@@ -34,13 +40,14 @@ const BaseInputs: React.FC<BaseInputFieldProps> = ({ product, setProduct, valida
             value={product.typeCode || ''}
             onChangeEvent={event => setProduct({ ...product, typeCode: event.target.value })}
          />
-         <TextOrNumberInput
+         <BaseMUISelect
             id='manufacturer'
             labelText='Termék gyártó'
-            value={product.manufacturer || ''}
+            selectableItems={selectableItemsArray}
+            value={product.manufacturer}
             onChangeEvent={event => setProduct({ ...product, manufacturer: event.target.value })}
-            validationErrorLocation='manufacturer'
             validationErrors={validationErrors}
+            validationErrorLocation='manufacturer'
          />
          <TextOrNumberInput
             id='price'
