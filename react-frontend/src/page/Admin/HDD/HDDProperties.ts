@@ -14,3 +14,16 @@ export const hddProperties: HDDProductType = {
       sizeInCol: 3.5,
    },
 }
+
+export const HDD_MANUFACTURERS = [
+   'ADATA',
+   'DELL',
+   'FUJITSU',
+   'HP',
+   'HITACHI',
+   'SILICON POWER',
+   'SEAGATE',
+   'TOSHIBA',
+   'VERBATIM',
+   'WESTERN DIGITAL',
+]

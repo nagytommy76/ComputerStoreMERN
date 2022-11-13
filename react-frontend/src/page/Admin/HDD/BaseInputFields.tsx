@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { AdminContext } from '../Context/AdminContext'
 import { FormContainerStyle } from '../Components/Form/FormStyle'
+import { HDD_MANUFACTURERS } from './HDDProperties'
 
 const BaseFields = React.lazy(() => import('../Components/BaseInputs'))
 const TextOrNumberInput = React.lazy(() => import('../Components/InputFields/TextOrNumberInput'))
@@ -13,6 +14,7 @@ const BaseInputFeilds: React.FC = () => {
             product={productInputs}
             setProduct={setProductInputs}
             validationErrors={validationErrors}
+            selectableItemsArray={HDD_MANUFACTURERS}
          />
          <TextOrNumberInput
             id='warranity'

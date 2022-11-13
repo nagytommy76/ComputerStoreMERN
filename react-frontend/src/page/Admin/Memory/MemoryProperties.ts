@@ -17,3 +17,20 @@ export const memoryProperties: MemoryProductType = {
 }
 
 export const MEMORY_TYPES = ['DDR', 'DDR2', 'DDR3', 'DDR4', 'DDR5']
+export const MEMORY_MANUFACTURERS = [
+   'KINGSTON',
+   'G.SKILL',
+   'CSX',
+   'ADATA',
+   'APACER',
+   'CORSAIR',
+   'CRUCIAL',
+   'DELL',
+   'GIGABYTE',
+   'KINGMAX',
+   'PATRIOT',
+   'TEAM GROUP',
+   'SAMSUNG',
+   'MUSHKIN',
+   'THERMALTAKE',
+]

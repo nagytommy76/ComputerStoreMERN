@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { AdminContext } from '../Context/AdminContext'
 import { FormContainerStyle } from '../Components/Form/FormStyle'
+import { SSD_MANUFACTURERS } from './SSDProperties'
 
 import { SSD_SIZES, SSD_CONNECTIONS, NAND_TECHNOLOGY } from './SSDProperties'
 
@@ -17,6 +18,7 @@ const BaseInputFields = () => {
             product={productInputs}
             setProduct={setProductInputs}
             validationErrors={validationErrors}
+            selectableItemsArray={SSD_MANUFACTURERS}
          />
          <TextOrNumberInput
             id='warranity'

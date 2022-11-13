@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { AdminContext } from '../Context/AdminContext'
 import { FormContainerStyle } from '../Components/Form/FormStyle'
+import { MEMORY_MANUFACTURERS } from './MemoryProperties'
 
 const BaseFields = React.lazy(() => import('../Components/BaseInputs'))
 const TextOrNumberInput = React.lazy(() => import('../Components/InputFields/TextOrNumberInput'))
@@ -14,6 +15,7 @@ const BaseInputFeilds: React.FC = () => {
             product={productInputs}
             setProduct={setProductInputs}
             validationErrors={validationErrors}
+            selectableItemsArray={MEMORY_MANUFACTURERS}
          />
          <SelectDDRField
             onChangeEvent={event =>
