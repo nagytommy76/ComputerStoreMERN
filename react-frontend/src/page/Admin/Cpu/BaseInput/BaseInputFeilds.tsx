@@ -1,12 +1,14 @@
 import React, { useContext } from 'react'
 import { AdminContext } from '../../Context/AdminContext'
 import { FormContainerStyle } from '../../Components/Form/FormStyle'
+import { CPU_SOCKETS } from '../CpuProperties'
 
 import Fade from '@mui/material/Fade'
 
 const BaseFields = React.lazy(() => import('../../Components/BaseInputs'))
 const TextOrNumberInput = React.lazy(() => import('../../Components/InputFields/TextOrNumberInput'))
 const CheckBox = React.lazy(() => import('../../Components/InputFields/CheckBox/CheckBox'))
+const BaseSelectField = React.lazy(() => import('../../Components/InputFields/Select/MUISelectFeild'))
 
 const BaseInputFeilds: React.FC = () => {
    const [isCooler, setIsCooler] = React.useState(false)
@@ -114,9 +116,10 @@ const BaseInputFeilds: React.FC = () => {
             validationErrorLocation='details.l3Cache'
             validationErrors={validationErrors}
          />
-         <TextOrNumberInput
+         <BaseSelectField
             id='socket'
             labelText='Foglalat'
+            selectableItems={CPU_SOCKETS}
             onChangeEvent={event =>
                setProductInputs({
                   ...productInputs,
