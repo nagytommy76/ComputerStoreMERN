@@ -22,3 +22,14 @@ export const cpuProperties: CpuProductType = {
       stockCoolerName: 'Nincs',
    },
 }
+
+export const CPU_SOCKETS = [
+   'sWRX8',
+   'AM4',
+   'AM5',
+   'LGA-1200',
+   'LGA-1700',
+   'LGA-2011-3',
+   'LGA-2066',
+   'LGA-1151',
+]
