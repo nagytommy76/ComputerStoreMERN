@@ -20,11 +20,6 @@ HIBÁK/BUGOK:
 
 
 
-- ADMIN oldalon: MUI:Too many re-renders. The layout is unstable.
-  TextareaAutosize limits the number of renders to prevent an infinite loop.
-  HIBÁT MEGOLDANI!!!!!!!!!! CPU/VGA-nál van, elvileg a többinél nincs
-
-- ADMIN oldalon befejezni a MUISelect field-re átállást
 
 - Esetleg PDF generálás?!
 
@@ -42,8 +37,6 @@ Uncaught Error: Minified React error #185;
 https://reactjs.org/docs/error-decoder.html/?invariant=185
 
 
-A komment válasz résznél: végtelen komment thread-et. (kommentre komment stb...)
-- az edit komment résznél megoldani, hogy textArea element-nél ne jelenjen meg a too many re renders error
 
 
 ÚJ ÖTLET: Porfilképet feltötleni. File kezelés miatt
@@ -64,6 +57,21 @@ https://help.heroku.com/FZDDCBLB/how-can-i-download-my-code-from-heroku
 
 
 MEGCSINÁLTAM:
+
+
+A komment válasz résznél: végtelen komment thread-et. (kommentre komment stb...)
+- az edit komment résznél megoldani, hogy textArea element-nél ne jelenjen meg a too many re renders error
+
+- ADMIN oldalon: MUI:Too many re-renders. The layout is unstable.
+  TextareaAutosize limits the number of renders to prevent an infinite loop.
+  HIBÁT MEGOLDANI!!!!!!!!!! CPU/VGA-nál van, elvileg a többinél nincs
+
+- ADMIN oldalon befejezni a MUISelect field-re átállást
+
+- Warning: A component is changing a controlled input to be uncontrolled. This is likely caused by the value changing from a defined to undefined, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component
+ - CPU checkbox-nál hiba
+
+
 - az admin felületnél egy useEffect: ellenőrizni, hogy admin-e az illető
 - Az összes fallback-et (Suspense) vizualizálni, mert most csak a Töltés... van FOLYAMATBAN
   Pl a login alert boxokat is!!!
