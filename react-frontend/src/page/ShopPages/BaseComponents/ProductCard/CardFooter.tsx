@@ -3,6 +3,9 @@ import { useAppDispatch } from '../../../../app/hooks'
 import { sendCartItemToSaveInDB } from '../../../../app/slices/CartSlice'
 
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
+import CompareArrowsIcon from '@mui/icons-material/CompareArrows'
+import IconButton from '@mui/material/IconButton'
+import Tooltip from '@mui/material/Tooltip'
 import { CardFooterStyle } from './CardStyle'
 import { CardActions, Button } from '@mui/material'
 
@@ -34,6 +37,11 @@ const CardFooter: React.FC<Props> = ({ toSaveCartItems }) => {
             >
                Kosárba
             </Button>
+            <Tooltip title='Összhasonlítás' placement='top' arrow>
+               <IconButton color='info' aria-label='compare' size='large'>
+                  <CompareArrowsIcon fontSize='inherit' />
+               </IconButton>
+            </Tooltip>
          </CardActions>
       </CardFooterStyle>
    )

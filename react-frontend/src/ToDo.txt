@@ -48,6 +48,8 @@ https://reactjs.org/docs/error-decoder.html/?invariant=185
 - új termék kategóriákat létrehozni, pl Router, billentyűzet, egér, (tehát: perifériák, házózat stb..)
   és ehhez szerkeszteni a navbart is, kategóriánkét!
 
+- Összehasonlítani termékeket pl proci, alaplap, stb
+
 
 - Átírni a text mező state-eket useRef-re a felesleges renderelés miatt
 
