@@ -39,8 +39,14 @@ https://reactjs.org/docs/error-decoder.html/?invariant=185
 
 
 
-ÚJ ÖTLET: Porfilképet feltötleni. File kezelés miatt
+ÚJ ÖTLET ADMIN: Porfilképet feltötleni. File kezelés miatt
 - az admin (illetve az összes) módosításnál patch/put-ot használni a post helyett!!!!!!! ROUTES-nál
+
+
+
+ÚJ ÖTLETEK:
+- új termék kategóriákat létrehozni, pl Router, billentyűzet, egér, (tehát: perifériák, házózat stb..)
+  és ehhez szerkeszteni a navbart is, kategóriánkét!
 
 
 - Átírni a text mező state-eket useRef-re a felesleges renderelés miatt
@@ -51,7 +57,6 @@ https://help.heroku.com/FZDDCBLB/how-can-i-download-my-code-from-heroku
 
 
 - nem működik a link emaileknél, Javítani...
-
 
 
 

@@ -27,7 +27,7 @@ const BaseModifyForm: React.FC<{
       event.preventDefault()
       const filteredPictureArray = states.selectedProductPictureUrls.map(x => x.pictureUrl)
       axios
-         .post(`admin/${productType}/modify`, { ...states.productInputs, pictureUrls: filteredPictureArray })
+         .patch(`admin/${productType}/modify`, { ...states.productInputs, pictureUrls: filteredPictureArray })
          .then(() => setInputSuccess(true))
          .catch((errors: ValidationErrorWithAxiosError) => {
             if (errors.response?.data) states.setValidationErrors(errors.response?.data.errors)
