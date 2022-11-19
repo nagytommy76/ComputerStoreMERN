@@ -16,7 +16,7 @@ router.get('/get-all', checkUserIsAdmin, getAllMemoryController)
 router.get('/get-to-delete', checkUserIsAdmin, getAllMemoryItemsForDeleteController)
 
 router.post('/insert', insertMemoryValidator, checkUserIsAdmin, checkErrors, insertMemoryProduct)
-router.post('/modify', insertMemoryValidator, checkUserIsAdmin, checkErrors, modifyMemoryProductController)
+router.patch('/modify', insertMemoryValidator, checkUserIsAdmin, checkErrors, modifyMemoryProductController)
 router.delete('/delete', checkUserIsAdmin, deleteMemoryProductByIdController)
 
 module.exports = router

@@ -16,8 +16,7 @@ router.get('/get-all', checkUserIsAdmin, getAllHDDToModifyController)
 router.get('/get-to-delete', checkUserIsAdmin, getAllHDDItemsForDeleteController)
 
 router.post('/insert', insertHDDValidator, checkUserIsAdmin, checkErrors, insertHDDProductController)
-router.post('/modify', insertHDDValidator, checkUserIsAdmin, checkErrors, modifyHDDProductController)
-
+router.patch('/modify', insertHDDValidator, checkUserIsAdmin, checkErrors, modifyHDDProductController)
 router.delete('/delete', checkUserIsAdmin, deleteHDDProductByIdController)
 
 module.exports = router

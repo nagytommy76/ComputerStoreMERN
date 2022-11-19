@@ -15,7 +15,7 @@ router.get('/get-all', checkUserIsAdmin, getAllCpuItemsController)
 router.get('/get-to-delete', checkUserIsAdmin, getAllCpuItemsForDeleteController)
 
 router.post('/insert', insertCpuValidator, checkUserIsAdmin, checkErrors, insertCpuController)
-router.post('/modify', insertCpuValidator, checkUserIsAdmin, checkErrors, modifyCpuProductController)
+router.patch('/modify', insertCpuValidator, checkUserIsAdmin, checkErrors, modifyCpuProductController)
 router.delete('/delete', checkUserIsAdmin, deleteCpuProductByIdController)
 
 module.exports = router

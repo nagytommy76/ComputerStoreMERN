@@ -18,7 +18,7 @@ router.get('/get-all', checkUserIsAdmin, getAllSSDController)
 router.get('/get-to-delete', checkUserIsAdmin, getAllSSDItemsForDeleteController)
 
 router.post('/insert', insertSSDValidator, checkUserIsAdmin, checkErrors, insertSSDProductController)
-router.post('/modify', insertSSDValidator, checkUserIsAdmin, checkErrors, modifySSDProductController)
+router.patch('/modify', insertSSDValidator, checkUserIsAdmin, checkErrors, modifySSDProductController)
 router.delete('/delete', checkUserIsAdmin, deleteSSDProductByIdController)
 
 module.exports = router
