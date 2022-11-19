@@ -59,7 +59,6 @@ export const modifyHDDProductController = async (request: Request, response: Res
       if (foundHDDProduct) {
          foundHDDProduct.details = details
          AdminController.modifyChartData(foundHDDProduct.details, price)
-         console.log(foundHDDProduct.details.chartData)
          foundHDDProduct.inStockQuantity = inStockQuantity
          foundHDDProduct.manufacturer = manufacturer
          foundHDDProduct.pictureUrls = pictureUrls
