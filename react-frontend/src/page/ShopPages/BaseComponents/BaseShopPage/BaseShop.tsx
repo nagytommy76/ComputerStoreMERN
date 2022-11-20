@@ -7,6 +7,7 @@ import { PageContainer, CardGridContainer, RightFlexContainer } from '../../Base
 
 import ProductNotFound from './Includes/ProductNotFound'
 import ProductCard from '../ProductCard/ProductCard'
+const Compare = lazy(() => import('./Includes/CompareButton'))
 const Pagination = lazy(() => import('../Pagination/Pagination'))
 const CartSnackBar = lazy(() => import('../CartSnackbar/CartSnackbar'))
 const ShopHeader = lazy(() => import('./Includes/ShopHeader'))
@@ -46,6 +47,7 @@ const BaseShop: React.FC<{ productName?: string; productType: string; children?:
             </CardGridContainer>
             <Pagination />
             <CartSnackBar />
+            <Compare />
          </RightFlexContainer>
       </PageContainer>
    )
