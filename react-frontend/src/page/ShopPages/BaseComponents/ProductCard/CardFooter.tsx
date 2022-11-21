@@ -1,6 +1,7 @@
 import React from 'react'
-import { useAppDispatch } from '../../../../app/hooks'
+import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
 import { sendCartItemToSaveInDB } from '../../../../app/slices/CartSlice'
+import { addProductsToCompare } from '../../../../app/slices/ProductsSlice'
 
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows'
@@ -22,6 +23,8 @@ type Props = {
 
 const CardFooter: React.FC<Props> = ({ toSaveCartItems }) => {
    const dispatch = useAppDispatch()
+   const products = useAppSelector(state => state.products.products)
+
    const addItemToCart = () => {
       dispatch(sendCartItemToSaveInDB(toSaveCartItems))
    }
@@ -31,6 +34,8 @@ const CardFooter: React.FC<Props> = ({ toSaveCartItems }) => {
       console.log(toSaveCartItems.productType)
       console.log(toSaveCartItems._id)
       // Létrehozni egy array-t: Context/state?
+      const foundCompare = products.find(product => product._id === toSaveCartItems._id)
+      console.log(foundCompare)
    }
 
    return (
