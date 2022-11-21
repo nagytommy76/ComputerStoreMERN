@@ -21,14 +21,22 @@ const ProductsSlice = createSlice({
       setTotalProductCount: (state, action: PayloadAction<number>) => {
          state.totalProductCount = action.payload
       },
-      setProductsToCompare: (state, action: PayloadAction<ProductsType[]>) => {
-         state.productsToComare = action.payload
+      addProductsToCompare: (state, action: PayloadAction<ProductsType>) => {
+         state.productsToComare.push(action.payload)
+      },
+      resetProductsToCompare: state => {
+         state.productsToComare = []
       },
    },
 })
 
-export const { setProducts, setIsFetching, setTotalProductCount, setProductsToCompare } =
-   ProductsSlice.actions
+export const {
+   setProducts,
+   setIsFetching,
+   setTotalProductCount,
+   addProductsToCompare,
+   resetProductsToCompare,
+} = ProductsSlice.actions
 
 export default ProductsSlice.reducer
 
