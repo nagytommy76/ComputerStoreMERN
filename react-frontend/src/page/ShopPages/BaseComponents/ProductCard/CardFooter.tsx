@@ -1,7 +1,7 @@
 import React from 'react'
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
 import { sendCartItemToSaveInDB } from '../../../../app/slices/CartSlice'
-import { addProductsToCompare } from '../../../../app/slices/ProductsSlice'
+import { addProductIdsToCompare } from '../../../../app/slices/ProductCompareSlice'
 
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows'
@@ -24,6 +24,7 @@ type Props = {
 const CardFooter: React.FC<Props> = ({ toSaveCartItems }) => {
    const dispatch = useAppDispatch()
    const products = useAppSelector(state => state.products.products)
+   const savedProductIdsToCompare = useAppSelector(state => state.productCompare.productIdsToComare)
 
    const addItemToCart = () => {
       dispatch(sendCartItemToSaveInDB(toSaveCartItems))
@@ -31,11 +32,15 @@ const CardFooter: React.FC<Props> = ({ toSaveCartItems }) => {
 
    // Be kéne tenni egy array-be? majd Redux-ból megkeresni/megjeleníteni az összehasonlíytás oldalon
    const handleAddToCompare = () => {
-      console.log(toSaveCartItems.productType)
-      console.log(toSaveCartItems._id)
       // Létrehozni egy array-t: Context/state?
-      const foundCompare = products.find(product => product._id === toSaveCartItems._id)
-      console.log(foundCompare)
+      const foundComparedId = products.find(product => product._id === toSaveCartItems._id)?._id
+
+      // Ide majd egy felugró ablakot, hogy max 4 (vagy valamennyit) lehet csak összehasonlítani,
+      // Illetve ha már tartalmazza akkor is
+      if (foundComparedId && savedProductIdsToCompare.length! < 4) {
+         const isContainsId = savedProductIdsToCompare.includes(foundComparedId)
+         if (!isContainsId) dispatch(addProductIdsToCompare(foundComparedId))
+      }
    }
 
    return (
