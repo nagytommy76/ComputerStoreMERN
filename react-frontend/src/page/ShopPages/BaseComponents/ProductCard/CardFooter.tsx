@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
 import { sendCartItemToSaveInDB } from '../../../../app/slices/CartSlice'
 import { addProductIdsToCompare } from '../../../../app/slices/ProductCompareSlice'
+import { MessageContext, MessageTypes } from '../Context/MessageContext'
 
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows'
@@ -22,12 +23,13 @@ type Props = {
 }
 
 const CardFooter: React.FC<Props> = ({ toSaveCartItems }) => {
-   const dispatch = useAppDispatch()
+   const reduxDispatch = useAppDispatch()
    const products = useAppSelector(state => state.products.products)
    const savedProductIdsToCompare = useAppSelector(state => state.productCompare.productIdsToComare)
+   const { dispatch, state } = useContext(MessageContext)
 
    const addItemToCart = () => {
-      dispatch(sendCartItemToSaveInDB(toSaveCartItems))
+      reduxDispatch(sendCartItemToSaveInDB(toSaveCartItems))
    }
 
    // Be kéne tenni egy array-be? majd Redux-ból megkeresni/megjeleníteni az összehasonlíytás oldalon
@@ -37,9 +39,18 @@ const CardFooter: React.FC<Props> = ({ toSaveCartItems }) => {
 
       // Ide majd egy felugró ablakot, hogy max 4 (vagy valamennyit) lehet csak összehasonlítani,
       // Illetve ha már tartalmazza akkor is
-      if (foundComparedId && savedProductIdsToCompare.length! < 4) {
+      if (foundComparedId && savedProductIdsToCompare.length < 4) {
          const isContainsId = savedProductIdsToCompare.includes(foundComparedId)
-         if (!isContainsId) dispatch(addProductIdsToCompare(foundComparedId))
+         if (!isContainsId) reduxDispatch(addProductIdsToCompare(foundComparedId))
+      } else {
+         dispatch({
+            type: MessageTypes.SET_ISACTIVE,
+            payload: {
+               isActive: true,
+               message: '4-nél több terméket nem hasonlíthatsz össze!',
+               severity: 'warning',
+            },
+         })
       }
    }
 
