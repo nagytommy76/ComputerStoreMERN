@@ -1,5 +1,6 @@
 import React, { lazy, ReactNode } from 'react'
 import { useAppSelector } from '../../../../app/hooks'
+import MessageContextProvider from '../Context/MessageContext'
 
 import CardContainer from '../../../../SuspenseComponents/ProductCard/Container'
 import FilterSuspense from '../../../../SuspenseComponents/SideFilter/FilterSuspense'
@@ -22,33 +23,35 @@ const BaseShop: React.FC<{ productName?: string; productType: string; children?:
    return (
       <PageContainer>
          <React.Suspense fallback={<FilterSuspense />}>{children}</React.Suspense>
-         <RightFlexContainer>
-            <ShopHeader productType={productType} productName={productName} />
-            <CardGridContainer>
-               {isFetchingStatus === 'PENDING' || isFetchingStatus === 'INIT' ? (
-                  <CardContainer />
-               ) : isFetchingStatus === 'FULFILLED' && products.length < 1 ? (
-                  <ProductNotFound />
-               ) : (
-                  products.map(product => (
-                     <ProductCard
-                        key={product._id}
-                        pathNameForDetailsURL={productType}
-                        _id={product._id}
-                        manufacturer={product.manufacturer}
-                        pictureUrls={product.pictureUrls}
-                        price={product.price}
-                        type={product.type}
-                        typeCode={product.typeCode}
-                        ratingCount={product.ratingValues?.length}
-                     />
-                  ))
-               )}
-            </CardGridContainer>
-            <Pagination />
-            <CartSnackBar />
-            <Compare />
-         </RightFlexContainer>
+         <MessageContextProvider>
+            <RightFlexContainer>
+               <ShopHeader productType={productType} productName={productName} />
+               <CardGridContainer>
+                  {isFetchingStatus === 'PENDING' || isFetchingStatus === 'INIT' ? (
+                     <CardContainer />
+                  ) : isFetchingStatus === 'FULFILLED' && products.length < 1 ? (
+                     <ProductNotFound />
+                  ) : (
+                     products.map(product => (
+                        <ProductCard
+                           key={product._id}
+                           pathNameForDetailsURL={productType}
+                           _id={product._id}
+                           manufacturer={product.manufacturer}
+                           pictureUrls={product.pictureUrls}
+                           price={product.price}
+                           type={product.type}
+                           typeCode={product.typeCode}
+                           ratingCount={product.ratingValues?.length}
+                        />
+                     ))
+                  )}
+               </CardGridContainer>
+               <Pagination />
+               <CartSnackBar />
+               <Compare />
+            </RightFlexContainer>
+         </MessageContextProvider>
       </PageContainer>
    )
 }
