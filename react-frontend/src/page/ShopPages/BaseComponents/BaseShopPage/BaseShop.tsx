@@ -6,6 +6,7 @@ import CardContainer from '../../../../SuspenseComponents/ProductCard/Container'
 import FilterSuspense from '../../../../SuspenseComponents/SideFilter/FilterSuspense'
 import { PageContainer, CardGridContainer, RightFlexContainer } from '../../BaseStyleForShopPage'
 
+import MessageSnackbar from './Includes/MessageSnackbar'
 import ProductNotFound from './Includes/ProductNotFound'
 import ProductCard from '../ProductCard/ProductCard'
 const Compare = lazy(() => import('./Includes/CompareButton'))
@@ -50,6 +51,7 @@ const BaseShop: React.FC<{ productName?: string; productType: string; children?:
                <Pagination />
                <CartSnackBar />
                <Compare />
+               <MessageSnackbar />
             </RightFlexContainer>
          </MessageContextProvider>
       </PageContainer>
