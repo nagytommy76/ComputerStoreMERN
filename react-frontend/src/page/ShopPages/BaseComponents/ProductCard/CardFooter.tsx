@@ -41,7 +41,18 @@ const CardFooter: React.FC<Props> = ({ toSaveCartItems }) => {
       // Illetve ha már tartalmazza akkor is
       if (foundComparedId && savedProductIdsToCompare.length < 4) {
          const isContainsId = savedProductIdsToCompare.includes(foundComparedId)
-         if (!isContainsId) reduxDispatch(addProductIdsToCompare(foundComparedId))
+         if (!isContainsId) {
+            reduxDispatch(addProductIdsToCompare(foundComparedId))
+         } else {
+            dispatch({
+               type: MessageTypes.SET_ISACTIVE,
+               payload: {
+                  isActive: true,
+                  message: `Már hozzáadtad az összeahsonlításhoz a ( ${toSaveCartItems.displayName} ) terméket`,
+                  severity: 'error',
+               },
+            })
+         }
       } else {
          dispatch({
             type: MessageTypes.SET_ISACTIVE,
