@@ -12,7 +12,11 @@ const MessageSnackbar = () => {
    }
 
    return createPortal(
-      <Snackbar open={state.isActive} onClose={handleClose}>
+      <Snackbar
+         anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
+         open={state.isActive}
+         onClose={handleClose}
+      >
          <Alert variant='filled' onClose={handleClose} severity={state.severity} sx={{ width: '100%' }}>
             {state.message}
          </Alert>
