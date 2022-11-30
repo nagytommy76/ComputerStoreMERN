@@ -8,7 +8,7 @@ const ProductCompareSlice = createSlice({
    name: 'products',
    initialState,
    reducers: {
-      addProductIdsToCompare: (state, action: PayloadAction<string>) => {
+      addProductIdsToCompare: (state, action: PayloadAction<ICompare>) => {
          state.productIdsToComare.push(action.payload)
       },
       resetProductIdsToCompare: state => {
@@ -21,6 +21,12 @@ export const { addProductIdsToCompare, resetProductIdsToCompare } = ProductCompa
 
 export default ProductCompareSlice.reducer
 
+interface ICompare {
+   productId: string
+   displayName: string
+   displayImage: string
+}
+
 type InitialState = {
-   productIdsToComare: string[]
+   productIdsToComare: ICompare[]
 }
