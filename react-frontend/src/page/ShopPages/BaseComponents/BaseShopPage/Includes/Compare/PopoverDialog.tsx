@@ -10,7 +10,7 @@ const PopoverDialog = () => {
          {compareProducts.map(compare => (
             <StyledProductCard key={compare.productId}>
                <StyledImage src={compare.displayImage} alt={compare.displayImage} />
-               <span>{compare.displayName}</span>
+               <StyledRightSection>{compare.displayName}</StyledRightSection>
             </StyledProductCard>
          ))}
       </StyledContainer>
@@ -28,11 +28,21 @@ const StyledContainer = styled('div')({
 
 const StyledProductCard = styled('div')({
    width: '100%',
-   display: 'flex',
-   border: '1px solid rgba(0,0,0, .2)',
-   margin: '.75rem 0',
    padding: '.15rem',
-   height: '70px',
+   margin: '.45rem 0',
+   height: '75px',
+
+   display: 'flex',
+   border: '2px solid rgba(0,0,0, .2)',
+   borderRadius: '5px',
 })
 
-const StyledImage = styled('img')({})
+const StyledImage = styled('img')({
+   objectFit: 'contain',
+   width: '30%',
+})
+
+const StyledRightSection = styled('span')({
+   fontSize: '.9rem',
+   width: '70%',
+})
