@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useRef } from 'react'
 import { styled } from '@mui/material'
 import { useAppSelector } from '../../../../../../app/hooks'
 import PopoverDialog from './PopoverDialog'
@@ -9,27 +9,23 @@ import CompareArrowsIcon from '@mui/icons-material/CompareArrows'
 
 const Compare = () => {
    const compareLength = useAppSelector(state => state.productCompare.productIdsToComare.length) || 0
-   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
-   const open = Boolean(anchorEl)
+   const [anchorOpened, setAnchorOpened] = useState(false)
+   const popoverAnchor = useRef(null)
 
-   const handleClickEvent = () => {
-      console.log('Átírányít a compare page-re')
-   }
-   const handleOpenPopover = (event: React.MouseEvent<HTMLButtonElement>) => {
-      setAnchorEl(event.currentTarget)
+   const handleOpenPopover = () => {
+      setAnchorOpened(true)
    }
    const handleClosePopover = () => {
-      setAnchorEl(null)
+      setAnchorOpened(false)
    }
 
    return (
       <>
          <Fab
-            onClick={handleClickEvent}
+            ref={popoverAnchor}
             aria-haspopup='true'
-            aria-owns={open ? 'mouse-over-popover' : undefined}
+            aria-owns='mouse-over-popover'
             onMouseEnter={handleOpenPopover}
-            // onMouseLeave={handleClosePopover}
             color='info'
             variant='extended'
             sx={{ zIndex: 3, position: 'fixed', right: '50px', bottom: 150 }}
@@ -38,24 +34,20 @@ const Compare = () => {
             <CompareArrowsIcon />
          </Fab>
          <Popover
-            id='mouse-over-popover'
-            open={open}
-            anchorEl={anchorEl}
-            onClose={handleClosePopover}
-            disableRestoreFocus
-            sx={{
-               pointerEvents: 'none',
-            }}
             anchorOrigin={{
-               vertical: 'bottom',
+               vertical: 'top',
                horizontal: 'left',
             }}
             transformOrigin={{
-               vertical: 'bottom',
+               vertical: 'center',
                horizontal: 'right',
             }}
+            onClose={handleClosePopover}
+            onMouseLeave={handleClosePopover}
+            open={anchorOpened}
+            anchorEl={popoverAnchor.current}
+            disableRestoreFocus
          >
-            {/* Ide kéne megjeleníteni a termék nevet egy képpel */}
             <PopoverDialog />
          </Popover>
       </>
