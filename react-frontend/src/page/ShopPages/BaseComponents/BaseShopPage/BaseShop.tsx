@@ -9,7 +9,7 @@ import { PageContainer, CardGridContainer, RightFlexContainer } from '../../Base
 import MessageSnackbar from './Includes/MessageSnackbar'
 import ProductNotFound from './Includes/ProductNotFound'
 import ProductCard from '../ProductCard/ProductCard'
-const Compare = lazy(() => import('./Includes/CompareButton'))
+const Compare = lazy(() => import('./Includes/Compare/CompareButton'))
 const Pagination = lazy(() => import('../Pagination/Pagination'))
 const CartSnackBar = lazy(() => import('../CartSnackbar/CartSnackbar'))
 const ShopHeader = lazy(() => import('./Includes/ShopHeader'))
