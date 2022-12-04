@@ -47,6 +47,7 @@ const CardFooter: React.FC<Props> = ({ toSaveCartItems }) => {
                   displayImage: toSaveCartItems.displayImage,
                   displayName: toSaveCartItems.displayName,
                   productId: toSaveCartItems._id,
+                  productType: toSaveCartItems.productType,
                })
             )
          } else {

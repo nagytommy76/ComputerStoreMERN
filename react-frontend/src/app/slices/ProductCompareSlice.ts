@@ -32,6 +32,7 @@ interface ICompare {
    productId: string
    displayName: string
    displayImage: string
+   productType: string
 }
 
 type InitialState = {
