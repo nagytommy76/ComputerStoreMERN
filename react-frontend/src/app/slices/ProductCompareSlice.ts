@@ -11,13 +11,20 @@ const ProductCompareSlice = createSlice({
       addProductIdsToCompare: (state, action: PayloadAction<ICompare>) => {
          state.productIdsToComare.push(action.payload)
       },
+      removeSingleItemByID: (state, action: PayloadAction<string>) => {
+         const foundProductIndex = state.productIdsToComare.findIndex(
+            product => product.productId === action.payload
+         )
+         state.productIdsToComare.splice(foundProductIndex, 1)
+      },
       resetProductIdsToCompare: state => {
          state.productIdsToComare = []
       },
    },
 })
 
-export const { addProductIdsToCompare, resetProductIdsToCompare } = ProductCompareSlice.actions
+export const { addProductIdsToCompare, resetProductIdsToCompare, removeSingleItemByID } =
+   ProductCompareSlice.actions
 
 export default ProductCompareSlice.reducer
 
