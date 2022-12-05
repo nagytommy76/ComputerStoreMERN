@@ -1,7 +1,12 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction, createSelector, createDraftSafeSelector } from '@reduxjs/toolkit'
 
 const initialState: InitialState = {
    productIdsToComare: [],
+   cpuToCompare: [],
+   hddToCompare: [],
+   memoryToCompare: [],
+   ssdToCompare: [],
+   vgaToCompare: [],
 }
 
 const ProductCompareSlice = createSlice({
@@ -23,6 +28,9 @@ const ProductCompareSlice = createSlice({
    },
 })
 
+// Kéne egy create selector, amivel kiválasztok a kategóriát, és mehet minden egy array-be? (productIdsToComare)
+// https://redux-toolkit.js.org/api/createSelector
+
 export const { addProductIdsToCompare, resetProductIdsToCompare, removeSingleItemByID } =
    ProductCompareSlice.actions
 
@@ -37,4 +45,9 @@ interface ICompare {
 
 type InitialState = {
    productIdsToComare: ICompare[]
+   vgaToCompare: ICompare[]
+   cpuToCompare: ICompare[]
+   memoryToCompare: ICompare[]
+   ssdToCompare: ICompare[]
+   hddToCompare: ICompare[]
 }
