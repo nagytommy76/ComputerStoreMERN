@@ -1,13 +1,21 @@
-import { createSlice, PayloadAction, createSelector, createDraftSafeSelector } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction, createDraftSafeSelector } from '@reduxjs/toolkit'
 
 const initialState: InitialState = {
    productIdsToComare: [],
-   cpuToCompare: [],
-   hddToCompare: [],
-   memoryToCompare: [],
-   ssdToCompare: [],
-   vgaToCompare: [],
+   // cpuToCompare: [],
+   // hddToCompare: [],
+   // memoryToCompare: [],
+   // ssdToCompare: [],
+   // vgaToCompare: [],
 }
+
+export const selectVgaCompareProducts = createDraftSafeSelector(
+   [
+      (state: InitialState) => state.productIdsToComare,
+      (state: ICompare[], productType: string) => productType,
+   ],
+   (state, productType) => state.filter(product => product.productType === productType)
+)
 
 const ProductCompareSlice = createSlice({
    name: 'products',
@@ -45,9 +53,9 @@ interface ICompare {
 
 type InitialState = {
    productIdsToComare: ICompare[]
-   vgaToCompare: ICompare[]
-   cpuToCompare: ICompare[]
-   memoryToCompare: ICompare[]
-   ssdToCompare: ICompare[]
-   hddToCompare: ICompare[]
+   // vgaToCompare: ICompare[]
+   // cpuToCompare: ICompare[]
+   // memoryToCompare: ICompare[]
+   // ssdToCompare: ICompare[]
+   // hddToCompare: ICompare[]
 }
