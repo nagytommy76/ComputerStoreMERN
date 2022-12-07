@@ -2,17 +2,13 @@ import { createSlice, PayloadAction, createDraftSafeSelector } from '@reduxjs/to
 
 const initialState: InitialState = {
    productIdsToComare: [],
-   // cpuToCompare: [],
-   // hddToCompare: [],
-   // memoryToCompare: [],
-   // ssdToCompare: [],
-   // vgaToCompare: [],
+   selectedProductsByType: [],
 }
 
 export const selectVgaCompareProducts = createDraftSafeSelector(
    [
       (state: InitialState) => state.productIdsToComare,
-      (state: ICompare[], productType: string) => productType,
+      (state: InitialState, productType: string) => productType,
    ],
    (state, productType) => state.filter(product => product.productType === productType)
 )
@@ -33,18 +29,22 @@ const ProductCompareSlice = createSlice({
       resetProductIdsToCompare: state => {
          state.productIdsToComare = []
       },
+      selectByProductType: (state, action: PayloadAction<string>) => {
+         const selected = selectVgaCompareProducts(state, action.payload)
+         state.selectedProductsByType = selected
+      },
    },
 })
 
 // Kéne egy create selector, amivel kiválasztok a kategóriát, és mehet minden egy array-be? (productIdsToComare)
 // https://redux-toolkit.js.org/api/createSelector
 
-export const { addProductIdsToCompare, resetProductIdsToCompare, removeSingleItemByID } =
+export const { addProductIdsToCompare, resetProductIdsToCompare, removeSingleItemByID, selectByProductType } =
    ProductCompareSlice.actions
 
 export default ProductCompareSlice.reducer
 
-interface ICompare {
+export interface ICompare {
    productId: string
    displayName: string
    displayImage: string
@@ -53,9 +53,5 @@ interface ICompare {
 
 type InitialState = {
    productIdsToComare: ICompare[]
-   // vgaToCompare: ICompare[]
-   // cpuToCompare: ICompare[]
-   // memoryToCompare: ICompare[]
-   // ssdToCompare: ICompare[]
-   // hddToCompare: ICompare[]
+   selectedProductsByType: ICompare[]
 }
