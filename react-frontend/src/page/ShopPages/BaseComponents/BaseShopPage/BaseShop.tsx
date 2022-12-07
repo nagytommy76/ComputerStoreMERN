@@ -1,6 +1,7 @@
 import React, { lazy, ReactNode } from 'react'
 import { useAppSelector } from '../../../../app/hooks'
 import MessageContextProvider from '../Context/MessageContext'
+import { CompareContext } from '../Context/CompareContext'
 
 import CardContainer from '../../../../SuspenseComponents/ProductCard/Container'
 import FilterSuspense from '../../../../SuspenseComponents/SideFilter/FilterSuspense'
@@ -50,7 +51,9 @@ const BaseShop: React.FC<{ productName?: string; productType: string; children?:
                </CardGridContainer>
                <Pagination />
                <CartSnackBar />
-               <Compare />
+               <CompareContext.Provider value={{ pageProductType: productType }}>
+                  <Compare />
+               </CompareContext.Provider>
                <MessageSnackbar />
             </RightFlexContainer>
          </MessageContextProvider>
