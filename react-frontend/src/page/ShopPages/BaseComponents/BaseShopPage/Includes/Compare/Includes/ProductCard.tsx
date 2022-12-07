@@ -1,6 +1,10 @@
-import React from 'react'
+import { useContext, useEffect } from 'react'
 import { useAppSelector, useAppDispatch } from '../../../../../../../app/hooks'
-import { removeSingleItemByID } from '../../../../../../../app/slices/ProductCompareSlice'
+import {
+   removeSingleItemByID,
+   selectByProductType,
+} from '../../../../../../../app/slices/ProductCompareSlice'
+import { CompareContext } from '../../../../Context/CompareContext'
 
 import { styled } from '@mui/material'
 import { TransitionGroup } from 'react-transition-group'
@@ -9,15 +13,22 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import IconButton from '@mui/material/IconButton'
 
 const ProductCard = () => {
+   const { pageProductType } = useContext(CompareContext)
    const dispatch = useAppDispatch()
    const compareProducts = useAppSelector(state => state.productCompare.productIdsToComare)
+   const selectedCompareProducts = useAppSelector(state => state.productCompare.selectedProductsByType)
 
    const handleItemDelete = (productID: string) => {
       dispatch(removeSingleItemByID(productID))
    }
+
+   useEffect(() => {
+      console.log(dispatch(selectByProductType(pageProductType)))
+   }, [])
+
    return (
       <TransitionGroup>
-         {compareProducts.map(compare => (
+         {selectedCompareProducts.map(compare => (
             <Collapse timeout={200} key={compare.productId}>
                <StyledProductCard>
                   <StyledImage src={compare.displayImage} alt={compare.displayImage} />
