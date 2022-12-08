@@ -24,7 +24,7 @@ type Props = {
 
 const CardFooter: React.FC<Props> = ({ toSaveCartItems }) => {
    const reduxDispatch = useAppDispatch()
-   const savedProductIdsToCompare = useAppSelector(state => state.productCompare.productIdsToComare)
+   const savedProductIdsToCompare = useAppSelector(state => state.productCompare.selectedProductsByType)
    const { dispatch } = useContext(MessageContext)
 
    const addItemToCart = () => {
