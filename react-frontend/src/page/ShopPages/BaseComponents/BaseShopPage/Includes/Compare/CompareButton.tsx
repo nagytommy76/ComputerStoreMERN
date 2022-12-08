@@ -1,22 +1,30 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { styled } from '@mui/material'
-import { useAppSelector } from '../../../../../../app/hooks'
-import PopoverDialog from './PopoverDialog'
+import { useAppDispatch, useAppSelector } from '../../../../../../app/hooks'
+import { selectByProductType } from '../../../../../../app/slices/ProductCompareSlice'
 
+import PopoverDialog from './PopoverDialog'
 import Fab from '@mui/material/Fab'
 import Popover from '@mui/material/Popover'
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows'
 
-const Compare = () => {
+const Compare: React.FC<{ pageProductType: string }> = ({ pageProductType }) => {
+   const dispatch = useAppDispatch()
    const compareLength = useAppSelector(state => state.productCompare.productIdsToComare.length) || 0
+   const compareSelected = useAppSelector(state => state.productCompare.selectedProductsByType)
+
    const [anchorOpened, setAnchorOpened] = useState<boolean>(false)
    const [isDispalyed, setIsDisplayed] = useState<boolean>(false)
    const popoverAnchor = useRef(null)
 
    useEffect(() => {
-      if (compareLength === 0) setIsDisplayed(false)
+      if (compareSelected.length === 0) setIsDisplayed(false)
       else setIsDisplayed(true)
-   }, [compareLength])
+   }, [compareSelected])
+
+   useEffect(() => {
+      dispatch(selectByProductType(pageProductType))
+   }, [compareSelected, dispatch, pageProductType, compareLength])
 
    const handleOpenPopover = () => {
       setAnchorOpened(true)
@@ -36,7 +44,7 @@ const Compare = () => {
             variant='extended'
             sx={{ zIndex: 3, position: 'fixed', right: '50px', bottom: 150 }}
          >
-            <StyledCompareCount>{compareLength}</StyledCompareCount>
+            <StyledCompareCount>{compareSelected.length}</StyledCompareCount>
             <CompareArrowsIcon />
          </Fab>
          <Popover
