@@ -24,7 +24,11 @@ const ProductCompareSlice = createSlice({
          const foundProductIndex = state.productIdsToComare.findIndex(
             product => product.productId === action.payload
          )
+         const foundSelectedProductIndex = state.selectedProductsByType.findIndex(
+            product => product.productId === action.payload
+         )
          state.productIdsToComare.splice(foundProductIndex, 1)
+         state.selectedProductsByType.splice(foundSelectedProductIndex, 1)
       },
       resetProductIdsToCompare: state => {
          state.productIdsToComare = []
