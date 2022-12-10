@@ -1,81 +1,54 @@
-import React, { useState, useRef, useEffect } from 'react'
-import { styled } from '@mui/material'
-import { useAppDispatch, useAppSelector } from '../../../../../../app/hooks'
-import { selectByProductType } from '../../../../../../app/slices/ProductCompareSlice'
+import React from 'react'
+import { useAppSelector } from '../../../../../../app/hooks'
+import useCompareBtn from './Hooks/useCompareBtn'
 
+import { StyledCompareCount, StyledFab } from './Styles/CompareBtnStyle'
 import PopoverDialog from './PopoverDialog'
-import Fab from '@mui/material/Fab'
 import Popover from '@mui/material/Popover'
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows'
+import Fade from '@mui/material/Fade'
 
 const Compare: React.FC<{ pageProductType: string }> = ({ pageProductType }) => {
-   const dispatch = useAppDispatch()
-   const compareLength = useAppSelector(state => state.productCompare.productIdsToComare.length) || 0
-   const compareSelected = useAppSelector(state => state.productCompare.selectedProductsByType)
+   const compareSelectedLength =
+      useAppSelector(state => state.productCompare.selectedProductsByType.length) || 0
+   const { anchorOpened, handleClosePopover, handleOpenPopover, isDispalyed, popoverAnchor } =
+      useCompareBtn(pageProductType)
 
-   const [anchorOpened, setAnchorOpened] = useState<boolean>(false)
-   const [isDispalyed, setIsDisplayed] = useState<boolean>(false)
-   const popoverAnchor = useRef(null)
-
-   useEffect(() => {
-      if (compareSelected.length === 0) setIsDisplayed(false)
-      else setIsDisplayed(true)
-   }, [compareSelected])
-
-   useEffect(() => {
-      dispatch(selectByProductType(pageProductType))
-   }, [compareSelected, dispatch, pageProductType, compareLength])
-
-   const handleOpenPopover = () => {
-      setAnchorOpened(true)
-   }
-   const handleClosePopover = () => {
-      setAnchorOpened(false)
-   }
-
-   return !isDispalyed ? null : (
-      <>
-         <Fab
-            ref={popoverAnchor}
-            aria-haspopup='true'
-            aria-owns='mouse-over-popover'
-            onMouseEnter={handleOpenPopover}
-            color='info'
-            variant='extended'
-            sx={{ zIndex: 3, position: 'fixed', right: '50px', bottom: 150 }}
-         >
-            <StyledCompareCount>{compareSelected.length}</StyledCompareCount>
-            <CompareArrowsIcon />
-         </Fab>
-         <Popover
-            onClose={handleClosePopover}
-            onMouseLeave={handleClosePopover}
-            open={anchorOpened}
-            anchorEl={popoverAnchor.current}
-            disableRestoreFocus
-            sx={{ zIndex: 3 }}
-            anchorOrigin={{
-               vertical: 'top',
-               horizontal: 'left',
-            }}
-            transformOrigin={{
-               vertical: 'center',
-               horizontal: 'right',
-            }}
-         >
-            <PopoverDialog />
-         </Popover>
-      </>
+   return (
+      <Fade unmountOnExit mountOnEnter in={isDispalyed}>
+         <div>
+            <StyledFab
+               ref={popoverAnchor}
+               aria-haspopup='true'
+               aria-owns='mouse-over-popover'
+               onMouseEnter={handleOpenPopover}
+               color='info'
+               variant='extended'
+            >
+               <StyledCompareCount>{compareSelectedLength}</StyledCompareCount>
+               <CompareArrowsIcon />
+            </StyledFab>
+            <Popover
+               onClose={handleClosePopover}
+               onMouseLeave={handleClosePopover}
+               open={anchorOpened}
+               anchorEl={popoverAnchor.current}
+               disableRestoreFocus
+               sx={{ zIndex: 3 }}
+               anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+               }}
+               transformOrigin={{
+                  vertical: 'center',
+                  horizontal: 'right',
+               }}
+            >
+               <PopoverDialog />
+            </Popover>
+         </div>
+      </Fade>
    )
 }
 
 export default Compare
-
-const StyledCompareCount = styled('span')({
-   width: 25,
-   height: 25,
-   marginRight: 10,
-
-   background: 'red',
-   borderRadius: '50%',
-})
