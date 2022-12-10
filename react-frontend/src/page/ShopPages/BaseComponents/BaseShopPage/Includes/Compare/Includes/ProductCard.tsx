@@ -1,7 +1,7 @@
 import { useAppSelector, useAppDispatch } from '../../../../../../../app/hooks'
 import { removeSingleItemByID } from '../../../../../../../app/slices/ProductCompareSlice'
 
-import { styled } from '@mui/material'
+import { StyledImage, StyledProductCard, StyledRightSection } from './ProductCardStyle'
 import { TransitionGroup } from 'react-transition-group'
 import Collapse from '@mui/material/Collapse'
 import DeleteIcon from '@mui/icons-material/Delete'
@@ -39,25 +39,3 @@ const ProductCard = () => {
 }
 
 export default ProductCard
-
-const StyledProductCard = styled('div')({
-   width: '100%',
-   margin: '.45rem 0',
-   height: '95px',
-
-   display: 'flex',
-   alignItems: 'center',
-   border: '1px solid rgba(0,0,0, .2)',
-   borderRadius: '5px',
-})
-
-const StyledImage = styled('img')({
-   objectFit: 'contain',
-   width: '30%',
-})
-
-const StyledRightSection = styled('span')({
-   fontSize: '.9rem',
-   width: '70%',
-   display: 'flex',
-})

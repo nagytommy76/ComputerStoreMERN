@@ -1,7 +1,6 @@
-import React from 'react'
-import { styled } from '@mui/material'
 import ProductCard from './Includes/ProductCard'
 
+import { StyledContainer } from './Styles/PopoverStyle'
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight'
 import Button from '@mui/material/Button'
 
@@ -26,10 +25,3 @@ const PopoverDialog = () => {
 }
 
 export default PopoverDialog
-
-const StyledContainer = styled('div')({
-   width: '310px',
-   minHeight: '450px',
-   overflow: 'unset',
-   margin: '.75rem',
-})
