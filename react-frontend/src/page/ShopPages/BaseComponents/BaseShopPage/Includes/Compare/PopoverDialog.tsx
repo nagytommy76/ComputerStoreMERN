@@ -1,12 +1,22 @@
-import ProductCard from './Includes/ProductCard'
+import { useMemo } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useAppSelector } from '../../../../../../app/hooks'
 
+import ProductCard from './Includes/ProductCard'
 import { StyledContainer } from './Styles/PopoverStyle'
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight'
 import Button from '@mui/material/Button'
 
 const PopoverDialog = () => {
+   const navigate = useNavigate()
+   const selectedCompareItems = useAppSelector(state => state.productCompare.selectedProductsByType)
+
+   const selectIdsFromCompareItems: string[] = useMemo(() => {
+      return selectedCompareItems.map(item => item.productId)
+   }, [selectedCompareItems])
+
    const handleClickEvent = () => {
-      console.log('Átírányít a compare page-re')
+      navigate(`/compare`, { state: { selectIdsFromCompareItems } })
    }
 
    return (
