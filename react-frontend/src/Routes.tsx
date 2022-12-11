@@ -19,6 +19,9 @@ const Checkout = lazy(() => import(/*webpackChunkName: "Checkout"*/ './page/Chec
 
 const Admin = lazy(() => import(/*webpackChunkName: "Admin"*/ './page/Admin/Admin'))
 
+const CompareProducts = lazy(
+   () => import(/* webpackChunkName: "CompareProducts" */ './page/ShopPages/ComparePage/ComparePage')
+)
 const VgaProducts = lazy(() => import(/*webpackChunkName: "VgaProducts"*/ './page/ShopPages/Vga/VgaShop'))
 const VgaDetails = lazy(
    () => import(/*webpackChunkName: "VgaDetails"*/ './page/ShopPages/Vga/VgaDetails/VgaDetails')
@@ -61,6 +64,7 @@ const Routes = () => {
          <Route path='/hdd' element={<HDDProducts />} />
          <Route path='/ssd' element={<SSDProducts />} />
          <Route path='/orders' element={<UserOrders />} />
+         <Route path='/compare' element={<CompareProducts />} />
          <Route element={<GuestsRoute />}>
             <Route path='/register' element={<Register />} />
             <Route path='/login' element={<Login />} />
