@@ -49,9 +49,9 @@ export default abstract class BaseProduct {
       return { foundProduct: pagedProducts, totalPages, totalProductCount: foundProduct.length }
    }
 
-   returnProductDetails = async (productId: string) => {
+   returnProductDetails = async (productId: string | string[]) => {
       const foundProductDetails = await this.productModel
-         .findById(productId)
+         .find({ _id: productId })
          .select('type typeCode pictureUrls price manufacturer details')
          .sort({ 'details.chartData.timpestamp': 1 })
          .lean()
