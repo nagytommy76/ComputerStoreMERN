@@ -59,6 +59,17 @@ export default class VgaProduct extends BaseProduct {
    getVgaDetailsController = async (request: DetailsQueryRequestType, response: Response) => {
       try {
          const foundDetails = await this.returnProductDetails(request.query.productId)
+         response.status(200).json({ productDetails: foundDetails[0] })
+      } catch (error) {
+         response.status(500).json({ errorMessage: error })
+      }
+   }
+
+   getVgaCompareDetailsController = async (request: DetailsQueryRequestType, response: Response) => {
+      try {
+         const convertedToArrayOrString = this.splitStringAndConvertToArray(request.query.productId)
+         //console.log(convertedToArrayOrString)
+         const foundDetails = await this.returnProductDetails(convertedToArrayOrString)
          response.status(200).json({ productDetails: foundDetails })
       } catch (error) {
          response.status(500).json({ errorMessage: error })
