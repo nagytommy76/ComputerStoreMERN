@@ -15,8 +15,12 @@ const PopoverDialog = () => {
       return selectedCompareItems.map(item => item.productId)
    }, [selectedCompareItems])
 
+   const findFirstProductType = (): string => {
+      return selectedCompareItems[0].productType
+   }
+
    const handleClickEvent = () => {
-      navigate(`/compare`, { state: { selectIdsFromCompareItems } })
+      navigate(`/compare`, { state: { selectIdsFromCompareItems, productType: findFirstProductType() } })
    }
 
    return (
