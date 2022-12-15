@@ -70,7 +70,12 @@ export default abstract class BaseProduct {
       filterDataGroup[0].allManufacturers.sort()
       return filterDataGroup
    }
-
+   /**
+    * returns an array from the given string separated by something
+    * @param stringToSplit string
+    * @param separator string @default ','
+    * @returns strring[]
+    */
    splitStringAndConvertToArray = (stringToSplit: string, separator: string = ',') => {
       return stringToSplit.split(separator)
    }
