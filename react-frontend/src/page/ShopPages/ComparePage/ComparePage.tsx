@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { useLocation } from 'react-router'
 import { axiosInstance as axios } from '../../../AxiosSetup/AxiosInstance'
 
@@ -11,25 +11,27 @@ import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 
 import { ComparePageStyle } from './Styles/CompareStyle'
+import { BaseProductType } from '../BaseTypes'
 
 const ComparePage = () => {
    const {
       state: { selectIdsFromCompareItems, productType },
    } = useLocation() as { state: { selectIdsFromCompareItems: string[]; productType: string } }
+   // Egyelőre BaseProductType lesz, nem mindegyik property létezik
+   const [productDetails, setPeroductDetails] = useState<BaseProductType[]>([])
 
-   const getCompareResult = async () => {
+   const getCompareResult = useCallback(async () => {
       try {
          const compare = await axios.get(`/${productType}/compare?productId=${selectIdsFromCompareItems}`)
-         console.log(compare.data)
+         setPeroductDetails(compare.data.productDetails)
       } catch (error) {
          console.log(error)
       }
-   }
+   }, [productType, selectIdsFromCompareItems])
 
    useEffect(() => {
-      console.log('hellós')
       getCompareResult()
-   }, [])
+   }, [getCompareResult])
 
    return (
       <ComparePageStyle>
@@ -37,19 +39,38 @@ const ComparePage = () => {
             <Table sx={{ Width: 650 }} aria-label='simple table'>
                <TableHead>
                   <TableRow>
-                     <TableCell>Dessert (100g serving)</TableCell>
-                     <TableCell align='right'>Calories</TableCell>
+                     <TableCell>Ide majd kitalálom mi legyen</TableCell>
+                     {productDetails.map(details => (
+                        <TableCell key={details._id} align='right'>
+                           {details.type}
+                        </TableCell>
+                     ))}
                   </TableRow>
                </TableHead>
                <TableBody>
-                  {selectIdsFromCompareItems.map(row => (
+                  <TableRow hover>
+                     <TableCell component='th' scope='row'>
+                        teszt
+                     </TableCell>
+                  </TableRow>
+                  <TableRow hover>
+                     <TableCell component='th' scope='row'>
+                        teszt2
+                     </TableCell>
+                  </TableRow>
+                  <TableRow hover>
+                     <TableCell component='th' scope='row'>
+                        teszt33
+                     </TableCell>
+                  </TableRow>
+                  {/* {selectIdsFromCompareItems.map(row => (
                      <TableRow hover key={row}>
                         <TableCell component='th' scope='row'>
                            {row}
                         </TableCell>
                         <TableCell align='right'>{row}</TableCell>
                      </TableRow>
-                  ))}
+                  ))} */}
                </TableBody>
             </Table>
          </TableContainer>
