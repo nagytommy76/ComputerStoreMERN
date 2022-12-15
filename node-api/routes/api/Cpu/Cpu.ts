@@ -11,6 +11,7 @@ const BaseRating = new BaseRatingController(CpuModel)
 router.get('/', cpuProduct.getAllCpuItemController)
 router.get('/filter-data', cpuProduct.getCpuFilterData)
 router.get('/details', cpuProduct.getCpuDetailsController)
+router.get('/compare', cpuProduct.getCpuCompareDetailsController)
 
 // Ratings
 router.get('/get-cpu-rates', BaseRating.getRatingSummaryController)
