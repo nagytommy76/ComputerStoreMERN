@@ -39,6 +39,16 @@ export default class HDDProduct extends BaseProduct {
       }
    }
 
+   getHDDCompareDetailsController = async (request: DetailsQueryRequestType, response: Response) => {
+      try {
+         const convertedToArrayOrString = this.splitStringAndConvertToArray(request.query.productId)
+         const foundDetails = await this.returnProductDetails(convertedToArrayOrString)
+         response.status(200).json({ productDetails: foundDetails })
+      } catch (error) {
+         response.status(500).json({ errorMessage: error })
+      }
+   }
+
    getHDDFilterData = async (_: any, response: Response) => {
       try {
          const extraGroupParams = {
