@@ -12,6 +12,7 @@ const router = Router()
 router.get('/', ssdProduct.getAllSSDProductController)
 router.get('/filter-data', ssdProduct.getSSDFilterDataController)
 router.get('/details', ssdProduct.getSSDDetailsController)
+router.get('/compare', ssdProduct.getSSDCompareDetailsController)
 
 // Ratings
 router.get('/get-ssd-rates', BaseRating.getRatingSummaryController)
