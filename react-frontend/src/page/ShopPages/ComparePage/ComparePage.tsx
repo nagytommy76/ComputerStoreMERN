@@ -18,12 +18,12 @@ const ComparePage = () => {
       state: { selectIdsFromCompareItems, productType },
    } = useLocation() as { state: { selectIdsFromCompareItems: string[]; productType: string } }
    // Egyelőre BaseProductType lesz, nem mindegyik property létezik
-   const [productDetails, setPeroductDetails] = useState<BaseProductType[]>([])
+   const [compareProducts, setComparePeroducts] = useState<BaseProductType[]>([])
 
    const getCompareResult = useCallback(async () => {
       try {
          const compare = await axios.get(`/${productType}/compare?productId=${selectIdsFromCompareItems}`)
-         setPeroductDetails(compare.data.productDetails)
+         setComparePeroducts(compare.data.productDetails)
       } catch (error) {
          console.log(error)
       }
@@ -40,8 +40,8 @@ const ComparePage = () => {
                <TableHead>
                   <TableRow>
                      <TableCell>Ide majd kitalálom mi legyen</TableCell>
-                     {productDetails.map(details => (
-                        <TableCell key={details._id} align='right'>
+                     {compareProducts.map(details => (
+                        <TableCell key={details._id} align='left'>
                            {details.type}
                         </TableCell>
                      ))}
@@ -49,20 +49,31 @@ const ComparePage = () => {
                </TableHead>
                <TableBody>
                   <TableRow hover>
+                     <TableCell>GPU Órajel</TableCell>
+                     {compareProducts.map(product => (
+                        <TableCell component='td' scope='row'>
+                           {product.details.gpuBaseClock} MHz
+                        </TableCell>
+                     ))}
+                  </TableRow>
+                  {/* <TableRow hover>
                      <TableCell component='th' scope='row'>
+                        Gyártó
+                     </TableCell>
+                     <TableCell component='td' scope='row'>
                         teszt
                      </TableCell>
                   </TableRow>
                   <TableRow hover>
                      <TableCell component='th' scope='row'>
-                        teszt2
+                        DVI
                      </TableCell>
                   </TableRow>
                   <TableRow hover>
                      <TableCell component='th' scope='row'>
-                        teszt33
+                        Vram
                      </TableCell>
-                  </TableRow>
+                  </TableRow> */}
                   {/* {selectIdsFromCompareItems.map(row => (
                      <TableRow hover key={row}>
                         <TableCell component='th' scope='row'>
