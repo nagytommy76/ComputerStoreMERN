@@ -12,28 +12,8 @@ import Paper from '@mui/material/Paper'
 import TableHeader from './TableHeader/TableHeader'
 
 import { ComparePageStyle } from './Styles/CompareStyle'
+import { HeaderTypes, VgaDetailProperties } from './CompareTypes'
 import { BaseProductType } from '../BaseTypes'
-
-enum VgaDetailProperties {
-   DVI = 'DVI',
-   HDMI = 'HDMI',
-   displayPort = 'Display Portok szána',
-   gpuBaseClock = 'Alap GPU Órajel',
-   gpuPeakClock = 'Emelt GPU órajel',
-   gpuManufacturer = 'GPU gyártó',
-   length = 'Hosszúság',
-   manufacturerPageUrl = 'Gyártói honlap',
-   minPowerSupply = 'Minimum ajánlott tápegység',
-   pcieType = 'PCI-E típusa',
-   powerConsuption = 'Fogyasztás (TDP)',
-   powerPin = 'Tápcsatlakozók',
-   streamProcessors = 'Stream processzorok',
-   vramBandwidth = 'VRAM sávszélesség',
-   vramCapacity = 'VRAM mennyiség',
-   vramSpeed = 'VRAM sebesség',
-   vramType = 'VRAM típusa',
-   warranity = 'Garancia',
-}
 
 const ComparePage = () => {
    const {
@@ -41,6 +21,7 @@ const ComparePage = () => {
    } = useLocation() as { state: { selectIdsFromCompareItems: string[]; productType: string } }
    // Egyelőre BaseProductType lesz, nem mindegyik property létezik
    const [compareProducts, setComparePeroducts] = useState<BaseProductType[]>([])
+   const [headerInfo, setHeaderInfo] = useState<HeaderTypes[]>([])
 
    const getCompareResult = useCallback(async () => {
       try {
