@@ -1,7 +1,8 @@
 export interface HeaderTypes {
-   manufacturer: string
-   type: string
-   pictureURL: string
+   productID: string
+   productDisplayName: string
+   pictureUrl: string
+   price: number
 }
 
 export enum VgaDetailProperties {
