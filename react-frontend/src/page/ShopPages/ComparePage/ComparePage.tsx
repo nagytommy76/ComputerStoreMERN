@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { useLocation } from 'react-router'
-import { axiosInstance as axios } from '../../../AxiosSetup/AxiosInstance'
+import { axiosInstance as axios, AxiosResponse } from '../../../AxiosSetup/AxiosInstance'
 
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -23,10 +23,27 @@ const ComparePage = () => {
    const [compareProducts, setComparePeroducts] = useState<BaseProductType[]>([])
    const [headerInfo, setHeaderInfo] = useState<HeaderTypes[]>([])
 
+   const getAndSetHeaderInfo = (productDetails: BaseProductType[]) => {
+      setHeaderInfo(
+         productDetails.map(product => {
+            return {
+               productID: product._id,
+               productDisplayName: `${product.manufacturer} ${product.type}`,
+               pictureUrl: product.pictureUrls[0],
+               price: product.price,
+            }
+         })
+      )
+   }
+
    const getCompareResult = useCallback(async () => {
       try {
-         const compare = await axios.get(`/${productType}/compare?productId=${selectIdsFromCompareItems}`)
+         const compare = (await axios.get(
+            `/${productType}/compare?productId=${selectIdsFromCompareItems}`
+         )) as AxiosResponse<{ productDetails: BaseProductType[] }, any>
+
          setComparePeroducts(compare.data.productDetails)
+         getAndSetHeaderInfo(compare.data.productDetails)
       } catch (error) {
          console.log(error)
       }
@@ -40,7 +57,7 @@ const ComparePage = () => {
       <ComparePageStyle>
          <TableContainer component={Paper}>
             <Table aria-label='compare table'>
-               <TableHeader compareProducts={compareProducts} />
+               <TableHeader compareProducts={headerInfo} />
                <TableBody>
                   {Object.entries(VgaDetailProperties).map(keyValuePair => (
                      <TableRow hover>
