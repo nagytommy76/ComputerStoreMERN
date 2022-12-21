@@ -22,10 +22,51 @@ const ComparePage = () => {
    // Egyelőre BaseProductType lesz, nem mindegyik property létezik
    const [compareProducts, setComparePeroducts] = useState<BaseProductType[]>([])
    const [headerInfo, setHeaderInfo] = useState<HeaderTypes[]>([])
+   const [convertedProductDetails, setConvertedProductDetails] = useState<any[]>([])
 
    const getAndSetHeaderInfo = (productDetails: BaseProductType[]) => {
+      let helperArray: any = []
       setHeaderInfo(
          productDetails.map(product => {
+            const keyValuePair = Object.entries(VgaDetailProperties)
+            let obj: any = {}
+            for (const [key] of keyValuePair) {
+               switch (key) {
+                  case 'displayPort':
+                  case 'DVI':
+                  case 'HDMI':
+                  case 'streamProcessors':
+                     obj[key] = `${product.details[key]} Db`
+                     break
+                  case 'gpuBaseClock':
+                  case 'gpuPeakClock':
+                     obj[key] = `${product.details[key]} MHz`
+                     break
+                  case 'length':
+                     obj[key] = `${product.details[key]} CM`
+                     break
+                  case 'minPowerSupply':
+                  case 'powerConsuption':
+                     obj[key] = `${product.details[key]} Watt`
+                     break
+                  case 'vramBandwidth':
+                     obj[key] = `${product.details[key]} bit`
+                     break
+                  case 'vramCapacity':
+                     obj[key] = `${product.details[key]} GB`
+                     break
+                  case 'vramSpeed':
+                     obj[key] = `${product.details[key]} GB/s`
+                     break
+                  case 'warranity':
+                     obj[key] = `${product.details[key]} hónap`
+                     break
+                  default:
+                     obj[key] = product.details[key]
+               }
+            }
+            helperArray.push(obj)
+
             return {
                productID: product._id,
                productDisplayName: `${product.manufacturer} ${product.type}`,
@@ -34,7 +75,11 @@ const ComparePage = () => {
             }
          })
       )
+      setConvertedProductDetails(helperArray)
+      console.log(helperArray)
    }
+
+   const converDataToStringWithUnits = () => {}
 
    const getCompareResult = useCallback(async () => {
       try {
@@ -42,8 +87,9 @@ const ComparePage = () => {
             `/${productType}/compare?productId=${selectIdsFromCompareItems}`
          )) as AxiosResponse<{ productDetails: BaseProductType[] }, any>
 
-         setComparePeroducts(compare.data.productDetails)
          getAndSetHeaderInfo(compare.data.productDetails)
+
+         // Létrehozni egy details statet ami már tartalmazza a magyar KEY-t és az egységekkel kibővített VALUE-kat
       } catch (error) {
          console.log(error)
       }
@@ -63,12 +109,19 @@ const ComparePage = () => {
                      <TableRow hover>
                         <>
                            <TableCell>{keyValuePair[1]}</TableCell>
-                           {compareProducts.map(product => (
-                              <TableCell>{product.details[keyValuePair[0]]}</TableCell>
+                           {convertedProductDetails.map(details => (
+                              <TableCell>{details[keyValuePair[0]]}</TableCell>
                            ))}
                         </>
                      </TableRow>
                   ))}
+                  {/* <TableRow hover>
+                     {convertedProductDetails.map(product =>
+                        Object.entries(product).map(keyValuePair => (
+                           <TableCell>{keyValuePair[1] as string}</TableCell>
+                        ))
+                     )}
+                  </TableRow> */}
                </TableBody>
             </Table>
          </TableContainer>
