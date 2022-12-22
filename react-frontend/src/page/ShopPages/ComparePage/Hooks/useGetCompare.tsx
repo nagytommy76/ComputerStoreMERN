@@ -8,16 +8,15 @@ const useGetCompare = (productType: string, selectIdsFromCompareItems: string[])
          const compare = (await axios.get(
             `/${productType}/compare?productId=${selectIdsFromCompareItems}`
          )) as AxiosResponse<{ productDetails: BaseProductType[] }, any>
-
-         //    getAndSetHeaderInfo(compare.data.productDetails)
-
+         return compare.data.productDetails
          // Létrehozni egy details statet ami már tartalmazza a magyar KEY-t és az egységekkel kibővített VALUE-kat
       } catch (error) {
          console.log(error)
+         return null
       }
    }, [productType, selectIdsFromCompareItems])
 
-   return null
+   return getCompareResult
 }
 
 export default useGetCompare
