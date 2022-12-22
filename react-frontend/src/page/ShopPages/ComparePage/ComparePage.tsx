@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { useLocation } from 'react-router'
-import { axiosInstance as axios, AxiosResponse } from '../../../AxiosSetup/AxiosInstance'
+import useGetCompare from './Hooks/useGetCompare'
 
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -19,6 +19,7 @@ const ComparePage = () => {
    const {
       state: { selectIdsFromCompareItems, productType },
    } = useLocation() as { state: { selectIdsFromCompareItems: string[]; productType: string } }
+   const getCompareResult = useGetCompare(productType, selectIdsFromCompareItems)
    // Egyelőre BaseProductType lesz, nem mindegyik property létezik
    const [compareProducts, setComparePeroducts] = useState<BaseProductType[]>([])
    const [headerInfo, setHeaderInfo] = useState<HeaderTypes[]>([])
@@ -28,45 +29,7 @@ const ComparePage = () => {
       let helperArray: any = []
       setHeaderInfo(
          productDetails.map(product => {
-            const keyValuePair = Object.entries(VgaDetailProperties)
-            let obj: any = {}
-            for (const [key] of keyValuePair) {
-               switch (key) {
-                  case 'displayPort':
-                  case 'DVI':
-                  case 'HDMI':
-                  case 'streamProcessors':
-                     obj[key] = `${product.details[key]} Db`
-                     break
-                  case 'gpuBaseClock':
-                  case 'gpuPeakClock':
-                     obj[key] = `${product.details[key]} MHz`
-                     break
-                  case 'length':
-                     obj[key] = `${product.details[key]} CM`
-                     break
-                  case 'minPowerSupply':
-                  case 'powerConsuption':
-                     obj[key] = `${product.details[key]} Watt`
-                     break
-                  case 'vramBandwidth':
-                     obj[key] = `${product.details[key]} bit`
-                     break
-                  case 'vramCapacity':
-                     obj[key] = `${product.details[key]} GB`
-                     break
-                  case 'vramSpeed':
-                     obj[key] = `${product.details[key]} GB/s`
-                     break
-                  case 'warranity':
-                     obj[key] = `${product.details[key]} hónap`
-                     break
-                  default:
-                     obj[key] = product.details[key]
-               }
-            }
-            helperArray.push(obj)
-
+            converVGADataToStringWithUnits(helperArray, product)
             return {
                productID: product._id,
                productDisplayName: `${product.manufacturer} ${product.type}`,
@@ -76,28 +39,57 @@ const ComparePage = () => {
          })
       )
       setConvertedProductDetails(helperArray)
-      console.log(helperArray)
    }
 
-   const converDataToStringWithUnits = () => {}
-
-   const getCompareResult = useCallback(async () => {
-      try {
-         const compare = (await axios.get(
-            `/${productType}/compare?productId=${selectIdsFromCompareItems}`
-         )) as AxiosResponse<{ productDetails: BaseProductType[] }, any>
-
-         getAndSetHeaderInfo(compare.data.productDetails)
-
-         // Létrehozni egy details statet ami már tartalmazza a magyar KEY-t és az egységekkel kibővített VALUE-kat
-      } catch (error) {
-         console.log(error)
+   const converVGADataToStringWithUnits = (helperArray: any[], product: BaseProductType) => {
+      const keyValuePair = Object.entries(VgaDetailProperties)
+      let obj: any = {}
+      for (const [key] of keyValuePair) {
+         switch (key) {
+            case 'displayPort':
+            case 'DVI':
+            case 'HDMI':
+            case 'streamProcessors':
+               obj[key] = `${product.details[key]} DB`
+               break
+            case 'gpuBaseClock':
+            case 'gpuPeakClock':
+               obj[key] = `${product.details[key]} MHz`
+               break
+            case 'length':
+               obj[key] = `${product.details[key]} CM`
+               break
+            case 'minPowerSupply':
+            case 'powerConsuption':
+               obj[key] = `${product.details[key]} Watt`
+               break
+            case 'vramBandwidth':
+               obj[key] = `${product.details[key]} bit`
+               break
+            case 'vramCapacity':
+               obj[key] = `${product.details[key]} GB`
+               break
+            case 'vramSpeed':
+               obj[key] = `${product.details[key]} GB/s`
+               break
+            case 'warranity':
+               obj[key] = `${product.details[key]} hónap`
+               break
+            default:
+               obj[key] = product.details[key]
+         }
       }
-   }, [productType, selectIdsFromCompareItems])
+      helperArray.push(obj)
+   }
+
+   const callCompareResult = useCallback(async () => {
+      const productDetails = await getCompareResult()
+      productDetails !== null && getAndSetHeaderInfo(productDetails)
+   }, [getCompareResult])
 
    useEffect(() => {
-      getCompareResult()
-   }, [getCompareResult])
+      callCompareResult()
+   }, [callCompareResult])
 
    return (
       <ComparePageStyle>
@@ -115,13 +107,6 @@ const ComparePage = () => {
                         </>
                      </TableRow>
                   ))}
-                  {/* <TableRow hover>
-                     {convertedProductDetails.map(product =>
-                        Object.entries(product).map(keyValuePair => (
-                           <TableCell>{keyValuePair[1] as string}</TableCell>
-                        ))
-                     )}
-                  </TableRow> */}
                </TableBody>
             </Table>
          </TableContainer>
