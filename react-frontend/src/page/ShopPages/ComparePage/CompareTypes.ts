@@ -1,8 +1,20 @@
+import { VgaDetailType } from '../Vga/VgaTypes'
+
 export interface HeaderTypes {
    productID: string
    productDisplayName: string
    pictureUrl: string
    price: number
+}
+
+export interface VgaCompareProduct {
+   _id: string
+   type: string
+   typeCode?: string | undefined
+   manufacturer: string
+   price: number
+   pictureUrls: string[]
+   details: VgaDetailType
 }
 
 export enum VgaDetailProperties {
