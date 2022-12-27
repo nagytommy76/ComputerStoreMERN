@@ -1,7 +1,11 @@
 import { VgaCompareProduct, VgaDetailProperties } from '../../CompareTypes'
+import { ConvertedVGADetailsType } from '../Types'
 
 const useConvertVGA = () => {
-   const converVGADataToStringWithUnits = (helperArray: any[], product: VgaCompareProduct) => {
+   const converVGADataToStringWithUnits = (
+      helperArray: ConvertedVGADetailsType[],
+      product: VgaCompareProduct
+   ) => {
       const keyValuePair = Object.entries(VgaDetailProperties)
       let obj: any = {}
       for (const [key] of keyValuePair) {

@@ -2,11 +2,12 @@ import React, { useCallback, useEffect, useState } from 'react'
 import useGetCompare from './useGetCompare'
 import useConvertVGA from './ConvertProducts/useConvertVGA'
 
+import { ConvertedVGADetailsType } from './Types'
 import { HeaderTypes, VgaCompareProduct } from '../CompareTypes'
 
 const useComparePage = () => {
    const [headerInfo, setHeaderInfo] = useState<HeaderTypes[]>([])
-   const [convertedProductDetails, setConvertedProductDetails] = useState<any[]>([])
+   const [convertedProductDetails, setConvertedProductDetails] = useState<ConvertedVGADetailsType[]>([])
    const getCompareResult = useGetCompare()
    const converVGADataToStringWithUnits = useConvertVGA()
 
