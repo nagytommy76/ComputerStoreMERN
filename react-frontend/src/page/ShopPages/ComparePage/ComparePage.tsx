@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import useComparePage from './Hooks/useComparePage'
 
 import Table from '@mui/material/Table'
@@ -11,13 +10,10 @@ import Paper from '@mui/material/Paper'
 import TableHeader from './TableHeader/TableHeader'
 
 import { ComparePageStyle } from './Styles/CompareStyle'
-import { HeaderTypes, VgaDetailProperties } from './CompareTypes'
-import { BaseProductType } from '../BaseTypes'
+import { VgaDetailProperties } from './CompareTypes'
 
 const ComparePage = () => {
    const { convertedProductDetails, headerInfo } = useComparePage()
-   // Egyelőre BaseProductType lesz, nem mindegyik property létezik
-   const [compareProducts, setComparePeroducts] = useState<BaseProductType[]>([])
 
    return (
       <ComparePageStyle>
@@ -25,13 +21,21 @@ const ComparePage = () => {
             <Table aria-label='compare table'>
                <TableHeader compareProducts={headerInfo} />
                <TableBody>
-                  {Object.entries(VgaDetailProperties).map(keyValuePair => (
-                     <TableRow hover>
+                  {Object.entries(VgaDetailProperties).map((keyValuePair, index) => (
+                     <TableRow hover key={index}>
                         <>
                            <TableCell>{keyValuePair[1]}</TableCell>
-                           {convertedProductDetails.map(details => (
-                              <TableCell>{details[keyValuePair[0]]}</TableCell>
-                           ))}
+                           {convertedProductDetails.map(details => {
+                              return keyValuePair[0] !== 'manufacturerPageUrl' ? (
+                                 <TableCell>{details[keyValuePair[0]]}</TableCell>
+                              ) : (
+                                 <TableCell>
+                                    <a target='_blank' href={details[keyValuePair[0]]}>
+                                       Gyártó honlap
+                                    </a>
+                                 </TableCell>
+                              )
+                           })}
                         </>
                      </TableRow>
                   ))}
