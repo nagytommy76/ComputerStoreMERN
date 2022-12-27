@@ -18,23 +18,23 @@ export interface VgaCompareProduct {
 }
 
 export enum VgaDetailProperties {
-   DVI = 'DVI',
-   HDMI = 'HDMI',
-   displayPort = 'Display Portok szána',
    gpuBaseClock = 'Alap GPU Órajel',
    gpuPeakClock = 'Emelt GPU órajel',
-   gpuManufacturer = 'GPU gyártó',
-   length = 'Hosszúság',
-   manufacturerPageUrl = 'Gyártói honlap',
-   minPowerSupply = 'Minimum ajánlott tápegység',
-   pcieType = 'PCI-E típusa',
-   powerConsuption = 'Fogyasztás (TDP)',
-   powerPin = 'Tápcsatlakozók',
    streamProcessors = 'Stream processzorok',
    vramBandwidth = 'VRAM sávszélesség',
    vramCapacity = 'VRAM mennyiség',
    vramSpeed = 'VRAM sebesség',
    vramType = 'VRAM típusa',
+   minPowerSupply = 'Minimum ajánlott tápegység',
+   powerConsuption = 'Fogyasztás (TDP)',
+   powerPin = 'Tápcsatlakozók',
+   pcieType = 'PCI-E típusa',
+   gpuManufacturer = 'GPU gyártó',
+   length = 'Hosszúság',
+   DVI = 'DVI',
+   HDMI = 'HDMI',
+   displayPort = 'Display Portok szána',
+   manufacturerPageUrl = 'Gyártói honlap',
    warranity = 'Garancia',
 }
 
