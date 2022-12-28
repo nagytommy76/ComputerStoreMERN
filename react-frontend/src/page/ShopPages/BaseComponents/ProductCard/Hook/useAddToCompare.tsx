@@ -6,7 +6,7 @@ import { addProductIdsToCompare } from '../../../../../app/slices/ProductCompare
 
 const useAddToCompare = (toSaveCartItems: ToSaveCartItems) => {
    const reduxDispatch = useAppDispatch()
-   const savedProductIdsToCompare = useAppSelector(state => state.productCompare.selectedProductsByType)
+   const savedProductIdsToCompare = useAppSelector((state) => state.productCompare.selectedProductsByType)
    const { dispatch } = useContext(MessageContext)
 
    const handleAddToCompare = () => {
@@ -14,7 +14,7 @@ const useAddToCompare = (toSaveCartItems: ToSaveCartItems) => {
       // Illetve ha már tartalmazza akkor is
       if (savedProductIdsToCompare.length < 4) {
          const isContainsId = savedProductIdsToCompare.find(
-            compare => compare.productId === toSaveCartItems._id
+            (compare) => compare.productId === toSaveCartItems._id
          )
 
          if (!isContainsId) {
@@ -57,7 +57,7 @@ export type FooterProps = {
    toSaveCartItems: ToSaveCartItems
 }
 
-interface ToSaveCartItems {
+export interface ToSaveCartItems {
    _id: string
    displayName: string
    price: number

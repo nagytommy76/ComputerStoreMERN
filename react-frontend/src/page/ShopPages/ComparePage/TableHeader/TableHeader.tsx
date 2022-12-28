@@ -1,18 +1,40 @@
 import React from 'react'
+import { useLocation } from 'react-router-dom'
 import { HeaderTypes } from '../CompareTypes'
 
+import AddToCartBtn from './Includes/AddToCartBtn'
+import RemoveProduct from './Includes/RemoveProduct'
+
+import { styled } from '@mui/material'
 import TableCell from '@mui/material/TableCell'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 
 const TableHeader: React.FC<{ compareProducts: HeaderTypes[] }> = ({ compareProducts }) => {
+   const {
+      state: { productType },
+   } = useLocation() as { state: { selectIdsFromCompareItems: string[]; productType: string } }
    return (
       <TableHead>
          <TableRow>
             <TableCell>Ide majd kitalálom mi legyen</TableCell>
-            {compareProducts.map(product => (
-               <TableCell key={product.productID} align='left'>
-                  {product.productDisplayName}
+            {compareProducts.map((product) => (
+               <TableCell key={product.productID} align='center'>
+                  <StyledHeaderBox>
+                     <RemoveProduct productID={product.productID} />
+                     <StyledImage src={product.pictureUrl} alt={product.productDisplayName} />
+                     <p>{product.productDisplayName}</p>
+                     <AddToCartBtn
+                        toSaveCartItems={{
+                           _id: product.productID,
+                           displayImage: product.pictureUrl,
+                           displayName: product.productDisplayName,
+                           itemQuantity: 1,
+                           productType,
+                           price: product.price,
+                        }}
+                     />
+                  </StyledHeaderBox>
                </TableCell>
             ))}
          </TableRow>
@@ -21,3 +43,11 @@ const TableHeader: React.FC<{ compareProducts: HeaderTypes[] }> = ({ compareProd
 }
 
 export default TableHeader
+
+const StyledHeaderBox = styled('div')({})
+
+const StyledImage = styled('img')({
+   objectFit: 'contain',
+   width: 180,
+   height: 120,
+})

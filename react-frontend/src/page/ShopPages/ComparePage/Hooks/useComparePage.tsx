@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import useGetCompare from './useGetCompare'
 import useConvertVGA from './ConvertProducts/useConvertVGA'
 
@@ -15,7 +15,7 @@ const useComparePage = () => {
    const getAndSetHeaderInfo = (productDetails: VgaCompareProduct[]) => {
       let helperArray: any = []
       setHeaderInfo(
-         productDetails.map(product => {
+         productDetails.map((product) => {
             converVGADataToStringWithUnits(helperArray, product)
             return {
                productID: product._id,
