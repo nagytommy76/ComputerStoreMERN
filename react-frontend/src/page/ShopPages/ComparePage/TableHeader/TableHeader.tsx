@@ -5,8 +5,8 @@ import { useAppSelector } from '../../../../app/hooks'
 import AddToCartBtn from './Includes/AddToCartBtn'
 import RemoveProduct from './Includes/RemoveProduct'
 
-import { styled } from '@mui/material'
-import TableCell from '@mui/material/TableCell'
+import { StyledTableCell } from '../Styles/TableBodyStyle'
+import { StyledHeaderBox, StyledImage, StyledSpan } from '../Styles/TableHeaderStyles'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 
@@ -15,13 +15,18 @@ const TableHeader: React.FC<{ compareProducts: HeaderTypes[] }> = ({ compareProd
    return (
       <TableHead>
          <TableRow>
-            <TableCell>Ide majd kitalálom mi legyen</TableCell>
+            <StyledTableCell>Ide majd kitalálom mi legyen</StyledTableCell>
             {compareProducts.map((product) => (
-               <TableCell key={product.productID} align='center'>
+               <StyledTableCell key={product.productID} align='center'>
                   <StyledHeaderBox>
                      <RemoveProduct productID={product.productID} />
-                     <StyledImage src={product.pictureUrl} alt={product.productDisplayName} />
-                     <p>{product.productDisplayName}</p>
+                     <StyledSpan>
+                        <StyledImage src={product.pictureUrl} alt={product.productDisplayName} />
+                        <span>
+                           <p>{product.productDisplayName}</p>
+                           <p>{product.price} Ft</p>
+                        </span>
+                     </StyledSpan>
                      <AddToCartBtn
                         toSaveCartItems={{
                            _id: product.productID,
@@ -33,7 +38,7 @@ const TableHeader: React.FC<{ compareProducts: HeaderTypes[] }> = ({ compareProd
                         }}
                      />
                   </StyledHeaderBox>
-               </TableCell>
+               </StyledTableCell>
             ))}
          </TableRow>
       </TableHead>
@@ -41,11 +46,3 @@ const TableHeader: React.FC<{ compareProducts: HeaderTypes[] }> = ({ compareProd
 }
 
 export default TableHeader
-
-const StyledHeaderBox = styled('div')({})
-
-const StyledImage = styled('img')({
-   objectFit: 'contain',
-   width: 180,
-   height: 120,
-})
