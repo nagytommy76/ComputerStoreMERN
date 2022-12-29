@@ -1,28 +1,40 @@
-import React, { useCallback } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useCallback, useState, useEffect, useMemo } from 'react'
+import { useNavigate } from 'react-router'
 import { axiosInstance as axios, AxiosResponse } from '../../../../AxiosSetup/AxiosInstance'
+import { useAppSelector } from '../../../../app/hooks'
+
 import { VgaCompareProduct } from '../CompareTypes'
 
 const useGetCompare = () => {
-   const {
-      state: { selectIdsFromCompareItems, productType },
-   } = useLocation() as { state: { selectIdsFromCompareItems: string[]; productType: string } }
+   let navigate = useNavigate()
+   const selectedCompareItems = useAppSelector((state) => state.productCompare.selectedProductsByType)
+   const [productDetails, setProductDetails] = useState<VgaCompareProduct[]>([])
+
+   const selectIdsFromCompareItems: string[] = useMemo(() => {
+      return selectedCompareItems.map((item) => item.productId)
+   }, [selectedCompareItems])
 
    const getCompareResult = useCallback(async () => {
       try {
          const compare = (await axios.get(
-            `/${productType}/compare?productId=${selectIdsFromCompareItems}`
+            `/${selectedCompareItems[0].productType}/compare?productId=${selectIdsFromCompareItems}`
          )) as AxiosResponse<{ productDetails: VgaCompareProduct[] }, any>
          // productDetails: VgaCompareProduct[] | CpuCompare[] stb jön majd!!!
          return compare.data.productDetails
          // Létrehozni egy details statet ami már tartalmazza a magyar KEY-t és az egységekkel kibővített VALUE-kat
       } catch (error) {
          console.log(error)
-         return null
+         navigate(-1)
       }
-   }, [productType, selectIdsFromCompareItems])
+   }, [selectedCompareItems, selectIdsFromCompareItems, navigate])
 
-   return getCompareResult
+   useEffect(() => {
+      getCompareResult().then((data) => {
+         if (data) setProductDetails(data)
+      })
+   }, [getCompareResult])
+
+   return productDetails
 }
 
 export default useGetCompare
