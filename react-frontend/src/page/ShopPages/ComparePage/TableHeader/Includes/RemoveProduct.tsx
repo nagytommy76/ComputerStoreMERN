@@ -1,4 +1,3 @@
-import react from 'react'
 import { useAppDispatch } from '../../../../../app/hooks'
 import { removeSingleItemByID } from '../../../../../app/slices/ProductCompareSlice'
 
@@ -9,7 +8,7 @@ const RemoveProduct: React.FC<{ productID: string }> = ({ productID }) => {
    const dispatch = useAppDispatch()
    const handleItemDelete = () => {
       console.log('Törlés')
-      //dispatch(removeSingleItemByID(productID))
+      dispatch(removeSingleItemByID(productID))
    }
 
    return (

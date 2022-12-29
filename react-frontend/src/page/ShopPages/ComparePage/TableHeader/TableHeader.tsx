@@ -1,6 +1,6 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom'
 import { HeaderTypes } from '../CompareTypes'
+import { useAppSelector } from '../../../../app/hooks'
 
 import AddToCartBtn from './Includes/AddToCartBtn'
 import RemoveProduct from './Includes/RemoveProduct'
@@ -11,9 +11,7 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 
 const TableHeader: React.FC<{ compareProducts: HeaderTypes[] }> = ({ compareProducts }) => {
-   const {
-      state: { productType },
-   } = useLocation() as { state: { selectIdsFromCompareItems: string[]; productType: string } }
+   const productType = useAppSelector((state) => state.productCompare.selectedProductsByType[0].productType)
    return (
       <TableHead>
          <TableRow>
