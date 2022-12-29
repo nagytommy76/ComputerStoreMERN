@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import useGetCompare from './useGetCompare'
 import useConvertVGA from './ConvertProducts/useConvertVGA'
 
@@ -8,7 +8,7 @@ import { HeaderTypes, VgaCompareProduct } from '../CompareTypes'
 const useComparePage = () => {
    const [headerInfo, setHeaderInfo] = useState<HeaderTypes[]>([])
    const [convertedProductDetails, setConvertedProductDetails] = useState<ConvertedVGADetailsType[]>([])
-   const getCompareResult = useGetCompare()
+   const productDetails = useGetCompare()
    const converVGADataToStringWithUnits = useConvertVGA()
 
    // productDetails-hez majd VgaCompareProduct | CpuCompareProduct | SSDCompareProduct stb jön
@@ -28,14 +28,11 @@ const useComparePage = () => {
       setConvertedProductDetails(helperArray)
    }
 
-   const callCompareResult = useCallback(async () => {
-      const productDetails = await getCompareResult()
-      productDetails !== null && getAndSetHeaderInfo(productDetails)
-   }, [getCompareResult])
-
    useEffect(() => {
-      callCompareResult()
-   }, [callCompareResult])
+      getAndSetHeaderInfo(productDetails)
+   }, [productDetails])
+
+   useEffect(() => {}, [])
 
    return {
       convertedProductDetails,
