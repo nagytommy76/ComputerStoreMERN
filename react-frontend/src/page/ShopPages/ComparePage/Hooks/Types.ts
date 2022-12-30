@@ -19,3 +19,22 @@ export interface ConvertedVGADetailsType {
    manufacturerPageUrl: string
    warranity: string
 }
+
+export interface ConvertedCPUDetailsType {
+   [key: string]: string
+   coreCount: string
+   threadCount: string
+   baseClock: string
+   boostClock: string
+   TDP: string
+   architecture: string
+   cpuCodeName: string
+   integratedGraphicsName: string
+   l2Cache: string
+   l3Cache: string
+   socket: string
+   stockCooler: string
+   stockCoolerName: string
+   manufacturerPageUrl: string
+   warranity: string
+}
