@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useAppSelector } from '../../../../app/hooks'
 import useGetCompare from './useGetCompare'
 import useConvertVGA from './ConvertProducts/useConvertVGA'
 import UseConverCPU from './ConvertProducts/UseConverCPU'
@@ -7,6 +8,7 @@ import { ConvertedCPUDetailsType, ConvertedVGADetailsType } from './Types'
 import { CpuCompareProduct, HeaderTypes, VgaCompareProduct } from '../CompareTypes'
 
 const useComparePage = () => {
+   const productType = useAppSelector((state) => state.productCompare.selectedProductsByType[0].productType)
    const [headerInfo, setHeaderInfo] = useState<HeaderTypes[]>([])
    const [convertedProductDetails, setConvertedProductDetails] = useState<
       ConvertedVGADetailsType[] | ConvertedCPUDetailsType[]
@@ -20,8 +22,14 @@ const useComparePage = () => {
       let helperArray: any = []
       setHeaderInfo(
          productDetails.map((product) => {
-            converVGADataToStringWithUnits(helperArray, product as VgaCompareProduct)
-            converCpuDataToStringWithUnits(helperArray, product as CpuCompareProduct)
+            switch (productType) {
+               case 'vga':
+                  converVGADataToStringWithUnits(helperArray, product as VgaCompareProduct)
+                  break
+               case 'cpu':
+                  converCpuDataToStringWithUnits(helperArray, product as CpuCompareProduct)
+                  break
+            }
             return {
                productID: product._id,
                productDisplayName: `${product.manufacturer} ${product.type}`,
