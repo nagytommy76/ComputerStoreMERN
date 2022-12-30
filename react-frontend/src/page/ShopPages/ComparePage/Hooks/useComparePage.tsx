@@ -1,22 +1,27 @@
 import { useEffect, useState } from 'react'
 import useGetCompare from './useGetCompare'
 import useConvertVGA from './ConvertProducts/useConvertVGA'
+import UseConverCPU from './ConvertProducts/UseConverCPU'
 
-import { ConvertedVGADetailsType } from './Types'
-import { HeaderTypes, VgaCompareProduct } from '../CompareTypes'
+import { ConvertedCPUDetailsType, ConvertedVGADetailsType } from './Types'
+import { CpuCompareProduct, HeaderTypes, VgaCompareProduct } from '../CompareTypes'
 
 const useComparePage = () => {
    const [headerInfo, setHeaderInfo] = useState<HeaderTypes[]>([])
-   const [convertedProductDetails, setConvertedProductDetails] = useState<ConvertedVGADetailsType[]>([])
+   const [convertedProductDetails, setConvertedProductDetails] = useState<
+      ConvertedVGADetailsType[] | ConvertedCPUDetailsType[]
+   >([])
    const productDetails = useGetCompare()
    const converVGADataToStringWithUnits = useConvertVGA()
+   const converCpuDataToStringWithUnits = UseConverCPU()
 
    // productDetails-hez majd VgaCompareProduct | CpuCompareProduct | SSDCompareProduct stb jön
-   const getAndSetHeaderInfo = (productDetails: VgaCompareProduct[]) => {
+   const getAndSetHeaderInfo = (productDetails: VgaCompareProduct[] | CpuCompareProduct[]) => {
       let helperArray: any = []
       setHeaderInfo(
          productDetails.map((product) => {
-            converVGADataToStringWithUnits(helperArray, product)
+            converVGADataToStringWithUnits(helperArray, product as VgaCompareProduct)
+            converCpuDataToStringWithUnits(helperArray, product as CpuCompareProduct)
             return {
                productID: product._id,
                productDisplayName: `${product.manufacturer} ${product.type}`,
