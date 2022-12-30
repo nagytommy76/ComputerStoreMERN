@@ -4,9 +4,10 @@ import { useAppSelector } from '../../../../app/hooks'
 
 import AddToCartBtn from './Includes/AddToCartBtn'
 import RemoveProduct from './Includes/RemoveProduct'
+import Header from './Includes/Header'
 
 import { StyledTableCell } from '../Styles/TableBodyStyle'
-import { StyledHeaderBox, StyledImage, StyledSpan } from '../Styles/TableHeaderStyles'
+import { StyledHeaderBox } from '../Styles/TableHeaderStyles'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 
@@ -17,16 +18,15 @@ const TableHeader: React.FC<{ compareProducts: HeaderTypes[] }> = ({ compareProd
          <TableRow>
             <StyledTableCell>Ide majd kitalálom mi legyen</StyledTableCell>
             {compareProducts.map((product) => (
-               <StyledTableCell key={product.productID} align='center'>
+               <StyledTableCell key={product.productID} align='left'>
+                  <RemoveProduct productID={product.productID} />
                   <StyledHeaderBox>
-                     <RemoveProduct productID={product.productID} />
-                     <StyledSpan>
-                        <StyledImage src={product.pictureUrl} alt={product.productDisplayName} />
-                        <span>
-                           <p>{product.productDisplayName}</p>
-                           <p>{product.price} Ft</p>
-                        </span>
-                     </StyledSpan>
+                     <Header
+                        pictureUrl={product.pictureUrl}
+                        price={product.price}
+                        productDisplayName={product.productDisplayName}
+                        productID={product.productID}
+                     />
                      <AddToCartBtn
                         toSaveCartItems={{
                            _id: product.productID,
