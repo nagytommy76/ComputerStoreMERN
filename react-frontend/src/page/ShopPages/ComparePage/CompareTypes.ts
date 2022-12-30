@@ -1,4 +1,14 @@
 import { VgaDetailType } from '../Vga/VgaTypes'
+import { CpuDetailsType } from '../Cpu/CpuTypes'
+
+interface BaseCompare {
+   _id: string
+   type: string
+   typeCode?: string | undefined
+   manufacturer: string
+   price: number
+   pictureUrls: string[]
+}
 
 export interface HeaderTypes {
    productID: string
@@ -7,14 +17,11 @@ export interface HeaderTypes {
    price: number
 }
 
-export interface VgaCompareProduct {
-   _id: string
-   type: string
-   typeCode?: string | undefined
-   manufacturer: string
-   price: number
-   pictureUrls: string[]
+export interface VgaCompareProduct extends BaseCompare {
    details: VgaDetailType
+}
+export interface CpuCompareProduct extends BaseCompare {
+   details: CpuDetailsType
 }
 
 export enum VgaDetailProperties {
