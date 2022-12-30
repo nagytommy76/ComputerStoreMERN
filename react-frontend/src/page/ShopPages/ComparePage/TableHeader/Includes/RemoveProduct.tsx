@@ -8,7 +8,6 @@ import DeleteIcon from '@mui/icons-material/Delete'
 const RemoveProduct: React.FC<{ productID: string }> = ({ productID }) => {
    const dispatch = useAppDispatch()
    const handleItemDelete = () => {
-      console.log('Törlés')
       dispatch(removeSingleItemByID(productID))
    }
 

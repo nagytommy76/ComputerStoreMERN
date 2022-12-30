@@ -1,4 +1,3 @@
-import React from 'react'
 import { CpuDetailProperties, CpuCompareProduct } from '../../CompareTypes'
 import { ConvertedCPUDetailsType } from '../Types'
 
