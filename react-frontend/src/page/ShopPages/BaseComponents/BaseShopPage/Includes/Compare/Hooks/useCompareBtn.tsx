@@ -1,11 +1,14 @@
 import { useState, useRef, useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../../../../../app/hooks'
-import { selectByProductType } from '../../../../../../../app/slices/ProductCompareSlice'
+import {
+   selectByProductType,
+   setCurrentSelectedProductType,
+} from '../../../../../../../app/slices/ProductCompareSlice'
 
 const useCompareBtn = (pageProductType: string) => {
    const dispatch = useAppDispatch()
-   const compareLength = useAppSelector(state => state.productCompare.productIdsToComare.length) || 0
-   const compareSelected = useAppSelector(state => state.productCompare.selectedProductsByType)
+   const compareLength = useAppSelector((state) => state.productCompare.productIdsToComare.length) || 0
+   const compareSelected = useAppSelector((state) => state.productCompare.selectedProductsByType)
 
    const [anchorOpened, setAnchorOpened] = useState<boolean>(false)
    const [isDispalyed, setIsDisplayed] = useState<boolean>(false)
@@ -17,6 +20,7 @@ const useCompareBtn = (pageProductType: string) => {
    }, [compareSelected])
 
    useEffect(() => {
+      dispatch(setCurrentSelectedProductType(pageProductType))
       dispatch(selectByProductType(pageProductType))
    }, [compareSelected, dispatch, pageProductType, compareLength])
 
