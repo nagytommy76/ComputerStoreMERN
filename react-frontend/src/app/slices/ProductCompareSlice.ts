@@ -3,6 +3,7 @@ import { createSlice, PayloadAction, createDraftSafeSelector } from '@reduxjs/to
 const initialState: InitialState = {
    productIdsToComare: [],
    selectedProductsByType: [],
+   currentSelectedProductType: '',
 }
 
 export const selectVgaCompareProducts = createDraftSafeSelector(
@@ -10,27 +11,30 @@ export const selectVgaCompareProducts = createDraftSafeSelector(
       (state: InitialState) => state.productIdsToComare,
       (state: InitialState, productType: string) => productType,
    ],
-   (state, productType) => state.filter(product => product.productType === productType)
+   (state, productType) => state.filter((product) => product.productType === productType)
 )
 
 const ProductCompareSlice = createSlice({
    name: 'products',
    initialState,
    reducers: {
+      setCurrentSelectedProductType: (state, action: PayloadAction<string>) => {
+         state.currentSelectedProductType = action.payload
+      },
       addProductIdsToCompare: (state, action: PayloadAction<ICompare>) => {
          state.productIdsToComare.push(action.payload)
       },
       removeSingleItemByID: (state, action: PayloadAction<string>) => {
          const foundProductIndex = state.productIdsToComare.findIndex(
-            product => product.productId === action.payload
+            (product) => product.productId === action.payload
          )
          const foundSelectedProductIndex = state.selectedProductsByType.findIndex(
-            product => product.productId === action.payload
+            (product) => product.productId === action.payload
          )
          state.productIdsToComare.splice(foundProductIndex, 1)
          state.selectedProductsByType.splice(foundSelectedProductIndex, 1)
       },
-      resetProductIdsToCompare: state => {
+      resetProductIdsToCompare: (state) => {
          state.productIdsToComare = []
       },
       selectByProductType: (state, action: PayloadAction<string>) => {
@@ -43,8 +47,13 @@ const ProductCompareSlice = createSlice({
 // Kéne egy create selector, amivel kiválasztok a kategóriát, és mehet minden egy array-be? (productIdsToComare)
 // https://redux-toolkit.js.org/api/createSelector
 
-export const { addProductIdsToCompare, resetProductIdsToCompare, removeSingleItemByID, selectByProductType } =
-   ProductCompareSlice.actions
+export const {
+   addProductIdsToCompare,
+   resetProductIdsToCompare,
+   removeSingleItemByID,
+   selectByProductType,
+   setCurrentSelectedProductType,
+} = ProductCompareSlice.actions
 
 export default ProductCompareSlice.reducer
 
@@ -58,4 +67,5 @@ export interface ICompare {
 type InitialState = {
    productIdsToComare: ICompare[]
    selectedProductsByType: ICompare[]
+   currentSelectedProductType: string
 }
