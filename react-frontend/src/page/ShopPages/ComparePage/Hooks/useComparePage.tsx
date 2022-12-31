@@ -8,7 +8,7 @@ import { ConvertedCPUDetailsType, ConvertedVGADetailsType } from './Types'
 import { CpuCompareProduct, HeaderTypes, VgaCompareProduct } from '../CompareTypes'
 
 const useComparePage = () => {
-   const productType = useAppSelector((state) => state.productCompare.selectedProductsByType[0].productType)
+   const productType = useAppSelector((state) => state.productCompare.currentSelectedProductType)
    const [headerInfo, setHeaderInfo] = useState<HeaderTypes[]>([])
    const [convertedProductDetails, setConvertedProductDetails] = useState<
       ConvertedVGADetailsType[] | ConvertedCPUDetailsType[]
@@ -28,6 +28,8 @@ const useComparePage = () => {
                   break
                case 'cpu':
                   converCpuDataToStringWithUnits(helperArray, product as CpuCompareProduct)
+                  break
+               default:
                   break
             }
             return {

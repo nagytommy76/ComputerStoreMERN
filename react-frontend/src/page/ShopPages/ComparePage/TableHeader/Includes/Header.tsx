@@ -11,7 +11,7 @@ const Header: React.FC<{
    productDisplayName: string
    price: number
 }> = ({ pictureUrl, price, productDisplayName, productID }) => {
-   const productType = useAppSelector((state) => state.productCompare.selectedProductsByType[0].productType)
+   const productType = useAppSelector((state) => state.productCompare.currentSelectedProductType)
    return (
       <StyledSpan>
          <StyledLink

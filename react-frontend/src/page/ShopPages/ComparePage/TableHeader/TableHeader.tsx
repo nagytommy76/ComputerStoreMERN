@@ -12,7 +12,7 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 
 const TableHeader: React.FC<{ compareProducts: HeaderTypes[] }> = ({ compareProducts }) => {
-   const productType = useAppSelector((state) => state.productCompare.selectedProductsByType[0].productType)
+   const productType = useAppSelector((state) => state.productCompare.currentSelectedProductType)
    return (
       <TableHead>
          <TableRow>

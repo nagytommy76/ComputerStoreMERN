@@ -12,7 +12,7 @@ import ManufacturerAnchor from './ManufacturerAnchor'
 const TableBodyComponent: React.FC<{
    convertedProductDetails: ConvertedVGADetailsType[] | ConvertedCPUDetailsType[]
 }> = ({ convertedProductDetails }) => {
-   const productType = useAppSelector((state) => state.productCompare.selectedProductsByType[0].productType)
+   const productType = useAppSelector((state) => state.productCompare.currentSelectedProductType)
    const Empty: {
       [key: string]: any
       vga: typeof VgaDetailProperties
