@@ -1,4 +1,5 @@
-import { VgaCompareProduct, VgaDetailProperties } from '../../CompareTypes'
+import { VgaCompareProduct } from '../../CompareTypes'
+import { VgaDetailProperties } from '../../Enums'
 import { ConvertedVGADetailsType } from '../Types'
 
 const useConvertVGA = () => {

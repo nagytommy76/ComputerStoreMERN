@@ -1,6 +1,6 @@
 import React from 'react'
-import { VgaDetailProperties, CpuDetailProperties } from '../CompareTypes'
-import { ConvertedCPUDetailsType, ConvertedVGADetailsType } from '../Hooks/Types'
+import { VgaDetailProperties, CpuDetailProperties } from '../Enums'
+import { ConvertedCPUDetailsType, ConvertedVGADetailsType, ConvertedRAMDetailsType } from '../Hooks/Types'
 import { useAppSelector } from '../../../../app/hooks'
 
 import { StyledTableCell } from '../Styles/TableBodyStyle'
@@ -10,7 +10,7 @@ import TableRow from '@mui/material/TableRow'
 import ManufacturerAnchor from './ManufacturerAnchor'
 
 const TableBodyComponent: React.FC<{
-   convertedProductDetails: ConvertedVGADetailsType[] | ConvertedCPUDetailsType[]
+   convertedProductDetails: ConvertedVGADetailsType[] | ConvertedCPUDetailsType[] | ConvertedRAMDetailsType[]
 }> = ({ convertedProductDetails }) => {
    const productType = useAppSelector((state) => state.productCompare.currentSelectedProductType)
    const Empty: {

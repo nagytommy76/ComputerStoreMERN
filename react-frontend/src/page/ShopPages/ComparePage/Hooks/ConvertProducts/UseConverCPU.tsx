@@ -1,4 +1,5 @@
-import { CpuDetailProperties, CpuCompareProduct } from '../../CompareTypes'
+import { CpuCompareProduct } from '../../CompareTypes'
+import { CpuDetailProperties } from '../../Enums'
 import { ConvertedCPUDetailsType } from '../Types'
 
 const UseConverCPU = () => {
