@@ -24,8 +24,7 @@ const CpuDetails = () => {
                productType: 'cpu',
                type: cpuDetails.type,
                typeCode: cpuDetails.typeCode,
-            }}
-         >
+            }}>
             <ProductDetails>
                <DetailsTable />
             </ProductDetails>

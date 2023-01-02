@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useAppSelector } from '../../../../app/hooks'
 import useGetCompare from './useGetCompare'
 import useConvertVGA from './ConvertProducts/useConvertVGA'
-import UseConverCPU from './ConvertProducts/UseConverCPU'
+import UseConvertCPU from './ConvertProducts/UseConvertCPU'
 
 import { ConvertedCPUDetailsType, ConvertedVGADetailsType } from './Types'
 import { CpuCompareProduct, HeaderTypes, VgaCompareProduct } from '../CompareTypes'
@@ -15,7 +15,7 @@ const useComparePage = () => {
    >([])
    const productDetails = useGetCompare()
    const converVGADataToStringWithUnits = useConvertVGA()
-   const converCpuDataToStringWithUnits = UseConverCPU()
+   const converCpuDataToStringWithUnits = UseConvertCPU()
 
    // productDetails-hez majd VgaCompareProduct | CpuCompareProduct | SSDCompareProduct stb jön
    const getAndSetHeaderInfo = (productDetails: VgaCompareProduct[] | CpuCompareProduct[]) => {

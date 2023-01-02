@@ -2,7 +2,7 @@ import { CpuCompareProduct } from '../../CompareTypes'
 import { CpuDetailProperties } from '../../Enums'
 import { ConvertedCPUDetailsType } from '../Types'
 
-const UseConverCPU = () => {
+const UseConvertCPU = () => {
    const converCPUDataToStringWithUnits = (
       helperArray: ConvertedCPUDetailsType[],
       product: CpuCompareProduct
@@ -49,4 +49,4 @@ const UseConverCPU = () => {
    return converCPUDataToStringWithUnits
 }
 
-export default UseConverCPU
+export default UseConvertCPU
