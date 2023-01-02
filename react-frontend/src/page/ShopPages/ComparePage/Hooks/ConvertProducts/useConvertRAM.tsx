@@ -17,9 +17,6 @@ const useConvertRAM = () => {
             case 'frequency':
                obj[key] = `${product.details[key]} MHz`
                break
-            case 'warranity':
-               obj[key] = `${product.details[key]} hónap`
-               break
             case 'moduleNumber':
                obj[key] = `${product.details[key]} DB`
                break

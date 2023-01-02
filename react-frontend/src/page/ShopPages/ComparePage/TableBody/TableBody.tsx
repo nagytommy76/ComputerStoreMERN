@@ -1,5 +1,5 @@
 import React from 'react'
-import { VgaDetailProperties, CpuDetailProperties } from '../Enums'
+import { VgaDetailProperties, CpuDetailProperties, RamDetailProperties } from '../Enums'
 import { ConvertedCPUDetailsType, ConvertedVGADetailsType, ConvertedRAMDetailsType } from '../Hooks/Types'
 import { useAppSelector } from '../../../../app/hooks'
 
@@ -17,10 +17,13 @@ const TableBodyComponent: React.FC<{
       [key: string]: any
       vga: typeof VgaDetailProperties
       cpu: typeof CpuDetailProperties
+      memory: typeof RamDetailProperties
    } = {
       vga: VgaDetailProperties,
       cpu: CpuDetailProperties,
+      memory: RamDetailProperties,
    }
+
    return (
       <TableBody>
          {Object.entries(Empty[productType]).map((keyValuePair, index) => (

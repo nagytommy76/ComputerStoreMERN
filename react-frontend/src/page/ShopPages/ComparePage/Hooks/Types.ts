@@ -38,3 +38,15 @@ export interface ConvertedCPUDetailsType {
    manufacturerPageUrl: string
    warranity: string
 }
+
+export interface ConvertedRAMDetailsType {
+   [key: string]: string | number
+   capacity: string
+   frequency: string
+   latency: number
+   manufacturerPageUrl: string
+   memoryType: string
+   moduleNumber: string
+   voltage: string
+   warranity: string
+}
