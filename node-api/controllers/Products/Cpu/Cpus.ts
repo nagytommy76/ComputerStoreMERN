@@ -52,7 +52,7 @@ export default class CpuProduct extends BaseProduct {
    getCpuDetailsController = async (request: DetailsQueryRequestType, response: Response) => {
       try {
          const foundDetails = await this.returnProductDetails(request.query.productId)
-         response.status(200).json({ productDetails: foundDetails })
+         response.status(200).json({ productDetails: foundDetails[0] })
       } catch (error) {
          response.status(500).json({ errorMessage: error })
       }

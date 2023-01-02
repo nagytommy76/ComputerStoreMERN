@@ -69,7 +69,7 @@ export default class SSDProduct extends BaseProduct {
    getSSDDetailsController = async (request: DetailsQueryRequestType, response: Response) => {
       try {
          const foundSSDProducts = await this.returnProductDetails(request.query.productId)
-         response.status(200).json({ productDetails: foundSSDProducts })
+         response.status(200).json({ productDetails: foundSSDProducts[0] })
       } catch (error) {
          response.status(500).json({ errorMessage: error })
       }
