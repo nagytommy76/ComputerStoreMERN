@@ -36,3 +36,14 @@ export enum CpuDetailProperties {
    manufacturerPageUrl = 'Gyárói honlap',
    warranity = 'Garancia',
 }
+
+export enum RamDetailProperties {
+   memoryType = 'Típus',
+   capacity = 'Kapacitás',
+   moduleNumber = 'Modulok száma',
+   frequency = 'Frekvencia',
+   voltage = 'Feszültség',
+   latency = 'Késleltetés CL',
+   manufacturerPageUrl = 'Gyártói honlap',
+   warranity = 'Garancia',
+}
