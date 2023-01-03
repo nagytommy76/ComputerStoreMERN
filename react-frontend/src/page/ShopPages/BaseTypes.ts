@@ -24,3 +24,9 @@ export type FilterTypes = {
    allWarranties: string[]
    selectedWarranty: string
 }
+
+export interface ChartDataType {
+   price: number
+   timestamp: number
+   _id: string
+}

@@ -50,3 +50,14 @@ export interface ConvertedRAMDetailsType {
    voltage: string
    warranity: string
 }
+
+export interface ConvertedHDDDetailsType {
+   [key: string]: string
+   cache: string
+   capacity: string
+   manufacturerPageUrl: string
+   rpm: string
+   sataType: string
+   sizeInCol: string
+   warranity: string
+}

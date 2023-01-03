@@ -47,3 +47,13 @@ export enum RamDetailProperties {
    manufacturerPageUrl = 'Gyártói honlap',
    warranity = 'Garancia',
 }
+
+export enum HddDetailProperties {
+   capacity = 'Kapacitás',
+   cache = 'Cache',
+   rpm = 'Fordulat',
+   sataType = 'SATA típusa',
+   sizeInCol = 'Méret',
+   manufacturerPageUrl = 'Gyárói honlap',
+   warranity = 'Garancia',
+}

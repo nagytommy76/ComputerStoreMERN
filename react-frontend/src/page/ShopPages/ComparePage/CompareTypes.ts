@@ -1,6 +1,7 @@
 import { VgaDetailType } from '../Vga/VgaTypes'
 import { CpuDetailsType } from '../Cpu/CpuTypes'
 import { MemoryDetailsType } from '../Memory/MemoryTypes'
+import { HDDDetailsType } from '../HDD/HDDTypes'
 
 interface BaseCompare {
    _id: string
@@ -26,4 +27,7 @@ export interface CpuCompareProduct extends BaseCompare {
 }
 export interface RamCompareProduct extends BaseCompare {
    details: MemoryDetailsType
+}
+export interface HddCompareProduct extends BaseCompare {
+   details: HDDDetailsType
 }
