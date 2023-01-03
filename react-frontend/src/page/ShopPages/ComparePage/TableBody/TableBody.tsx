@@ -1,6 +1,11 @@
 import React from 'react'
-import { VgaDetailProperties, CpuDetailProperties, RamDetailProperties } from '../Enums'
-import { ConvertedCPUDetailsType, ConvertedVGADetailsType, ConvertedRAMDetailsType } from '../Hooks/Types'
+import { VgaDetailProperties, CpuDetailProperties, RamDetailProperties, HddDetailProperties } from '../Enums'
+import {
+   ConvertedCPUDetailsType,
+   ConvertedVGADetailsType,
+   ConvertedRAMDetailsType,
+   ConvertedHDDDetailsType,
+} from '../Hooks/Types'
 import { useAppSelector } from '../../../../app/hooks'
 
 import { StyledTableCell } from '../Styles/TableBodyStyle'
@@ -10,7 +15,11 @@ import TableRow from '@mui/material/TableRow'
 import ManufacturerAnchor from './ManufacturerAnchor'
 
 const TableBodyComponent: React.FC<{
-   convertedProductDetails: ConvertedVGADetailsType[] | ConvertedCPUDetailsType[] | ConvertedRAMDetailsType[]
+   convertedProductDetails:
+      | ConvertedVGADetailsType[]
+      | ConvertedCPUDetailsType[]
+      | ConvertedRAMDetailsType[]
+      | ConvertedHDDDetailsType[]
 }> = ({ convertedProductDetails }) => {
    const productType = useAppSelector((state) => state.productCompare.currentSelectedProductType)
    const Empty: {
@@ -18,10 +27,12 @@ const TableBodyComponent: React.FC<{
       vga: typeof VgaDetailProperties
       cpu: typeof CpuDetailProperties
       memory: typeof RamDetailProperties
+      hdd: typeof HddDetailProperties
    } = {
       vga: VgaDetailProperties,
       cpu: CpuDetailProperties,
       memory: RamDetailProperties,
+      hdd: HddDetailProperties,
    }
 
    return (
