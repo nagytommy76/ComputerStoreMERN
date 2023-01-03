@@ -1,10 +1,15 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { axiosInstance as axios, isAxiosError } from '../../../AxiosSetup/AxiosInstance'
+import { CpuDetailsType } from '../Cpu/CpuTypes'
+import { HDDDetailsType } from '../HDD/HDDTypes'
+import { MemoryDetailsType } from '../Memory/MemoryTypes'
+import { SSDDetailsType } from '../SSD/SSDTypes'
+import { VgaDetailType } from '../Vga/VgaTypes'
 
 const useGetDetails = (productType: string, productId: string) => {
    const [foundDetails, setFoundDetails] = useState({
-      details: {},
+      details: {} as VgaDetailType | CpuDetailsType | MemoryDetailsType | HDDDetailsType | SSDDetailsType,
       _id: '',
       pictureUrls: [''],
       manufacturer: '',

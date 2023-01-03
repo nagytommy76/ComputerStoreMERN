@@ -68,7 +68,7 @@ describe('Testing the ratings', () => {
       authRender(
          <DetailsContext.Provider
             value={{
-               details: {},
+               details: {} as any,
                manufacturer: '',
                pictureUrls: [''],
                price: 0,
@@ -76,8 +76,7 @@ describe('Testing the ratings', () => {
                productType: 'vga',
                type: '',
                typeCode: '',
-            }}
-         >
+            }}>
             <Rating />,
          </DetailsContext.Provider>,
          true,
@@ -124,7 +123,7 @@ describe('Testing the ratings', () => {
       authRender(
          <DetailsContext.Provider
             value={{
-               details: {},
+               details: {} as any,
                manufacturer: '',
                pictureUrls: [''],
                price: 0,
@@ -132,8 +131,7 @@ describe('Testing the ratings', () => {
                productType: 'vga',
                type: '',
                typeCode: '',
-            }}
-         >
+            }}>
             <Rating />,
          </DetailsContext.Provider>,
          true,

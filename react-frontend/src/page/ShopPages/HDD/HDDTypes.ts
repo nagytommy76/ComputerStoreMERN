@@ -1,4 +1,4 @@
-import { BaseProductType } from '../BaseTypes'
+import { BaseProductType, ChartDataType } from '../BaseTypes'
 
 export type HDDProductType = BaseProductType & {
    details: HDDDetailsType
@@ -13,4 +13,5 @@ export type HDDDetailsType = {
    warranity: number
    description?: string
    manufacturerPageUrl?: string
+   chartData?: ChartDataType[]
 }

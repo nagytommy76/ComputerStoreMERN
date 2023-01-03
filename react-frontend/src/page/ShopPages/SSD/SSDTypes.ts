@@ -1,4 +1,4 @@
-import { BaseProductType } from '../BaseTypes'
+import { BaseProductType, ChartDataType } from '../BaseTypes'
 
 export type SSDProductType = BaseProductType & {
    details: SSDDetailsType
@@ -15,4 +15,5 @@ export type SSDDetailsType = {
    warranity: number
    description?: string
    manufacturerPageUrl?: string
+   chartData?: ChartDataType[]
 }

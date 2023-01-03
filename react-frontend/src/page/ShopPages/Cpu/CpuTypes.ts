@@ -1,4 +1,4 @@
-import { BaseProductType } from '../../ShopPages/BaseTypes'
+import { BaseProductType, ChartDataType } from '../../ShopPages/BaseTypes'
 
 export type CpuProductType = BaseProductType & {
    details: CpuDetailsType
@@ -21,4 +21,5 @@ export type CpuDetailsType = {
    cpuCodeName?: string
    stockCooler?: boolean
    stockCoolerName?: string
+   chartData?: ChartDataType[]
 }

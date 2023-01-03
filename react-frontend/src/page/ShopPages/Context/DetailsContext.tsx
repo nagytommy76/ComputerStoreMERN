@@ -1,7 +1,12 @@
 import { createContext } from 'react'
+import { CpuDetailsType } from '../Cpu/CpuTypes'
+import { HDDDetailsType } from '../HDD/HDDTypes'
+import { MemoryDetailsType } from '../Memory/MemoryTypes'
+import { SSDDetailsType } from '../SSD/SSDTypes'
+import { VgaDetailType } from '../Vga/VgaTypes'
 
 const DetailsContext = createContext<DetailsContextType>({
-   details: {},
+   details: {} as VgaDetailType | CpuDetailsType | MemoryDetailsType | HDDDetailsType | SSDDetailsType,
    manufacturer: '',
    pictureUrls: [''],
    price: 0,
@@ -13,9 +18,10 @@ const DetailsContext = createContext<DetailsContextType>({
 
 export default DetailsContext
 
+// Ezt majd javítani: ANY.......................................................................
 export type DetailsContextType = {
    productType: string
-   details: any
+   details: VgaDetailType | CpuDetailsType | MemoryDetailsType | HDDDetailsType | SSDDetailsType | any
    productId: string
    pictureUrls: string[]
    manufacturer: string
