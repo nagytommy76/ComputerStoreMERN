@@ -19,6 +19,7 @@ const useGetCompare = () => {
 
    const getCompareResult = useCallback(async () => {
       try {
+         if (selectIdsFromCompareItems.length === 0) throw new Error('Üres az id array')
          const compare = (await axios.get(
             `/${productType}/compare?productId=${selectIdsFromCompareItems}`
          )) as AxiosResponse<
@@ -31,9 +32,7 @@ const useGetCompare = () => {
             },
             any
          >
-         // productDetails: VgaCompareProduct[] | CpuCompare[] stb jön majd!!!
          return compare.data.productDetails
-         // Létrehozni egy details statet ami már tartalmazza a magyar KEY-t és az egységekkel kibővített VALUE-kat
       } catch (error) {
          console.log(error)
          navigate(-1)
