@@ -1,10 +1,17 @@
 import React from 'react'
-import { VgaDetailProperties, CpuDetailProperties, RamDetailProperties, HddDetailProperties } from '../Enums'
+import {
+   VgaDetailProperties,
+   CpuDetailProperties,
+   RamDetailProperties,
+   HddDetailProperties,
+   SsdDetailProperties,
+} from '../Enums'
 import {
    ConvertedCPUDetailsType,
    ConvertedVGADetailsType,
    ConvertedRAMDetailsType,
    ConvertedHDDDetailsType,
+   ConvertedSSDDetailsType,
 } from '../Hooks/Types'
 import { useAppSelector } from '../../../../app/hooks'
 
@@ -20,6 +27,7 @@ const TableBodyComponent: React.FC<{
       | ConvertedCPUDetailsType[]
       | ConvertedRAMDetailsType[]
       | ConvertedHDDDetailsType[]
+      | ConvertedSSDDetailsType[]
 }> = ({ convertedProductDetails }) => {
    const productType = useAppSelector((state) => state.productCompare.currentSelectedProductType)
    const Empty: {
@@ -28,11 +36,13 @@ const TableBodyComponent: React.FC<{
       cpu: typeof CpuDetailProperties
       memory: typeof RamDetailProperties
       hdd: typeof HddDetailProperties
+      ssd: typeof SsdDetailProperties
    } = {
       vga: VgaDetailProperties,
       cpu: CpuDetailProperties,
       memory: RamDetailProperties,
       hdd: HddDetailProperties,
+      ssd: SsdDetailProperties,
    }
 
    return (
