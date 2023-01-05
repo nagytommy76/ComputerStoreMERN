@@ -3,14 +3,24 @@ import { useNavigate } from 'react-router'
 import { axiosInstance as axios, AxiosResponse } from '../../../../AxiosSetup/AxiosInstance'
 import { useAppSelector } from '../../../../app/hooks'
 
-import { CpuCompareProduct, HddCompareProduct, RamCompareProduct, VgaCompareProduct } from '../CompareTypes'
+import {
+   CpuCompareProduct,
+   HddCompareProduct,
+   RamCompareProduct,
+   SsdCompareProduct,
+   VgaCompareProduct,
+} from '../CompareTypes'
 
 const useGetCompare = () => {
    let navigate = useNavigate()
    const selectedCompareItems = useAppSelector((state) => state.productCompare.selectedProductsByType)
    const productType = useAppSelector((state) => state.productCompare.currentSelectedProductType)
    const [productDetails, setProductDetails] = useState<
-      VgaCompareProduct[] | CpuCompareProduct[] | RamCompareProduct[] | HddCompareProduct[]
+      | VgaCompareProduct[]
+      | CpuCompareProduct[]
+      | RamCompareProduct[]
+      | HddCompareProduct[]
+      | SsdCompareProduct[]
    >([])
 
    const selectIdsFromCompareItems: string[] = useMemo(() => {
@@ -29,6 +39,7 @@ const useGetCompare = () => {
                   | CpuCompareProduct[]
                   | RamCompareProduct[]
                   | HddCompareProduct[]
+                  | SsdCompareProduct[]
             },
             any
          >

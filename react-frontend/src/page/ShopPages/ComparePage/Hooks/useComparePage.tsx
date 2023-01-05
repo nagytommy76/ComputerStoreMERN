@@ -5,6 +5,7 @@ import useConvertVGA from './ConvertProducts/useConvertVGA'
 import UseConvertCPU from './ConvertProducts/UseConvertCPU'
 import useConvertRAM from './ConvertProducts/useConvertRAM'
 import useConvertHDD from './ConvertProducts/useConvertHDD'
+import useConvertSSD from './ConvertProducts/useConvertSSD'
 
 import {
    ConvertedCPUDetailsType,
@@ -17,6 +18,7 @@ import {
    HddCompareProduct,
    HeaderTypes,
    RamCompareProduct,
+   SsdCompareProduct,
    VgaCompareProduct,
 } from '../CompareTypes'
 
@@ -34,10 +36,16 @@ const useComparePage = () => {
    const converCpuDataToStringWithUnits = UseConvertCPU()
    const converRAMDataToStringWithUnits = useConvertRAM()
    const converHDDDataToStringWithUnits = useConvertHDD()
+   const convertHDDDataToStringWithUnits = useConvertSSD()
 
    // productDetails-hez majd VgaCompareProduct | CpuCompareProduct | SSDCompareProduct stb jön
    const getAndSetHeaderInfo = (
-      productDetails: VgaCompareProduct[] | CpuCompareProduct[] | RamCompareProduct[] | HddCompareProduct[]
+      productDetails:
+         | VgaCompareProduct[]
+         | CpuCompareProduct[]
+         | RamCompareProduct[]
+         | HddCompareProduct[]
+         | SsdCompareProduct[]
    ) => {
       let helperArray: any = []
       setHeaderInfo(
@@ -55,6 +63,9 @@ const useComparePage = () => {
                   break
                case 'hdd':
                   converHDDDataToStringWithUnits(helperArray, product as HddCompareProduct)
+                  break
+               case 'ssd':
+                  convertHDDDataToStringWithUnits(helperArray, product as SsdCompareProduct)
                   break
                default:
                   break
