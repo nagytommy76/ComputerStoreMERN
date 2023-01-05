@@ -61,3 +61,14 @@ export interface ConvertedHDDDetailsType {
    sizeInCol: string
    warranity: string
 }
+export interface ConvertedSSDDetailsType {
+   [key: string]: string
+   capacity: string
+   manufacturerPageUrl: string
+   connection: string
+   nandTechnology: string
+   readingSpeed: string
+   writingSpeed: string
+   tbw: string
+   warranity: string
+}

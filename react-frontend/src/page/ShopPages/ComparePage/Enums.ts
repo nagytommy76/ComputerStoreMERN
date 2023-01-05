@@ -57,3 +57,14 @@ export enum HddDetailProperties {
    manufacturerPageUrl = 'Gyárói honlap',
    warranity = 'Garancia',
 }
+
+export enum SsdDetailProperties {
+   capacity = 'Kapacitás',
+   connection = 'Csatlakozás',
+   nandTechnology = 'NAND Technológia',
+   readingSpeed = 'Olvasási sebesség',
+   writingSpeed = 'Írási sebesség',
+   tbw = 'TBW (max írási mennyiség)',
+   manufacturerPageUrl = 'Gyárói honlap',
+   warranity = 'Garancia',
+}
