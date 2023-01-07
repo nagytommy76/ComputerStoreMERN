@@ -8,7 +8,7 @@ import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 
 import App from './App'
-require('./fontAwesome/fontAwesome')
+import './fontAwesome/fontAwesome'
 
 const root = ReactDOM.createRoot(document.getElementById('root') || document.createElement('div')) // A teszteléshez kell
 

@@ -7,7 +7,6 @@ const TableRow = React.lazy(() => import('../../BaseComponents/ProductDetailsPag
 
 const CpuDetailTable = () => {
    const { details }: { details: CpuDetailsType } = useContext(DetailsContext)
-   console.log('CpuDetailsType' in details)
    return (
       <TableStyle>
          <tbody>

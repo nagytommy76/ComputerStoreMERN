@@ -11,7 +11,7 @@ const Chart = () => {
    const {
       details: { chartData },
    } = useContext(DetailsContext)
-   const isDarkTheme = useAppSelector(state => state.theme.isDarkTheme)
+   const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
    return (
       <>
          {chartData && (
