@@ -12,12 +12,12 @@ services:
       build: ./react-frontend
       container_name: react-frontend_container
       ports:
-         - '8080:3000'
+         - '3000:8080'
       volumes:
          - ./react-frontend:/react-frontend
          - /react-frontend/node_modules
       environment:
-         # - CHOKIDAR_USEPOLLING=true
+         - CHOKIDAR_USEPOLLING=true
          - WATCHPACK_POLLING=true
       stdin_open: true
       tty: true
