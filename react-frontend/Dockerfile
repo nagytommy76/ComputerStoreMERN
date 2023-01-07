@@ -7,10 +7,11 @@ WORKDIR /react-frontend
 COPY package.json .
 COPY tsconfig.json .
 
-ENV CHOKIDAR_USEPOLLING=true
+# ENV CHOKIDAR_USEPOLLING=true
 # RUN npm install --save --legacy-peer-deps
 # RUN npm install --save --force
-RUN npm install --force
+# RUN npm install --force
+RUN npm install
 
 COPY . .
 
