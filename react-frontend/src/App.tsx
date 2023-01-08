@@ -23,9 +23,9 @@ const App = () => {
    useAxiosSetup()
    const dispatch = useAppDispatch()
 
-   const userIsLoggedIn = useAppSelector(state => state.auth.userLoggedIn)
-   const isCartEmpty = useAppSelector(state => state.cart.cartItems.length === 0)
-   const isDarkTheme = useAppSelector(state => state.theme.isDarkTheme)
+   const userIsLoggedIn = useAppSelector((state) => state.auth.userLoggedIn)
+   const isCartEmpty = useAppSelector((state) => state.cart.cartItems.length === 0)
+   const isDarkTheme = useAppSelector((state) => state.theme.isDarkTheme)
 
    const customMUITheme = useMaterialTheme()
 

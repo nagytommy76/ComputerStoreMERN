@@ -7,7 +7,7 @@ import {
    ReactIconAnchor,
    NodeIconAnchor,
    GitHubIconAnchor,
-   LinkedInIconAnchor
+   LinkedInIconAnchor,
 } from './FooterStyle'
 
 const Footer = () => {
@@ -18,7 +18,7 @@ const Footer = () => {
             <AnchorStyle target='_blank' href='https://nagytamas93.hu/'>
                Nagy Tamás.
             </AnchorStyle>{' '}
-            2021 Budapest.
+            2023 Budapest.
          </p>
          <IconContainer>
             <ReactIconAnchor href='https://reactjs.org/' target='_blank'>

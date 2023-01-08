@@ -6,5 +6,7 @@ import svgrPlugin from 'vite-plugin-svgr'
 // https://vitejs.dev/config/
 export default defineConfig({
    plugins: [react(), viteTsconfigPaths(), svgrPlugin()],
-   server: { port: 3000, open: true },
+   // Amikor Dockert használok OPEN: FALSE -> nincs hiba
+   server: { port: 3000, open: false },
+   build: { outDir: 'build' },
 })
