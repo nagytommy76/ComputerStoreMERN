@@ -75,7 +75,7 @@ const Routes = () => {
             <Route path='/checkout' element={<Checkout />} />
          </Route>
          <Route element={<AdminRoute />}>
-            <Route path={`/${import.meta.env.REACT_APP_PROTECTED_ADMIN_ROUTE}/*`} element={<Admin />} />
+            <Route path={`/${import.meta.env.VITE_PROTECTED_ADMIN_ROUTE}/*`} element={<Admin />} />
          </Route>
          <Route path='*' element={<Page404 />} />
       </RoutesDOM>

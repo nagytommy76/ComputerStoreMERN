@@ -34,7 +34,9 @@ const VgaDetailTable = () => {
                Átlagos fogyasztás:
             </TableRow>
             <TableRow property={details.powerPin}>Tápcsatlakozók:</TableRow>
-            <TableRow property={details.length}>Hosszúság:</TableRow>
+            <TableRow property={details.length} unit='mm'>
+               Hosszúság:
+            </TableRow>
             <TableRow property={details.pcieType}>PCI-E foglalat:</TableRow>
             <TableRow property={details.streamProcessors} unit='darab'>
                Stream processzorok:
