@@ -17,8 +17,8 @@ const UserMenuLinkItems = () => {
 
    const logoutHandler = () => logout()
 
-   const isMobileSize = useAppSelector(state => state.mobile.isMobile)
-   const isAdmin = useAppSelector(state => state.auth.isAdmin)
+   const isMobileSize = useAppSelector((state) => state.mobile.isMobile)
+   const isAdmin = useAppSelector((state) => state.auth.isAdmin)
    const clickEvent = (event: React.MouseEvent) => {
       event.stopPropagation()
       dispatch({ type: NavbarActionTypes.SET_IS_USER_DROP_OPEN, payload: false })
@@ -43,7 +43,7 @@ const UserMenuLinkItems = () => {
          </StyledMenuItem>
          <StyledMenuItem sx={{ padding: 0 }}>
             {isAdmin && (
-               <DropLinkItem onClick={clickEvent} to={`/${process.env.REACT_APP_PROTECTED_ADMIN_ROUTE}`}>
+               <DropLinkItem onClick={clickEvent} to={`/${import.meta.env.VITE_PROTECTED_ADMIN_ROUTE}`}>
                   <AdminPanelSettingsIcon fontSize='small' sx={{ marginRight: 1 }} />
                   Admin Felület
                </DropLinkItem>
