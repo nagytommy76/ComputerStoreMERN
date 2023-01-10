@@ -35,7 +35,7 @@
       "styled-components": "^5.3.5"
    },
    "scripts": {
-      "start": "vite",
+      "start": "vite --host",
       "build": "tsc && vite build",
       "test": "react-scripts test",
       "serve": "vite preview"
