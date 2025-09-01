@@ -17,6 +17,7 @@ import PageSuspense from './SuspenseComponents/Page/PageSuspense'
 import Routes from './Routes'
 import ScrollToTopButton from './Routes/ScrollToTopButton'
 import ScrollToTopWrapper from './Routes/ScrollToTop'
+import FirstVisitAlert from './page/Components/FirstVisitAlert/FirstVisitAlert'
 
 // https://lewiskori.com/blog/how-to-auto-refresh-jwts-using-axios-interceptors/
 const App = () => {
@@ -50,6 +51,7 @@ const App = () => {
                </Suspense>
                <Footer />
                <ScrollToTopButton />
+               <FirstVisitAlert />
             </ScrollToTopWrapper>
          </ThemeProvider>
       </MUIThemeProvider>
