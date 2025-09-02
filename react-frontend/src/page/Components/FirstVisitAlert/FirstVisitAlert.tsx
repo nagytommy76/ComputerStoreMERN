@@ -1,21 +1,27 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar'
 import Alert from '@mui/material/Alert'
+import { useAppSelector, useAppDispatch } from '../../../app/hooks'
+import { setIsFirstVisit } from '../../../app/slices/FirstVisit'
 
 import Typography from '@mui/material/Typography'
 
 export default function FirstVisitAlert() {
-   const [open, setOpen] = useState(true)
+   const [open, setOpen] = useState(false)
+   const dispatch = useAppDispatch()
+   const isFirstVisit = useAppSelector((state) => state.firstVisit.isFirstVisit)
 
-   const handleClick = () => {
-      setOpen(true)
-   }
+   useEffect(() => {
+      if (isFirstVisit) {
+         setOpen(true)
+      }
+   }, [isFirstVisit])
 
    const handleClose = (event?: React.SyntheticEvent | Event, reason?: SnackbarCloseReason) => {
       if (reason === 'clickaway') {
          return
       }
-
+      dispatch(setIsFirstVisit(false))
       setOpen(false)
    }
 
@@ -32,7 +38,7 @@ export default function FirstVisitAlert() {
                </Typography>
             </Typography>
             <Typography variant='subtitle2'>
-               Ez egy hobbi alkalmazás amit a tudásom bővítése és bemutatása céljából hoztam létre.
+               Ez egy hobbi weboldal amit a tudásom bővítése és bemutatása céljából hoztam létre.
             </Typography>
             <Typography variant='subtitle2'>
                Ezért egy ingyenes backend szervert használok{' '}
