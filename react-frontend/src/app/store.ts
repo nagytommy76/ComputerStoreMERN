@@ -23,6 +23,7 @@ import UserDetailsSlice from './slices/Checkout/UserDetailsSlice'
 import DeliveryPriceSlice from './slices/Checkout/DeliveryPriceSlice'
 import PaymentSlice from './slices/Checkout/PaymentSlice'
 import StepsSlice from './slices/Checkout/StepsSlice'
+import FirstVisitSlice from './slices/FirstVisit'
 
 import FilterDataSlice from './slices/Filter/BaseFilterDataSlice'
 import MemoryFilterSlice from './slices/Filter/MemoryFilterSlice'
@@ -42,6 +43,7 @@ export const store = configureStore({
       deliveryPrice: persistReducer({ key: 'deliveryPrice', storage }, DeliveryPriceSlice),
       payment: persistReducer({ key: 'payment', storage }, PaymentSlice),
       productCompare: persistReducer({ key: 'productCompare', storage }, ProductCompareSlice),
+      firstVisit: persistReducer({ key: 'firstVisit', storage }, FirstVisitSlice),
       products: ProductSlice,
       token: TokenSlice,
       filter: FilterDataSlice,
