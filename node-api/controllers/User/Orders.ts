@@ -1,9 +1,8 @@
 import { Request, Response } from 'express'
-import { Document, LeanDocument, ObjectId } from 'mongoose'
+import { Document } from 'mongoose'
 import { Stripe } from 'stripe'
 import NodeMailer from '../../config/Mail/nodemailer'
 
-import { UserOrders as UserOrderType } from '../../models/User/UserTypes'
 import { JWTUserType } from '../Types'
 import { CartItemsType, UserTypes } from '../../models/User/UserTypes'
 
@@ -93,14 +92,7 @@ export default class UserOrders extends NodeMailer {
 
    getUserOrders = async (request: RequestWithUser, response: Response) => {
       try {
-         const foundUserOrders = (await User.findById(request.user?._id)
-            .select('orders')
-            .lean()) as LeanDocument<
-            {
-               orders: UserOrderType[]
-               _id: ObjectId
-            } & Document<any, any>
-         >
+         const foundUserOrders = await User.findById(request.user?._id).select('orders').lean()
 
          if (foundUserOrders) {
             response.status(200).json(foundUserOrders.orders.reverse()) // Megfordítom, hogy a legújabb legyen legelöl
@@ -111,7 +103,7 @@ export default class UserOrders extends NodeMailer {
    }
 
    private modifyProductStockQtyAfterOrder = async (cartItems: CartItemsType[]) => {
-      cartItems.map(async cart => {
+      cartItems.map(async (cart) => {
          switch (cart.productType) {
             case 'cpu':
                const foundCpuItem = await CpuProduct.findById(cart.itemId).select('inStockQuantity')
@@ -166,7 +158,7 @@ export default class UserOrders extends NodeMailer {
          productImage: string
          productPrice: number
          productType: string
-      }[] = foundUser.cartItems.map(product => {
+      }[] = foundUser.cartItems.map((product) => {
          return {
             productID: product.itemId,
             productImage: product.displayImage,
