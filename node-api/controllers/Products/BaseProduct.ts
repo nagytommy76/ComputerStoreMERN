@@ -23,9 +23,7 @@ export default abstract class BaseProduct {
       const priceRange = this.splitStringAndConvertToArray(request.query.priceRange)
       let totalPages: number
 
-      const foundProduct: (BaseProductType & {
-         details: any
-      } & Document<any, any>)[] = await this.productModel
+      const foundProduct = await this.productModel
          .find({
             manufacturer: new RegExp(byManufacturer, 'i'),
             $or: [
@@ -38,7 +36,7 @@ export default abstract class BaseProduct {
             ...extraFilerParameters,
          })
          .select('price manufacturer type typeCode pictureUrls ratingValues._id')
-         .sort({ price: orderBy })
+         .sort({ price: orderBy === 'asc' ? 1 : -1 })
          .lean()
 
       const startIndex = (currentPage - 1) * perPage
@@ -59,14 +57,18 @@ export default abstract class BaseProduct {
    }
 
    baseFilterData = async (extraGroupParameters: any = {}) => {
-      const filterDataGroup = await this.productModel.aggregate().group({
-         _id: null,
-         maxPrice: { $max: '$price' },
-         minPrice: { $min: '$price' },
-         allManufacturers: { $addToSet: '$manufacturer' },
-         allWarranties: { $addToSet: '$details.warranity' },
-         ...extraGroupParameters,
-      })
+      const filterDataGroup = await this.productModel.aggregate([
+         {
+            $group: {
+               _id: null,
+               maxPrice: { $max: '$price' },
+               minPrice: { $min: '$price' },
+               allManufacturers: { $addToSet: '$manufacturer' },
+               allWarranties: { $addToSet: '$details.warranity' },
+               ...extraGroupParameters,
+            },
+         },
+      ])
       filterDataGroup[0].allManufacturers.sort()
       return filterDataGroup
    }
