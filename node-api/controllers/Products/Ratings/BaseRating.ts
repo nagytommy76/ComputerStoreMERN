@@ -17,10 +17,15 @@ const canReturnById = (state: StateType) => ({
       return await state.productModel.findById(productId, 'ratingValues').lean()
    },
    getRatingValuesByProductId: async (productId: ObjectId | string): Promise<BaseProductType> => {
-      return await state.productModel.findById(productId, 'ratingValues')
+      const product = await state.productModel.findById(productId, 'ratingValues')
+      if (product !== null) {
+         return product
+      } else {
+         return {} as BaseProductType
+      }
    },
    getCommentsInFoundProduct: (Product: BaseProductType, commentId: ObjectId) => {
-      return Product.ratingValues.filter(comment => comment._id == commentId)
+      return Product.ratingValues.filter((comment) => comment._id == commentId)
    },
 })
 
