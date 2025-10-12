@@ -17,12 +17,8 @@ type DeleteRequest = Request & {
 
 export const removeSingleUser = async (request: DeleteRequest, response: Response) => {
    try {
-      const user = await User.findById(request.body._id)
-      if (!user) {
-         return response.status(404).json({ msg: 'Nincs ilyen felhasználó' })
-      }
-      await user.remove()
-      response.status(200).json({ msg: 'sikeres törlés', deleted: true })
+      const result = await User.deleteOne({ _id: request.body._id })
+      response.status(200).json({ msg: 'sikeres törlés', deleted: true, result })
    } catch (error) {
       response.status(500).json(error)
    }

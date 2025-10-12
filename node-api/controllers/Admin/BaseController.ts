@@ -13,19 +13,11 @@ const canReturnProducts = ({ productModel }: StateType) => ({
          | null
    },
    getAllToDeleteProducts: async () => {
-      const allProductsToDelete = (await productModel
+      const allProductsToDelete = await productModel
          .find()
          .select(['manufacturer', 'price', 'type', 'inStockQuantity'])
          .lean()
-         .sort({ price: 'asc' })) as ({
-         _id: string
-         manufacturer: string
-         price: number
-         type: string
-         inStockQuantity: number
-      } & {
-         details: any
-      } & Document<any, any>)[]
+         .sort({ price: 'asc' })
       return allProductsToDelete
    },
 })
@@ -50,7 +42,7 @@ const canInsertDeleteModifyProduct = ({ productModel }: StateType) => ({
       return await createdProductToInser.save()
    },
    delete: async (productID: string) => {
-      return productModel.findByIdAndRemove(productID)
+      return productModel.findByIdAndDelete(productID)
    },
    modifyChartData: (details: any | undefined, price: number) => {
       if (details.chartData === undefined) {

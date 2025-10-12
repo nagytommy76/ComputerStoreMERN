@@ -29,7 +29,7 @@ export const insertVgaItemController = async (req: Request, res: Response) => {
 export const modifyVgaProductController = async (req: Request, res: Response) => {
    try {
       VgaProduct.findById(req.body._id)
-         .then(vga => {
+         .then((vga) => {
             if (vga) {
                vga.details = req.body.details
                BaseAdmin.modifyChartData(vga.details, req.body.price)
@@ -44,7 +44,7 @@ export const modifyVgaProductController = async (req: Request, res: Response) =>
                vga.save()
             }
          })
-         .catch(errors => console.log(errors))
+         .catch((errors) => console.log(errors))
       return res.sendStatus(201)
    } catch (error) {
       return res.status(500).json(error)
@@ -65,11 +65,11 @@ export const getAllVgaItemsForDeleteController = async (req: Request, res: Respo
 
 export const deleteVgaProductByIdController = (req: RequestWithVgaID, res: Response) => {
    try {
-      VgaProduct.findByIdAndRemove(req.body.productID)
+      VgaProduct.findByIdAndDelete(req.body.productID)
          .then(() => {
             return res.status(200).json({ msg: 'sikeres törlés', deleted: true })
          })
-         .catch(error => res.status(500).json(error))
+         .catch((error) => res.status(500).json(error))
    } catch (error) {
       return res.status(500).json(error)
    }
