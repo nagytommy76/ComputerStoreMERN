@@ -7,7 +7,7 @@ const MemorySchema = new Schema<MemoryProductType>({
    type: { type: String, required: true },
    manufacturer: { type: String, required: true },
    price: { type: Number, required: true },
-   pictureUrls: { type: Array, required: true },
+   pictureUrls: { type: [String], required: true },
    typeCode: { type: String },
    details: {
       warranity: Number,

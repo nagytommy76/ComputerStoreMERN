@@ -52,7 +52,7 @@ export const BaseSchemaPropertiesAndTypes = {
    type: { type: String, required: true },
    manufacturer: { type: String, required: true },
    price: { type: Number, required: true },
-   pictureUrls: { type: Array, required: true },
+   pictureUrls: { type: [String], required: true },
    typeCode: { type: String },
    inStockQuantity: { type: Number, default: 0 },
    isHighlighted: { type: Boolean, default: false },

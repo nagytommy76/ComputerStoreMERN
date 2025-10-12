@@ -7,7 +7,7 @@ const VgaSchema = new Schema<VgaType>({
    type: { type: String, required: true },
    manufacturer: { type: String, required: true },
    price: { type: Number, required: true },
-   pictureUrls: { type: Array, required: true },
+   pictureUrls: { type: [String], required: true },
    details: {
       gpuManufacturer: { type: String, required: true },
       pcieType: { type: String, required: true },
