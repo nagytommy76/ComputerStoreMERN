@@ -1,9 +1,6 @@
 import express, { Application } from 'express'
 require('dotenv').config()
-import fs from 'fs'
 import connectDB from './config/db'
-import morgan from 'morgan'
-import path from 'path'
 const bodyParser = require('body-parser')
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
@@ -17,8 +14,6 @@ connectDB().then(() => {
    })
 })
 
-const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
-
 app.use(
    cors({
       credentials: true,
@@ -31,7 +26,6 @@ app.use(
    })
 )
 app.use(cookieParser())
-app.use(morgan('combined', { stream: accessLogStream }))
 app.use(bodyParser.json())
 
 app.use('/api/admin', require('./routes/api/Admin/Admin'))
