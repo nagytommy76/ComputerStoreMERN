@@ -2,12 +2,8 @@ import mongoose from 'mongoose'
 import { DB_CONNECTION } from './endpoints.config'
 const connectDB = async () => {
    try {
-      mongoose.set('useCreateIndex', true)
-      const connection = await mongoose.connect(DB_CONNECTION, {
-         useNewUrlParser: true,
-         useUnifiedTopology: true,
-         useFindAndModify: false,
-      })
+      mongoose.set('strictQuery', true)
+      const connection = await mongoose.connect(DB_CONNECTION)
       console.log(`MongoDB connected: ${connection.connection.host}`)
    } catch (error) {
       console.error(error)
