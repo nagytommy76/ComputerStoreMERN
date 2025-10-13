@@ -36,7 +36,7 @@
    },
    "scripts": {
       "start": "vite --host",
-      "build": "tsc && vite build",
+      "build": "tsc -p tsconfig.build.json && vite build",
       "test": "react-scripts test",
       "serve": "vite preview"
    },
