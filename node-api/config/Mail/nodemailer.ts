@@ -24,9 +24,13 @@ export default class NodeMailer extends Handlebars {
       this.transporter = nodemailer.createTransport({
          host: this.host,
          port: this.port,
+         secure: this.port === 465, // true for 465, false for other ports
          auth: {
             user: this.mailUser,
             pass: this.mailPass,
+         },
+         tls: {
+            rejectUnauthorized: true,
          },
       })
    }
