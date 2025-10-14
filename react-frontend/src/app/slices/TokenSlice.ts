@@ -4,7 +4,7 @@ const initialState: { accessToken: null | string } = {
    accessToken: null,
 }
 
-export const TokenSlice = createSlice({
+const TokenSlice = createSlice({
    name: 'token',
    initialState,
    reducers: {
