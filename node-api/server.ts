@@ -22,6 +22,7 @@ app.use(
          'http://localhost:8080',
          'https://computerstorebackend.firebaseapp.com',
          'https://computerstorebackend.web.app/',
+         'https://computer-store-frontend-phi.vercel.app/',
       ],
    })
 )
