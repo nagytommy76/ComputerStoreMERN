@@ -1,14 +1,11 @@
 import nodemailer from 'nodemailer'
 import Handlebars from './handlebars'
-import fs from 'fs'
 import { URL_PATH } from '../endpoints.config'
 
 import { CartItemsType } from '../../models/User/UserTypes'
 import { ObjectId } from 'mongoose'
 export default class NodeMailer extends Handlebars {
    EMAIL_TOKEN_EXPIRESIN
-   private host
-   private port
    private transporter
    private mailUser: string | undefined
    private mailPass: string | undefined
@@ -19,12 +16,11 @@ export default class NodeMailer extends Handlebars {
       this.EMAIL_TOKEN_EXPIRESIN = '15'
       this.mailUser = process.env.MAIL_USERNAME
       this.mailPass = process.env.MAIL_PASSWORD
-      this.host = process.env.MAIL_HOST
-      this.port = process.env.MAIL_PORT as number | undefined
       this.transporter = nodemailer.createTransport({
-         host: this.host,
-         port: this.port,
-         secure: this.port === 465, // true for 465, false for other ports
+         service: 'Gmail',
+         host: 'smtp.gmail.com',
+         port: 465,
+         secure: true, // true for 465, false for other ports
          auth: {
             user: this.mailUser,
             pass: this.mailPass,
