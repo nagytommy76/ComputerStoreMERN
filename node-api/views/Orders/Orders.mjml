@@ -43,6 +43,7 @@
             <mj-text align="left">
                <p>Vásárlási azonosító: <span style="color: #ff8f00">{{orderID}}</span></p>
                <p>Rendelve: <span style="color: #ff8f00">{{orderDate}}</span></p>
+               <p>Köszönöm, hogy kipróbáltad a hobby projectemet!</p>
             </mj-text>
          </mj-column>
       </mj-section>
