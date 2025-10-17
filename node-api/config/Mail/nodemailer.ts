@@ -17,9 +17,9 @@ export default class NodeMailer extends Handlebars {
       this.mailUser = process.env.MAIL_USERNAME
       this.mailPass = process.env.MAIL_PASSWORD
       this.transporter = nodemailer.createTransport({
-         service: 'Gmail',
+         service: 'gmail',
          host: 'smtp.gmail.com',
-         port: 465,
+         port: 587,
          secure: true, // true for 465, false for other ports
          auth: {
             user: this.mailUser,
