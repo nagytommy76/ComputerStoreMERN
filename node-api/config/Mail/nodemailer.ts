@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer'
+import { Resend } from 'resend'
 import Handlebars from './handlebars'
 import { URL_PATH } from '../endpoints.config'
 
@@ -6,29 +6,13 @@ import { CartItemsType } from '../../models/User/UserTypes'
 import { ObjectId } from 'mongoose'
 export default class NodeMailer extends Handlebars {
    EMAIL_TOKEN_EXPIRESIN
-   private transporter
-   private mailUser: string | undefined
-   private mailPass: string | undefined
+   private resend
    private senderAddress: string
    constructor() {
       super()
-      this.senderAddress = '"Comuter Store 👻" <computer@store.hu>'
+      this.senderAddress = '"Computer Store Hobby Project👻" <onboarding@resend.dev>'
       this.EMAIL_TOKEN_EXPIRESIN = '15'
-      this.mailUser = process.env.MAIL_USERNAME
-      this.mailPass = process.env.MAIL_PASSWORD
-      this.transporter = nodemailer.createTransport({
-         service: 'gmail',
-         host: 'smtp.gmail.com',
-         port: 587,
-         secure: true, // true for 465, false for other ports
-         auth: {
-            user: this.mailUser,
-            pass: this.mailPass,
-         },
-         tls: {
-            rejectUnauthorized: true,
-         },
-      })
+      this.resend = new Resend(process.env.RESEND_API_KEY)
    }
    async sendEmailUserRegistersAndResendEmail(
       to: string,
@@ -41,7 +25,7 @@ export default class NodeMailer extends Handlebars {
          EMAIL_TOKEN_EXPIRESIN: this.EMAIL_TOKEN_EXPIRESIN,
          confirmationPath: `${URL_PATH}email-confirm/${confirmationCode}`,
       })
-      let info = await this.transporter.sendMail({
+      let info = await this.resend.emails.send({
          from: this.senderAddress,
          to,
          subject,
@@ -71,8 +55,7 @@ export default class NodeMailer extends Handlebars {
             orderID,
             userName,
          })
-
-         let emailInformation = await this.transporter.sendMail({
+         let emailInformation = await this.resend.emails.send({
             from: this.senderAddress,
             to: userEmail,
             subject: 'Rendelésed összegzése',
@@ -87,7 +70,7 @@ export default class NodeMailer extends Handlebars {
    async sendResetPasswordLinkEmail(validationLink: string, userEmail: string) {
       try {
          const renderedEmail = this.renderAnyMjmlToPlainHtml('Auth/ForgotPass', { validationLink })
-         let emailInfo = await this.transporter.sendMail({
+         let emailInfo = await this.resend.emails.send({
             from: this.senderAddress,
             to: userEmail,
             subject: 'Elfelejtett jelszó',
