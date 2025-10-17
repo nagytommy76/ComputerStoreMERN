@@ -1,5 +1,5 @@
+import 'dotenv/config'
 import express, { Application } from 'express'
-require('dotenv').config()
 import connectDB from './config/db'
 const bodyParser = require('body-parser')
 import cors from 'cors'
@@ -7,12 +7,6 @@ import cookieParser from 'cookie-parser'
 
 const app: Application = express()
 const PORT = process.env.PORT || 5050
-
-connectDB().then(() => {
-   app.listen(PORT, () => {
-      console.log(`The app started: ${PORT}`)
-   })
-})
 
 app.use(
    cors({
@@ -50,3 +44,9 @@ app.use('/api/admin/ssd', require('./routes/api/Admin/SSD/SSD'))
 app.use('/api/ssd', require('./routes/api/SSD/SSD'))
 
 app.use('/api/highlight', require('./routes/api/Highlight/Highlight'))
+
+connectDB().then(() => {
+   app.listen(PORT, () => {
+      console.log(`The app started: ${PORT}`)
+   })
+})
