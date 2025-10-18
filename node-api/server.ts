@@ -8,6 +8,8 @@ import cookieParser from 'cookie-parser'
 const app: Application = express()
 const PORT = process.env.PORT || 5050
 
+console.log('Node.js version:', process.version)
+
 app.use(
    cors({
       credentials: true,
@@ -46,7 +48,6 @@ app.use('/api/ssd', require('./routes/api/SSD/SSD'))
 app.use('/api/highlight', require('./routes/api/Highlight/Highlight'))
 
 connectDB().then(() => {
-   console.log('Node.js version:', process.version)
    app.listen(PORT, () => {
       console.log(`The app started: ${PORT}`)
    })
