@@ -1,6 +1,6 @@
 import { Resend } from 'resend'
 import Handlebars from './handlebars'
-import { URL_PATH } from '../endpoints.config'
+import { URL_PATH, RESEND_API_KEY } from '../endpoints.config'
 
 import { CartItemsType } from '../../models/User/UserTypes'
 import { ObjectId } from 'mongoose'
@@ -12,7 +12,7 @@ export default class NodeMailer extends Handlebars {
       super()
       this.senderAddress = '"Computer Store Hobby Project👻" <onboarding@resend.dev>'
       this.EMAIL_TOKEN_EXPIRESIN = '15'
-      this.resend = new Resend(process.env.RESEND_API_KEY)
+      this.resend = new Resend(RESEND_API_KEY)
    }
    async sendEmailUserRegistersAndResendEmail(
       to: string,
