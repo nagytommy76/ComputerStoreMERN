@@ -1,4 +1,4 @@
-FROM node:16.14.2-alpine
+FROM node:22.20.0-alpine
 
 RUN npm install -g typescript
 
