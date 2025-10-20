@@ -10,7 +10,7 @@ export default class NodeMailer extends Handlebars {
    private senderAddress: string
    constructor() {
       super()
-      this.senderAddress = '"Computer Store Hobby Project👻" <onboarding@resend.dev>'
+      this.senderAddress = '"Computer Store Hobby Project 👻"'
       this.EMAIL_TOKEN_EXPIRESIN = '15'
       this.resend = new Resend(RESEND_API_KEY)
    }
@@ -26,7 +26,7 @@ export default class NodeMailer extends Handlebars {
          confirmationPath: `${URL_PATH}email-confirm/${confirmationCode}`,
       })
       let info = await this.resend.emails.send({
-         from: this.senderAddress,
+         from: this.senderAddress + '<register@nagytamas93.hu>',
          to,
          subject,
          html: renderedHtml,
@@ -56,7 +56,7 @@ export default class NodeMailer extends Handlebars {
             userName,
          })
          let emailInformation = await this.resend.emails.send({
-            from: this.senderAddress,
+            from: this.senderAddress + '<orders@nagytamas93.hu>',
             to: userEmail,
             subject: 'Rendelésed összegzése',
             html: renderedEmail,
@@ -71,7 +71,7 @@ export default class NodeMailer extends Handlebars {
       try {
          const renderedEmail = this.renderAnyMjmlToPlainHtml('Auth/ForgotPass', { validationLink })
          let emailInfo = await this.resend.emails.send({
-            from: this.senderAddress,
+            from: this.senderAddress + '<forgot-password@nagytamas93.hu>',
             to: userEmail,
             subject: 'Elfelejtett jelszó',
             html: renderedEmail,
