@@ -27,12 +27,12 @@ export default function FirstVisitAlert() {
 
    return (
       <Snackbar open={open} autoHideDuration={null} onClose={handleClose}>
-         <Alert onClose={handleClose} severity='success' variant='standard' sx={{ width: '100%' }}>
+         <Alert onClose={handleClose} severity='success' variant='filled' sx={{ width: '100%' }}>
             <Typography variant='h5' gutterBottom>
                Kedves látogató!
             </Typography>
             <Typography variant='subtitle1' gutterBottom>
-               Először is köszönöm, hogy kipróbálod az alkalmazásomat!
+               Először is köszönöm, hogy kipróbálod az alkalmazásomat!{' '}
                <Typography variant='caption' fontSize={15}>
                   &#128522;
                </Typography>
@@ -40,24 +40,14 @@ export default function FirstVisitAlert() {
             <Typography variant='subtitle2'>
                Ez egy hobbi weboldal amit a tudásom bővítése és bemutatása céljából hoztam létre.
             </Typography>
-            <Typography variant='subtitle2'>
-               Ezért egy ingyenes backend szervert használok{' '}
-               <a href='https://render.com/' target='_blank'>
-                  ( Render.com )
-               </a>
-               ,
-            </Typography>
-            <Typography variant='subtitle2'>
-               ami ha nincs használatban leáll, így előfordulhat, hogy tovább tart betölteni a termékeket ( 30
-               - 60 mp ).
-            </Typography>
             <Typography variant='subtitle2' gutterBottom>
-               Kérlek légy türelemmel!{' '}
-               <Typography variant='caption' fontSize={15}>
-                  &#128522;
-               </Typography>
+               E-mailek küldése esetén ha nem látod az üzenetedet, kérlek ellenőrizd a spam mappát is.
             </Typography>
-            <Typography variant='subtitle1'>Nagy Tamás</Typography>
+            <Typography variant='h6'>
+               <a href='https://www.nagytamas93.hu/' target='_blank'>
+                  Nagy Tamás
+               </a>
+            </Typography>
          </Alert>
       </Snackbar>
    )
