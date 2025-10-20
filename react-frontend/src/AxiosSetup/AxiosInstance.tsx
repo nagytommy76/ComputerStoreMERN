@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const DEVELOPMENT_URL = 'http://localhost:3000'
+// const DEVELOPMENT_URL = 'http://localhost:5050/api/'
 const PRODUCTION_URL = 'https://computerstore.up.railway.app/api'
 
 const isAxiosError = axios.isAxiosError
